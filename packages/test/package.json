@@ -27,5 +27,6 @@
   },
   "scripts": {
     "build": "npx tsc"
-  }
+  },
+  "gitHead": "a7c31db4192b94447578ed8fafb3b0e440c716c1"
 }

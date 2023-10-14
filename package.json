@@ -8,5 +8,8 @@
     "@types/styled-components": "^5.1.28",
     "lerna": "^7.3.1",
     "typescript": "^5.2.2"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
