@@ -1,6 +1,6 @@
 {
   "name": "@valence-ui/test-2",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "this is a test",
   "main": "index.ts",
   "devDependencies": {
