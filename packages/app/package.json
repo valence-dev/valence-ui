@@ -1,7 +1,7 @@
 {
-  "name": "@valence-ui/utils",
+  "name": "@valence-ui/app",
   "version": "0.9.0",
-  "description": "Utility components for the Valence UI library",
+  "description": "App-specific components for the Valence UI library",
   "author": "Isaac Shea <isaac_shea@icloud.com>",
   "license": "MIT",
   "main": "dist/index.js",
@@ -16,19 +16,33 @@
     "build": "npx tsc"
   },
   "devDependencies": {
+    "@storybook/addon-essentials": "^7.4.5",
+    "@storybook/addon-interactions": "^7.4.5",
+    "@storybook/addon-links": "^7.4.5",
+    "@storybook/addon-onboarding": "^1.0.8",
+    "@storybook/blocks": "^7.4.5",
+    "@storybook/react": "^7.4.5",
+    "@storybook/react-vite": "^7.4.5",
+    "@storybook/testing-library": "^0.2.1",
     "@types/node": "^20.8.6",
     "@types/react": "^18.2.23",
     "@types/styled-components": "^5.1.28",
+    "storybook": "^7.4.5",
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "@n8tb1t/use-scroll-position": "^2.0.3",
+    "@tabler/icons-react": "^2.37.0",
     "framer-motion": "^10.16.4",
     "react-router-dom": "^6.16.0",
+    "react-string-replace": "^1.1.1",
     "styled-components": "^6.0.8",
     "usehooks-ts": "^2.9.1"
   },
   "peerDependencies": {
+    "@valence-ui/core": "file:../core",
+    "@valence-ui/utils": "file:../utils",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
-  }  
+  }
 }

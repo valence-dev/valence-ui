@@ -1,0 +1,1 @@
+{"version":3,"file":"UseDefaultIconProps.d.ts","sourceRoot":"","sources":["../../src/hooks/UseDefaultIconProps.tsx"],"names":[],"mappings":"AAAA,OAAO,EAAE,gBAAgB,EAAE,MAAM,qBAAqB,CAAC;AAIvD,UAAU,oBAAoB;IAC5B,GAAG,EAAE,CAAC,KAAK,CAAC,EAAE,MAAM,EAAE,IAAI,CAAC,EAAE,MAAM,KAAK,gBAAgB,CAAC;CAC1D;AAED,wBAAgB,mBAAmB,IAAI,oBAAoB,CAY1D"}
