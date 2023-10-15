@@ -22,7 +22,11 @@ const meta: Meta<typeof BWI> = {
       options: Storybook.componentSizes,
       control: { type: "select" }
     },
-
+    color: { 
+      options: Storybook.colors,
+      control: { type: "select" },
+    },
+    
     aspectRatio: {
       control: { type: "text" },
     },

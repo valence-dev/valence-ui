@@ -4,8 +4,9 @@
   "description": "Utility components for the Valence UI library",
   "author": "Isaac Shea <isaac_shea@icloud.com>",
   "license": "MIT",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
   "files": [
     "dist/"
   ],
@@ -13,7 +14,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "npx tsc"
+    "build": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json"
   },
   "devDependencies": {
     "@types/node": "^20.8.6",

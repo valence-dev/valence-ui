@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
     "target": "ES2015",
-    "module": "CommonJS",
+    "module": "ES2020",
     "strict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "declaration": true,
-    "outDir": "dist",
+    "outDir": "dist/esm",
     "jsx": "react-jsx",
     "moduleResolution": "node",
     "declarationMap": true,

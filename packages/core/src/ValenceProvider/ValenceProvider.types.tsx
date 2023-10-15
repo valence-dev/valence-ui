@@ -78,7 +78,7 @@ export type IValenceContext = {
 export const ValenceContextDefaults: IValenceContext = {
   colors: DEFAULT_COLORS,
   getColor: () => undefined,
-  primaryColor: "violet",
+  primaryColor: "pink",
 
   defaultSize: "sm",
   defaultRadius: "sm",

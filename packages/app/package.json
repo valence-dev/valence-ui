@@ -4,8 +4,9 @@
   "description": "App-specific components for the Valence UI library",
   "author": "Isaac Shea <isaac_shea@icloud.com>",
   "license": "MIT",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
   "files": [
     "dist/"
   ],
@@ -13,27 +14,21 @@
     "access": "public"
   },
   "scripts": {
-    "build": "npx tsc"
+    "build": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json"
   },
   "devDependencies": {
-    "@storybook/addon-essentials": "^7.4.5",
-    "@storybook/addon-interactions": "^7.4.5",
-    "@storybook/addon-links": "^7.4.5",
-    "@storybook/addon-onboarding": "^1.0.8",
-    "@storybook/blocks": "^7.4.5",
-    "@storybook/react": "^7.4.5",
-    "@storybook/react-vite": "^7.4.5",
-    "@storybook/testing-library": "^0.2.1",
     "@types/node": "^20.8.6",
     "@types/react": "^18.2.23",
     "@types/styled-components": "^5.1.28",
+    "@valence-ui/core": "*",
+    "@valence-ui/utils": "*",
     "storybook": "^7.4.5",
     "typescript": "^5.2.2"
   },
   "dependencies": {
     "@n8tb1t/use-scroll-position": "^2.0.3",
     "@tabler/icons-react": "^2.37.0",
-    "@valence-ui/core": "^0.9.2",
+    "@valence-ui/core": "*",
     "@valence-ui/utils": "*",
     "framer-motion": "^10.16.4",
     "react-router-dom": "^6.16.0",

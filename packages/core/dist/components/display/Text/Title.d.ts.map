@@ -1,1 +1,0 @@
-{"version":3,"file":"Title.d.ts","sourceRoot":"","sources":["../../../../src/components/display/Text/Title.tsx"],"names":[],"mappings":"AACA,OAAO,EAAE,SAAS,EAAQ,MAAM,QAAQ,CAAC;AAGzC,MAAM,MAAM,UAAU,GAAG,SAAS,GAAG;IACnC,kCAAkC;IAClC,KAAK,CAAC,EAAE,CAAC,GAAG,CAAC,GAAG,CAAC,GAAG,CAAC,GAAG,CAAC,GAAG,CAAC,CAAC;CAC/B,CAAA;AAED,wBAAgB,KAAK,CAAC,KAAK,EAAE,UAAU,2CAqBtC"}

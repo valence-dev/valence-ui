@@ -4,8 +4,9 @@
   "description": "Core components for the Valence UI library",
   "author": "Isaac Shea <isaac_shea@icloud.com>",
   "license": "MIT",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
   "files": [
     "dist/"
   ],
@@ -13,17 +14,9 @@
     "access": "public"
   },
   "scripts": {
-    "build": "npx tsc"
+    "build": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json"
   },
   "devDependencies": {
-    "@storybook/addon-essentials": "^7.4.5",
-    "@storybook/addon-interactions": "^7.4.5",
-    "@storybook/addon-links": "^7.4.5",
-    "@storybook/addon-onboarding": "^1.0.8",
-    "@storybook/blocks": "^7.4.5",
-    "@storybook/react": "^7.4.5",
-    "@storybook/react-vite": "^7.4.5",
-    "@storybook/testing-library": "^0.2.1",
     "@types/node": "^20.8.6",
     "@types/react": "^18.2.23",
     "@types/styled-components": "^5.1.28",
