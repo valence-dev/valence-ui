@@ -1,0 +1,8 @@
+44 error Error: Command failed with exit code 128: git tag v0.11.2 -m v0.11.2
+44 error fatal: tag 'v0.11.2' already exists
+44 error     at makeError (C:\Files\Projects\Apps\_Packages\Valence\monorepo\node_modules\execa\lib\error.js:59:11)
+44 error     at handlePromise (C:\Files\Projects\Apps\_Packages\Valence\monorepo\node_modules\execa\index.js:114:26)
+44 error     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+44 error     at async VersionCommand.gitCommitAndTagVersion (C:\Files\Projects\Apps\_Packages\Valence\monorepo\node_modules\lerna\dist\index.js:8365:9)
+44 error     at async VersionCommand.commitAndTagUpdates (C:\Files\Projects\Apps\_Packages\Valence\monorepo\node_modules\lerna\dist\index.js:8330:18)
+44 error     at async Promise.all (index 0)
