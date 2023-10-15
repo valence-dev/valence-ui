@@ -1,6 +1,6 @@
 {
   "name": "@valence-ui/app",
-  "version": "0.9.3",
+  "version": "0.10.0",
   "description": "App-specific components for the Valence UI library",
   "author": "Isaac Shea <isaac_shea@icloud.com>",
   "license": "MIT",
@@ -28,8 +28,8 @@
   "dependencies": {
     "@n8tb1t/use-scroll-position": "^2.0.3",
     "@tabler/icons-react": "^2.37.0",
-    "@valence-ui/core": "*",
-    "@valence-ui/utils": "*",
+    "@valence-ui/core": "^0.10.0",
+    "@valence-ui/utils": "^0.10.0",
     "framer-motion": "^10.16.4",
     "react-router-dom": "^6.16.0",
     "react-string-replace": "^1.1.1",
