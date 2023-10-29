@@ -23,6 +23,7 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
     "@n8tb1t/use-scroll-position": "^2.0.3",
     "@tabler/icons-react": "^2.37.0",
     "@valence-ui/core": "file:../core",
