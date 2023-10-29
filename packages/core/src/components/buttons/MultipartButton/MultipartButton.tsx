@@ -1,5 +1,5 @@
+/** @jsxImportSource @emotion/react */
 import { CSSProperties, ReactNode, useContext } from "react";
-import styled from "styled-components";
 import { PrimitiveButton, PrimitiveButtonProps } from "../PrimitiveButton";
 import { IconChevronRight } from "@tabler/icons-react";
 import { getTextColor } from "../Helpers";
@@ -8,6 +8,7 @@ import { Text, TextProps } from "../../display";
 import { ValenceContext } from "../../../ValenceProvider";
 import { useDefaultIconProps } from "../../../hooks";
 import { SizeClasses } from "@valence-ui/utils";
+import { css } from "@emotion/react";
 
 export type MultipartButtonProps = PrimitiveButtonProps & {
   /** Title/main text content of this button  */
@@ -70,7 +71,7 @@ export function MultipartButton(props: MultipartButtonProps) {
     height: SIZES[size].height,
     ...style
   }
-  const IconContainer = styled.div({
+  const ContainerStyle = css({
     height: "100%",
     aspectRatio: "1 / 1",
     display: "flex",
@@ -90,7 +91,7 @@ export function MultipartButton(props: MultipartButtonProps) {
       width="100%"
       {...rest}
     >
-      {leftIcon && <IconContainer>{leftIcon}</IconContainer>}
+      {leftIcon && <div css={ContainerStyle}>{leftIcon}</div>}
 
       <Flex
         direction="column"
@@ -116,7 +117,7 @@ export function MultipartButton(props: MultipartButtonProps) {
         </Text>
       </Flex>
 
-      <IconContainer>{rightIcon}</IconContainer>
+      <div css={ContainerStyle}>{rightIcon}</div>
     </PrimitiveButton>
   )
 }

@@ -1,11 +1,12 @@
+/** @jsxImportSource @emotion/react */
 import { ReactNode, useContext } from "react";
 import { AnimatePresence } from "framer-motion";
-import styled from "styled-components";
 import { Flex } from "../../layout";
 import { Text } from "../Text";
 import { GenericClickableProps, getBackgroundColor, getTextColor } from "../../buttons";
 import { ComponentSize, FillVariant, GenericLayoutProps, PolymorphicButton, PolymorphicButtonProps } from "@valence-ui/utils";
 import { ValenceContext } from "../../../ValenceProvider";
+import { css } from "@emotion/react";
 
 export type AlertContent = {
   /** The title of this alert */
@@ -56,7 +57,7 @@ export function Alert(props: AlertProps) {
   } = props;
 
 
-  const StyledAlert = styled.button({
+  const AlertStyle = css({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
@@ -84,9 +85,9 @@ export function Alert(props: AlertProps) {
   return (
     <AnimatePresence>
       {show &&
-        <StyledAlert
-          as={PolymorphicButton}
-          onMouseDown={e => e.preventDefault()}
+        <PolymorphicButton
+          css={AlertStyle}
+          onMouseDown={(e: any) => e.preventDefault()}
           component={component}
 
           initial={{ opacity: 0, scale: 0.9 }}
@@ -119,7 +120,7 @@ export function Alert(props: AlertProps) {
             </Text>
           </Flex>
 
-        </StyledAlert>
+        </PolymorphicButton>
       }
     </AnimatePresence>
   )

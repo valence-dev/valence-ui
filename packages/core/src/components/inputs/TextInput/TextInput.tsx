@@ -1,7 +1,8 @@
+/** @jsxImportSource @emotion/react */
 import { Dispatch, SetStateAction, useContext } from "react";
 import { ValenceContext } from "../../..";
-import styled from "styled-components";
 import { GenericInputEventHandlerProps, GenericInputProps, InputContainer } from "../InputContainer";
+import { css } from "@emotion/react";
 
 
 /** Defines the type of input that will be rendered */
@@ -67,6 +68,9 @@ export function TextInput(props: TextInputProps) {
     name,
     tabIndex,
 
+    onEnterPress,
+    onKeyPress,
+
     color = "black",
     backgroundColor = color,
 
@@ -76,7 +80,7 @@ export function TextInput(props: TextInputProps) {
 
 
   // Styles
-  const StyledInput = styled.input({
+  const InputStyle = css({
     border: "none",
     outline: "none",
     background: "none",
@@ -108,9 +112,9 @@ export function TextInput(props: TextInputProps) {
     // Blur on "Escape" key
     if (e.key === "Escape") e.currentTarget.blur();
     // Call onEnterPress on "Enter" key
-    if (e.key === "Enter") rest.onEnterPress?.(e);
+    if (e.key === "Enter") onEnterPress?.(e);
     // Call onKeyPress on any key
-    rest.onKeyPress?.(e);
+    onKeyPress?.(e);
   }
 
 
@@ -132,7 +136,8 @@ export function TextInput(props: TextInputProps) {
       style={style}
       {...rest}
     >
-      <StyledInput
+      <input
+        css={InputStyle}
         value={value ?? ""}
         onChange={e => setValue(e.currentTarget.value)}
 

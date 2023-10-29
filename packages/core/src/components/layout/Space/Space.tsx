@@ -1,8 +1,9 @@
+/** @jsxImportSource @emotion/react */
 import { CSSProperties } from "react"
 import { GenericProps } from "@valence-ui/utils";
-import styled from "styled-components";
+import { css } from "@emotion/react";
 
-export type SpaceProps = GenericProps & { 
+export type SpaceProps = GenericProps & {
   /** Sets the `width` css property. */
   width?: CSSProperties["width"];
   /** Sets the `height` css property. */
@@ -25,7 +26,7 @@ export function Space(props: SpaceProps) {
 
 
   // Styles
-  const StyledSpace = styled.span({
+  const SpaceStyle = css({
     width: width,
     height: height,
     flexGrow: grow ? 1 : undefined,
@@ -33,7 +34,10 @@ export function Space(props: SpaceProps) {
   });
 
 
-  return ( 
-    <StyledSpace {...rest} />
+  return (
+    <span
+      css={SpaceStyle}
+      {...rest}
+    />
   )
 }

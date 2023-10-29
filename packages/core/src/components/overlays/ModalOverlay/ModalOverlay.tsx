@@ -1,8 +1,9 @@
+/** @jsxImportSource @emotion/react */
 import { CSSProperties, useContext } from "react";
 import { ValenceContext } from "../../..";
-import styled from "styled-components";
 import { motion } from "framer-motion";
 import { GenericProps } from "@valence-ui/utils";
+import { css } from "@emotion/react";
 
 export type ModalOverlayProps = GenericProps & {
   /** Whether this overlay is open */
@@ -46,7 +47,7 @@ export function ModalOverlay(props: ModalOverlayProps) {
 
 
   // Styles
-  const StyledOverlay = styled.div({
+  const OverlayStyle = css({
     position: "fixed",
     top: 0, left: 0, right: 0, bottom: 0,
     zIndex: zIndex,
@@ -62,9 +63,9 @@ export function ModalOverlay(props: ModalOverlayProps) {
   });
 
 
-  return ( 
-    <StyledOverlay
-      as={motion.div}
+  return (
+    <motion.div
+      css={OverlayStyle}
       onClick={closeOnClick ? close : undefined}
 
       initial={{ opacity: 0 }}
@@ -74,6 +75,6 @@ export function ModalOverlay(props: ModalOverlayProps) {
       {...rest}
     >
       {children}
-    </StyledOverlay>
+    </motion.div>
   )
 }

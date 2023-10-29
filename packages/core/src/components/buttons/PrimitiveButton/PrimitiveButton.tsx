@@ -1,10 +1,11 @@
+/** @jsxImportSource @emotion/react */
 import React, { useContext } from "react";
 import { useReducedMotion } from "framer-motion";
-import styled from "styled-components";
 import { MotionBehaviourProps, getBackgroundColor, getMotionBehaviour, getTextColor } from "../Helpers";
 import { Loader } from "../../display/Loader";
 import { ComponentSize, FillVariant, GenericLayoutProps, PolymorphicButton, PolymorphicButtonComponents } from "@valence-ui/utils";
 import { ValenceContext } from "../../../ValenceProvider";
+import { css } from "@emotion/react";
 
 export type GenericClickableProps = {
   /** Sets `to` property on `Link` polymorphic elements */
@@ -105,7 +106,7 @@ export function PrimitiveButton(props: PrimitiveButtonProps) {
   const motionBehaviour = getMotionBehaviour(motion, reducedMotion);
 
 
-  const StyledButton = styled.button({
+  const ButtonStyle = css({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
@@ -148,8 +149,8 @@ export function PrimitiveButton(props: PrimitiveButtonProps) {
 
   
   return (
-    <StyledButton
-      as={PolymorphicButton}
+    <PolymorphicButton
+      css={ButtonStyle}
       component={component}
       whileHover={motionBehaviour.whileHover}
       whileTap={motionBehaviour.whileTap}
@@ -160,6 +161,6 @@ export function PrimitiveButton(props: PrimitiveButtonProps) {
       {loading ? <Loader color={getTextColor(color, variant, theme)} /> :
         children
       }
-    </StyledButton>
+    </PolymorphicButton>
   )
 }

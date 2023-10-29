@@ -1,10 +1,11 @@
+/** @jsxImportSource @emotion/react */
 import { Dispatch, SetStateAction, useContext } from "react";
 import { GenericInputEventHandlerProps, GenericInputProps, InputContainer } from "../InputContainer";
 import { ValenceContext, useDefaultIconProps } from "../../..";
-import styled from "styled-components";
 import { Flex } from "../../layout";
 import { IconButton } from "../../buttons";
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
+import { css } from "@emotion/react";
 
 export type NumberInputProps = GenericInputProps & GenericInputEventHandlerProps & {
   /** The value of this input */
@@ -68,6 +69,9 @@ export function NumberInput(props: NumberInputProps) {
 
     color = "black",
     backgroundColor = color,
+    
+    onEnterPress,
+    onKeyPress,
 
     style,
     ...rest
@@ -75,7 +79,7 @@ export function NumberInput(props: NumberInputProps) {
 
 
   // Styles
-  const StyledInput = styled.input({
+  const InputStyle = css({
     border: "none",
     outline: "none",
     background: "none",
@@ -111,9 +115,9 @@ export function NumberInput(props: NumberInputProps) {
     // Blur on "Escape" key
     if (e.key === "Escape") e.currentTarget.blur();
     // Call onEnterPress on "Enter" key
-    if (e.key === "Enter") rest.onEnterPress?.(e);
+    if (e.key === "Enter") onEnterPress?.(e);
     // Call onKeyPress on any key
-    rest.onKeyPress?.(e);
+    onKeyPress?.(e);
   }
 
 
@@ -132,7 +136,8 @@ export function NumberInput(props: NumberInputProps) {
 
       {...rest}
     >
-      <StyledInput
+      <input
+        css={InputStyle}
         type="number"
         value={value}
         onChange={e => setValue(parseFloat(e.target.value))}

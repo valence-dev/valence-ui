@@ -1,14 +1,15 @@
+/** @jsxImportSource @emotion/react */
 import { useContext } from "react";
 import { ValenceContext, useDefaultIconProps, useDetectKeyDown } from "../../..";
 import { Flex, FlexProps } from "../../layout";
 import { ModalOverlay, ModalOverlayProps } from "../ModalOverlay";
 import { useLockedBody } from "usehooks-ts";
-import styled from "styled-components";
 import { AnimatePresence, motion } from "framer-motion";
 import { Text } from "../../display";
 import { IconX } from "@tabler/icons-react";
 import { ComponentSize, GenericLayoutProps } from "@valence-ui/utils";
 import { IconButton } from "../../buttons";
+import { css } from "@emotion/react";
 
 export type ModalProps = GenericLayoutProps & {
   /** The title of this modal */
@@ -80,7 +81,7 @@ export function Modal(props: ModalProps) {
 
 
   // Styles
-  const StyledContainer = styled.div({
+  const ContainerStyle = css({
     backgroundColor: backgroundColor,
     color: color,
     padding: padding,
@@ -92,7 +93,7 @@ export function Modal(props: ModalProps) {
 
     ...style
   });
-  const StyledHeader = styled.div({
+  const HeaderStyle = css({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
@@ -109,11 +110,11 @@ export function Modal(props: ModalProps) {
           closeOnClick={closeOnOverlayClick}
           {...overlayProps}
         >
-          <StyledContainer
+          <motion.div
+            css={ContainerStyle}
             id={rest.id}
             onClick={e => e.stopPropagation()}
 
-            as={motion.div}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
@@ -124,8 +125,8 @@ export function Modal(props: ModalProps) {
               gap={15}
               {...flexProps}
             >
-              <StyledHeader
-                as="header"
+              <header
+                css={HeaderStyle}
               >
                 <Text
                   bold
@@ -141,11 +142,11 @@ export function Modal(props: ModalProps) {
                 >
                   <IconX {...defaultIconProps.get()} />
                 </IconButton>
-              </StyledHeader>
+              </header>
 
               {children}
             </Flex>
-          </StyledContainer>
+          </motion.div>
         </ModalOverlay>
       }
     </AnimatePresence>

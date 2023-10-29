@@ -1,8 +1,9 @@
+/** @jsxImportSource @emotion/react */
 import { CSSProperties, ReactNode, useContext } from "react";
 import { ComponentSize, GenericReactiveProps, ReactiveProp, getReactiveProp } from "@valence-ui/utils";
 import { ValenceContext } from "../../../../ValenceProvider";
-import styled from "styled-components";
 import { useBreakpoint } from "../../../../hooks";
+import { css } from "@emotion/react";
 
 export type GenericImageProps = {
   /** Source URI of this image */
@@ -59,7 +60,7 @@ export function Image(props: ImageProps) {
 
 
   // Styles
-  const StyledContainer = styled.div({
+  const ContainerStyle = css({
     height: getReactiveProp(height, breakpoint),
     width: getReactiveProp(width, breakpoint),
     minWidth: getReactiveProp(width, breakpoint),
@@ -69,9 +70,9 @@ export function Image(props: ImageProps) {
 
     boxShadow: getReactiveProp(shadow, breakpoint) ? theme.defaultShadow : "none",
 
-    ...style
+    ...getReactiveProp(style, breakpoint)
   });
-  const StyledImage = styled.img({
+  const ImageStyle = css({
     width: "100%",
     height: "100%",
 
@@ -81,9 +82,10 @@ export function Image(props: ImageProps) {
 
 
   return (
-    <StyledContainer>
+    <div css={ContainerStyle}>
       {props.src ?
-        <StyledImage
+        <img
+          css={ImageStyle}
           id={id}
           src={src as string}
           alt={alt}
@@ -91,6 +93,6 @@ export function Image(props: ImageProps) {
         :
         placeholder
       }
-    </StyledContainer>
+    </div>
   )
 }

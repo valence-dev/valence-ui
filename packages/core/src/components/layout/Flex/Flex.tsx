@@ -1,7 +1,8 @@
+/** @jsxImportSource @emotion/react */
 import { CSSProperties, useContext } from "react";
 import { ValenceContext, useBreakpoint } from "../../..";
-import styled from "styled-components";
 import { GenericReactiveLayoutProps, PolymorphicLayout, ReactiveProp, getReactiveProp } from "@valence-ui/utils";
+import { css } from "@emotion/react";
 
 export type FlexProps = GenericReactiveLayoutProps & {
   /** **[REACTIVE]** Sets `flex-direction` css property */
@@ -55,7 +56,7 @@ export function Flex(props: FlexProps) {
 
 
   // Styles
-  const StyledFlex = styled.div({
+  const FlexStyle = css({
     display: "flex",
     flexDirection: getReactiveProp(direction, breakpoint),
     alignItems: getReactiveProp(align, breakpoint),
@@ -79,11 +80,11 @@ export function Flex(props: FlexProps) {
 
 
   return (
-    <StyledFlex
-      as={PolymorphicLayout}
+    <PolymorphicLayout
+      css={FlexStyle}
       {...rest}
     >
       {children}
-    </StyledFlex>
+    </PolymorphicLayout>
   )
 }
