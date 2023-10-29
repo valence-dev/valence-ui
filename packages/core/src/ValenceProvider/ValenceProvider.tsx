@@ -78,13 +78,14 @@ export function ValenceProvider(props: ValenceProviderProps) {
   function getColor(key: string | undefined) {
     if (key === undefined) return undefined;
     if (key === "primary")
-      return getReactiveColor(colors.find(i => i.key === primaryColor), );
+      return getReactiveColor(colors.find(i => i.key === primaryColor),);
 
-    const baseColor = getReactiveColor(colors.find(i => i.key === key), isDarkMode);
-    return baseColor ? baseColor
-      : key as string[0] !== "#" ?
-        getReactiveColor(colors.find(i => i.key === primaryColor), isDarkMode)
-        : getUnidentifiedHexColor(key as string);
+    const colIndex = colors.findIndex(i => i.key === key);
+    if (colIndex === -1) return key as string[0] !== "#" ?
+      getUnidentifiedHexColor(key as string)
+      : getReactiveColor(colors.find(i => i.key === primaryColor), isDarkMode);
+    else
+      return getReactiveColor(colors.find(i => i.key === key), isDarkMode);
   }
 
   function getFont(context: "default" | "heading" | "monospace") {

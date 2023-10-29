@@ -41,7 +41,7 @@ export type GenericInputProps = GenericLayoutProps & {
   readOnly?: boolean;
   /** Specifies if this input is required */
   required?: boolean;
-  /** If set, this input will be disabled and its icon replaced with a loader */
+  /** If set, this input will be `readOnly` and its icon replaced with a loader */
   loading?: boolean;
 
   /** The ID of the `<form>` element this input belongs to */

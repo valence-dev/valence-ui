@@ -37,7 +37,6 @@ export function getTextColor(
 ): string {
   if (variant === "filled") {
     if (color === "white") return `${theme.getColor("black")?.base ?? "#000000"}`;
-    console.log("white", theme.getColor("white"));
     return theme.getColor("white")?.base ?? "#FFFFFF";
   }
 
