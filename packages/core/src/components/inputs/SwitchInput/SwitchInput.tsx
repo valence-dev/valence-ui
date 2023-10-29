@@ -3,8 +3,9 @@ import { Dispatch, SetStateAction, SyntheticEvent, useContext } from "react";
 import { ValenceContext } from "../../../ValenceProvider";
 import styled from "styled-components";
 import { PrimitiveButton, PrimitiveButtonProps, getBackgroundColor } from "../../buttons";
-import { Text, TextProps } from "../../display";
+import { Loader, Text, TextProps } from "../../display";
 import { motion } from "framer-motion";
+import { Flex } from "../../layout";
 
 export type SwitchInputProps = GenericLayoutProps & {
   /** The value of the input */
@@ -76,6 +77,14 @@ export function SwitchInput(props: SwitchInputProps) {
   } = props;
 
 
+  // Handlers
+  function handleClick() {
+    if (disabled || readOnly || loading) return;
+
+    setChecked(!checked);
+  }
+
+
   // Styles
   const StyledSwitch = styled.div({
     display: "flex",
@@ -126,7 +135,7 @@ export function SwitchInput(props: SwitchInputProps) {
   return (
     <PrimitiveButton
       id={rest.id}
-      onClick={() => setChecked(!checked)}
+      onClick={handleClick}
 
       padding={0}
       height="fit-content"
@@ -136,7 +145,7 @@ export function SwitchInput(props: SwitchInputProps) {
 
       size={size}
       grow={grow}
-      
+
       style={{
         gap: theme.sizeClasses.padding[size] as number / 2,
       }}
@@ -151,15 +160,29 @@ export function SwitchInput(props: SwitchInputProps) {
       </Text>
 
       <StyledSwitch
-        tabIndex={0}        
+        tabIndex={0}
         {...rest}
       >
-        <StyledSwitchIndicator
-          as={motion.div}
-          initial={{ x: checked ? "0%" : "100%" }}
-          animate={{ x: checked ? "100%" : "0%" }}
-          transition={{ ease: "backOut" }}
-        />
+        {loading ?
+          <Flex
+            width="100%"
+            height="100%"
+            align="center"
+            justify="center"
+          >
+            <Loader
+              size={size}
+              color={checked ? "white" : "black"}
+            />
+          </Flex>
+          :
+          <StyledSwitchIndicator
+            as={motion.div}
+            initial={{ x: checked ? "0%" : "100%" }}
+            animate={{ x: checked ? "100%" : "0%" }}
+            transition={{ ease: "backOut" }}
+          />
+        }
       </StyledSwitch>
     </PrimitiveButton>
   )
