@@ -8,7 +8,7 @@ import { ValenceProvider } from "../../../ValenceProvider";
 
 const meta: Meta<typeof IB> = {
   component: IB,
-  title: "Valence/Buttons",
+  title: "Valence/Core/Buttons",
   argTypes: {
     variant: {
       options: Storybook.buttonVariants,

@@ -7,7 +7,7 @@ import { IconSearch } from "@tabler/icons-react";
 
 const meta: Meta<typeof IC> = {
   component: IC,
-  title: "Valence/Inputs",
+  title: "Valence/Core/Inputs",
   argTypes: {},
 };
 export default meta;

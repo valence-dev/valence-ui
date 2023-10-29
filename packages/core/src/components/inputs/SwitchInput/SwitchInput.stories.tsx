@@ -6,7 +6,7 @@ import { SwitchInput as SI } from "./SwitchInput";
 
 const meta: Meta<typeof SI> = {
   component: SI,
-  title: "Valence/Inputs",
+  title: "Valence/Core/Inputs",
   argTypes: {},
 };
 export default meta;

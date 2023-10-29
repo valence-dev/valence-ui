@@ -7,7 +7,7 @@ import { Loader as L } from "./Loader";
 
 const meta: Meta<typeof L> = {
   component: L,
-  title: "Valence/Display",
+  title: "Valence/Core/Display",
   argTypes: {
     size: {
       options: Storybook.componentSizes,

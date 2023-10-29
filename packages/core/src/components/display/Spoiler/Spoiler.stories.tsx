@@ -4,7 +4,7 @@ import { Spoiler as S } from "./Spoiler";
 
 const meta: Meta<typeof S> = {
   component: S,
-  title: "Valence/Display",
+  title: "Valence/Core/Display",
   argTypes: {
     show: {
       control: { type: "boolean" },

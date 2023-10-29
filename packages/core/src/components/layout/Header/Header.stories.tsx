@@ -7,7 +7,7 @@ import { Flex } from "../Flex";
 
 const meta: Meta<typeof H> = {
   component: H,
-  title: "Valence/Layout",
+  title: "Valence/Core/Layout",
   argTypes: {},
 };
 export default meta;

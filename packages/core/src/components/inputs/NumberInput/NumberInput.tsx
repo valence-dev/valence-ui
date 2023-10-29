@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction, useContext } from "react";
 import { GenericInputEventHandlerProps, GenericInputProps, InputContainer } from "../InputContainer";
 import { ValenceContext, useDefaultIconProps } from "../../..";
 import { Flex } from "../../layout";
-import { IconButton } from "../../buttons";
+import { IconButton, getTextColor } from "../../buttons";
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 import { css } from "@emotion/react";
 
@@ -93,6 +93,7 @@ export function NumberInput(props: NumberInputProps) {
 
     fontSize: theme.sizeClasses.fontSize[size],
     fontFamily: theme.getFont("default"),
+    color: getTextColor(color, "light", theme),
 
     "&::placeholder": {
       color: `${theme.getColor(color)?.base}${theme.getColor(color)?.opacity.medium}`

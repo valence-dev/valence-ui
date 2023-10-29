@@ -6,7 +6,7 @@ import { ValenceProvider } from "../../..";
 
 const meta: Meta<typeof A> = {
   component: A,
-  title: "Valence/Display",
+  title: "Valence/Core/Display",
   argTypes: {
     variant: {
       options: ["filled", "light", "subtle"],

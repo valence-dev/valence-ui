@@ -7,7 +7,7 @@ import { Title as Ti } from "./Title";
 
 const meta: Meta<typeof Ti> = {
   component: Ti,
-  title: "Valence/Display/Text",
+  title: "Valence/Core/Display/Text",
   argTypes: {
     order: { 
       options: [1, 2, 3, 4, 5, 6],

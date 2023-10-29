@@ -6,7 +6,7 @@ import { Textarea as TA } from "./Textarea";
 
 const meta: Meta<typeof TA> = {
   component: TA,
-  title: "Valence/Inputs",
+  title: "Valence/Core/Inputs",
   argTypes: {},
 };
 export default meta;

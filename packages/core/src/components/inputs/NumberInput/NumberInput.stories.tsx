@@ -7,18 +7,26 @@ import { IconNumber } from "@tabler/icons-react";
 
 const meta: Meta<typeof NI> = {
   component: NI,
-  title: "Valence/Inputs",
+  title: "Valence/Core/Inputs",
   argTypes: {},
 };
 export default meta;
 type Story = StoryObj<typeof NI>;
 
 
-export const NumberInput: Story = (args: any) => (
-  <ValenceProvider>
-    <NI {...args} />
-  </ValenceProvider>
-);
+export const NumberInput: Story = (args: any) => {
+  const [value, setValue] = React.useState(0);
+
+  return (
+    <ValenceProvider>
+      <NI
+        {...args}
+        value={value}
+        setValue={setValue}
+      />
+    </ValenceProvider>
+  );
+}
 NumberInput.args = {
   placeholder: "Type a number...",
   icon: <IconNumber />

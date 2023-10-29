@@ -7,7 +7,7 @@ import { Text } from "../../display";
 
 const meta: Meta<typeof S> = {
   component: S,
-  title: "Valence/Layout",
+  title: "Valence/Core/Layout",
   argTypes: {
     height: { control: { type: "text" } },
     width: { control: { type: "text" } },

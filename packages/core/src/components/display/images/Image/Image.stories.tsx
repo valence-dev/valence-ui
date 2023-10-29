@@ -6,7 +6,7 @@ import { Image as I } from "./Image";
 
 const meta: Meta<typeof I> = {
   component: I,
-  title: "Valence/Display/Images",
+  title: "Valence/Core/Display/Images",
   argTypes: {},
 };
 export default meta;

@@ -6,7 +6,7 @@ import { ValenceProvider } from "../../..";
 
 const meta: Meta<typeof Button> = {
   component: Button,
-  title: "Valence/Buttons",
+  title: "Valence/Core/Buttons",
   argTypes: {
     variant: {
       options: Storybook.buttonVariants,

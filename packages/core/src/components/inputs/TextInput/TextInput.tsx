@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Dispatch, SetStateAction, useContext } from "react";
-import { ValenceContext } from "../../..";
+import { ValenceContext, getTextColor } from "../../..";
 import { GenericInputEventHandlerProps, GenericInputProps, InputContainer } from "../InputContainer";
 import { css } from "@emotion/react";
 
@@ -94,6 +94,7 @@ export function TextInput(props: TextInputProps) {
 
     fontSize: theme.sizeClasses.fontSize[size],
     fontFamily: theme.getFont("default"),
+    color: getTextColor(color, "light", theme),
 
     "&::placeholder": {
       color: `${theme.getColor(color)?.base}${theme.getColor(color)?.opacity.medium}`

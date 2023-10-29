@@ -5,7 +5,7 @@ import { Modal as M } from "./Modal";
 
 const meta: Meta<typeof M> = {
   component: M,
-  title: "Valence/Overlays",
+  title: "Valence/Core/Overlays",
   argTypes: {
     title: { control: { type: "text" } },
     opened: { control: { type: "boolean" } },

@@ -7,7 +7,7 @@ import { ValenceProvider } from "../../..";
 
 const meta: Meta<typeof Te> = {
   component: Te,
-  title: "Valence/Display/Text",
+  title: "Valence/Core/Display/Text",
   argTypes: {
     family: {
       options: Storybook.fontFamilies,

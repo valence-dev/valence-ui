@@ -6,7 +6,7 @@ import { Avatar as A } from "./Avatar";
 
 const meta: Meta<typeof A> = {
   component: A,
-  title: "Valence/Display/Images",
+  title: "Valence/Core/Display/Images",
   argTypes: {},
 };
 export default meta;

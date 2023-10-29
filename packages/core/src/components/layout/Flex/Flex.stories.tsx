@@ -7,7 +7,7 @@ import { Text } from "../../display";
 
 const meta: Meta<typeof Fl> = {
   component: Fl,
-  title: "Valence/Layout",
+  title: "Valence/Core/Layout",
   argTypes: {
     backgroundColor: { control: { type: "text" } },
     color: { control: { type: "text" } },
