@@ -10,23 +10,21 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TextInput = void 0;
-const jsx_runtime_1 = require("react/jsx-runtime");
+const jsx_runtime_1 = require("@emotion/react/jsx-runtime");
+/** @jsxImportSource @emotion/react */
 const react_1 = require("react");
 const __1 = require("../../..");
-const styled_components_1 = __importDefault(require("styled-components"));
 const InputContainer_1 = require("../InputContainer");
+const react_2 = require("@emotion/react");
 function TextInput(props) {
     var _a, _b;
     const theme = (0, react_1.useContext)(__1.ValenceContext);
     // Defaults
-    const { value, setValue, icon, placeholder = "", type = "text", autoComplete = "off", pattern, minLength, maxLength, size = theme.defaultSize, radius = theme.defaultRadius, grow, loading, autoFocus, disabled, readOnly = loading, required, multiple, form, name, tabIndex, color = "black", backgroundColor = color, style } = props, rest = __rest(props, ["value", "setValue", "icon", "placeholder", "type", "autoComplete", "pattern", "minLength", "maxLength", "size", "radius", "grow", "loading", "autoFocus", "disabled", "readOnly", "required", "multiple", "form", "name", "tabIndex", "color", "backgroundColor", "style"]);
+    const { value, setValue, icon, placeholder = "", type = "text", autoComplete = "off", pattern, minLength, maxLength, size = theme.defaultSize, radius = theme.defaultRadius, grow, loading, autoFocus, disabled, readOnly = loading, required, multiple, form, name, tabIndex, onEnterPress, onKeyPress, color = "black", backgroundColor = color, style } = props, rest = __rest(props, ["value", "setValue", "icon", "placeholder", "type", "autoComplete", "pattern", "minLength", "maxLength", "size", "radius", "grow", "loading", "autoFocus", "disabled", "readOnly", "required", "multiple", "form", "name", "tabIndex", "onEnterPress", "onKeyPress", "color", "backgroundColor", "style"]);
     // Styles
-    const StyledInput = styled_components_1.default.input({
+    const InputStyle = (0, react_2.css)({
         border: "none",
         outline: "none",
         background: "none",
@@ -49,16 +47,15 @@ function TextInput(props) {
     });
     // Functions
     const handleKeyDown = (e) => {
-        var _a, _b;
         // Blur on "Escape" key
         if (e.key === "Escape")
             e.currentTarget.blur();
         // Call onEnterPress on "Enter" key
         if (e.key === "Enter")
-            (_a = rest.onEnterPress) === null || _a === void 0 ? void 0 : _a.call(rest, e);
+            onEnterPress === null || onEnterPress === void 0 ? void 0 : onEnterPress(e);
         // Call onKeyPress on any key
-        (_b = rest.onKeyPress) === null || _b === void 0 ? void 0 : _b.call(rest, e);
+        onKeyPress === null || onKeyPress === void 0 ? void 0 : onKeyPress(e);
     };
-    return ((0, jsx_runtime_1.jsx)(InputContainer_1.InputContainer, Object.assign({ icon: icon, size: size, radius: radius, grow: grow, disabled: disabled, required: required, loading: loading, color: color, backgroundColor: backgroundColor, style: style }, rest, { children: (0, jsx_runtime_1.jsx)(StyledInput, Object.assign({ value: value !== null && value !== void 0 ? value : "", onChange: e => setValue(e.currentTarget.value), placeholder: placeholder, type: type, autoComplete: autoComplete, pattern: pattern, minLength: minLength, maxLength: maxLength, autoFocus: autoFocus, disabled: disabled, readOnly: readOnly, required: required, multiple: multiple, form: form, name: name, tabIndex: tabIndex, onKeyDown: handleKeyDown }, rest)) })));
+    return ((0, jsx_runtime_1.jsx)(InputContainer_1.InputContainer, Object.assign({ icon: icon, size: size, radius: radius, grow: grow, disabled: disabled, required: required, loading: loading, color: color, backgroundColor: backgroundColor, style: style }, rest, { children: (0, jsx_runtime_1.jsx)("input", Object.assign({ css: InputStyle, value: value !== null && value !== void 0 ? value : "", onChange: e => setValue(e.currentTarget.value), placeholder: placeholder, type: type, autoComplete: autoComplete, pattern: pattern, minLength: minLength, maxLength: maxLength, autoFocus: autoFocus, disabled: disabled, readOnly: readOnly, required: required, multiple: multiple, form: form, name: name, tabIndex: tabIndex, onKeyDown: handleKeyDown }, rest)) })));
 }
 exports.TextInput = TextInput;

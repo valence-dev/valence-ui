@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { ReactNode, SyntheticEvent } from "react";
 import { ComponentSize, GenericLayoutProps } from "@valence-ui/utils";
 export type GenericInputEventHandlerProps = {
@@ -33,7 +34,7 @@ export type GenericInputProps = GenericLayoutProps & {
     readOnly?: boolean;
     /** Specifies if this input is required */
     required?: boolean;
-    /** If set, this input will be disabled and its icon replaced with a loader */
+    /** If set, this input will be `readOnly` and its icon replaced with a loader */
     loading?: boolean;
     /** The ID of the `<form>` element this input belongs to */
     form?: string;
@@ -45,5 +46,5 @@ export type GenericInputProps = GenericLayoutProps & {
 export type InputContainerProps = GenericInputProps & {
     children: ReactNode;
 };
-export declare function InputContainer(props: InputContainerProps): import("react/jsx-runtime").JSX.Element;
+export declare function InputContainer(props: InputContainerProps): import("@emotion/react/jsx-runtime").JSX.Element;
 //# sourceMappingURL=InputContainer.d.ts.map

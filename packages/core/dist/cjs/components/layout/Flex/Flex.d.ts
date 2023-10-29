@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { CSSProperties } from "react";
 import { GenericReactiveLayoutProps, ReactiveProp } from "@valence-ui/utils";
 export type FlexProps = GenericReactiveLayoutProps & {
@@ -17,5 +18,5 @@ export type FlexProps = GenericReactiveLayoutProps & {
     noWrap?: ReactiveProp<boolean>;
 };
 /** A basic formattable flexbox component that accepts many common flexbox properties. This component is also reactive, thus it will accept both a single value and an object of values that will be applied at different breakpoints. */
-export declare function Flex(props: FlexProps): import("react/jsx-runtime").JSX.Element;
+export declare function Flex(props: FlexProps): import("@emotion/react/jsx-runtime").JSX.Element;
 //# sourceMappingURL=Flex.d.ts.map

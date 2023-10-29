@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { CSSProperties } from "react";
 import { ComponentSize, GenericProps, PolymorphicTextProps } from "@valence-ui/utils";
 export type TextProps = GenericProps & PolymorphicTextProps & {
@@ -34,5 +35,5 @@ export type TextProps = GenericProps & PolymorphicTextProps & {
  * - `*{...}*` for italicized text
  * - `{...}` for monospace text
  */
-export declare function Text(props: TextProps): import("react/jsx-runtime").JSX.Element;
+export declare function Text(props: TextProps): import("@emotion/react/jsx-runtime").JSX.Element;
 //# sourceMappingURL=Text.d.ts.map

@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { CSSProperties } from "react";
 import { GenericProps } from "@valence-ui/utils";
 export type SpaceProps = GenericProps & {
@@ -9,5 +10,5 @@ export type SpaceProps = GenericProps & {
     grow?: boolean;
 };
 /** A basic, unstyled layout assistant that creates blank space between any two objects. */
-export declare function Space(props: SpaceProps): import("react/jsx-runtime").JSX.Element;
+export declare function Space(props: SpaceProps): import("@emotion/react/jsx-runtime").JSX.Element;
 //# sourceMappingURL=Space.d.ts.map

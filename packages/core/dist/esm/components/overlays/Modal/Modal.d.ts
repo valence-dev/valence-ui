@@ -23,5 +23,5 @@ export type ModalProps = GenericLayoutProps & {
     /** Props to apply to the flex component */
     flexProps?: FlexProps;
 };
-export declare function Modal(props: ModalProps): import("react/jsx-runtime").JSX.Element;
+export declare function Modal(props: ModalProps): import("@emotion/react/jsx-runtime").JSX.Element;
 //# sourceMappingURL=Modal.d.ts.map

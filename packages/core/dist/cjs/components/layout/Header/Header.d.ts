@@ -13,5 +13,5 @@ export type HeaderProps = FlexProps & {
  *
  * On desktop devices, the `Header` will act as a static container that can be placed anywhere and will scroll with the content. On mobile devices, however, the `Header` will become fixed tot he top of the screen and can shrink as the user scrolls.
  */
-export declare function Header(props: HeaderProps): import("react/jsx-runtime").JSX.Element;
+export declare function Header(props: HeaderProps): import("@emotion/react/jsx-runtime").JSX.Element;
 //# sourceMappingURL=Header.d.ts.map

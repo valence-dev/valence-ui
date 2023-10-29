@@ -9,12 +9,13 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import { jsx as _jsx } from "react/jsx-runtime";
+import { jsx as _jsx } from "@emotion/react/jsx-runtime";
+/** @jsxImportSource @emotion/react */
 import { useContext } from "react";
 import reactStringReplace from "react-string-replace";
-import styled from "styled-components";
 import { PolymorphicText } from "@valence-ui/utils";
 import { ValenceContext } from "../../../ValenceProvider";
+import { css } from "@emotion/react";
 const REGEX_PATTERNS = {
     newline: /(\n)/,
     boldItalic: /\*\*\*(.+?)\*\*\*(?!\*)/,
@@ -55,7 +56,7 @@ export function Text(props) {
             fontFamily: theme.getFont("monospace"),
         }, children: match }, match + i)));
     // Styles
-    const StyledText = styled.text({
+    const TextStyle = css({
         fontFamily: family,
         fontWeight: weight,
         fontStyle: italic ? "italic" : "normal",
@@ -65,5 +66,5 @@ export function Text(props) {
         color: color,
         margin: 0,
     });
-    return (_jsx(StyledText, Object.assign({ as: PolymorphicText }, rest, { children: replacements })));
+    return (_jsx(PolymorphicText, Object.assign({ css: TextStyle }, rest, { children: replacements })));
 }

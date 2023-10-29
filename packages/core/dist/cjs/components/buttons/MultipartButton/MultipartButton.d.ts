@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { ReactNode } from "react";
 import { PrimitiveButtonProps } from "../PrimitiveButton";
 import { TextProps } from "../../display";
@@ -15,5 +16,5 @@ export type MultipartButtonProps = PrimitiveButtonProps & {
     /** Props to pass to the subtitle text component */
     subtitleProps?: TextProps;
 };
-export declare function MultipartButton(props: MultipartButtonProps): import("react/jsx-runtime").JSX.Element;
+export declare function MultipartButton(props: MultipartButtonProps): import("@emotion/react/jsx-runtime").JSX.Element;
 //# sourceMappingURL=MultipartButton.d.ts.map

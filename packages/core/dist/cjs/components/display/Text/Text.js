@@ -15,12 +15,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Text = void 0;
-const jsx_runtime_1 = require("react/jsx-runtime");
+const jsx_runtime_1 = require("@emotion/react/jsx-runtime");
+/** @jsxImportSource @emotion/react */
 const react_1 = require("react");
 const react_string_replace_1 = __importDefault(require("react-string-replace"));
-const styled_components_1 = __importDefault(require("styled-components"));
 const utils_1 = require("@valence-ui/utils");
 const ValenceProvider_1 = require("../../../ValenceProvider");
+const react_2 = require("@emotion/react");
 const REGEX_PATTERNS = {
     newline: /(\n)/,
     boldItalic: /\*\*\*(.+?)\*\*\*(?!\*)/,
@@ -61,7 +62,7 @@ function Text(props) {
             fontFamily: theme.getFont("monospace"),
         }, children: match }, match + i)));
     // Styles
-    const StyledText = styled_components_1.default.text({
+    const TextStyle = (0, react_2.css)({
         fontFamily: family,
         fontWeight: weight,
         fontStyle: italic ? "italic" : "normal",
@@ -71,6 +72,6 @@ function Text(props) {
         color: color,
         margin: 0,
     });
-    return ((0, jsx_runtime_1.jsx)(StyledText, Object.assign({ as: utils_1.PolymorphicText }, rest, { children: replacements })));
+    return ((0, jsx_runtime_1.jsx)(utils_1.PolymorphicText, Object.assign({ css: TextStyle }, rest, { children: replacements })));
 }
 exports.Text = Text;

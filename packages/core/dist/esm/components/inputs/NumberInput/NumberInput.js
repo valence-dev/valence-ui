@@ -9,14 +9,15 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { jsx as _jsx, jsxs as _jsxs } from "@emotion/react/jsx-runtime";
+/** @jsxImportSource @emotion/react */
 import { useContext } from "react";
 import { InputContainer } from "../InputContainer";
 import { ValenceContext, useDefaultIconProps } from "../../..";
-import styled from "styled-components";
 import { Flex } from "../../layout";
 import { IconButton } from "../../buttons";
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
+import { css } from "@emotion/react";
 export function NumberInput(props) {
     var _a, _b;
     const theme = useContext(ValenceContext);
@@ -25,9 +26,9 @@ export function NumberInput(props) {
     const { value, setValue, icon, placeholder = "", min, max, step = 1, controlIcons = {
         up: _jsx(IconChevronUp, Object.assign({}, defaultIconProps.get(), { opacity: 0.5 })),
         down: _jsx(IconChevronDown, Object.assign({}, defaultIconProps.get(), { opacity: 0.5 }))
-    }, showControls = true, size = theme.defaultSize, radius = theme.defaultRadius, grow, loading, autoFocus, disabled, readOnly = loading, required, form, name, tabIndex, color = "black", backgroundColor = color, style } = props, rest = __rest(props, ["value", "setValue", "icon", "placeholder", "min", "max", "step", "controlIcons", "showControls", "size", "radius", "grow", "loading", "autoFocus", "disabled", "readOnly", "required", "form", "name", "tabIndex", "color", "backgroundColor", "style"]);
+    }, showControls = true, size = theme.defaultSize, radius = theme.defaultRadius, grow, loading, autoFocus, disabled, readOnly = loading, required, form, name, tabIndex, color = "black", backgroundColor = color, onEnterPress, onKeyPress, style } = props, rest = __rest(props, ["value", "setValue", "icon", "placeholder", "min", "max", "step", "controlIcons", "showControls", "size", "radius", "grow", "loading", "autoFocus", "disabled", "readOnly", "required", "form", "name", "tabIndex", "color", "backgroundColor", "onEnterPress", "onKeyPress", "style"]);
     // Styles
-    const StyledInput = styled.input({
+    const InputStyle = css({
         border: "none",
         outline: "none",
         background: "none",
@@ -53,16 +54,15 @@ export function NumberInput(props) {
     });
     // Functions
     const handleKeyDown = (e) => {
-        var _a, _b;
         // Blur on "Escape" key
         if (e.key === "Escape")
             e.currentTarget.blur();
         // Call onEnterPress on "Enter" key
         if (e.key === "Enter")
-            (_a = rest.onEnterPress) === null || _a === void 0 ? void 0 : _a.call(rest, e);
+            onEnterPress === null || onEnterPress === void 0 ? void 0 : onEnterPress(e);
         // Call onKeyPress on any key
-        (_b = rest.onKeyPress) === null || _b === void 0 ? void 0 : _b.call(rest, e);
+        onKeyPress === null || onKeyPress === void 0 ? void 0 : onKeyPress(e);
     };
-    return (_jsxs(InputContainer, Object.assign({ icon: icon, size: size, radius: radius, grow: grow, loading: loading, disabled: disabled, color: color, backgroundColor: backgroundColor }, rest, { children: [_jsx(StyledInput, Object.assign({ type: "number", value: value, onChange: e => setValue(parseFloat(e.target.value)), placeholder: placeholder, min: min, max: max, step: step, autoFocus: autoFocus, disabled: disabled, readOnly: readOnly, required: required, form: form, name: name, tabIndex: tabIndex, onKeyDown: handleKeyDown }, rest)), showControls &&
+    return (_jsxs(InputContainer, Object.assign({ icon: icon, size: size, radius: radius, grow: grow, loading: loading, disabled: disabled, color: color, backgroundColor: backgroundColor }, rest, { children: [_jsx("input", Object.assign({ css: InputStyle, type: "number", value: value, onChange: e => setValue(parseFloat(e.target.value)), placeholder: placeholder, min: min, max: max, step: step, autoFocus: autoFocus, disabled: disabled, readOnly: readOnly, required: required, form: form, name: name, tabIndex: tabIndex, onKeyDown: handleKeyDown }, rest)), showControls &&
                 _jsxs(Flex, { gap: 0, children: [_jsx(IconButton, { color: color, variant: "subtle", size: size, radius: radius, onClick: () => setValue(value - step), disabled: disabled || readOnly, children: controlIcons.down }), _jsx(IconButton, { color: color, variant: "subtle", size: size, radius: radius, onClick: () => setValue(value + step), disabled: disabled || readOnly, children: controlIcons.up })] })] })));
 }

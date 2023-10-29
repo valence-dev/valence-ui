@@ -29,7 +29,6 @@ function getTextColor(color, variant, theme) {
     if (variant === "filled") {
         if (color === "white")
             return `${(_b = (_a = theme.getColor("black")) === null || _a === void 0 ? void 0 : _a.base) !== null && _b !== void 0 ? _b : "#000000"}`;
-        console.log("white", theme.getColor("white"));
         return (_d = (_c = theme.getColor("white")) === null || _c === void 0 ? void 0 : _c.base) !== null && _d !== void 0 ? _d : "#FFFFFF";
     }
     const baseColor = theme.getColor(color);

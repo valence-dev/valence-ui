@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { CSSProperties } from "react";
 import { GenericProps } from "@valence-ui/utils";
 export type ModalOverlayProps = GenericProps & {
@@ -16,5 +17,5 @@ export type ModalOverlayProps = GenericProps & {
     /** Sets `z-index` css property. Defaults to `200` */
     zIndex?: CSSProperties["zIndex"];
 };
-export declare function ModalOverlay(props: ModalOverlayProps): import("react/jsx-runtime").JSX.Element;
+export declare function ModalOverlay(props: ModalOverlayProps): import("@emotion/react/jsx-runtime").JSX.Element;
 //# sourceMappingURL=ModalOverlay.d.ts.map

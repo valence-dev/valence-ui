@@ -9,9 +9,9 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { jsx as _jsx, jsxs as _jsxs } from "@emotion/react/jsx-runtime";
+/** @jsxImportSource @emotion/react */
 import { useContext } from "react";
-import styled from "styled-components";
 import { PrimitiveButton } from "../PrimitiveButton";
 import { IconChevronRight } from "@tabler/icons-react";
 import { getTextColor } from "../Helpers";
@@ -19,6 +19,7 @@ import { Flex } from "../../layout";
 import { Text } from "../../display";
 import { ValenceContext } from "../../../ValenceProvider";
 import { useDefaultIconProps } from "../../../hooks";
+import { css } from "@emotion/react";
 const SIZES = {
     xs: { height: 50 },
     sm: { height: 60 },
@@ -34,7 +35,7 @@ export function MultipartButton(props) {
     const { size = theme.defaultSize, variant = theme.defaultVariant, color = theme.primaryColor, title, subtitle, leftIcon, rightIcon = _jsx(IconChevronRight, Object.assign({}, defaultIconProps.get(), { opacity: 0.5 })), titleProps, subtitleProps, style } = props, rest = __rest(props, ["size", "variant", "color", "title", "subtitle", "leftIcon", "rightIcon", "titleProps", "subtitleProps", "style"]);
     // Styles
     const buttonStyle = Object.assign({ justifyContent: "flex-start", padding: 0, paddingLeft: !leftIcon ? theme.sizeClasses.padding[size] : undefined, height: SIZES[size].height }, style);
-    const IconContainer = styled.div({
+    const ContainerStyle = css({
         height: "100%",
         aspectRatio: "1 / 1",
         display: "flex",
@@ -42,5 +43,5 @@ export function MultipartButton(props) {
         justifyContent: "center",
         color: getTextColor(color, variant, theme),
     });
-    return (_jsxs(PrimitiveButton, Object.assign({ size: size, variant: variant, color: color, style: buttonStyle, height: "fit-content", width: "100%" }, rest, { children: [leftIcon && _jsx(IconContainer, { children: leftIcon }), _jsxs(Flex, { direction: "column", align: "flex-start", justify: "center", grow: true, gap: 2, children: [_jsx(Text, Object.assign({ size: size, color: getTextColor(color, variant, theme), bold: true }, titleProps, { children: title })), _jsx(Text, Object.assign({ fontSize: theme.sizeClasses.fontSize[size] - 2, color: getTextColor(color, variant, theme) }, subtitleProps, { children: subtitle }))] }), _jsx(IconContainer, { children: rightIcon })] })));
+    return (_jsxs(PrimitiveButton, Object.assign({ size: size, variant: variant, color: color, style: buttonStyle, height: "fit-content", width: "100%" }, rest, { children: [leftIcon && _jsx("div", { css: ContainerStyle, children: leftIcon }), _jsxs(Flex, { direction: "column", align: "flex-start", justify: "center", grow: true, gap: 2, children: [_jsx(Text, Object.assign({ size: size, color: getTextColor(color, variant, theme), bold: true }, titleProps, { children: title })), _jsx(Text, Object.assign({ fontSize: theme.sizeClasses.fontSize[size] - 2, color: getTextColor(color, variant, theme) }, subtitleProps, { children: subtitle }))] }), _jsx("div", { css: ContainerStyle, children: rightIcon })] })));
 }

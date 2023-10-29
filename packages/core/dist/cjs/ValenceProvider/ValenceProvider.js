@@ -17,11 +17,13 @@ function ValenceProvider(props) {
             return undefined;
         if (key === "primary")
             return (0, Color_1.getReactiveColor)(colors.find(i => i.key === primaryColor));
-        const baseColor = (0, Color_1.getReactiveColor)(colors.find(i => i.key === key), isDarkMode);
-        return baseColor ? baseColor
-            : key !== "#" ?
-                (0, Color_1.getReactiveColor)(colors.find(i => i.key === primaryColor), isDarkMode)
-                : (0, Color_1.getUnidentifiedHexColor)(key);
+        const colIndex = colors.findIndex(i => i.key === key);
+        if (colIndex === -1)
+            return key !== "#" ?
+                (0, Color_1.getUnidentifiedHexColor)(key)
+                : (0, Color_1.getReactiveColor)(colors.find(i => i.key === primaryColor), isDarkMode);
+        else
+            return (0, Color_1.getReactiveColor)(colors.find(i => i.key === key), isDarkMode);
     }
     function getFont(context) {
         var _a, _b;

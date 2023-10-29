@@ -10,17 +10,14 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Header = void 0;
-const jsx_runtime_1 = require("react/jsx-runtime");
+const jsx_runtime_1 = require("@emotion/react/jsx-runtime");
+/** @jsxImportSource @emotion/react */
 const react_1 = require("react");
 const Flex_1 = require("../Flex");
 const __1 = require("../../..");
 const use_scroll_position_1 = require("@n8tb1t/use-scroll-position");
-const styled_components_1 = __importDefault(require("styled-components"));
 const utils_1 = require("@valence-ui/utils");
 function interpolateHeight(max, min, scrollY) {
     return Math.max(max + scrollY, min);
@@ -45,7 +42,7 @@ function Header(props) {
         setHeight(interpolateHeight(((_a = props.height) !== null && _a !== void 0 ? _a : breakpoint.isMobileTall) ? tallHeight : regularHeight, compactHeight, (prevPos.y + currPos.y) / 2));
     });
     // Styles
-    const StyledHeader = styled_components_1.default.header(Object.assign({ backgroundColor: (0, utils_1.getReactiveProp)(backgroundColor, breakpoint), position: breakpoint.isMobile ? "fixed" : undefined, top: 0, zIndex: 150, width: "100%" }, style));
-    return ((0, jsx_runtime_1.jsx)(StyledHeader, Object.assign({ as: Flex_1.Flex, direction: "column", justify: "center", height: height }, rest, { children: children })));
+    const HeaderStyle = Object.assign({ backgroundColor: (0, utils_1.getReactiveProp)(backgroundColor, breakpoint), position: breakpoint.isMobile ? "fixed" : undefined, top: 0, zIndex: 150, width: "100%" }, (0, utils_1.getReactiveProp)(style, breakpoint));
+    return ((0, jsx_runtime_1.jsx)(Flex_1.Flex, Object.assign({ style: HeaderStyle, direction: "column", justify: "center", height: height }, rest, { children: children })));
 }
 exports.Header = Header;

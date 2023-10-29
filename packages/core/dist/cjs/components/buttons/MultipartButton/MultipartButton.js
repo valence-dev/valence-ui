@@ -10,14 +10,11 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MultipartButton = void 0;
-const jsx_runtime_1 = require("react/jsx-runtime");
+const jsx_runtime_1 = require("@emotion/react/jsx-runtime");
+/** @jsxImportSource @emotion/react */
 const react_1 = require("react");
-const styled_components_1 = __importDefault(require("styled-components"));
 const PrimitiveButton_1 = require("../PrimitiveButton");
 const icons_react_1 = require("@tabler/icons-react");
 const Helpers_1 = require("../Helpers");
@@ -25,6 +22,7 @@ const layout_1 = require("../../layout");
 const display_1 = require("../../display");
 const ValenceProvider_1 = require("../../../ValenceProvider");
 const hooks_1 = require("../../../hooks");
+const react_2 = require("@emotion/react");
 const SIZES = {
     xs: { height: 50 },
     sm: { height: 60 },
@@ -40,7 +38,7 @@ function MultipartButton(props) {
     const { size = theme.defaultSize, variant = theme.defaultVariant, color = theme.primaryColor, title, subtitle, leftIcon, rightIcon = (0, jsx_runtime_1.jsx)(icons_react_1.IconChevronRight, Object.assign({}, defaultIconProps.get(), { opacity: 0.5 })), titleProps, subtitleProps, style } = props, rest = __rest(props, ["size", "variant", "color", "title", "subtitle", "leftIcon", "rightIcon", "titleProps", "subtitleProps", "style"]);
     // Styles
     const buttonStyle = Object.assign({ justifyContent: "flex-start", padding: 0, paddingLeft: !leftIcon ? theme.sizeClasses.padding[size] : undefined, height: SIZES[size].height }, style);
-    const IconContainer = styled_components_1.default.div({
+    const ContainerStyle = (0, react_2.css)({
         height: "100%",
         aspectRatio: "1 / 1",
         display: "flex",
@@ -48,6 +46,6 @@ function MultipartButton(props) {
         justifyContent: "center",
         color: (0, Helpers_1.getTextColor)(color, variant, theme),
     });
-    return ((0, jsx_runtime_1.jsxs)(PrimitiveButton_1.PrimitiveButton, Object.assign({ size: size, variant: variant, color: color, style: buttonStyle, height: "fit-content", width: "100%" }, rest, { children: [leftIcon && (0, jsx_runtime_1.jsx)(IconContainer, { children: leftIcon }), (0, jsx_runtime_1.jsxs)(layout_1.Flex, { direction: "column", align: "flex-start", justify: "center", grow: true, gap: 2, children: [(0, jsx_runtime_1.jsx)(display_1.Text, Object.assign({ size: size, color: (0, Helpers_1.getTextColor)(color, variant, theme), bold: true }, titleProps, { children: title })), (0, jsx_runtime_1.jsx)(display_1.Text, Object.assign({ fontSize: theme.sizeClasses.fontSize[size] - 2, color: (0, Helpers_1.getTextColor)(color, variant, theme) }, subtitleProps, { children: subtitle }))] }), (0, jsx_runtime_1.jsx)(IconContainer, { children: rightIcon })] })));
+    return ((0, jsx_runtime_1.jsxs)(PrimitiveButton_1.PrimitiveButton, Object.assign({ size: size, variant: variant, color: color, style: buttonStyle, height: "fit-content", width: "100%" }, rest, { children: [leftIcon && (0, jsx_runtime_1.jsx)("div", { css: ContainerStyle, children: leftIcon }), (0, jsx_runtime_1.jsxs)(layout_1.Flex, { direction: "column", align: "flex-start", justify: "center", grow: true, gap: 2, children: [(0, jsx_runtime_1.jsx)(display_1.Text, Object.assign({ size: size, color: (0, Helpers_1.getTextColor)(color, variant, theme), bold: true }, titleProps, { children: title })), (0, jsx_runtime_1.jsx)(display_1.Text, Object.assign({ fontSize: theme.sizeClasses.fontSize[size] - 2, color: (0, Helpers_1.getTextColor)(color, variant, theme) }, subtitleProps, { children: subtitle }))] }), (0, jsx_runtime_1.jsx)("div", { css: ContainerStyle, children: rightIcon })] })));
 }
 exports.MultipartButton = MultipartButton;

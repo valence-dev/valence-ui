@@ -9,13 +9,13 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import { jsx as _jsx } from "react/jsx-runtime";
-import styled from "styled-components";
+import { jsx as _jsx } from "@emotion/react/jsx-runtime";
+import { css } from "@emotion/react";
 /** A basic, unstyled layout assistant that creates blank space between any two objects. */
 export function Space(props) {
     // Defaults
     const { height, width, grow, style } = props, rest = __rest(props, ["height", "width", "grow", "style"]);
     // Styles
-    const StyledSpace = styled.span(Object.assign({ width: width, height: height, flexGrow: grow ? 1 : undefined }, style));
-    return (_jsx(StyledSpace, Object.assign({}, rest)));
+    const SpaceStyle = css(Object.assign({ width: width, height: height, flexGrow: grow ? 1 : undefined }, style));
+    return (_jsx("span", Object.assign({ css: SpaceStyle }, rest)));
 }

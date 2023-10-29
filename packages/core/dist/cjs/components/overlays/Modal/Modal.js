@@ -10,22 +10,20 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Modal = void 0;
-const jsx_runtime_1 = require("react/jsx-runtime");
+const jsx_runtime_1 = require("@emotion/react/jsx-runtime");
+/** @jsxImportSource @emotion/react */
 const react_1 = require("react");
 const __1 = require("../../..");
 const layout_1 = require("../../layout");
 const ModalOverlay_1 = require("../ModalOverlay");
 const usehooks_ts_1 = require("usehooks-ts");
-const styled_components_1 = __importDefault(require("styled-components"));
 const framer_motion_1 = require("framer-motion");
 const display_1 = require("../../display");
 const icons_react_1 = require("@tabler/icons-react");
 const buttons_1 = require("../../buttons");
+const react_2 = require("@emotion/react");
 function Modal(props) {
     var _a, _b;
     const theme = (0, react_1.useContext)(__1.ValenceContext);
@@ -36,14 +34,14 @@ function Modal(props) {
     (0, __1.useDetectKeyDown)(close, "Escape", closeOnEscape, [closeOnEscape, close]);
     const defaultIconProps = (0, __1.useDefaultIconProps)();
     // Styles
-    const StyledContainer = styled_components_1.default.div(Object.assign({ backgroundColor: backgroundColor, color: color, padding: padding, margin: margin, width: width, height: height, borderRadius: theme.sizeClasses.radius[radius], boxShadow: withShadow ? theme.defaultShadow : undefined }, style));
-    const StyledHeader = styled_components_1.default.div({
+    const ContainerStyle = (0, react_2.css)(Object.assign({ backgroundColor: backgroundColor, color: color, padding: padding, margin: margin, width: width, height: height, borderRadius: theme.sizeClasses.radius[radius], boxShadow: withShadow ? theme.defaultShadow : undefined }, style));
+    const HeaderStyle = (0, react_2.css)({
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
         width: "100%",
     });
     return ((0, jsx_runtime_1.jsx)(framer_motion_1.AnimatePresence, { children: opened &&
-            (0, jsx_runtime_1.jsx)(ModalOverlay_1.ModalOverlay, Object.assign({ opened: opened, close: close, closeOnClick: closeOnOverlayClick }, overlayProps, { children: (0, jsx_runtime_1.jsx)(StyledContainer, { id: rest.id, onClick: e => e.stopPropagation(), as: framer_motion_1.motion.div, initial: { opacity: 0, scale: 0.9 }, animate: { opacity: 1, scale: 1 }, exit: { opacity: 0, scale: 0.9 }, transition: { ease: "backOut" }, children: (0, jsx_runtime_1.jsxs)(layout_1.Flex, Object.assign({ direction: "column", gap: 15 }, flexProps, { children: [(0, jsx_runtime_1.jsxs)(StyledHeader, { as: "header", children: [(0, jsx_runtime_1.jsx)(display_1.Text, { bold: true, fontSize: 20, children: title }), (0, jsx_runtime_1.jsx)(buttons_1.IconButton, { onClick: close, color: "black", variant: "subtle", children: (0, jsx_runtime_1.jsx)(icons_react_1.IconX, Object.assign({}, defaultIconProps.get())) })] }), children] })) }) })) }));
+            (0, jsx_runtime_1.jsx)(ModalOverlay_1.ModalOverlay, Object.assign({ opened: opened, close: close, closeOnClick: closeOnOverlayClick }, overlayProps, { children: (0, jsx_runtime_1.jsx)(framer_motion_1.motion.div, { css: ContainerStyle, id: rest.id, onClick: e => e.stopPropagation(), initial: { opacity: 0, scale: 0.9 }, animate: { opacity: 1, scale: 1 }, exit: { opacity: 0, scale: 0.9 }, transition: { ease: "backOut" }, children: (0, jsx_runtime_1.jsxs)(layout_1.Flex, Object.assign({ direction: "column", gap: 15 }, flexProps, { children: [(0, jsx_runtime_1.jsxs)("header", { css: HeaderStyle, children: [(0, jsx_runtime_1.jsx)(display_1.Text, { bold: true, fontSize: 20, children: title }), (0, jsx_runtime_1.jsx)(buttons_1.IconButton, { onClick: close, color: "black", variant: "subtle", children: (0, jsx_runtime_1.jsx)(icons_react_1.IconX, Object.assign({}, defaultIconProps.get())) })] }), children] })) }) })) }));
 }
 exports.Modal = Modal;

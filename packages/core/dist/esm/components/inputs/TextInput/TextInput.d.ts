@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { Dispatch, SetStateAction } from "react";
 import { GenericInputEventHandlerProps, GenericInputProps } from "../InputContainer";
 /** Defines the type of input that will be rendered */
@@ -22,5 +23,5 @@ export type TextInputProps = GenericInputProps & GenericInputEventHandlerProps &
     /** For `type=email`, this specifies if this input accepts multiple values */
     multiple?: boolean;
 };
-export declare function TextInput(props: TextInputProps): import("react/jsx-runtime").JSX.Element;
+export declare function TextInput(props: TextInputProps): import("@emotion/react/jsx-runtime").JSX.Element;
 //# sourceMappingURL=TextInput.d.ts.map

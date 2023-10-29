@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { ReactNode } from "react";
 import { GenericClickableProps } from "../../buttons";
 import { ComponentSize, FillVariant, GenericLayoutProps, PolymorphicButtonProps } from "@valence-ui/utils";
@@ -23,5 +24,5 @@ export type AlertProps = GenericClickableProps & PolymorphicButtonProps & Generi
     /** Specifies if a shadow will be shown */
     shadow?: boolean;
 };
-export declare function Alert(props: AlertProps): import("react/jsx-runtime").JSX.Element;
+export declare function Alert(props: AlertProps): import("@emotion/react/jsx-runtime").JSX.Element;
 //# sourceMappingURL=Alert.d.ts.map

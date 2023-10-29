@@ -14,11 +14,13 @@ export function ValenceProvider(props) {
             return undefined;
         if (key === "primary")
             return getReactiveColor(colors.find(i => i.key === primaryColor));
-        const baseColor = getReactiveColor(colors.find(i => i.key === key), isDarkMode);
-        return baseColor ? baseColor
-            : key !== "#" ?
-                getReactiveColor(colors.find(i => i.key === primaryColor), isDarkMode)
-                : getUnidentifiedHexColor(key);
+        const colIndex = colors.findIndex(i => i.key === key);
+        if (colIndex === -1)
+            return key !== "#" ?
+                getUnidentifiedHexColor(key)
+                : getReactiveColor(colors.find(i => i.key === primaryColor), isDarkMode);
+        else
+            return getReactiveColor(colors.find(i => i.key === key), isDarkMode);
     }
     function getFont(context) {
         var _a, _b;

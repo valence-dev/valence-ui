@@ -9,12 +9,12 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import { jsx as _jsx } from "react/jsx-runtime";
+import { jsx as _jsx } from "@emotion/react/jsx-runtime";
+/** @jsxImportSource @emotion/react */
 import { useContext, useState } from "react";
 import { Flex } from "../Flex";
 import { ValenceContext, useBreakpoint } from "../../..";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
-import styled from "styled-components";
 import { getReactiveProp } from "@valence-ui/utils";
 function interpolateHeight(max, min, scrollY) {
     return Math.max(max + scrollY, min);
@@ -39,6 +39,6 @@ export function Header(props) {
         setHeight(interpolateHeight(((_a = props.height) !== null && _a !== void 0 ? _a : breakpoint.isMobileTall) ? tallHeight : regularHeight, compactHeight, (prevPos.y + currPos.y) / 2));
     });
     // Styles
-    const StyledHeader = styled.header(Object.assign({ backgroundColor: getReactiveProp(backgroundColor, breakpoint), position: breakpoint.isMobile ? "fixed" : undefined, top: 0, zIndex: 150, width: "100%" }, style));
-    return (_jsx(StyledHeader, Object.assign({ as: Flex, direction: "column", justify: "center", height: height }, rest, { children: children })));
+    const HeaderStyle = Object.assign({ backgroundColor: getReactiveProp(backgroundColor, breakpoint), position: breakpoint.isMobile ? "fixed" : undefined, top: 0, zIndex: 150, width: "100%" }, getReactiveProp(style, breakpoint));
+    return (_jsx(Flex, Object.assign({ style: HeaderStyle, direction: "column", justify: "center", height: height }, rest, { children: children })));
 }

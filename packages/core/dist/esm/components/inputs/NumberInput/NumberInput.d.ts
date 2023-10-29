@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { Dispatch, SetStateAction } from "react";
 import { GenericInputEventHandlerProps, GenericInputProps } from "../InputContainer";
 export type NumberInputProps = GenericInputProps & GenericInputEventHandlerProps & {
@@ -19,5 +20,5 @@ export type NumberInputProps = GenericInputProps & GenericInputEventHandlerProps
         down?: React.ReactNode;
     };
 };
-export declare function NumberInput(props: NumberInputProps): import("react/jsx-runtime").JSX.Element;
+export declare function NumberInput(props: NumberInputProps): import("@emotion/react/jsx-runtime").JSX.Element;
 //# sourceMappingURL=NumberInput.d.ts.map

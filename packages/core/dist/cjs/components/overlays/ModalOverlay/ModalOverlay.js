@@ -10,23 +10,21 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ModalOverlay = void 0;
-const jsx_runtime_1 = require("react/jsx-runtime");
+const jsx_runtime_1 = require("@emotion/react/jsx-runtime");
+/** @jsxImportSource @emotion/react */
 const react_1 = require("react");
 const __1 = require("../../..");
-const styled_components_1 = __importDefault(require("styled-components"));
 const framer_motion_1 = require("framer-motion");
+const react_2 = require("@emotion/react");
 function ModalOverlay(props) {
     var _a, _b;
     const theme = (0, react_1.useContext)(__1.ValenceContext);
     // Defaults
     const { opened, close, closeOnClick = true, blurBackground = true, backgroundColor = `${(_a = theme.getColor("permaBlack")) === null || _a === void 0 ? void 0 : _a.base}${(_b = theme.getColor("permaBlack")) === null || _b === void 0 ? void 0 : _b.opacity.strong}`, padding = theme.sizeClasses.padding[theme.defaultSize], zIndex = 200, children, style } = props, rest = __rest(props, ["opened", "close", "closeOnClick", "blurBackground", "backgroundColor", "padding", "zIndex", "children", "style"]);
     // Styles
-    const StyledOverlay = styled_components_1.default.div(Object.assign({ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, zIndex: zIndex, backgroundColor: backgroundColor, backdropFilter: blurBackground ? "blur(10px)" : "none", padding: padding, display: "flex", alignItems: "center", justifyContent: "center" }, style));
-    return ((0, jsx_runtime_1.jsx)(StyledOverlay, Object.assign({ as: framer_motion_1.motion.div, onClick: closeOnClick ? close : undefined, initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 } }, rest, { children: children })));
+    const OverlayStyle = (0, react_2.css)(Object.assign({ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, zIndex: zIndex, backgroundColor: backgroundColor, backdropFilter: blurBackground ? "blur(10px)" : "none", padding: padding, display: "flex", alignItems: "center", justifyContent: "center" }, style));
+    return ((0, jsx_runtime_1.jsx)(framer_motion_1.motion.div, Object.assign({ css: OverlayStyle, onClick: closeOnClick ? close : undefined, initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 } }, rest, { children: children })));
 }
 exports.ModalOverlay = ModalOverlay;

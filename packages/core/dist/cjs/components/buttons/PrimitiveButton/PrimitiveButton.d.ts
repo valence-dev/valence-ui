@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import React from "react";
 import { MotionBehaviourProps } from "../Helpers";
 import { ComponentSize, FillVariant, GenericLayoutProps, PolymorphicButtonComponents } from "@valence-ui/utils";
@@ -49,5 +50,5 @@ export type PrimitiveButtonProps = GenericClickableProps & GenericLayoutProps & 
     /** An optional addition to allow components to become polymorphic */
     component?: PolymorphicButtonComponents;
 };
-export declare function PrimitiveButton(props: PrimitiveButtonProps): import("react/jsx-runtime").JSX.Element;
+export declare function PrimitiveButton(props: PrimitiveButtonProps): import("@emotion/react/jsx-runtime").JSX.Element;
 //# sourceMappingURL=PrimitiveButton.d.ts.map

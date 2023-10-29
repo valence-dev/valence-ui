@@ -15,5 +15,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./InputContainer"), exports);
-__exportStar(require("./TextInput"), exports);
 __exportStar(require("./NumberInput"), exports);
+__exportStar(require("./SwitchInput"), exports);
+__exportStar(require("./Textarea"), exports);
+__exportStar(require("./TextInput"), exports);

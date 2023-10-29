@@ -10,19 +10,17 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NumberInput = void 0;
-const jsx_runtime_1 = require("react/jsx-runtime");
+const jsx_runtime_1 = require("@emotion/react/jsx-runtime");
+/** @jsxImportSource @emotion/react */
 const react_1 = require("react");
 const InputContainer_1 = require("../InputContainer");
 const __1 = require("../../..");
-const styled_components_1 = __importDefault(require("styled-components"));
 const layout_1 = require("../../layout");
 const buttons_1 = require("../../buttons");
 const icons_react_1 = require("@tabler/icons-react");
+const react_2 = require("@emotion/react");
 function NumberInput(props) {
     var _a, _b;
     const theme = (0, react_1.useContext)(__1.ValenceContext);
@@ -31,9 +29,9 @@ function NumberInput(props) {
     const { value, setValue, icon, placeholder = "", min, max, step = 1, controlIcons = {
         up: (0, jsx_runtime_1.jsx)(icons_react_1.IconChevronUp, Object.assign({}, defaultIconProps.get(), { opacity: 0.5 })),
         down: (0, jsx_runtime_1.jsx)(icons_react_1.IconChevronDown, Object.assign({}, defaultIconProps.get(), { opacity: 0.5 }))
-    }, showControls = true, size = theme.defaultSize, radius = theme.defaultRadius, grow, loading, autoFocus, disabled, readOnly = loading, required, form, name, tabIndex, color = "black", backgroundColor = color, style } = props, rest = __rest(props, ["value", "setValue", "icon", "placeholder", "min", "max", "step", "controlIcons", "showControls", "size", "radius", "grow", "loading", "autoFocus", "disabled", "readOnly", "required", "form", "name", "tabIndex", "color", "backgroundColor", "style"]);
+    }, showControls = true, size = theme.defaultSize, radius = theme.defaultRadius, grow, loading, autoFocus, disabled, readOnly = loading, required, form, name, tabIndex, color = "black", backgroundColor = color, onEnterPress, onKeyPress, style } = props, rest = __rest(props, ["value", "setValue", "icon", "placeholder", "min", "max", "step", "controlIcons", "showControls", "size", "radius", "grow", "loading", "autoFocus", "disabled", "readOnly", "required", "form", "name", "tabIndex", "color", "backgroundColor", "onEnterPress", "onKeyPress", "style"]);
     // Styles
-    const StyledInput = styled_components_1.default.input({
+    const InputStyle = (0, react_2.css)({
         border: "none",
         outline: "none",
         background: "none",
@@ -59,17 +57,16 @@ function NumberInput(props) {
     });
     // Functions
     const handleKeyDown = (e) => {
-        var _a, _b;
         // Blur on "Escape" key
         if (e.key === "Escape")
             e.currentTarget.blur();
         // Call onEnterPress on "Enter" key
         if (e.key === "Enter")
-            (_a = rest.onEnterPress) === null || _a === void 0 ? void 0 : _a.call(rest, e);
+            onEnterPress === null || onEnterPress === void 0 ? void 0 : onEnterPress(e);
         // Call onKeyPress on any key
-        (_b = rest.onKeyPress) === null || _b === void 0 ? void 0 : _b.call(rest, e);
+        onKeyPress === null || onKeyPress === void 0 ? void 0 : onKeyPress(e);
     };
-    return ((0, jsx_runtime_1.jsxs)(InputContainer_1.InputContainer, Object.assign({ icon: icon, size: size, radius: radius, grow: grow, loading: loading, disabled: disabled, color: color, backgroundColor: backgroundColor }, rest, { children: [(0, jsx_runtime_1.jsx)(StyledInput, Object.assign({ type: "number", value: value, onChange: e => setValue(parseFloat(e.target.value)), placeholder: placeholder, min: min, max: max, step: step, autoFocus: autoFocus, disabled: disabled, readOnly: readOnly, required: required, form: form, name: name, tabIndex: tabIndex, onKeyDown: handleKeyDown }, rest)), showControls &&
+    return ((0, jsx_runtime_1.jsxs)(InputContainer_1.InputContainer, Object.assign({ icon: icon, size: size, radius: radius, grow: grow, loading: loading, disabled: disabled, color: color, backgroundColor: backgroundColor }, rest, { children: [(0, jsx_runtime_1.jsx)("input", Object.assign({ css: InputStyle, type: "number", value: value, onChange: e => setValue(parseFloat(e.target.value)), placeholder: placeholder, min: min, max: max, step: step, autoFocus: autoFocus, disabled: disabled, readOnly: readOnly, required: required, form: form, name: name, tabIndex: tabIndex, onKeyDown: handleKeyDown }, rest)), showControls &&
                 (0, jsx_runtime_1.jsxs)(layout_1.Flex, { gap: 0, children: [(0, jsx_runtime_1.jsx)(buttons_1.IconButton, { color: color, variant: "subtle", size: size, radius: radius, onClick: () => setValue(value - step), disabled: disabled || readOnly, children: controlIcons.down }), (0, jsx_runtime_1.jsx)(buttons_1.IconButton, { color: color, variant: "subtle", size: size, radius: radius, onClick: () => setValue(value + step), disabled: disabled || readOnly, children: controlIcons.up })] })] })));
 }
 exports.NumberInput = NumberInput;

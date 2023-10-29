@@ -9,18 +9,19 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import { jsx as _jsx } from "react/jsx-runtime";
+import { jsx as _jsx } from "@emotion/react/jsx-runtime";
+/** @jsxImportSource @emotion/react */
 import { useContext } from "react";
 import { ValenceContext } from "../../..";
-import styled from "styled-components";
 import { InputContainer } from "../InputContainer";
+import { css } from "@emotion/react";
 export function TextInput(props) {
     var _a, _b;
     const theme = useContext(ValenceContext);
     // Defaults
-    const { value, setValue, icon, placeholder = "", type = "text", autoComplete = "off", pattern, minLength, maxLength, size = theme.defaultSize, radius = theme.defaultRadius, grow, loading, autoFocus, disabled, readOnly = loading, required, multiple, form, name, tabIndex, color = "black", backgroundColor = color, style } = props, rest = __rest(props, ["value", "setValue", "icon", "placeholder", "type", "autoComplete", "pattern", "minLength", "maxLength", "size", "radius", "grow", "loading", "autoFocus", "disabled", "readOnly", "required", "multiple", "form", "name", "tabIndex", "color", "backgroundColor", "style"]);
+    const { value, setValue, icon, placeholder = "", type = "text", autoComplete = "off", pattern, minLength, maxLength, size = theme.defaultSize, radius = theme.defaultRadius, grow, loading, autoFocus, disabled, readOnly = loading, required, multiple, form, name, tabIndex, onEnterPress, onKeyPress, color = "black", backgroundColor = color, style } = props, rest = __rest(props, ["value", "setValue", "icon", "placeholder", "type", "autoComplete", "pattern", "minLength", "maxLength", "size", "radius", "grow", "loading", "autoFocus", "disabled", "readOnly", "required", "multiple", "form", "name", "tabIndex", "onEnterPress", "onKeyPress", "color", "backgroundColor", "style"]);
     // Styles
-    const StyledInput = styled.input({
+    const InputStyle = css({
         border: "none",
         outline: "none",
         background: "none",
@@ -43,15 +44,14 @@ export function TextInput(props) {
     });
     // Functions
     const handleKeyDown = (e) => {
-        var _a, _b;
         // Blur on "Escape" key
         if (e.key === "Escape")
             e.currentTarget.blur();
         // Call onEnterPress on "Enter" key
         if (e.key === "Enter")
-            (_a = rest.onEnterPress) === null || _a === void 0 ? void 0 : _a.call(rest, e);
+            onEnterPress === null || onEnterPress === void 0 ? void 0 : onEnterPress(e);
         // Call onKeyPress on any key
-        (_b = rest.onKeyPress) === null || _b === void 0 ? void 0 : _b.call(rest, e);
+        onKeyPress === null || onKeyPress === void 0 ? void 0 : onKeyPress(e);
     };
-    return (_jsx(InputContainer, Object.assign({ icon: icon, size: size, radius: radius, grow: grow, disabled: disabled, required: required, loading: loading, color: color, backgroundColor: backgroundColor, style: style }, rest, { children: _jsx(StyledInput, Object.assign({ value: value !== null && value !== void 0 ? value : "", onChange: e => setValue(e.currentTarget.value), placeholder: placeholder, type: type, autoComplete: autoComplete, pattern: pattern, minLength: minLength, maxLength: maxLength, autoFocus: autoFocus, disabled: disabled, readOnly: readOnly, required: required, multiple: multiple, form: form, name: name, tabIndex: tabIndex, onKeyDown: handleKeyDown }, rest)) })));
+    return (_jsx(InputContainer, Object.assign({ icon: icon, size: size, radius: radius, grow: grow, disabled: disabled, required: required, loading: loading, color: color, backgroundColor: backgroundColor, style: style }, rest, { children: _jsx("input", Object.assign({ css: InputStyle, value: value !== null && value !== void 0 ? value : "", onChange: e => setValue(e.currentTarget.value), placeholder: placeholder, type: type, autoComplete: autoComplete, pattern: pattern, minLength: minLength, maxLength: maxLength, autoFocus: autoFocus, disabled: disabled, readOnly: readOnly, required: required, multiple: multiple, form: form, name: name, tabIndex: tabIndex, onKeyDown: handleKeyDown }, rest)) })));
 }

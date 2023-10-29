@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { CSSProperties, ReactNode } from "react";
 import { ComponentSize, GenericReactiveProps, ReactiveProp } from "@valence-ui/utils";
 export type GenericImageProps = {
@@ -24,5 +25,5 @@ export type ImageProps = GenericImageProps & GenericReactiveProps & {
     /** **[REACTIVE]** Specifies if a shadow will be shown */
     shadow?: ReactiveProp<boolean>;
 };
-export declare function Image(props: ImageProps): import("react/jsx-runtime").JSX.Element;
+export declare function Image(props: ImageProps): import("@emotion/react/jsx-runtime").JSX.Element;
 //# sourceMappingURL=Image.d.ts.map
