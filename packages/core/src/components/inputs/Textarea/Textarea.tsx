@@ -108,7 +108,7 @@ export function Textarea(props: TextareaProps) {
 
 
   // Styles
-  const ContainerStyles = css({
+  const ContainerStyle = css({
     display: "flex",
 
     boxSizing: "border-box",
@@ -151,7 +151,7 @@ export function Textarea(props: TextareaProps) {
 
     ...style,
   });
-  const TextareaStyles = css({
+  const TextareaStyle = css({
     outline: "none",
     border: "none",
     textDecoration: "none",
@@ -200,7 +200,7 @@ export function Textarea(props: TextareaProps) {
 
 
   return (
-    <div css={ContainerStyles}>
+    <div css={ContainerStyle}>
       {loading ?
         <Flex
           justify="center"
@@ -214,7 +214,7 @@ export function Textarea(props: TextareaProps) {
         </Flex>
         :
         <textarea
-          css={TextareaStyles}
+          css={TextareaStyle}
 
           value={value ?? ""}
           onChange={e => setValue(e.currentTarget.value)}

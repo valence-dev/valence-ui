@@ -1,11 +1,12 @@
+/** @jsxImportSource @emotion/react */
 import { ReactNode, SyntheticEvent, useContext } from "react";
 import { ValenceContext } from "../../..";
-import styled from "styled-components";
 import { getBackgroundColor, getTextColor } from "../../buttons";
 import { Loader } from "../../display";
 import { ComponentSize, GenericLayoutProps } from "@valence-ui/utils";
+import { css } from "@emotion/react";
 
-export type GenericInputEventHandlerProps = { 
+export type GenericInputEventHandlerProps = {
   /** Called when this input fails validation on form submission */
   onInvalid?: (e: SyntheticEvent<HTMLInputElement, Event>) => void;
   /** Called when this input is selected and edited */
@@ -83,7 +84,7 @@ export function InputContainer(props: InputContainerProps) {
 
 
   // Styles
-  const StyledInputContainer = styled.div({
+  const ContainerStyle = css({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
@@ -122,7 +123,7 @@ export function InputContainer(props: InputContainerProps) {
 
     ...style
   });
-  const StyledIconContainer = styled.div({
+  const IconStyle = css({
     height: "100%",
     aspectRatio: "1/1",
     opacity: 0.5,
@@ -131,7 +132,7 @@ export function InputContainer(props: InputContainerProps) {
     justifyContent: "center",
     cursor: disabled ? "not-allowed" : "text",
   });
-  const StyledRequireIndicator = styled.div({
+  const RequireIndicatorStyle = css({
     width: 3,
     height: "calc(100% - 10px)",
     borderRadius: 3,
@@ -141,16 +142,19 @@ export function InputContainer(props: InputContainerProps) {
 
 
   return (
-    <StyledInputContainer {...rest}>
-      {required && <StyledRequireIndicator />}
+    <div
+      css={ContainerStyle}
+      {...rest}
+    >
+      {required && <div css={RequireIndicatorStyle} />}
 
       {(icon || loading) &&
-        <StyledIconContainer>
+        <div css={IconStyle}>
           {loading ? <Loader /> : icon}
-        </StyledIconContainer>
+        </div>
       }
 
       {children}
-    </StyledInputContainer>
+    </div>
   )
 }

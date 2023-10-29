@@ -1,9 +1,10 @@
-import { useContext, useState } from "react";
+/** @jsxImportSource @emotion/react */
+import { CSSProperties, useContext, useState } from "react";
 import { Flex, FlexProps } from "../Flex";
 import { ValenceContext, useBreakpoint } from "../../..";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
-import styled from "styled-components";
 import { getReactiveProp } from "@valence-ui/utils";
+import { css } from "@emotion/react";
 
 export type HeaderProps = FlexProps & {
   /** The height of this header for regular devices. Defaults to `100`. */
@@ -66,20 +67,20 @@ export function Header(props: HeaderProps) {
 
 
   // Styles
-  const StyledHeader = styled.header({
+  const HeaderStyle: CSSProperties = {
     backgroundColor: getReactiveProp(backgroundColor, breakpoint),
     position: breakpoint.isMobile ? "fixed" : undefined,
     top: 0,
     zIndex: 150,
     width: "100%",
 
-    ...style
-  });
+    ...getReactiveProp(style, breakpoint)
+  };
 
 
   return (
-    <StyledHeader
-      as={Flex}
+    <Flex
+      style={HeaderStyle}
       direction="column"
       justify="center"
       height={height}
@@ -87,6 +88,6 @@ export function Header(props: HeaderProps) {
       {...rest}
     >
       {children}
-    </StyledHeader>
+    </Flex>
   )
 }

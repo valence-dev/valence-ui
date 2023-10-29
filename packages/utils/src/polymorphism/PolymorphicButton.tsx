@@ -6,6 +6,8 @@ import { GenericProps } from "..";
 export type PolymorphicButtonProps = GenericProps & {
   /** Sets the component type to render */
   component?: PolymorphicButtonComponents;
+
+  css?: any;
 }
 
 export type PolymorphicButtonComponents = "a" | "button" | "link" | "span" | "div" | "input";
@@ -19,7 +21,10 @@ export const PolymorphicButton = motion(
     if (component === "link") Component = Link;
 
     return (
-      <Component ref={ref} {...rest}>
+      <Component
+        ref={ref}
+        {...rest}
+      >
         {children}
       </Component>
     )

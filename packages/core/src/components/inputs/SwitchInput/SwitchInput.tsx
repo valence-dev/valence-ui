@@ -1,11 +1,12 @@
+/** @jsxImportSource @emotion/react */
 import { ComponentSize, GenericLayoutProps } from "@valence-ui/utils";
 import { Dispatch, SetStateAction, SyntheticEvent, useContext } from "react";
 import { ValenceContext } from "../../../ValenceProvider";
-import styled from "styled-components";
 import { PrimitiveButton, PrimitiveButtonProps, getBackgroundColor } from "../../buttons";
 import { Loader, Text, TextProps } from "../../display";
 import { motion } from "framer-motion";
 import { Flex } from "../../layout";
+import { css } from "@emotion/react";
 
 export type SwitchInputProps = GenericLayoutProps & {
   /** The value of the input */
@@ -86,7 +87,7 @@ export function SwitchInput(props: SwitchInputProps) {
 
 
   // Styles
-  const StyledSwitch = styled.div({
+  const SwitchStyle = css({
     display: "flex",
     flexDirection: "row",
 
@@ -118,7 +119,7 @@ export function SwitchInput(props: SwitchInputProps) {
 
     ...style
   });
-  const StyledSwitchIndicator = styled.div({
+  const HandleStyle = css({
     width: "50%",
     height: "100%",
 
@@ -159,8 +160,9 @@ export function SwitchInput(props: SwitchInputProps) {
         {label}
       </Text>
 
-      <StyledSwitch
+      <div
         tabIndex={0}
+        css={SwitchStyle}
         {...rest}
       >
         {loading ?
@@ -176,14 +178,14 @@ export function SwitchInput(props: SwitchInputProps) {
             />
           </Flex>
           :
-          <StyledSwitchIndicator
-            as={motion.div}
+          <motion.div
+            css={HandleStyle}
             initial={{ x: checked ? "0%" : "100%" }}
             animate={{ x: checked ? "100%" : "0%" }}
             transition={{ ease: "backOut" }}
           />
         }
-      </StyledSwitch>
+      </div>
     </PrimitiveButton>
   )
 }

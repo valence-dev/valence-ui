@@ -4,6 +4,8 @@ import { GenericProps } from "..";
 export type PolymorphicLayoutProps = GenericProps & {
   /** Sets the component type to render */
   component?: PolymorphicLayoutComponents;
+
+  css?: any;
 }
 
 export type PolymorphicLayoutComponents = "div" | "span" | "section" | "aside" | "form";

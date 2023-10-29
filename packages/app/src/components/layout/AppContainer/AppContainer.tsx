@@ -1,5 +1,4 @@
-import { ReactNode, useContext } from "react";
-import { CSSProperties } from "styled-components";
+import { CSSProperties, ReactNode, useContext } from "react";
 import { ComponentSize, GenericReactiveLayoutProps, ReactiveProp } from "@valence-ui/utils";
 import { Flex, Header, ValenceContext, useBreakpoint } from "@valence-ui/core";
 

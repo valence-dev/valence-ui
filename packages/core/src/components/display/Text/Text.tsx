@@ -1,8 +1,9 @@
+/** @jsxImportSource @emotion/react */
 import { CSSProperties, useContext } from "react";
 import reactStringReplace from "react-string-replace";
-import styled from "styled-components";
 import { ComponentSize, GenericProps, PolymorphicText, PolymorphicTextProps } from "@valence-ui/utils";
 import { ValenceContext } from "../../../ValenceProvider";
+import { css } from "@emotion/react";
 
 const REGEX_PATTERNS = {
   newline: /(\n)/,
@@ -124,7 +125,7 @@ export function Text(props: TextProps) {
 
 
   // Styles
-  const StyledText = styled.text({
+  const TextStyle = css({
     fontFamily: family,
     fontWeight: weight,
     fontStyle: italic ? "italic" : "normal",
@@ -140,11 +141,11 @@ export function Text(props: TextProps) {
 
 
   return (
-    <StyledText
-      as={PolymorphicText}
+    <PolymorphicText
+      css={TextStyle}
       {...rest}
     >
       {replacements}
-    </StyledText>
+    </PolymorphicText>
   )
 }
