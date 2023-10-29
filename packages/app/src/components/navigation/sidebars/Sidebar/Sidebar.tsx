@@ -1,16 +1,17 @@
-import { Flex, ValenceContext, useBreakpoint } from "@valence-ui/core";
+import { Flex, ValenceContext, useBreakpoint, useDefaultIconProps } from "@valence-ui/core";
 import { GenericReactiveLayoutProps, ReactiveProp, getReactiveProp } from "@valence-ui/utils";
 import { CSSProperties, ReactNode, useContext, useState } from "react";
 import { FAB, FABProps } from "../../../buttons";
 import { SlideUp } from "../../../overlays";
+import { IconMenu } from "@tabler/icons-react";
 
 export type SidebarProps = GenericReactiveLayoutProps & {
   /** Sets `gap` css property */
   gap?: ReactiveProp<CSSProperties["gap"]>;
 
-  /** An icon to display on the mobile Fab */
-  mobileFabIcon: ReactNode;
-  /** Props to pass to the mobile Fab */
+  /** An icon to display on the mobile FAB */
+  mobileFabIcon?: ReactNode;
+  /** Props to pass to the mobile FAB */
   mobileFabProps?: FABProps;
 }
 
@@ -18,11 +19,15 @@ export type SidebarProps = GenericReactiveLayoutProps & {
 export function Sidebar(props: SidebarProps) {
   const theme = useContext(ValenceContext);
   const breakpoint = useBreakpoint();
+  const defaultIconProps = useDefaultIconProps();
 
 
   // Defaults 
   const {
     gap = theme.sizeClasses.padding[theme.defaultSize],
+    mobileFabProps = {},
+    mobileFabIcon = <IconMenu {...defaultIconProps.get("white")} />,
+
     width = "100%",
     height = "100%",
 
@@ -58,9 +63,9 @@ export function Sidebar(props: SidebarProps) {
         <FAB
           color="black"
           onClick={() => setSlideUpOpened(true)}
-          {...props.mobileFabProps}
+          {...mobileFabProps}
         >
-          {props.mobileFabIcon}
+          {mobileFabIcon}
         </FAB>
 
         <SlideUp

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { ValenceProvider } from "../../..";
 
-import { SwitchInput as SI } from "./SwitchInput";
+import { Switch as SI } from "./Switch";
 
 const meta: Meta<typeof SI> = {
   component: SI,
@@ -13,7 +13,7 @@ export default meta;
 type Story = StoryObj<typeof SI>;
 
 
-export const SwitchInput: Story = (args: any) => {
+export const Switch: Story = (args: any) => {
   const [checked, setChecked] = useState(args.checked);
 
   return (
@@ -26,6 +26,6 @@ export const SwitchInput: Story = (args: any) => {
     </ValenceProvider>
   );
 }
-SwitchInput.args = {
+Switch.args = {
   label: "Switch"
 }

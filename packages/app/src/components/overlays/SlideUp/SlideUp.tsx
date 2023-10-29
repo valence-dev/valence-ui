@@ -43,7 +43,7 @@ export function SlideUp(props: SlideUpProps) {
 
     closeOnOverlayClick = true,
     closeOnEscape = true,
-    lockScroll = true,
+    lockScroll = false,
 
     radius = "lg",
     shadow = true,
@@ -104,6 +104,7 @@ export function SlideUp(props: SlideUpProps) {
     <AnimatePresence>
       {opened &&
         <ModalOverlay
+          blurBackground={false}
           opened={opened}
           close={close}
           closeOnClick={closeOnOverlayClick}

@@ -58,9 +58,7 @@ AppContainer.args = {
       <Title>Page title</Title>
     </Header>,
   sidebar:
-    <Sidebar
-      mobileFabIcon={<IconMenu color="white" />}
-    >
+    <Sidebar>
       <ButtonWithIcon
         icon={<IconAlertTriangle />}
         width="100%"

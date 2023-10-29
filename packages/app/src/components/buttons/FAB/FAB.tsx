@@ -2,14 +2,14 @@ import { IconButtonProps, PrimitiveButton, useBreakpoint } from "@valence-ui/cor
 import { CSSProperties } from "react";
 
 export type FABProps = IconButtonProps & {
-  /** Vertical position on the page */
+  /** Vertical position of this button on the page. Defaults to `"bottom"` */
   vPosition?: "top" | "bottom";
-  /** Horizontal position on the page */
+  /** Horizontal position of this button on the page. Defaults to `"right"` */
   hPosition?: "left" | "right";
-  /** The distance from the edge of the page */
+  /** The distance in `px` this button sits from the edge of the page. Defaults to `20` */
   offset?: number;
 
-  /** Sets `z-index` css property */
+  /** Sets `z-index` css property. Defaults to `100` */
   zIndex?: CSSProperties["zIndex"];
 };
 

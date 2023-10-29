@@ -18,19 +18,19 @@ export type GenericClickableProps = {
   type?: "submit" | "reset" | "button";
 
   /** Sets `onClick` event */
-  onClick?: () => void;
+  onClick?: (event: any) => void;
   /** Sets `onMouseEnter` event */
-  onMouseEnter?: () => void;
+  onMouseEnter?: (event: any) => void;
   /** Sets `onMouseLeave` event */
-  onMouseLeave?: () => void;
+  onMouseLeave?: (event: any) => void;
   /** Sets `onMouseDown` event */
   onMouseDown?: (event: any) => void;
   /** Sets `onMouseUp` event */
   onMouseUp?: (event: any) => void;
   /** Sets `onFocus` event */
-  onFocus?: () => void;
+  onFocus?: (event: any) => void;
   /** Sets `onBlur` event */
-  onBlur?: () => void;
+  onBlur?: (event: any) => void;
 }
 
 

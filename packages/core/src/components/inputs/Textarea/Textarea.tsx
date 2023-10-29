@@ -16,7 +16,7 @@ export type TextareaProps = GenericInputProps & GenericInputEventHandlerProps & 
   /** Sets the value of the input */
   setValue: Dispatch<SetStateAction<string>>;
 
-  /** Whether the value of the input can be automatically completed by the browser. Defaults to `false`. */
+  /** Whether the value of the input can be automatically completed by the browser/OS. Defaults to `false`. */
   autoComplete?: boolean;
   /** Whether the input is subject to spell checking by the browser/OS. Defaults to `true`. */
   spellCheck?: boolean;
@@ -119,6 +119,7 @@ export function Textarea(props: TextareaProps) {
     borderRadius: theme.sizeClasses.radius[radius],
 
     padding: padding,
+    gap: padding as number / 2,
     margin: margin,
 
     opacity: disabled ? 0.5 : 1,
@@ -185,6 +186,12 @@ export function Textarea(props: TextareaProps) {
     "&:-webkit-autofill:hover": { transition: `background-color 5000s ease-in-out 0s` },
     "&:-webkit-autofill:active": { transition: `background-color 5000s ease-in-out 0s` },
   });
+  const RequireIndicatorStyle = css({
+    width: 3,
+    borderRadius: 3,
+    backgroundColor: getTextColor(color === "black" ? "red" : color, "light", theme),
+    cursor: disabled ? "not-allowed" : "text",
+  });
 
 
 
@@ -201,6 +208,8 @@ export function Textarea(props: TextareaProps) {
 
   return (
     <div css={ContainerStyle}>
+      {required && <div css={RequireIndicatorStyle} />}
+
       {loading ?
         <Flex
           justify="center"

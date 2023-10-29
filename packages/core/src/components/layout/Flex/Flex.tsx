@@ -61,6 +61,7 @@ export function Flex(props: FlexProps) {
     flexDirection: getReactiveProp(direction, breakpoint),
     alignItems: getReactiveProp(align, breakpoint),
     justifyContent: getReactiveProp(justify, breakpoint),
+    boxSizing: "border-box",
 
     alignSelf: getReactiveProp(alignSelf, breakpoint),
     gap: getReactiveProp(gap, breakpoint),

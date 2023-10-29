@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import { Flex } from "../../layout";
 import { css } from "@emotion/react";
 
-export type SwitchInputProps = GenericLayoutProps & {
+export type SwitchProps = GenericLayoutProps & {
   /** The value of the input */
   checked: boolean;
   /** Sets the value of the input */
@@ -42,7 +42,7 @@ export type SwitchInputProps = GenericLayoutProps & {
 }
 
 
-export function SwitchInput(props: SwitchInputProps) {
+export function Switch(props: SwitchProps) {
   const theme = useContext(ValenceContext);
 
 
