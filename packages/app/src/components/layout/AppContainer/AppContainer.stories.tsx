@@ -1,11 +1,12 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { Header, Title, ValenceProvider } from "@valence-ui/core";
+import { ButtonWithIcon, Flex, Header, Title, ValenceProvider } from "@valence-ui/core";
 
 import { AppContainer as AC } from "./AppContainer";
 import { Nav, Sidebar } from "../../navigation";
-import { IconAlertTriangle, IconBolt, IconCategory, IconLock, IconLogout, IconUserCircle } from "@tabler/icons-react";
+import { IconAlertTriangle, IconBolt, IconCategory, IconLock, IconLogout, IconMenu, IconUserCircle } from "@tabler/icons-react";
 import { BrowserRouter } from "react-router-dom";
+import { GridButton } from "../../buttons";
 
 const meta: Meta<typeof AC> = {
   component: AC,
@@ -23,6 +24,7 @@ export const AppContainer: Story = (args: any) => (
   </BrowserRouter>
 );
 AppContainer.args = {
+  sidebarWidth: 300,
   nav:
     <Nav
       buttons={[
@@ -55,29 +57,39 @@ AppContainer.args = {
     <Header>
       <Title>Page title</Title>
     </Header>,
-  sidebar: 
+  sidebar:
     <Sidebar
-      buttons={[
-        {
-          id: "profile",
-          children: "Profile",
-          icon: <IconUserCircle />,
-          jumpTo: "#profile",
-          highlighted: true,
-        },
-        {
-          id: "security",
-          children: "Security",
-          icon: <IconLock />,
-          jumpTo: "#security",
-        },
-        {
-          id: "dangerZone",
-          children: "Danger zone",
-          icon: <IconAlertTriangle />,
-          jumpTo: "#danger-zone",
-        },
-      ]}
-    />,
+      mobileFabIcon={<IconMenu color="white" />}
+    >
+      <ButtonWithIcon
+        icon={<IconAlertTriangle />}
+        width="100%"
+      >Hi there</ButtonWithIcon>
+      <ButtonWithIcon
+        icon={<IconLock />}
+        width="100%"
+      >Security</ButtonWithIcon>
+
+      <Flex
+        direction="row"
+        justify="space-between"
+      >
+        <GridButton
+          icon={<IconAlertTriangle />}
+        >
+          Hi there
+        </GridButton>
+        <GridButton
+          icon={<IconAlertTriangle />}
+        >
+          Hi there
+        </GridButton>
+        <GridButton
+          icon={<IconAlertTriangle />}
+        >
+          Hi there
+        </GridButton>
+      </Flex>
+    </Sidebar>,
   children: <div>Children</div>
 };

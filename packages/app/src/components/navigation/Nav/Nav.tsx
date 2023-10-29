@@ -97,8 +97,6 @@ export function Nav(props: NavProps) {
           square={!breakpoint.isMobile}
           grow
           component="link"
-
-          {...b}
         >
           {b.children}
         </IconButton>
@@ -115,8 +113,6 @@ export function Nav(props: NavProps) {
           square={!breakpoint.isMobile}
           grow
           component="link"
-
-          {...b}
         >
           {b.children}
         </IconButton>

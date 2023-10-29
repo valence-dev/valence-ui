@@ -2,16 +2,16 @@ import { CSSProperties, useContext } from "react";
 import { ButtonWithIcon, ButtonWithIconProps, Flex, IconButton, ValenceContext, useBreakpoint } from "@valence-ui/core";
 import { GenericReactiveLayoutProps, ReactiveProp, getReactiveProp } from "@valence-ui/utils";
 
-export type SidebarButtonProps = ButtonWithIconProps & {
+export type JumpSidebarButtonProps = ButtonWithIconProps & {
   /** Specifies if this button is highlighted */
   highlighted?: boolean;
   /** The ID of a page anchor this button should scroll to when clicked. Requires the `jumpToSection` function to be provided to the parent `Sidebar` element */
   jumpTo?: string;
 }
 
-export type SidebarProps = GenericReactiveLayoutProps & {
+export type JumpSidebarProps = GenericReactiveLayoutProps & {
   /** Buttons to display on the sidebar */
-  buttons: SidebarButtonProps[];
+  buttons: JumpSidebarButtonProps[];
   /** An optional function to facilitate scrolling to a desired section of the page */
   jumpToSection?: (section: string) => void;
 
@@ -21,7 +21,7 @@ export type SidebarProps = GenericReactiveLayoutProps & {
 
 
 /** The App Sidebar is a page used for navigation and high-level actions within the context of an individual page. This particular sidebar is designed for navigation, and will automatically adapt between desktop and mobile-class devices.  */
-export function Sidebar(props: SidebarProps) {
+export function JumpSidebar(props: JumpSidebarProps) {
   const theme = useContext(ValenceContext);
   const breakpoint = useBreakpoint();
 
@@ -87,8 +87,6 @@ export function Sidebar(props: SidebarProps) {
             variant={b.highlighted ? "light" : "subtle"}
             onClick={() => jumpToSection && b.jumpTo && jumpToSection(b.jumpTo)}
             grow
-
-            {...b}
           >
             {b.icon}
           </IconButton>
@@ -100,7 +98,7 @@ export function Sidebar(props: SidebarProps) {
             onClick={() => jumpToSection && b.jumpTo && jumpToSection(b.jumpTo)}
             width="100%"
 
-            {...b}
+            icon={b.icon}
           >
             {b.children}
           </ButtonWithIcon>

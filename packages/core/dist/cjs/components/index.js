@@ -18,3 +18,4 @@ __exportStar(require("./buttons"), exports);
 __exportStar(require("./display"), exports);
 __exportStar(require("./inputs"), exports);
 __exportStar(require("./layout"), exports);
+__exportStar(require("./overlays"), exports);
