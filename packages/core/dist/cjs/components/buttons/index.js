@@ -19,4 +19,5 @@ __exportStar(require("./IconButton"), exports);
 __exportStar(require("./MultipartButton"), exports);
 __exportStar(require("./PrimitiveButton"), exports);
 __exportStar(require("./TextButton"), exports);
+__exportStar(require("./UnstyledButton"), exports);
 __exportStar(require("./Helpers"), exports);

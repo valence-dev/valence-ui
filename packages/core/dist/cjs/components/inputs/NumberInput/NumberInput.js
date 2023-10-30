@@ -43,6 +43,7 @@ function NumberInput(props) {
         cursor: disabled ? "not-allowed" : "text",
         fontSize: theme.sizeClasses.fontSize[size],
         fontFamily: theme.getFont("default"),
+        color: (0, buttons_1.getTextColor)(color, "light", theme),
         "&::placeholder": {
             color: `${(_a = theme.getColor(color)) === null || _a === void 0 ? void 0 : _a.base}${(_b = theme.getColor(color)) === null || _b === void 0 ? void 0 : _b.opacity.medium}`
         },

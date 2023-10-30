@@ -7,7 +7,7 @@ export type TextareaProps = GenericInputProps & GenericInputEventHandlerProps & 
     value: string;
     /** Sets the value of the input */
     setValue: Dispatch<SetStateAction<string>>;
-    /** Whether the value of the input can be automatically completed by the browser. Defaults to `false`. */
+    /** Whether the value of the input can be automatically completed by the browser/OS. Defaults to `false`. */
     autoComplete?: boolean;
     /** Whether the input is subject to spell checking by the browser/OS. Defaults to `true`. */
     spellCheck?: boolean;
