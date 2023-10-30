@@ -15,7 +15,7 @@ import { useContext } from "react";
 import { InputContainer } from "../InputContainer";
 import { ValenceContext, useDefaultIconProps } from "../../..";
 import { Flex } from "../../layout";
-import { IconButton } from "../../buttons";
+import { IconButton, getTextColor } from "../../buttons";
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 import { css } from "@emotion/react";
 export function NumberInput(props) {
@@ -40,6 +40,7 @@ export function NumberInput(props) {
         cursor: disabled ? "not-allowed" : "text",
         fontSize: theme.sizeClasses.fontSize[size],
         fontFamily: theme.getFont("default"),
+        color: getTextColor(color, "light", theme),
         "&::placeholder": {
             color: `${(_a = theme.getColor(color)) === null || _a === void 0 ? void 0 : _a.base}${(_b = theme.getColor(color)) === null || _b === void 0 ? void 0 : _b.opacity.medium}`
         },

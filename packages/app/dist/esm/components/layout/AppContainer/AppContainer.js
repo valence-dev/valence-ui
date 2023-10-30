@@ -49,6 +49,7 @@ export function AppContainer(props) {
             borderRadius: `0px 0px ${borderRadius}px ${borderRadius}px`,
             overflow: "auto",
             padding: `0px 10px`,
+            minHeight: borderRadius,
         }
     };
     const contentContainerStyle = {

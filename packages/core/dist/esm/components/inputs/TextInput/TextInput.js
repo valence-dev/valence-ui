@@ -12,7 +12,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
 import { useContext } from "react";
-import { ValenceContext } from "../../..";
+import { ValenceContext, getTextColor } from "../../..";
 import { InputContainer } from "../InputContainer";
 import { css } from "@emotion/react";
 export function TextInput(props) {
@@ -33,6 +33,7 @@ export function TextInput(props) {
         cursor: disabled ? "not-allowed" : "text",
         fontSize: theme.sizeClasses.fontSize[size],
         fontFamily: theme.getFont("default"),
+        color: getTextColor(color, "light", theme),
         "&::placeholder": {
             color: `${(_a = theme.getColor(color)) === null || _a === void 0 ? void 0 : _a.base}${(_b = theme.getColor(color)) === null || _b === void 0 ? void 0 : _b.opacity.medium}`
         },

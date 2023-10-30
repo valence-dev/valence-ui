@@ -1,3 +1,3 @@
 export * from "./Nav";
-export * from "./Sidebar";
+export * from "./sidebars";
 //# sourceMappingURL=index.d.ts.map
