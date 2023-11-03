@@ -107,6 +107,7 @@ export const Nav = forwardRef(function Nav(
             radius={breakpoint.isMobile ? "xl" : undefined}
             square={!breakpoint.isMobile}
             component={to ? "link" : undefined}
+            to={to}
             {...rest}
           >
             {children}
@@ -127,6 +128,7 @@ export const Nav = forwardRef(function Nav(
             radius={breakpoint.isMobile ? "xl" : undefined}
             square={!breakpoint.isMobile}
             component={to ? "link" : undefined}
+            to={to}
             {...rest}
           >
             {children}

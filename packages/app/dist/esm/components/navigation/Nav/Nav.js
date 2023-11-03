@@ -29,9 +29,9 @@ export const Nav = forwardRef(function Nav(props, ref) {
     return (_jsxs(Flex, Object.assign({ direction: { default: "column", mobile: "row" }, gap: props.gap, style: navStyle, justify: { default: "unset", mobile: "space-around" }, ref: ref }, rest, { children: [favicon && !breakpoint.isMobile &&
                 _jsx(Flex, { align: "center", justify: "center", height: 100, children: _jsx(PrimitiveButton, Object.assign({ motion: { onHover: "grow", onTap: "shrink" }, square: true }, faviconProps, { children: _jsx("img", { src: favicon, alt: "favicon", style: faviconStyle }) })) }), buttons.map(b => {
                 const { id, highlighted, children, to } = b, rest = __rest(b, ["id", "highlighted", "children", "to"]);
-                return (_jsx(IconButton, Object.assign({ color: "white", variant: highlighted ? "light" : "subtle", radius: breakpoint.isMobile ? "xl" : undefined, square: !breakpoint.isMobile, component: to ? "link" : undefined }, rest, { children: children }), id));
+                return (_jsx(IconButton, Object.assign({ color: "white", variant: highlighted ? "light" : "subtle", radius: breakpoint.isMobile ? "xl" : undefined, square: !breakpoint.isMobile, component: to ? "link" : undefined, to: to }, rest, { children: children }), id));
             }), !breakpoint.isMobile && _jsx(Space, { grow: true, height: "100%" }), bottomButtons && bottomButtons.map(b => {
                 const { id, highlighted, children, to } = b, rest = __rest(b, ["id", "highlighted", "children", "to"]);
-                return (_jsx(IconButton, Object.assign({ color: "white", variant: highlighted ? "light" : "subtle", radius: breakpoint.isMobile ? "xl" : undefined, square: !breakpoint.isMobile, component: to ? "link" : undefined }, rest, { children: children }), id));
+                return (_jsx(IconButton, Object.assign({ color: "white", variant: highlighted ? "light" : "subtle", radius: breakpoint.isMobile ? "xl" : undefined, square: !breakpoint.isMobile, component: to ? "link" : undefined, to: to }, rest, { children: children }), id));
             })] })));
 });
