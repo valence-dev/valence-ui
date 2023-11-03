@@ -1,32 +1,40 @@
 import { forwardRef } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { GenericProps } from "..";
+import { GenericClickableEventProps, GenericClickableProps, GenericProps, PolymorphicElementProps } from "..";
 
-export type PolymorphicButtonProps = GenericProps & {
-  /** Sets the component type to render */
-  component?: PolymorphicButtonComponents;
+export type PolymorphicButtonProps =
+  PolymorphicElementProps
+  & {
+    /** Sets Emotion styling content on the component */
+    css?: any;
+  };
 
-  css?: any;
-}
+type Props = PolymorphicButtonProps
+  & GenericProps
+  & GenericClickableEventProps
+  & GenericClickableProps;
 
-export type PolymorphicButtonComponents = "a" | "button" | "link" | "span" | "div" | "input";
 
 
-export const PolymorphicButton = motion(
-  forwardRef((props: PolymorphicButtonProps, ref: any) => {
-    const { component = "button", children, ...rest } = props;
 
-    let Component: any = component;
-    if (component === "link") Component = Link;
+export const PolymorphicButton = motion(forwardRef(function Input(
+  props: Props,
+  ref: any
+) {
 
-    return (
-      <Component
-        ref={ref}
-        {...rest}
-      >
-        {children}
-      </Component>
-    )
-  })
+  const { component = "button", children, ...rest } = props;
+
+  let Component: any = component;
+  if (component === "link") Component = Link;
+
+  return (
+    <Component
+      ref={ref}
+      {...rest}
+    >
+      {children}
+    </Component>
+  )
+})
 )

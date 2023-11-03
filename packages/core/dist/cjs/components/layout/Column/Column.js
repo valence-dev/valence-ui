@@ -15,16 +15,18 @@ exports.Column = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const utils_1 = require("@valence-ui/utils");
 const Flex_1 = require("../Flex");
+const react_1 = require("react");
 const hooks_1 = require("../../../hooks");
-const Column = function Column(props) {
+const Column = (0, react_1.forwardRef)(function Column(props, ref) {
     const { direction = "column", justify = "center", children } = props, rest = __rest(props, ["direction", "justify", "children"]);
-    return ((0, jsx_runtime_1.jsx)(Flex_1.Flex, Object.assign({ direction: direction, justify: justify }, rest, { children: children })));
-};
-exports.Column = Column;
-exports.Column.Container = function ColumnContainer(props) {
+    return ((0, jsx_runtime_1.jsx)(Flex_1.Flex, Object.assign({ direction: direction, justify: justify, ref: ref }, rest, { children: children })));
+});
+const Container = (0, react_1.forwardRef)(function ColumnContainer(props, ref) {
     const breakpoint = (0, hooks_1.useBreakpoint)();
     const { direction = "row", justify = "space-between", flow, style, children } = props, rest = __rest(props, ["direction", "justify", "flow", "style", "children"]);
     // Styles
     const ContainerStyle = Object.assign({ flexFlow: (0, utils_1.getReactiveProp)(flow, breakpoint) }, style);
     return ((0, jsx_runtime_1.jsx)(Flex_1.Flex, Object.assign({ direction: direction, justify: justify, style: ContainerStyle }, rest, { children: children })));
-};
+});
+const ColumnNamespace = Object.assign(Column, { Container });
+exports.Column = ColumnNamespace;

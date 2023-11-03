@@ -17,7 +17,7 @@ const jsx_runtime_1 = require("@emotion/react/jsx-runtime");
 const react_1 = require("@emotion/react");
 const core_1 = require("@valence-ui/core");
 const react_2 = require("react");
-function GridButton(props) {
+exports.GridButton = (0, react_2.forwardRef)(function GridButton(props, ref) {
     const theme = (0, react_2.useContext)(core_1.ValenceContext);
     // Defaults
     const { icon, iconPosition = "top", size = theme.defaultSize, variant = theme.defaultVariant, color = theme.primaryColor, width = theme.sizeClasses.height[size] * 2.5, height = width, square = true, style, textProps } = props, rest = __rest(props, ["icon", "iconPosition", "size", "variant", "color", "width", "height", "square", "style", "textProps"]);
@@ -30,6 +30,5 @@ function GridButton(props) {
         width: "100%",
         height: "100%",
     });
-    return ((0, jsx_runtime_1.jsxs)(core_1.PrimitiveButton, Object.assign({ size: size, variant: variant, color: color, height: height, width: width, square: square, style: styles }, rest, { children: [(0, jsx_runtime_1.jsx)("div", { css: IconContainerStyle, children: icon }), (0, jsx_runtime_1.jsx)(core_1.Text, Object.assign({ fontSize: theme.sizeClasses.fontSize[size] * 0.8, color: (0, core_1.getTextColor)(color, variant, theme) }, textProps, { children: props.children }))] })));
-}
-exports.GridButton = GridButton;
+    return ((0, jsx_runtime_1.jsxs)(core_1.PrimitiveButton, Object.assign({ size: size, variant: variant, color: color, height: height, width: width, square: square, style: styles, ref: ref }, rest, { children: [(0, jsx_runtime_1.jsx)("div", { css: IconContainerStyle, children: icon }), (0, jsx_runtime_1.jsx)(core_1.Text, Object.assign({ fontSize: theme.sizeClasses.fontSize[size] * 0.8, color: (0, core_1.getTextColor)(color, variant, theme), align: "center" }, textProps, { children: props.children }))] })));
+});

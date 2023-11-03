@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import { Dispatch, SetStateAction, useContext } from "react";
-import { ValenceContext, getTextColor } from "../../..";
-import { GenericInputEventHandlerProps, GenericInputProps, InputContainer } from "../InputContainer";
+import { ReactNode, createRef, forwardRef, useContext } from "react";
+import { GenericTextInputEventProps, GenericTextInputProps, ValenceContext, getTextColor } from "../../..";
+import { InputContainer } from "../InputContainer";
 import { css } from "@emotion/react";
 
 
@@ -12,31 +12,31 @@ export type TextInputType = "text" | "password" | "email" | "number" | "tel" | "
 export type AutoCompleteBehaviour = "off" | "on" | "name" | "honorific-prefix" | "given-name" | "addtional-name" | "family-name" | "honorific-suffix" | "nickname" | "email" | "email" | "username" | "new-password" | "current-password" | "one-time-code" | "organization-title" | "organization" | "street-address" | "shipping" | "billing" | "address-line1" | "address-line2" | "address-line3" | "address-level4" | "address-level3" | "address-level2" | "address-level1" | "country" | "country-name" | "postal-code" | "cc-name" | "cc-given-name" | "cc-additional-name" | "cc-family-name" | "cc-number" | "cc-exp" | "cc-exp-month" | "cc-exp-year" | "cc-csc" | "cc-type" | "transaction-currency" | "transaction-amount" | "language" | "bday" | "bday-day" | "bday-month" | "bday-year" | "sex" | "tel" | "tel-country-code" | "tel-national" | "tel-area-code" | "tel-local" | "tel-extension" | "impp" | "url" | "photo" | "webauthn";
 
 
-export type TextInputProps = GenericInputProps & GenericInputEventHandlerProps & {
-  /** The value of the input */
-  value: string;
-  /** Sets the value of the input */
-  setValue: Dispatch<SetStateAction<string>>;
+export type TextInputProps =
+  GenericTextInputProps
+  & GenericTextInputEventProps
+  & {
+    /** An icon to display at the left side of this input */
+    icon?: ReactNode;
 
-  /** The type of input to render. Defaults to `text` */
-  type?: TextInputType;
-  /** The autocomplete behaviour to use. Defaults to `off` */
-  autoComplete?: AutoCompleteBehaviour;
+    /** The type of input to render. Defaults to `text` */
+    type?: TextInputType;
+    /** The autocomplete behaviour to use. Defaults to `off` */
+    autoComplete?: AutoCompleteBehaviour;
+    /** For `type=email`, this specifies if this input accepts multiple values */
+    multiple?: boolean;
 
-  /** A regex pattern to use for validation */
-  pattern?: string;
-  /** The minimum length of the input */
-  minLength?: number;
-  /** The maximum length of the input */
-  maxLength?: number;
-
-  /** For `type=email`, this specifies if this input accepts multiple values */
-  multiple?: boolean;
-}
+    /** Shorthand for `flex-grow = 1` */
+    grow?: boolean;
+  }
 
 
-export function TextInput(props: TextInputProps) {
+export const TextInput = forwardRef(function TextInput(
+  props: TextInputProps,
+  ref: any,
+) {
   const theme = useContext(ValenceContext);
+  const inputRef = ref ?? createRef<HTMLInputElement>();
 
 
   // Defaults
@@ -45,16 +45,12 @@ export function TextInput(props: TextInputProps) {
     setValue,
 
     icon,
-    placeholder = "",
     type = "text",
     autoComplete = "off",
 
-    pattern,
-    minLength,
-    maxLength,
-
     size = theme.defaultSize,
     radius = theme.defaultRadius,
+    variant = theme.defaultVariant,
     grow,
 
     loading,
@@ -62,18 +58,18 @@ export function TextInput(props: TextInputProps) {
     disabled,
     readOnly = loading,
     required,
-    multiple,
 
-    form,
-    name,
-    tabIndex,
+    color = "black",
+    backgroundColor = color,
+    padding,
+    margin,
+    width,
+    height,
 
     onEnterPress,
     onKeyPress,
 
-    color = "black",
-    backgroundColor = color,
-
+    inputStyle,
     style,
     ...rest
   } = props;
@@ -94,10 +90,10 @@ export function TextInput(props: TextInputProps) {
 
     fontSize: theme.sizeClasses.fontSize[size],
     fontFamily: theme.getFont("default"),
-    color: getTextColor(color, "light", theme),
+    color: getTextColor(color, variant, theme),
 
     "&::placeholder": {
-      color: `${theme.getColor(color)?.base}${theme.getColor(color)?.opacity.medium}`
+      color: `${getTextColor(color, variant, theme)}80`,
     },
 
     // Remove awful autofill color
@@ -105,6 +101,8 @@ export function TextInput(props: TextInputProps) {
     "&:-webkit-autofill:focus": { transition: `background-color 5000s ease-in-out 0s` },
     "&:-webkit-autofill:hover": { transition: `background-color 5000s ease-in-out 0s` },
     "&:-webkit-autofill:active": { transition: `background-color 5000s ease-in-out 0s` },
+
+    ...inputStyle
   });
 
 
@@ -125,6 +123,7 @@ export function TextInput(props: TextInputProps) {
 
       size={size}
       radius={radius}
+      variant={variant}
       grow={grow}
 
       disabled={disabled}
@@ -133,36 +132,31 @@ export function TextInput(props: TextInputProps) {
 
       color={color}
       backgroundColor={backgroundColor}
+      padding={padding}
+      margin={margin}
+      width={width}
+      height={height}
 
       style={style}
-      {...rest}
+      inputRef={inputRef}
     >
       <input
         css={InputStyle}
         value={value ?? ""}
         onChange={e => setValue(e.currentTarget.value)}
 
-        placeholder={placeholder}
         type={type}
         autoComplete={autoComplete}
-
-        pattern={pattern}
-        minLength={minLength}
-        maxLength={maxLength}
 
         autoFocus={autoFocus}
         disabled={disabled}
         readOnly={readOnly}
         required={required}
-        multiple={multiple}
-
-        form={form}
-        name={name}
-        tabIndex={tabIndex}
 
         onKeyDown={handleKeyDown}
+        ref={inputRef}
         {...rest}
       />
     </InputContainer>
   )
-}
+});

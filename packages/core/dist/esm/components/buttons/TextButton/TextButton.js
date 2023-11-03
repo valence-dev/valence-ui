@@ -10,14 +10,14 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import { jsx as _jsx } from "react/jsx-runtime";
-import { useContext } from "react";
+import { forwardRef, useContext } from "react";
 import { PrimitiveButton } from "../PrimitiveButton/PrimitiveButton";
 import { getTextColor } from "../Helpers";
 import { Text } from "../../display";
 import { ValenceContext } from "../../../ValenceProvider";
-export function Button(props) {
+export const Button = forwardRef(function Button(props, ref) {
     const theme = useContext(ValenceContext);
     // Defaults
     const { size = theme.defaultSize, variant = theme.defaultVariant, color = theme.primaryColor, textProps } = props, rest = __rest(props, ["size", "variant", "color", "textProps"]);
-    return (_jsx(PrimitiveButton, Object.assign({ size: size, variant: variant, color: color }, rest, { children: _jsx(Text, Object.assign({ size: size, color: getTextColor(color, variant, theme) }, textProps, { children: props.children })) })));
-}
+    return (_jsx(PrimitiveButton, Object.assign({ size: size, variant: variant, color: color, ref: ref }, rest, { children: _jsx(Text, Object.assign({ size: size, color: getTextColor(color, variant, theme) }, textProps, { children: props.children })) })));
+});

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { forwardRef, useContext } from "react";
 import { TextProps, Text } from "./Text";
 import { ValenceContext } from "../../..";
 
@@ -7,7 +7,10 @@ export type TitleProps = TextProps & {
   order?: 1 | 2 | 3 | 4 | 5 | 6;
 }
 
-export function Title(props: TitleProps) {
+export const Title = forwardRef(function Title(
+  props: TitleProps,
+  ref: any
+) {
   const theme = useContext(ValenceContext);
 
   const {
@@ -22,10 +25,12 @@ export function Title(props: TitleProps) {
     <Text
       component={component}
       family={family}
+
+      ref={ref}
       {...theme.titles[order]}
       {...rest}
     >
       {props.children}
     </Text>
   )
-}
+});

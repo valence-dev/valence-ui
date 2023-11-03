@@ -1,53 +1,52 @@
 /** @jsxImportSource @emotion/react */
 import { ValenceContext } from "../../../ValenceProvider";
-import { GenericInputEventHandlerProps, GenericInputProps } from "../InputContainer";
-import { CSSProperties, Dispatch, SetStateAction, useContext } from "react";
+import { CSSProperties, Dispatch, SetStateAction, createRef, forwardRef, useContext } from "react";
 import { getBackgroundColor, getTextColor } from "../../buttons";
 import { css } from "@emotion/react";
 import { Flex } from "../../layout";
 import { Loader } from "../../display";
+import { GenericTextInputEventProps, GenericTextInputProps } from "../../../generics";
 
 export type LineWrapBehaviour = "soft" | "hard" | "off";
 export type ResizeBehaviour = "none" | "both" | "horizontal" | "vertical";
 
-export type TextareaProps = GenericInputProps & GenericInputEventHandlerProps & {
-  /** The value of the input */
-  value: string;
-  /** Sets the value of the input */
-  setValue: Dispatch<SetStateAction<string>>;
+export type TextareaProps =
+  GenericTextInputProps
+  & GenericTextInputEventProps
+  & {
+    /** Whether the value of the input can be automatically completed by the browser/OS. Defaults to `false`. */
+    autoComplete?: boolean;
+    /** Whether the input is subject to spell checking by the browser/OS. Defaults to `true`. */
+    spellCheck?: boolean;
 
-  /** Whether the value of the input can be automatically completed by the browser/OS. Defaults to `false`. */
-  autoComplete?: boolean;
-  /** Whether the input is subject to spell checking by the browser/OS. Defaults to `true`. */
-  spellCheck?: boolean;
+    /** Specifies the visible width of the input. */
+    cols?: number;
+    /** Specifies the visible number of lines in the input. */
+    rows?: number;
+    /** Specifies how the text in the input is to be wrapped. */
+    wrap?: LineWrapBehaviour;
 
-  /** The minimum length of the input */
-  minLength?: number;
-  /** The maximum length of the input */
-  maxLength?: number;
-
-  /** Specifies the visible width of the input. */
-  cols?: number;
-  /** Specifies the visible number of lines in the input. */
-  rows?: number;
-  /** Specifies how the text in the input is to be wrapped. */
-  wrap?: LineWrapBehaviour;
-
-  /** Specifies how the input can be resized. Defaults to `"none"`. */
-  resize?: ResizeBehaviour;
-  /** The minimum height of the input */
-  minHeight?: CSSProperties["minHeight"];
-  /** The maximum height of the input */
-  maxHeight?: CSSProperties["maxHeight"];
-  /** The minimum width of the input */
-  minWidth?: CSSProperties["minWidth"];
-  /** The maximum width of the input */
-  maxWidth?: CSSProperties["maxWidth"];
-}
+    /** Specifies how the input can be resized. Defaults to `"none"`. */
+    resize?: ResizeBehaviour;
+    /** The minimum height of the input */
+    minHeight?: CSSProperties["minHeight"];
+    /** The maximum height of the input */
+    maxHeight?: CSSProperties["maxHeight"];
+    /** The minimum width of the input */
+    minWidth?: CSSProperties["minWidth"];
+    /** The maximum width of the input */
+    maxWidth?: CSSProperties["maxWidth"];
+    /** Shorthand for `flex-grow = 1` */
+    grow?: boolean;
+  }
 
 
-export function Textarea(props: TextareaProps) {
+export const Textarea = forwardRef(function Textarea(
+  props: TextareaProps,
+  ref: any
+) {
   const theme = useContext(ValenceContext);
+  const inputRef = ref ?? createRef<HTMLTextAreaElement>();
 
 
   // Defaults
@@ -55,18 +54,10 @@ export function Textarea(props: TextareaProps) {
     value,
     setValue,
 
-    icon,
     placeholder = "",
 
     autoComplete = false,
     spellCheck = true,
-
-    minLength,
-    maxLength,
-
-    cols,
-    rows,
-    wrap,
 
     resize = "none",
     minHeight,
@@ -76,33 +67,25 @@ export function Textarea(props: TextareaProps) {
 
     size = theme.defaultSize,
     radius = theme.defaultRadius,
+    variant = theme.defaultVariant,
     grow,
 
     loading,
-    autoFocus,
     disabled,
     readOnly = loading,
     required,
 
-    form,
-    name,
-    tabIndex,
-
+    color = "black",
+    backgroundColor = color,
     padding = theme.sizeClasses.padding[size],
     margin,
     width = "100%",
     height = "auto",
-    color = "black",
-    backgroundColor = color,
-    style,
 
-    onInvalid,
-    onSelect,
     onEnterPress,
     onKeyPress,
-    onFocus,
-    onBlur,
 
+    style,
     ...rest
   } = props;
 
@@ -126,8 +109,8 @@ export function Textarea(props: TextareaProps) {
     cursor: disabled ? "not-allowed" : "text",
 
     transition: `background-color ${theme.defaultTransitionDuration} linear 0s`,
-    backgroundColor: getBackgroundColor(backgroundColor, "light", false, theme),
-    color: getTextColor(color, "light", theme),
+    backgroundColor: getBackgroundColor(backgroundColor, variant, false, theme),
+    color: getTextColor(color, variant, theme),
 
     outline: "none",
     border: "none",
@@ -144,10 +127,10 @@ export function Textarea(props: TextareaProps) {
     maxWidth: maxWidth,
 
     "&:hover": {
-      backgroundColor: !disabled ? getBackgroundColor(backgroundColor, "light", true, theme) : undefined,
+      backgroundColor: !disabled ? getBackgroundColor(backgroundColor, variant, true, theme) : undefined,
     },
     "&:focus-within": {
-      outline: `1px solid ${getTextColor(color, "light", theme)}`,
+      outline: `1px solid ${getTextColor(color, variant, theme)}`,
     },
 
     ...style,
@@ -164,7 +147,7 @@ export function Textarea(props: TextareaProps) {
 
     overflowY: "auto",
     background: "none",
-    color: getTextColor(color, "light", theme),
+    color: getTextColor(color, variant, theme),
 
     fontSize: theme.sizeClasses.fontSize[size],
     fontFamily: theme.getFont("default"),
@@ -177,7 +160,7 @@ export function Textarea(props: TextareaProps) {
       borderRadius: 5,
     },
     "&::placeholder": {
-      color: `${theme.getColor(color)?.base}${theme.getColor(color)?.opacity.medium}`
+      color: `${getTextColor(color, variant, theme)}80`,
     },
 
     // Remove awful autofill color
@@ -207,7 +190,10 @@ export function Textarea(props: TextareaProps) {
 
 
   return (
-    <div css={ContainerStyle}>
+    <div
+      css={ContainerStyle}
+      onClick={() => inputRef.current?.focus()}
+    >
       {required && <div css={RequireIndicatorStyle} />}
 
       {loading ?
@@ -217,7 +203,7 @@ export function Textarea(props: TextareaProps) {
           width="100%"
         >
           <Loader
-            color={color}
+            color={variant === "filled" ? "white" : color}
             size={size}
           />
         </Flex>
@@ -233,27 +219,16 @@ export function Textarea(props: TextareaProps) {
           autoComplete={autoComplete ? "on" : "off"}
           spellCheck={spellCheck}
 
-          minLength={minLength}
-          maxLength={maxLength}
-
-          cols={cols}
-          rows={rows}
-          wrap={wrap}
-
-          autoFocus={autoFocus}
           disabled={disabled}
           readOnly={readOnly}
           required={required}
 
-          form={form}
-          name={name}
-          tabIndex={tabIndex}
-
           onKeyDown={handleKeyDown}
 
+          ref={inputRef}
           {...rest}
         />
       }
     </div>
   )
-}
+});

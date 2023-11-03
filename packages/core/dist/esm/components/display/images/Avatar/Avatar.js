@@ -10,19 +10,19 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import { jsx as _jsx } from "react/jsx-runtime";
-import { useContext } from "react";
+import { forwardRef, useContext } from "react";
 import { Image } from "../Image";
 import { ValenceContext } from "../../../../ValenceProvider";
 import { IconUserCircle } from "@tabler/icons-react";
 import { useDefaultIconProps } from "../../../../hooks";
 import { getBackgroundColor, getTextColor } from "../../../buttons";
 import { Flex } from "../../../layout";
-export function Avatar(props) {
+export const Avatar = forwardRef(function Avatar(props, ref) {
     const theme = useContext(ValenceContext);
     const defaultIconProps = useDefaultIconProps();
     // Defaults
     const { placeholderIcon, placeholderColor = theme.primaryColor, fillVariant = theme.defaultVariant, placeholder = _jsx(Flex, { align: "center", justify: "center", height: "100%", width: "100%", children: _jsx(IconUserCircle, Object.assign({}, defaultIconProps.get())) }), square = true, radius = "xl", style } = props, rest = __rest(props, ["placeholderIcon", "placeholderColor", "fillVariant", "placeholder", "square", "radius", "style"]);
     // Styles
     const imageStyle = Object.assign({ backgroundColor: getBackgroundColor(placeholderColor, fillVariant, false, theme), color: getTextColor(placeholderColor, fillVariant, theme) }, style);
-    return (_jsx(Image, Object.assign({ style: imageStyle, radius: radius, square: square, placeholder: placeholder }, rest)));
-}
+    return (_jsx(Image, Object.assign({ style: imageStyle, radius: radius, square: square, placeholder: placeholder, ref: ref }, rest)));
+});

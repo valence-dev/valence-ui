@@ -11,22 +11,32 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx, jsxs as _jsxs } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
-import { useContext } from "react";
+import { forwardRef, useContext } from "react";
 import { ValenceContext } from "../../..";
 import { getBackgroundColor, getTextColor } from "../../buttons";
 import { Loader } from "../../display";
 import { css } from "@emotion/react";
-export function InputContainer(props) {
+export const InputContainer = forwardRef(function InputContainer(props, ref) {
     const theme = useContext(ValenceContext);
     // Defaults
-    const { children, icon, size = theme.defaultSize, radius = theme.defaultRadius, grow, disabled = false, required = false, loading = false, color = "black", backgroundColor = color, style } = props, rest = __rest(props, ["children", "icon", "size", "radius", "grow", "disabled", "required", "loading", "color", "backgroundColor", "style"]);
+    const { icon, size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, grow, disabled = false, required = false, loading = false, color = "black", backgroundColor = color, inputRef, onClick, children, style } = props, rest = __rest(props, ["icon", "size", "radius", "variant", "grow", "disabled", "required", "loading", "color", "backgroundColor", "inputRef", "onClick", "children", "style"]);
+    // Functions
+    const handleClick = (e) => {
+        if (disabled) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        if (inputRef && inputRef.current)
+            inputRef.current.focus();
+        onClick === null || onClick === void 0 ? void 0 : onClick(e);
+    };
     // Styles
     const ContainerStyle = css(Object.assign({ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", boxSizing: "border-box", flexGrow: grow ? 1 : "unset", width: "100%", height: theme.sizeClasses.height[size], borderRadius: `${theme.sizeClasses.radius[radius]}px`, padding: `0px ${theme.sizeClasses.padding[size]}px`, paddingLeft: props.icon
             ? theme.sizeClasses.padding[size] / 2
-            : undefined, gap: theme.sizeClasses.padding[size] / 2, opacity: disabled ? 0.5 : 1, cursor: disabled ? "not-allowed" : "text", transition: `background-color ${theme.defaultTransitionDuration} linear 0s`, backgroundColor: getBackgroundColor(backgroundColor, "light", false, theme), color: getTextColor(color, "light", theme), outline: "none", border: "none", textDecoration: "none", "&:hover": {
-            backgroundColor: !disabled ? getBackgroundColor(backgroundColor, "light", true, theme) : undefined,
+            : undefined, gap: theme.sizeClasses.padding[size] / 2, opacity: disabled ? 0.5 : 1, cursor: disabled ? "not-allowed" : "text", transition: `background-color ${theme.defaultTransitionDuration} linear 0s`, backgroundColor: getBackgroundColor(backgroundColor, variant, false, theme), color: getTextColor(color, variant, theme), outline: "none", border: "none", textDecoration: "none", "&:hover": {
+            backgroundColor: !disabled ? getBackgroundColor(backgroundColor, variant, true, theme) : undefined,
         }, "&:focus-within": {
-            outline: `1px solid ${getTextColor(color, "light", theme)}`,
+            outline: `1px solid ${getTextColor(color, variant, theme)}`,
         } }, style));
     const IconStyle = css({
         height: "100%",
@@ -44,6 +54,8 @@ export function InputContainer(props) {
         backgroundColor: getTextColor(color === "black" ? "red" : color, "light", theme),
         cursor: disabled ? "not-allowed" : "text",
     });
-    return (_jsxs("div", Object.assign({ css: ContainerStyle }, rest, { children: [required && _jsx("div", { css: RequireIndicatorStyle }), (icon || loading) &&
-                _jsx("div", { css: IconStyle, children: loading ? _jsx(Loader, {}) : icon }), children] })));
-}
+    return (_jsxs("div", Object.assign({ css: ContainerStyle, ref: ref, onClick: (event) => handleClick(event) }, rest, { children: [required && _jsx("div", { css: RequireIndicatorStyle }), (icon || loading) &&
+                _jsx("div", { css: IconStyle, children: loading ?
+                        _jsx(Loader, { color: variant === "filled" ? "white" : color }) :
+                        icon }), children] })));
+});

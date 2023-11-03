@@ -10,12 +10,14 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import { jsx as _jsx } from "@emotion/react/jsx-runtime";
+/** @jsxImportSource @emotion/react */
+import { forwardRef } from "react";
 import { css } from "@emotion/react";
 /** A basic, unstyled layout assistant that creates blank space between any two objects. */
-export function Space(props) {
+export const Space = forwardRef(function Space(props, ref) {
     // Defaults
     const { height, width, grow, style } = props, rest = __rest(props, ["height", "width", "grow", "style"]);
     // Styles
     const SpaceStyle = css(Object.assign({ width: width, height: height, flexGrow: grow ? 1 : undefined }, style));
-    return (_jsx("span", Object.assign({ css: SpaceStyle }, rest)));
-}
+    return (_jsx("span", Object.assign({ css: SpaceStyle, ref: ref }, rest)));
+});

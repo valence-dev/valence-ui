@@ -1,38 +1,52 @@
 /** @jsxImportSource @emotion/react */
-import { Dispatch, SetStateAction, useContext } from "react";
-import { GenericInputEventHandlerProps, GenericInputProps, InputContainer } from "../InputContainer";
-import { ValenceContext, useDefaultIconProps } from "../../..";
+import { CSSProperties, Dispatch, ReactNode, SetStateAction, createRef, forwardRef, useContext } from "react";
+import { InputContainer } from "../InputContainer";
+import { GenericInputProps, GenericTextInputEventProps, ValenceContext, useDefaultIconProps } from "../../..";
 import { Flex } from "../../layout";
 import { IconButton, getTextColor } from "../../buttons";
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 import { css } from "@emotion/react";
 
-export type NumberInputProps = GenericInputProps & GenericInputEventHandlerProps & {
-  /** The value of this input */
-  value: number;
-  /** Sets the value of this input */
-  setValue: Dispatch<SetStateAction<number>>;
+export type NumberInputProps =
+  GenericInputProps<number>
+  & GenericTextInputEventProps
+  & {
+    /** An icon to display at the left side of this input */
+    icon?: ReactNode;
+    /** Text that appears in this input when it has no value */
+    placeholder?: string;
 
-  /** The minimum value of this input */
-  min?: number;
-  /** The maximum value of this input */
-  max?: number;
-  /** The step value of this input. Defaults to 1 */
-  step?: number;
+    /** The minimum value of this input */
+    min?: number;
+    /** The maximum value of this input */
+    max?: number;
+    /** The step value of this input. Defaults to 1 */
+    step?: number;
 
-  /** Whether the stepper controls are shown */
-  showControls?: boolean;
-  /** Sets custom icons for the stepper control buttons */
-  controlIcons?: {
-    up?: React.ReactNode;
-    down?: React.ReactNode;
+    /** Whether the stepper controls are shown */
+    showControls?: boolean;
+    /** Sets custom icons for the stepper control buttons */
+    controlIcons?: {
+      up?: React.ReactNode;
+      down?: React.ReactNode;
+    }
+
+    /** Shorthand for `flex-grow = 1` */
+    grow?: boolean;
+
+    /** Optional styles to apply to the input component */
+    inputStyle?: CSSProperties;
+    children?: never;
   }
-}
 
 
-export function NumberInput(props: NumberInputProps) {
+export const NumberInput = forwardRef(function NumberInput(
+  props: NumberInputProps,
+  ref: any
+) {
   const theme = useContext(ValenceContext);
   const defaultIconProps = useDefaultIconProps();
+  const inputRef = ref ?? createRef<HTMLInputElement>();
 
 
   // Defaults
@@ -41,7 +55,6 @@ export function NumberInput(props: NumberInputProps) {
     setValue,
 
     icon,
-    placeholder = "",
 
     min,
     max,
@@ -50,11 +63,11 @@ export function NumberInput(props: NumberInputProps) {
       up: <IconChevronUp {...defaultIconProps.get()} opacity={0.5} />,
       down: <IconChevronDown {...defaultIconProps.get()} opacity={0.5} />
     },
-
     showControls = true,
 
     size = theme.defaultSize,
     radius = theme.defaultRadius,
+    variant = theme.defaultVariant,
     grow,
 
     loading,
@@ -63,16 +76,17 @@ export function NumberInput(props: NumberInputProps) {
     readOnly = loading,
     required,
 
-    form,
-    name,
-    tabIndex,
-
     color = "black",
     backgroundColor = color,
-    
+    padding,
+    margin,
+    width,
+    height,
+
     onEnterPress,
     onKeyPress,
 
+    inputStyle,
     style,
     ...rest
   } = props;
@@ -93,10 +107,10 @@ export function NumberInput(props: NumberInputProps) {
 
     fontSize: theme.sizeClasses.fontSize[size],
     fontFamily: theme.getFont("default"),
-    color: getTextColor(color, "light", theme),
+    color: getTextColor(color, variant, theme),
 
     "&::placeholder": {
-      color: `${theme.getColor(color)?.base}${theme.getColor(color)?.opacity.medium}`
+      color: `${getTextColor(color, variant, theme)}80`,
     },
 
     // Remove awful autofill color
@@ -108,6 +122,8 @@ export function NumberInput(props: NumberInputProps) {
     // Remove default arrows
     "&::-webkit-outer-spin-button": { appearance: "none", margin: 0 },
     "&::-webkit-inner-spin-button": { appearance: "none", margin: 0 },
+
+    ...inputStyle
   });
 
 
@@ -128,22 +144,29 @@ export function NumberInput(props: NumberInputProps) {
 
       size={size}
       radius={radius}
+      variant={variant}
       grow={grow}
 
-      loading={loading}
       disabled={disabled}
+      required={required}
+      loading={loading}
+
       color={color}
       backgroundColor={backgroundColor}
+      padding={padding}
+      margin={margin}
+      width={width}
+      height={height}
 
-      {...rest}
+      style={style}
+      inputRef={inputRef}
     >
       <input
         css={InputStyle}
-        type="number"
         value={value}
         onChange={e => setValue(parseFloat(e.target.value))}
-
-        placeholder={placeholder}
+        
+        type="number"
         min={min}
         max={max}
         step={step}
@@ -153,11 +176,8 @@ export function NumberInput(props: NumberInputProps) {
         readOnly={readOnly}
         required={required}
 
-        form={form}
-        name={name}
-        tabIndex={tabIndex}
-
         onKeyDown={handleKeyDown}
+        ref={inputRef}
         {...rest}
       />
 
@@ -187,4 +207,4 @@ export function NumberInput(props: NumberInputProps) {
       }
     </InputContainer>
   )
-}
+});

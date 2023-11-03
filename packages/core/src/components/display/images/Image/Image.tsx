@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { CSSProperties, ReactNode, useContext } from "react";
+import { CSSProperties, ReactNode, forwardRef, useContext } from "react";
 import { ComponentSize, GenericReactiveProps, ReactiveProp, getReactiveProp } from "@valence-ui/utils";
 import { ValenceContext } from "../../../../ValenceProvider";
 import { useBreakpoint } from "../../../../hooks";
@@ -32,10 +32,15 @@ export type ImageProps = GenericImageProps & GenericReactiveProps & {
 
   /** **[REACTIVE]** Specifies if a shadow will be shown */
   shadow?: ReactiveProp<boolean>;
+
+  children?: never;
 }
 
 
-export function Image(props: ImageProps) {
+export const Image = forwardRef(function Image(
+  props: ImageProps,
+  ref: any
+) {
   const theme = useContext(ValenceContext);
   const breakpoint = useBreakpoint();
 
@@ -55,7 +60,7 @@ export function Image(props: ImageProps) {
     shadow = false,
 
     style,
-    id,
+    ...rest
   } = props;
 
 
@@ -86,13 +91,15 @@ export function Image(props: ImageProps) {
       {props.src ?
         <img
           css={ImageStyle}
-          id={id}
           src={src as string}
           alt={alt}
+
+          ref={ref}
+          {...rest}
         />
         :
         placeholder
       }
     </div>
   )
-}
+});

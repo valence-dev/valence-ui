@@ -1,4 +1,4 @@
-import { CSSProperties, useContext } from "react";
+import { CSSProperties, forwardRef, useContext } from "react";
 import { motion } from "framer-motion";
 import { ValenceContext } from "../../..";
 import { ComponentSize, GenericProps, SizeClasses } from "@valence-ui/utils";
@@ -18,20 +18,32 @@ const SIZES: SizeClasses<{ height: number, thickness: number }> = {
   xl: { height: 25, thickness: 3.5 },
 }
 
-export function Loader(props: LoaderProps) {
+export const Loader = forwardRef(function Loader(
+  props: LoaderProps,
+  ref: any
+) {
   const theme = useContext(ValenceContext);
 
-  const
-    size = props.size || theme.defaultSize;
 
+  // Defaults
+  const { 
+    size = theme.defaultSize,
+    color = theme.primaryColor,
+    style,
+    ...rest
+  } = props;
+
+
+  // Styles
   const loaderStyle: CSSProperties = {
     width: SIZES[size].height,
     height: SIZES[size].height,
     border: `${SIZES[size].thickness}px solid #11181C00`,
-    borderBottomColor: theme.getColor(props.color ? props.color : theme.primaryColor)?.base || props.color,
+    borderBottomColor: theme.getColorHex(color),
     borderRadius: "50%",
     display: "inline-block",
     boxSizing: "border-box",
+    ...style
   }
 
   return (
@@ -39,6 +51,8 @@ export function Loader(props: LoaderProps) {
       style={loaderStyle}
       animate={{ rotate: 360 }}
       transition={{ repeat: Infinity, type: "tween", duration: 0.8, ease: "linear" }}
+      ref={ref}
+      {...rest}
     />
   )
-}
+});

@@ -1,59 +1,47 @@
 /** @jsxImportSource @emotion/react */
-import { ComponentSize, GenericLayoutProps } from "@valence-ui/utils";
-import { Dispatch, SetStateAction, SyntheticEvent, useContext } from "react";
+import { FocusEvents } from "@valence-ui/utils";
+import { forwardRef, useContext } from "react";
 import { ValenceContext } from "../../../ValenceProvider";
 import { PrimitiveButton, PrimitiveButtonProps, getBackgroundColor } from "../../buttons";
 import { Loader, Text, TextProps } from "../../display";
 import { motion } from "framer-motion";
 import { Flex } from "../../layout";
 import { css } from "@emotion/react";
+import { GenericInputProps } from "../../../generics";
 
-export type SwitchProps = GenericLayoutProps & {
-  /** The value of the input */
-  checked: boolean;
-  /** Sets the value of the input */
-  setChecked: Dispatch<SetStateAction<boolean>>;
-  /** The label associated with this input */
-  label?: string;
+export type SwitchProps =
+  GenericInputProps<boolean>
+  & FocusEvents
+  & {
+    /** The label associated with this input */
+    label?: string;
 
-  /** Sets the size class. Defaults to theme default */
-  size?: ComponentSize;
-  /** Sets the radius size class. Defaults to `"xl"` */
-  radius?: ComponentSize;
-  /** Shorthand for `flex-grow = 1` */
-  grow?: boolean;
+    /** Shorthand for `flex-grow = 1` */
+    grow?: boolean;
 
-  /** Specifies if this input is disabled */
-  disabled?: boolean;
-  /** Specifies if this input is read only */
-  readOnly?: boolean;
-  /** If set, this input will be replaced with a loader */
-  loading?: boolean;
-
-  /** Called when this input is focused */
-  onFocus?: (e: SyntheticEvent<HTMLInputElement, Event>) => void;
-  /** Called when this input is blurred */
-  onBlur?: (e: SyntheticEvent<HTMLInputElement, Event>) => void;
-
-  /** Optional props to pass to the `Button` container component */
-  buttonProps: PrimitiveButtonProps;
-  /** Optional props to pass to the `Text` label component */
-  labelProps: TextProps;
-}
+    /** Optional props to pass to the `Button` container component */
+    buttonProps: PrimitiveButtonProps;
+    /** Optional props to pass to the `Text` label component */
+    labelProps: TextProps;
+  }
 
 
-export function Switch(props: SwitchProps) {
+export const Switch = forwardRef(function Switch(
+  props: SwitchProps,
+  ref: any,
+) {
   const theme = useContext(ValenceContext);
 
 
   // Defaults
   const {
-    checked = true,
-    setChecked,
+    value,
+    setValue,
     label,
 
     size = theme.defaultSize,
     radius = "xl",
+    variant = theme.defaultVariant,
     grow = false,
 
     disabled = false,
@@ -82,7 +70,7 @@ export function Switch(props: SwitchProps) {
   function handleClick() {
     if (disabled || readOnly || loading) return;
 
-    setChecked(!checked);
+    setValue(!value);
   }
 
 
@@ -104,17 +92,21 @@ export function Switch(props: SwitchProps) {
     cursor: disabled ? "not-allowed" : "pointer",
 
     transition: `background-color ${theme.defaultTransitionDuration} linear 0s`,
-    backgroundColor: checked ?
-      getBackgroundColor(backgroundColor, "filled", false, theme) :
-      getBackgroundColor("black", "light", false, theme),
+    backgroundColor: value ?
+      getBackgroundColor(backgroundColor, variant, false, theme) :
+      getBackgroundColor("black", variant, false, theme),
 
-    outline: "none",
+    outline: variant === "subtle" ?
+      value ?
+        `1px solid ${theme.getColorHex(backgroundColor, "medium")}` :
+        `1px solid ${theme.getColorHex("black", "medium")}`
+      : "none",
     border: "none",
 
     "&:hover": {
-      backgroundColor: checked ?
-        getBackgroundColor(backgroundColor, "filled", true, theme) :
-        getBackgroundColor("black", "light", true, theme),
+      backgroundColor: value ?
+        getBackgroundColor(backgroundColor, variant, true, theme) :
+        getBackgroundColor("black", variant, true, theme),
     },
 
     ...style
@@ -124,9 +116,9 @@ export function Switch(props: SwitchProps) {
     height: "100%",
 
     borderRadius: `${theme.sizeClasses.radius[radius]}px`,
-    backgroundColor: checked ?
-      getBackgroundColor("white", "filled", false, theme) :
-      getBackgroundColor("black", "filled", false, theme),
+    backgroundColor: value ?
+      getBackgroundColor(variant === "filled" ? "white" : color, "filled", false, theme) :
+      getBackgroundColor(variant === "filled" ? "white" : "black", "filled", false, theme),
 
     outline: "none",
     border: "none",
@@ -151,11 +143,16 @@ export function Switch(props: SwitchProps) {
         gap: theme.sizeClasses.padding[size] as number / 2,
       }}
 
+      onFocus={onFocus}
+      onBlur={onBlur}
+
+      ref={ref}
       {...buttonProps}
     >
       <Text
         size={size}
         {...labelProps}
+        tabIndex={-1}
       >
         {label}
       </Text>
@@ -174,18 +171,18 @@ export function Switch(props: SwitchProps) {
           >
             <Loader
               size={size}
-              color={checked ? "white" : "black"}
+              color={value ? "white" : "black"}
             />
           </Flex>
           :
           <motion.div
             css={HandleStyle}
-            initial={{ x: checked ? "0%" : "100%" }}
-            animate={{ x: checked ? "100%" : "0%" }}
+            initial={{ x: value ? "0%" : "100%" }}
+            animate={{ x: value ? "100%" : "0%" }}
             transition={{ ease: "backOut" }}
           />
         }
       </div>
     </PrimitiveButton>
   )
-}
+});

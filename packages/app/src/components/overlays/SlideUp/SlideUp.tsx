@@ -2,7 +2,7 @@
 import { css } from "@emotion/react";
 import { FlexProps, ValenceContext, useBreakpoint, ModalOverlayProps, ModalOverlay, Flex, useDetectKeyDown } from "@valence-ui/core";
 import { ComponentSize, GenericReactiveLayoutProps, ReactiveProp, getReactiveProp } from "@valence-ui/utils";
-import { useContext, CSSProperties } from "react";
+import { useContext, CSSProperties, forwardRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useLockedBody } from "usehooks-ts";
 
@@ -31,7 +31,10 @@ export type SlideUpProps = GenericReactiveLayoutProps & {
 }
 
 
-export function SlideUp(props: SlideUpProps) {
+export const SlideUp = forwardRef(function SlideUp(
+  props: SlideUpProps,
+  ref: any
+) {
   const theme = useContext(ValenceContext);
   const breakpoint = useBreakpoint();
 
@@ -86,6 +89,9 @@ export function SlideUp(props: SlideUpProps) {
     borderRadius: `${borderRadius}px ${borderRadius}px 0 0`,
     boxShadow: getReactiveProp(shadow, breakpoint) ? theme.defaultShadow : undefined,
 
+    overflowX: "hidden",
+    overflowY: "auto",
+
     zIndex: 999,
 
     ...getReactiveProp(style, breakpoint),
@@ -113,13 +119,15 @@ export function SlideUp(props: SlideUpProps) {
         >
           <motion.div
             css={ContainerStyles}
-            id={rest.id}
             onClick={e => e.stopPropagation()}
 
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
             transition={{ ease: "easeOut", duration: 0.1 }}
+
+            ref={ref}
+            {...rest}
           >
             <Flex
               direction="column"
@@ -128,8 +136,8 @@ export function SlideUp(props: SlideUpProps) {
               {children}
             </Flex>
           </motion.div>
-          </ModalOverlay>
+        </ModalOverlay>
       }
-        </AnimatePresence>
+    </AnimatePresence>
   )
-}
+});

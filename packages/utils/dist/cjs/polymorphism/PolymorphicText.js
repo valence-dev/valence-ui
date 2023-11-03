@@ -15,7 +15,7 @@ exports.PolymorphicText = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
 const react_router_dom_1 = require("react-router-dom");
-exports.PolymorphicText = (0, react_1.forwardRef)((props, ref) => {
+exports.PolymorphicText = (0, react_1.forwardRef)(function Input(props, ref) {
     const { component = "p", children } = props, rest = __rest(props, ["component", "children"]);
     let Component = component;
     if (component === "link")

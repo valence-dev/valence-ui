@@ -14,10 +14,10 @@ import { jsx as _jsx } from "@emotion/react/jsx-runtime";
 import { css } from "@emotion/react";
 import { ValenceContext, useBreakpoint, ModalOverlay, Flex, useDetectKeyDown } from "@valence-ui/core";
 import { getReactiveProp } from "@valence-ui/utils";
-import { useContext } from "react";
+import { useContext, forwardRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useLockedBody } from "usehooks-ts";
-export function SlideUp(props) {
+export const SlideUp = forwardRef(function SlideUp(props, ref) {
     var _a, _b;
     const theme = useContext(ValenceContext);
     const breakpoint = useBreakpoint();
@@ -25,7 +25,7 @@ export function SlideUp(props) {
     const { opened, close, closeOnOverlayClick = true, closeOnEscape = true, lockScroll = false, radius = "lg", shadow = true, backgroundColor = (_a = theme.getColor("white")) === null || _a === void 0 ? void 0 : _a.base, color = (_b = theme.getColor("black")) === null || _b === void 0 ? void 0 : _b.base, padding = theme.sizeClasses.padding[theme.defaultSize], margin = 0, width, height = "50vh", overlayProps, flexProps, style, children } = props, rest = __rest(props, ["opened", "close", "closeOnOverlayClick", "closeOnEscape", "lockScroll", "radius", "shadow", "backgroundColor", "color", "padding", "margin", "width", "height", "overlayProps", "flexProps", "style", "children"]);
     // Styles
     const borderRadius = theme.sizeClasses.radius[getReactiveProp(radius, breakpoint)];
-    const ContainerStyles = css(Object.assign({ position: "fixed", bottom: 0, left: 0, right: 0, width: getReactiveProp(width, breakpoint), height: getReactiveProp(height, breakpoint), backgroundColor: getReactiveProp(backgroundColor, breakpoint), color: getReactiveProp(color, breakpoint), padding: getReactiveProp(padding, breakpoint), margin: getReactiveProp(margin, breakpoint), borderRadius: `${borderRadius}px ${borderRadius}px 0 0`, boxShadow: getReactiveProp(shadow, breakpoint) ? theme.defaultShadow : undefined, zIndex: 999 }, getReactiveProp(style, breakpoint)));
+    const ContainerStyles = css(Object.assign({ position: "fixed", bottom: 0, left: 0, right: 0, width: getReactiveProp(width, breakpoint), height: getReactiveProp(height, breakpoint), backgroundColor: getReactiveProp(backgroundColor, breakpoint), color: getReactiveProp(color, breakpoint), padding: getReactiveProp(padding, breakpoint), margin: getReactiveProp(margin, breakpoint), borderRadius: `${borderRadius}px ${borderRadius}px 0 0`, boxShadow: getReactiveProp(shadow, breakpoint) ? theme.defaultShadow : undefined, overflowX: "hidden", overflowY: "auto", zIndex: 999 }, getReactiveProp(style, breakpoint)));
     const OverlayStyle = {
         padding: 0,
         alignItems: "flex-end",
@@ -34,5 +34,5 @@ export function SlideUp(props) {
     useLockedBody(opened && lockScroll, "root");
     useDetectKeyDown(close, "Escape", closeOnEscape, [closeOnEscape, close]);
     return (_jsx(AnimatePresence, { children: opened &&
-            _jsx(ModalOverlay, Object.assign({ blurBackground: false, opened: opened, close: close, closeOnClick: closeOnOverlayClick, style: OverlayStyle }, overlayProps, { children: _jsx(motion.div, { css: ContainerStyles, id: rest.id, onClick: e => e.stopPropagation(), initial: { y: "100%" }, animate: { y: 0 }, exit: { y: "100%" }, transition: { ease: "easeOut", duration: 0.1 }, children: _jsx(Flex, Object.assign({ direction: "column" }, flexProps, { children: children })) }) })) }));
-}
+            _jsx(ModalOverlay, Object.assign({ blurBackground: false, opened: opened, close: close, closeOnClick: closeOnOverlayClick, style: OverlayStyle }, overlayProps, { children: _jsx(motion.div, Object.assign({ css: ContainerStyles, onClick: e => e.stopPropagation(), initial: { y: "100%" }, animate: { y: 0 }, exit: { y: "100%" }, transition: { ease: "easeOut", duration: 0.1 }, ref: ref }, rest, { children: _jsx(Flex, Object.assign({ direction: "column" }, flexProps, { children: children })) })) })) }));
+});

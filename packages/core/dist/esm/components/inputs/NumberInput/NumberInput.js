@@ -11,48 +11,30 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx, jsxs as _jsxs } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
-import { useContext } from "react";
+import { createRef, forwardRef, useContext } from "react";
 import { InputContainer } from "../InputContainer";
 import { ValenceContext, useDefaultIconProps } from "../../..";
 import { Flex } from "../../layout";
 import { IconButton, getTextColor } from "../../buttons";
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 import { css } from "@emotion/react";
-export function NumberInput(props) {
-    var _a, _b;
+export const NumberInput = forwardRef(function NumberInput(props, ref) {
     const theme = useContext(ValenceContext);
     const defaultIconProps = useDefaultIconProps();
+    const inputRef = ref !== null && ref !== void 0 ? ref : createRef();
     // Defaults
-    const { value, setValue, icon, placeholder = "", min, max, step = 1, controlIcons = {
+    const { value, setValue, icon, min, max, step = 1, controlIcons = {
         up: _jsx(IconChevronUp, Object.assign({}, defaultIconProps.get(), { opacity: 0.5 })),
         down: _jsx(IconChevronDown, Object.assign({}, defaultIconProps.get(), { opacity: 0.5 }))
-    }, showControls = true, size = theme.defaultSize, radius = theme.defaultRadius, grow, loading, autoFocus, disabled, readOnly = loading, required, form, name, tabIndex, color = "black", backgroundColor = color, onEnterPress, onKeyPress, style } = props, rest = __rest(props, ["value", "setValue", "icon", "placeholder", "min", "max", "step", "controlIcons", "showControls", "size", "radius", "grow", "loading", "autoFocus", "disabled", "readOnly", "required", "form", "name", "tabIndex", "color", "backgroundColor", "onEnterPress", "onKeyPress", "style"]);
+    }, showControls = true, size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, grow, loading, autoFocus, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding, margin, width, height, onEnterPress, onKeyPress, inputStyle, style } = props, rest = __rest(props, ["value", "setValue", "icon", "min", "max", "step", "controlIcons", "showControls", "size", "radius", "variant", "grow", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "onEnterPress", "onKeyPress", "inputStyle", "style"]);
     // Styles
-    const InputStyle = css({
-        border: "none",
-        outline: "none",
-        background: "none",
-        flexGrow: 1,
-        width: "100%",
-        height: "100%",
-        margin: 0,
-        padding: 0,
-        cursor: disabled ? "not-allowed" : "text",
-        fontSize: theme.sizeClasses.fontSize[size],
-        fontFamily: theme.getFont("default"),
-        color: getTextColor(color, "light", theme),
-        "&::placeholder": {
-            color: `${(_a = theme.getColor(color)) === null || _a === void 0 ? void 0 : _a.base}${(_b = theme.getColor(color)) === null || _b === void 0 ? void 0 : _b.opacity.medium}`
-        },
+    const InputStyle = css(Object.assign({ border: "none", outline: "none", background: "none", flexGrow: 1, width: "100%", height: "100%", margin: 0, padding: 0, cursor: disabled ? "not-allowed" : "text", fontSize: theme.sizeClasses.fontSize[size], fontFamily: theme.getFont("default"), color: getTextColor(color, variant, theme), "&::placeholder": {
+            color: `${getTextColor(color, variant, theme)}80`,
+        }, 
         // Remove awful autofill color
-        "&:-webkit-autofill": { transition: `background-color 5000s ease-in-out 0s` },
-        "&:-webkit-autofill:focus": { transition: `background-color 5000s ease-in-out 0s` },
-        "&:-webkit-autofill:hover": { transition: `background-color 5000s ease-in-out 0s` },
-        "&:-webkit-autofill:active": { transition: `background-color 5000s ease-in-out 0s` },
+        "&:-webkit-autofill": { transition: `background-color 5000s ease-in-out 0s` }, "&:-webkit-autofill:focus": { transition: `background-color 5000s ease-in-out 0s` }, "&:-webkit-autofill:hover": { transition: `background-color 5000s ease-in-out 0s` }, "&:-webkit-autofill:active": { transition: `background-color 5000s ease-in-out 0s` }, 
         // Remove default arrows
-        "&::-webkit-outer-spin-button": { appearance: "none", margin: 0 },
-        "&::-webkit-inner-spin-button": { appearance: "none", margin: 0 },
-    });
+        "&::-webkit-outer-spin-button": { appearance: "none", margin: 0 }, "&::-webkit-inner-spin-button": { appearance: "none", margin: 0 } }, inputStyle));
     // Functions
     const handleKeyDown = (e) => {
         // Blur on "Escape" key
@@ -64,6 +46,6 @@ export function NumberInput(props) {
         // Call onKeyPress on any key
         onKeyPress === null || onKeyPress === void 0 ? void 0 : onKeyPress(e);
     };
-    return (_jsxs(InputContainer, Object.assign({ icon: icon, size: size, radius: radius, grow: grow, loading: loading, disabled: disabled, color: color, backgroundColor: backgroundColor }, rest, { children: [_jsx("input", Object.assign({ css: InputStyle, type: "number", value: value, onChange: e => setValue(parseFloat(e.target.value)), placeholder: placeholder, min: min, max: max, step: step, autoFocus: autoFocus, disabled: disabled, readOnly: readOnly, required: required, form: form, name: name, tabIndex: tabIndex, onKeyDown: handleKeyDown }, rest)), showControls &&
-                _jsxs(Flex, { gap: 0, children: [_jsx(IconButton, { color: color, variant: "subtle", size: size, radius: radius, onClick: () => setValue(value - step), disabled: disabled || readOnly, children: controlIcons.down }), _jsx(IconButton, { color: color, variant: "subtle", size: size, radius: radius, onClick: () => setValue(value + step), disabled: disabled || readOnly, children: controlIcons.up })] })] })));
-}
+    return (_jsxs(InputContainer, { icon: icon, size: size, radius: radius, variant: variant, grow: grow, disabled: disabled, required: required, loading: loading, color: color, backgroundColor: backgroundColor, padding: padding, margin: margin, width: width, height: height, style: style, inputRef: inputRef, children: [_jsx("input", Object.assign({ css: InputStyle, value: value, onChange: e => setValue(parseFloat(e.target.value)), type: "number", min: min, max: max, step: step, autoFocus: autoFocus, disabled: disabled, readOnly: readOnly, required: required, onKeyDown: handleKeyDown, ref: inputRef }, rest)), showControls &&
+                _jsxs(Flex, { gap: 0, children: [_jsx(IconButton, { color: color, variant: "subtle", size: size, radius: radius, onClick: () => setValue(value - step), disabled: disabled || readOnly, children: controlIcons.down }), _jsx(IconButton, { color: color, variant: "subtle", size: size, radius: radius, onClick: () => setValue(value + step), disabled: disabled || readOnly, children: controlIcons.up })] })] }));
+});

@@ -16,7 +16,7 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
 const framer_motion_1 = require("framer-motion");
 const react_router_dom_1 = require("react-router-dom");
-exports.PolymorphicButton = (0, framer_motion_1.motion)((0, react_1.forwardRef)((props, ref) => {
+exports.PolymorphicButton = (0, framer_motion_1.motion)((0, react_1.forwardRef)(function Input(props, ref) {
     const { component = "button", children } = props, rest = __rest(props, ["component", "children"]);
     let Component = component;
     if (component === "link")

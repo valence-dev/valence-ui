@@ -40,13 +40,13 @@ const REGEX_PATTERNS = {
  * - `*{...}*` for italicized text
  * - `{...}` for monospace text
  */
-function Text(props) {
+exports.Text = (0, react_1.forwardRef)(function Text(props, ref) {
     var _a, _b;
     const theme = (0, react_1.useContext)(ValenceProvider_1.ValenceContext);
     // Defaults
-    const { bold = false, italic = false, monospace = false, family = monospace ? theme.getFont("monospace") : theme.getFont("default"), weight = bold ? "bold" : "normal", align = "left", transform = "none", size = theme.defaultSize, fontSize = theme.sizeClasses.fontSize[size], color = (_b = (_a = theme.getColor("black")) === null || _a === void 0 ? void 0 : _a.base) !== null && _b !== void 0 ? _b : "black" } = props, rest = __rest(props, ["bold", "italic", "monospace", "family", "weight", "align", "transform", "size", "fontSize", "color"]);
+    const { bold = false, italic = false, monospace = false, family = monospace ? theme.getFont("monospace") : theme.getFont("default"), weight = bold ? "bold" : "normal", align = "left", transform = "none", size = theme.defaultSize, fontSize = theme.sizeClasses.fontSize[size], color = (_b = (_a = theme.getColor("black")) === null || _a === void 0 ? void 0 : _a.base) !== null && _b !== void 0 ? _b : "black", children, style } = props, rest = __rest(props, ["bold", "italic", "monospace", "family", "weight", "align", "transform", "size", "fontSize", "color", "children", "style"]);
     // Run through formatters
-    let replacements = props.children;
+    let replacements = children;
     replacements = (0, react_string_replace_1.default)(replacements, REGEX_PATTERNS.newline, (match, i) => ((0, jsx_runtime_1.jsx)("br", {}, match + i)));
     replacements = (0, react_string_replace_1.default)(replacements, REGEX_PATTERNS.boldItalic, (match, i) => ((0, jsx_runtime_1.jsx)("b", { style: {
             fontWeight: 800,
@@ -62,16 +62,6 @@ function Text(props) {
             fontFamily: theme.getFont("monospace"),
         }, children: match }, match + i)));
     // Styles
-    const TextStyle = (0, react_2.css)({
-        fontFamily: family,
-        fontWeight: weight,
-        fontStyle: italic ? "italic" : "normal",
-        fontSize: fontSize,
-        textTransform: transform,
-        textAlign: align,
-        color: color,
-        margin: 0,
-    });
-    return ((0, jsx_runtime_1.jsx)(utils_1.PolymorphicText, Object.assign({ css: TextStyle }, rest, { children: replacements })));
-}
-exports.Text = Text;
+    const TextStyle = (0, react_2.css)(Object.assign({ fontFamily: family, fontWeight: weight, fontStyle: italic ? "italic" : "normal", fontSize: fontSize, textTransform: transform, textAlign: align, color: color, margin: 0 }, style));
+    return ((0, jsx_runtime_1.jsx)(utils_1.PolymorphicText, Object.assign({ css: TextStyle, ref: ref }, rest, { children: replacements })));
+});

@@ -14,8 +14,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PolymorphicLayout = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
-exports.PolymorphicLayout = (0, react_1.forwardRef)((props, ref) => {
+const react_router_dom_1 = require("react-router-dom");
+exports.PolymorphicLayout = (0, react_1.forwardRef)(function Input(props, ref) {
     const { component = "div", children } = props, rest = __rest(props, ["component", "children"]);
     let Component = component;
+    if (component === "link")
+        Component = react_router_dom_1.Link;
     return ((0, jsx_runtime_1.jsx)(Component, Object.assign({ ref: ref }, rest, { children: children })));
 });

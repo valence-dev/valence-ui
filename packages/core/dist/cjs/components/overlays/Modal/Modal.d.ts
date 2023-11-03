@@ -1,7 +1,9 @@
+/// <reference types="react" />
 import { FlexProps } from "../../layout";
 import { ModalOverlayProps } from "../ModalOverlay";
-import { ComponentSize, GenericLayoutProps } from "@valence-ui/utils";
-export type ModalProps = GenericLayoutProps & {
+import { ComponentSize, GenericLayoutProps, PolymorphicLayoutProps } from "@valence-ui/utils";
+import { IconButtonProps } from "../../buttons";
+export type ModalProps = GenericLayoutProps & PolymorphicLayoutProps & {
     /** The title of this modal */
     title: string;
     /** Specifies if this modal is opened */
@@ -18,10 +20,44 @@ export type ModalProps = GenericLayoutProps & {
     withShadow?: boolean;
     /** Sets the `border-radius` css property */
     radius?: ComponentSize;
-    /** Props to pass to the overlay component */
+    /** Optional props to pass to the overlay component */
     overlayProps?: ModalOverlayProps;
-    /** Props to apply to the flex component */
+    /** Optional props to pass to the flex component */
     flexProps?: FlexProps;
+    /** Optional props to pass to the close button */
+    closeButtonProps?: IconButtonProps;
 };
-export declare function Modal(props: ModalProps): import("@emotion/react/jsx-runtime").JSX.Element;
+export declare const Modal: import("react").ForwardRefExoticComponent<import("@valence-ui/utils").GenericProps & {
+    color?: import("csstype").Property.Color | undefined;
+    backgroundColor?: import("csstype").Property.BackgroundColor | undefined;
+    padding?: import("csstype").Property.Padding<string | number> | undefined;
+    margin?: import("csstype").Property.Margin<string | number> | undefined;
+    width?: import("csstype").Property.Width<string | number> | undefined;
+    height?: import("csstype").Property.Height<string | number> | undefined;
+} & import("@valence-ui/utils").PolymorphicElementProps & {
+    css?: any;
+} & {
+    /** The title of this modal */
+    title: string;
+    /** Specifies if this modal is opened */
+    opened: boolean;
+    /** Function to call when this modal is closed */
+    close: () => void;
+    /** Whether to close this modal when the overlay is clicked */
+    closeOnOverlayClick?: boolean | undefined;
+    /** Whether to close this modal when the escape key is pressed */
+    closeOnEscape?: boolean | undefined;
+    /** Whether to lock scrolling when this modal is open */
+    lockScroll?: boolean | undefined;
+    /** Whether to include a shadow underneath the modal */
+    withShadow?: boolean | undefined;
+    /** Sets the `border-radius` css property */
+    radius?: ComponentSize | undefined;
+    /** Optional props to pass to the overlay component */
+    overlayProps?: ModalOverlayProps | undefined;
+    /** Optional props to pass to the flex component */
+    flexProps?: FlexProps | undefined;
+    /** Optional props to pass to the close button */
+    closeButtonProps?: import("../../..").PrimitiveButtonProps | undefined;
+} & import("react").RefAttributes<unknown>>;
 //# sourceMappingURL=Modal.d.ts.map

@@ -1,6 +1,6 @@
-import { CSSProperties, useContext } from "react";
+import { CSSProperties, forwardRef, useContext } from "react";
 import { ButtonWithIcon, ButtonWithIconProps, Flex, IconButton, ValenceContext, useBreakpoint } from "@valence-ui/core";
-import { GenericReactiveLayoutProps, ReactiveProp, getReactiveProp } from "@valence-ui/utils";
+import { GenericReactiveLayoutProps, PolymorphicLayoutProps, ReactiveProp, getReactiveProp } from "@valence-ui/utils";
 
 export type JumpSidebarButtonProps = ButtonWithIconProps & {
   /** Specifies if this button is highlighted */
@@ -9,19 +9,25 @@ export type JumpSidebarButtonProps = ButtonWithIconProps & {
   jumpTo?: string;
 }
 
-export type JumpSidebarProps = GenericReactiveLayoutProps & {
-  /** Buttons to display on the sidebar */
-  buttons: JumpSidebarButtonProps[];
-  /** An optional function to facilitate scrolling to a desired section of the page */
-  jumpToSection?: (section: string) => void;
+export type JumpSidebarProps =
+  GenericReactiveLayoutProps
+  & PolymorphicLayoutProps
+  & {
+    /** Buttons to display on the sidebar */
+    buttons: JumpSidebarButtonProps[];
+    /** An optional function to facilitate scrolling to a desired section of the page */
+    jumpToSection?: (section: string) => void;
 
-  /** Sets `gap` css property */
-  gap?: ReactiveProp<CSSProperties["gap"]>;
-}
+    /** Sets `gap` css property */
+    gap?: ReactiveProp<CSSProperties["gap"]>;
+  }
 
 
 /** The App Sidebar is a page used for navigation and high-level actions within the context of an individual page. This particular sidebar is designed for navigation, and will automatically adapt between desktop and mobile-class devices.  */
-export function JumpSidebar(props: JumpSidebarProps) {
+export const JumpSidebar = forwardRef(function JumpSidebar(
+  props: JumpSidebarProps,
+  ref: any
+) {
   const theme = useContext(ValenceContext);
   const breakpoint = useBreakpoint();
 
@@ -49,6 +55,9 @@ export function JumpSidebar(props: JumpSidebarProps) {
       paddingRight: 10,
       position: "sticky",
       top: 0,
+
+      overflowX: "hidden",
+      overflowY: "auto",
 
       ...getReactiveProp(style, breakpoint)
     },
@@ -105,4 +114,4 @@ export function JumpSidebar(props: JumpSidebarProps) {
       )}
     </Flex>
   )
-}
+});

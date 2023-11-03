@@ -20,6 +20,6 @@ export function ButtonWithIcon(props) {
     // Defaults
     const { icon, iconPosition = "left", size = theme.defaultSize, variant = theme.defaultVariant, color = theme.primaryColor, style, textProps } = props, rest = __rest(props, ["icon", "iconPosition", "size", "variant", "color", "style", "textProps"]);
     // Styles
-    const styles = Object.assign({ flexDirection: iconPosition === "left" ? "row" : "row-reverse", justifyContent: "flex-start", paddingLeft: iconPosition === "left" ? 6 : undefined, paddingRight: iconPosition === "right" ? 6 : undefined, gap: 8 }, style);
+    const styles = Object.assign({ flexDirection: iconPosition === "left" ? "row" : "row-reverse", justifyContent: "flex-start", paddingLeft: iconPosition === "left" ? 10 : undefined, paddingRight: iconPosition === "right" ? 10 : undefined, gap: 8 }, style);
     return (_jsxs(PrimitiveButton, Object.assign({ size: size, variant: variant, color: color, style: styles }, rest, { children: [icon, _jsx(Text, Object.assign({ size: size, color: getTextColor(color, variant, theme) }, textProps, { children: props.children }))] })));
 }

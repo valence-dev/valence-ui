@@ -1,72 +1,26 @@
 /** @jsxImportSource @emotion/react */
-import React, { useContext } from "react";
+import { forwardRef, useContext } from "react";
 import { useReducedMotion } from "framer-motion";
 import { MotionBehaviourProps, getBackgroundColor, getMotionBehaviour, getTextColor } from "../Helpers";
 import { Loader } from "../../display/Loader";
-import { ComponentSize, FillVariant, GenericLayoutProps, PolymorphicButton, PolymorphicButtonComponents } from "@valence-ui/utils";
+import { PolymorphicButton } from "@valence-ui/utils";
 import { ValenceContext } from "../../../ValenceProvider";
 import { css } from "@emotion/react";
+import { GenericButtonProps } from "../../../generics";
 
-export type GenericClickableProps = {
-  /** Sets `to` property on `Link` polymorphic elements */
-  to?: string;
-  /** Sets html `href` property on valid elements */
-  href?: string;
-  /** Sets html `target` property on valid elements */
-  target?: string;
-  /** Sets html `type` property on valid elements */
-  type?: "submit" | "reset" | "button";
-
-  /** Sets `onClick` event */
-  onClick?: (event: any) => void;
-  /** Sets `onMouseEnter` event */
-  onMouseEnter?: (event: any) => void;
-  /** Sets `onMouseLeave` event */
-  onMouseLeave?: (event: any) => void;
-  /** Sets `onMouseDown` event */
-  onMouseDown?: (event: any) => void;
-  /** Sets `onMouseUp` event */
-  onMouseUp?: (event: any) => void;
-  /** Sets `onFocus` event */
-  onFocus?: (event: any) => void;
-  /** Sets `onBlur` event */
-  onBlur?: (event: any) => void;
-}
-
-
-export type PrimitiveButtonProps = GenericClickableProps
-  & GenericLayoutProps
+export type PrimitiveButtonProps =
+  GenericButtonProps
   & {
-    /** Sets styling variant. Defaults to theme default */
-    variant?: FillVariant;
-    /** Sets size class. Defaults to theme default */
-    size?: ComponentSize;
-    /** Sets radius size class. Defaults to theme default */
-    radius?: ComponentSize;
-
-    /** Sets `aspect-ratio` css property */
-    aspectRatio?: React.CSSProperties["aspectRatio"];
-    /** Shorthand for `aspect-ratio = 1` */
-    square?: boolean;
-    /** Specifies if a shadow will be shown */
-    shadow?: boolean;
-    /** Shorthand for `flex-grow = 1` */
-    grow?: boolean;
-
-    /** Specifies if this button is disabled */
-    disabled?: boolean;
-    /** If set, this button will be disabled and its contents replaced with a loader */
-    loading?: boolean;
-
     /** Defines motion behavior for this button. This will automatically be overridden if the user has reduced motion enabled on their device. */
     motion?: MotionBehaviourProps;
-
-    /** An optional addition to allow components to become polymorphic */
-    component?: PolymorphicButtonComponents;
   }
 
 
-export function PrimitiveButton(props: PrimitiveButtonProps) {
+export const PrimitiveButton = forwardRef(function PrimitiveButton(
+  props: PrimitiveButtonProps,
+  ref: any
+) {
+
   const theme = useContext(ValenceContext);
 
   // Hooks & states
@@ -80,7 +34,6 @@ export function PrimitiveButton(props: PrimitiveButtonProps) {
     radius = theme.defaultRadius,
 
     square = false,
-    aspectRatio = square ? "1 / 1" : undefined,
     shadow = false,
     grow = false,
 
@@ -89,14 +42,12 @@ export function PrimitiveButton(props: PrimitiveButtonProps) {
 
     motion = { onHover: variant === "filled" ? "raise" : undefined, onTap: "bounce" },
 
-    height = `${theme.sizeClasses.height[size]}px`,
-    width = square ? height : "fit-content",
-    padding = square ? 0 : `0px ${theme.sizeClasses.padding[size]}px`,
-    margin = "0px",
     color = theme.primaryColor,
     backgroundColor = color,
-    
-    component,
+    padding = square ? 0 : `0px ${theme.sizeClasses.padding[size]}px`,
+    margin = 0,
+    height = `${theme.sizeClasses.height[size]}px`,
+    width = square ? height : "fit-content",
 
     style,
     children,
@@ -119,7 +70,7 @@ export function PrimitiveButton(props: PrimitiveButtonProps) {
 
     padding: padding,
     margin: margin,
-    aspectRatio: aspectRatio,
+    aspectRatio: square ? 1 : undefined,
 
     borderRadius: theme.sizeClasses.radius[radius],
     opacity: disabled ? 0.5 : 1,
@@ -147,15 +98,16 @@ export function PrimitiveButton(props: PrimitiveButtonProps) {
     ...style
   });
 
-  
+
   return (
     <PolymorphicButton
       css={ButtonStyle}
-      component={component}
+      onMouseDown={(event: any) => event.preventDefault()}
+
       whileHover={motionBehaviour.whileHover}
       whileTap={motionBehaviour.whileTap}
 
-      onMouseDown={(event: any) => event.preventDefault()}
+      ref={ref}
       {...rest}
     >
       {loading ? <Loader color={getTextColor(color, variant, theme)} /> :
@@ -163,4 +115,4 @@ export function PrimitiveButton(props: PrimitiveButtonProps) {
       }
     </PolymorphicButton>
   )
-}
+});

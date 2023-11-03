@@ -29,5 +29,5 @@ export const TextInput: Story = (args: any) => {
 }
 TextInput.args = {
   placeholder: "Placeholder...",
-  icon: <IconSearch />
+  icon: <IconSearch />,
 }

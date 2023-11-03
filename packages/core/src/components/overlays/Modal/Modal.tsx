@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { useContext } from "react";
+import { forwardRef, useContext } from "react";
 import { ValenceContext, useDefaultIconProps, useDetectKeyDown } from "../../..";
 import { Flex, FlexProps } from "../../layout";
 import { ModalOverlay, ModalOverlayProps } from "../ModalOverlay";
@@ -7,39 +7,47 @@ import { useLockedBody } from "usehooks-ts";
 import { AnimatePresence, motion } from "framer-motion";
 import { Text } from "../../display";
 import { IconX } from "@tabler/icons-react";
-import { ComponentSize, GenericLayoutProps } from "@valence-ui/utils";
-import { IconButton } from "../../buttons";
+import { ComponentSize, GenericLayoutProps, PolymorphicLayoutProps } from "@valence-ui/utils";
+import { IconButton, IconButtonProps } from "../../buttons";
 import { css } from "@emotion/react";
 
-export type ModalProps = GenericLayoutProps & {
-  /** The title of this modal */
-  title: string;
+export type ModalProps =
+  GenericLayoutProps
+  & PolymorphicLayoutProps
+  & {
+    /** The title of this modal */
+    title: string;
 
-  /** Specifies if this modal is opened */
-  opened: boolean;
-  /** Function to call when this modal is closed */
-  close: () => void;
+    /** Specifies if this modal is opened */
+    opened: boolean;
+    /** Function to call when this modal is closed */
+    close: () => void;
 
-  /** Whether to close this modal when the overlay is clicked */
-  closeOnOverlayClick?: boolean;
-  /** Whether to close this modal when the escape key is pressed */
-  closeOnEscape?: boolean;
-  /** Whether to lock scrolling when this modal is open */
-  lockScroll?: boolean;
+    /** Whether to close this modal when the overlay is clicked */
+    closeOnOverlayClick?: boolean;
+    /** Whether to close this modal when the escape key is pressed */
+    closeOnEscape?: boolean;
+    /** Whether to lock scrolling when this modal is open */
+    lockScroll?: boolean;
 
-  /** Whether to include a shadow underneath the modal */
-  withShadow?: boolean;
-  /** Sets the `border-radius` css property */
-  radius?: ComponentSize;
+    /** Whether to include a shadow underneath the modal */
+    withShadow?: boolean;
+    /** Sets the `border-radius` css property */
+    radius?: ComponentSize;
 
-  /** Props to pass to the overlay component */
-  overlayProps?: ModalOverlayProps;
-  /** Props to apply to the flex component */
-  flexProps?: FlexProps;
-}
+    /** Optional props to pass to the overlay component */
+    overlayProps?: ModalOverlayProps;
+    /** Optional props to pass to the flex component */
+    flexProps?: FlexProps;
+    /** Optional props to pass to the close button */
+    closeButtonProps?: IconButtonProps;
+  }
 
 
-export function Modal(props: ModalProps) {
+export const Modal = forwardRef(function Modal(
+  props: ModalProps,
+  ref: any
+) {
   const theme = useContext(ValenceContext);
 
 
@@ -57,8 +65,8 @@ export function Modal(props: ModalProps) {
     withShadow = true,
     radius = theme.defaultRadius,
 
-    backgroundColor = theme.getColor("white")?.base,
-    color = theme.getColor("black")?.base,
+    backgroundColor = "white",
+    color = "black",
     padding = theme.sizeClasses.padding[theme.defaultSize],
     margin,
     width = 500,
@@ -66,6 +74,7 @@ export function Modal(props: ModalProps) {
 
     overlayProps,
     flexProps,
+    closeButtonProps,
 
     children,
     style,
@@ -82,8 +91,8 @@ export function Modal(props: ModalProps) {
 
   // Styles
   const ContainerStyle = css({
-    backgroundColor: backgroundColor,
-    color: color,
+    backgroundColor: theme.getColorHex(backgroundColor),
+    color: theme.getColorHex(color),
     padding: padding,
     margin: margin,
     width: width,
@@ -112,13 +121,15 @@ export function Modal(props: ModalProps) {
         >
           <motion.div
             css={ContainerStyle}
-            id={rest.id}
             onClick={e => e.stopPropagation()}
 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ ease: "backOut" }}
+
+            ref={ref}
+            {...rest}
           >
             <Flex
               direction="column"
@@ -137,8 +148,9 @@ export function Modal(props: ModalProps) {
 
                 <IconButton
                   onClick={close}
-                  color="black"
+                  color={color}
                   variant="subtle"
+                  {...closeButtonProps}
                 >
                   <IconX {...defaultIconProps.get()} />
                 </IconButton>
@@ -151,4 +163,4 @@ export function Modal(props: ModalProps) {
       }
     </AnimatePresence>
   )
-}
+});

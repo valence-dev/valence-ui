@@ -11,38 +11,21 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
-import { useContext } from "react";
+import { createRef, forwardRef, useContext } from "react";
 import { ValenceContext, getTextColor } from "../../..";
 import { InputContainer } from "../InputContainer";
 import { css } from "@emotion/react";
-export function TextInput(props) {
-    var _a, _b;
+export const TextInput = forwardRef(function TextInput(props, ref) {
     const theme = useContext(ValenceContext);
+    const inputRef = ref !== null && ref !== void 0 ? ref : createRef();
     // Defaults
-    const { value, setValue, icon, placeholder = "", type = "text", autoComplete = "off", pattern, minLength, maxLength, size = theme.defaultSize, radius = theme.defaultRadius, grow, loading, autoFocus, disabled, readOnly = loading, required, multiple, form, name, tabIndex, onEnterPress, onKeyPress, color = "black", backgroundColor = color, style } = props, rest = __rest(props, ["value", "setValue", "icon", "placeholder", "type", "autoComplete", "pattern", "minLength", "maxLength", "size", "radius", "grow", "loading", "autoFocus", "disabled", "readOnly", "required", "multiple", "form", "name", "tabIndex", "onEnterPress", "onKeyPress", "color", "backgroundColor", "style"]);
+    const { value, setValue, icon, type = "text", autoComplete = "off", size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, grow, loading, autoFocus, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding, margin, width, height, onEnterPress, onKeyPress, inputStyle, style } = props, rest = __rest(props, ["value", "setValue", "icon", "type", "autoComplete", "size", "radius", "variant", "grow", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "onEnterPress", "onKeyPress", "inputStyle", "style"]);
     // Styles
-    const InputStyle = css({
-        border: "none",
-        outline: "none",
-        background: "none",
-        flexGrow: 1,
-        width: "100%",
-        height: "100%",
-        margin: 0,
-        padding: 0,
-        cursor: disabled ? "not-allowed" : "text",
-        fontSize: theme.sizeClasses.fontSize[size],
-        fontFamily: theme.getFont("default"),
-        color: getTextColor(color, "light", theme),
-        "&::placeholder": {
-            color: `${(_a = theme.getColor(color)) === null || _a === void 0 ? void 0 : _a.base}${(_b = theme.getColor(color)) === null || _b === void 0 ? void 0 : _b.opacity.medium}`
-        },
+    const InputStyle = css(Object.assign({ border: "none", outline: "none", background: "none", flexGrow: 1, width: "100%", height: "100%", margin: 0, padding: 0, cursor: disabled ? "not-allowed" : "text", fontSize: theme.sizeClasses.fontSize[size], fontFamily: theme.getFont("default"), color: getTextColor(color, variant, theme), "&::placeholder": {
+            color: `${getTextColor(color, variant, theme)}80`,
+        }, 
         // Remove awful autofill color
-        "&:-webkit-autofill": { transition: `background-color 5000s ease-in-out 0s` },
-        "&:-webkit-autofill:focus": { transition: `background-color 5000s ease-in-out 0s` },
-        "&:-webkit-autofill:hover": { transition: `background-color 5000s ease-in-out 0s` },
-        "&:-webkit-autofill:active": { transition: `background-color 5000s ease-in-out 0s` },
-    });
+        "&:-webkit-autofill": { transition: `background-color 5000s ease-in-out 0s` }, "&:-webkit-autofill:focus": { transition: `background-color 5000s ease-in-out 0s` }, "&:-webkit-autofill:hover": { transition: `background-color 5000s ease-in-out 0s` }, "&:-webkit-autofill:active": { transition: `background-color 5000s ease-in-out 0s` } }, inputStyle));
     // Functions
     const handleKeyDown = (e) => {
         // Blur on "Escape" key
@@ -54,5 +37,5 @@ export function TextInput(props) {
         // Call onKeyPress on any key
         onKeyPress === null || onKeyPress === void 0 ? void 0 : onKeyPress(e);
     };
-    return (_jsx(InputContainer, Object.assign({ icon: icon, size: size, radius: radius, grow: grow, disabled: disabled, required: required, loading: loading, color: color, backgroundColor: backgroundColor, style: style }, rest, { children: _jsx("input", Object.assign({ css: InputStyle, value: value !== null && value !== void 0 ? value : "", onChange: e => setValue(e.currentTarget.value), placeholder: placeholder, type: type, autoComplete: autoComplete, pattern: pattern, minLength: minLength, maxLength: maxLength, autoFocus: autoFocus, disabled: disabled, readOnly: readOnly, required: required, multiple: multiple, form: form, name: name, tabIndex: tabIndex, onKeyDown: handleKeyDown }, rest)) })));
-}
+    return (_jsx(InputContainer, { icon: icon, size: size, radius: radius, variant: variant, grow: grow, disabled: disabled, required: required, loading: loading, color: color, backgroundColor: backgroundColor, padding: padding, margin: margin, width: width, height: height, style: style, inputRef: inputRef, children: _jsx("input", Object.assign({ css: InputStyle, value: value !== null && value !== void 0 ? value : "", onChange: e => setValue(e.currentTarget.value), type: type, autoComplete: autoComplete, autoFocus: autoFocus, disabled: disabled, readOnly: readOnly, required: required, onKeyDown: handleKeyDown, ref: inputRef }, rest)) }));
+});

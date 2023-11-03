@@ -1,35 +1,47 @@
+/// <reference types="react" />
 /** @jsxImportSource @emotion/react */
-import { ComponentSize, GenericLayoutProps } from "@valence-ui/utils";
-import { Dispatch, SetStateAction, SyntheticEvent } from "react";
+import { FocusEvents } from "@valence-ui/utils";
 import { PrimitiveButtonProps } from "../../buttons";
 import { TextProps } from "../../display";
-export type SwitchProps = GenericLayoutProps & {
-    /** The value of the input */
-    checked: boolean;
-    /** Sets the value of the input */
-    setChecked: Dispatch<SetStateAction<boolean>>;
+import { GenericInputProps } from "../../../generics";
+export type SwitchProps = GenericInputProps<boolean> & FocusEvents & {
     /** The label associated with this input */
     label?: string;
-    /** Sets the size class. Defaults to theme default */
-    size?: ComponentSize;
-    /** Sets the radius size class. Defaults to `"xl"` */
-    radius?: ComponentSize;
     /** Shorthand for `flex-grow = 1` */
     grow?: boolean;
-    /** Specifies if this input is disabled */
-    disabled?: boolean;
-    /** Specifies if this input is read only */
-    readOnly?: boolean;
-    /** If set, this input will be replaced with a loader */
-    loading?: boolean;
-    /** Called when this input is focused */
-    onFocus?: (e: SyntheticEvent<HTMLInputElement, Event>) => void;
-    /** Called when this input is blurred */
-    onBlur?: (e: SyntheticEvent<HTMLInputElement, Event>) => void;
     /** Optional props to pass to the `Button` container component */
     buttonProps: PrimitiveButtonProps;
     /** Optional props to pass to the `Text` label component */
     labelProps: TextProps;
 };
-export declare function Switch(props: SwitchProps): import("@emotion/react/jsx-runtime").JSX.Element;
+export declare const Switch: import("react").ForwardRefExoticComponent<import("@valence-ui/utils").GenericProps & {
+    color?: import("csstype").Property.Color | undefined;
+    backgroundColor?: import("csstype").Property.BackgroundColor | undefined;
+    padding?: import("csstype").Property.Padding<string | number> | undefined;
+    margin?: import("csstype").Property.Margin<string | number> | undefined; /** The label associated with this input */
+    width?: import("csstype").Property.Width<string | number> | undefined; /** Shorthand for `flex-grow = 1` */
+    height?: import("csstype").Property.Height<string | number> | undefined;
+} & {
+    value: boolean;
+    setValue: import("react").Dispatch<import("react").SetStateAction<boolean>>;
+    size?: import("@valence-ui/utils").ComponentSize | undefined;
+    radius?: import("@valence-ui/utils").ComponentSize | undefined;
+    variant?: import("@valence-ui/utils").FillVariant | undefined;
+    disabled?: boolean | undefined;
+    readOnly?: boolean | undefined;
+    required?: boolean | undefined;
+    autoFocus?: boolean | undefined;
+    loading?: boolean | undefined;
+    form?: string | undefined;
+    name?: string | undefined;
+} & FocusEvents & {
+    /** The label associated with this input */
+    label?: string | undefined;
+    /** Shorthand for `flex-grow = 1` */
+    grow?: boolean | undefined;
+    /** Optional props to pass to the `Button` container component */
+    buttonProps: PrimitiveButtonProps;
+    /** Optional props to pass to the `Text` label component */
+    labelProps: TextProps;
+} & import("react").RefAttributes<unknown>>;
 //# sourceMappingURL=Switch.d.ts.map

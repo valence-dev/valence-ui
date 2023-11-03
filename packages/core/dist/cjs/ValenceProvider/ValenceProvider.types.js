@@ -5,6 +5,7 @@ const Color_1 = require("../Color");
 exports.ValenceContextDefaults = {
     colors: Color_1.DEFAULT_COLORS,
     getColor: () => undefined,
+    getColorHex: () => undefined,
     primaryColor: "pink",
     defaultSize: "sm",
     defaultRadius: "sm",

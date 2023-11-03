@@ -30,4 +30,5 @@ Textarea.args = {
   placeholder: "Placeholder...",
   value: "Hello, world!",
   resize: "vertical",
+  required: true,
 }

@@ -20,7 +20,7 @@ const utils_1 = require("@valence-ui/utils");
 const react_2 = require("react");
 const framer_motion_1 = require("framer-motion");
 const usehooks_ts_1 = require("usehooks-ts");
-function SlideUp(props) {
+exports.SlideUp = (0, react_2.forwardRef)(function SlideUp(props, ref) {
     var _a, _b;
     const theme = (0, react_2.useContext)(core_1.ValenceContext);
     const breakpoint = (0, core_1.useBreakpoint)();
@@ -28,7 +28,7 @@ function SlideUp(props) {
     const { opened, close, closeOnOverlayClick = true, closeOnEscape = true, lockScroll = false, radius = "lg", shadow = true, backgroundColor = (_a = theme.getColor("white")) === null || _a === void 0 ? void 0 : _a.base, color = (_b = theme.getColor("black")) === null || _b === void 0 ? void 0 : _b.base, padding = theme.sizeClasses.padding[theme.defaultSize], margin = 0, width, height = "50vh", overlayProps, flexProps, style, children } = props, rest = __rest(props, ["opened", "close", "closeOnOverlayClick", "closeOnEscape", "lockScroll", "radius", "shadow", "backgroundColor", "color", "padding", "margin", "width", "height", "overlayProps", "flexProps", "style", "children"]);
     // Styles
     const borderRadius = theme.sizeClasses.radius[(0, utils_1.getReactiveProp)(radius, breakpoint)];
-    const ContainerStyles = (0, react_1.css)(Object.assign({ position: "fixed", bottom: 0, left: 0, right: 0, width: (0, utils_1.getReactiveProp)(width, breakpoint), height: (0, utils_1.getReactiveProp)(height, breakpoint), backgroundColor: (0, utils_1.getReactiveProp)(backgroundColor, breakpoint), color: (0, utils_1.getReactiveProp)(color, breakpoint), padding: (0, utils_1.getReactiveProp)(padding, breakpoint), margin: (0, utils_1.getReactiveProp)(margin, breakpoint), borderRadius: `${borderRadius}px ${borderRadius}px 0 0`, boxShadow: (0, utils_1.getReactiveProp)(shadow, breakpoint) ? theme.defaultShadow : undefined, zIndex: 999 }, (0, utils_1.getReactiveProp)(style, breakpoint)));
+    const ContainerStyles = (0, react_1.css)(Object.assign({ position: "fixed", bottom: 0, left: 0, right: 0, width: (0, utils_1.getReactiveProp)(width, breakpoint), height: (0, utils_1.getReactiveProp)(height, breakpoint), backgroundColor: (0, utils_1.getReactiveProp)(backgroundColor, breakpoint), color: (0, utils_1.getReactiveProp)(color, breakpoint), padding: (0, utils_1.getReactiveProp)(padding, breakpoint), margin: (0, utils_1.getReactiveProp)(margin, breakpoint), borderRadius: `${borderRadius}px ${borderRadius}px 0 0`, boxShadow: (0, utils_1.getReactiveProp)(shadow, breakpoint) ? theme.defaultShadow : undefined, overflowX: "hidden", overflowY: "auto", zIndex: 999 }, (0, utils_1.getReactiveProp)(style, breakpoint)));
     const OverlayStyle = {
         padding: 0,
         alignItems: "flex-end",
@@ -37,6 +37,5 @@ function SlideUp(props) {
     (0, usehooks_ts_1.useLockedBody)(opened && lockScroll, "root");
     (0, core_1.useDetectKeyDown)(close, "Escape", closeOnEscape, [closeOnEscape, close]);
     return ((0, jsx_runtime_1.jsx)(framer_motion_1.AnimatePresence, { children: opened &&
-            (0, jsx_runtime_1.jsx)(core_1.ModalOverlay, Object.assign({ blurBackground: false, opened: opened, close: close, closeOnClick: closeOnOverlayClick, style: OverlayStyle }, overlayProps, { children: (0, jsx_runtime_1.jsx)(framer_motion_1.motion.div, { css: ContainerStyles, id: rest.id, onClick: e => e.stopPropagation(), initial: { y: "100%" }, animate: { y: 0 }, exit: { y: "100%" }, transition: { ease: "easeOut", duration: 0.1 }, children: (0, jsx_runtime_1.jsx)(core_1.Flex, Object.assign({ direction: "column" }, flexProps, { children: children })) }) })) }));
-}
-exports.SlideUp = SlideUp;
+            (0, jsx_runtime_1.jsx)(core_1.ModalOverlay, Object.assign({ blurBackground: false, opened: opened, close: close, closeOnClick: closeOnOverlayClick, style: OverlayStyle }, overlayProps, { children: (0, jsx_runtime_1.jsx)(framer_motion_1.motion.div, Object.assign({ css: ContainerStyles, onClick: e => e.stopPropagation(), initial: { y: "100%" }, animate: { y: 0 }, exit: { y: "100%" }, transition: { ease: "easeOut", duration: 0.1 }, ref: ref }, rest, { children: (0, jsx_runtime_1.jsx)(core_1.Flex, Object.assign({ direction: "column" }, flexProps, { children: children })) })) })) }));
+});

@@ -12,21 +12,21 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx, jsxs as _jsxs } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
 import { ValenceContext } from "../../../ValenceProvider";
-import { useContext } from "react";
+import { createRef, forwardRef, useContext } from "react";
 import { getBackgroundColor, getTextColor } from "../../buttons";
 import { css } from "@emotion/react";
 import { Flex } from "../../layout";
 import { Loader } from "../../display";
-export function Textarea(props) {
-    var _a, _b;
+export const Textarea = forwardRef(function Textarea(props, ref) {
     const theme = useContext(ValenceContext);
+    const inputRef = ref !== null && ref !== void 0 ? ref : createRef();
     // Defaults
-    const { value, setValue, icon, placeholder = "", autoComplete = false, spellCheck = true, minLength, maxLength, cols, rows, wrap, resize = "none", minHeight, maxHeight, minWidth, maxWidth, size = theme.defaultSize, radius = theme.defaultRadius, grow, loading, autoFocus, disabled, readOnly = loading, required, form, name, tabIndex, padding = theme.sizeClasses.padding[size], margin, width = "100%", height = "auto", color = "black", backgroundColor = color, style, onInvalid, onSelect, onEnterPress, onKeyPress, onFocus, onBlur } = props, rest = __rest(props, ["value", "setValue", "icon", "placeholder", "autoComplete", "spellCheck", "minLength", "maxLength", "cols", "rows", "wrap", "resize", "minHeight", "maxHeight", "minWidth", "maxWidth", "size", "radius", "grow", "loading", "autoFocus", "disabled", "readOnly", "required", "form", "name", "tabIndex", "padding", "margin", "width", "height", "color", "backgroundColor", "style", "onInvalid", "onSelect", "onEnterPress", "onKeyPress", "onFocus", "onBlur"]);
+    const { value, setValue, placeholder = "", autoComplete = false, spellCheck = true, resize = "none", minHeight, maxHeight, minWidth, maxWidth, size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, grow, loading, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding = theme.sizeClasses.padding[size], margin, width = "100%", height = "auto", onEnterPress, onKeyPress, style } = props, rest = __rest(props, ["value", "setValue", "placeholder", "autoComplete", "spellCheck", "resize", "minHeight", "maxHeight", "minWidth", "maxWidth", "size", "radius", "variant", "grow", "loading", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "onEnterPress", "onKeyPress", "style"]);
     // Styles
-    const ContainerStyle = css(Object.assign({ display: "flex", boxSizing: "border-box", flexGrow: grow ? 1 : "unset", width: width, height: height, borderRadius: theme.sizeClasses.radius[radius], padding: padding, gap: padding / 2, margin: margin, opacity: disabled ? 0.5 : 1, cursor: disabled ? "not-allowed" : "text", transition: `background-color ${theme.defaultTransitionDuration} linear 0s`, backgroundColor: getBackgroundColor(backgroundColor, "light", false, theme), color: getTextColor(color, "light", theme), outline: "none", border: "none", textDecoration: "none", fontSize: theme.sizeClasses.fontSize[size], fontFamily: theme.getFont("default"), resize: resize, overflowY: "hidden", minHeight: minHeight, maxHeight: maxHeight, minWidth: minWidth, maxWidth: maxWidth, "&:hover": {
-            backgroundColor: !disabled ? getBackgroundColor(backgroundColor, "light", true, theme) : undefined,
+    const ContainerStyle = css(Object.assign({ display: "flex", boxSizing: "border-box", flexGrow: grow ? 1 : "unset", width: width, height: height, borderRadius: theme.sizeClasses.radius[radius], padding: padding, gap: padding / 2, margin: margin, opacity: disabled ? 0.5 : 1, cursor: disabled ? "not-allowed" : "text", transition: `background-color ${theme.defaultTransitionDuration} linear 0s`, backgroundColor: getBackgroundColor(backgroundColor, variant, false, theme), color: getTextColor(color, variant, theme), outline: "none", border: "none", textDecoration: "none", fontSize: theme.sizeClasses.fontSize[size], fontFamily: theme.getFont("default"), resize: resize, overflowY: "hidden", minHeight: minHeight, maxHeight: maxHeight, minWidth: minWidth, maxWidth: maxWidth, "&:hover": {
+            backgroundColor: !disabled ? getBackgroundColor(backgroundColor, variant, true, theme) : undefined,
         }, "&:focus-within": {
-            outline: `1px solid ${getTextColor(color, "light", theme)}`,
+            outline: `1px solid ${getTextColor(color, variant, theme)}`,
         } }, style));
     const TextareaStyle = css({
         outline: "none",
@@ -38,7 +38,7 @@ export function Textarea(props) {
         height: "100%",
         overflowY: "auto",
         background: "none",
-        color: getTextColor(color, "light", theme),
+        color: getTextColor(color, variant, theme),
         fontSize: theme.sizeClasses.fontSize[size],
         fontFamily: theme.getFont("default"),
         "&::-webkit-scrollbar": {
@@ -49,7 +49,7 @@ export function Textarea(props) {
             borderRadius: 5,
         },
         "&::placeholder": {
-            color: `${(_a = theme.getColor(color)) === null || _a === void 0 ? void 0 : _a.base}${(_b = theme.getColor(color)) === null || _b === void 0 ? void 0 : _b.opacity.medium}`
+            color: `${getTextColor(color, variant, theme)}80`,
         },
         // Remove awful autofill color
         "&:-webkit-autofill": { transition: `background-color 5000s ease-in-out 0s` },
@@ -74,8 +74,8 @@ export function Textarea(props) {
         // Call onKeyPress on any key
         onKeyPress === null || onKeyPress === void 0 ? void 0 : onKeyPress(e);
     };
-    return (_jsxs("div", { css: ContainerStyle, children: [required && _jsx("div", { css: RequireIndicatorStyle }), loading ?
-                _jsx(Flex, { justify: "center", align: "center", width: "100%", children: _jsx(Loader, { color: color, size: size }) })
+    return (_jsxs("div", { css: ContainerStyle, onClick: () => { var _a; return (_a = inputRef.current) === null || _a === void 0 ? void 0 : _a.focus(); }, children: [required && _jsx("div", { css: RequireIndicatorStyle }), loading ?
+                _jsx(Flex, { justify: "center", align: "center", width: "100%", children: _jsx(Loader, { color: variant === "filled" ? "white" : color, size: size }) })
                 :
-                    _jsx("textarea", Object.assign({ css: TextareaStyle, value: value !== null && value !== void 0 ? value : "", onChange: e => setValue(e.currentTarget.value), placeholder: placeholder, autoComplete: autoComplete ? "on" : "off", spellCheck: spellCheck, minLength: minLength, maxLength: maxLength, cols: cols, rows: rows, wrap: wrap, autoFocus: autoFocus, disabled: disabled, readOnly: readOnly, required: required, form: form, name: name, tabIndex: tabIndex, onKeyDown: handleKeyDown }, rest))] }));
-}
+                    _jsx("textarea", Object.assign({ css: TextareaStyle, value: value !== null && value !== void 0 ? value : "", onChange: e => setValue(e.currentTarget.value), placeholder: placeholder, autoComplete: autoComplete ? "on" : "off", spellCheck: spellCheck, disabled: disabled, readOnly: readOnly, required: required, onKeyDown: handleKeyDown, ref: inputRef }, rest))] }));
+});

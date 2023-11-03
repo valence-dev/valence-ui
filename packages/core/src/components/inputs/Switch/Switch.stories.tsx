@@ -20,12 +20,12 @@ export const Switch: Story = (args: any) => {
     <ValenceProvider>
       <SI
         {...args}
-        checked={checked}
-        setChecked={setChecked}
+        value={checked}
+        setValue={setChecked}
       />
     </ValenceProvider>
   );
 }
 Switch.args = {
-  label: "Switch"
+  label: "Switch",
 }

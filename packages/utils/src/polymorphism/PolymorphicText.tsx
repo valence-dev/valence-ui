@@ -1,16 +1,23 @@
 import { forwardRef } from "react";
-import { GenericProps } from "..";
+import { GenericClickableEventProps, GenericClickableProps, GenericProps, PolymorphicElementProps, PolymorphicElementType } from "..";
 import { Link } from "react-router-dom";
 
-export type PolymorphicTextProps = GenericProps & {
-  /** Sets the component type to render */
-  component?: PolymorphicTextComponents;
+export type PolymorphicTextProps =
+  PolymorphicElementProps
+  & {
+    /** Sets Emotion styling content on the component */
+    css?: any;
+  };
 
-  css?: any;
-}
-export type PolymorphicTextComponents = "p" | "link" | "a" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "span" | "div";
+type Props = PolymorphicTextProps
+  & GenericProps
+  & GenericClickableEventProps
+  & GenericClickableProps;
 
-export const PolymorphicText = forwardRef((props: PolymorphicTextProps, ref: any) => {
+export const PolymorphicText = forwardRef(function Input(
+  props: Props,
+  ref: any
+) {
   const { component = "p", children, ...rest } = props;
 
   let Component: any = component;

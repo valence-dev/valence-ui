@@ -16,9 +16,8 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
 const Text_1 = require("./Text");
 const __1 = require("../../..");
-function Title(props) {
+exports.Title = (0, react_1.forwardRef)(function Title(props, ref) {
     const theme = (0, react_1.useContext)(__1.ValenceContext);
     const { order = 1, component = `h${order !== null && order !== void 0 ? order : 1}`, family = theme.getFont("heading") } = props, rest = __rest(props, ["order", "component", "family"]);
-    return ((0, jsx_runtime_1.jsx)(Text_1.Text, Object.assign({ component: component, family: family }, theme.titles[order], rest, { children: props.children })));
-}
-exports.Title = Title;
+    return ((0, jsx_runtime_1.jsx)(Text_1.Text, Object.assign({ component: component, family: family, ref: ref }, theme.titles[order], rest, { children: props.children })));
+});

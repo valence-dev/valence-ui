@@ -1,10 +1,8 @@
-/** @jsxImportSource @emotion/react */
-import { CSSProperties, useContext, useState } from "react";
+import { CSSProperties, forwardRef, useContext, useState } from "react";
 import { Flex, FlexProps } from "../Flex";
 import { ValenceContext, useBreakpoint } from "../../..";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 import { getReactiveProp } from "@valence-ui/utils";
-import { css } from "@emotion/react";
 
 export type HeaderProps = FlexProps & {
   /** The height of this header for regular devices. Defaults to `100`. */
@@ -27,7 +25,10 @@ function interpolateHeight(max: number, min: number, scrollY: number) {
  * 
  * On desktop devices, the `Header` will act as a static container that can be placed anywhere and will scroll with the content. On mobile devices, however, the `Header` will become fixed tot he top of the screen and can shrink as the user scrolls.
  */
-export function Header(props: HeaderProps) {
+export const Header = forwardRef(function Header(
+  props: HeaderProps,
+  ref: any
+) {
   const theme = useContext(ValenceContext);
 
 
@@ -38,7 +39,7 @@ export function Header(props: HeaderProps) {
     compactHeight = 75,
     compactOnScroll = true,
 
-    backgroundColor = theme.getColor("white")?.base,
+    backgroundColor = theme.getColorHex("white"),
 
     children,
     style,
@@ -85,9 +86,10 @@ export function Header(props: HeaderProps) {
       justify="center"
       height={height}
 
+      ref={ref}
       {...rest}
     >
       {children}
     </Flex>
   )
-}
+});

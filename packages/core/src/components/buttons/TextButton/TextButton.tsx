@@ -1,18 +1,23 @@
-import { useContext } from "react";
+import { forwardRef, useContext } from "react";
 import { PrimitiveButtonProps } from "../PrimitiveButton";
 import { PrimitiveButton } from "../PrimitiveButton/PrimitiveButton";
 import { getTextColor } from "../Helpers";
 import { Text, TextProps } from "../../display";
 import { ValenceContext } from "../../../ValenceProvider";
 
-export type TextButtonProps = PrimitiveButtonProps & {
-  /** Children of this component. */
-  children?: string;
-  /** Properties to apply to the `Text` component. */
-  textProps?: TextProps;
-}
+export type TextButtonProps =
+  PrimitiveButtonProps
+  & {
+    /** Children of this component. */
+    children?: string;
+    /** Properties to apply to the `Text` component. */
+    textProps?: TextProps;
+  }
 
-export function Button(props: TextButtonProps) {
+export const Button = forwardRef(function Button(
+  props: TextButtonProps,
+  ref: any
+) {
   const theme = useContext(ValenceContext);
 
   // Defaults
@@ -30,6 +35,8 @@ export function Button(props: TextButtonProps) {
       size={size}
       variant={variant}
       color={color}
+
+      ref={ref}
       {...rest}
     >
       <Text
@@ -41,4 +48,4 @@ export function Button(props: TextButtonProps) {
       </Text>
     </PrimitiveButton>
   )
-}
+});

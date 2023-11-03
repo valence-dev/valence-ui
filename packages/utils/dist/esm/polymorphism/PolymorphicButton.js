@@ -13,7 +13,7 @@ import { jsx as _jsx } from "react/jsx-runtime";
 import { forwardRef } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-export const PolymorphicButton = motion(forwardRef((props, ref) => {
+export const PolymorphicButton = motion(forwardRef(function Input(props, ref) {
     const { component = "button", children } = props, rest = __rest(props, ["component", "children"]);
     let Component = component;
     if (component === "link")

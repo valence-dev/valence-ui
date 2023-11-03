@@ -20,10 +20,7 @@ const meta: Meta<typeof PrimitiveButton> = {
       options: Storybook.componentSizes,
       control: { type: "select" }
     },
-
-    aspectRatio: {
-      control: { type: "text" },
-    },
+    
     square: {
       control: { type: "boolean" },
     },

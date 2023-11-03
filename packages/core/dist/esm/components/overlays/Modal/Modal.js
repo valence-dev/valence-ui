@@ -11,7 +11,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx, jsxs as _jsxs } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
-import { useContext } from "react";
+import { forwardRef, useContext } from "react";
 import { ValenceContext, useDefaultIconProps, useDetectKeyDown } from "../../..";
 import { Flex } from "../../layout";
 import { ModalOverlay } from "../ModalOverlay";
@@ -21,17 +21,16 @@ import { Text } from "../../display";
 import { IconX } from "@tabler/icons-react";
 import { IconButton } from "../../buttons";
 import { css } from "@emotion/react";
-export function Modal(props) {
-    var _a, _b;
+export const Modal = forwardRef(function Modal(props, ref) {
     const theme = useContext(ValenceContext);
     // Defaults
-    const { title, opened, close, closeOnOverlayClick = true, closeOnEscape = true, lockScroll = true, withShadow = true, radius = theme.defaultRadius, backgroundColor = (_a = theme.getColor("white")) === null || _a === void 0 ? void 0 : _a.base, color = (_b = theme.getColor("black")) === null || _b === void 0 ? void 0 : _b.base, padding = theme.sizeClasses.padding[theme.defaultSize], margin, width = 500, height = "fit-content", overlayProps, flexProps, children, style } = props, rest = __rest(props, ["title", "opened", "close", "closeOnOverlayClick", "closeOnEscape", "lockScroll", "withShadow", "radius", "backgroundColor", "color", "padding", "margin", "width", "height", "overlayProps", "flexProps", "children", "style"]);
+    const { title, opened, close, closeOnOverlayClick = true, closeOnEscape = true, lockScroll = true, withShadow = true, radius = theme.defaultRadius, backgroundColor = "white", color = "black", padding = theme.sizeClasses.padding[theme.defaultSize], margin, width = 500, height = "fit-content", overlayProps, flexProps, closeButtonProps, children, style } = props, rest = __rest(props, ["title", "opened", "close", "closeOnOverlayClick", "closeOnEscape", "lockScroll", "withShadow", "radius", "backgroundColor", "color", "padding", "margin", "width", "height", "overlayProps", "flexProps", "closeButtonProps", "children", "style"]);
     // Hooks
     useLockedBody(opened && lockScroll, "root");
     useDetectKeyDown(close, "Escape", closeOnEscape, [closeOnEscape, close]);
     const defaultIconProps = useDefaultIconProps();
     // Styles
-    const ContainerStyle = css(Object.assign({ backgroundColor: backgroundColor, color: color, padding: padding, margin: margin, width: width, height: height, borderRadius: theme.sizeClasses.radius[radius], boxShadow: withShadow ? theme.defaultShadow : undefined }, style));
+    const ContainerStyle = css(Object.assign({ backgroundColor: theme.getColorHex(backgroundColor), color: theme.getColorHex(color), padding: padding, margin: margin, width: width, height: height, borderRadius: theme.sizeClasses.radius[radius], boxShadow: withShadow ? theme.defaultShadow : undefined }, style));
     const HeaderStyle = css({
         display: "flex",
         alignItems: "center",
@@ -39,5 +38,5 @@ export function Modal(props) {
         width: "100%",
     });
     return (_jsx(AnimatePresence, { children: opened &&
-            _jsx(ModalOverlay, Object.assign({ opened: opened, close: close, closeOnClick: closeOnOverlayClick }, overlayProps, { children: _jsx(motion.div, { css: ContainerStyle, id: rest.id, onClick: e => e.stopPropagation(), initial: { opacity: 0, scale: 0.9 }, animate: { opacity: 1, scale: 1 }, exit: { opacity: 0, scale: 0.9 }, transition: { ease: "backOut" }, children: _jsxs(Flex, Object.assign({ direction: "column", gap: 15 }, flexProps, { children: [_jsxs("header", { css: HeaderStyle, children: [_jsx(Text, { bold: true, fontSize: 20, children: title }), _jsx(IconButton, { onClick: close, color: "black", variant: "subtle", children: _jsx(IconX, Object.assign({}, defaultIconProps.get())) })] }), children] })) }) })) }));
-}
+            _jsx(ModalOverlay, Object.assign({ opened: opened, close: close, closeOnClick: closeOnOverlayClick }, overlayProps, { children: _jsx(motion.div, Object.assign({ css: ContainerStyle, onClick: e => e.stopPropagation(), initial: { opacity: 0, scale: 0.9 }, animate: { opacity: 1, scale: 1 }, exit: { opacity: 0, scale: 0.9 }, transition: { ease: "backOut" }, ref: ref }, rest, { children: _jsxs(Flex, Object.assign({ direction: "column", gap: 15 }, flexProps, { children: [_jsxs("header", { css: HeaderStyle, children: [_jsx(Text, { bold: true, fontSize: 20, children: title }), _jsx(IconButton, Object.assign({ onClick: close, color: color, variant: "subtle" }, closeButtonProps, { children: _jsx(IconX, Object.assign({}, defaultIconProps.get())) }))] }), children] })) })) })) }));
+});

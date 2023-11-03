@@ -1,15 +1,21 @@
 import { PrimitiveButton, PrimitiveButtonProps } from "../PrimitiveButton"
+import { forwardRef } from "react";
 
-export type IconButtonProps = PrimitiveButtonProps;
+export type IconButtonProps =
+  PrimitiveButtonProps;
 
-export function IconButton(props: IconButtonProps) {
-  const { 
+export const IconButton = forwardRef(
+  function IconButton(
+    props: IconButtonProps,
+    ref: any
+    ) {
+  const {
     square = true,
     children,
     ...rest
   } = props;
 
-  return ( 
+  return (
     <PrimitiveButton
       square={square}
       {...rest}
@@ -17,4 +23,4 @@ export function IconButton(props: IconButtonProps) {
       {children}
     </PrimitiveButton>
   )
-}
+});

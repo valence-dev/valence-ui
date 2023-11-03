@@ -24,17 +24,16 @@ const display_1 = require("../../display");
 const icons_react_1 = require("@tabler/icons-react");
 const buttons_1 = require("../../buttons");
 const react_2 = require("@emotion/react");
-function Modal(props) {
-    var _a, _b;
+exports.Modal = (0, react_1.forwardRef)(function Modal(props, ref) {
     const theme = (0, react_1.useContext)(__1.ValenceContext);
     // Defaults
-    const { title, opened, close, closeOnOverlayClick = true, closeOnEscape = true, lockScroll = true, withShadow = true, radius = theme.defaultRadius, backgroundColor = (_a = theme.getColor("white")) === null || _a === void 0 ? void 0 : _a.base, color = (_b = theme.getColor("black")) === null || _b === void 0 ? void 0 : _b.base, padding = theme.sizeClasses.padding[theme.defaultSize], margin, width = 500, height = "fit-content", overlayProps, flexProps, children, style } = props, rest = __rest(props, ["title", "opened", "close", "closeOnOverlayClick", "closeOnEscape", "lockScroll", "withShadow", "radius", "backgroundColor", "color", "padding", "margin", "width", "height", "overlayProps", "flexProps", "children", "style"]);
+    const { title, opened, close, closeOnOverlayClick = true, closeOnEscape = true, lockScroll = true, withShadow = true, radius = theme.defaultRadius, backgroundColor = "white", color = "black", padding = theme.sizeClasses.padding[theme.defaultSize], margin, width = 500, height = "fit-content", overlayProps, flexProps, closeButtonProps, children, style } = props, rest = __rest(props, ["title", "opened", "close", "closeOnOverlayClick", "closeOnEscape", "lockScroll", "withShadow", "radius", "backgroundColor", "color", "padding", "margin", "width", "height", "overlayProps", "flexProps", "closeButtonProps", "children", "style"]);
     // Hooks
     (0, usehooks_ts_1.useLockedBody)(opened && lockScroll, "root");
     (0, __1.useDetectKeyDown)(close, "Escape", closeOnEscape, [closeOnEscape, close]);
     const defaultIconProps = (0, __1.useDefaultIconProps)();
     // Styles
-    const ContainerStyle = (0, react_2.css)(Object.assign({ backgroundColor: backgroundColor, color: color, padding: padding, margin: margin, width: width, height: height, borderRadius: theme.sizeClasses.radius[radius], boxShadow: withShadow ? theme.defaultShadow : undefined }, style));
+    const ContainerStyle = (0, react_2.css)(Object.assign({ backgroundColor: theme.getColorHex(backgroundColor), color: theme.getColorHex(color), padding: padding, margin: margin, width: width, height: height, borderRadius: theme.sizeClasses.radius[radius], boxShadow: withShadow ? theme.defaultShadow : undefined }, style));
     const HeaderStyle = (0, react_2.css)({
         display: "flex",
         alignItems: "center",
@@ -42,6 +41,5 @@ function Modal(props) {
         width: "100%",
     });
     return ((0, jsx_runtime_1.jsx)(framer_motion_1.AnimatePresence, { children: opened &&
-            (0, jsx_runtime_1.jsx)(ModalOverlay_1.ModalOverlay, Object.assign({ opened: opened, close: close, closeOnClick: closeOnOverlayClick }, overlayProps, { children: (0, jsx_runtime_1.jsx)(framer_motion_1.motion.div, { css: ContainerStyle, id: rest.id, onClick: e => e.stopPropagation(), initial: { opacity: 0, scale: 0.9 }, animate: { opacity: 1, scale: 1 }, exit: { opacity: 0, scale: 0.9 }, transition: { ease: "backOut" }, children: (0, jsx_runtime_1.jsxs)(layout_1.Flex, Object.assign({ direction: "column", gap: 15 }, flexProps, { children: [(0, jsx_runtime_1.jsxs)("header", { css: HeaderStyle, children: [(0, jsx_runtime_1.jsx)(display_1.Text, { bold: true, fontSize: 20, children: title }), (0, jsx_runtime_1.jsx)(buttons_1.IconButton, { onClick: close, color: "black", variant: "subtle", children: (0, jsx_runtime_1.jsx)(icons_react_1.IconX, Object.assign({}, defaultIconProps.get())) })] }), children] })) }) })) }));
-}
-exports.Modal = Modal;
+            (0, jsx_runtime_1.jsx)(ModalOverlay_1.ModalOverlay, Object.assign({ opened: opened, close: close, closeOnClick: closeOnOverlayClick }, overlayProps, { children: (0, jsx_runtime_1.jsx)(framer_motion_1.motion.div, Object.assign({ css: ContainerStyle, onClick: e => e.stopPropagation(), initial: { opacity: 0, scale: 0.9 }, animate: { opacity: 1, scale: 1 }, exit: { opacity: 0, scale: 0.9 }, transition: { ease: "backOut" }, ref: ref }, rest, { children: (0, jsx_runtime_1.jsxs)(layout_1.Flex, Object.assign({ direction: "column", gap: 15 }, flexProps, { children: [(0, jsx_runtime_1.jsxs)("header", { css: HeaderStyle, children: [(0, jsx_runtime_1.jsx)(display_1.Text, { bold: true, fontSize: 20, children: title }), (0, jsx_runtime_1.jsx)(buttons_1.IconButton, Object.assign({ onClick: close, color: color, variant: "subtle" }, closeButtonProps, { children: (0, jsx_runtime_1.jsx)(icons_react_1.IconX, Object.assign({}, defaultIconProps.get())) }))] }), children] })) })) })) }));
+});

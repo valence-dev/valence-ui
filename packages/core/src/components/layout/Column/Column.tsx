@@ -1,18 +1,21 @@
 import { ReactiveProp, getReactiveProp } from "@valence-ui/utils";
 import { Flex, FlexProps } from "../Flex";
-import { CSSProperties } from "react";
+import { CSSProperties, forwardRef } from "react";
 import { useBreakpoint } from "../../../hooks";
 
-export type GenericColumnProps = FlexProps;
-export type ColumnProps = GenericColumnProps;
-export type ColumnContainerProps = FlexProps & { 
+export type ColumnProps = FlexProps;
+export type ColumnContainerProps = FlexProps & {
   /** **[REACTIVE]** Defines `flex-flow` css property */
   flow?: ReactiveProp<CSSProperties["flexFlow"]>;
 }
 
 
-export const Column = function Column(props: ColumnProps) {
-  const { 
+
+const Column = forwardRef(function Column(
+  props: ColumnProps,
+  ref: any
+) {
+  const {
     direction = "column",
     justify = "center",
 
@@ -21,19 +24,24 @@ export const Column = function Column(props: ColumnProps) {
   } = props;
 
 
-  return ( 
+  return (
     <Flex
       direction={direction}
       justify={justify}
+
+      ref={ref}
       {...rest}
     >
       {children}
     </Flex>
   )
-}
+});
 
 
-Column.Container = function ColumnContainer(props: ColumnContainerProps) {
+const Container = forwardRef(function ColumnContainer(
+  props: ColumnContainerProps,
+  ref: any
+) {
   const breakpoint = useBreakpoint();
 
 
@@ -55,7 +63,7 @@ Column.Container = function ColumnContainer(props: ColumnContainerProps) {
   }
 
 
-  return ( 
+  return (
     <Flex
       direction={direction}
       justify={justify}
@@ -65,4 +73,8 @@ Column.Container = function ColumnContainer(props: ColumnContainerProps) {
       {children}
     </Flex>
   )
-}
+});
+
+
+const ColumnNamespace = Object.assign(Column, { Container });
+export { ColumnNamespace as Column };

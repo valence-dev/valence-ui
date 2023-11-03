@@ -1,75 +1,54 @@
 /** @jsxImportSource @emotion/react */
-import { ReactNode, SyntheticEvent, useContext } from "react";
+import { ReactNode, forwardRef, useContext } from "react";
 import { ValenceContext } from "../../..";
 import { getBackgroundColor, getTextColor } from "../../buttons";
 import { Loader } from "../../display";
-import { ComponentSize, GenericLayoutProps } from "@valence-ui/utils";
+import { ComponentSize, FillVariant, GenericLayoutProps, MouseClickEvents, MouseEvents, PointerEvents } from "@valence-ui/utils";
 import { css } from "@emotion/react";
 
-export type GenericInputEventHandlerProps = {
-  /** Called when this input fails validation on form submission */
-  onInvalid?: (e: SyntheticEvent<HTMLInputElement, Event>) => void;
-  /** Called when this input is selected and edited */
-  onSelect?: (e: SyntheticEvent<HTMLInputElement, Event>) => void;
-  /** Called when the `Enter` key is pressed while focus is on this input */
-  onEnterPress?: (e: SyntheticEvent<HTMLInputElement, Event>) => void;
-  /** Called when any key is pressed while focus is on this input */
-  onKeyPress?: (e: SyntheticEvent<HTMLInputElement, Event>) => void;
-  /** Called when this input is focused */
-  onFocus?: (e: SyntheticEvent<HTMLInputElement, Event>) => void;
-  /** Called when this input is blurred */
-  onBlur?: (e: SyntheticEvent<HTMLInputElement, Event>) => void;
-}
 
-export type GenericInputProps = GenericLayoutProps & {
-  /** An icon to display at the left side of this input */
-  icon?: ReactNode;
-  /** Placeholder text for this input. Defaults to blank */
-  placeholder?: string;
+export type InputContainerProps =
+  GenericLayoutProps
+  & MouseClickEvents
+  & MouseEvents
+  & PointerEvents
+  & {
+    /** An icon to display at the left side of this input */
+    icon?: ReactNode;
+    /** Sets the size class. Defaults to theme default */
+    size?: ComponentSize;
+    /** Sets the radius size class. Defaults to theme default */
+    radius?: ComponentSize;
+    /** Sets the styling variant. Defaults to theme default */
+    variant?: FillVariant;
+    /** Shorthand for `flex-grow = 1` */
+    grow?: boolean;
 
-  /** Sets the size class. Defaults to theme default */
-  size?: ComponentSize;
-  /** Sets the radius size class. Defaults to theme default */
-  radius?: ComponentSize;
-  /** Shorthand for `flex-grow = 1` */
-  grow?: boolean;
+    /** Whether this input is disabled */
+    disabled?: boolean;
+    /** Whether this input is required */
+    required?: boolean;
+    /** Whether this input is loading */
+    loading?: boolean;
 
-  /** Specifies if this input will be focused on mount */
-  autoFocus?: boolean;
-  /** Specifies if this input is disabled */
-  disabled?: boolean;
-  /** Specifies if this input is read only */
-  readOnly?: boolean;
-  /** Specifies if this input is required */
-  required?: boolean;
-  /** If set, this input will be `readOnly` and its icon replaced with a loader */
-  loading?: boolean;
-
-  /** The ID of the `<form>` element this input belongs to */
-  form?: string;
-  /** The name of this input when submitted within a form. */
-  name?: string;
-  /** The `tabIndex` html property of this input. Useful for keyboard-only navigation and accessibility. */
-  tabIndex?: number;
-}
-
-export type InputContainerProps = GenericInputProps & {
-  children: ReactNode;
-};
+    /** A `ref` of the input component */
+    inputRef?: any;
+  };
 
 
-export function InputContainer(props: InputContainerProps) {
+export const InputContainer = forwardRef(function InputContainer(
+  props: InputContainerProps,
+  ref: any,
+) {
   const theme = useContext(ValenceContext);
 
 
   // Defaults
   const {
-    children,
-
     icon,
-
     size = theme.defaultSize,
     radius = theme.defaultRadius,
+    variant = theme.defaultVariant,
     grow,
 
     disabled = false,
@@ -78,9 +57,27 @@ export function InputContainer(props: InputContainerProps) {
 
     color = "black",
     backgroundColor = color,
+
+    inputRef,
+    onClick,
+
+    children,
     style,
     ...rest
   } = props;
+
+
+  // Functions
+  const handleClick = (e: MouseEvent) => {
+    if (disabled) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    if (inputRef && inputRef.current)
+      inputRef.current.focus();
+    onClick?.(e as any);
+  }
 
 
   // Styles
@@ -107,18 +104,18 @@ export function InputContainer(props: InputContainerProps) {
     cursor: disabled ? "not-allowed" : "text",
 
     transition: `background-color ${theme.defaultTransitionDuration} linear 0s`,
-    backgroundColor: getBackgroundColor(backgroundColor, "light", false, theme),
-    color: getTextColor(color, "light", theme),
+    backgroundColor: getBackgroundColor(backgroundColor, variant, false, theme),
+    color: getTextColor(color, variant, theme),
 
     outline: "none",
     border: "none",
     textDecoration: "none",
 
     "&:hover": {
-      backgroundColor: !disabled ? getBackgroundColor(backgroundColor, "light", true, theme) : undefined,
+      backgroundColor: !disabled ? getBackgroundColor(backgroundColor, variant, true, theme) : undefined,
     },
     "&:focus-within": {
-      outline: `1px solid ${getTextColor(color, "light", theme)}`,
+      outline: `1px solid ${getTextColor(color, variant, theme)}`,
     },
 
     ...style
@@ -144,17 +141,23 @@ export function InputContainer(props: InputContainerProps) {
   return (
     <div
       css={ContainerStyle}
+      ref={ref}
+
+      onClick={(event) => handleClick(event as any)}
       {...rest}
     >
       {required && <div css={RequireIndicatorStyle} />}
 
       {(icon || loading) &&
         <div css={IconStyle}>
-          {loading ? <Loader /> : icon}
+          {loading ?
+            <Loader color={variant === "filled" ? "white" : color } /> :
+            icon
+          }
         </div>
       }
 
       {children}
     </div>
   )
-}
+});

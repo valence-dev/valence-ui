@@ -21,9 +21,6 @@ const meta: Meta<typeof Button> = {
       control: { type: "select" }
     },
 
-    aspectRatio: {
-      control: { type: "text" },
-    },
     square: {
       control: { type: "boolean" },
     },

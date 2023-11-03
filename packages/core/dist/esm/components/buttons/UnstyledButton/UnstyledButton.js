@@ -13,10 +13,11 @@ import { jsx as _jsx } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
 import { PolymorphicButton } from "@valence-ui/utils";
 import { css } from "@emotion/react";
-export const UnstyledButton = function UnstyledButton(props) {
-    // Props
-    const { id, style, children, component = "button" } = props, rest = __rest(props, ["id", "style", "children", "component"]);
+import { forwardRef } from "react";
+export const UnstyledButton = forwardRef(function UnstyledButton(props, ref) {
+    // Defaults
+    const { style, children } = props, rest = __rest(props, ["style", "children"]);
     // Styles
     const UnstyledButtonStyle = css(Object.assign({ outline: "none", border: "none", textDecoration: "none", background: "none" }, style));
-    return (_jsx(PolymorphicButton, Object.assign({ id: id, css: UnstyledButtonStyle, component: component }, rest, { children: children })));
-};
+    return (_jsx(PolymorphicButton, Object.assign({ css: UnstyledButtonStyle, ref: ref }, rest, { children: children })));
+});

@@ -1,14 +1,11 @@
 /// <reference types="react" />
-import { GenericProps } from "..";
-export type PolymorphicButtonProps = GenericProps & {
-    /** Sets the component type to render */
-    component?: PolymorphicButtonComponents;
+import { GenericClickableProps, GenericProps, PolymorphicElementProps } from "..";
+export type PolymorphicButtonProps = PolymorphicElementProps & {
+    /** Sets Emotion styling content on the component */
     css?: any;
 };
-export type PolymorphicButtonComponents = "a" | "button" | "link" | "span" | "div" | "input";
-export declare const PolymorphicButton: import("framer-motion").CustomDomComponent<GenericProps & {
-    /** Sets the component type to render */
-    component?: PolymorphicButtonComponents | undefined;
+export declare const PolymorphicButton: import("framer-motion").CustomDomComponent<PolymorphicElementProps & {
+    /** Sets Emotion styling content on the component */
     css?: any;
-} & import("react").RefAttributes<unknown>>;
+} & GenericProps & import("..").MouseClickEvents & import("..").MouseEvents & import("..").PointerEvents & import("..").FocusEvents & GenericClickableProps & import("react").RefAttributes<unknown>>;
 //# sourceMappingURL=PolymorphicButton.d.ts.map

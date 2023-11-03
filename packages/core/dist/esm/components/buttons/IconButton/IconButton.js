@@ -11,7 +11,8 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx } from "react/jsx-runtime";
 import { PrimitiveButton } from "../PrimitiveButton";
-export function IconButton(props) {
+import { forwardRef } from "react";
+export const IconButton = forwardRef(function IconButton(props, ref) {
     const { square = true, children } = props, rest = __rest(props, ["square", "children"]);
     return (_jsx(PrimitiveButton, Object.assign({ square: square }, rest, { children: children })));
-}
+});

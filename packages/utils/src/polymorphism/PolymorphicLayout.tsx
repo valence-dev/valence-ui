@@ -1,22 +1,33 @@
 import { forwardRef } from "react";
-import { GenericProps } from "..";
+import { GenericClickableEventProps, GenericClickableProps, GenericProps, MouseEvents, PolymorphicElementProps, PolymorphicElementType } from "..";
+import { Link } from "react-router-dom";
 
-export type PolymorphicLayoutProps = GenericProps & {
-  /** Sets the component type to render */
-  component?: PolymorphicLayoutComponents;
+export type PolymorphicLayoutProps =
+  PolymorphicElementProps
+  & {
+    /** Sets Emotion styling content on the component */
+    css?: any;
+  };
 
-  css?: any;
-}
+type Props = PolymorphicLayoutProps
+  & GenericProps
+  & GenericClickableEventProps
+  & GenericClickableProps;
 
-export type PolymorphicLayoutComponents = "div" | "span" | "section" | "aside" | "form";
-
-export const PolymorphicLayout = forwardRef((props: PolymorphicLayoutProps, ref: any) => {
+export const PolymorphicLayout = forwardRef(function Input(
+  props: Props,
+  ref: any
+) {
   const { component = "div", children, ...rest } = props;
 
   let Component: any = component;
+  if (component === "link") Component = Link;
 
   return (
-    <Component ref={ref} {...rest}>
+    <Component
+      ref={ref}
+      {...rest}
+    >
       {children}
     </Component>
   )

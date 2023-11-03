@@ -1,5 +1,5 @@
 import { IconButtonProps, PrimitiveButton, useBreakpoint } from "@valence-ui/core";
-import { CSSProperties } from "react";
+import { CSSProperties, forwardRef } from "react";
 
 export type FABProps = IconButtonProps & {
   /** Vertical position of this button on the page. Defaults to `"bottom"` */
@@ -13,7 +13,10 @@ export type FABProps = IconButtonProps & {
   zIndex?: CSSProperties["zIndex"];
 };
 
-export function FAB(props: FABProps) {
+export const FAB = forwardRef(function FAB(
+  props: FABProps,
+  ref: any
+) {
   const breakpoint = useBreakpoint();
 
 
@@ -56,9 +59,10 @@ export function FAB(props: FABProps) {
       radius={radius}
 
       style={FABStyle}
+      ref={ref}
       {...rest}
     >
       {children}
     </PrimitiveButton>
   )
-}
+});

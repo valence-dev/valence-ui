@@ -1,31 +1,37 @@
 /** @jsxImportSource @emotion/react */
-import { CSSProperties, useContext } from "react";
+import { CSSProperties, forwardRef, useContext } from "react";
 import { ValenceContext } from "../../..";
 import { motion } from "framer-motion";
-import { GenericProps } from "@valence-ui/utils";
+import { GenericProps, PolymorphicLayoutProps } from "@valence-ui/utils";
 import { css } from "@emotion/react";
 
-export type ModalOverlayProps = GenericProps & {
-  /** Whether this overlay is open */
-  opened: boolean;
-  /** A function to call when this overlay is closed */
-  close?: () => void;
+export type ModalOverlayProps =
+  GenericProps
+  & PolymorphicLayoutProps
+  & {
+    /** Whether this overlay is open */
+    opened: boolean;
+    /** A function to call when this overlay is closed */
+    close?: () => void;
 
-  /** Whether to close this overlay when it is clicked */
-  closeOnClick?: boolean;
-  /** Whether the contents of the page behind the overlay should be blurred */
-  blurBackground?: boolean;
+    /** Whether to close this overlay when it is clicked */
+    closeOnClick?: boolean;
+    /** Whether the contents of the page behind the overlay should be blurred */
+    blurBackground?: boolean;
 
-  /** Sets `background-color` css property. Defaults to `permaBlack` */
-  backgroundColor?: CSSProperties["backgroundColor"];
-  /** Sets `padding` css property. Defaults to theme default */
-  padding?: CSSProperties["padding"];
-  /** Sets `z-index` css property. Defaults to `200` */
-  zIndex?: CSSProperties["zIndex"];
-}
+    /** Sets `background-color` css property. Defaults to `permaBlack` */
+    backgroundColor?: CSSProperties["backgroundColor"];
+    /** Sets `padding` css property. Defaults to theme default */
+    padding?: CSSProperties["padding"];
+    /** Sets `z-index` css property. Defaults to `200` */
+    zIndex?: CSSProperties["zIndex"];
+  }
 
 
-export function ModalOverlay(props: ModalOverlayProps) {
+export const ModalOverlay = forwardRef(function ModalOverlay(
+  props: ModalOverlayProps,
+  ref: any
+) {
   const theme = useContext(ValenceContext);
 
 
@@ -35,7 +41,8 @@ export function ModalOverlay(props: ModalOverlayProps) {
     close,
     closeOnClick = true,
     blurBackground = true,
-    backgroundColor = `${theme.getColor("permaBlack")?.base}${theme.getColor("permaBlack")?.opacity.strong}`,
+
+    backgroundColor = "permaBlack",
     padding = theme.sizeClasses.padding[theme.defaultSize],
     zIndex = 200,
 
@@ -51,7 +58,7 @@ export function ModalOverlay(props: ModalOverlayProps) {
     position: "fixed",
     top: 0, left: 0, right: 0, bottom: 0,
     zIndex: zIndex,
-    backgroundColor: backgroundColor,
+    backgroundColor: theme.getColorHex(backgroundColor, "strong"),
     backdropFilter: blurBackground ? "blur(10px)" : "none",
     padding: padding,
 
@@ -72,9 +79,10 @@ export function ModalOverlay(props: ModalOverlayProps) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
 
+      ref={ref}
       {...rest}
     >
       {children}
     </motion.div>
   )
-}
+});

@@ -54,12 +54,12 @@ exports.DEFAULT_COLORS = [
     {
         key: "orange",
         default: { base: "#F49740", opacity: { weak: "40", medium: "66", strong: "A6" } },
-        dark: { base: "#E26765", opacity: { weak: "33", medium: "66", strong: "A6" } }
+        dark: { base: "#ED9C51", opacity: { weak: "33", medium: "66", strong: "A6" } }
     },
     {
         key: "yellow",
         default: { base: "#E9BA3A", opacity: { weak: "40", medium: "66", strong: "A6" } },
-        dark: { base: "#E26765", opacity: { weak: "33", medium: "66", strong: "A6" } }
+        dark: { base: "#F7CD5A", opacity: { weak: "33", medium: "66", strong: "A6" } }
     },
     {
         key: "lime",

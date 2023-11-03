@@ -2,6 +2,7 @@ import { DEFAULT_COLORS } from "../Color";
 export const ValenceContextDefaults = {
     colors: DEFAULT_COLORS,
     getColor: () => undefined,
+    getColorHex: () => undefined,
     primaryColor: "pink",
     defaultSize: "sm",
     defaultRadius: "sm",

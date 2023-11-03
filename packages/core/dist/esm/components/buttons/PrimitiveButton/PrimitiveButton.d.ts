@@ -1,54 +1,30 @@
-/** @jsxImportSource @emotion/react */
-import React from "react";
+/// <reference types="react" />
 import { MotionBehaviourProps } from "../Helpers";
-import { ComponentSize, FillVariant, GenericLayoutProps, PolymorphicButtonComponents } from "@valence-ui/utils";
-export type GenericClickableProps = {
-    /** Sets `to` property on `Link` polymorphic elements */
-    to?: string;
-    /** Sets html `href` property on valid elements */
-    href?: string;
-    /** Sets html `target` property on valid elements */
-    target?: string;
-    /** Sets html `type` property on valid elements */
-    type?: "submit" | "reset" | "button";
-    /** Sets `onClick` event */
-    onClick?: (event: any) => void;
-    /** Sets `onMouseEnter` event */
-    onMouseEnter?: (event: any) => void;
-    /** Sets `onMouseLeave` event */
-    onMouseLeave?: (event: any) => void;
-    /** Sets `onMouseDown` event */
-    onMouseDown?: (event: any) => void;
-    /** Sets `onMouseUp` event */
-    onMouseUp?: (event: any) => void;
-    /** Sets `onFocus` event */
-    onFocus?: (event: any) => void;
-    /** Sets `onBlur` event */
-    onBlur?: (event: any) => void;
-};
-export type PrimitiveButtonProps = GenericClickableProps & GenericLayoutProps & {
-    /** Sets styling variant. Defaults to theme default */
-    variant?: FillVariant;
-    /** Sets size class. Defaults to theme default */
-    size?: ComponentSize;
-    /** Sets radius size class. Defaults to theme default */
-    radius?: ComponentSize;
-    /** Sets `aspect-ratio` css property */
-    aspectRatio?: React.CSSProperties["aspectRatio"];
-    /** Shorthand for `aspect-ratio = 1` */
-    square?: boolean;
-    /** Specifies if a shadow will be shown */
-    shadow?: boolean;
-    /** Shorthand for `flex-grow = 1` */
-    grow?: boolean;
-    /** Specifies if this button is disabled */
-    disabled?: boolean;
-    /** If set, this button will be disabled and its contents replaced with a loader */
-    loading?: boolean;
+import { GenericButtonProps } from "../../../generics";
+export type PrimitiveButtonProps = GenericButtonProps & {
     /** Defines motion behavior for this button. This will automatically be overridden if the user has reduced motion enabled on their device. */
     motion?: MotionBehaviourProps;
-    /** An optional addition to allow components to become polymorphic */
-    component?: PolymorphicButtonComponents;
 };
-export declare function PrimitiveButton(props: PrimitiveButtonProps): import("@emotion/react/jsx-runtime").JSX.Element;
+export declare const PrimitiveButton: import("react").ForwardRefExoticComponent<import("@valence-ui/utils/src/generics/Clickable").GenericClickableProps & import("@valence-ui/utils/src/generics/Events").MouseClickEvents & import("@valence-ui/utils/src/generics/Events").MouseEvents & import("@valence-ui/utils/src/generics/Events").PointerEvents & import("@valence-ui/utils/src/generics/Events").FocusEvents & import("@valence-ui/utils").PolymorphicElementProps & {
+    css?: any;
+} & import("@valence-ui/utils/src/generics/Global").GenericProps & {
+    color?: import("csstype").Property.Color | undefined;
+    backgroundColor?: import("csstype").Property.BackgroundColor | undefined;
+    padding?: import("csstype").Property.Padding<string | number> | undefined;
+    margin?: import("csstype").Property.Margin<string | number> | undefined;
+    width?: import("csstype").Property.Width<string | number> | undefined;
+    height?: import("csstype").Property.Height<string | number> | undefined;
+} & {
+    variant?: import("@valence-ui/utils/src/generics/Global").FillVariant | undefined;
+    size?: import("@valence-ui/utils/src/generics/Global").ComponentSize | undefined;
+    radius?: import("@valence-ui/utils/src/generics/Global").ComponentSize | undefined;
+    square?: boolean | undefined;
+    shadow?: boolean | undefined;
+    grow?: boolean | undefined;
+    disabled?: boolean | undefined;
+    loading?: boolean | undefined;
+} & {
+    /** Defines motion behavior for this button. This will automatically be overridden if the user has reduced motion enabled on their device. */
+    motion?: MotionBehaviourProps | undefined;
+} & import("react").RefAttributes<unknown>>;
 //# sourceMappingURL=PrimitiveButton.d.ts.map

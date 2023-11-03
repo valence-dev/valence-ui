@@ -24,6 +24,24 @@ export type ImageProps = GenericImageProps & GenericReactiveProps & {
     square?: ReactiveProp<boolean>;
     /** **[REACTIVE]** Specifies if a shadow will be shown */
     shadow?: ReactiveProp<boolean>;
+    children?: never;
 };
-export declare function Image(props: ImageProps): import("@emotion/react/jsx-runtime").JSX.Element;
+export declare const Image: import("react").ForwardRefExoticComponent<GenericImageProps & import("@valence-ui/utils").GenericProps & {
+    style?: ReactiveProp<CSSProperties> | undefined;
+    tabIndex?: ReactiveProp<number> | undefined;
+} & {
+    /** Placeholder content for this image */
+    placeholder?: ReactNode;
+    /** **[REACTIVE]** Defines the border radius size class of this image. Defaults to the theme default radius size class. */
+    radius?: ReactiveProp<ComponentSize> | undefined;
+    /** **[REACTIVE]** Sets `width` css property */
+    width?: ReactiveProp<CSSProperties["width"]>;
+    /** **[REACTIVE]** Sets `height` css property */
+    height?: ReactiveProp<CSSProperties["height"]>;
+    /** **[REACTIVE]** Shorthand for `aspect-ratio = "1/1"` */
+    square?: ReactiveProp<boolean> | undefined;
+    /** **[REACTIVE]** Specifies if a shadow will be shown */
+    shadow?: ReactiveProp<boolean> | undefined;
+    children?: undefined;
+} & import("react").RefAttributes<unknown>>;
 //# sourceMappingURL=Image.d.ts.map

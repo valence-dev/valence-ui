@@ -38,6 +38,7 @@ export const Card: Story = (args: any) => (
   </ValenceProvider>
 );
 Card.args = {
+  component: "div",
   buttonProps: {
     onClick: () => alert("Clicked"),
   }

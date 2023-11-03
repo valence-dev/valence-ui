@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import { CSSProperties, useContext } from "react";
+import { CSSProperties, forwardRef, useContext } from "react";
 import reactStringReplace from "react-string-replace";
-import { ComponentSize, GenericProps, PolymorphicText, PolymorphicTextProps } from "@valence-ui/utils";
+import { ComponentSize, GenericClickableProps, GenericProps, PolymorphicText, PolymorphicTextProps } from "@valence-ui/utils";
 import { ValenceContext } from "../../../ValenceProvider";
 import { css } from "@emotion/react";
 
@@ -15,33 +15,34 @@ const REGEX_PATTERNS = {
 
 
 // TYPES
-export type TextProps = GenericProps & PolymorphicTextProps & {
-  /** Sets `font-family` css property */
-  family?: CSSProperties["fontFamily"];
-  /** Sets `font-weight` css property */
-  weight?: CSSProperties["fontWeight"];
-  /** Sets `font-size` css property */
-  fontSize?: CSSProperties["fontSize"];
-  /** Sets `text-align` css property */
-  align?: CSSProperties["textAlign"];
-  /** Sets `text-transform` css property */
-  transform?: React.CSSProperties["textTransform"];
+export type TextProps =
+  GenericProps
+  & GenericClickableProps
+  & PolymorphicTextProps
+  & {
+    /** Sets `font-family` css property */
+    family?: CSSProperties["fontFamily"];
+    /** Sets `font-weight` css property */
+    weight?: CSSProperties["fontWeight"];
+    /** Sets `font-size` css property */
+    fontSize?: CSSProperties["fontSize"];
+    /** Sets `text-align` css property */
+    align?: CSSProperties["textAlign"];
+    /** Sets `text-transform` css property */
+    transform?: React.CSSProperties["textTransform"];
 
-  /** Sets the size of the text */
-  size?: ComponentSize;
-  /** Sets `color` css property */
-  color?: CSSProperties["color"];
+    /** Sets the size of the text */
+    size?: ComponentSize;
+    /** Sets `color` css property */
+    color?: CSSProperties["color"];
 
-  /** Shorthand for `font-style: italic` */
-  italic?: boolean;
-  /** Shorthand for `font-weight: 800` */
-  bold?: boolean;
-  /** Shorthand for `font-family: monospace` */
-  monospace?: boolean;
-
-  /** Sets `to` property on `Link` polymorphic elements */
-  link?: string;
-}
+    /** Shorthand for `font-style: italic` */
+    italic?: boolean;
+    /** Shorthand for `font-weight: 800` */
+    bold?: boolean;
+    /** Shorthand for `font-family: monospace` */
+    monospace?: boolean;
+  }
 
 
 // COMPONENTS
@@ -55,7 +56,10 @@ export type TextProps = GenericProps & PolymorphicTextProps & {
  * - `*{...}*` for italicized text
  * - `{...}` for monospace text
  */
-export function Text(props: TextProps) {
+export const Text = forwardRef(function Text(
+  props: TextProps,
+  ref: any
+) {
   const theme = useContext(ValenceContext);
 
 
@@ -69,17 +73,19 @@ export function Text(props: TextProps) {
     weight = bold ? "bold" : "normal",
     align = "left",
     transform = "none",
-    
+
     size = theme.defaultSize,
     fontSize = theme.sizeClasses.fontSize[size],
     color = theme.getColor("black")?.base ?? "black",
 
+    children,
+    style,
     ...rest
   } = props;
 
 
   // Run through formatters
-  let replacements: any = props.children;
+  let replacements: any = children;
   replacements = reactStringReplace(replacements, REGEX_PATTERNS.newline, (match, i) => (
     <br key={match + i} />
   ));
@@ -135,17 +141,19 @@ export function Text(props: TextProps) {
     textAlign: align,
 
     color: color,
-
     margin: 0,
+
+    ...style,
   });
 
 
   return (
     <PolymorphicText
       css={TextStyle}
+      ref={ref}
       {...rest}
     >
       {replacements}
     </PolymorphicText>
   )
-}
+});

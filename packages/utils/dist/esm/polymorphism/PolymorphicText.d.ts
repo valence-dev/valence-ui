@@ -1,14 +1,11 @@
 /// <reference types="react" />
-import { GenericProps } from "..";
-export type PolymorphicTextProps = GenericProps & {
-    /** Sets the component type to render */
-    component?: PolymorphicTextComponents;
+import { GenericClickableProps, GenericProps, PolymorphicElementProps } from "..";
+export type PolymorphicTextProps = PolymorphicElementProps & {
+    /** Sets Emotion styling content on the component */
     css?: any;
 };
-export type PolymorphicTextComponents = "p" | "link" | "a" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "span" | "div";
-export declare const PolymorphicText: import("react").ForwardRefExoticComponent<GenericProps & {
-    /** Sets the component type to render */
-    component?: PolymorphicTextComponents | undefined;
+export declare const PolymorphicText: import("react").ForwardRefExoticComponent<PolymorphicElementProps & {
+    /** Sets Emotion styling content on the component */
     css?: any;
-} & import("react").RefAttributes<unknown>>;
+} & GenericProps & import("..").MouseClickEvents & import("..").MouseEvents & import("..").PointerEvents & import("..").FocusEvents & GenericClickableProps & import("react").RefAttributes<unknown>>;
 //# sourceMappingURL=PolymorphicText.d.ts.map

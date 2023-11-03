@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { PrimitiveButton, Text, TextButtonProps, ValenceContext, getTextColor } from "@valence-ui/core";
-import { ReactNode, useContext } from "react";
+import { ReactNode, forwardRef, useContext } from "react";
 
 export type GridButtonProps = TextButtonProps & {
   /** The icon to include with this button */
@@ -10,7 +10,10 @@ export type GridButtonProps = TextButtonProps & {
   iconPosition?: "top" | "bottom";
 }
 
-export function GridButton(props: GridButtonProps) {
+export const GridButton = forwardRef(function GridButton(
+  props: GridButtonProps,
+  ref: any
+) {
   const theme = useContext(ValenceContext);
 
 
@@ -60,6 +63,8 @@ export function GridButton(props: GridButtonProps) {
       width={width}
       square={square}
       style={styles}
+
+      ref={ref}
       {...rest}
     >
       <div css={IconContainerStyle}>
@@ -69,10 +74,11 @@ export function GridButton(props: GridButtonProps) {
       <Text
         fontSize={theme.sizeClasses.fontSize[size] as number * 0.8}
         color={getTextColor(color, variant, theme)}
+        align="center"
         {...textProps}
       >
         {props.children}
       </Text>
     </PrimitiveButton>
   )
-}
+});

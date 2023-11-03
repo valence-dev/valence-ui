@@ -1,26 +1,29 @@
-import { ComponentSize, GenericReactiveLayoutProps, GenericReactiveProps, ReactiveProp, SizeClasses, getReactiveProp } from "@valence-ui/utils";
+import { ComponentSize, GenericReactiveLayoutProps, GenericReactiveProps, PolymorphicButtonProps, ReactiveProp, SizeClasses, getReactiveProp } from "@valence-ui/utils";
 import { Flex, FlexProps } from "..";
 import { PrimitiveButton, PrimitiveButtonProps } from "../../buttons/PrimitiveButton";
-import { CSSProperties, useContext } from "react";
+import { CSSProperties, forwardRef, useContext } from "react";
 import { ValenceContext } from "../../../ValenceProvider";
 import { useBreakpoint } from "../../../hooks";
-import { GenericImageProps, Image } from "../../display";
+import { GenericImageProps, Image as ImageComponent } from "../../display";
 import { UnstyledButton } from "../../buttons";
 
 
-export type CardProps = GenericReactiveLayoutProps & {
-  /** **[REACTIVE]** Defines the size class for this card */
-  size?: ReactiveProp<ComponentSize>;
-  /** **[REACTIVE]** Defines the radius size class for this card */
-  radius?: ReactiveProp<ComponentSize>;
-  /** **[REACTIVE]** Defines the gap size between this card's contents */
-  gap?: ReactiveProp<CSSProperties["gap"]>;
+export type CardProps =
+  GenericReactiveLayoutProps
+  & PolymorphicButtonProps
+  & {
+    /** **[REACTIVE]** Defines the size class for this card */
+    size?: ReactiveProp<ComponentSize>;
+    /** **[REACTIVE]** Defines the radius size class for this card */
+    radius?: ReactiveProp<ComponentSize>;
+    /** **[REACTIVE]** Defines the gap size between this card's contents */
+    gap?: ReactiveProp<CSSProperties["gap"]>;
 
-  /** Optional props to pass to the button component of this card */
-  buttonProps?: PrimitiveButtonProps;
-  /** Optional props to pass to the `Flex` component of this card */
-  flexProps?: FlexProps;
-}
+    /** Optional props to pass to the button component of this card */
+    buttonProps?: PrimitiveButtonProps;
+    /** Optional props to pass to the `Flex` component of this card */
+    flexProps?: FlexProps;
+  }
 export const CARD_DEFAULTS: { width: SizeClasses<CSSProperties["width"]> } = {
   width: {
     "xs": 150,
@@ -32,7 +35,10 @@ export const CARD_DEFAULTS: { width: SizeClasses<CSSProperties["width"]> } = {
 }
 
 
-export const Card = function Card(props: CardProps) {
+const Card = forwardRef(function Card(
+  props: CardProps,
+  ref: any
+) {
   const theme = useContext(ValenceContext);
   const breakpoint = useBreakpoint();
 
@@ -55,6 +61,7 @@ export const Card = function Card(props: CardProps) {
 
     children,
     style,
+    ...rest
   } = props;
 
 
@@ -82,7 +89,10 @@ export const Card = function Card(props: CardProps) {
         onHover: "raise",
         onTap: "bounce",
       }}
+
+      ref={ref}
       {...buttonProps}
+      {...rest}
     >
       <Flex
         direction="column"
@@ -93,7 +103,7 @@ export const Card = function Card(props: CardProps) {
       </Flex>
     </PrimitiveButton>
   )
-}
+});
 
 
 export type CardImageProps = GenericReactiveProps & GenericImageProps & {
@@ -103,9 +113,14 @@ export type CardImageProps = GenericReactiveProps & GenericImageProps & {
   width?: ReactiveProp<CSSProperties["width"]>;
   /** **[REACTIVE]** Sets `height` css property */
   height?: ReactiveProp<CSSProperties["height"]>;
+
+  children?: never;
 }
 
-Card.Image = function CardImage(props: CardImageProps) {
+const Image = forwardRef(function CardImage(
+  props: CardImageProps,
+  ref: any
+) {
   const theme = useContext(ValenceContext);
 
 
@@ -120,19 +135,24 @@ Card.Image = function CardImage(props: CardImageProps) {
 
 
   return (
-    <Image
+    <ImageComponent
       radius={radius}
       width={width}
       height={height}
+
+      ref={ref}
       {...rest}
     />
   )
-}
+});
 
 
 export type CardSectionProps = FlexProps;
 
-Card.Section = function CardSection(props: CardSectionProps) {
+const Section = forwardRef(function CardSection(
+  props: CardSectionProps,
+  ref: any
+) {
   const theme = useContext(ValenceContext);
 
 
@@ -152,17 +172,22 @@ Card.Section = function CardSection(props: CardSectionProps) {
       width={width}
       height={height}
       padding={padding}
+
+      ref={ref}
       {...rest}
     >
       {children}
     </Flex>
   )
-}
+});
 
 
 export type CardButtonsProps = FlexProps;
 
-Card.Buttons = function CardButtons(props: CardButtonsProps) {
+const Buttons = forwardRef(function CardButtons(
+  props: CardButtonsProps,
+  ref: any
+) {
   const theme = useContext(ValenceContext);
   const breakpoint = useBreakpoint();
 
@@ -187,7 +212,7 @@ Card.Buttons = function CardButtons(props: CardButtonsProps) {
     width: getReactiveProp(width, breakpoint),
     height: getReactiveProp(height, breakpoint),
     padding: getReactiveProp(padding, breakpoint),
-    
+
     boxSizing: "border-box",
   }
 
@@ -195,7 +220,9 @@ Card.Buttons = function CardButtons(props: CardButtonsProps) {
   return (
     <UnstyledButton
       onClick={(e) => e.stopPropagation()}
+      component="div"
       style={ButtonStyle}
+      ref={ref}
     >
       <Flex
         width="100%"
@@ -211,4 +238,12 @@ Card.Buttons = function CardButtons(props: CardButtonsProps) {
       </Flex>
     </UnstyledButton>
   )
-}
+});
+
+
+const CardNamesapce = Object.assign(Card, {
+  Image,
+  Section,
+  Buttons,
+});
+export { CardNamesapce as Card };

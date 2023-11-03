@@ -1,14 +1,11 @@
 /// <reference types="react" />
-import { GenericProps } from "..";
-export type PolymorphicLayoutProps = GenericProps & {
-    /** Sets the component type to render */
-    component?: PolymorphicLayoutComponents;
+import { GenericClickableProps, GenericProps, MouseEvents, PolymorphicElementProps } from "..";
+export type PolymorphicLayoutProps = PolymorphicElementProps & {
+    /** Sets Emotion styling content on the component */
     css?: any;
 };
-export type PolymorphicLayoutComponents = "div" | "span" | "section" | "aside" | "form";
-export declare const PolymorphicLayout: import("react").ForwardRefExoticComponent<GenericProps & {
-    /** Sets the component type to render */
-    component?: PolymorphicLayoutComponents | undefined;
+export declare const PolymorphicLayout: import("react").ForwardRefExoticComponent<PolymorphicElementProps & {
+    /** Sets Emotion styling content on the component */
     css?: any;
-} & import("react").RefAttributes<unknown>>;
+} & GenericProps & import("..").MouseClickEvents & MouseEvents & import("..").PointerEvents & import("..").FocusEvents & GenericClickableProps & import("react").RefAttributes<unknown>>;
 //# sourceMappingURL=PolymorphicLayout.d.ts.map

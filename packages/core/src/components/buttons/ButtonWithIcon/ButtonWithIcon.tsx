@@ -34,8 +34,8 @@ export function ButtonWithIcon(props: ButtonWithIconProps) {
   const styles: CSSProperties = {
     flexDirection: iconPosition === "left" ? "row" : "row-reverse",
     justifyContent: "flex-start",
-    paddingLeft: iconPosition === "left" ? 6 : undefined,
-    paddingRight: iconPosition === "right" ? 6 : undefined,
+    paddingLeft: iconPosition === "left" ? 10 : undefined,
+    paddingRight: iconPosition === "right" ? 10 : undefined,
     gap: 8,
 
     ...style

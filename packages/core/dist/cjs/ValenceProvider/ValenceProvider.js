@@ -25,6 +25,12 @@ function ValenceProvider(props) {
         else
             return (0, Color_1.getReactiveColor)(colors.find(i => i.key === key), isDarkMode);
     }
+    function getColorHex(key, opacity) {
+        const color = getColor(key);
+        if (color === undefined)
+            return undefined;
+        return `${color.base}` + (opacity ? `${color.opacity[opacity]}` : "");
+    }
     function getFont(context) {
         var _a, _b;
         switch (context) {
@@ -36,6 +42,7 @@ function ValenceProvider(props) {
     return ((0, jsx_runtime_1.jsx)(exports.ValenceContext.Provider, { value: {
             colors,
             getColor,
+            getColorHex,
             primaryColor,
             defaultSize,
             defaultRadius,

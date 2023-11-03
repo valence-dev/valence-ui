@@ -9,9 +9,8 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import { jsx as _jsx } from "@emotion/react/jsx-runtime";
-/** @jsxImportSource @emotion/react */
-import { useContext, useState } from "react";
+import { jsx as _jsx } from "react/jsx-runtime";
+import { forwardRef, useContext, useState } from "react";
 import { Flex } from "../Flex";
 import { ValenceContext, useBreakpoint } from "../../..";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
@@ -23,14 +22,14 @@ function interpolateHeight(max, min, scrollY) {
  *
  * On desktop devices, the `Header` will act as a static container that can be placed anywhere and will scroll with the content. On mobile devices, however, the `Header` will become fixed tot he top of the screen and can shrink as the user scrolls.
  */
-export function Header(props) {
-    var _a, _b;
+export const Header = forwardRef(function Header(props, ref) {
+    var _a;
     const theme = useContext(ValenceContext);
     // Defaults
-    const { regularHeight = 100, tallHeight = 150, compactHeight = 75, compactOnScroll = true, backgroundColor = (_a = theme.getColor("white")) === null || _a === void 0 ? void 0 : _a.base, children, style } = props, rest = __rest(props, ["regularHeight", "tallHeight", "compactHeight", "compactOnScroll", "backgroundColor", "children", "style"]);
+    const { regularHeight = 100, tallHeight = 150, compactHeight = 75, compactOnScroll = true, backgroundColor = theme.getColorHex("white"), children, style } = props, rest = __rest(props, ["regularHeight", "tallHeight", "compactHeight", "compactOnScroll", "backgroundColor", "children", "style"]);
     // Hooks & States
     const breakpoint = useBreakpoint();
-    const [height, setHeight] = useState(((_b = props.height) !== null && _b !== void 0 ? _b : breakpoint.isMobileTall) ? tallHeight : regularHeight);
+    const [height, setHeight] = useState(((_a = props.height) !== null && _a !== void 0 ? _a : breakpoint.isMobileTall) ? tallHeight : regularHeight);
     // Scroll listener
     useScrollPosition(({ prevPos, currPos }) => {
         var _a;
@@ -40,5 +39,5 @@ export function Header(props) {
     });
     // Styles
     const HeaderStyle = Object.assign({ backgroundColor: getReactiveProp(backgroundColor, breakpoint), position: breakpoint.isMobile ? "fixed" : undefined, top: 0, zIndex: 150, width: "100%" }, getReactiveProp(style, breakpoint));
-    return (_jsx(Flex, Object.assign({ style: HeaderStyle, direction: "column", justify: "center", height: height }, rest, { children: children })));
-}
+    return (_jsx(Flex, Object.assign({ style: HeaderStyle, direction: "column", justify: "center", height: height, ref: ref }, rest, { children: children })));
+});

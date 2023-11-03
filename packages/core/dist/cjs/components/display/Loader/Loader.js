@@ -1,4 +1,15 @@
 "use strict";
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Loader = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
@@ -12,19 +23,11 @@ const SIZES = {
     lg: { height: 20, thickness: 3 },
     xl: { height: 25, thickness: 3.5 },
 };
-function Loader(props) {
-    var _a;
+exports.Loader = (0, react_1.forwardRef)(function Loader(props, ref) {
     const theme = (0, react_1.useContext)(__1.ValenceContext);
-    const size = props.size || theme.defaultSize;
-    const loaderStyle = {
-        width: SIZES[size].height,
-        height: SIZES[size].height,
-        border: `${SIZES[size].thickness}px solid #11181C00`,
-        borderBottomColor: ((_a = theme.getColor(props.color ? props.color : theme.primaryColor)) === null || _a === void 0 ? void 0 : _a.base) || props.color,
-        borderRadius: "50%",
-        display: "inline-block",
-        boxSizing: "border-box",
-    };
-    return ((0, jsx_runtime_1.jsx)(framer_motion_1.motion.div, { style: loaderStyle, animate: { rotate: 360 }, transition: { repeat: Infinity, type: "tween", duration: 0.8, ease: "linear" } }));
-}
-exports.Loader = Loader;
+    // Defaults
+    const { size = theme.defaultSize, color = theme.primaryColor, style } = props, rest = __rest(props, ["size", "color", "style"]);
+    // Styles
+    const loaderStyle = Object.assign({ width: SIZES[size].height, height: SIZES[size].height, border: `${SIZES[size].thickness}px solid #11181C00`, borderBottomColor: theme.getColorHex(color), borderRadius: "50%", display: "inline-block", boxSizing: "border-box" }, style);
+    return ((0, jsx_runtime_1.jsx)(framer_motion_1.motion.div, Object.assign({ style: loaderStyle, animate: { rotate: 360 }, transition: { repeat: Infinity, type: "tween", duration: 0.8, ease: "linear" }, ref: ref }, rest)));
+});

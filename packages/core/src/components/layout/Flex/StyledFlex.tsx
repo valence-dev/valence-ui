@@ -1,4 +1,4 @@
-import { CSSProperties, useContext } from "react";
+import { CSSProperties, forwardRef, useContext } from "react";
 import { ValenceContext, useBreakpoint } from "../../..";
 import { getBackgroundColor, getTextColor } from "../../buttons"
 import { Flex, FlexProps } from "./Flex";
@@ -18,7 +18,10 @@ export type StyledFlexProps = FlexProps & {
 
 
 /** A styled version of the `Flex` component that offers many props in line with the button styling system */
-export function StyledFlex(props: StyledFlexProps) {
+export const StyledFlex = forwardRef(function StyledFlex(
+  props: StyledFlexProps,
+  ref: any
+) {
   const theme = useContext(ValenceContext);
   const breakpoint = useBreakpoint();
 
@@ -56,13 +59,15 @@ export function StyledFlex(props: StyledFlexProps) {
   }
 
 
-  return ( 
+  return (
     <Flex
       style={styles}
       padding={theme.sizeClasses.padding[getReactiveProp(size, breakpoint)]}
+
+      ref={ref}
       {...rest}
     >
       {children}
     </Flex>
   )
-}
+});

@@ -11,6 +11,10 @@ export type IValenceContext = {
      * @param key key of the color to find. Using `primary` will return the theme primary color. Alternatively, an accepted hex code (prefixed with `#`) can be used to retrieve a color that is not defined in the theme.
      */
     getColor: (key: string | undefined) => Color | undefined;
+    /** Finds a color within the theme context and returns it as a hex code
+     * @param key key of the color to find. Using `primary` will return the theme primary color. Alternatively, an accepted hex code (prefixed with `#`) can be used to retrieve a color that is not defined in the theme.
+     */
+    getColorHex: (key: string | undefined, opacity?: "weak" | "medium" | "strong") => string | undefined;
     /** The default size to use for components */
     defaultSize: ComponentSize;
     /** The default radius to use for components */

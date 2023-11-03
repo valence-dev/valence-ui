@@ -1,27 +1,64 @@
 /** @jsxImportSource @emotion/react */
-import { Dispatch, SetStateAction } from "react";
-import { GenericInputEventHandlerProps, GenericInputProps } from "../InputContainer";
+import { ReactNode } from "react";
+import { GenericTextInputEventProps, GenericTextInputProps } from "../../..";
 /** Defines the type of input that will be rendered */
 export type TextInputType = "text" | "password" | "email" | "number" | "tel" | "url" | "search";
 /** Defines the type of autocomplete behaviour that will be used */
 export type AutoCompleteBehaviour = "off" | "on" | "name" | "honorific-prefix" | "given-name" | "addtional-name" | "family-name" | "honorific-suffix" | "nickname" | "email" | "email" | "username" | "new-password" | "current-password" | "one-time-code" | "organization-title" | "organization" | "street-address" | "shipping" | "billing" | "address-line1" | "address-line2" | "address-line3" | "address-level4" | "address-level3" | "address-level2" | "address-level1" | "country" | "country-name" | "postal-code" | "cc-name" | "cc-given-name" | "cc-additional-name" | "cc-family-name" | "cc-number" | "cc-exp" | "cc-exp-month" | "cc-exp-year" | "cc-csc" | "cc-type" | "transaction-currency" | "transaction-amount" | "language" | "bday" | "bday-day" | "bday-month" | "bday-year" | "sex" | "tel" | "tel-country-code" | "tel-national" | "tel-area-code" | "tel-local" | "tel-extension" | "impp" | "url" | "photo" | "webauthn";
-export type TextInputProps = GenericInputProps & GenericInputEventHandlerProps & {
-    /** The value of the input */
-    value: string;
-    /** Sets the value of the input */
-    setValue: Dispatch<SetStateAction<string>>;
+export type TextInputProps = GenericTextInputProps & GenericTextInputEventProps & {
+    /** An icon to display at the left side of this input */
+    icon?: ReactNode;
     /** The type of input to render. Defaults to `text` */
     type?: TextInputType;
     /** The autocomplete behaviour to use. Defaults to `off` */
     autoComplete?: AutoCompleteBehaviour;
-    /** A regex pattern to use for validation */
-    pattern?: string;
-    /** The minimum length of the input */
-    minLength?: number;
-    /** The maximum length of the input */
-    maxLength?: number;
     /** For `type=email`, this specifies if this input accepts multiple values */
     multiple?: boolean;
+    /** Shorthand for `flex-grow = 1` */
+    grow?: boolean;
 };
-export declare function TextInput(props: TextInputProps): import("@emotion/react/jsx-runtime").JSX.Element;
+export declare const TextInput: import("react").ForwardRefExoticComponent<import("@valence-ui/utils").GenericProps & {
+    color?: import("csstype").Property.Color | undefined;
+    backgroundColor?: import("csstype").Property.BackgroundColor | undefined;
+    padding?: import("csstype").Property.Padding<string | number> | undefined;
+    margin?: import("csstype").Property.Margin<string | number> | undefined;
+    width?: import("csstype").Property.Width<string | number> | undefined;
+    height?: import("csstype").Property.Height<string | number> | undefined;
+} & {
+    value: string;
+    setValue: import("react").Dispatch<import("react").SetStateAction<string>>;
+    size?: import("@valence-ui/utils").ComponentSize | undefined;
+    radius?: import("@valence-ui/utils").ComponentSize | undefined;
+    variant?: import("@valence-ui/utils").FillVariant | undefined;
+    disabled?: boolean | undefined;
+    readOnly?: boolean | undefined;
+    required?: boolean | undefined;
+    autoFocus?: boolean | undefined;
+    loading?: boolean | undefined;
+    form?: string | undefined;
+    name?: string | undefined;
+} & {
+    placeholder?: string | undefined;
+    minLength?: number | undefined;
+    maxLength?: number | undefined;
+    pattern?: string | undefined;
+    inputStyle?: import("react").CSSProperties | undefined; /** Shorthand for `flex-grow = 1` */
+    children?: undefined;
+} & import("@valence-ui/utils/src/generics/Events").MouseClickEvents & import("@valence-ui/utils/src/generics/Events").MouseEvents & import("@valence-ui/utils/src/generics/Events").PointerEvents & import("@valence-ui/utils/src/generics/Events").FocusEvents & import("@valence-ui/utils/src/generics/Events").KeyboardEvents & {
+    onInput?: ((event: import("react").FormEvent<Element>) => void) | undefined;
+    onChange?: ((event: import("react").FormEvent<Element>) => void) | undefined;
+    onInvalid?: ((event: import("react").FormEvent<Element>) => void) | undefined;
+    onEnterPress?: ((e: import("react").KeyboardEvent<Element>) => void) | undefined;
+} & {
+    /** An icon to display at the left side of this input */
+    icon?: ReactNode;
+    /** The type of input to render. Defaults to `text` */
+    type?: TextInputType | undefined;
+    /** The autocomplete behaviour to use. Defaults to `off` */
+    autoComplete?: AutoCompleteBehaviour | undefined;
+    /** For `type=email`, this specifies if this input accepts multiple values */
+    multiple?: boolean | undefined;
+    /** Shorthand for `flex-grow = 1` */
+    grow?: boolean | undefined;
+} & import("react").RefAttributes<unknown>>;
 //# sourceMappingURL=TextInput.d.ts.map

@@ -1,36 +1,42 @@
-import { CSSProperties, ReactNode, useContext } from "react";
-import { ComponentSize, GenericReactiveLayoutProps, ReactiveProp } from "@valence-ui/utils";
+import { CSSProperties, ReactNode, forwardRef, useContext } from "react";
+import { ComponentSize, GenericReactiveLayoutProps, PolymorphicLayoutProps, ReactiveProp } from "@valence-ui/utils";
 import { Flex, Header, ValenceContext, useBreakpoint } from "@valence-ui/core";
 
-export type AppContainerProps = GenericReactiveLayoutProps & {
-  /** The primary root navigation element. This element should be consistent across pages; its recommended to be based off the `<Nav />` component. */
-  nav?: ReactNode;
-  /** The header containing the `<h1>` for this page. */
-  header: ReactNode;
-  /** An optional sidebar element used for navigation or page-level actions. */
-  sidebar?: ReactNode;
+export type AppContainerProps =
+  GenericReactiveLayoutProps
+  & PolymorphicLayoutProps
+  & {
+    /** The primary root navigation element. This element should be consistent across pages; its recommended to be based off the `<Nav />` component. */
+    nav?: ReactNode;
+    /** The  header containing the `<h1>` for this page. */
+    header: ReactNode;
+    /** An optional sidebar element used for navigation or page-level actions. */
+    sidebar?: ReactNode;
 
-  /** The border radius of the page container. Defaults to `5px` larger than the theme default. */
-  radius?: ComponentSize;
+    /** The border radius of the page container. Defaults to `5px` larger than the theme default. */
+    radius?: ComponentSize;
 
-  /** Properties to apply to the nav container element */
-  navContainerProps?: GenericReactiveLayoutProps;
-  /** Properties to apply to the page container element */
-  pageProps?: GenericReactiveLayoutProps;
+    /** Properties to apply to the nav container element */
+    navContainerProps?: GenericReactiveLayoutProps;
+    /** Properties to apply to the page container element */
+    pageProps?: GenericReactiveLayoutProps;
 
-  /** The maximum width of this page's content */
-  contentWidth?: number;
-  /** The width of the sidebar element */
-  sidebarWidth?: number;
-  /** The width of the nav element */
-  navWidth?: number;
-}
+    /** The maximum width of this page's content */
+    contentWidth?: number;
+    /** The width of the sidebar element */
+    sidebarWidth?: number;
+    /** The width of the nav element */
+    navWidth?: number;
+  }
 
 
 /**
  * The `AppContainer` component is a layout component that provides a consistent layout for pages in the application. It includes a navigation element, a header element, and an optional sidebar element. The `AppContainer` component is responsive and adjusts its layout based on the screen size.
  */
-export function AppContainer(props: AppContainerProps) {
+export const AppContainer = forwardRef(function AppContainer(
+  props: AppContainerProps,
+  ref: any
+) {
   const theme = useContext(ValenceContext);
   const breakpoint = useBreakpoint();
 
@@ -49,6 +55,7 @@ export function AppContainer(props: AppContainerProps) {
     navWidth = 65,
 
     children,
+    style,
     ...rest
   } = props;
 
@@ -69,7 +76,8 @@ export function AppContainer(props: AppContainerProps) {
       right: 0,
       width: "100vw",
       zIndex: 999,
-    }
+    },
+    ...style,
   };
   const sidebarContainerStyle: ReactiveProp<CSSProperties> = {
     default: {
@@ -83,7 +91,8 @@ export function AppContainer(props: AppContainerProps) {
       overflow: "auto",
       padding: `0px 10px`,
       minHeight: borderRadius,
-    }
+    },
+
   };
   const contentContainerStyle: ReactiveProp<CSSProperties> = {
     default: {
@@ -98,7 +107,8 @@ export function AppContainer(props: AppContainerProps) {
   };
   const contentStyle: CSSProperties = {
     width: `min(${contentWidth}px, 100%)`,
-    minHeight: "100vh"
+    minHeight: "100vh",
+    paddingBottom: 200,
   }
 
 
@@ -110,6 +120,8 @@ export function AppContainer(props: AppContainerProps) {
         backgroundColor="primary"
         style={pageContainerStyle}
         gap={0}
+
+        ref={ref}
         {...rest}
       >
         {/* Nav */}
@@ -155,4 +167,4 @@ export function AppContainer(props: AppContainerProps) {
       </Flex>
     </>
   )
-}
+});

@@ -15,4 +15,3 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./BreakpointProps"), exports);
-__exportStar(require("./GenericProps"), exports);

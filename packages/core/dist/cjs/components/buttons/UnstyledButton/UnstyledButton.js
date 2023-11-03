@@ -16,11 +16,11 @@ const jsx_runtime_1 = require("@emotion/react/jsx-runtime");
 /** @jsxImportSource @emotion/react */
 const utils_1 = require("@valence-ui/utils");
 const react_1 = require("@emotion/react");
-const UnstyledButton = function UnstyledButton(props) {
-    // Props
-    const { id, style, children, component = "button" } = props, rest = __rest(props, ["id", "style", "children", "component"]);
+const react_2 = require("react");
+exports.UnstyledButton = (0, react_2.forwardRef)(function UnstyledButton(props, ref) {
+    // Defaults
+    const { style, children } = props, rest = __rest(props, ["style", "children"]);
     // Styles
     const UnstyledButtonStyle = (0, react_1.css)(Object.assign({ outline: "none", border: "none", textDecoration: "none", background: "none" }, style));
-    return ((0, jsx_runtime_1.jsx)(utils_1.PolymorphicButton, Object.assign({ id: id, css: UnstyledButtonStyle, component: component }, rest, { children: children })));
-};
-exports.UnstyledButton = UnstyledButton;
+    return ((0, jsx_runtime_1.jsx)(utils_1.PolymorphicButton, Object.assign({ css: UnstyledButtonStyle, ref: ref }, rest, { children: children })));
+});

@@ -11,8 +11,11 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx } from "react/jsx-runtime";
 import { forwardRef } from "react";
-export const PolymorphicLayout = forwardRef((props, ref) => {
+import { Link } from "react-router-dom";
+export const PolymorphicLayout = forwardRef(function Input(props, ref) {
     const { component = "div", children } = props, rest = __rest(props, ["component", "children"]);
     let Component = component;
+    if (component === "link")
+        Component = Link;
     return (_jsx(Component, Object.assign({ ref: ref }, rest, { children: children })));
 });

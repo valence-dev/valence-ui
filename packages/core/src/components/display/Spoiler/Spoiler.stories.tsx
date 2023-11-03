@@ -1,5 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
+
 import { Spoiler as S } from "./Spoiler";
 
 const meta: Meta<typeof S> = {
@@ -15,7 +16,9 @@ export default meta;
 type Story = StoryObj<typeof S>;
 
 export const Spoiler: Story = (args: any) => (
-  <S data-testId="Spoiler-id" {...args} />
+  <S {...args}>
+    {args.children}
+  </S>
 );
 Spoiler.args = {
   children: "Spoiler content",

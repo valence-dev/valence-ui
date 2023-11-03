@@ -88,6 +88,12 @@ export function ValenceProvider(props: ValenceProviderProps) {
       return getReactiveColor(colors.find(i => i.key === key), isDarkMode);
   }
 
+  function getColorHex(key: string | undefined, opacity?: "weak" | "medium" | "strong") {
+    const color = getColor(key);
+    if (color === undefined) return undefined;
+    return `${color.base}` + (opacity ? `${color.opacity[opacity]}` : "");
+  }
+
   function getFont(context: "default" | "heading" | "monospace") {
     switch (context) {
       case "default": return fontFamily.default;
@@ -102,6 +108,7 @@ export function ValenceProvider(props: ValenceProviderProps) {
       value={{
         colors,
         getColor,
+        getColorHex,
         primaryColor,
 
         defaultSize,

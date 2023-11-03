@@ -11,18 +11,24 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx, jsxs as _jsxs } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
-import { useContext } from "react";
-import { AnimatePresence } from "framer-motion";
+import { forwardRef, useContext } from "react";
+import { AnimatePresence, useReducedMotion } from "framer-motion";
 import { Flex } from "../../layout";
 import { Text } from "../Text";
-import { getBackgroundColor, getTextColor } from "../../buttons";
-import { PolymorphicButton } from "@valence-ui/utils";
+import { getBackgroundColor, getMotionBehaviour, getTextColor } from "../../buttons";
+import { CLICKABLE_ELEMENTS, PolymorphicButton } from "@valence-ui/utils";
 import { ValenceContext } from "../../../ValenceProvider";
 import { css } from "@emotion/react";
-export function Alert(props) {
+export const Alert = forwardRef(function Alert(props, ref) {
     const theme = useContext(ValenceContext);
-    const { alert, show, variant = "filled", size = theme.defaultSize, radius = theme.defaultRadius, shadow = false, color = theme.primaryColor, backgroundColor = color, width = "100%", height = "auto", padding = theme.sizeClasses.padding[size], component = "div", style } = props, rest = __rest(props, ["alert", "show", "variant", "size", "radius", "shadow", "color", "backgroundColor", "width", "height", "padding", "component", "style"]);
-    const AlertStyle = css(Object.assign({ display: "flex", flexDirection: "row", alignItems: "center", gap: padding, boxSizing: "border-box", width: width, height: height, padding: padding, borderRadius: theme.sizeClasses.radius[radius], border: "none", textDecoration: "none", backgroundColor: getBackgroundColor(backgroundColor, variant, false, theme), color: getTextColor(color, variant, theme), boxShadow: shadow ? theme.defaultShadow : "none" }, style));
+    // Hooks & states
+    const reducedMotion = useReducedMotion();
+    // Defaults
+    const { alert, show, variant = "filled", size = theme.defaultSize, radius = theme.defaultRadius, shadow = false, motion, color = theme.primaryColor, backgroundColor = color, padding = theme.sizeClasses.padding[size], margin = 0, width = "100%", height = "auto", component = "div", style } = props, rest = __rest(props, ["alert", "show", "variant", "size", "radius", "shadow", "motion", "color", "backgroundColor", "padding", "margin", "width", "height", "component", "style"]);
+    const motionBehaviour = getMotionBehaviour(motion, reducedMotion);
+    const AlertStyle = css(Object.assign({ display: "flex", flexDirection: "row", alignItems: "center", gap: padding, boxSizing: "border-box", width: width, height: height, padding: padding, borderRadius: theme.sizeClasses.radius[radius], border: "none", outline: variant === "subtle"
+            ? `1px solid ${theme.getColorHex(backgroundColor, "medium")}`
+            : "none", textDecoration: "none", backgroundColor: getBackgroundColor(backgroundColor, variant, false, theme), color: getTextColor(color, variant, theme), boxShadow: shadow ? theme.defaultShadow : "none", cursor: CLICKABLE_ELEMENTS.includes(component) ? "pointer" : "default" }, style));
     return (_jsx(AnimatePresence, { children: show &&
-            _jsxs(PolymorphicButton, Object.assign({ css: AlertStyle, onMouseDown: (e) => e.preventDefault(), component: component, initial: { opacity: 0, scale: 0.9 }, animate: { opacity: 1, scale: 1 }, exit: { opacity: 0, scale: 0.9 }, transition: { ease: "backOut" } }, rest, { children: [alert.icon, _jsxs(Flex, { direction: "column", align: "stretch", gap: padding / 2, children: [_jsx(Text, { bold: true, style: { flexGrow: 1 }, color: getTextColor(color, variant, theme), size: size, children: alert.title }), _jsx(Text, { fontSize: theme.sizeClasses.fontSize[size] - 2, color: getTextColor(color, variant, theme), children: alert.message })] })] })) }));
-}
+            _jsxs(PolymorphicButton, Object.assign({ css: AlertStyle, onMouseDown: (e) => e.preventDefault(), component: component, initial: { opacity: 0, scale: 0.9 }, animate: { opacity: 1, scale: 1 }, exit: { opacity: 0, scale: 0.9 }, transition: { ease: "backOut" }, whileHover: motionBehaviour.whileHover, whileTap: motionBehaviour.whileTap, ref: ref }, rest, { children: [alert.icon, _jsxs(Flex, { direction: "column", align: "stretch", gap: padding / 2, children: [_jsx(Text, { bold: true, style: { flexGrow: 1 }, color: getTextColor(color, variant, theme), size: size, children: alert.title }), _jsx(Text, { fontSize: theme.sizeClasses.fontSize[size] - 2, color: getTextColor(color, variant, theme), children: alert.message })] })] })) }));
+});

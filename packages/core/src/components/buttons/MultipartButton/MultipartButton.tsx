@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { CSSProperties, ReactNode, useContext } from "react";
+import { CSSProperties, ReactNode, forwardRef, useContext } from "react";
 import { PrimitiveButton, PrimitiveButtonProps } from "../PrimitiveButton";
 import { IconChevronRight } from "@tabler/icons-react";
 import { getTextColor } from "../Helpers";
@@ -10,22 +10,27 @@ import { useDefaultIconProps } from "../../../hooks";
 import { SizeClasses } from "@valence-ui/utils";
 import { css } from "@emotion/react";
 
-export type MultipartButtonProps = PrimitiveButtonProps & {
-  /** Title/main text content of this button  */
-  title: string;
-  /** Descriptive secondary text of this button */
-  subtitle?: string;
+export type MultipartButtonProps =
+  PrimitiveButtonProps
+  & {
+    /** Title/main text content of this button  */
+    title: string;
+    /** Descriptive secondary text of this button */
+    subtitle?: string;
 
-  /** Icon to display on the left of the button */
-  leftIcon?: ReactNode;
-  /** Icon to display on the right of the button */
-  rightIcon?: ReactNode;
+    /** Icon to display on the left of the button */
+    leftIcon?: ReactNode;
+    /** Icon to display on the right of the button */
+    rightIcon?: ReactNode;
 
-  /** Props to pass to the title text component */
-  titleProps?: TextProps;
-  /** Props to pass to the subtitle text component */
-  subtitleProps?: TextProps;
-}
+    /** Props to pass to the title text component */
+    titleProps?: TextProps;
+    /** Props to pass to the subtitle text component */
+    subtitleProps?: TextProps;
+
+    /** This button does not accept children */
+    children?: never;
+  }
 
 const SIZES: SizeClasses<{ height: number }> = {
   xs: { height: 50 },
@@ -36,7 +41,10 @@ const SIZES: SizeClasses<{ height: number }> = {
 }
 
 
-export function MultipartButton(props: MultipartButtonProps) {
+export const MultipartButton = forwardRef(function MultipartButton(
+  props: MultipartButtonProps,
+  ref: any,
+) {
   const theme = useContext(ValenceContext);
 
 
@@ -49,6 +57,8 @@ export function MultipartButton(props: MultipartButtonProps) {
     size = theme.defaultSize,
     variant = theme.defaultVariant,
     color = theme.primaryColor,
+    height = SIZES[size].height,
+    width = "100%",
 
     title,
     subtitle,
@@ -68,7 +78,6 @@ export function MultipartButton(props: MultipartButtonProps) {
     justifyContent: "flex-start",
     padding: 0,
     paddingLeft: !leftIcon ? theme.sizeClasses.padding[size] : undefined,
-    height: SIZES[size].height,
     ...style
   }
   const ContainerStyle = css({
@@ -87,8 +96,10 @@ export function MultipartButton(props: MultipartButtonProps) {
       variant={variant}
       color={color}
       style={buttonStyle}
-      height="fit-content"
-      width="100%"
+      height={height}
+      width={width}
+
+      ref={ref}
       {...rest}
     >
       {leftIcon && <div css={ContainerStyle}>{leftIcon}</div>}
@@ -120,4 +131,4 @@ export function MultipartButton(props: MultipartButtonProps) {
       <div css={ContainerStyle}>{rightIcon}</div>
     </PrimitiveButton>
   )
-}
+});

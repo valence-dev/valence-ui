@@ -12,7 +12,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx } from "react/jsx-runtime";
 import { forwardRef } from "react";
 import { Link } from "react-router-dom";
-export const PolymorphicText = forwardRef((props, ref) => {
+export const PolymorphicText = forwardRef(function Input(props, ref) {
     const { component = "p", children } = props, rest = __rest(props, ["component", "children"]);
     let Component = component;
     if (component === "link")

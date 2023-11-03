@@ -10,21 +10,20 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
-import { useContext } from "react";
+import { forwardRef, useContext } from "react";
 import { Flex, Header, ValenceContext, useBreakpoint } from "@valence-ui/core";
 /**
  * The `AppContainer` component is a layout component that provides a consistent layout for pages in the application. It includes a navigation element, a header element, and an optional sidebar element. The `AppContainer` component is responsive and adjusts its layout based on the screen size.
  */
-export function AppContainer(props) {
+export const AppContainer = forwardRef(function AppContainer(props, ref) {
     var _a, _b, _c, _d;
     const theme = useContext(ValenceContext);
     const breakpoint = useBreakpoint();
     // Defaults
-    const { nav, header, sidebar, radius = theme.defaultRadius, navContainerProps, pageProps, contentWidth = 700, sidebarWidth = 270, navWidth = 65, children } = props, rest = __rest(props, ["nav", "header", "sidebar", "radius", "navContainerProps", "pageProps", "contentWidth", "sidebarWidth", "navWidth", "children"]);
+    const { nav, header, sidebar, radius = theme.defaultRadius, navContainerProps, pageProps, contentWidth = 700, sidebarWidth = 270, navWidth = 65, children, style } = props, rest = __rest(props, ["nav", "header", "sidebar", "radius", "navContainerProps", "pageProps", "contentWidth", "sidebarWidth", "navWidth", "children", "style"]);
     const borderRadius = theme.sizeClasses.radius[radius] + 5;
     // Styles
-    const pageContainerStyle = {
-        default: {
+    const pageContainerStyle = Object.assign({ default: {
             position: "fixed",
             top: 0,
             left: 0,
@@ -36,8 +35,7 @@ export function AppContainer(props) {
             right: 0,
             width: "100vw",
             zIndex: 999,
-        }
-    };
+        } }, style);
     const sidebarContainerStyle = {
         default: {
             width: sidebar ? sidebarWidth : 0,
@@ -50,7 +48,7 @@ export function AppContainer(props) {
             overflow: "auto",
             padding: `0px 10px`,
             minHeight: borderRadius,
-        }
+        },
     };
     const contentContainerStyle = {
         default: {
@@ -65,8 +63,9 @@ export function AppContainer(props) {
     };
     const contentStyle = {
         width: `min(${contentWidth}px, 100%)`,
-        minHeight: "100vh"
+        minHeight: "100vh",
+        paddingBottom: 200,
     };
-    return (_jsxs(_Fragment, { children: [_jsxs(Flex, Object.assign({ direction: { default: "row", mobile: "column-reverse" }, backgroundColor: "primary", style: pageContainerStyle, gap: 0 }, rest, { children: [_jsx(Flex, Object.assign({ direction: "column", align: "center", margin: 10 }, navContainerProps, { children: nav })), _jsx(Flex, { direction: "column", style: sidebarContainerStyle, children: sidebar &&
+    return (_jsxs(_Fragment, { children: [_jsxs(Flex, Object.assign({ direction: { default: "row", mobile: "column-reverse" }, backgroundColor: "primary", style: pageContainerStyle, gap: 0, ref: ref }, rest, { children: [_jsx(Flex, Object.assign({ direction: "column", align: "center", margin: 10 }, navContainerProps, { children: nav })), _jsx(Flex, { direction: "column", style: sidebarContainerStyle, children: sidebar &&
                             _jsxs(_Fragment, { children: [!breakpoint.isMobile && header, sidebar] }) })] })), _jsx(Flex, { align: "center", justify: "center", grow: true, style: contentContainerStyle, children: _jsxs(Flex, Object.assign({ direction: "column", style: contentStyle }, pageProps, { children: [!props.sidebar || breakpoint.isMobile ? header : _jsx(Header, {}), children] })) })] }));
-}
+});

@@ -13,13 +13,14 @@ var __rest = (this && this.__rest) || function (s, e) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Space = void 0;
 const jsx_runtime_1 = require("@emotion/react/jsx-runtime");
-const react_1 = require("@emotion/react");
+/** @jsxImportSource @emotion/react */
+const react_1 = require("react");
+const react_2 = require("@emotion/react");
 /** A basic, unstyled layout assistant that creates blank space between any two objects. */
-function Space(props) {
+exports.Space = (0, react_1.forwardRef)(function Space(props, ref) {
     // Defaults
     const { height, width, grow, style } = props, rest = __rest(props, ["height", "width", "grow", "style"]);
     // Styles
-    const SpaceStyle = (0, react_1.css)(Object.assign({ width: width, height: height, flexGrow: grow ? 1 : undefined }, style));
-    return ((0, jsx_runtime_1.jsx)("span", Object.assign({ css: SpaceStyle }, rest)));
-}
-exports.Space = Space;
+    const SpaceStyle = (0, react_2.css)(Object.assign({ width: width, height: height, flexGrow: grow ? 1 : undefined }, style));
+    return ((0, jsx_runtime_1.jsx)("span", Object.assign({ css: SpaceStyle, ref: ref }, rest)));
+});

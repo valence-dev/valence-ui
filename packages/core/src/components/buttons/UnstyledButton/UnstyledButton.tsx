@@ -1,19 +1,23 @@
 /** @jsxImportSource @emotion/react */
-import { GenericProps, PolymorphicButton, PolymorphicButtonProps } from "@valence-ui/utils";
-import { GenericClickableProps } from "../PrimitiveButton";
+import { GenericClickableEventProps, GenericClickableProps, GenericProps, PolymorphicButton, PolymorphicButtonProps } from "@valence-ui/utils";
 import { css } from "@emotion/react";
+import { forwardRef } from "react";
 
-export type UnstyledButtonProps = GenericClickableProps & GenericProps & PolymorphicButtonProps;
+export type UnstyledButtonProps =
+  PolymorphicButtonProps
+  & GenericClickableEventProps
+  & GenericClickableProps
+  & GenericProps
 
-export const UnstyledButton = function UnstyledButton(props: UnstyledButtonProps) {
+export const UnstyledButton = forwardRef(function UnstyledButton(
+  props: UnstyledButtonProps,
+  ref: any
+) {
 
-
-  // Props
+  // Defaults
   const {
-    id,
     style,
     children,
-    component = "button",
     ...rest
   } = props;
 
@@ -30,12 +34,11 @@ export const UnstyledButton = function UnstyledButton(props: UnstyledButtonProps
 
   return (
     <PolymorphicButton
-      id={id}
       css={UnstyledButtonStyle}
-      component={component}
+      ref={ref}
       {...rest}
     >
       {children}
     </PolymorphicButton>
   )
-}
+});

@@ -1,4 +1,4 @@
-import { CSSProperties, ReactNode, useContext } from "react";
+import { CSSProperties, ReactNode, forwardRef, useContext } from "react";
 import { Image, ImageProps } from "../Image";
 import { FillVariant } from "@valence-ui/utils";
 import { ValenceContext } from "../../../../ValenceProvider";
@@ -17,7 +17,10 @@ export type AvatarProps = ImageProps & {
 }
 
 
-export function Avatar(props: AvatarProps) {
+export const Avatar = forwardRef(function Avatar(
+  props: AvatarProps,
+  ref: any
+) {
   const theme = useContext(ValenceContext);
   const defaultIconProps = useDefaultIconProps();
 
@@ -54,7 +57,9 @@ export function Avatar(props: AvatarProps) {
       radius={radius}
       square={square}
       placeholder={placeholder}
+
+      ref={ref}
       {...rest}
     />
   )
-}
+});
