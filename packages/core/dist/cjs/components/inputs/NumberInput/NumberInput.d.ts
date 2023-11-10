@@ -39,7 +39,7 @@ export declare const NumberInput: import("react").ForwardRefExoticComponent<impo
     radius?: import("@valence-ui/utils").ComponentSize | undefined;
     variant?: import("@valence-ui/utils").FillVariant | undefined;
     disabled?: boolean | undefined;
-    readOnly?: boolean | undefined;
+    readOnly?: boolean | undefined; /** Sets custom icons for the stepper control buttons */
     required?: boolean | undefined;
     autoFocus?: boolean | undefined;
     loading?: boolean | undefined;

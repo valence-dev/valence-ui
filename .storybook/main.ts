@@ -15,10 +15,14 @@ const config: StorybookConfig = {
     "../packages/**/src/**/*.stories.@(js|jsx|mjs|ts|tsx)",
   ],
   addons: [
-    getAbsolutePath("@storybook/addon-links"),
-    getAbsolutePath("@storybook/addon-essentials"),
-    getAbsolutePath("@storybook/addon-onboarding"),
-    getAbsolutePath("@storybook/addon-interactions"),
+    '@storybook/addon-links',
+    // '@storybook/addon-actions',
+    '@storybook/addon-viewport',
+    '@storybook/addon-controls',
+    '@storybook/addon-backgrounds',
+    '@storybook/addon-toolbars',
+    '@storybook/addon-measure',
+    '@storybook/addon-outline',
   ],
   framework: {
     name: getAbsolutePath("@storybook/react-vite"),

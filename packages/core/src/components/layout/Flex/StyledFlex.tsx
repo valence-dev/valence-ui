@@ -55,6 +55,9 @@ export const StyledFlex = forwardRef(function StyledFlex(
     ),
     borderRadius: theme.sizeClasses.radius[getReactiveProp(radius, breakpoint)],
 
+    boxShadow: getReactiveProp(props.shadow, breakpoint)
+      ? theme.defaultShadow : undefined,
+
     ...getReactiveProp(style, breakpoint)
   }
 

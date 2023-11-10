@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import { ReactNode, forwardRef, useContext } from "react";
+import { CSSProperties, ReactNode, forwardRef, useContext } from "react";
 import { ValenceContext } from "../../..";
 import { getBackgroundColor, getTextColor } from "../../buttons";
 import { Loader } from "../../display";
-import { ComponentSize, FillVariant, GenericLayoutProps, MouseClickEvents, MouseEvents, PointerEvents } from "@valence-ui/utils";
+import { ComponentSize, FillVariant, GenericLayoutProps, MouseClickEvents, MouseEvents, PointerEvents, SizeClasses } from "@valence-ui/utils";
 import { css } from "@emotion/react";
 
 
@@ -15,6 +15,9 @@ export type InputContainerProps =
   & {
     /** An icon to display at the left side of this input */
     icon?: ReactNode;
+    /** A button to display to the right of this input */
+    button?: ReactNode;
+
     /** Sets the size class. Defaults to theme default */
     size?: ComponentSize;
     /** Sets the radius size class. Defaults to theme default */
@@ -33,7 +36,25 @@ export type InputContainerProps =
 
     /** A `ref` of the input component */
     inputRef?: any;
+
+    /** Optional styles for the icon container component */
+    iconContainerStyle?: CSSProperties;
+    /** Optional styles for the require indicator component */
+    requireIndicatorStyle?: CSSProperties;
+    /** Optional styles for the button container component */
+    buttonContainerStyle?: CSSProperties;
   };
+
+
+export const INPUT_SIZES: SizeClasses<{
+  padding: CSSProperties["padding"],
+}> = { 
+  xs: { padding: 4 },
+  sm: { padding: 6 },
+  md: { padding: 8 },
+  lg: { padding: 10 },
+  xl: { padding: 12 },
+}
 
 
 export const InputContainer = forwardRef(function InputContainer(
@@ -46,6 +67,7 @@ export const InputContainer = forwardRef(function InputContainer(
   // Defaults
   const {
     icon,
+    button,
     size = theme.defaultSize,
     radius = theme.defaultRadius,
     variant = theme.defaultVariant,
@@ -57,9 +79,17 @@ export const InputContainer = forwardRef(function InputContainer(
 
     color = "black",
     backgroundColor = color,
+    width = "100%",
+    height = theme.sizeClasses.height[size],
+    padding = INPUT_SIZES[size].padding,
+    margin,
 
     inputRef,
     onClick,
+
+    iconContainerStyle,
+    requireIndicatorStyle,
+    buttonContainerStyle,
 
     children,
     style,
@@ -90,15 +120,12 @@ export const InputContainer = forwardRef(function InputContainer(
     boxSizing: "border-box",
     flexGrow: grow ? 1 : "unset",
 
-    width: "100%",
-    height: theme.sizeClasses.height[size],
-    borderRadius: `${theme.sizeClasses.radius[radius]}px`,
+    width: width,
+    height: height,
+    borderRadius: theme.sizeClasses.radius[radius],
 
-    padding: `0px ${theme.sizeClasses.padding[size]}px`,
-    paddingLeft: props.icon
-      ? theme.sizeClasses.padding[size] as number / 2
-      : undefined,
-    gap: theme.sizeClasses.padding[size] as number / 2,
+    padding: padding,
+    gap: padding,
 
     opacity: disabled ? 0.5 : 1,
     cursor: disabled ? "not-allowed" : "text",
@@ -120,21 +147,39 @@ export const InputContainer = forwardRef(function InputContainer(
 
     ...style
   });
-  const IconStyle = css({
+  const IconContainerStyle = css({
     height: "100%",
     aspectRatio: "1/1",
     opacity: 0.5,
+    boxSizing: "border-box",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    cursor: disabled ? "not-allowed" : "text",
+    flexDirection: "row",
+
+    ...iconContainerStyle,
+  });
+  const ButtonContainerStyle = css({
+    height: "100%",
+    aspectRatio: "1/1",
+    opacity: 0.5,
+    boxSizing: "border-box",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+
+    ...buttonContainerStyle,
   });
   const RequireIndicatorStyle = css({
     width: 3,
     height: "calc(100% - 10px)",
+    minHeight: 20,
     borderRadius: 3,
     backgroundColor: getTextColor(color === "black" ? "red" : color, "light", theme),
     cursor: disabled ? "not-allowed" : "text",
+
+    ...requireIndicatorStyle,
   });
 
 
@@ -149,7 +194,7 @@ export const InputContainer = forwardRef(function InputContainer(
       {required && <div css={RequireIndicatorStyle} />}
 
       {(icon || loading) &&
-        <div css={IconStyle}>
+        <div css={IconContainerStyle}>
           {loading ?
             <Loader color={variant === "filled" ? "white" : color } /> :
             icon
@@ -158,6 +203,12 @@ export const InputContainer = forwardRef(function InputContainer(
       }
 
       {children}
+
+      {button &&
+        <div css={ButtonContainerStyle}>
+          {button}
+        </div>
+      }
     </div>
   )
 });

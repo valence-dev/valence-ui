@@ -160,12 +160,43 @@ export const NumberInput = forwardRef(function NumberInput(
 
       style={style}
       inputRef={inputRef}
+
+      button={ showControls &&
+        <>
+          <IconButton
+            color={color}
+            variant="subtle"
+            size={size}
+            radius={radius}
+            onClick={() => setValue(value - step)}
+            disabled={disabled || readOnly}
+            height={25}
+          >
+            {controlIcons.down}
+          </IconButton>
+          <IconButton
+            color={color}
+            variant="subtle"
+            size={size}
+            radius={radius}
+            onClick={() => setValue(value + step)}
+            disabled={disabled || readOnly}
+            height={25}
+          >
+            {controlIcons.up}
+          </IconButton>
+        </>
+      }
+      buttonContainerStyle={{
+        gap: 0,
+        width: 55,
+      }}
     >
       <input
         css={InputStyle}
         value={value}
         onChange={e => setValue(parseFloat(e.target.value))}
-        
+
         type="number"
         min={min}
         max={max}
@@ -180,31 +211,6 @@ export const NumberInput = forwardRef(function NumberInput(
         ref={inputRef}
         {...rest}
       />
-
-      {showControls &&
-        <Flex gap={0}>
-          <IconButton
-            color={color}
-            variant="subtle"
-            size={size}
-            radius={radius}
-            onClick={() => setValue(value - step)}
-            disabled={disabled || readOnly}
-          >
-            {controlIcons.down}
-          </IconButton>
-          <IconButton
-            color={color}
-            variant="subtle"
-            size={size}
-            radius={radius}
-            onClick={() => setValue(value + step)}
-            disabled={disabled || readOnly}
-          >
-            {controlIcons.up}
-          </IconButton>
-        </Flex>
-      }
     </InputContainer>
   )
 });

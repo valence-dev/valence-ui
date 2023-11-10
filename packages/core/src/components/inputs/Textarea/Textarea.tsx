@@ -6,6 +6,7 @@ import { css } from "@emotion/react";
 import { Flex } from "../../layout";
 import { Loader } from "../../display";
 import { GenericTextInputEventProps, GenericTextInputProps } from "../../../generics";
+import { InputContainer } from "../InputContainer";
 
 export type LineWrapBehaviour = "soft" | "hard" | "off";
 export type ResizeBehaviour = "none" | "both" | "horizontal" | "vertical";
@@ -54,22 +55,24 @@ export const Textarea = forwardRef(function Textarea(
     value,
     setValue,
 
+    icon,
     placeholder = "",
 
     autoComplete = false,
     spellCheck = true,
-
-    resize = "none",
-    minHeight,
-    maxHeight,
-    minWidth,
-    maxWidth,
 
     size = theme.defaultSize,
     radius = theme.defaultRadius,
     variant = theme.defaultVariant,
     grow,
 
+    resize = "none",
+    minHeight = theme.sizeClasses.height[size],
+    maxHeight,
+    minWidth,
+    maxWidth,
+
+    autoFocus,
     loading,
     disabled,
     readOnly = loading,
@@ -77,7 +80,7 @@ export const Textarea = forwardRef(function Textarea(
 
     color = "black",
     backgroundColor = color,
-    padding = theme.sizeClasses.padding[size],
+    padding,
     margin,
     width = "100%",
     height = "auto",
@@ -86,61 +89,25 @@ export const Textarea = forwardRef(function Textarea(
     onKeyPress,
 
     style,
+    inputStyle,
     ...rest
   } = props;
 
 
   // Styles
-  const ContainerStyle = css({
-    display: "flex",
-
-    boxSizing: "border-box",
-    flexGrow: grow ? 1 : "unset",
-
-    width: width,
-    height: height,
-    borderRadius: theme.sizeClasses.radius[radius],
-
-    padding: padding,
-    gap: padding as number / 2,
-    margin: margin,
-
-    opacity: disabled ? 0.5 : 1,
-    cursor: disabled ? "not-allowed" : "text",
-
-    transition: `background-color ${theme.defaultTransitionDuration} linear 0s`,
-    backgroundColor: getBackgroundColor(backgroundColor, variant, false, theme),
-    color: getTextColor(color, variant, theme),
-
+  const TextareaStyle = css({
     outline: "none",
     border: "none",
     textDecoration: "none",
-
-    fontSize: theme.sizeClasses.fontSize[size],
-    fontFamily: theme.getFont("default"),
+    padding: 0,
 
     resize: resize,
-    overflowY: "hidden",
     minHeight: minHeight,
     maxHeight: maxHeight,
     minWidth: minWidth,
     maxWidth: maxWidth,
 
-    "&:hover": {
-      backgroundColor: !disabled ? getBackgroundColor(backgroundColor, variant, true, theme) : undefined,
-    },
-    "&:focus-within": {
-      outline: `1px solid ${getTextColor(color, variant, theme)}`,
-    },
-
-    ...style,
-  });
-  const TextareaStyle = css({
-    outline: "none",
-    border: "none",
-    textDecoration: "none",
-    resize: "none",
-    padding: 0,
+    verticalAlign: "center",
 
     width: "100%",
     height: "100%",
@@ -168,13 +135,14 @@ export const Textarea = forwardRef(function Textarea(
     "&:-webkit-autofill:focus": { transition: `background-color 5000s ease-in-out 0s` },
     "&:-webkit-autofill:hover": { transition: `background-color 5000s ease-in-out 0s` },
     "&:-webkit-autofill:active": { transition: `background-color 5000s ease-in-out 0s` },
+
+    ...inputStyle
   });
-  const RequireIndicatorStyle = css({
-    width: 3,
-    borderRadius: 3,
-    backgroundColor: getTextColor(color === "black" ? "red" : color, "light", theme),
-    cursor: disabled ? "not-allowed" : "text",
-  });
+  const ContainerStyle: CSSProperties = {
+    minHeight: height,
+    height: "fit-content",
+    ...style
+  }
 
 
 
@@ -190,45 +158,46 @@ export const Textarea = forwardRef(function Textarea(
 
 
   return (
-    <div
-      css={ContainerStyle}
-      onClick={() => inputRef.current?.focus()}
+    <InputContainer
+      icon={icon}
+
+      size={size}
+      radius={radius}
+      variant={variant}
+      grow={grow}
+
+      disabled={disabled}
+      required={required}
+      loading={loading}
+
+      color={color}
+      backgroundColor={backgroundColor}
+      padding={padding}
+      margin={margin}
+      width={width}
+      height={height}
+
+      style={ContainerStyle}
+      inputRef={inputRef}
     >
-      {required && <div css={RequireIndicatorStyle} />}
+      <textarea
+        css={TextareaStyle}
+        value={value ?? ""}
+        onChange={e => setValue(e.currentTarget.value)}
 
-      {loading ?
-        <Flex
-          justify="center"
-          align="center"
-          width="100%"
-        >
-          <Loader
-            color={variant === "filled" ? "white" : color}
-            size={size}
-          />
-        </Flex>
-        :
-        <textarea
-          css={TextareaStyle}
+        placeholder={placeholder}
+        autoComplete={autoComplete ? "on" : "off"}
+        spellCheck={spellCheck}
 
-          value={value ?? ""}
-          onChange={e => setValue(e.currentTarget.value)}
+        autoFocus={autoFocus}
+        disabled={disabled}
+        readOnly={readOnly}
+        required={required}
 
-          placeholder={placeholder}
-
-          autoComplete={autoComplete ? "on" : "off"}
-          spellCheck={spellCheck}
-
-          disabled={disabled}
-          readOnly={readOnly}
-          required={required}
-
-          onKeyDown={handleKeyDown}
-
-          ref={inputRef}
-          {...rest}
-        />
-      }
-    </div>
+        onKeyDown={handleKeyDown}
+        ref={inputRef}
+        {...rest}
+      />
+    </InputContainer>
   )
 });

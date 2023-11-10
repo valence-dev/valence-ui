@@ -16,9 +16,6 @@ export type TextInputProps =
   GenericTextInputProps
   & GenericTextInputEventProps
   & {
-    /** An icon to display at the left side of this input */
-    icon?: ReactNode;
-
     /** The type of input to render. Defaults to `text` */
     type?: TextInputType;
     /** The autocomplete behaviour to use. Defaults to `off` */
