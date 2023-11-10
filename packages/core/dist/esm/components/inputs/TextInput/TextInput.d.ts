@@ -6,8 +6,6 @@ export type TextInputType = "text" | "password" | "email" | "number" | "tel" | "
 /** Defines the type of autocomplete behaviour that will be used */
 export type AutoCompleteBehaviour = "off" | "on" | "name" | "honorific-prefix" | "given-name" | "addtional-name" | "family-name" | "honorific-suffix" | "nickname" | "email" | "email" | "username" | "new-password" | "current-password" | "one-time-code" | "organization-title" | "organization" | "street-address" | "shipping" | "billing" | "address-line1" | "address-line2" | "address-line3" | "address-level4" | "address-level3" | "address-level2" | "address-level1" | "country" | "country-name" | "postal-code" | "cc-name" | "cc-given-name" | "cc-additional-name" | "cc-family-name" | "cc-number" | "cc-exp" | "cc-exp-month" | "cc-exp-year" | "cc-csc" | "cc-type" | "transaction-currency" | "transaction-amount" | "language" | "bday" | "bday-day" | "bday-month" | "bday-year" | "sex" | "tel" | "tel-country-code" | "tel-national" | "tel-area-code" | "tel-local" | "tel-extension" | "impp" | "url" | "photo" | "webauthn";
 export type TextInputProps = GenericTextInputProps & GenericTextInputEventProps & {
-    /** An icon to display at the left side of this input */
-    icon?: ReactNode;
     /** The type of input to render. Defaults to `text` */
     type?: TextInputType;
     /** The autocomplete behaviour to use. Defaults to `off` */
@@ -38,11 +36,12 @@ export declare const TextInput: import("react").ForwardRefExoticComponent<import
     form?: string | undefined;
     name?: string | undefined;
 } & {
+    icon?: ReactNode;
     placeholder?: string | undefined;
     minLength?: number | undefined;
     maxLength?: number | undefined;
     pattern?: string | undefined;
-    inputStyle?: import("react").CSSProperties | undefined; /** Shorthand for `flex-grow = 1` */
+    inputStyle?: import("react").CSSProperties | undefined;
     children?: undefined;
 } & import("@valence-ui/utils/src/generics/Events").MouseClickEvents & import("@valence-ui/utils/src/generics/Events").MouseEvents & import("@valence-ui/utils/src/generics/Events").PointerEvents & import("@valence-ui/utils/src/generics/Events").FocusEvents & import("@valence-ui/utils/src/generics/Events").KeyboardEvents & {
     onInput?: ((event: import("react").FormEvent<Element>) => void) | undefined;
@@ -50,8 +49,6 @@ export declare const TextInput: import("react").ForwardRefExoticComponent<import
     onInvalid?: ((event: import("react").FormEvent<Element>) => void) | undefined;
     onEnterPress?: ((e: import("react").KeyboardEvent<Element>) => void) | undefined;
 } & {
-    /** An icon to display at the left side of this input */
-    icon?: ReactNode;
     /** The type of input to render. Defaults to `text` */
     type?: TextInputType | undefined;
     /** The autocomplete behaviour to use. Defaults to `off` */

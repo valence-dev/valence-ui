@@ -17,7 +17,6 @@ const jsx_runtime_1 = require("@emotion/react/jsx-runtime");
 const react_1 = require("react");
 const InputContainer_1 = require("../InputContainer");
 const __1 = require("../../..");
-const layout_1 = require("../../layout");
 const buttons_1 = require("../../buttons");
 const icons_react_1 = require("@tabler/icons-react");
 const react_2 = require("@emotion/react");
@@ -49,6 +48,9 @@ exports.NumberInput = (0, react_1.forwardRef)(function NumberInput(props, ref) {
         // Call onKeyPress on any key
         onKeyPress === null || onKeyPress === void 0 ? void 0 : onKeyPress(e);
     };
-    return ((0, jsx_runtime_1.jsxs)(InputContainer_1.InputContainer, { icon: icon, size: size, radius: radius, variant: variant, grow: grow, disabled: disabled, required: required, loading: loading, color: color, backgroundColor: backgroundColor, padding: padding, margin: margin, width: width, height: height, style: style, inputRef: inputRef, children: [(0, jsx_runtime_1.jsx)("input", Object.assign({ css: InputStyle, value: value, onChange: e => setValue(parseFloat(e.target.value)), type: "number", min: min, max: max, step: step, autoFocus: autoFocus, disabled: disabled, readOnly: readOnly, required: required, onKeyDown: handleKeyDown, ref: inputRef }, rest)), showControls &&
-                (0, jsx_runtime_1.jsxs)(layout_1.Flex, { gap: 0, children: [(0, jsx_runtime_1.jsx)(buttons_1.IconButton, { color: color, variant: "subtle", size: size, radius: radius, onClick: () => setValue(value - step), disabled: disabled || readOnly, children: controlIcons.down }), (0, jsx_runtime_1.jsx)(buttons_1.IconButton, { color: color, variant: "subtle", size: size, radius: radius, onClick: () => setValue(value + step), disabled: disabled || readOnly, children: controlIcons.up })] })] }));
+    return ((0, jsx_runtime_1.jsx)(InputContainer_1.InputContainer, { icon: icon, size: size, radius: radius, variant: variant, grow: grow, disabled: disabled, required: required, loading: loading, color: color, backgroundColor: backgroundColor, padding: padding, margin: margin, width: width, height: height, style: style, inputRef: inputRef, button: showControls &&
+            (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(buttons_1.IconButton, { color: color, variant: "subtle", size: size, radius: radius, onClick: () => setValue(value - step), disabled: disabled || readOnly, height: 25, children: controlIcons.down }), (0, jsx_runtime_1.jsx)(buttons_1.IconButton, { color: color, variant: "subtle", size: size, radius: radius, onClick: () => setValue(value + step), disabled: disabled || readOnly, height: 25, children: controlIcons.up })] }), buttonContainerStyle: {
+            gap: 0,
+            width: 55,
+        }, children: (0, jsx_runtime_1.jsx)("input", Object.assign({ css: InputStyle, value: value, onChange: e => setValue(parseFloat(e.target.value)), type: "number", min: min, max: max, step: step, autoFocus: autoFocus, disabled: disabled, readOnly: readOnly, required: required, onKeyDown: handleKeyDown, ref: inputRef }, rest)) }));
 });

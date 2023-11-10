@@ -36,10 +36,11 @@ export declare const Textarea: import("react").ForwardRefExoticComponent<import(
 } & {
     value: string;
     setValue: Dispatch<SetStateAction<string>>;
-    size?: import("@valence-ui/utils").ComponentSize | undefined;
-    radius?: import("@valence-ui/utils").ComponentSize | undefined; /** Whether the input is subject to spell checking by the browser/OS. Defaults to `true`. */
+    size?: import("@valence-ui/utils").ComponentSize | undefined; /** Whether the value of the input can be automatically completed by the browser/OS. Defaults to `false`. */
+    radius?: import("@valence-ui/utils").ComponentSize | undefined;
     variant?: import("@valence-ui/utils").FillVariant | undefined;
     disabled?: boolean | undefined;
+    /** Specifies the visible width of the input. */
     readOnly?: boolean | undefined;
     required?: boolean | undefined;
     autoFocus?: boolean | undefined;
@@ -47,6 +48,7 @@ export declare const Textarea: import("react").ForwardRefExoticComponent<import(
     form?: string | undefined;
     name?: string | undefined;
 } & {
+    icon?: import("react").ReactNode;
     placeholder?: string | undefined;
     minLength?: number | undefined;
     maxLength?: number | undefined;

@@ -16,10 +16,17 @@ import { ValenceContext } from "../../..";
 import { getBackgroundColor, getTextColor } from "../../buttons";
 import { Loader } from "../../display";
 import { css } from "@emotion/react";
+export const INPUT_SIZES = {
+    xs: { padding: 4 },
+    sm: { padding: 6 },
+    md: { padding: 8 },
+    lg: { padding: 10 },
+    xl: { padding: 12 },
+};
 export const InputContainer = forwardRef(function InputContainer(props, ref) {
     const theme = useContext(ValenceContext);
     // Defaults
-    const { icon, size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, grow, disabled = false, required = false, loading = false, color = "black", backgroundColor = color, inputRef, onClick, children, style } = props, rest = __rest(props, ["icon", "size", "radius", "variant", "grow", "disabled", "required", "loading", "color", "backgroundColor", "inputRef", "onClick", "children", "style"]);
+    const { icon, button, size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, grow, disabled = false, required = false, loading = false, color = "black", backgroundColor = color, width = "100%", height = theme.sizeClasses.height[size], padding = INPUT_SIZES[size].padding, margin, inputRef, onClick, iconContainerStyle, requireIndicatorStyle, buttonContainerStyle, children, style } = props, rest = __rest(props, ["icon", "button", "size", "radius", "variant", "grow", "disabled", "required", "loading", "color", "backgroundColor", "width", "height", "padding", "margin", "inputRef", "onClick", "iconContainerStyle", "requireIndicatorStyle", "buttonContainerStyle", "children", "style"]);
     // Functions
     const handleClick = (e) => {
         if (disabled) {
@@ -31,31 +38,17 @@ export const InputContainer = forwardRef(function InputContainer(props, ref) {
         onClick === null || onClick === void 0 ? void 0 : onClick(e);
     };
     // Styles
-    const ContainerStyle = css(Object.assign({ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", boxSizing: "border-box", flexGrow: grow ? 1 : "unset", width: "100%", height: theme.sizeClasses.height[size], borderRadius: `${theme.sizeClasses.radius[radius]}px`, padding: `0px ${theme.sizeClasses.padding[size]}px`, paddingLeft: props.icon
-            ? theme.sizeClasses.padding[size] / 2
-            : undefined, gap: theme.sizeClasses.padding[size] / 2, opacity: disabled ? 0.5 : 1, cursor: disabled ? "not-allowed" : "text", transition: `background-color ${theme.defaultTransitionDuration} linear 0s`, backgroundColor: getBackgroundColor(backgroundColor, variant, false, theme), color: getTextColor(color, variant, theme), outline: "none", border: "none", textDecoration: "none", "&:hover": {
+    const ContainerStyle = css(Object.assign({ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", boxSizing: "border-box", flexGrow: grow ? 1 : "unset", width: width, height: height, borderRadius: theme.sizeClasses.radius[radius], padding: padding, gap: padding, opacity: disabled ? 0.5 : 1, cursor: disabled ? "not-allowed" : "text", transition: `background-color ${theme.defaultTransitionDuration} linear 0s`, backgroundColor: getBackgroundColor(backgroundColor, variant, false, theme), color: getTextColor(color, variant, theme), outline: "none", border: "none", textDecoration: "none", "&:hover": {
             backgroundColor: !disabled ? getBackgroundColor(backgroundColor, variant, true, theme) : undefined,
         }, "&:focus-within": {
             outline: `1px solid ${getTextColor(color, variant, theme)}`,
         } }, style));
-    const IconStyle = css({
-        height: "100%",
-        aspectRatio: "1/1",
-        opacity: 0.5,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        cursor: disabled ? "not-allowed" : "text",
-    });
-    const RequireIndicatorStyle = css({
-        width: 3,
-        height: "calc(100% - 10px)",
-        borderRadius: 3,
-        backgroundColor: getTextColor(color === "black" ? "red" : color, "light", theme),
-        cursor: disabled ? "not-allowed" : "text",
-    });
+    const IconContainerStyle = css(Object.assign({ height: "100%", aspectRatio: "1/1", opacity: 0.5, boxSizing: "border-box", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "row" }, iconContainerStyle));
+    const ButtonContainerStyle = css(Object.assign({ height: "100%", aspectRatio: "1/1", opacity: 0.5, boxSizing: "border-box", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "row" }, buttonContainerStyle));
+    const RequireIndicatorStyle = css(Object.assign({ width: 3, height: "calc(100% - 10px)", minHeight: 20, borderRadius: 3, backgroundColor: getTextColor(color === "black" ? "red" : color, "light", theme), cursor: disabled ? "not-allowed" : "text" }, requireIndicatorStyle));
     return (_jsxs("div", Object.assign({ css: ContainerStyle, ref: ref, onClick: (event) => handleClick(event) }, rest, { children: [required && _jsx("div", { css: RequireIndicatorStyle }), (icon || loading) &&
-                _jsx("div", { css: IconStyle, children: loading ?
+                _jsx("div", { css: IconContainerStyle, children: loading ?
                         _jsx(Loader, { color: variant === "filled" ? "white" : color }) :
-                        icon }), children] })));
+                        icon }), children, button &&
+                _jsx("div", { css: ButtonContainerStyle, children: button })] })));
 });

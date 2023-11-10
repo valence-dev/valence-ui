@@ -1,4 +1,4 @@
-import { CSSProperties, Dispatch, SetStateAction } from "react";
+import { CSSProperties, Dispatch, ReactNode, SetStateAction } from "react";
 import { FocusEvents, KeyboardEvents, MouseClickEvents, MouseEvents, PointerEvents } from "@valence-ui/utils/src/generics/Events";
 import { ComponentSize, FillVariant, GenericLayoutProps } from "@valence-ui/utils";
 export type GenericInputProps<T = string> = GenericLayoutProps & {
@@ -28,6 +28,8 @@ export type GenericInputProps<T = string> = GenericLayoutProps & {
     name?: string;
 };
 export type GenericTextInputProps = GenericInputProps<string> & {
+    /** An icon to display at the left side of this input */
+    icon?: ReactNode;
     /** Text that appears in this input when it has no value */
     placeholder?: string;
     /** The minimum length of this input's `value` */
