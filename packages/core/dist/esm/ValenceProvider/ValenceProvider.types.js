@@ -19,7 +19,7 @@ export const ValenceContextDefaults = {
         padding: { xs: 10, sm: 15, md: 20, lg: 25, xl: 30 },
         height: { xs: 30, sm: 35, md: 40, lg: 50, xl: 60 },
         radius: { xs: 2, sm: 5, md: 10, lg: 15, xl: 25 },
-        fontSize: { xs: 12, sm: "14", md: 16, lg: 18, xl: 20 },
+        fontSize: { xs: 12, sm: 14, md: 16, lg: 18, xl: 20 },
     },
     titles: {
         1: { fontSize: 28, bold: true },
