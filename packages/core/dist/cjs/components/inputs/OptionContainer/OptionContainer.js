@@ -77,20 +77,21 @@ exports.OptionContainer = (0, react_3.forwardRef)(function OptionContainer(props
         setIsOpen(false);
     }
     // Floating UI
-    const { refs, context } = (0, react_2.useFloating)({
+    const { refs, floatingStyles, context } = (0, react_2.useFloating)({
         placement: "bottom-start",
         open: isOpen,
         onOpenChange: setIsOpen,
         whileElementsMounted: react_2.autoUpdate,
         middleware: [
-            (0, react_2.offset)(15),
+            (0, react_2.offset)(5),
             (0, react_2.flip)({ padding: 15 }),
             (0, react_2.size)({
-                apply({ rects, elements }) {
+                apply({ rects, elements, availableHeight }) {
                     Object.assign(elements.floating.style, {
-                        width: `${rects.reference.width}px`,
+                        maxHeight: `${availableHeight}px`,
+                        width: `${rects.reference.width - 10}px`,
                     });
-                }
+                },
             })
         ]
     });
@@ -98,38 +99,20 @@ exports.OptionContainer = (0, react_3.forwardRef)(function OptionContainer(props
     const dismiss = (0, react_2.useDismiss)(context);
     const { getReferenceProps, getFloatingProps, } = (0, react_2.useInteractions)([dismiss, click]);
     // Styles
-    const DropdownStyle = (0, react_1.css)({
-        backgroundColor: theme.getColorHex(dropdownProps.backgroundColor, "strong"),
-        color: theme.getColorHex(dropdownProps.color),
-        outline: `1px solid ${theme.getColorHex(dropdownProps.color, "weak")}`,
-        backdropFilter: "blur(5px)",
-        maxHeight: dropdownProps.height,
-        borderRadius: theme.sizeClasses.radius[radius] + dropdownProps.padding,
-        padding: dropdownProps.padding,
-        marginTop: 5,
-        boxShadow: dropdownProps.shadow ? theme.defaultShadow : undefined,
-        animationName: "in",
-        animationDuration: "0.1s",
-        overflowY: "auto",
-        "@keyframes in": {
+    const DropdownStyle = (0, react_1.css)(Object.assign({ backgroundColor: theme.getColorHex(dropdownProps.backgroundColor, "strong"), color: theme.getColorHex(dropdownProps.color), outline: `1px solid ${theme.getColorHex(dropdownProps.color, "weak")}`, backdropFilter: "blur(5px)", maxHeight: dropdownProps.height, borderRadius: theme.sizeClasses.radius[radius] + dropdownProps.padding, padding: dropdownProps.padding, boxShadow: dropdownProps.shadow ? theme.defaultShadow : undefined, animationName: "in", animationDuration: "0.1s", overflowY: "auto", "@keyframes in": {
             from: {
                 opacity: 0,
-                transform: "translateY(-10px)",
             },
             to: {
                 opacity: 1,
-                transform: "translateY(0px)",
             },
-        },
-        "&::-webkit-scrollbar": {
+        }, "&::-webkit-scrollbar": {
             width: 10,
-        },
-        "&::-webkit-scrollbar-thumb": {
+        }, "&::-webkit-scrollbar-thumb": {
             backgroundColor: theme.getColorHex(dropdownProps.color, "medium"),
             borderRadius: 5,
-        },
-    });
-    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(InputContainer_1.InputContainer, Object.assign({ icon: icon, button: rightIcon, size: size, radius: radius, variant: variant, loading: loading, disabled: disabled, required: required, color: color, backgroundColor: backgroundColor, padding: padding, margin: margin, width: width, height: height, grow: grow, style: style, inputRef: inputRef, onClick: () => setIsOpen(true) }, getReferenceProps(), rest, { children: children })), isOpen && ((0, jsx_runtime_1.jsx)(react_2.FloatingPortal, { children: (0, jsx_runtime_1.jsx)("div", Object.assign({ css: DropdownStyle, ref: refs.setFloating }, getFloatingProps(), { children: options.length === 0 ?
+        } }, floatingStyles));
+    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(InputContainer_1.InputContainer, Object.assign({ icon: icon, button: rightIcon, size: size, radius: radius, variant: variant, loading: loading, disabled: disabled, required: required, color: color, backgroundColor: backgroundColor, padding: padding, margin: margin, width: width, height: height, grow: grow, style: style, inputRef: inputRef, onClick: () => setIsOpen(true), ref: refs.setReference }, getReferenceProps(), rest, { children: children })), isOpen && ((0, jsx_runtime_1.jsx)(react_2.FloatingPortal, { children: (0, jsx_runtime_1.jsx)("div", Object.assign({ css: DropdownStyle, ref: refs.setFloating }, getFloatingProps(), { children: options.length === 0 ?
                         (0, jsx_runtime_1.jsx)(layout_1.Flex, { height: theme.sizeClasses.height[size], align: "center", justify: "center", children: (0, jsx_runtime_1.jsx)(display_1.Text, { align: "center", color: theme.getColorHex("black", "strong"), children: nothingFound }) })
                         : options.map((option, i) => ((0, jsx_runtime_1.jsx)(buttons_1.ButtonWithIcon, Object.assign({ icon: (selectedOption === null || selectedOption === void 0 ? void 0 : selectedOption.label) === option.label
                                 ? (0, jsx_runtime_1.jsx)(icons_react_1.IconCheck, Object.assign({}, defaultIconProps.get()))
