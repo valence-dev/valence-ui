@@ -29,7 +29,6 @@ export declare const AppContainer: import("react").ForwardRefExoticComponent<imp
 } & {
     backgroundColor?: ReactiveProp<import("csstype").Property.BackgroundColor | undefined>;
     color?: ReactiveProp<import("csstype").Property.Color | undefined>;
-    /** The width of the sidebar element */
     padding?: ReactiveProp<import("csstype").Property.Padding<string | number> | undefined>;
     margin?: ReactiveProp<import("csstype").Property.Margin<string | number> | undefined>;
     width?: ReactiveProp<import("csstype").Property.Width<string | number> | undefined>;

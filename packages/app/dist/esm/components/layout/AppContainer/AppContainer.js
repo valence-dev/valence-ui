@@ -11,7 +11,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { forwardRef, useContext } from "react";
-import { Flex, Header, ValenceContext, useBreakpoint } from "@valence-ui/core";
+import { Flex, Header, Space, ValenceContext, useBreakpoint } from "@valence-ui/core";
 /**
  * The `AppContainer` component is a layout component that provides a consistent layout for pages in the application. It includes a navigation element, a header element, and an optional sidebar element. The `AppContainer` component is responsive and adjusts its layout based on the screen size.
  */
@@ -67,5 +67,5 @@ export const AppContainer = forwardRef(function AppContainer(props, ref) {
         paddingBottom: 200,
     };
     return (_jsxs(_Fragment, { children: [_jsxs(Flex, Object.assign({ direction: { default: "row", mobile: "column-reverse" }, backgroundColor: "primary", style: pageContainerStyle, gap: 0, ref: ref }, rest, { children: [_jsx(Flex, Object.assign({ direction: "column", align: "center", margin: 10 }, navContainerProps, { children: nav })), _jsx(Flex, { direction: "column", style: sidebarContainerStyle, children: sidebar &&
-                            _jsxs(_Fragment, { children: [!breakpoint.isMobile && header, sidebar] }) })] })), _jsx(Flex, { align: "center", justify: "center", grow: true, style: contentContainerStyle, children: _jsxs(Flex, Object.assign({ direction: "column", style: contentStyle }, pageProps, { children: [!props.sidebar || breakpoint.isMobile ? header : _jsx(Header, {}), children] })) })] }));
+                            _jsxs(_Fragment, { children: [!breakpoint.isMobile && header, sidebar] }) })] })), _jsx(Flex, { align: "center", justify: "center", grow: true, style: contentContainerStyle, children: _jsxs(Flex, Object.assign({ direction: "column", style: contentStyle }, pageProps, { children: [!props.sidebar || breakpoint.isMobile ? header : _jsx(Header, {}), breakpoint.isMobile && _jsx(Space, { height: 120 }), children] })) })] }));
 });
