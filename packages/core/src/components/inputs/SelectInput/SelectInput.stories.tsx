@@ -37,4 +37,5 @@ SelectInput.args = {
     { label: "Bar", value: "bar" },
     { label: "Baz", value: "baz" },
   ],
+  width: 300,
 }

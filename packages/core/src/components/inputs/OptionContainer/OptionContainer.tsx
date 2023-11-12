@@ -147,20 +147,21 @@ export const OptionContainer = forwardRef(function OptionContainer(
 
 
   // Floating UI
-  const { refs, context } = useFloating({
+  const { refs, floatingStyles, context } = useFloating({
     placement: "bottom-start",
     open: isOpen,
     onOpenChange: setIsOpen,
     whileElementsMounted: autoUpdate,
     middleware: [
-      offset(15),
+      offset(5),
       flip({ padding: 15 }),
       sizeFn({
-        apply({ rects, elements }) {
+        apply({ rects, elements, availableHeight }) {
           Object.assign(elements.floating.style, {
-            width: `${rects.reference.width}px`,
+            maxHeight: `${availableHeight}px`,
+            width: `${rects.reference.width - 10}px`,
           })
-        }
+        },
       })
     ]
   });
@@ -184,7 +185,6 @@ export const OptionContainer = forwardRef(function OptionContainer(
 
     borderRadius: theme.sizeClasses.radius[radius] as number + (dropdownProps.padding as number),
     padding: dropdownProps.padding,
-    marginTop: 5,
     boxShadow: dropdownProps.shadow ? theme.defaultShadow : undefined,
 
     animationName: "in",
@@ -194,11 +194,9 @@ export const OptionContainer = forwardRef(function OptionContainer(
     "@keyframes in": {
       from: {
         opacity: 0,
-        transform: "translateY(-10px)",
       },
       to: {
         opacity: 1,
-        transform: "translateY(0px)",
       },
     },
 
@@ -209,6 +207,8 @@ export const OptionContainer = forwardRef(function OptionContainer(
       backgroundColor: theme.getColorHex(dropdownProps.color, "medium"),
       borderRadius: 5,
     },
+
+    ...floatingStyles
   });
 
 
@@ -239,6 +239,7 @@ export const OptionContainer = forwardRef(function OptionContainer(
 
         onClick={() => setIsOpen(true)}
 
+        ref={refs.setReference}
         {...getReferenceProps()}
         {...rest}
       >

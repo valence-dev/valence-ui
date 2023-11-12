@@ -1,6 +1,6 @@
 import { CSSProperties, ReactNode, forwardRef, useContext } from "react";
 import { ComponentSize, GenericReactiveLayoutProps, PolymorphicLayoutProps, ReactiveProp } from "@valence-ui/utils";
-import { Flex, Header, ValenceContext, useBreakpoint } from "@valence-ui/core";
+import { Flex, Header, Space, ValenceContext, useBreakpoint } from "@valence-ui/core";
 
 export type AppContainerProps =
   GenericReactiveLayoutProps
@@ -162,6 +162,9 @@ export const AppContainer = forwardRef(function AppContainer(
           {...pageProps}
         >
           {!props.sidebar || breakpoint.isMobile ? header : <Header />}
+
+          {breakpoint.isMobile && <Space height={120} />}
+          
           {children}
         </Flex>
       </Flex>

@@ -80,7 +80,7 @@ export const Textarea = forwardRef(function Textarea(
 
     color = "black",
     backgroundColor = color,
-    padding,
+    padding = 10,
     margin,
     width = "100%",
     height = "auto",
