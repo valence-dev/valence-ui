@@ -25,7 +25,7 @@ const Column = forwardRef(function Column(props, ref) {
 const Container = forwardRef(function ColumnContainer(props, ref) {
     const breakpoint = useBreakpoint();
     // Defaults
-    const { columns = 2, rows = 1, templateColumns = `repeat(${columns}, 1fr)`, templateRows = `repeat(${rows}, 1fr)`, color = "black", backgroundColor, padding, margin, width, height, children } = props, rest = __rest(props, ["columns", "rows", "templateColumns", "templateRows", "color", "backgroundColor", "padding", "margin", "width", "height", "children"]);
+    const { columns = 2, rows = 1, templateColumns = `repeat(${getReactiveProp(columns, breakpoint)}, 1fr)`, templateRows = `repeat(${getReactiveProp(rows, breakpoint)}, 1fr)`, color = "black", backgroundColor, padding, margin, width, height, children } = props, rest = __rest(props, ["columns", "rows", "templateColumns", "templateRows", "color", "backgroundColor", "padding", "margin", "width", "height", "children"]);
     // Styles
     const ContainerStyle = {
         color: getReactiveProp(color, breakpoint),

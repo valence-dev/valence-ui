@@ -1,7 +1,7 @@
 import { Flex, FlexProps } from "../Flex";
 import { forwardRef, useContext } from "react";
 import { Grid, GridProps } from "../Grid";
-import { GenericReactiveLayoutProps, getReactiveProp } from "@valence-ui/utils";
+import { GenericReactiveLayoutProps, ReactiveProp, getReactiveProp } from "@valence-ui/utils";
 import { ValenceContext } from "../../../ValenceProvider";
 import { useBreakpoint } from "../../../hooks";
 
@@ -11,9 +11,9 @@ export type ColumnContainerProps =
   & GenericReactiveLayoutProps
   & {
     /** Sets the number of columns in the grid. `2` by default */
-    columns?: number;
+    columns?: ReactiveProp<number>;
     /** Sets the number of rows in the grid. `1` by default */
-    rows?: number;
+    rows?: ReactiveProp<number>;
   };
 
 
@@ -75,8 +75,8 @@ const Container = forwardRef(function ColumnContainer(
     rows = 1,
 
     
-    templateColumns = `repeat(${columns}, 1fr)`,
-    templateRows = `repeat(${rows}, 1fr)`,
+    templateColumns = `repeat(${getReactiveProp(columns, breakpoint)}, 1fr)`,
+    templateRows = `repeat(${getReactiveProp(rows, breakpoint)}, 1fr)`,
 
     color = "black",
     backgroundColor,
