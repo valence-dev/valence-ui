@@ -34,7 +34,8 @@ exports.Pill = (0, react_1.forwardRef)(function Pill(props, ref) {
     // Styles
     const PillStyle = Object.assign({ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "stretch", backgroundColor: (0, buttons_1.getBackgroundColor)(backgroundColor, variant, false, theme), color: (0, buttons_1.getTextColor)(color, variant, theme), borderRadius: theme.sizeClasses.radius[radius], outline: variant === "subtle" ?
             `1px solid ${theme.getColorHex(backgroundColor, "medium")}`
-            : "none", padding: padding, paddingRight: withRemoveButton ? SIZES[size].paddingVertical : undefined, gap: SIZES[size].paddingVertical, margin: margin, width: width, height: height, cursor: withRemoveButton ? "pointer" : undefined }, style);
+            : "none", padding: padding, paddingRight: withRemoveButton ? SIZES[size].paddingVertical :
+            SIZES[size].paddingHorizontal, gap: SIZES[size].paddingVertical, margin: margin, width: width, height: height, cursor: withRemoveButton ? "pointer" : undefined }, style);
     // Events
     const handleClick = (e) => {
         var _a;

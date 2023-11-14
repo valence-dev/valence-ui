@@ -10,20 +10,32 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import { jsx as _jsx } from "react/jsx-runtime";
-import { getReactiveProp } from "@valence-ui/utils";
 import { Flex } from "../Flex";
-import { forwardRef } from "react";
+import { forwardRef, useContext } from "react";
+import { Grid } from "../Grid";
+import { getReactiveProp } from "@valence-ui/utils";
+import { ValenceContext } from "../../../ValenceProvider";
 import { useBreakpoint } from "../../../hooks";
 const Column = forwardRef(function Column(props, ref) {
-    const { direction = "column", justify = "center", children } = props, rest = __rest(props, ["direction", "justify", "children"]);
-    return (_jsx(Flex, Object.assign({ direction: direction, justify: justify, ref: ref }, rest, { children: children })));
+    const theme = useContext(ValenceContext);
+    // Defaults
+    const { direction = "column", justify = "center", color = "black", backgroundColor, padding = theme.sizeClasses.padding[theme.defaultSize], margin, width, height, children } = props, rest = __rest(props, ["direction", "justify", "color", "backgroundColor", "padding", "margin", "width", "height", "children"]);
+    return (_jsx(Flex, Object.assign({ direction: direction, justify: justify, color: color, backgroundColor: backgroundColor, padding: padding, margin: margin, width: width, height: height, ref: ref }, rest, { children: children })));
 });
 const Container = forwardRef(function ColumnContainer(props, ref) {
     const breakpoint = useBreakpoint();
-    const { direction = "row", justify = "space-between", flow, style, children } = props, rest = __rest(props, ["direction", "justify", "flow", "style", "children"]);
+    // Defaults
+    const { columns = 2, rows = 1, templateColumns = `repeat(${columns}, 1fr)`, templateRows = `repeat(${rows}, 1fr)`, color = "black", backgroundColor, padding, margin, width, height, children } = props, rest = __rest(props, ["columns", "rows", "templateColumns", "templateRows", "color", "backgroundColor", "padding", "margin", "width", "height", "children"]);
     // Styles
-    const ContainerStyle = Object.assign({ flexFlow: getReactiveProp(flow, breakpoint) }, style);
-    return (_jsx(Flex, Object.assign({ direction: direction, justify: justify, style: ContainerStyle }, rest, { children: children })));
+    const ContainerStyle = {
+        color: getReactiveProp(color, breakpoint),
+        backgroundColor: getReactiveProp(backgroundColor, breakpoint),
+        padding: getReactiveProp(padding, breakpoint),
+        margin: getReactiveProp(margin, breakpoint),
+        width: getReactiveProp(width, breakpoint),
+        height: getReactiveProp(height, breakpoint),
+    };
+    return (_jsx(Grid, Object.assign({ templateColumns: templateColumns, style: ContainerStyle, ref: ref }, rest, { children: children })));
 });
 const ColumnNamespace = Object.assign(Column, { Container });
 export { ColumnNamespace as Column };

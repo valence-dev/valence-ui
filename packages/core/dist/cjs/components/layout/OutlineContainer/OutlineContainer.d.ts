@@ -1,8 +1,8 @@
 import { CSSProperties } from "react";
 import { TextProps } from "../../display";
 import { FlexProps } from "../Flex";
-import { ComponentSize, GenericFloatingLayoutProps } from "@valence-ui/utils";
-export type OutlineContainerProps = GenericFloatingLayoutProps & FlexProps & {
+import { ComponentSize, GenericReactiveFloatingLayoutProps } from "@valence-ui/utils";
+export type OutlineContainerProps = GenericReactiveFloatingLayoutProps & FlexProps & {
     /** A label to display below the container */
     label?: string;
     /** Optional props to pass to the label component */
@@ -15,21 +15,6 @@ export type OutlineContainerProps = GenericFloatingLayoutProps & FlexProps & {
     radius?: ComponentSize;
 };
 export declare const OutlineContainer: import("react").ForwardRefExoticComponent<import("@valence-ui/utils").GenericProps & {
-    color?: import("csstype").Property.Color | undefined;
-    backgroundColor?: import("csstype").Property.BackgroundColor | undefined;
-    /** A label to display below the container */
-    padding?: import("csstype").Property.Padding<string | number> | undefined;
-    margin?: import("csstype").Property.Margin<string | number> | undefined;
-    width?: import("csstype").Property.Width<string | number> | undefined;
-    height?: import("csstype").Property.Height<string | number> | undefined;
-} & {
-    position?: import("csstype").Property.Position | undefined;
-    zIndex?: import("csstype").Property.ZIndex | undefined;
-    top?: import("csstype").Property.Top<string | number> | undefined;
-    right?: import("csstype").Property.Right<string | number> | undefined;
-    bottom?: import("csstype").Property.Bottom<string | number> | undefined;
-    left?: import("csstype").Property.Left<string | number> | undefined;
-} & {
     style?: import("@valence-ui/utils").ReactiveProp<CSSProperties> | undefined;
     tabIndex?: import("@valence-ui/utils").ReactiveProp<number> | undefined;
 } & {
@@ -39,6 +24,13 @@ export declare const OutlineContainer: import("react").ForwardRefExoticComponent
     margin?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Margin<string | number> | undefined>;
     width?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Width<string | number> | undefined>;
     height?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Height<string | number> | undefined>;
+} & {
+    position?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Position | undefined>;
+    zIndex?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.ZIndex | undefined>;
+    top?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Top<string | number> | undefined>;
+    right?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Right<string | number> | undefined>;
+    bottom?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Bottom<string | number> | undefined>;
+    left?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Left<string | number> | undefined>;
 } & import("@valence-ui/utils").PolymorphicElementProps & {
     css?: any;
 } & {

@@ -46,7 +46,7 @@ exports.InputContainer = (0, react_1.forwardRef)(function InputContainer(props, 
         }, "&:focus-within": {
             outline: `1px solid ${(0, buttons_1.getTextColor)(color, variant, theme)}`,
         } }, style));
-    const IconContainerStyle = (0, react_2.css)(Object.assign({ height: "100%", aspectRatio: "1/1", opacity: 0.5, boxSizing: "border-box", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "row" }, iconContainerStyle));
+    const IconContainerStyle = (0, react_2.css)(Object.assign({ height: "100%", opacity: 0.5, boxSizing: "border-box", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "row" }, iconContainerStyle));
     const ButtonContainerStyle = (0, react_2.css)(Object.assign({ height: "100%", aspectRatio: "1/1", opacity: 0.5, boxSizing: "border-box", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "row" }, buttonContainerStyle));
     const RequireIndicatorStyle = (0, react_2.css)(Object.assign({ width: 3, height: "calc(100% - 10px)", minHeight: 20, borderRadius: 3, backgroundColor: (0, buttons_1.getTextColor)(color === "black" ? "red" : color, "light", theme), cursor: disabled ? "not-allowed" : "text" }, requireIndicatorStyle));
     return ((0, jsx_runtime_1.jsxs)("div", Object.assign({ css: ContainerStyle, ref: ref, onClick: (event) => handleClick(event) }, rest, { children: [required && (0, jsx_runtime_1.jsx)("div", { css: RequireIndicatorStyle }), (icon || loading) &&

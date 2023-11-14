@@ -17,6 +17,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./Card"), exports);
 __exportStar(require("./Column"), exports);
 __exportStar(require("./Flex"), exports);
+__exportStar(require("./Grid"), exports);
 __exportStar(require("./Header"), exports);
 __exportStar(require("./OutlineContainer"), exports);
 __exportStar(require("./Space"), exports);

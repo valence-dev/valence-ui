@@ -94,7 +94,8 @@ export const Pill = forwardRef(function Pill(
       : "none",
 
     padding: padding,
-    paddingRight: withRemoveButton ? SIZES[size].paddingVertical : undefined,
+    paddingRight: withRemoveButton ? SIZES[size].paddingVertical :
+      SIZES[size].paddingHorizontal,
     gap: SIZES[size].paddingVertical,
     margin: margin,
     width: width,

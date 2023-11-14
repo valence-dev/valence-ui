@@ -54,3 +54,19 @@ export type GenericFloatingLayoutProps = GenericLayoutProps & {
   /** Sets `left` css property */
   left?: CSSProperties["left"];
 }
+
+export type GenericReactiveFloatingLayoutProps = GenericReactiveLayoutProps & {
+  /** **[REACTIVE]** Sets `position` css property */
+  position?: ReactiveProp<CSSProperties["position"]>;
+  /** **[REACTIVE]** Sets `zIndex` css property */
+  zIndex?: ReactiveProp<CSSProperties["zIndex"]>;
+
+  /** **[REACTIVE]** Sets `top` css property */
+  top?: ReactiveProp<CSSProperties["top"]>;
+  /** **[REACTIVE]** Sets `right` css property */
+  right?: ReactiveProp<CSSProperties["right"]>;
+  /** **[REACTIVE]** Sets `bottom` css property */
+  bottom?: ReactiveProp<CSSProperties["bottom"]>;
+  /** **[REACTIVE]** Sets `left` css property */
+  left?: ReactiveProp<CSSProperties["left"]>;
+}

@@ -23,18 +23,18 @@ exports.OutlineContainer = (0, react_1.forwardRef)(function OutlineContainer(pro
     const theme = (0, react_1.useContext)(ValenceProvider_1.ValenceContext);
     const breakpoint = (0, hooks_1.useBreakpoint)();
     // Defaults
-    const { label, labelProps, spacing = 5, radius = theme.defaultRadius, position = "sticky", zIndex = 151, top = spacing, left = spacing, right = spacing, bottom, width = "100%", height, color = "black", children, style } = props, rest = __rest(props, ["label", "labelProps", "spacing", "radius", "position", "zIndex", "top", "left", "right", "bottom", "width", "height", "color", "children", "style"]);
+    const { label, labelProps, spacing = 5, radius = theme.defaultRadius, position = "sticky", zIndex = 151, top = { default: spacing * 2, mobile: 75 }, left = spacing * 2, right = spacing * 2, bottom, width = "100%", height, color = "black", children, style } = props, rest = __rest(props, ["label", "labelProps", "spacing", "radius", "position", "zIndex", "top", "left", "right", "bottom", "width", "height", "color", "children", "style"]);
     const _a = labelProps || {}, { style: labelStyle } = _a, labelRest = __rest(_a, ["style"]);
     // Styles
     const OuterFlexStyle = {
-        position: position,
-        zIndex: zIndex,
-        top: top,
-        left: left,
-        right: right,
-        bottom: bottom,
+        position: (0, utils_1.getReactiveProp)(position, breakpoint),
+        zIndex: (0, utils_1.getReactiveProp)(zIndex, breakpoint),
+        top: (0, utils_1.getReactiveProp)(top, breakpoint),
+        left: (0, utils_1.getReactiveProp)(left, breakpoint),
+        right: (0, utils_1.getReactiveProp)(right, breakpoint),
+        bottom: (0, utils_1.getReactiveProp)(bottom, breakpoint),
     };
-    const OutlineContainerStyle = Object.assign({ outlineColor: theme.getColorHex((0, utils_1.getReactiveProp)(color, breakpoint), "medium"), outlineWidth: 1, outlineStyle: "solid", padding: spacing, borderRadius: theme.sizeClasses.radius[radius] + spacing }, style);
-    const LabelStyle = Object.assign({ width: "100%" }, labelStyle);
-    return ((0, jsx_runtime_1.jsxs)(Flex_1.Flex, { direction: "column", width: width, height: height, style: OuterFlexStyle, gap: spacing, ref: ref, children: [(0, jsx_runtime_1.jsx)(Flex_1.Flex, Object.assign({ direction: "row", width: "100%", height: "100%", style: OutlineContainerStyle, gap: spacing }, rest, { children: children })), label && ((0, jsx_runtime_1.jsx)(display_1.Text, Object.assign({ size: "xs", color: theme.getColorHex((0, utils_1.getReactiveProp)(color, breakpoint), "strong"), style: LabelStyle, align: "center" }, labelRest, { children: label })))] }));
+    const OutlineContainerStyle = Object.assign({ backgroundColor: theme.getColorHex("white", "strong"), backdropFilter: "blur(5px)", outlineColor: theme.getColorHex((0, utils_1.getReactiveProp)(color, breakpoint), "medium"), outlineWidth: 1, outlineStyle: "solid", padding: spacing, borderRadius: theme.sizeClasses.radius[radius] + spacing }, style);
+    const LabelStyle = Object.assign({ backgroundColor: theme.getColorHex("white", "strong"), backdropFilter: "blur(5px)", padding: `${spacing / 2}px ${spacing * 2}px`, borderRadius: 20 }, labelStyle);
+    return ((0, jsx_runtime_1.jsxs)(Flex_1.Flex, { direction: "column", width: width, height: height, style: OuterFlexStyle, gap: spacing / 2, ref: ref, children: [(0, jsx_runtime_1.jsx)(Flex_1.Flex, Object.assign({ direction: "row", width: "100%", height: "100%", style: OutlineContainerStyle, gap: spacing }, rest, { children: children })), label && ((0, jsx_runtime_1.jsx)(Flex_1.Flex, { align: "center", justify: "center", children: (0, jsx_runtime_1.jsx)(display_1.Text, Object.assign({ size: "xs", color: theme.getColorHex((0, utils_1.getReactiveProp)(color, breakpoint), "strong"), align: "center", style: LabelStyle }, labelRest, { children: label })) }))] }));
 });

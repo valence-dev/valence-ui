@@ -89,7 +89,7 @@ exports.OptionContainer = (0, react_3.forwardRef)(function OptionContainer(props
                 apply({ rects, elements, availableHeight }) {
                     Object.assign(elements.floating.style, {
                         maxHeight: `${availableHeight}px`,
-                        width: `${rects.reference.width - 10}px`,
+                        width: `${rects.reference.width}px`,
                     });
                 },
             })

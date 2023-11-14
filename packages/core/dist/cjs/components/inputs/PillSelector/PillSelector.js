@@ -25,7 +25,7 @@ exports.PillSelector = (0, react_2.forwardRef)(function PillSelector(props, ref)
     const theme = (0, react_2.useContext)(ValenceProvider_1.ValenceContext);
     const defaultIconProps = (0, hooks_1.useDefaultIconProps)();
     // Defaults
-    const { value, setValue, pills, allowClear = true, gap = 5, maxSelectable = Infinity, clearButtonIcon = (0, jsx_runtime_1.jsx)(icons_react_1.IconX, Object.assign({}, defaultIconProps.get())), clearButtonProps, pillProps, selectedPillProps = pillProps, pillContainerProps, size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, loading, autoFocus, disabled, readOnly = disabled, required, color = "black", backgroundColor = color, padding, margin, width, height = theme.sizeClasses.height[size], onPillSelected, onPillDeselected, style } = props, rest = __rest(props, ["value", "setValue", "pills", "allowClear", "gap", "maxSelectable", "clearButtonIcon", "clearButtonProps", "pillProps", "selectedPillProps", "pillContainerProps", "size", "radius", "variant", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "onPillSelected", "onPillDeselected", "style"]);
+    const { value, setValue, pills, allowClear = true, gap = 5, maxSelectable = Infinity, clearButtonIcon = (0, jsx_runtime_1.jsx)(icons_react_1.IconX, Object.assign({}, defaultIconProps.get())), clearButtonProps, pillProps, selectedPillProps = pillProps, pillContainerProps, size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, loading, autoFocus, disabled, readOnly = disabled, required, color = "black", backgroundColor = color, padding, margin, width, height = theme.sizeClasses.height[size], grow, onPillSelected, onPillDeselected, style } = props, rest = __rest(props, ["value", "setValue", "pills", "allowClear", "gap", "maxSelectable", "clearButtonIcon", "clearButtonProps", "pillProps", "selectedPillProps", "pillContainerProps", "size", "radius", "variant", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "grow", "onPillSelected", "onPillDeselected", "style"]);
     const _a = pillContainerProps !== null && pillContainerProps !== void 0 ? pillContainerProps : {}, { style: pillContainerStyle } = _a, pillContainerPropsRest = __rest(_a, ["style"]);
     const _b = clearButtonProps !== null && clearButtonProps !== void 0 ? clearButtonProps : {}, { style: clearButtonStyle } = _b, clearButtonPropsRest = __rest(_b, ["style"]);
     // States
@@ -54,8 +54,8 @@ exports.PillSelector = (0, react_2.forwardRef)(function PillSelector(props, ref)
         setPillList(sortPills(pillList, []));
     }
     // Styles
-    const ContainerStyle = Object.assign({}, style);
-    const PillContainerStyle = (0, react_1.css)(Object.assign({ padding: `${gap}px 0px`, overflowX: "auto", "&::-webkit-scrollbar": {
+    const ContainerStyle = Object.assign({ padding: padding, margin: margin, width: width, height: height, flexGrow: grow ? 1 : undefined }, style);
+    const PillContainerStyle = (0, react_1.css)(Object.assign({ padding: `${gap}px 0px`, overflowX: "auto", width: "100%", "&::-webkit-scrollbar": {
             height: 10,
         }, "&::-webkit-scrollbar-thumb": {
             backgroundColor: theme.getColorHex(color, "medium"),

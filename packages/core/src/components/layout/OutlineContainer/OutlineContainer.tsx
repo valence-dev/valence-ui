@@ -3,10 +3,10 @@ import { Text, TextProps } from "../../display";
 import { Flex, FlexProps } from "../Flex";
 import { ValenceContext } from "../../../ValenceProvider";
 import { useBreakpoint } from "../../../hooks";
-import { ComponentSize, GenericFloatingLayoutProps, getReactiveProp } from "@valence-ui/utils";
+import { ComponentSize, GenericReactiveFloatingLayoutProps, getReactiveProp } from "@valence-ui/utils";
 
 export type OutlineContainerProps =
-  GenericFloatingLayoutProps
+  GenericReactiveFloatingLayoutProps
   & FlexProps
   & {
     /** A label to display below the container */
@@ -37,9 +37,9 @@ export const OutlineContainer = forwardRef(function OutlineContainer(
 
     position = "sticky",
     zIndex = 151,
-    top = spacing,
-    left = spacing,
-    right = spacing,
+    top = { default: spacing * 2, mobile: 75 },
+    left = spacing * 2,
+    right = spacing * 2,
     bottom,
 
     width = "100%",
@@ -48,7 +48,7 @@ export const OutlineContainer = forwardRef(function OutlineContainer(
 
     children, style, ...rest
   } = props;
-  const { 
+  const {
     style: labelStyle,
     ...labelRest
   } = labelProps || {};
@@ -56,14 +56,16 @@ export const OutlineContainer = forwardRef(function OutlineContainer(
 
   // Styles
   const OuterFlexStyle: CSSProperties = {
-    position: position,
-    zIndex: zIndex,
-    top: top,
-    left: left,
-    right: right,
-    bottom: bottom,
+    position: getReactiveProp(position, breakpoint),
+    zIndex: getReactiveProp(zIndex, breakpoint),
+    top: getReactiveProp(top, breakpoint),
+    left: getReactiveProp(left, breakpoint),
+    right: getReactiveProp(right, breakpoint),
+    bottom: getReactiveProp(bottom, breakpoint),
   }
   const OutlineContainerStyle: CSSProperties = {
+    backgroundColor: theme.getColorHex("white", "strong"),
+    backdropFilter: "blur(5px)",
     outlineColor: theme.getColorHex(getReactiveProp(color, breakpoint), "medium"),
     outlineWidth: 1,
     outlineStyle: "solid",
@@ -73,7 +75,10 @@ export const OutlineContainer = forwardRef(function OutlineContainer(
     ...style
   }
   const LabelStyle: CSSProperties = {
-    width: "100%",
+    backgroundColor: theme.getColorHex("white", "strong"),
+    backdropFilter: "blur(5px)",
+    padding: `${spacing / 2}px ${spacing * 2}px`,
+    borderRadius: 20,
     ...labelStyle
   }
 
@@ -84,7 +89,7 @@ export const OutlineContainer = forwardRef(function OutlineContainer(
       width={width}
       height={height}
       style={OuterFlexStyle}
-      gap={spacing}
+      gap={spacing / 2}
       ref={ref}
     >
       <Flex
@@ -99,15 +104,20 @@ export const OutlineContainer = forwardRef(function OutlineContainer(
       </Flex>
 
       {label && (
-        <Text
-          size="xs"
-          color={theme.getColorHex(getReactiveProp(color, breakpoint), "strong")}
-          style={LabelStyle}
+        <Flex
           align="center"
-          {...labelRest}
+          justify="center"
         >
-          {label}
-        </Text>
+          <Text
+            size="xs"
+            color={theme.getColorHex(getReactiveProp(color, breakpoint), "strong")}
+            align="center"
+            style={LabelStyle}
+            {...labelRest}
+          >
+            {label}
+          </Text>
+        </Flex>
       )}
     </Flex>
   )

@@ -17,18 +17,26 @@ export const OutlineContainer: Story = (args: any) => {
   const [inputValue, setInputValue] = React.useState("");
 
   return (
-    <ValenceProvider>
-      <OC
-        {...args}
-      >
+    <div style={{ height: "200vh" }}>
+      <ValenceProvider>
+        <OC
+          {...args}
+        >
+          <TextInput
+            value={inputValue}
+            setValue={setInputValue}
+            placeholder="Type here..."
+            variant="subtle"
+          />
+        </OC>
+
         <TextInput
           value={inputValue}
           setValue={setInputValue}
           placeholder="Type here..."
-          variant="subtle"
         />
-      </OC>
-    </ValenceProvider>
+      </ValenceProvider>
+    </div>
   );
 }
 OutlineContainer.args = {

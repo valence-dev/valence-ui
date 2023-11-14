@@ -149,7 +149,6 @@ export const InputContainer = forwardRef(function InputContainer(
   });
   const IconContainerStyle = css({
     height: "100%",
-    aspectRatio: "1/1",
     opacity: 0.5,
     boxSizing: "border-box",
     display: "flex",

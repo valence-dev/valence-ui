@@ -22,6 +22,4 @@ export const Column: Story = (args: any) => (
 Column.args = {
   children: <Text align="center">Column</Text>,
   backgroundColor: "white",
-  width: "33%",
-  height: "100%",
 }

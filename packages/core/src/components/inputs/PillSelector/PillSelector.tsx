@@ -94,6 +94,7 @@ export const PillSelector = forwardRef(function PillSelector(
     margin,
     width,
     height = theme.sizeClasses.height[size],
+    grow,
 
     onPillSelected,
     onPillDeselected,
@@ -145,12 +146,18 @@ export const PillSelector = forwardRef(function PillSelector(
 
   // Styles
   const ContainerStyle: CSSProperties = {
+    padding: padding,
+    margin: margin,
+    width: width,
+    height: height,
+    flexGrow: grow ? 1 : undefined,
 
     ...style,
   };
   const PillContainerStyle = css({
     padding: `${gap}px 0px`,
     overflowX: "auto",
+    width: "100%",
 
     "&::-webkit-scrollbar": {
       height: 10,
