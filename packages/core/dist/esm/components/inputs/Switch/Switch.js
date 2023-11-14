@@ -51,7 +51,8 @@ export const Switch = forwardRef(function Switch(props, ref) {
     });
     return (_jsxs(PrimitiveButton, Object.assign({ id: rest.id, onClick: handleClick, padding: 0, height: "fit-content", color: color, backgroundColor: "#00000000", variant: "subtle", size: size, grow: grow, style: {
             gap: theme.sizeClasses.padding[size] / 2,
-        }, onFocus: onFocus, onBlur: onBlur, ref: ref }, buttonProps, { children: [_jsx(Text, Object.assign({ size: size }, labelProps, { tabIndex: -1, children: label })), _jsx("div", Object.assign({ tabIndex: 0, css: SwitchStyle }, rest, { children: loading ?
+        }, onFocus: onFocus, onBlur: onBlur, ref: ref }, buttonProps, { children: [label &&
+                _jsx(Text, Object.assign({ size: size }, labelProps, { tabIndex: -1, children: label })), _jsx("div", Object.assign({ tabIndex: 0, css: SwitchStyle }, rest, { children: loading ?
                     _jsx(Flex, { width: "100%", height: "100%", align: "center", justify: "center", children: _jsx(Loader, { size: size, color: value ? "white" : "black" }) })
                     :
                         _jsx(motion.div, { css: HandleStyle, initial: { x: value ? "0%" : "100%" }, animate: { x: value ? "100%" : "0%" }, transition: { ease: "backOut" } }) }))] })));

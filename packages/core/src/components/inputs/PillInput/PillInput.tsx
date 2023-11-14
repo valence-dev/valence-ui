@@ -82,7 +82,7 @@ export const PillInput = forwardRef(function PillInput(
     setValue,
     actionKey = "Enter",
 
-    options,
+    options = [],
     filter = DefaultOptionsFilter,
     nothingFound = "Nothing found... Add a tag instead!",
 
@@ -132,7 +132,7 @@ export const PillInput = forwardRef(function PillInput(
 
   // States
   const [searchValue, setSearchValue] = useState("");
-  const [visibleOptions, setVisibleOptions] = useState(filterOptions(options ?? [], searchValue, value));
+  const [visibleOptions, setVisibleOptions] = useState(filterOptions(options, searchValue, value));
 
 
   // Functions
@@ -160,7 +160,7 @@ export const PillInput = forwardRef(function PillInput(
 
   function handleSearchUpdate(search: string) {
     setSearchValue(search);
-    setVisibleOptions(filterOptions(options ?? [], search, value));
+    setVisibleOptions(filterOptions(options, search, value));
   }
 
   function handlePillAdd(v?: string) {
@@ -178,7 +178,7 @@ export const PillInput = forwardRef(function PillInput(
     onPillAdd?.(tagValue);
 
     // Update visible options
-    setVisibleOptions(filterOptions(options ?? [], "", newValue));
+    setVisibleOptions(filterOptions(options, "", newValue));
   }
   function handlePillRemove(index: number) {
     const newValue = [...value];
@@ -187,14 +187,14 @@ export const PillInput = forwardRef(function PillInput(
     onPillRemove?.(value[index]);
 
     // Update visible options
-    setVisibleOptions(filterOptions(options ?? [], "", newValue));
+    setVisibleOptions(filterOptions(options, "", newValue));
   }
   function clearPills() {
     setValue([]);
     setSearchValue("");
 
     // Update visible options
-    setVisibleOptions(filterOptions(options ?? [], "", []));
+    setVisibleOptions(filterOptions(options, "", []));
   }
 
 

@@ -135,6 +135,8 @@ export const OptionContainer = forwardRef(function OptionContainer(
     if (e.key === "Enter") setIsOpen(true);
   }, "Enter", !isOpen);
   useEffect(() => { 
+    if (!isOpen) return;
+    if (options.length === 0) return setHighlightedIndex(-1);
     setHighlightedIndex(0);
   }, [isOpen, options])
 

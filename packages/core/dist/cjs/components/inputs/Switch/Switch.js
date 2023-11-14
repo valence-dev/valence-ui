@@ -54,7 +54,8 @@ exports.Switch = (0, react_1.forwardRef)(function Switch(props, ref) {
     });
     return ((0, jsx_runtime_1.jsxs)(buttons_1.PrimitiveButton, Object.assign({ id: rest.id, onClick: handleClick, padding: 0, height: "fit-content", color: color, backgroundColor: "#00000000", variant: "subtle", size: size, grow: grow, style: {
             gap: theme.sizeClasses.padding[size] / 2,
-        }, onFocus: onFocus, onBlur: onBlur, ref: ref }, buttonProps, { children: [(0, jsx_runtime_1.jsx)(display_1.Text, Object.assign({ size: size }, labelProps, { tabIndex: -1, children: label })), (0, jsx_runtime_1.jsx)("div", Object.assign({ tabIndex: 0, css: SwitchStyle }, rest, { children: loading ?
+        }, onFocus: onFocus, onBlur: onBlur, ref: ref }, buttonProps, { children: [label &&
+                (0, jsx_runtime_1.jsx)(display_1.Text, Object.assign({ size: size }, labelProps, { tabIndex: -1, children: label })), (0, jsx_runtime_1.jsx)("div", Object.assign({ tabIndex: 0, css: SwitchStyle }, rest, { children: loading ?
                     (0, jsx_runtime_1.jsx)(layout_1.Flex, { width: "100%", height: "100%", align: "center", justify: "center", children: (0, jsx_runtime_1.jsx)(display_1.Loader, { size: size, color: value ? "white" : "black" }) })
                     :
                         (0, jsx_runtime_1.jsx)(framer_motion_1.motion.div, { css: HandleStyle, initial: { x: value ? "0%" : "100%" }, animate: { x: value ? "100%" : "0%" }, transition: { ease: "backOut" } }) }))] })));

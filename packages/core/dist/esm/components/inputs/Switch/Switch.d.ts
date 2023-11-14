@@ -10,9 +10,9 @@ export type SwitchProps = GenericInputProps<boolean> & FocusEvents & {
     /** Shorthand for `flex-grow = 1` */
     grow?: boolean;
     /** Optional props to pass to the `Button` container component */
-    buttonProps: PrimitiveButtonProps;
+    buttonProps?: PrimitiveButtonProps;
     /** Optional props to pass to the `Text` label component */
-    labelProps: TextProps;
+    labelProps?: TextProps;
 };
 export declare const Switch: import("react").ForwardRefExoticComponent<import("@valence-ui/utils").GenericProps & {
     color?: import("csstype").Property.Color | undefined;
@@ -25,7 +25,7 @@ export declare const Switch: import("react").ForwardRefExoticComponent<import("@
     value: boolean;
     setValue: import("react").Dispatch<import("react").SetStateAction<boolean>>;
     size?: import("@valence-ui/utils").ComponentSize | undefined;
-    radius?: import("@valence-ui/utils").ComponentSize | undefined;
+    radius?: import("@valence-ui/utils").ComponentSize | undefined; /** Optional props to pass to the `Text` label component */
     variant?: import("@valence-ui/utils").FillVariant | undefined;
     disabled?: boolean | undefined;
     readOnly?: boolean | undefined;
@@ -40,8 +40,8 @@ export declare const Switch: import("react").ForwardRefExoticComponent<import("@
     /** Shorthand for `flex-grow = 1` */
     grow?: boolean | undefined;
     /** Optional props to pass to the `Button` container component */
-    buttonProps: PrimitiveButtonProps;
+    buttonProps?: PrimitiveButtonProps | undefined;
     /** Optional props to pass to the `Text` label component */
-    labelProps: TextProps;
+    labelProps?: TextProps | undefined;
 } & import("react").RefAttributes<unknown>>;
 //# sourceMappingURL=Switch.d.ts.map

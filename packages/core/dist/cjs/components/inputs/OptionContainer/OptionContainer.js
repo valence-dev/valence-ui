@@ -69,6 +69,10 @@ exports.OptionContainer = (0, react_3.forwardRef)(function OptionContainer(props
             setIsOpen(true);
     }, "Enter", !isOpen);
     (0, react_3.useEffect)(() => {
+        if (!isOpen)
+            return;
+        if (options.length === 0)
+            return setHighlightedIndex(-1);
         setHighlightedIndex(0);
     }, [isOpen, options]);
     // Handlers

@@ -20,9 +20,9 @@ export type SwitchProps =
     grow?: boolean;
 
     /** Optional props to pass to the `Button` container component */
-    buttonProps: PrimitiveButtonProps;
+    buttonProps?: PrimitiveButtonProps;
     /** Optional props to pass to the `Text` label component */
-    labelProps: TextProps;
+    labelProps?: TextProps;
   }
 
 
@@ -149,13 +149,15 @@ export const Switch = forwardRef(function Switch(
       ref={ref}
       {...buttonProps}
     >
-      <Text
-        size={size}
-        {...labelProps}
-        tabIndex={-1}
-      >
-        {label}
-      </Text>
+      {label &&
+        <Text
+          size={size}
+          {...labelProps}
+          tabIndex={-1}
+        >
+          {label}
+        </Text>
+      }
 
       <div
         tabIndex={0}

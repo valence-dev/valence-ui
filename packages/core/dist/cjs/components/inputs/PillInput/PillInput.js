@@ -28,10 +28,10 @@ exports.PillInput = (0, react_1.forwardRef)(function PillInput(props, ref) {
     const inputRef = ref !== null && ref !== void 0 ? ref : (0, react_1.createRef)();
     const defaultIconProps = (0, hooks_1.useDefaultIconProps)();
     // Defaults
-    const { value, setValue, actionKey = "Enter", options, filter = OptionContainer_1.DefaultOptionsFilter, nothingFound = "Nothing found... Add a tag instead!", allowDuplicates = false, allowClear = true, grow, maxPills = Infinity, minLength = 0, maxLength = Infinity, clearButtonIcon = (0, jsx_runtime_1.jsx)(icons_react_1.IconX, Object.assign({}, defaultIconProps.get())), clearButtonProps, pillProps, pillContainerProps, icon, placeholder, size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, loading, autoFocus, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding, margin, width, height = theme.sizeClasses.height[size], onEnterPress, onKeyPress, onPillAdd, onPillRemove, inputStyle, style } = props, rest = __rest(props, ["value", "setValue", "actionKey", "options", "filter", "nothingFound", "allowDuplicates", "allowClear", "grow", "maxPills", "minLength", "maxLength", "clearButtonIcon", "clearButtonProps", "pillProps", "pillContainerProps", "icon", "placeholder", "size", "radius", "variant", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "onEnterPress", "onKeyPress", "onPillAdd", "onPillRemove", "inputStyle", "style"]);
+    const { value, setValue, actionKey = "Enter", options = [], filter = OptionContainer_1.DefaultOptionsFilter, nothingFound = "Nothing found... Add a tag instead!", allowDuplicates = false, allowClear = true, grow, maxPills = Infinity, minLength = 0, maxLength = Infinity, clearButtonIcon = (0, jsx_runtime_1.jsx)(icons_react_1.IconX, Object.assign({}, defaultIconProps.get())), clearButtonProps, pillProps, pillContainerProps, icon, placeholder, size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, loading, autoFocus, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding, margin, width, height = theme.sizeClasses.height[size], onEnterPress, onKeyPress, onPillAdd, onPillRemove, inputStyle, style } = props, rest = __rest(props, ["value", "setValue", "actionKey", "options", "filter", "nothingFound", "allowDuplicates", "allowClear", "grow", "maxPills", "minLength", "maxLength", "clearButtonIcon", "clearButtonProps", "pillProps", "pillContainerProps", "icon", "placeholder", "size", "radius", "variant", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "onEnterPress", "onKeyPress", "onPillAdd", "onPillRemove", "inputStyle", "style"]);
     // States
     const [searchValue, setSearchValue] = (0, react_1.useState)("");
-    const [visibleOptions, setVisibleOptions] = (0, react_1.useState)(filterOptions(options !== null && options !== void 0 ? options : [], searchValue, value));
+    const [visibleOptions, setVisibleOptions] = (0, react_1.useState)(filterOptions(options, searchValue, value));
     // Functions
     function handleKeyDown(e) {
         // Blur on "Escape" key
@@ -56,7 +56,7 @@ exports.PillInput = (0, react_1.forwardRef)(function PillInput(props, ref) {
     }
     function handleSearchUpdate(search) {
         setSearchValue(search);
-        setVisibleOptions(filterOptions(options !== null && options !== void 0 ? options : [], search, value));
+        setVisibleOptions(filterOptions(options, search, value));
     }
     function handlePillAdd(v) {
         const tagValue = v !== null && v !== void 0 ? v : searchValue.trim();
@@ -72,7 +72,7 @@ exports.PillInput = (0, react_1.forwardRef)(function PillInput(props, ref) {
         setSearchValue("");
         onPillAdd === null || onPillAdd === void 0 ? void 0 : onPillAdd(tagValue);
         // Update visible options
-        setVisibleOptions(filterOptions(options !== null && options !== void 0 ? options : [], "", newValue));
+        setVisibleOptions(filterOptions(options, "", newValue));
     }
     function handlePillRemove(index) {
         const newValue = [...value];
@@ -80,13 +80,13 @@ exports.PillInput = (0, react_1.forwardRef)(function PillInput(props, ref) {
         setValue(newValue);
         onPillRemove === null || onPillRemove === void 0 ? void 0 : onPillRemove(value[index]);
         // Update visible options
-        setVisibleOptions(filterOptions(options !== null && options !== void 0 ? options : [], "", newValue));
+        setVisibleOptions(filterOptions(options, "", newValue));
     }
     function clearPills() {
         setValue([]);
         setSearchValue("");
         // Update visible options
-        setVisibleOptions(filterOptions(options !== null && options !== void 0 ? options : [], "", []));
+        setVisibleOptions(filterOptions(options, "", []));
     }
     // Styles
     const InputStyle = (0, react_2.css)(Object.assign({ border: "none", outline: "none", background: "none", flexGrow: 1, margin: 0, padding: 0, cursor: disabled ? "not-allowed" : "text", fontSize: theme.sizeClasses.fontSize[size], fontFamily: theme.getFont("default"), color: (0, buttons_1.getTextColor)(color, variant, theme), "&::placeholder": {
