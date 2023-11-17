@@ -29,7 +29,7 @@ exports.Header = (0, react_1.forwardRef)(function Header(props, ref) {
     var _a;
     const theme = (0, react_1.useContext)(__1.ValenceContext);
     // Defaults
-    const { regularHeight = 100, tallHeight = 150, compactHeight = 75, compactOnScroll = true, backgroundColor = theme.getColorHex("white"), children, style } = props, rest = __rest(props, ["regularHeight", "tallHeight", "compactHeight", "compactOnScroll", "backgroundColor", "children", "style"]);
+    const { regularHeight = 100, tallHeight = 150, compactHeight = 75, compactOnScroll = true, backgroundColor = "white", children, style } = props, rest = __rest(props, ["regularHeight", "tallHeight", "compactHeight", "compactOnScroll", "backgroundColor", "children", "style"]);
     // Hooks & States
     const breakpoint = (0, __1.useBreakpoint)();
     const [height, setHeight] = (0, react_1.useState)(((_a = props.height) !== null && _a !== void 0 ? _a : breakpoint.isMobileTall) ? tallHeight : regularHeight);
@@ -41,6 +41,6 @@ exports.Header = (0, react_1.forwardRef)(function Header(props, ref) {
         setHeight(interpolateHeight(((_a = props.height) !== null && _a !== void 0 ? _a : breakpoint.isMobileTall) ? tallHeight : regularHeight, compactHeight, (prevPos.y + currPos.y) / 2));
     });
     // Styles
-    const HeaderStyle = Object.assign({ backgroundColor: (0, utils_1.getReactiveProp)(backgroundColor, breakpoint), position: breakpoint.isMobile ? "fixed" : undefined, top: 0, zIndex: 150, width: "100%" }, (0, utils_1.getReactiveProp)(style, breakpoint));
+    const HeaderStyle = Object.assign({ backgroundColor: theme.getColorHex((0, utils_1.getReactiveProp)(backgroundColor, breakpoint), "strong"), backdropFilter: breakpoint.isMobile ? "blur(5px)" : undefined, position: breakpoint.isMobile ? "fixed" : undefined, top: 0, zIndex: 150, width: "100%" }, (0, utils_1.getReactiveProp)(style, breakpoint));
     return ((0, jsx_runtime_1.jsx)(Flex_1.Flex, Object.assign({ style: HeaderStyle, direction: "column", justify: "center", height: height, ref: ref }, rest, { children: children })));
 });

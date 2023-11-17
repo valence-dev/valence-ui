@@ -93,8 +93,8 @@ export const PillSelector = forwardRef(function PillSelector(
     padding,
     margin,
     width,
-    height = theme.sizeClasses.height[size],
-    grow,
+    height = "auto",
+    grow = true,
 
     onPillSelected,
     onPillDeselected,
@@ -160,7 +160,7 @@ export const PillSelector = forwardRef(function PillSelector(
     width: "100%",
 
     "&::-webkit-scrollbar": {
-      height: 10,
+      height: 2,
     },
     "&::-webkit-scrollbar-thumb": {
       backgroundColor: theme.getColorHex(color, "medium"),

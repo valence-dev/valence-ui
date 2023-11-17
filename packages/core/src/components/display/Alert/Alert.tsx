@@ -127,7 +127,7 @@ export const Alert = forwardRef(function Alert(
 
           <Flex
             direction="column"
-            align="stretch"
+            align="flex-start"
             gap={padding as number / 2}
           >
             <Text
@@ -138,12 +138,15 @@ export const Alert = forwardRef(function Alert(
             >
               {alert.title}
             </Text>
-            <Text
-              fontSize={theme.sizeClasses.fontSize[size] as number - 2}
-              color={getTextColor(color, variant, theme)}
-            >
-              {alert.message}
-            </Text>
+
+            {alert.message &&
+              <Text
+                fontSize={theme.sizeClasses.fontSize[size] as number - 2}
+                color={getTextColor(color, variant, theme)}
+              >
+                {alert.message}
+              </Text>
+            }
           </Flex>
 
         </PolymorphicButton>

@@ -39,7 +39,7 @@ export const Header = forwardRef(function Header(
     compactHeight = 75,
     compactOnScroll = true,
 
-    backgroundColor = theme.getColorHex("white"),
+    backgroundColor = "white",
 
     children,
     style,
@@ -69,7 +69,11 @@ export const Header = forwardRef(function Header(
 
   // Styles
   const HeaderStyle: CSSProperties = {
-    backgroundColor: getReactiveProp(backgroundColor, breakpoint),
+    backgroundColor: theme.getColorHex(
+      getReactiveProp(backgroundColor, breakpoint),
+      "strong"
+    ),
+    backdropFilter: breakpoint.isMobile ? "blur(5px)" : undefined,
     position: breakpoint.isMobile ? "fixed" : undefined,
     top: 0,
     zIndex: 150,
