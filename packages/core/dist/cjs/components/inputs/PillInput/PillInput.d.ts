@@ -17,7 +17,7 @@ export type PillInputProps = GenericInputProps<string[]> & PillInputEventProps &
     /** The placeholder text to display when this input is empty */
     placeholder?: string;
     /** The key to use to add a pill. Defaults to `Enter` */
-    actionKey?: string;
+    actionKeys?: string[];
     /** A list of options to supply for the content of this input */
     options?: Option[];
     /** A filter to apply to the options as the user types. `DefaultOptionsFilter` by default */
@@ -90,7 +90,7 @@ export declare const PillInput: import("react").ForwardRefExoticComponent<import
     /** The placeholder text to display when this input is empty */
     placeholder?: string | undefined;
     /** The key to use to add a pill. Defaults to `Enter` */
-    actionKey?: string | undefined;
+    actionKeys?: string[] | undefined;
     /** A list of options to supply for the content of this input */
     options?: Option[] | undefined;
     /** A filter to apply to the options as the user types. `DefaultOptionsFilter` by default */
@@ -185,7 +185,8 @@ export declare const PillInput: import("react").ForwardRefExoticComponent<import
             transform?: import("csstype").Property.TextTransform | undefined;
             size?: import("@valence-ui/utils").ComponentSize | undefined;
             color?: import("csstype").Property.Color | undefined;
-            italic?: boolean | undefined; /** A list of options to supply for the content of this input */
+            italic?: boolean | undefined;
+            /** A list of options to supply for the content of this input */
             bold?: boolean | undefined;
             monospace?: boolean | undefined;
         } & {

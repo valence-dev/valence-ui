@@ -28,7 +28,7 @@ export type PillInputProps =
     /** The placeholder text to display when this input is empty */
     placeholder?: string;
     /** The key to use to add a pill. Defaults to `Enter` */
-    actionKey?: string;
+    actionKeys?: string[];
 
     /** A list of options to supply for the content of this input */
     options?: Option[];
@@ -80,7 +80,7 @@ export const PillInput = forwardRef(function PillInput(
   const {
     value,
     setValue,
-    actionKey = "Enter",
+    actionKeys = [" ", "Enter"],
 
     options = [],
     filter = DefaultOptionsFilter,
@@ -143,7 +143,7 @@ export const PillInput = forwardRef(function PillInput(
     if (e.key === "Enter") onEnterPress?.(e);
 
     // Call handlePillAdd on actionKey
-    if (e.key === actionKey) {
+    if (actionKeys.includes(e.key)) {
       e.preventDefault();
       handlePillAdd();
     }
@@ -170,7 +170,10 @@ export const PillInput = forwardRef(function PillInput(
       || value.length >= maxPills
       || !tagValue
     ) return;
-    if (!allowDuplicates && value.includes(tagValue)) return;
+    if (!allowDuplicates && value.includes(tagValue)) {
+      setSearchValue("");
+      return;
+    };
 
     const newValue = [...value, tagValue];
     setValue(newValue);
