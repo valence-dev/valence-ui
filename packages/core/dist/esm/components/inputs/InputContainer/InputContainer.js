@@ -44,7 +44,7 @@ export const InputContainer = forwardRef(function InputContainer(props, ref) {
             outline: `1px solid ${getTextColor(color, variant, theme)}`,
         } }, style));
     const IconContainerStyle = css(Object.assign({ height: "100%", opacity: 0.5, boxSizing: "border-box", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "row" }, iconContainerStyle));
-    const ButtonContainerStyle = css(Object.assign({ height: "100%", aspectRatio: "1/1", opacity: 0.5, boxSizing: "border-box", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "row" }, buttonContainerStyle));
+    const ButtonContainerStyle = css(Object.assign({ height: "100%", opacity: 0.5, boxSizing: "border-box", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "row" }, buttonContainerStyle));
     const RequireIndicatorStyle = css(Object.assign({ width: 3, height: "calc(100% - 10px)", minHeight: 20, borderRadius: 3, backgroundColor: getTextColor(color === "black" ? "red" : color, "light", theme), cursor: disabled ? "not-allowed" : "text" }, requireIndicatorStyle));
     return (_jsxs("div", Object.assign({ css: ContainerStyle, ref: ref, onClick: (event) => handleClick(event) }, rest, { children: [required && _jsx("div", { css: RequireIndicatorStyle }), (icon || loading) &&
                 _jsx("div", { css: IconContainerStyle, children: loading ?

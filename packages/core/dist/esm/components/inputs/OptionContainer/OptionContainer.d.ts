@@ -22,6 +22,10 @@ export type OptionContainerProps = InputContainerProps & OptionContainerEventPro
     dropdownButtonProps?: TextButtonProps & {
         children?: never;
     };
+    /** Keys the user can press to select an option. Defaults to "Enter". */
+    selectKeys?: string[];
+    /** Keys the user can press to close the dropdown. Defaults to "Escape". */
+    closeKeys?: string[];
 };
 export type OptionDropdownProps = GenericLayoutProps & {
     /** Whether to include a shadow */
@@ -87,5 +91,9 @@ export declare const OptionContainer: import("react").ForwardRefExoticComponent<
     } & {
         children?: undefined;
     }) | undefined;
+    /** Keys the user can press to select an option. Defaults to "Enter". */
+    selectKeys?: string[] | undefined;
+    /** Keys the user can press to close the dropdown. Defaults to "Escape". */
+    closeKeys?: string[] | undefined;
 } & import("react").RefAttributes<unknown>>;
 //# sourceMappingURL=OptionContainer.d.ts.map

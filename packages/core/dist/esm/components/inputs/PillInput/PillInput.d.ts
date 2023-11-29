@@ -16,8 +16,10 @@ export type PillInputProps = GenericInputProps<string[]> & PillInputEventProps &
     icon?: ReactNode;
     /** The placeholder text to display when this input is empty */
     placeholder?: string;
-    /** The key to use to add a pill. Defaults to `Enter` */
-    actionKeys?: string[];
+    /** Keys used to autofill a pill. Defaults to `Tab` */
+    autofillKeys?: string[];
+    /** Keys used to select an option. Defaults to `Enter` and `Space` */
+    selectKeys?: string[];
     /** A list of options to supply for the content of this input */
     options?: Option[];
     /** A filter to apply to the options as the user types. `DefaultOptionsFilter` by default */
@@ -28,6 +30,8 @@ export type PillInputProps = GenericInputProps<string[]> & PillInputEventProps &
     allowDuplicates?: boolean;
     /** Whether to allow pills to be cleared. `true` by default. */
     allowClear?: boolean;
+    /** Whether to allow the user to remove pills with backspace. `true` by default. */
+    allowBackspaceRemove?: boolean;
     /** Shorthand for `flex-grow = 1` */
     grow?: boolean;
     /** The maximum number of pills allowed. `Infinity` by default. */
@@ -75,7 +79,7 @@ export declare const PillInput: import("react").ForwardRefExoticComponent<import
     form?: string | undefined;
     name?: string | undefined;
 } & import("@valence-ui/utils/src/generics/Events").MouseClickEvents & import("@valence-ui/utils/src/generics/Events").MouseEvents & import("@valence-ui/utils/src/generics/Events").PointerEvents & import("@valence-ui/utils/src/generics/Events").FocusEvents & import("@valence-ui/utils/src/generics/Events").KeyboardEvents & {
-    onInput?: ((event: import("react").FormEvent<Element>) => void) | undefined;
+    onInput?: ((event: import("react").FormEvent<Element>) => void) | undefined; /** The maximum length of this input. `Infinity` by default. */
     onChange?: ((event: import("react").FormEvent<Element>) => void) | undefined;
     onInvalid?: ((event: import("react").FormEvent<Element>) => void) | undefined;
     onEnterPress?: ((e: import("react").KeyboardEvent<Element>) => void) | undefined;
@@ -89,8 +93,10 @@ export declare const PillInput: import("react").ForwardRefExoticComponent<import
     icon?: ReactNode;
     /** The placeholder text to display when this input is empty */
     placeholder?: string | undefined;
-    /** The key to use to add a pill. Defaults to `Enter` */
-    actionKeys?: string[] | undefined;
+    /** Keys used to autofill a pill. Defaults to `Tab` */
+    autofillKeys?: string[] | undefined;
+    /** Keys used to select an option. Defaults to `Enter` and `Space` */
+    selectKeys?: string[] | undefined;
     /** A list of options to supply for the content of this input */
     options?: Option[] | undefined;
     /** A filter to apply to the options as the user types. `DefaultOptionsFilter` by default */
@@ -101,6 +107,8 @@ export declare const PillInput: import("react").ForwardRefExoticComponent<import
     allowDuplicates?: boolean | undefined;
     /** Whether to allow pills to be cleared. `true` by default. */
     allowClear?: boolean | undefined;
+    /** Whether to allow the user to remove pills with backspace. `true` by default. */
+    allowBackspaceRemove?: boolean | undefined;
     /** Shorthand for `flex-grow = 1` */
     grow?: boolean | undefined;
     /** The maximum number of pills allowed. `Infinity` by default. */
@@ -186,7 +194,7 @@ export declare const PillInput: import("react").ForwardRefExoticComponent<import
             size?: import("@valence-ui/utils").ComponentSize | undefined;
             color?: import("csstype").Property.Color | undefined;
             italic?: boolean | undefined;
-            /** A list of options to supply for the content of this input */
+            /** Keys used to select an option. Defaults to `Enter` and `Space` */
             bold?: boolean | undefined;
             monospace?: boolean | undefined;
         } & {

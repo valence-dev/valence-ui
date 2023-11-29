@@ -25,13 +25,13 @@ export const OptionContainer = forwardRef(function OptionContainer(props, ref) {
     const theme = useContext(ValenceContext);
     const defaultIconProps = useDefaultIconProps();
     // Defaults
-    const { selectedOption, options, onSelect, nothingFound = "Nothing found...", icon, rightIcon = _jsx(IconSelector, Object.assign({}, defaultIconProps.get())), size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, loading, disabled, required, color = "black", backgroundColor = color, padding, margin, width, height, grow, dropdownProps = {
+    const { selectedOption, options, onSelect, nothingFound = "Nothing found...", selectKeys = ["Enter"], closeKeys = ["Escape"], icon, rightIcon = _jsx(IconSelector, Object.assign({}, defaultIconProps.get())), size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, loading, disabled, required, color = "black", backgroundColor = color, padding, margin, width, height, grow, dropdownProps = {
         padding: INPUT_SIZES[size].padding,
         backgroundColor: "white",
         color: "black",
         shadow: true,
         height: 200,
-    }, dropdownButtonProps, style, inputRef, children } = props, rest = __rest(props, ["selectedOption", "options", "onSelect", "nothingFound", "icon", "rightIcon", "size", "radius", "variant", "loading", "disabled", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "grow", "dropdownProps", "dropdownButtonProps", "style", "inputRef", "children"]);
+    }, dropdownButtonProps, style, inputRef, children } = props, rest = __rest(props, ["selectedOption", "options", "onSelect", "nothingFound", "selectKeys", "closeKeys", "icon", "rightIcon", "size", "radius", "variant", "loading", "disabled", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "grow", "dropdownProps", "dropdownButtonProps", "style", "inputRef", "children"]);
     // States
     const [isOpen, setIsOpen] = useState(false);
     const [highlightedIndex, setHighlightedIndex] = useState(0);
@@ -48,23 +48,17 @@ export const OptionContainer = forwardRef(function OptionContainer(props, ref) {
                 setHighlightedIndex((i) => (i - 1 + options.length) % options.length);
                 break;
             }
-            case "Enter": {
-                if (highlightedIndex === -1 || options.length === 0)
-                    return;
-                e.preventDefault();
-                handleSelect(options[highlightedIndex]);
-                break;
-            }
-            case "Escape": {
-                setIsOpen(false);
-                break;
-            }
         }
-    }, ["ArrowDown", "ArrowUp", "Enter", "Escape"], isOpen);
-    useDetectKeyDown((e) => {
-        if (e.key === "Enter")
-            setIsOpen(true);
-    }, "Enter", !isOpen);
+        if (selectKeys.includes(e.key)) {
+            if (highlightedIndex === -1 || options.length === 0)
+                return;
+            e.preventDefault();
+            handleSelect(options[highlightedIndex]);
+        }
+        if (closeKeys.includes(e.key)) {
+            setIsOpen(false);
+        }
+    }, ["ArrowDown", "ArrowUp", ...selectKeys, ...closeKeys], isOpen);
     useEffect(() => {
         if (!isOpen)
             return;
@@ -72,10 +66,15 @@ export const OptionContainer = forwardRef(function OptionContainer(props, ref) {
             return setHighlightedIndex(-1);
         setHighlightedIndex(0);
     }, [isOpen, options]);
+    useEffect(() => {
+        if (document.activeElement === inputRef.current)
+            setIsOpen(true);
+        else
+            setIsOpen(false);
+    }, [document.activeElement, isOpen]);
     // Handlers
     function handleSelect(option) {
         onSelect === null || onSelect === void 0 ? void 0 : onSelect(option);
-        setIsOpen(false);
     }
     // Floating UI
     const { refs, floatingStyles, context } = useFloating({
@@ -113,7 +112,7 @@ export const OptionContainer = forwardRef(function OptionContainer(props, ref) {
             backgroundColor: theme.getColorHex(dropdownProps.color, "medium"),
             borderRadius: 5,
         } }, floatingStyles));
-    return (_jsxs(_Fragment, { children: [_jsx(InputContainer, Object.assign({ icon: icon, button: rightIcon, size: size, radius: radius, variant: variant, loading: loading, disabled: disabled, required: required, color: color, backgroundColor: backgroundColor, padding: padding, margin: margin, width: width, height: height, grow: grow, style: style, inputRef: inputRef, onClick: () => setIsOpen(true), ref: refs.setReference }, getReferenceProps(), rest, { children: children })), isOpen && (_jsx(FloatingPortal, { children: _jsx("div", Object.assign({ css: DropdownStyle, ref: refs.setFloating }, getFloatingProps(), { children: options.length === 0 ?
+    return (_jsxs(_Fragment, { children: [_jsx(InputContainer, Object.assign({ icon: icon, button: rightIcon, size: size, radius: radius, variant: variant, loading: loading, disabled: disabled, required: required, color: color, backgroundColor: backgroundColor, padding: padding, margin: margin, width: width, height: height, grow: grow, style: style, inputRef: inputRef, ref: refs.setReference }, getReferenceProps(), rest, { children: children })), isOpen && (_jsx(FloatingPortal, { children: _jsx("div", Object.assign({ css: DropdownStyle, ref: refs.setFloating }, getFloatingProps(), { children: options.length === 0 ?
                         _jsx(Flex, { height: theme.sizeClasses.height[size], align: "center", justify: "center", children: _jsx(Text, { align: "center", color: theme.getColorHex("black", "strong"), children: nothingFound }) })
                         : options.map((option, i) => (_jsx(ButtonWithIcon, Object.assign({ icon: (selectedOption === null || selectedOption === void 0 ? void 0 : selectedOption.label) === option.label
                                 ? _jsx(IconCheck, Object.assign({}, defaultIconProps.get()))

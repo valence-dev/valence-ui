@@ -25,7 +25,7 @@ export const PillInput = forwardRef(function PillInput(props, ref) {
     const inputRef = ref !== null && ref !== void 0 ? ref : createRef();
     const defaultIconProps = useDefaultIconProps();
     // Defaults
-    const { value, setValue, actionKeys = [" ", "Enter"], options = [], filter = DefaultOptionsFilter, nothingFound = "Nothing found... Add a tag instead!", allowDuplicates = false, allowClear = true, grow, maxPills = Infinity, minLength = 0, maxLength = Infinity, clearButtonIcon = _jsx(IconX, Object.assign({}, defaultIconProps.get())), clearButtonProps, pillProps, pillContainerProps, icon, placeholder, size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, loading, autoFocus, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding, margin, width, height = theme.sizeClasses.height[size], onEnterPress, onKeyPress, onPillAdd, onPillRemove, inputStyle, style } = props, rest = __rest(props, ["value", "setValue", "actionKeys", "options", "filter", "nothingFound", "allowDuplicates", "allowClear", "grow", "maxPills", "minLength", "maxLength", "clearButtonIcon", "clearButtonProps", "pillProps", "pillContainerProps", "icon", "placeholder", "size", "radius", "variant", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "onEnterPress", "onKeyPress", "onPillAdd", "onPillRemove", "inputStyle", "style"]);
+    const { value, setValue, autofillKeys = ["Tab"], selectKeys = [" ", "Enter"], options = [], filter = DefaultOptionsFilter, nothingFound = "Nothing found... Add a tag instead!", allowDuplicates = false, allowClear = true, allowBackspaceRemove = true, grow, maxPills = Infinity, minLength = 0, maxLength = Infinity, clearButtonIcon = _jsx(IconX, Object.assign({}, defaultIconProps.get())), clearButtonProps, pillProps, pillContainerProps, icon, placeholder, size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, loading, autoFocus, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding, margin, width, height = theme.sizeClasses.height[size], onEnterPress, onKeyPress, onPillAdd, onPillRemove, inputStyle, style } = props, rest = __rest(props, ["value", "setValue", "autofillKeys", "selectKeys", "options", "filter", "nothingFound", "allowDuplicates", "allowClear", "allowBackspaceRemove", "grow", "maxPills", "minLength", "maxLength", "clearButtonIcon", "clearButtonProps", "pillProps", "pillContainerProps", "icon", "placeholder", "size", "radius", "variant", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "onEnterPress", "onKeyPress", "onPillAdd", "onPillRemove", "inputStyle", "style"]);
     // States
     const [searchValue, setSearchValue] = useState("");
     const [visibleOptions, setVisibleOptions] = useState(filterOptions(options, searchValue, value));
@@ -38,12 +38,18 @@ export const PillInput = forwardRef(function PillInput(props, ref) {
         if (e.key === "Enter")
             onEnterPress === null || onEnterPress === void 0 ? void 0 : onEnterPress(e);
         // Call handlePillAdd on actionKey
-        if (actionKeys.includes(e.key)) {
+        if (selectKeys.includes(e.key)) {
             e.preventDefault();
             handlePillAdd();
         }
         // Call onKeyPress on any key
         onKeyPress === null || onKeyPress === void 0 ? void 0 : onKeyPress(e);
+        // Remove last pill on backspace
+        if (e.key === "Backspace" && allowBackspaceRemove && searchValue.length === 0) {
+            if (searchValue.length > 0)
+                return;
+            handlePillRemove(value.length - 1);
+        }
     }
     function filterOptions(options, search, blacklist) {
         let filtered = filter(options, search);
@@ -95,6 +101,6 @@ export const PillInput = forwardRef(function PillInput(props, ref) {
         // Remove awful autofill color
         "&:-webkit-autofill": { transition: `background-color 5000s ease-in-out 0s` }, "&:-webkit-autofill:focus": { transition: `background-color 5000s ease-in-out 0s` }, "&:-webkit-autofill:hover": { transition: `background-color 5000s ease-in-out 0s` }, "&:-webkit-autofill:active": { transition: `background-color 5000s ease-in-out 0s` } }, inputStyle));
     const ContainerStyle = Object.assign({ minHeight: height, height: "fit-content", alignItems: "center" }, style);
-    return (_jsx(_Fragment, { children: _jsx(OptionContainer, { options: visibleOptions !== null && visibleOptions !== void 0 ? visibleOptions : [], onSelect: (option) => handlePillAdd(option.label), nothingFound: nothingFound, icon: icon, size: size, radius: radius, variant: variant, grow: grow, disabled: disabled, required: required, loading: loading, color: color, backgroundColor: backgroundColor, padding: padding, margin: margin, width: width, height: height, style: ContainerStyle, inputRef: inputRef, button: allowClear && value.length > 0 &&
+    return (_jsx(_Fragment, { children: _jsx(OptionContainer, { options: visibleOptions !== null && visibleOptions !== void 0 ? visibleOptions : [], onSelect: (option) => handlePillAdd(option.label), selectKeys: autofillKeys, nothingFound: nothingFound, icon: icon, size: size, radius: radius, variant: variant, grow: grow, disabled: disabled, required: required, loading: loading, color: color, backgroundColor: backgroundColor, padding: padding, margin: margin, width: width, height: height, style: ContainerStyle, inputRef: inputRef, button: allowClear && value.length > 0 &&
                 _jsx(IconButton, Object.assign({ radius: radius, variant: "subtle", color: "black", onClick: clearPills, height: 25 }, clearButtonProps, { children: clearButtonIcon })), children: _jsxs(Flex, Object.assign({ direction: "row", wrap: "wrap", align: "center", gap: 5, width: "100%" }, pillContainerProps, { children: [value.map((v, i) => (_jsx(Pill, Object.assign({ size: size, variant: variant, tabIndex: 0, withRemoveButton: true, onRemove: () => handlePillRemove(i) }, pillProps, { children: v }), i))), _jsx("input", Object.assign({ css: InputStyle, placeholder: placeholder, value: searchValue !== null && searchValue !== void 0 ? searchValue : "", onChange: (e) => handleSearchUpdate(e.target.value), type: "text", autoComplete: "off", autoFocus: autoFocus, disabled: disabled, readOnly: readOnly, required: required, onKeyDown: handleKeyDown, ref: inputRef }, rest))] })) }) }));
 });
