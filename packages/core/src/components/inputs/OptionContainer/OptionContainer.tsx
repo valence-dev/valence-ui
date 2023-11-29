@@ -46,6 +46,11 @@ export type OptionContainerProps =
     dropdownProps?: OptionDropdownProps;
     /** Optional props to pass to the dropdown buttons */
     dropdownButtonProps?: TextButtonProps & { children?: never };
+
+    /** Keys the user can press to select an option. Defaults to "Enter". */
+    selectKeys?: string[];
+    /** Keys the user can press to close the dropdown. Defaults to "Escape". */
+    closeKeys?: string[];
   }
 
 export type OptionDropdownProps =
@@ -71,6 +76,9 @@ export const OptionContainer = forwardRef(function OptionContainer(
     options,
     onSelect,
     nothingFound = "Nothing found...",
+
+    selectKeys = ["Enter"],
+    closeKeys = ["Escape"],
 
     icon,
     rightIcon = <IconSelector {...defaultIconProps.get()} />,
@@ -119,32 +127,32 @@ export const OptionContainer = forwardRef(function OptionContainer(
         setHighlightedIndex((i) => (i - 1 + options.length) % options.length);
         break;
       }
-      case "Enter": {
-        if (highlightedIndex === -1 || options.length === 0) return;
-        e.preventDefault();
-        handleSelect(options[highlightedIndex]);
-        break;
-      }
-      case "Escape": {
-        setIsOpen(false);
-        break;
-      }
     }
-  }, ["ArrowDown", "ArrowUp", "Enter", "Escape"], isOpen);
-  useDetectKeyDown((e) => {
-    if (e.key === "Enter") setIsOpen(true);
-  }, "Enter", !isOpen);
-  useEffect(() => { 
+
+    if (selectKeys.includes(e.key)) {
+      if (highlightedIndex === -1 || options.length === 0) return;
+      e.preventDefault();
+      handleSelect(options[highlightedIndex]);
+    }
+    if (closeKeys.includes(e.key)) {
+      setIsOpen(false);
+    }
+  }, ["ArrowDown", "ArrowUp", ...selectKeys, ...closeKeys], isOpen);
+  useEffect(() => {
     if (!isOpen) return;
     if (options.length === 0) return setHighlightedIndex(-1);
     setHighlightedIndex(0);
   }, [isOpen, options])
 
+  useEffect(() => {
+    if (document.activeElement === inputRef.current) setIsOpen(true);
+    else setIsOpen(false);
+  }, [document.activeElement, isOpen]);
+
 
   // Handlers
   function handleSelect(option: Option) {
     onSelect?.(option);
-    setIsOpen(false);
   }
 
 
@@ -238,8 +246,6 @@ export const OptionContainer = forwardRef(function OptionContainer(
 
         style={style}
         inputRef={inputRef}
-
-        onClick={() => setIsOpen(true)}
 
         ref={refs.setReference}
         {...getReferenceProps()}

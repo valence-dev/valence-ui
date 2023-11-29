@@ -27,8 +27,11 @@ export type PillInputProps =
     icon?: ReactNode;
     /** The placeholder text to display when this input is empty */
     placeholder?: string;
-    /** The key to use to add a pill. Defaults to `Enter` */
-    actionKeys?: string[];
+
+    /** Keys used to autofill a pill. Defaults to `Tab` */
+    autofillKeys?: string[];
+    /** Keys used to select an option. Defaults to `Enter` and `Space` */
+    selectKeys?: string[];
 
     /** A list of options to supply for the content of this input */
     options?: Option[];
@@ -41,6 +44,8 @@ export type PillInputProps =
     allowDuplicates?: boolean;
     /** Whether to allow pills to be cleared. `true` by default. */
     allowClear?: boolean;
+    /** Whether to allow the user to remove pills with backspace. `true` by default. */
+    allowBackspaceRemove?: boolean;
     /** Shorthand for `flex-grow = 1` */
     grow?: boolean;
 
@@ -80,7 +85,8 @@ export const PillInput = forwardRef(function PillInput(
   const {
     value,
     setValue,
-    actionKeys = [" ", "Enter"],
+    autofillKeys = ["Tab"],
+    selectKeys = [" ", "Enter"],
 
     options = [],
     filter = DefaultOptionsFilter,
@@ -88,6 +94,7 @@ export const PillInput = forwardRef(function PillInput(
 
     allowDuplicates = false,
     allowClear = true,
+    allowBackspaceRemove = true,
     grow,
 
     maxPills = Infinity,
@@ -143,12 +150,18 @@ export const PillInput = forwardRef(function PillInput(
     if (e.key === "Enter") onEnterPress?.(e);
 
     // Call handlePillAdd on actionKey
-    if (actionKeys.includes(e.key)) {
+    if (selectKeys.includes(e.key)) {
       e.preventDefault();
       handlePillAdd();
     }
     // Call onKeyPress on any key
     onKeyPress?.(e);
+
+    // Remove last pill on backspace
+    if (e.key === "Backspace" && allowBackspaceRemove && searchValue.length === 0) {
+      if (searchValue.length > 0) return;
+      handlePillRemove(value.length - 1);
+    }
   }
 
   function filterOptions(options: Option[], search: string, blacklist: string[]) {
@@ -241,6 +254,7 @@ export const PillInput = forwardRef(function PillInput(
       <OptionContainer
         options={visibleOptions ?? []}
         onSelect={(option) => handlePillAdd(option.label)}
+        selectKeys={autofillKeys}
         nothingFound={nothingFound}
 
         icon={icon}
