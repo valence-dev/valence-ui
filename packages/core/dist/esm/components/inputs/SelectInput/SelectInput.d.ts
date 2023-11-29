@@ -30,6 +30,8 @@ export type SelectInputProps = GenericInputProps<Option> & SelectInputEventProps
     };
     /** Optional styles to apply to the input component */
     inputStyle?: CSSProperties;
+    /** Optional styles to apply to the dropdown container */
+    dropdownStyle?: CSSProperties;
     children?: never;
 };
 export type SelectDropdownProps = GenericLayoutProps & {
@@ -111,6 +113,8 @@ export declare const SelectInput: import("react").ForwardRefExoticComponent<impo
     }) | undefined;
     /** Optional styles to apply to the input component */
     inputStyle?: CSSProperties | undefined;
+    /** Optional styles to apply to the dropdown container */
+    dropdownStyle?: CSSProperties | undefined;
     children?: undefined;
 } & import("react").RefAttributes<unknown>>;
 //# sourceMappingURL=SelectInput.d.ts.map

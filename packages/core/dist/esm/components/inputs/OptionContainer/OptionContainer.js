@@ -31,7 +31,7 @@ export const OptionContainer = forwardRef(function OptionContainer(props, ref) {
         color: "black",
         shadow: true,
         height: 200,
-    }, dropdownButtonProps, style, inputRef, children } = props, rest = __rest(props, ["selectedOption", "options", "onSelect", "nothingFound", "selectKeys", "closeKeys", "icon", "rightIcon", "size", "radius", "variant", "loading", "disabled", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "grow", "dropdownProps", "dropdownButtonProps", "style", "inputRef", "children"]);
+    }, dropdownButtonProps, dropdownStyle, style, inputRef, children } = props, rest = __rest(props, ["selectedOption", "options", "onSelect", "nothingFound", "selectKeys", "closeKeys", "icon", "rightIcon", "size", "radius", "variant", "loading", "disabled", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "grow", "dropdownProps", "dropdownButtonProps", "dropdownStyle", "style", "inputRef", "children"]);
     // States
     const [isOpen, setIsOpen] = useState(false);
     const [highlightedIndex, setHighlightedIndex] = useState(0);
@@ -99,7 +99,7 @@ export const OptionContainer = forwardRef(function OptionContainer(props, ref) {
     const dismiss = useDismiss(context);
     const { getReferenceProps, getFloatingProps, } = useInteractions([dismiss, click]);
     // Styles
-    const DropdownStyle = css(Object.assign({ backgroundColor: theme.getColorHex(dropdownProps.backgroundColor, "strong"), color: theme.getColorHex(dropdownProps.color), outline: `1px solid ${theme.getColorHex(dropdownProps.color, "weak")}`, backdropFilter: "blur(5px)", maxHeight: dropdownProps.height, borderRadius: theme.sizeClasses.radius[radius] + dropdownProps.padding, padding: dropdownProps.padding, boxShadow: dropdownProps.shadow ? theme.defaultShadow : undefined, animationName: "in", animationDuration: "0.1s", overflowY: "auto", "@keyframes in": {
+    const DropdownStyle = css(Object.assign(Object.assign({ backgroundColor: theme.getColorHex(dropdownProps.backgroundColor, "strong"), color: theme.getColorHex(dropdownProps.color), outline: `1px solid ${theme.getColorHex(dropdownProps.color, "weak")}`, backdropFilter: "blur(5px)", maxHeight: dropdownProps.height, borderRadius: theme.sizeClasses.radius[radius] + dropdownProps.padding, padding: dropdownProps.padding, boxShadow: dropdownProps.shadow ? theme.defaultShadow : undefined, animationName: "in", animationDuration: "0.1s", overflowY: "auto", "@keyframes in": {
             from: {
                 opacity: 0,
             },
@@ -111,7 +111,7 @@ export const OptionContainer = forwardRef(function OptionContainer(props, ref) {
         }, "&::-webkit-scrollbar-thumb": {
             backgroundColor: theme.getColorHex(dropdownProps.color, "medium"),
             borderRadius: 5,
-        } }, floatingStyles));
+        } }, dropdownStyle), floatingStyles));
     return (_jsxs(_Fragment, { children: [_jsx(InputContainer, Object.assign({ icon: icon, button: rightIcon, size: size, radius: radius, variant: variant, loading: loading, disabled: disabled, required: required, color: color, backgroundColor: backgroundColor, padding: padding, margin: margin, width: width, height: height, grow: grow, style: style, inputRef: inputRef, ref: refs.setReference }, getReferenceProps(), rest, { children: children })), isOpen && (_jsx(FloatingPortal, { children: _jsx("div", Object.assign({ css: DropdownStyle, ref: refs.setFloating }, getFloatingProps(), { children: options.length === 0 ?
                         _jsx(Flex, { height: theme.sizeClasses.height[size], align: "center", justify: "center", children: _jsx(Text, { align: "center", color: theme.getColorHex("black", "strong"), children: nothingFound }) })
                         : options.map((option, i) => (_jsx(ButtonWithIcon, Object.assign({ icon: (selectedOption === null || selectedOption === void 0 ? void 0 : selectedOption.label) === option.label

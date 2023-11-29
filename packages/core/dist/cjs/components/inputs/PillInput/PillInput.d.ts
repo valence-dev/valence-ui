@@ -56,6 +56,8 @@ export type PillInputProps = GenericInputProps<string[]> & PillInputEventProps &
     };
     /** Optional styles to apply to the input component */
     inputStyle?: CSSProperties;
+    /** Optional styles to apply to the dropdown component */
+    dropdownStyle?: CSSProperties;
     children?: never;
 };
 export declare const PillInput: import("react").ForwardRefExoticComponent<import("@valence-ui/utils").GenericProps & {
@@ -230,6 +232,8 @@ export declare const PillInput: import("react").ForwardRefExoticComponent<import
     }) | undefined;
     /** Optional styles to apply to the input component */
     inputStyle?: CSSProperties | undefined;
+    /** Optional styles to apply to the dropdown component */
+    dropdownStyle?: CSSProperties | undefined;
     children?: undefined;
 } & import("react").RefAttributes<unknown>>;
 //# sourceMappingURL=PillInput.d.ts.map

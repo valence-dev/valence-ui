@@ -31,4 +31,5 @@ PillInput.args = {
   placeholder: "Add some tags...",
   options: [{ label: "hello" }, { label: "world" }, { label: "foo" }, { label: "bar" }],
   icon: <IconHash />,
+  dropdownStyle: { zIndex: 9999 }
 }

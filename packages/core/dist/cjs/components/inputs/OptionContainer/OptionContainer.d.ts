@@ -2,7 +2,7 @@ import { GenericLayoutProps } from "@valence-ui/utils";
 import { TextButtonProps } from "../../buttons";
 import { InputContainerProps } from "../InputContainer";
 import { Option } from "./OptionsFilter";
-import { ReactNode } from "react";
+import { CSSProperties, ReactNode } from "react";
 export type OptionContainerEventProps = {
     /** Callback to be called when an option is selected. */
     onSelect?: (value: Option) => void;
@@ -26,6 +26,8 @@ export type OptionContainerProps = InputContainerProps & OptionContainerEventPro
     selectKeys?: string[];
     /** Keys the user can press to close the dropdown. Defaults to "Escape". */
     closeKeys?: string[];
+    /** Optional styles to pass to the dropdown element */
+    dropdownStyle?: CSSProperties;
 };
 export type OptionDropdownProps = GenericLayoutProps & {
     /** Whether to include a shadow */
@@ -43,16 +45,16 @@ export declare const OptionContainer: import("react").ForwardRefExoticComponent<
     icon?: ReactNode;
     button?: ReactNode;
     size?: import("@valence-ui/utils").ComponentSize | undefined;
-    radius?: import("@valence-ui/utils").ComponentSize | undefined;
+    radius?: import("@valence-ui/utils").ComponentSize | undefined; /** Callback to be called when an option is selected. */
     variant?: import("@valence-ui/utils").FillVariant | undefined;
     grow?: boolean | undefined;
     disabled?: boolean | undefined;
     required?: boolean | undefined;
     loading?: boolean | undefined;
     inputRef?: any;
-    iconContainerStyle?: import("react").CSSProperties | undefined; /** Optional props to pass to the dropdown container */
-    requireIndicatorStyle?: import("react").CSSProperties | undefined;
-    buttonContainerStyle?: import("react").CSSProperties | undefined;
+    iconContainerStyle?: CSSProperties | undefined;
+    requireIndicatorStyle?: CSSProperties | undefined;
+    buttonContainerStyle?: CSSProperties | undefined;
 } & OptionContainerEventProps & {
     /** The currently selected option */
     selectedOption?: Option | undefined;
@@ -80,6 +82,7 @@ export declare const OptionContainer: import("react").ForwardRefExoticComponent<
         radius?: import("@valence-ui/utils/src/generics/Global").ComponentSize | undefined;
         square?: boolean | undefined;
         shadow?: boolean | undefined;
+        /** Callback to be called when an option is selected. */
         grow?: boolean | undefined;
         disabled?: boolean | undefined;
         loading?: boolean | undefined;
@@ -95,5 +98,7 @@ export declare const OptionContainer: import("react").ForwardRefExoticComponent<
     selectKeys?: string[] | undefined;
     /** Keys the user can press to close the dropdown. Defaults to "Escape". */
     closeKeys?: string[] | undefined;
+    /** Optional styles to pass to the dropdown element */
+    dropdownStyle?: CSSProperties | undefined;
 } & import("react").RefAttributes<unknown>>;
 //# sourceMappingURL=OptionContainer.d.ts.map

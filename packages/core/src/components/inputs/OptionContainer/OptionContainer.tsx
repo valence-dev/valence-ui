@@ -15,7 +15,7 @@ import { GenericLayoutProps } from "@valence-ui/utils";
 import { ButtonWithIcon, TextButtonProps } from "../../buttons";
 import { INPUT_SIZES, InputContainer, InputContainerProps } from "../InputContainer";
 import { Option } from "./OptionsFilter";
-import { ReactNode, forwardRef, useContext, useEffect, useState } from "react";
+import { CSSProperties, ReactNode, forwardRef, useContext, useEffect, useState } from "react";
 import { IconCheck, IconSelector } from "@tabler/icons-react";
 import { useDefaultIconProps, useDetectKeyDown } from "../../../hooks";
 import { ValenceContext } from "../../../ValenceProvider";
@@ -51,6 +51,9 @@ export type OptionContainerProps =
     selectKeys?: string[];
     /** Keys the user can press to close the dropdown. Defaults to "Escape". */
     closeKeys?: string[];
+
+    /** Optional styles to pass to the dropdown element */
+    dropdownStyle?: CSSProperties;
   }
 
 export type OptionDropdownProps =
@@ -102,6 +105,7 @@ export const OptionContainer = forwardRef(function OptionContainer(
     },
     dropdownButtonProps,
 
+    dropdownStyle,
     style,
     inputRef,
     children,
@@ -218,6 +222,7 @@ export const OptionContainer = forwardRef(function OptionContainer(
       borderRadius: 5,
     },
 
+    ...dropdownStyle,
     ...floatingStyles
   });
 

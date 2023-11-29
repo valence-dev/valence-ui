@@ -34,7 +34,7 @@ exports.SelectInput = (0, react_2.forwardRef)(function SelectInput(props, ref) {
         color: "black",
         shadow: true,
         height: 200,
-    }, dropdownButtonProps, inputStyle, style } = props, rest = __rest(props, ["value", "setValue", "options", "onSelect", "filter", "nothingFound", "icon", "placeholder", "actionIcon", "size", "radius", "variant", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "grow", "onEnterPress", "onKeyPress", "dropdownProps", "dropdownButtonProps", "inputStyle", "style"]);
+    }, dropdownButtonProps, inputStyle, dropdownStyle, style } = props, rest = __rest(props, ["value", "setValue", "options", "onSelect", "filter", "nothingFound", "icon", "placeholder", "actionIcon", "size", "radius", "variant", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "grow", "onEnterPress", "onKeyPress", "dropdownProps", "dropdownButtonProps", "inputStyle", "dropdownStyle", "style"]);
     // States
     const [searchValue, setSearchValue] = (0, react_2.useState)("");
     const [visibleOptions, setVisibleOptions] = (0, react_2.useState)(options);
@@ -65,5 +65,5 @@ exports.SelectInput = (0, react_2.forwardRef)(function SelectInput(props, ref) {
                 setValue(option);
                 setSearchValue(option.label);
                 onSelect === null || onSelect === void 0 ? void 0 : onSelect(option);
-            }, nothingFound: nothingFound, icon: icon, button: actionIcon, size: size, radius: radius, variant: variant, loading: loading, disabled: disabled, required: required, color: color, backgroundColor: backgroundColor, padding: padding, margin: margin, width: width, height: height, grow: grow, style: style, inputRef: inputRef, children: (0, jsx_runtime_1.jsx)("input", Object.assign({ css: InputStyle, placeholder: placeholder, value: searchValue, onChange: (e) => handleSearchUpdate(e.target.value), type: "text", autoComplete: "off", autoFocus: autoFocus, disabled: disabled, readOnly: readOnly, required: required, onKeyDown: handleKeyDown, ref: inputRef }, rest)) }) }));
+            }, nothingFound: nothingFound, icon: icon, button: actionIcon, size: size, radius: radius, variant: variant, loading: loading, disabled: disabled, required: required, color: color, backgroundColor: backgroundColor, padding: padding, margin: margin, width: width, height: height, grow: grow, dropdownStyle: dropdownStyle, style: style, inputRef: inputRef, children: (0, jsx_runtime_1.jsx)("input", Object.assign({ css: InputStyle, placeholder: placeholder, value: searchValue, onChange: (e) => handleSearchUpdate(e.target.value), type: "text", autoComplete: "off", autoFocus: autoFocus, disabled: disabled, readOnly: readOnly, required: required, onKeyDown: handleKeyDown, ref: inputRef }, rest)) }) }));
 });

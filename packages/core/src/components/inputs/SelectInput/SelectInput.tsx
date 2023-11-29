@@ -48,6 +48,9 @@ export type SelectInputProps =
 
     /** Optional styles to apply to the input component */
     inputStyle?: CSSProperties;
+    /** Optional styles to apply to the dropdown container */
+    dropdownStyle?: CSSProperties;
+
     children?: never;
   }
 
@@ -116,6 +119,7 @@ export const SelectInput = forwardRef(function SelectInput(
     dropdownButtonProps,
 
     inputStyle,
+    dropdownStyle,
     style,
     ...rest
   } = props;
@@ -207,6 +211,7 @@ export const SelectInput = forwardRef(function SelectInput(
         height={height}
         grow={grow}
 
+        dropdownStyle={dropdownStyle}
         style={style}
         inputRef={inputRef}
       >

@@ -68,6 +68,9 @@ export type PillInputProps =
 
     /** Optional styles to apply to the input component */
     inputStyle?: CSSProperties;
+    /** Optional styles to apply to the dropdown component */
+    dropdownStyle?: CSSProperties;
+
     children?: never;
   }
 
@@ -132,6 +135,7 @@ export const PillInput = forwardRef(function PillInput(
     onPillRemove,
 
     inputStyle,
+    dropdownStyle,
     style,
     ...rest
   } = props;
@@ -275,6 +279,7 @@ export const PillInput = forwardRef(function PillInput(
         width={width}
         height={height}
 
+        dropdownStyle={dropdownStyle}
         style={ContainerStyle}
         inputRef={inputRef}
 
