@@ -12,7 +12,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx, Fragment as _Fragment } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { createRef, forwardRef, useContext, useState } from "react";
+import { createRef, forwardRef, useContext, useEffect, useState } from "react";
 import { ValenceContext } from "../../../ValenceProvider";
 import { useDefaultIconProps } from "../../../hooks";
 import { IconSelector } from "@tabler/icons-react";
@@ -52,6 +52,11 @@ export const SelectInput = forwardRef(function SelectInput(props, ref) {
         setSearchValue(search);
         setVisibleOptions(filter(options, search));
     }
+    // Detect a change in the value 
+    useEffect(() => {
+        var _a;
+        setSearchValue((_a = value === null || value === void 0 ? void 0 : value.label) !== null && _a !== void 0 ? _a : "");
+    }, [value]);
     // Styles
     const InputStyle = css(Object.assign({ border: "none", outline: "none", background: "none", flexGrow: 1, width: "100%", height: "100%", margin: 0, padding: 0, cursor: disabled ? "not-allowed" : "text", fontSize: theme.sizeClasses.fontSize[size], fontFamily: theme.getFont("default"), color: getTextColor(color, variant, theme), "&::placeholder": {
             color: `${getTextColor(color, variant, theme)}80`,

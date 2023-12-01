@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { ValenceProvider } from "../../..";
+import { Button, Option, ValenceProvider } from "../../..";
 
 import { SelectInput as SI } from "../../..";
 import { IconAward } from "@tabler/icons-react";
@@ -15,7 +15,7 @@ type Story = StoryObj<typeof SI>;
 
 
 export const SelectInput: Story = (args: any) => {
-  const [value, setValue] = React.useState(["hello", "world"]);
+  const [value, setValue] = React.useState<Option>({ label: "Hello", value: "hello" });
 
   return (
     <ValenceProvider>
@@ -24,6 +24,10 @@ export const SelectInput: Story = (args: any) => {
         value={value}
         setValue={setValue}
       />
+
+      <Button
+        onClick={() => setValue({ label: "Hello", value: "hello" })}
+      > Hi</Button>
     </ValenceProvider>
   );
 }

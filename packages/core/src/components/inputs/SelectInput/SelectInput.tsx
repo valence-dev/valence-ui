@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { CSSProperties, ReactNode, createRef, forwardRef, useContext, useState } from "react";
+import { CSSProperties, ReactNode, createRef, forwardRef, useContext, useEffect, useState } from "react";
 import { GenericInputProps, GenericTextInputEventProps } from "../../../generics";
 import { ValenceContext } from "../../../ValenceProvider";
 import { useDefaultIconProps } from "../../../hooks";
@@ -147,6 +147,11 @@ export const SelectInput = forwardRef(function SelectInput(
     setSearchValue(search);
     setVisibleOptions(filter(options, search));
   }
+
+  // Detect a change in the value 
+  useEffect(() => { 
+    setSearchValue(value?.label ?? ""); 
+  }, [value]);
 
 
   // Styles

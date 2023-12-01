@@ -55,6 +55,11 @@ exports.SelectInput = (0, react_2.forwardRef)(function SelectInput(props, ref) {
         setSearchValue(search);
         setVisibleOptions(filter(options, search));
     }
+    // Detect a change in the value 
+    (0, react_2.useEffect)(() => {
+        var _a;
+        setSearchValue((_a = value === null || value === void 0 ? void 0 : value.label) !== null && _a !== void 0 ? _a : "");
+    }, [value]);
     // Styles
     const InputStyle = (0, react_1.css)(Object.assign({ border: "none", outline: "none", background: "none", flexGrow: 1, width: "100%", height: "100%", margin: 0, padding: 0, cursor: disabled ? "not-allowed" : "text", fontSize: theme.sizeClasses.fontSize[size], fontFamily: theme.getFont("default"), color: (0, buttons_1.getTextColor)(color, variant, theme), "&::placeholder": {
             color: `${(0, buttons_1.getTextColor)(color, variant, theme)}80`,
