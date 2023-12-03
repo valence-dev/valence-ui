@@ -4,7 +4,7 @@ import { Disclosure, ValenceContext } from "../../..";
 import { motion } from "framer-motion";
 import { GenericProps, PolymorphicLayoutProps } from "@valence-ui/utils";
 import { css } from "@emotion/react";
-import { FloatingOverlay } from "@floating-ui/react";
+import { FloatingPortal } from "@floating-ui/react";
 
 export type ModalOverlayProps =
   GenericProps
@@ -69,7 +69,7 @@ export const ModalOverlay = forwardRef(function ModalOverlay(
 
 
   return (
-    <FloatingOverlay>
+    <FloatingPortal>
       <motion.div
         css={OverlayStyle}
         onClick={closeOnClick ? disclosure.close : undefined}
@@ -83,6 +83,6 @@ export const ModalOverlay = forwardRef(function ModalOverlay(
       >
         {children}
       </motion.div>
-    </FloatingOverlay>
+    </FloatingPortal>
   )
 });

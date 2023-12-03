@@ -15,12 +15,12 @@ import { forwardRef, useContext } from "react";
 import { ValenceContext } from "../../..";
 import { motion } from "framer-motion";
 import { css } from "@emotion/react";
-import { FloatingOverlay } from "@floating-ui/react";
+import { FloatingPortal } from "@floating-ui/react";
 export const ModalOverlay = forwardRef(function ModalOverlay(props, ref) {
     const theme = useContext(ValenceContext);
     // Defaults
     const { disclosure, closeOnClick = true, blurBackground = true, backgroundColor = "permaBlack", padding = theme.sizeClasses.padding[theme.defaultSize], zIndex = 500, children, style } = props, rest = __rest(props, ["disclosure", "closeOnClick", "blurBackground", "backgroundColor", "padding", "zIndex", "children", "style"]);
     // Styles
     const OverlayStyle = css(Object.assign({ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, zIndex: zIndex, backgroundColor: theme.getColorHex(backgroundColor, "strong"), backdropFilter: blurBackground ? "blur(10px)" : "none", padding: padding, display: "flex", alignItems: "center", justifyContent: "center" }, style));
-    return (_jsx(FloatingOverlay, { children: _jsx(motion.div, Object.assign({ css: OverlayStyle, onClick: closeOnClick ? disclosure.close : undefined, initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 }, ref: ref }, rest, { children: children })) }));
+    return (_jsx(FloatingPortal, { children: _jsx(motion.div, Object.assign({ css: OverlayStyle, onClick: closeOnClick ? disclosure.close : undefined, initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 }, ref: ref }, rest, { children: children })) }));
 });
