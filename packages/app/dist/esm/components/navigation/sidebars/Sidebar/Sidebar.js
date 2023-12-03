@@ -10,9 +10,9 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
-import { Flex, ValenceContext, useBreakpoint, useDefaultIconProps } from "@valence-ui/core";
+import { Flex, ValenceContext, useBreakpoint, useDefaultIconProps, useDisclosure } from "@valence-ui/core";
 import { getReactiveProp } from "@valence-ui/utils";
-import { forwardRef, useContext, useState } from "react";
+import { forwardRef, useContext } from "react";
 import { FAB } from "../../../buttons";
 import { SlideUp } from "../../../overlays";
 import { IconMenu } from "@tabler/icons-react";
@@ -27,9 +27,9 @@ export const Sidebar = forwardRef(function Sidebar(props, ref) {
     const DesktopStyle = Object.assign({ width: getReactiveProp(width, breakpoint), height: getReactiveProp(height, breakpoint), borderRight: `1px solid ${((_a = theme.getColor("black")) === null || _a === void 0 ? void 0 : _a.base)
             + ((_b = theme.getColor("black")) === null || _b === void 0 ? void 0 : _b.opacity.weak)}`, paddingRight: 10, position: "sticky", top: 0, overflowX: "hidden", overflowY: "auto" }, getReactiveProp(style, breakpoint));
     // States
-    const [slideUpOpened, setSlideUpOpened] = useState(false);
+    const slideUp = useDisclosure();
     return (breakpoint.isMobile ?
-        _jsxs(_Fragment, { children: [_jsx(FAB, Object.assign({ color: "black", onClick: () => setSlideUpOpened(true) }, mobileFabProps, { children: mobileFabIcon })), _jsx(SlideUp, { opened: slideUpOpened, close: () => setSlideUpOpened(false), children: children })] })
+        _jsxs(_Fragment, { children: [_jsx(FAB, Object.assign({ color: "black", onClick: () => slideUp.open() }, mobileFabProps, { children: mobileFabIcon })), _jsx(SlideUp, { disclosure: slideUp, children: children })] })
         :
             _jsx(Flex, Object.assign({ direction: "column", gap: gap, grow: true, style: DesktopStyle, ref: ref }, rest, { children: children })));
 });

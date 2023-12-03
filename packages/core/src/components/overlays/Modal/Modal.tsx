@@ -1,15 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import { forwardRef, useContext } from "react";
-import { ValenceContext, useDefaultIconProps, useDetectKeyDown } from "../../..";
+import { ModalOverlay, Disclosure, ValenceContext, useDefaultIconProps, useDetectKeyDown, ModalOverlayProps } from "../../..";
 import { Flex, FlexProps } from "../../layout";
-import { ModalOverlay, ModalOverlayProps } from "../ModalOverlay";
-import { useLockedBody } from "usehooks-ts";
 import { AnimatePresence, motion } from "framer-motion";
 import { Text } from "../../display";
 import { IconX } from "@tabler/icons-react";
 import { ComponentSize, GenericLayoutProps, PolymorphicLayoutProps } from "@valence-ui/utils";
 import { IconButton, IconButtonProps } from "../../buttons";
 import { css } from "@emotion/react";
+import { FloatingFocusManager, useFloating, useId, useInteractions, useRole } from "@floating-ui/react";
+import { useLockedBody } from "usehooks-ts";
 
 export type ModalProps =
   GenericLayoutProps
@@ -18,13 +18,11 @@ export type ModalProps =
     /** The title of this modal */
     title: string;
 
-    /** Specifies if this modal is opened */
-    opened: boolean;
-    /** Function to call when this modal is closed */
-    close: () => void;
+    /** A disclosure to handle state information about this modal */
+    disclosure: Disclosure;
 
     /** Whether to close this modal when the overlay is clicked */
-    closeOnOverlayClick?: boolean;
+    closeOnClickOutside?: boolean;
     /** Whether to close this modal when the escape key is pressed */
     closeOnEscape?: boolean;
     /** Whether to lock scrolling when this modal is open */
@@ -54,11 +52,9 @@ export const Modal = forwardRef(function Modal(
   // Defaults
   const {
     title,
+    disclosure,
 
-    opened,
-    close,
-
-    closeOnOverlayClick = true,
+    closeOnClickOutside = true,
     closeOnEscape = true,
     lockScroll = true,
 
@@ -84,9 +80,24 @@ export const Modal = forwardRef(function Modal(
 
 
   // Hooks
-  useLockedBody(opened && lockScroll, "root");
-  useDetectKeyDown(close, "Escape", closeOnEscape, [closeOnEscape, close]);
   const defaultIconProps = useDefaultIconProps();
+  useLockedBody(disclosure.opened && lockScroll, "root");
+  useDetectKeyDown(() => disclosure.close(), "Escape", closeOnEscape && disclosure.opened);
+
+
+  // Floating UI
+  const { refs, context } = useFloating({
+    open: disclosure.opened,
+    onOpenChange: disclosure.update,
+  });
+  const role = useRole(context);
+
+  const { getFloatingProps } = useInteractions([
+    role,
+  ])
+
+  const labelId = useId();
+  const descriptionId = useId();
 
 
   // Styles
@@ -112,53 +123,58 @@ export const Modal = forwardRef(function Modal(
 
   return (
     <AnimatePresence>
-      {opened &&
+      {disclosure.opened &&
         <ModalOverlay
-          opened={opened}
-          close={close}
-          closeOnClick={closeOnOverlayClick}
+          disclosure={disclosure}
           {...overlayProps}
         >
-          <motion.div
-            css={ContainerStyle}
-            onClick={e => e.stopPropagation()}
+          <FloatingFocusManager context={context}>
+            <motion.div
+              css={ContainerStyle}
+              onClick={e => e.stopPropagation()}
 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            transition={{ ease: "backOut" }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ ease: "backOut" }}
 
-            ref={ref}
-            {...rest}
-          >
-            <Flex
-              direction="column"
-              gap={15}
-              {...flexProps}
+              ref={refs.setFloating}
+              aria-labelledby={labelId}
+              aria-describedby={descriptionId}
+
+              {...getFloatingProps()}
+              {...rest}
             >
-              <header
-                css={HeaderStyle}
+              <Flex
+                direction="column"
+                gap={15}
+                {...flexProps}
               >
-                <Text
-                  bold
-                  fontSize={20}
+                <header
+                  css={HeaderStyle}
                 >
-                  {title}
-                </Text>
+                  <Text
+                    bold
+                    fontSize={20}
+                    id={labelId}
+                  >
+                    {title}
+                  </Text>
 
-                <IconButton
-                  onClick={close}
-                  color={color}
-                  variant="subtle"
-                  {...closeButtonProps}
-                >
-                  <IconX {...defaultIconProps.get()} />
-                </IconButton>
-              </header>
+                  <IconButton
+                    onClick={disclosure.close}
+                    color={color}
+                    variant="subtle"
+                    {...closeButtonProps}
+                  >
+                    <IconX {...defaultIconProps.get()} />
+                  </IconButton>
+                </header>
 
-              {children}
-            </Flex>
-          </motion.div>
+                {children}
+              </Flex>
+            </motion.div>
+          </FloatingFocusManager>
         </ModalOverlay>
       }
     </AnimatePresence>

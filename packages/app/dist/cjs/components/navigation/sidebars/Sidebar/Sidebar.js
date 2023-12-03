@@ -30,9 +30,9 @@ exports.Sidebar = (0, react_1.forwardRef)(function Sidebar(props, ref) {
     const DesktopStyle = Object.assign({ width: (0, utils_1.getReactiveProp)(width, breakpoint), height: (0, utils_1.getReactiveProp)(height, breakpoint), borderRight: `1px solid ${((_a = theme.getColor("black")) === null || _a === void 0 ? void 0 : _a.base)
             + ((_b = theme.getColor("black")) === null || _b === void 0 ? void 0 : _b.opacity.weak)}`, paddingRight: 10, position: "sticky", top: 0, overflowX: "hidden", overflowY: "auto" }, (0, utils_1.getReactiveProp)(style, breakpoint));
     // States
-    const [slideUpOpened, setSlideUpOpened] = (0, react_1.useState)(false);
+    const slideUp = (0, core_1.useDisclosure)();
     return (breakpoint.isMobile ?
-        (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(buttons_1.FAB, Object.assign({ color: "black", onClick: () => setSlideUpOpened(true) }, mobileFabProps, { children: mobileFabIcon })), (0, jsx_runtime_1.jsx)(overlays_1.SlideUp, { opened: slideUpOpened, close: () => setSlideUpOpened(false), children: children })] })
+        (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(buttons_1.FAB, Object.assign({ color: "black", onClick: () => slideUp.open() }, mobileFabProps, { children: mobileFabIcon })), (0, jsx_runtime_1.jsx)(overlays_1.SlideUp, { disclosure: slideUp, children: children })] })
         :
             (0, jsx_runtime_1.jsx)(core_1.Flex, Object.assign({ direction: "column", gap: gap, grow: true, style: DesktopStyle, ref: ref }, rest, { children: children })));
 });

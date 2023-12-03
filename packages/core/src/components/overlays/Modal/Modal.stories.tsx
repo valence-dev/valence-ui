@@ -1,15 +1,14 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { ValenceProvider } from "../../..";
-import { Modal as M } from "./Modal";
+import { Button, ValenceProvider, useDisclosure } from "../../..";
+import { Modal as M } from "../../..";
 
 const meta: Meta<typeof M> = {
   component: M,
   title: "Valence/Core/Overlays",
   argTypes: {
     title: { control: { type: "text" } },
-    opened: { control: { type: "boolean" } },
-    closeOnOverlayClick: { control: { type: "boolean" } },
+    closeOnClickOutside: { control: { type: "boolean" } },
     closeOnEscape: { control: { type: "boolean" } },
     lockScroll: { control: { type: "boolean" } },
     withShadow: { control: { type: "boolean" } },
@@ -21,13 +20,21 @@ const meta: Meta<typeof M> = {
 export default meta;
 type Story = StoryObj<typeof M>;
 
-export const Modal: Story = (args: any) => (
-  <ValenceProvider>
-    <M data-testId="Modal-id" {...args} />
-  </ValenceProvider>
-);
+export const Modal: Story = (args: any) => {
+  const disclosure = useDisclosure(true);
+
+  return (
+    <ValenceProvider>
+      <Button onClick={disclosure.open}>Open Modal</Button>
+
+      <M
+        disclosure={disclosure}
+        {...args}
+      />
+    </ValenceProvider>
+  )
+}
 Modal.args = {
   title: "Modal Title",
-  opened: true,
-  children: "Hello there"
+  children: "Hello there",
 };

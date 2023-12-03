@@ -1,11 +1,9 @@
-import { FlexProps, ModalOverlayProps } from "@valence-ui/core";
+import { FlexProps, ModalOverlayProps, Disclosure } from "@valence-ui/core";
 import { ComponentSize, GenericReactiveLayoutProps, ReactiveProp } from "@valence-ui/utils";
 import { CSSProperties } from "react";
 export type SlideUpProps = GenericReactiveLayoutProps & {
-    /** Specifies if this slideup is opened */
-    opened: boolean;
-    /** Function to call when this slideup is closed */
-    close: () => void;
+    /** A disclosure to handle the slide up's state */
+    disclosure: Disclosure;
     /** Whether to close this slideup when the overlay is clicked */
     closeOnOverlayClick?: boolean;
     /** Whether to close this slideup when the escape key is pressed */
@@ -32,10 +30,8 @@ export declare const SlideUp: import("react").ForwardRefExoticComponent<import("
     width?: ReactiveProp<import("csstype").Property.Width<string | number> | undefined>;
     height?: ReactiveProp<import("csstype").Property.Height<string | number> | undefined>;
 } & {
-    /** Specifies if this slideup is opened */
-    opened: boolean;
-    /** Function to call when this slideup is closed */
-    close: () => void;
+    /** A disclosure to handle the slide up's state */
+    disclosure: Disclosure;
     /** Whether to close this slideup when the overlay is clicked */
     closeOnOverlayClick?: boolean | undefined;
     /** Whether to close this slideup when the escape key is pressed */

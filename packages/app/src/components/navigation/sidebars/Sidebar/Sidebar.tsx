@@ -1,4 +1,4 @@
-import { Flex, ValenceContext, useBreakpoint, useDefaultIconProps } from "@valence-ui/core";
+import { Flex, ValenceContext, useBreakpoint, useDefaultIconProps, useDisclosure } from "@valence-ui/core";
 import { GenericReactiveLayoutProps, ReactiveProp, getReactiveProp } from "@valence-ui/utils";
 import { CSSProperties, ReactNode, forwardRef, useContext, useState } from "react";
 import { FAB, FABProps } from "../../../buttons";
@@ -60,7 +60,7 @@ export const Sidebar = forwardRef(function Sidebar(
 
 
   // States
-  const [slideUpOpened, setSlideUpOpened] = useState(false);
+  const slideUp = useDisclosure();
 
 
   return (
@@ -68,16 +68,13 @@ export const Sidebar = forwardRef(function Sidebar(
       <>
         <FAB
           color="black"
-          onClick={() => setSlideUpOpened(true)}
+          onClick={() => slideUp.open()}
           {...mobileFabProps}
         >
           {mobileFabIcon}
         </FAB>
 
-        <SlideUp
-          opened={slideUpOpened}
-          close={() => setSlideUpOpened(false)}
-        >
+        <SlideUp disclosure={slideUp}>
           {children}
         </SlideUp>
       </>

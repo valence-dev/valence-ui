@@ -1,11 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { CSSProperties } from "react";
+import { Disclosure } from "../../..";
 import { GenericProps, PolymorphicLayoutProps } from "@valence-ui/utils";
 export type ModalOverlayProps = GenericProps & PolymorphicLayoutProps & {
-    /** Whether this overlay is open */
-    opened: boolean;
-    /** A function to call when this overlay is closed */
-    close?: () => void;
+    /** A disclosure to specify state information about the modal */
+    disclosure: Disclosure;
     /** Whether to close this overlay when it is clicked */
     closeOnClick?: boolean;
     /** Whether the contents of the page behind the overlay should be blurred */
@@ -20,10 +19,8 @@ export type ModalOverlayProps = GenericProps & PolymorphicLayoutProps & {
 export declare const ModalOverlay: import("react").ForwardRefExoticComponent<GenericProps & import("@valence-ui/utils").PolymorphicElementProps & {
     css?: any;
 } & {
-    /** Whether this overlay is open */
-    opened: boolean;
-    /** A function to call when this overlay is closed */
-    close?: (() => void) | undefined;
+    /** A disclosure to specify state information about the modal */
+    disclosure: Disclosure;
     /** Whether to close this overlay when it is clicked */
     closeOnClick?: boolean | undefined;
     /** Whether the contents of the page behind the overlay should be blurred */

@@ -1,16 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { FlexProps, ValenceContext, useBreakpoint, ModalOverlayProps, ModalOverlay, Flex, useDetectKeyDown } from "@valence-ui/core";
+import { FlexProps, ValenceContext, useBreakpoint, ModalOverlayProps, ModalOverlay, Flex, useDetectKeyDown, Disclosure } from "@valence-ui/core";
 import { ComponentSize, GenericReactiveLayoutProps, ReactiveProp, getReactiveProp } from "@valence-ui/utils";
 import { useContext, CSSProperties, forwardRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useLockedBody } from "usehooks-ts";
 
 export type SlideUpProps = GenericReactiveLayoutProps & {
-  /** Specifies if this slideup is opened */
-  opened: boolean;
-  /** Function to call when this slideup is closed */
-  close: () => void;
+  /** A disclosure to handle the slide up's state */
+  disclosure: Disclosure;
 
   /** Whether to close this slideup when the overlay is clicked */
   closeOnOverlayClick?: boolean;
@@ -41,8 +39,7 @@ export const SlideUp = forwardRef(function SlideUp(
 
   // Defaults
   const {
-    opened,
-    close,
+    disclosure,
 
     closeOnOverlayClick = true,
     closeOnEscape = true,
@@ -102,17 +99,16 @@ export const SlideUp = forwardRef(function SlideUp(
   }
 
   // Hooks
-  useLockedBody(opened && lockScroll, "root");
+  useLockedBody(disclosure.opened && lockScroll, "root");
   useDetectKeyDown(close, "Escape", closeOnEscape, [closeOnEscape, close]);
 
 
   return (
     <AnimatePresence>
-      {opened &&
+      {disclosure.opened &&
         <ModalOverlay
           blurBackground={false}
-          opened={opened}
-          close={close}
+          disclosure={disclosure}
           closeOnClick={closeOnOverlayClick}
           style={OverlayStyle}
           {...overlayProps}

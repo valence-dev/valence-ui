@@ -1,17 +1,15 @@
 /// <reference types="react" />
+import { Disclosure, ModalOverlayProps } from "../../..";
 import { FlexProps } from "../../layout";
-import { ModalOverlayProps } from "../ModalOverlay";
 import { ComponentSize, GenericLayoutProps, PolymorphicLayoutProps } from "@valence-ui/utils";
 import { IconButtonProps } from "../../buttons";
 export type ModalProps = GenericLayoutProps & PolymorphicLayoutProps & {
     /** The title of this modal */
     title: string;
-    /** Specifies if this modal is opened */
-    opened: boolean;
-    /** Function to call when this modal is closed */
-    close: () => void;
+    /** A disclosure to handle state information about this modal */
+    disclosure: Disclosure;
     /** Whether to close this modal when the overlay is clicked */
-    closeOnOverlayClick?: boolean;
+    closeOnClickOutside?: boolean;
     /** Whether to close this modal when the escape key is pressed */
     closeOnEscape?: boolean;
     /** Whether to lock scrolling when this modal is open */
@@ -39,12 +37,10 @@ export declare const Modal: import("react").ForwardRefExoticComponent<import("@v
 } & {
     /** The title of this modal */
     title: string;
-    /** Specifies if this modal is opened */
-    opened: boolean;
-    /** Function to call when this modal is closed */
-    close: () => void;
+    /** A disclosure to handle state information about this modal */
+    disclosure: Disclosure;
     /** Whether to close this modal when the overlay is clicked */
-    closeOnOverlayClick?: boolean | undefined;
+    closeOnClickOutside?: boolean | undefined;
     /** Whether to close this modal when the escape key is pressed */
     closeOnEscape?: boolean | undefined;
     /** Whether to lock scrolling when this modal is open */

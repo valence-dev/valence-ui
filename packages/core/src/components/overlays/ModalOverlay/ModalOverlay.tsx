@@ -1,18 +1,17 @@
 /** @jsxImportSource @emotion/react */
 import { CSSProperties, forwardRef, useContext } from "react";
-import { ValenceContext } from "../../..";
+import { Disclosure, ValenceContext } from "../../..";
 import { motion } from "framer-motion";
 import { GenericProps, PolymorphicLayoutProps } from "@valence-ui/utils";
 import { css } from "@emotion/react";
+import { FloatingOverlay } from "@floating-ui/react";
 
 export type ModalOverlayProps =
   GenericProps
   & PolymorphicLayoutProps
   & {
-    /** Whether this overlay is open */
-    opened: boolean;
-    /** A function to call when this overlay is closed */
-    close?: () => void;
+    /** A disclosure to specify state information about the modal */
+    disclosure: Disclosure;
 
     /** Whether to close this overlay when it is clicked */
     closeOnClick?: boolean;
@@ -37,14 +36,13 @@ export const ModalOverlay = forwardRef(function ModalOverlay(
 
   // Defaults
   const {
-    opened,
-    close,
+    disclosure,
     closeOnClick = true,
     blurBackground = true,
 
     backgroundColor = "permaBlack",
     padding = theme.sizeClasses.padding[theme.defaultSize],
-    zIndex = 200,
+    zIndex = 500,
 
     children,
     style,
@@ -71,18 +69,20 @@ export const ModalOverlay = forwardRef(function ModalOverlay(
 
 
   return (
-    <motion.div
-      css={OverlayStyle}
-      onClick={closeOnClick ? close : undefined}
+    <FloatingOverlay>
+      <motion.div
+        css={OverlayStyle}
+        onClick={closeOnClick ? disclosure.close : undefined}
 
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
 
-      ref={ref}
-      {...rest}
-    >
-      {children}
-    </motion.div>
+        ref={ref}
+        {...rest}
+      >
+        {children}
+      </motion.div>
+    </FloatingOverlay>
   )
 });

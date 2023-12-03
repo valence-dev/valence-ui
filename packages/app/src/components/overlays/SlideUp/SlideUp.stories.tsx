@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { Button, ValenceProvider } from "@valence-ui/core"
+import { Button, ValenceProvider, useDisclosure } from "@valence-ui/core"
 import { SlideUp as S } from "./SlideUp";
 
 const meta: Meta<typeof S> = {
@@ -11,21 +11,19 @@ export default meta;
 type Story = StoryObj<typeof S>;
 
 export const SlideUp: Story = (args: any) => {
-  const [opened, setOpened] = useState(args.opened);
+  const disclosure = useDisclosure();
 
   return (
     <ValenceProvider>
-      <Button onClick={() => setOpened(true)}>Open</Button>
+      <Button onClick={() => disclosure.open()}>Open SlideUp</Button>
 
       <S
+        disclosure={disclosure}
         {...args}
-        opened={opened}
-        close={() => setOpened(false)}
       />
     </ValenceProvider>
   )
 };
 SlideUp.args = {
-  opened: true,
   children: "Hello there"
 };
