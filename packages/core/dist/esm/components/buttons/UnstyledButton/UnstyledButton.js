@@ -18,6 +18,6 @@ export const UnstyledButton = forwardRef(function UnstyledButton(props, ref) {
     // Defaults
     const { style, children } = props, rest = __rest(props, ["style", "children"]);
     // Styles
-    const UnstyledButtonStyle = css(Object.assign({ outline: "none", border: "none", textDecoration: "none", background: "none" }, style));
+    const UnstyledButtonStyle = css(Object.assign({ outline: "none", border: "none", textDecoration: "none", background: "none", padding: 0, margin: 0 }, style));
     return (_jsx(PolymorphicButton, Object.assign({ css: UnstyledButtonStyle, ref: ref }, rest, { children: children })));
 });

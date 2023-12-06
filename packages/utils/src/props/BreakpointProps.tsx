@@ -1,4 +1,5 @@
 export type Breakpoint = {
+  isDesktopThin: boolean;
   isMobile: boolean;
   isMobileTall: boolean;
 }
@@ -7,6 +8,7 @@ export type Breakpoint = {
 /** A prop that can be responsive to the current breakpoint. Supplying the raw prop without the full `BreakpointSensitive` surrounds will cause that prop to act as `default`. */
 export type ReactiveProp<T> = T | {
   default: T;
+  desktopThin?: T;
   mobile?: T;
   mobileTall?: T;
 };
@@ -21,6 +23,9 @@ export type ReactiveProp<T> = T | {
 export function getReactiveProp<T>(prop: ReactiveProp<T> | undefined, breakpoint: Breakpoint):
   T {
   if (prop && prop.hasOwnProperty("default")) {
+    //@ts-ignore
+    if (breakpoint.isDesktopThin) return prop.desktopThin ?? prop.default;
+
     //@ts-ignore
     if (breakpoint.isMobileTall) return prop.mobileTall ?? prop.mobile ?? prop.default;
     //@ts-ignore

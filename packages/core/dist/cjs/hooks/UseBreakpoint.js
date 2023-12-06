@@ -7,9 +7,11 @@ const __1 = require("..");
 function useBreakpoint() {
     const theme = (0, react_1.useContext)(__1.ValenceContext);
     const { width, height } = (0, usehooks_ts_1.useWindowSize)();
+    const isDesktopThin = width <= theme.breakpoints.desktopThinWidth;
     const isMobile = width <= theme.breakpoints.mobileWidth;
     const isMobileTall = isMobile && height >= theme.breakpoints.mobileTallHeight;
     return {
+        isDesktopThin: isDesktopThin,
         isMobile: isMobile,
         isMobileTall: isMobileTall,
     };

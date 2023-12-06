@@ -1,3 +1,4 @@
 export * from "./Modal";
-export * from "./ModalOverlay";
+export * from "./ModalBackground";
+export * from "./Tooltip";
 //# sourceMappingURL=index.d.ts.map

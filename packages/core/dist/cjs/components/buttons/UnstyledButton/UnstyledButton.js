@@ -21,6 +21,6 @@ exports.UnstyledButton = (0, react_2.forwardRef)(function UnstyledButton(props, 
     // Defaults
     const { style, children } = props, rest = __rest(props, ["style", "children"]);
     // Styles
-    const UnstyledButtonStyle = (0, react_1.css)(Object.assign({ outline: "none", border: "none", textDecoration: "none", background: "none" }, style));
+    const UnstyledButtonStyle = (0, react_1.css)(Object.assign({ outline: "none", border: "none", textDecoration: "none", background: "none", padding: 0, margin: 0 }, style));
     return ((0, jsx_runtime_1.jsx)(utils_1.PolymorphicButton, Object.assign({ css: UnstyledButtonStyle, ref: ref }, rest, { children: children })));
 });

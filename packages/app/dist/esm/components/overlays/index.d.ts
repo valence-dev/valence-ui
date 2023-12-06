@@ -1,2 +1,2 @@
-export * from "./SlideUp";
+export * from "./sheets";
 //# sourceMappingURL=index.d.ts.map

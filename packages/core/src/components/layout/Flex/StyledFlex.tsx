@@ -31,6 +31,7 @@ export const StyledFlex = forwardRef(function StyledFlex(
     variant = theme.defaultVariant,
     size = { default: theme.defaultSize },
     radius = { default: theme.defaultRadius },
+    padding = { default: theme.sizeClasses.padding[theme.defaultSize] },
 
     color = { default: theme.primaryColor },
     backgroundColor = color,
@@ -64,8 +65,8 @@ export const StyledFlex = forwardRef(function StyledFlex(
 
   return (
     <Flex
+      padding={padding}
       style={styles}
-      padding={theme.sizeClasses.padding[getReactiveProp(size, breakpoint)]}
 
       ref={ref}
       {...rest}

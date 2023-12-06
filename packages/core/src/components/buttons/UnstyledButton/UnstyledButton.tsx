@@ -28,6 +28,8 @@ export const UnstyledButton = forwardRef(function UnstyledButton(
     border: "none",
     textDecoration: "none",
     background: "none",
+    padding: 0,
+    margin: 0,
     ...style,
   })
 

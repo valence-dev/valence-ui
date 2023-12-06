@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { GenericProps } from "@valence-ui/utils";
 import { CSSProperties, forwardRef } from "react";
 
@@ -22,20 +22,27 @@ export const Spoiler = forwardRef(function Spoiler(
 
 
   // Styles
-  const SpoilerStyle: CSSProperties = { 
+  const SpoilerStyle: CSSProperties = {
     overflow: "hidden",
     ...style
   }
 
 
   return (
-    <motion.div
-      animate={{ height: show ? "auto" : 0 }}
-      style={SpoilerStyle}
-      ref={ref}
-      {...rest}
-    >
-      {children}
-    </motion.div>
+    <AnimatePresence>
+      {show &&
+        <motion.div
+          initial={{ height: 0 }}
+          animate={{ height: "auto" }}
+          exit={{ height: 0 }}
+          
+          style={SpoilerStyle}
+          ref={ref}
+          {...rest}
+        >
+          {children}
+        </motion.div>
+      }
+    </AnimatePresence>
   )
 });

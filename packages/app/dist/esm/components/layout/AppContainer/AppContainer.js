@@ -56,6 +56,7 @@ export const AppContainer = forwardRef(function AppContainer(props, ref) {
             paddingLeft: props.sidebar ? sidebarWidth + navWidth : navWidth,
             paddingRight: 30,
             width: "100vw",
+            transition: "padding-right 0.3s ease-in-out",
         }, mobile: {
             backgroundColor: (_d = theme.getColor("white")) === null || _d === void 0 ? void 0 : _d.base,
             padding: 20,
@@ -67,5 +68,5 @@ export const AppContainer = forwardRef(function AppContainer(props, ref) {
         paddingBottom: 200,
     };
     return (_jsxs(_Fragment, { children: [_jsxs(Flex, Object.assign({ direction: { default: "row", mobile: "column-reverse" }, backgroundColor: "primary", style: pageContainerStyle, gap: 0, ref: ref }, rest, { children: [_jsx(Flex, Object.assign({ direction: "column", align: "center", margin: 10 }, navContainerProps, { children: nav })), _jsx(Flex, { direction: "column", style: sidebarContainerStyle, children: sidebar &&
-                            _jsxs(_Fragment, { children: [!breakpoint.isMobile && header, sidebar] }) })] })), _jsx(Flex, { align: "center", justify: "center", grow: true, style: contentContainerStyle, children: _jsxs(Flex, Object.assign({ direction: "column", style: contentStyle }, pageProps, { children: [!props.sidebar || breakpoint.isMobile ? header : _jsx(Header, {}), breakpoint.isMobile && _jsx(Space, { height: 120 }), children] })) })] }));
+                            _jsxs(_Fragment, { children: [!breakpoint.isMobile && header, sidebar] }) })] })), _jsx(Flex, { id: "root-content", align: "center", justify: "center", grow: true, style: contentContainerStyle, children: _jsxs(Flex, Object.assign({ direction: "column", style: contentStyle }, pageProps, { children: [!props.sidebar || breakpoint.isMobile ? header : _jsx(Header, {}), breakpoint.isMobile && _jsx(Space, { height: 120 }), children] })) })] }));
 });

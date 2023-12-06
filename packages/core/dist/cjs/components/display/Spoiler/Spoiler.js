@@ -21,5 +21,6 @@ exports.Spoiler = (0, react_1.forwardRef)(function Spoiler(props, ref) {
     const { show = true, style, children } = props, rest = __rest(props, ["show", "style", "children"]);
     // Styles
     const SpoilerStyle = Object.assign({ overflow: "hidden" }, style);
-    return ((0, jsx_runtime_1.jsx)(framer_motion_1.motion.div, Object.assign({ animate: { height: show ? "auto" : 0 }, style: SpoilerStyle, ref: ref }, rest, { children: children })));
+    return ((0, jsx_runtime_1.jsx)(framer_motion_1.AnimatePresence, { children: show &&
+            (0, jsx_runtime_1.jsx)(framer_motion_1.motion.div, Object.assign({ initial: { height: 0 }, animate: { height: "auto" }, exit: { height: 0 }, style: SpoilerStyle, ref: ref }, rest, { children: children })) }));
 });

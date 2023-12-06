@@ -19,4 +19,5 @@ __exportStar(require("./Events"), exports);
 __exportStar(require("./Global"), exports);
 __exportStar(require("./Grid"), exports);
 __exportStar(require("./Layout"), exports);
+__exportStar(require("./Overlay"), exports);
 __exportStar(require("./Polymorphic"), exports);

@@ -10,7 +10,7 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import { jsx as _jsx } from "react/jsx-runtime";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { forwardRef } from "react";
 /** A simple wrapper component used to show or hide content at will. */
 export const Spoiler = forwardRef(function Spoiler(props, ref) {
@@ -18,5 +18,6 @@ export const Spoiler = forwardRef(function Spoiler(props, ref) {
     const { show = true, style, children } = props, rest = __rest(props, ["show", "style", "children"]);
     // Styles
     const SpoilerStyle = Object.assign({ overflow: "hidden" }, style);
-    return (_jsx(motion.div, Object.assign({ animate: { height: show ? "auto" : 0 }, style: SpoilerStyle, ref: ref }, rest, { children: children })));
+    return (_jsx(AnimatePresence, { children: show &&
+            _jsx(motion.div, Object.assign({ initial: { height: 0 }, animate: { height: "auto" }, exit: { height: 0 }, style: SpoilerStyle, ref: ref }, rest, { children: children })) }));
 });

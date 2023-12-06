@@ -32,7 +32,7 @@ exports.Sidebar = (0, react_1.forwardRef)(function Sidebar(props, ref) {
     // States
     const slideUp = (0, core_1.useDisclosure)();
     return (breakpoint.isMobile ?
-        (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(buttons_1.FAB, Object.assign({ color: "black", onClick: () => slideUp.open() }, mobileFabProps, { children: mobileFabIcon })), (0, jsx_runtime_1.jsx)(overlays_1.SlideUp, { disclosure: slideUp, children: children })] })
+        (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(buttons_1.FAB, Object.assign({ color: "black", onClick: () => slideUp.open() }, mobileFabProps, { children: mobileFabIcon })), (0, jsx_runtime_1.jsx)(overlays_1.BottomSheet, { disclosure: slideUp, title: "", header: () => null, children: children })] })
         :
             (0, jsx_runtime_1.jsx)(core_1.Flex, Object.assign({ direction: "column", gap: gap, grow: true, style: DesktopStyle, ref: ref }, rest, { children: children })));
 });

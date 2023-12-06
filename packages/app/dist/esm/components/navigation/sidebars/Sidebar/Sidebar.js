@@ -14,7 +14,7 @@ import { Flex, ValenceContext, useBreakpoint, useDefaultIconProps, useDisclosure
 import { getReactiveProp } from "@valence-ui/utils";
 import { forwardRef, useContext } from "react";
 import { FAB } from "../../../buttons";
-import { SlideUp } from "../../../overlays";
+import { BottomSheet } from "../../../overlays";
 import { IconMenu } from "@tabler/icons-react";
 export const Sidebar = forwardRef(function Sidebar(props, ref) {
     var _a, _b;
@@ -29,7 +29,7 @@ export const Sidebar = forwardRef(function Sidebar(props, ref) {
     // States
     const slideUp = useDisclosure();
     return (breakpoint.isMobile ?
-        _jsxs(_Fragment, { children: [_jsx(FAB, Object.assign({ color: "black", onClick: () => slideUp.open() }, mobileFabProps, { children: mobileFabIcon })), _jsx(SlideUp, { disclosure: slideUp, children: children })] })
+        _jsxs(_Fragment, { children: [_jsx(FAB, Object.assign({ color: "black", onClick: () => slideUp.open() }, mobileFabProps, { children: mobileFabIcon })), _jsx(BottomSheet, { disclosure: slideUp, title: "", header: () => null, children: children })] })
         :
             _jsx(Flex, Object.assign({ direction: "column", gap: gap, grow: true, style: DesktopStyle, ref: ref }, rest, { children: children })));
 });

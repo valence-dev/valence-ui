@@ -55,7 +55,7 @@ type Story = StoryObj<typeof PrimitiveButton>;
 
 export const Primitive: Story = (args: any) => (
   <ValenceProvider>
-    <PrimitiveButton data-testId="InputField-id" {...args} />
+    <PrimitiveButton  {...args} />
   </ValenceProvider>
 );
 Primitive.args = {

@@ -1,10 +1,12 @@
 export type Breakpoint = {
+    isDesktopThin: boolean;
     isMobile: boolean;
     isMobileTall: boolean;
 };
 /** A prop that can be responsive to the current breakpoint. Supplying the raw prop without the full `BreakpointSensitive` surrounds will cause that prop to act as `default`. */
 export type ReactiveProp<T> = T | {
     default: T;
+    desktopThin?: T;
     mobile?: T;
     mobileTall?: T;
 };

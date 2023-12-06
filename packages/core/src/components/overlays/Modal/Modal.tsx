@@ -1,44 +1,24 @@
 /** @jsxImportSource @emotion/react */
 import { forwardRef, useContext } from "react";
-import { ModalOverlay, Disclosure, ValenceContext, useDefaultIconProps, useDetectKeyDown, ModalOverlayProps } from "../../..";
+import { ModalBackground, Disclosure, ValenceContext, useDefaultIconProps, useDetectKeyDown } from "../../..";
 import { Flex, FlexProps } from "../../layout";
 import { AnimatePresence, motion } from "framer-motion";
-import { Text } from "../../display";
+import { Title } from "../../display";
 import { IconX } from "@tabler/icons-react";
-import { ComponentSize, GenericLayoutProps, PolymorphicLayoutProps } from "@valence-ui/utils";
-import { IconButton, IconButtonProps } from "../../buttons";
+import { GenericOverlayHeaderProps, GenericOverlayProps } from "@valence-ui/utils";
+import { IconButton } from "../../buttons";
 import { css } from "@emotion/react";
 import { FloatingFocusManager, useFloating, useId, useInteractions, useRole } from "@floating-ui/react";
 import { useLockedBody } from "usehooks-ts";
 
 export type ModalProps =
-  GenericLayoutProps
-  & PolymorphicLayoutProps
+  GenericOverlayProps
   & {
-    /** The title of this modal */
-    title: string;
-
     /** A disclosure to handle state information about this modal */
     disclosure: Disclosure;
 
-    /** Whether to close this modal when the overlay is clicked */
-    closeOnClickOutside?: boolean;
-    /** Whether to close this modal when the escape key is pressed */
-    closeOnEscape?: boolean;
-    /** Whether to lock scrolling when this modal is open */
-    lockScroll?: boolean;
-
-    /** Whether to include a shadow underneath the modal */
-    withShadow?: boolean;
-    /** Sets the `border-radius` css property */
-    radius?: ComponentSize;
-
-    /** Optional props to pass to the overlay component */
-    overlayProps?: ModalOverlayProps;
     /** Optional props to pass to the flex component */
     flexProps?: FlexProps;
-    /** Optional props to pass to the close button */
-    closeButtonProps?: IconButtonProps;
   }
 
 
@@ -51,10 +31,14 @@ export const Modal = forwardRef(function Modal(
 
   // Defaults
   const {
-    title,
     disclosure,
+    title,
+    header = (props: GenericOverlayHeaderProps) => <DefaultModalHeader
+      disclosure={disclosure}
+      {...props}
+    />,
 
-    closeOnClickOutside = true,
+    closeOnOverlayClick = true,
     closeOnEscape = true,
     lockScroll = true,
 
@@ -68,9 +52,8 @@ export const Modal = forwardRef(function Modal(
     width = 500,
     height = "fit-content",
 
-    overlayProps,
     flexProps,
-    closeButtonProps,
+    overlayBackgroundProps,
 
     children,
     style,
@@ -80,7 +63,6 @@ export const Modal = forwardRef(function Modal(
 
 
   // Hooks
-  const defaultIconProps = useDefaultIconProps();
   useLockedBody(disclosure.opened && lockScroll, "root");
   useDetectKeyDown(() => disclosure.close(), "Escape", closeOnEscape && disclosure.opened);
 
@@ -113,20 +95,14 @@ export const Modal = forwardRef(function Modal(
 
     ...style
   });
-  const HeaderStyle = css({
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    width: "100%",
-  });
 
 
   return (
     <AnimatePresence>
       {disclosure.opened &&
-        <ModalOverlay
+        <ModalBackground
           disclosure={disclosure}
-          {...overlayProps}
+          {...overlayBackgroundProps}
         >
           <FloatingFocusManager context={context}>
             <motion.div
@@ -150,33 +126,62 @@ export const Modal = forwardRef(function Modal(
                 gap={15}
                 {...flexProps}
               >
-                <header
-                  css={HeaderStyle}
-                >
-                  <Text
-                    bold
-                    fontSize={20}
-                    id={labelId}
-                  >
-                    {title}
-                  </Text>
-
-                  <IconButton
-                    onClick={disclosure.close}
-                    color={color}
-                    variant="subtle"
-                    {...closeButtonProps}
-                  >
-                    <IconX {...defaultIconProps.get()} />
-                  </IconButton>
-                </header>
+                {header({ title })}
 
                 {children}
               </Flex>
             </motion.div>
           </FloatingFocusManager>
-        </ModalOverlay>
+        </ModalBackground>
       }
     </AnimatePresence>
+  )
+});
+
+
+export type DefaultModalHeaderProps =
+  GenericOverlayHeaderProps
+  & {
+    /** A disclosure to handle state information about this modal */
+    disclosure: Disclosure;
+  }
+
+export const DefaultModalHeader = forwardRef(function DefaultModalHeader(
+  props: DefaultModalHeaderProps,
+  ref: any,
+) {
+  const { title, disclosure } = props;
+
+
+  const defaultIconProps = useDefaultIconProps();
+
+
+  const HeaderStyle = css({
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
+  });
+
+
+  return (
+    <header
+      css={HeaderStyle}
+      ref={ref}
+    >
+      <Title
+        order={2}
+      >
+        {title}
+      </Title>
+
+      <IconButton
+        onClick={disclosure.close}
+        color="black"
+        variant="subtle"
+      >
+        <IconX {...defaultIconProps.get()} />
+      </IconButton>
+    </header>
   )
 });

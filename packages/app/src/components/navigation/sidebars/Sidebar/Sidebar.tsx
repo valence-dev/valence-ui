@@ -1,8 +1,8 @@
 import { Flex, ValenceContext, useBreakpoint, useDefaultIconProps, useDisclosure } from "@valence-ui/core";
 import { GenericReactiveLayoutProps, ReactiveProp, getReactiveProp } from "@valence-ui/utils";
-import { CSSProperties, ReactNode, forwardRef, useContext, useState } from "react";
+import { CSSProperties, ReactNode, forwardRef, useContext } from "react";
 import { FAB, FABProps } from "../../../buttons";
-import { SlideUp } from "../../../overlays";
+import { BottomSheet } from "../../../overlays";
 import { IconMenu } from "@tabler/icons-react";
 
 export type SidebarProps = GenericReactiveLayoutProps & {
@@ -74,9 +74,13 @@ export const Sidebar = forwardRef(function Sidebar(
           {mobileFabIcon}
         </FAB>
 
-        <SlideUp disclosure={slideUp}>
+        <BottomSheet
+          disclosure={slideUp}
+          title=""
+          header={() => null}
+        >
           {children}
-        </SlideUp>
+        </BottomSheet>
       </>
       :
       <Flex

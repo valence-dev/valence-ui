@@ -30,6 +30,7 @@ export const ValenceContextDefaults = {
         6: { fontSize: 12, bold: true },
     },
     breakpoints: {
+        desktopThinWidth: 1200,
         mobileWidth: 800,
         mobileTallHeight: 750,
     }

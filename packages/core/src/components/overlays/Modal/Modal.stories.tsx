@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { Button, ValenceProvider, useDisclosure } from "../../..";
+import { Button, Flex, ValenceProvider, useDisclosure } from "../../..";
 import { Modal as M } from "../../..";
 
 const meta: Meta<typeof M> = {
@@ -8,7 +8,7 @@ const meta: Meta<typeof M> = {
   title: "Valence/Core/Overlays",
   argTypes: {
     title: { control: { type: "text" } },
-    closeOnClickOutside: { control: { type: "boolean" } },
+    closeOnOverlayClick: { control: { type: "boolean" } },
     closeOnEscape: { control: { type: "boolean" } },
     lockScroll: { control: { type: "boolean" } },
     withShadow: { control: { type: "boolean" } },
@@ -25,7 +25,13 @@ export const Modal: Story = (args: any) => {
 
   return (
     <ValenceProvider>
+      <Flex
+      backgroundColor="white"
+      width="100%"
+      height="100vh"
+      >
       <Button onClick={disclosure.open}>Open Modal</Button>
+      </Flex>
 
       <M
         disclosure={disclosure}

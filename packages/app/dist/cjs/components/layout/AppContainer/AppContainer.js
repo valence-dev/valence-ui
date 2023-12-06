@@ -59,6 +59,7 @@ exports.AppContainer = (0, react_1.forwardRef)(function AppContainer(props, ref)
             paddingLeft: props.sidebar ? sidebarWidth + navWidth : navWidth,
             paddingRight: 30,
             width: "100vw",
+            transition: "padding-right 0.3s ease-in-out",
         }, mobile: {
             backgroundColor: (_d = theme.getColor("white")) === null || _d === void 0 ? void 0 : _d.base,
             padding: 20,
@@ -70,5 +71,5 @@ exports.AppContainer = (0, react_1.forwardRef)(function AppContainer(props, ref)
         paddingBottom: 200,
     };
     return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsxs)(core_1.Flex, Object.assign({ direction: { default: "row", mobile: "column-reverse" }, backgroundColor: "primary", style: pageContainerStyle, gap: 0, ref: ref }, rest, { children: [(0, jsx_runtime_1.jsx)(core_1.Flex, Object.assign({ direction: "column", align: "center", margin: 10 }, navContainerProps, { children: nav })), (0, jsx_runtime_1.jsx)(core_1.Flex, { direction: "column", style: sidebarContainerStyle, children: sidebar &&
-                            (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [!breakpoint.isMobile && header, sidebar] }) })] })), (0, jsx_runtime_1.jsx)(core_1.Flex, { align: "center", justify: "center", grow: true, style: contentContainerStyle, children: (0, jsx_runtime_1.jsxs)(core_1.Flex, Object.assign({ direction: "column", style: contentStyle }, pageProps, { children: [!props.sidebar || breakpoint.isMobile ? header : (0, jsx_runtime_1.jsx)(core_1.Header, {}), breakpoint.isMobile && (0, jsx_runtime_1.jsx)(core_1.Space, { height: 120 }), children] })) })] }));
+                            (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [!breakpoint.isMobile && header, sidebar] }) })] })), (0, jsx_runtime_1.jsx)(core_1.Flex, { id: "root-content", align: "center", justify: "center", grow: true, style: contentContainerStyle, children: (0, jsx_runtime_1.jsxs)(core_1.Flex, Object.assign({ direction: "column", style: contentStyle }, pageProps, { children: [!props.sidebar || breakpoint.isMobile ? header : (0, jsx_runtime_1.jsx)(core_1.Header, {}), breakpoint.isMobile && (0, jsx_runtime_1.jsx)(core_1.Space, { height: 120 }), children] })) })] }));
 });

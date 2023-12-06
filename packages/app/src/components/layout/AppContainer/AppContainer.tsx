@@ -100,6 +100,8 @@ export const AppContainer = forwardRef(function AppContainer(
       paddingLeft: props.sidebar ? sidebarWidth + navWidth : navWidth,
       paddingRight: 30,
       width: "100vw",
+
+      transition: "padding-right 0.3s ease-in-out",
     }, mobile: {
       backgroundColor: theme.getColor("white")?.base,
       padding: 20,
@@ -151,6 +153,7 @@ export const AppContainer = forwardRef(function AppContainer(
 
       {/* Page content */}
       <Flex
+        id="root-content"
         align="center"
         justify="center"
         grow={true}
@@ -164,7 +167,7 @@ export const AppContainer = forwardRef(function AppContainer(
           {!props.sidebar || breakpoint.isMobile ? header : <Header />}
 
           {breakpoint.isMobile && <Space height={120} />}
-          
+
           {children}
         </Flex>
       </Flex>
