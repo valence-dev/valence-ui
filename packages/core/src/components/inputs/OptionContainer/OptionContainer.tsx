@@ -37,7 +37,7 @@ export type OptionContainerProps =
     options: Option[];
 
     /** A message to display when no options are found */
-    nothingFound?: string;
+    nothingFound?: string | ReactNode;
 
     /** An icon to display to the right of the input */
     rightIcon?: ReactNode;
@@ -272,12 +272,16 @@ export const OptionContainer = forwardRef(function OptionContainer(
                 align="center"
                 justify="center"
               >
-                <Text
-                  align="center"
-                  color={theme.getColorHex("black", "strong")}
-                >
-                  {nothingFound}
-                </Text>
+                {typeof nothingFound === "string" ?
+                  <Text
+                    align="center"
+                    color={theme.getColorHex("black", "strong")}
+                  >
+                    {nothingFound}
+                  </Text>
+                  : 
+                  nothingFound
+                }
               </Flex>
               : options.map((option, i) => (
                 <ButtonWithIcon

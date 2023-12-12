@@ -13,7 +13,7 @@ export type OptionContainerProps = InputContainerProps & OptionContainerEventPro
     /** A list of options to supply for the content of this input */
     options: Option[];
     /** A message to display when no options are found */
-    nothingFound?: string;
+    nothingFound?: string | ReactNode;
     /** An icon to display to the right of the input */
     rightIcon?: ReactNode;
     /** Optional props to pass to the dropdown container */
@@ -61,7 +61,7 @@ export declare const OptionContainer: import("react").ForwardRefExoticComponent<
     /** A list of options to supply for the content of this input */
     options: Option[];
     /** A message to display when no options are found */
-    nothingFound?: string | undefined;
+    nothingFound?: string | ReactNode;
     /** An icon to display to the right of the input */
     rightIcon?: ReactNode;
     /** Optional props to pass to the dropdown container */

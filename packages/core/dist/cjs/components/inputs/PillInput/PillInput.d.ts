@@ -25,7 +25,7 @@ export type PillInputProps = GenericInputProps<string[]> & PillInputEventProps &
     /** A filter to apply to the options as the user types. `DefaultOptionsFilter` by default */
     filter?: OptionsFilter;
     /** A message to display when no options are found */
-    nothingFound?: string;
+    nothingFound?: string | ReactNode;
     /** Whether to allow duplicate pills. `false` by default. */
     allowDuplicates?: boolean;
     /** Whether to allow pills to be cleared. `true` by default. */
@@ -76,14 +76,15 @@ export declare const PillInput: import("react").ForwardRefExoticComponent<import
     disabled?: boolean | undefined;
     readOnly?: boolean | undefined;
     required?: boolean | undefined;
+    /** The placeholder text to display when this input is empty */
     autoFocus?: boolean | undefined;
     loading?: boolean | undefined;
     form?: string | undefined;
     name?: string | undefined;
 } & import("@valence-ui/utils/src/generics/Events").MouseClickEvents & import("@valence-ui/utils/src/generics/Events").MouseEvents & import("@valence-ui/utils/src/generics/Events").PointerEvents & import("@valence-ui/utils/src/generics/Events").FocusEvents & import("@valence-ui/utils/src/generics/Events").KeyboardEvents & {
-    onInput?: ((event: import("react").FormEvent<Element>) => void) | undefined; /** The maximum length of this input. `Infinity` by default. */
+    onInput?: ((event: import("react").FormEvent<Element>) => void) | undefined;
     onChange?: ((event: import("react").FormEvent<Element>) => void) | undefined;
-    onInvalid?: ((event: import("react").FormEvent<Element>) => void) | undefined;
+    onInvalid?: ((event: import("react").FormEvent<Element>) => void) | undefined; /** Optional props to pass to all pills */
     onEnterPress?: ((e: import("react").KeyboardEvent<Element>) => void) | undefined;
 } & {
     /** Callback to be called when a pill is added. */
@@ -104,7 +105,7 @@ export declare const PillInput: import("react").ForwardRefExoticComponent<import
     /** A filter to apply to the options as the user types. `DefaultOptionsFilter` by default */
     filter?: OptionsFilter | undefined;
     /** A message to display when no options are found */
-    nothingFound?: string | undefined;
+    nothingFound?: string | ReactNode;
     /** Whether to allow duplicate pills. `false` by default. */
     allowDuplicates?: boolean | undefined;
     /** Whether to allow pills to be cleared. `true` by default. */
@@ -134,11 +135,11 @@ export declare const PillInput: import("react").ForwardRefExoticComponent<import
     } & {
         variant?: import("@valence-ui/utils/src/generics/Global").FillVariant | undefined;
         size?: import("@valence-ui/utils/src/generics/Global").ComponentSize | undefined;
-        radius?: import("@valence-ui/utils/src/generics/Global").ComponentSize | undefined; /** Callback to be called when a pill is added. */
+        radius?: import("@valence-ui/utils/src/generics/Global").ComponentSize | undefined;
         square?: boolean | undefined;
         shadow?: boolean | undefined;
         grow?: boolean | undefined;
-        disabled?: boolean | undefined;
+        disabled?: boolean | undefined; /** An icon to display at the left side of this input */
         loading?: boolean | undefined;
     } & {
         motion?: import("../../buttons").MotionBehaviourProps | undefined;
@@ -173,11 +174,11 @@ export declare const PillInput: import("react").ForwardRefExoticComponent<import
         } & {
             variant?: import("@valence-ui/utils/src/generics/Global").FillVariant | undefined;
             size?: import("@valence-ui/utils/src/generics/Global").ComponentSize | undefined;
-            radius?: import("@valence-ui/utils/src/generics/Global").ComponentSize | undefined; /** Callback to be called when a pill is added. */
+            radius?: import("@valence-ui/utils/src/generics/Global").ComponentSize | undefined;
             square?: boolean | undefined;
             shadow?: boolean | undefined;
             grow?: boolean | undefined;
-            disabled?: boolean | undefined;
+            disabled?: boolean | undefined; /** An icon to display at the left side of this input */
             loading?: boolean | undefined;
         } & {
             motion?: import("../../buttons").MotionBehaviourProps | undefined;
@@ -188,7 +189,7 @@ export declare const PillInput: import("react").ForwardRefExoticComponent<import
         textProps?: (import("@valence-ui/utils").GenericProps & import("@valence-ui/utils").GenericClickableProps & import("@valence-ui/utils").PolymorphicElementProps & {
             css?: any;
         } & {
-            family?: import("csstype").Property.FontFamily | undefined; /** Callback to be called when a pill is added. */
+            family?: import("csstype").Property.FontFamily | undefined;
             weight?: import("csstype").Property.FontWeight | undefined;
             fontSize?: import("csstype").Property.FontSize<string | number> | undefined;
             align?: import("csstype").Property.TextAlign | undefined;
@@ -196,7 +197,6 @@ export declare const PillInput: import("react").ForwardRefExoticComponent<import
             size?: import("@valence-ui/utils").ComponentSize | undefined;
             color?: import("csstype").Property.Color | undefined;
             italic?: boolean | undefined;
-            /** Keys used to select an option. Defaults to `Enter` and `Space` */
             bold?: boolean | undefined;
             monospace?: boolean | undefined;
         } & {
@@ -211,7 +211,7 @@ export declare const PillInput: import("react").ForwardRefExoticComponent<import
         style?: import("@valence-ui/utils").ReactiveProp<CSSProperties> | undefined;
         tabIndex?: import("@valence-ui/utils").ReactiveProp<number> | undefined;
     } & {
-        backgroundColor?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.BackgroundColor | undefined>;
+        backgroundColor?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.BackgroundColor | undefined>; /** An icon to display at the left side of this input */
         color?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Color | undefined>;
         padding?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Padding<string | number> | undefined>;
         margin?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Margin<string | number> | undefined>;

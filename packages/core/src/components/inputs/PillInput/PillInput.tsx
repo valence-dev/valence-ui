@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { CSSProperties, ReactNode, createRef, forwardRef, useContext, useState } from "react";
 import { GenericInputProps, GenericTextInputEventProps } from "../../../generics";
-import { IconButton, IconButtonProps, getTextColor } from "../../buttons";
+import { Button, IconButton, IconButtonProps, getTextColor } from "../../buttons";
 import { ValenceContext } from "../../../ValenceProvider";
 import { Pill, PillProps } from "../../display";
 import { css } from "@emotion/react";
@@ -38,7 +38,7 @@ export type PillInputProps =
     /** A filter to apply to the options as the user types. `DefaultOptionsFilter` by default */
     filter?: OptionsFilter;
     /** A message to display when no options are found */
-    nothingFound?: string;
+    nothingFound?: string | ReactNode;
 
     /** Whether to allow duplicate pills. `false` by default. */
     allowDuplicates?: boolean;
@@ -93,7 +93,7 @@ export const PillInput = forwardRef(function PillInput(
 
     options = [],
     filter = DefaultOptionsFilter,
-    nothingFound = "Nothing found... Add a tag instead!",
+    nothingFound,
 
     allowDuplicates = false,
     allowClear = true,
@@ -259,7 +259,16 @@ export const PillInput = forwardRef(function PillInput(
         options={visibleOptions ?? []}
         onSelect={(option) => handlePillAdd(option.label)}
         selectKeys={autofillKeys}
-        nothingFound={nothingFound}
+        nothingFound={
+          <Button
+            width="100%"
+            variant="subtle"
+            color={color}
+            onClick={() => handlePillAdd(searchValue)}
+          >
+            {`Add "${searchValue}"`}
+          </Button>
+        }
 
         icon={icon}
 

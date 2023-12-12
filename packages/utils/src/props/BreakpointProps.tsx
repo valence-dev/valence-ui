@@ -23,13 +23,15 @@ export type ReactiveProp<T> = T | {
 export function getReactiveProp<T>(prop: ReactiveProp<T> | undefined, breakpoint: Breakpoint):
   T {
   if (prop && prop.hasOwnProperty("default")) {
-    //@ts-ignore
-    if (breakpoint.isDesktopThin) return prop.desktopThin ?? prop.default;
 
     //@ts-ignore
     if (breakpoint.isMobileTall) return prop.mobileTall ?? prop.mobile ?? prop.default;
     //@ts-ignore
     if (breakpoint.isMobile) return prop.mobile ?? prop.default;
+
+    //@ts-ignore
+    if (breakpoint.isDesktopThin) return prop.desktopThin ?? prop.default;
+
     //@ts-ignore
     return prop.default;
   }

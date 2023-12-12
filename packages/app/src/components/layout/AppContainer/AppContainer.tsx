@@ -61,6 +61,8 @@ export const AppContainer = forwardRef(function AppContainer(
 
   const borderRadius = theme.sizeClasses.radius[radius] as number + 5;
 
+  console.log(breakpoint)
+
 
   // Styles
   const pageContainerStyle: ReactiveProp<CSSProperties> = {
