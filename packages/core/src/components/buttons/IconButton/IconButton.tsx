@@ -18,6 +18,7 @@ export const IconButton = forwardRef(
   return (
     <PrimitiveButton
       square={square}
+      ref={ref}
       {...rest}
     >
       {children}

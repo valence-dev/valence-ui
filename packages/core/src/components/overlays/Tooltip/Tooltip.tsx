@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, { ReactElement, ReactNode, createContext, forwardRef, useContext } from "react";
+import React, { CSSProperties, ReactElement, ReactNode, createContext, forwardRef, useContext } from "react";
 import { TooltipOptions, useBreakpoint, useTooltip } from "../../../hooks";
 import { FloatingPortal, useMergeRefs } from "@floating-ui/react";
 import { StyledFlex, StyledFlexProps } from "../../layout";
@@ -72,6 +72,8 @@ const Trigger = forwardRef(function Trigger(
 export type TooltipContentProps = StyledFlexProps & {
   /** Whether to display a shadow underneath the tooltip */
   withShadow?: boolean;
+  /** The z-index of the tooltip */
+  zIndex?: CSSProperties["zIndex"];
 }
 
 const Content = forwardRef(function Content(
@@ -86,6 +88,7 @@ const Content = forwardRef(function Content(
     padding = "5px 10px",
 
     withShadow = true,
+    zIndex = 2,
 
     children,
     ...rest
@@ -101,6 +104,7 @@ const Content = forwardRef(function Content(
   const FloatingStyle = css({
     borderRadius: theme.sizeClasses.radius[getReactiveProp(radius, breakpoint)],
     boxShadow: !withShadow ? undefined : theme.defaultShadow,
+    zIndex: zIndex,
 
     animationName: "in",
     animationDuration: "0.1s",
