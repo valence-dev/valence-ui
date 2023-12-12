@@ -20,7 +20,7 @@ export const SideSheet = forwardRef(function SideSheet(props, ref) {
     const theme = useContext(ValenceContext);
     const breakpoint = useBreakpoint();
     // Defaults
-    const { disclosure, title, header = (props) => _jsx(DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), type = { default: "standard", desktopThin: "overlay" }, closeOnOverlayClick = true, closeOnEscape = true, lockScroll = false, radius = "lg", withShadow = true, backgroundColor = theme.getColorHex("white"), color = theme.getColorHex("black"), padding = theme.sizeClasses.padding[theme.defaultSize], margin = 0, width = 350, height = "100vh", flexProps, overlayBackgroundProps = {
+    const { disclosure, title, header = (props) => _jsx(DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), type = { default: "standard", desktopThin: "overlay", mobile: "overlay" }, closeOnOverlayClick = true, closeOnEscape = true, lockScroll = false, radius = "lg", withShadow = true, backgroundColor = theme.getColorHex("white"), color = theme.getColorHex("black"), padding = theme.sizeClasses.padding[theme.defaultSize], margin = 0, width = 350, height = "100vh", flexProps, overlayBackgroundProps = {
         padding: 0,
         style: {
             alignItems: "flex-end",
@@ -28,7 +28,7 @@ export const SideSheet = forwardRef(function SideSheet(props, ref) {
     }, style, children } = props, rest = __rest(props, ["disclosure", "title", "header", "type", "closeOnOverlayClick", "closeOnEscape", "lockScroll", "radius", "withShadow", "backgroundColor", "color", "padding", "margin", "width", "height", "flexProps", "overlayBackgroundProps", "style", "children"]);
     // Styles
     const borderRadius = theme.sizeClasses.radius[radius];
-    const SheetStyle = Object.assign({ position: "fixed", top: 0, right: 0, bottom: 0, zIndex: 999, width: width, height: height, backgroundColor: backgroundColor, color: color, padding: padding, margin: margin, boxSizing: "border-box", borderRadius: getReactiveProp(type, breakpoint) !== "overlay" ? undefined :
+    const SheetStyle = Object.assign({ position: "fixed", top: 0, right: 0, bottom: 0, zIndex: 999, width: width, maxWidth: "100%", height: height, backgroundColor: backgroundColor, color: color, padding: padding, margin: margin, boxSizing: "border-box", borderRadius: getReactiveProp(type, breakpoint) !== "overlay" ? undefined :
             `${borderRadius}px 0 0 ${borderRadius}px`, boxShadow: withShadow && getReactiveProp(type, breakpoint) === "overlay" ?
             theme.defaultShadow : undefined, borderLeft: getReactiveProp(type, breakpoint) === "overlay" ? undefined :
             `1px solid ${theme.getColorHex("black", "weak")}`, overflowX: "hidden", overflowY: "auto" }, style);

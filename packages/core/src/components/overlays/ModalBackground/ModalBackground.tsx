@@ -29,7 +29,7 @@ export const ModalBackground = forwardRef(function ModalBackground(
 
     backgroundColor = "permaBlack",
     padding = theme.sizeClasses.padding[theme.defaultSize],
-    zIndex = 500,
+    zIndex = 1002,
     children,
     style,
 

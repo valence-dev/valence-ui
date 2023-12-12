@@ -18,7 +18,7 @@ export const Tooltip: Story = (args: any) => {
       
       {/* Controlled */}
       <T
-        // disclosure={tooltipDisclosure}
+        disclosure={tooltipDisclosure}
         {...args}
       >
         <T.Trigger>

@@ -28,7 +28,7 @@ export const SideSheet = forwardRef(function SideSheet(
       disclosure={disclosure}
       {...props}
     />,
-    type = { default: "standard", desktopThin: "overlay" },
+    type = { default: "standard", desktopThin: "overlay", mobile: "overlay" },
 
     closeOnOverlayClick = true,
     closeOnEscape = true,
@@ -70,6 +70,7 @@ export const SideSheet = forwardRef(function SideSheet(
     zIndex: 999,
 
     width: width,
+    maxWidth: "100%",
     height: height,
 
     backgroundColor: backgroundColor,
