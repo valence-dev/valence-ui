@@ -14,5 +14,5 @@ import { PrimitiveButton } from "../PrimitiveButton";
 import { forwardRef } from "react";
 export const IconButton = forwardRef(function IconButton(props, ref) {
     const { square = true, children } = props, rest = __rest(props, ["square", "children"]);
-    return (_jsx(PrimitiveButton, Object.assign({ square: square }, rest, { children: children })));
+    return (_jsx(PrimitiveButton, Object.assign({ square: square, ref: ref }, rest, { children: children })));
 });

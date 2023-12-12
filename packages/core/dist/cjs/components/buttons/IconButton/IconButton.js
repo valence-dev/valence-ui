@@ -17,5 +17,5 @@ const PrimitiveButton_1 = require("../PrimitiveButton");
 const react_1 = require("react");
 exports.IconButton = (0, react_1.forwardRef)(function IconButton(props, ref) {
     const { square = true, children } = props, rest = __rest(props, ["square", "children"]);
-    return ((0, jsx_runtime_1.jsx)(PrimitiveButton_1.PrimitiveButton, Object.assign({ square: square }, rest, { children: children })));
+    return ((0, jsx_runtime_1.jsx)(PrimitiveButton_1.PrimitiveButton, Object.assign({ square: square, ref: ref }, rest, { children: children })));
 });

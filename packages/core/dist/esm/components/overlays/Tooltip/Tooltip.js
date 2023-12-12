@@ -38,13 +38,13 @@ const Trigger = forwardRef(function Trigger(props, propRef) {
     return React.cloneElement(children, context.getReferenceProps(Object.assign(Object.assign({ ref }, children.props), { "data-state": context.opened ? "open" : "closed" })));
 });
 const Content = forwardRef(function Content(props, propRef) {
-    const { color = "white", backgroundColor = "black", radius = "xl", variant = "filled", padding = "5px 10px", withShadow = true, children } = props, rest = __rest(props, ["color", "backgroundColor", "radius", "variant", "padding", "withShadow", "children"]);
+    const { color = "white", backgroundColor = "black", radius = "xl", variant = "filled", padding = "5px 10px", withShadow = true, zIndex = 2, children } = props, rest = __rest(props, ["color", "backgroundColor", "radius", "variant", "padding", "withShadow", "zIndex", "children"]);
     const context = useTooltipContext();
     const ref = useMergeRefs([context.refs.setFloating, propRef]);
     const theme = useContext(ValenceContext);
     const breakpoint = useBreakpoint();
     // Styles
-    const FloatingStyle = css(Object.assign({ borderRadius: theme.sizeClasses.radius[getReactiveProp(radius, breakpoint)], boxShadow: !withShadow ? undefined : theme.defaultShadow, animationName: "in", animationDuration: "0.1s", overflowY: "auto", "@keyframes in": {
+    const FloatingStyle = css(Object.assign({ borderRadius: theme.sizeClasses.radius[getReactiveProp(radius, breakpoint)], boxShadow: !withShadow ? undefined : theme.defaultShadow, zIndex: zIndex, animationName: "in", animationDuration: "0.1s", overflowY: "auto", "@keyframes in": {
             from: {
                 opacity: 0,
             },

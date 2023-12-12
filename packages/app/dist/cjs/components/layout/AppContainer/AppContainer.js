@@ -25,7 +25,6 @@ exports.AppContainer = (0, react_1.forwardRef)(function AppContainer(props, ref)
     // Defaults
     const { nav, header, sidebar, radius = theme.defaultRadius, navContainerProps, pageProps, contentWidth = 700, sidebarWidth = 270, navWidth = 65, children, style } = props, rest = __rest(props, ["nav", "header", "sidebar", "radius", "navContainerProps", "pageProps", "contentWidth", "sidebarWidth", "navWidth", "children", "style"]);
     const borderRadius = theme.sizeClasses.radius[radius] + 5;
-    console.log(breakpoint);
     // Styles
     const pageContainerStyle = Object.assign({ default: {
             position: "fixed",

@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, { ReactElement, ReactNode } from "react";
+import React, { CSSProperties, ReactElement, ReactNode } from "react";
 import { TooltipOptions } from "../../../hooks";
 import { StyledFlexProps } from "../../layout";
 export type TooltipProps = TooltipOptions & {
@@ -12,6 +12,8 @@ export type TooltipTriggerProps = {
 export type TooltipContentProps = StyledFlexProps & {
     /** Whether to display a shadow underneath the tooltip */
     withShadow?: boolean;
+    /** The z-index of the tooltip */
+    zIndex?: CSSProperties["zIndex"];
 };
 declare const TooltipNamespace: typeof Tooltip & {
     Trigger: React.ForwardRefExoticComponent<TooltipTriggerProps & React.RefAttributes<unknown>>;
@@ -43,6 +45,8 @@ declare const TooltipNamespace: typeof Tooltip & {
     } & {
         /** Whether to display a shadow underneath the tooltip */
         withShadow?: boolean | undefined;
+        /** The z-index of the tooltip */
+        zIndex?: CSSProperties["zIndex"];
     } & React.RefAttributes<unknown>>;
 };
 export { TooltipNamespace as Tooltip };
