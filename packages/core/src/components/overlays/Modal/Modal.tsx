@@ -92,6 +92,9 @@ export const Modal = forwardRef(function Modal(
     height: height,
     borderRadius: theme.sizeClasses.radius[radius],
     boxShadow: withShadow ? theme.defaultShadow : undefined,
+    
+    boxSizing: "border-box",
+    maxWidth: "100%",
 
     ...style
   });
