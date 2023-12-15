@@ -10,6 +10,7 @@ export type TooltipTriggerProps = {
     children: ReactElement<any>;
 };
 export type TooltipContentProps = StyledFlexProps & {
+    children: string | ReactNode;
     /** Whether to display a shadow underneath the tooltip */
     withShadow?: boolean;
     /** The z-index of the tooltip */
@@ -43,6 +44,7 @@ declare const TooltipNamespace: typeof Tooltip & {
         radius?: import("@valence-ui/utils").ReactiveProp<import("@valence-ui/utils").ComponentSize> | undefined;
         shadow?: import("@valence-ui/utils").ReactiveProp<boolean> | undefined;
     } & {
+        children: string | ReactNode;
         /** Whether to display a shadow underneath the tooltip */
         withShadow?: boolean | undefined;
         /** The z-index of the tooltip */

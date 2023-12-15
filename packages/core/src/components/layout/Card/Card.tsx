@@ -70,6 +70,7 @@ const Card = forwardRef(function Card(
     overflow: "hidden",
     padding: getReactiveProp(padding, breakpoint),
     margin: getReactiveProp(margin, breakpoint),
+    userSelect: "none",
 
     ...getReactiveProp(style, breakpoint)
   }

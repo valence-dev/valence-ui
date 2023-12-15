@@ -36,7 +36,7 @@ const Card = (0, react_1.forwardRef)(function Card(props, ref) {
     // Defaults
     const { size = theme.defaultSize, radius = theme.defaultRadius, gap = 0, buttonProps, flexProps, height = "fit-content", width = exports.CARD_DEFAULTS.width[(0, utils_1.getReactiveProp)(size, breakpoint)], padding = 0, margin, color = "black", backgroundColor = color, children, style } = props, rest = __rest(props, ["size", "radius", "gap", "buttonProps", "flexProps", "height", "width", "padding", "margin", "color", "backgroundColor", "children", "style"]);
     // Styles
-    const cardStyle = Object.assign({ overflow: "hidden", padding: (0, utils_1.getReactiveProp)(padding, breakpoint), margin: (0, utils_1.getReactiveProp)(margin, breakpoint) }, (0, utils_1.getReactiveProp)(style, breakpoint));
+    const cardStyle = Object.assign({ overflow: "hidden", padding: (0, utils_1.getReactiveProp)(padding, breakpoint), margin: (0, utils_1.getReactiveProp)(margin, breakpoint), userSelect: "none" }, (0, utils_1.getReactiveProp)(style, breakpoint));
     return ((0, jsx_runtime_1.jsx)(PrimitiveButton_1.PrimitiveButton, Object.assign({ height: (0, utils_1.getReactiveProp)(height, breakpoint), width: (0, utils_1.getReactiveProp)(width, breakpoint), color: (0, utils_1.getReactiveProp)(color, breakpoint), backgroundColor: (0, utils_1.getReactiveProp)(backgroundColor, breakpoint), radius: (0, utils_1.getReactiveProp)(radius, breakpoint), style: cardStyle, motion: {
             onHover: "raise",
             onTap: "bounce",

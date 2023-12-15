@@ -76,7 +76,7 @@ export const Text = forwardRef(function Text(
 
     size = theme.defaultSize,
     fontSize = theme.sizeClasses.fontSize[size],
-    color = theme.getColor("black")?.base ?? "black",
+    color = "black",
 
     children,
     style,
@@ -140,7 +140,7 @@ export const Text = forwardRef(function Text(
     textTransform: transform,
     textAlign: align,
 
-    color: color,
+    color: theme.getColorHex(color),
     margin: 0,
 
     ...style,

@@ -33,7 +33,7 @@ const Card = forwardRef(function Card(props, ref) {
     // Defaults
     const { size = theme.defaultSize, radius = theme.defaultRadius, gap = 0, buttonProps, flexProps, height = "fit-content", width = CARD_DEFAULTS.width[getReactiveProp(size, breakpoint)], padding = 0, margin, color = "black", backgroundColor = color, children, style } = props, rest = __rest(props, ["size", "radius", "gap", "buttonProps", "flexProps", "height", "width", "padding", "margin", "color", "backgroundColor", "children", "style"]);
     // Styles
-    const cardStyle = Object.assign({ overflow: "hidden", padding: getReactiveProp(padding, breakpoint), margin: getReactiveProp(margin, breakpoint) }, getReactiveProp(style, breakpoint));
+    const cardStyle = Object.assign({ overflow: "hidden", padding: getReactiveProp(padding, breakpoint), margin: getReactiveProp(margin, breakpoint), userSelect: "none" }, getReactiveProp(style, breakpoint));
     return (_jsx(PrimitiveButton, Object.assign({ height: getReactiveProp(height, breakpoint), width: getReactiveProp(width, breakpoint), color: getReactiveProp(color, breakpoint), backgroundColor: getReactiveProp(backgroundColor, breakpoint), radius: getReactiveProp(radius, breakpoint), style: cardStyle, motion: {
             onHover: "raise",
             onTap: "bounce",

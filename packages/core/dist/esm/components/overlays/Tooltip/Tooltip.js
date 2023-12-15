@@ -18,6 +18,7 @@ import { StyledFlex } from "../../layout";
 import { css } from "@emotion/react";
 import { ValenceContext } from "../../../ValenceProvider";
 import { getReactiveProp } from "@valence-ui/utils";
+import { Text } from "../../display";
 const TooltipContext = createContext(null);
 const useTooltipContext = () => {
     const context = useContext(TooltipContext);
@@ -54,7 +55,7 @@ const Content = forwardRef(function Content(props, propRef) {
         } }, context.floatingStyles));
     if (!context.opened)
         return null;
-    return (_jsx(FloatingPortal, { children: _jsx("div", Object.assign({ ref: ref, css: FloatingStyle }, context.getFloatingProps(), { children: _jsx(StyledFlex, Object.assign({ color: color, backgroundColor: backgroundColor, radius: radius, variant: variant, padding: padding }, rest, { children: children })) })) }));
+    return (_jsx(FloatingPortal, { children: _jsx("div", Object.assign({ ref: ref, css: FloatingStyle }, context.getFloatingProps(), { children: _jsx(StyledFlex, Object.assign({ color: color, backgroundColor: backgroundColor, radius: radius, variant: variant, padding: padding }, rest, { children: typeof children !== "string" ? children : (_jsx(Text, { align: "center", color: "white", children: children })) })) })) }));
 });
 const TooltipNamespace = Object.assign(Tooltip, { Trigger, Content, });
 export { TooltipNamespace as Tooltip };

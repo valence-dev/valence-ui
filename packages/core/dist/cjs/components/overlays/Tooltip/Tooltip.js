@@ -44,6 +44,7 @@ const layout_1 = require("../../layout");
 const react_3 = require("@emotion/react");
 const ValenceProvider_1 = require("../../../ValenceProvider");
 const utils_1 = require("@valence-ui/utils");
+const display_1 = require("../../display");
 const TooltipContext = (0, react_1.createContext)(null);
 const useTooltipContext = () => {
     const context = (0, react_1.useContext)(TooltipContext);
@@ -80,7 +81,7 @@ const Content = (0, react_1.forwardRef)(function Content(props, propRef) {
         } }, context.floatingStyles));
     if (!context.opened)
         return null;
-    return ((0, jsx_runtime_1.jsx)(react_2.FloatingPortal, { children: (0, jsx_runtime_1.jsx)("div", Object.assign({ ref: ref, css: FloatingStyle }, context.getFloatingProps(), { children: (0, jsx_runtime_1.jsx)(layout_1.StyledFlex, Object.assign({ color: color, backgroundColor: backgroundColor, radius: radius, variant: variant, padding: padding }, rest, { children: children })) })) }));
+    return ((0, jsx_runtime_1.jsx)(react_2.FloatingPortal, { children: (0, jsx_runtime_1.jsx)("div", Object.assign({ ref: ref, css: FloatingStyle }, context.getFloatingProps(), { children: (0, jsx_runtime_1.jsx)(layout_1.StyledFlex, Object.assign({ color: color, backgroundColor: backgroundColor, radius: radius, variant: variant, padding: padding }, rest, { children: typeof children !== "string" ? children : ((0, jsx_runtime_1.jsx)(display_1.Text, { align: "center", color: "white", children: children })) })) })) }));
 });
 const TooltipNamespace = Object.assign(Tooltip, { Trigger, Content, });
 exports.Tooltip = TooltipNamespace;

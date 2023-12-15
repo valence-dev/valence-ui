@@ -42,7 +42,7 @@ export const Tooltip: Story = (args: any) => {
         </T.Trigger>
 
         <T.Content>
-          <Text align="center" color="white">Tooltip Content</Text>
+          Tooltip content
         </T.Content>
       </T>
     </ValenceProvider>

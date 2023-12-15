@@ -6,16 +6,17 @@ import { StyledFlex, StyledFlexProps } from "../../layout";
 import { css } from "@emotion/react";
 import { ValenceContext } from "../../../ValenceProvider";
 import { getReactiveProp } from "@valence-ui/utils";
+import { Text } from "../../display";
 
 
 // Tooltip context
 type ContextType = ReturnType<typeof useTooltip> | null;
 const TooltipContext = createContext<ContextType>(null);
 
-const useTooltipContext = () => { 
+const useTooltipContext = () => {
   const context = useContext(TooltipContext);
 
-  if (context === null) 
+  if (context === null)
     throw new Error("Tooltip compontents must be wrapped in <Tooltip />");
 
   return context;
@@ -70,6 +71,8 @@ const Trigger = forwardRef(function Trigger(
 
 
 export type TooltipContentProps = StyledFlexProps & {
+  children: string | ReactNode;
+
   /** Whether to display a shadow underneath the tooltip */
   withShadow?: boolean;
   /** The z-index of the tooltip */
@@ -141,7 +144,11 @@ const Content = forwardRef(function Content(
 
           {...rest}
         >
-          {children}
+          {typeof children !== "string" ? children : (
+            <Text align="center" color="white">
+              {children}
+            </Text>
+          )}
         </StyledFlex>
       </div>
     </FloatingPortal>

@@ -35,10 +35,9 @@ const REGEX_PATTERNS = {
  * - `{...}` for monospace text
  */
 export const Text = forwardRef(function Text(props, ref) {
-    var _a, _b;
     const theme = useContext(ValenceContext);
     // Defaults
-    const { bold = false, italic = false, monospace = false, family = monospace ? theme.getFont("monospace") : theme.getFont("default"), weight = bold ? "bold" : "normal", align = "left", transform = "none", size = theme.defaultSize, fontSize = theme.sizeClasses.fontSize[size], color = (_b = (_a = theme.getColor("black")) === null || _a === void 0 ? void 0 : _a.base) !== null && _b !== void 0 ? _b : "black", children, style } = props, rest = __rest(props, ["bold", "italic", "monospace", "family", "weight", "align", "transform", "size", "fontSize", "color", "children", "style"]);
+    const { bold = false, italic = false, monospace = false, family = monospace ? theme.getFont("monospace") : theme.getFont("default"), weight = bold ? "bold" : "normal", align = "left", transform = "none", size = theme.defaultSize, fontSize = theme.sizeClasses.fontSize[size], color = "black", children, style } = props, rest = __rest(props, ["bold", "italic", "monospace", "family", "weight", "align", "transform", "size", "fontSize", "color", "children", "style"]);
     // Run through formatters
     let replacements = children;
     replacements = reactStringReplace(replacements, REGEX_PATTERNS.newline, (match, i) => (_jsx("br", {}, match + i)));
@@ -56,6 +55,6 @@ export const Text = forwardRef(function Text(props, ref) {
             fontFamily: theme.getFont("monospace"),
         }, children: match }, match + i)));
     // Styles
-    const TextStyle = css(Object.assign({ fontFamily: family, fontWeight: weight, fontStyle: italic ? "italic" : "normal", fontSize: fontSize, textTransform: transform, textAlign: align, color: color, margin: 0 }, style));
+    const TextStyle = css(Object.assign({ fontFamily: family, fontWeight: weight, fontStyle: italic ? "italic" : "normal", fontSize: fontSize, textTransform: transform, textAlign: align, color: theme.getColorHex(color), margin: 0 }, style));
     return (_jsx(PolymorphicText, Object.assign({ css: TextStyle, ref: ref }, rest, { children: replacements })));
 });
