@@ -1,8 +1,8 @@
 import { CSSProperties } from "react";
-import { GenericReactiveProps } from "./Global";
 import { ReactiveProp } from "../props";
+import { GenericReactiveLayoutProps } from "./Layout";
 /** Reactive props to be consumed by every grid container component. */
-export type GenericGridProps = GenericReactiveProps & {
+export type GenericGridProps = GenericReactiveLayoutProps & {
     /** Sets `grid` css property */
     grid?: ReactiveProp<CSSProperties["grid"]>;
     /** Sets `gap` css property */
@@ -35,7 +35,7 @@ export type GenericGridProps = GenericReactiveProps & {
     alignContent?: ReactiveProp<CSSProperties["alignContent"]>;
 };
 /** Reactive props to be consumed by every grid item component. */
-export type GenericGridItemProps = GenericReactiveProps & {
+export type GenericGridItemProps = GenericReactiveLayoutProps & {
     /** Sets `grid-area` css property */
     area?: ReactiveProp<CSSProperties["gridArea"]>;
     /** Sets `grid-column` css property */

@@ -32,8 +32,15 @@ const Grid = forwardRef(function Grid(
     autoRows, autoColumns, autoFlow,
     justifyItems, justifyContent, alignItems, alignContent,
 
-    children,
+    backgroundColor,
+    color,
+    padding,
+    margin,
+    width,
+    height,
     style,
+
+    children,
     ...rest
   } = props;
 
@@ -61,6 +68,13 @@ const Grid = forwardRef(function Grid(
     justifyContent: getReactiveProp(justifyContent, breakpoint),
     alignItems: getReactiveProp(alignItems, breakpoint),
     alignContent: getReactiveProp(alignContent, breakpoint),
+
+    backgroundColor: theme.getColorHex(getReactiveProp(backgroundColor, breakpoint)),
+    color: theme.getColorHex(getReactiveProp(color, breakpoint)),
+    padding: getReactiveProp(padding, breakpoint),
+    margin: getReactiveProp(margin, breakpoint),
+    width: getReactiveProp(width, breakpoint),
+    height: getReactiveProp(height, breakpoint),
 
     ...getReactiveProp(style, breakpoint)
   });
@@ -96,8 +110,15 @@ const Item = forwardRef(function GridItem(
     align = "stretch",
     place, order,
 
-    children,
+    backgroundColor,
+    color,
+    padding,
+    margin,
+    width,
+    height,
     style,
+
+    children,
     ...rest
   } = props;
 
@@ -119,6 +140,13 @@ const Item = forwardRef(function GridItem(
     placeSelf: getReactiveProp(place, breakpoint),
 
     order: getReactiveProp(order, breakpoint),
+
+    backgroundColor: theme.getColorHex(getReactiveProp(backgroundColor, breakpoint)),
+    color: theme.getColorHex(getReactiveProp(color, breakpoint)),
+    padding: getReactiveProp(padding, breakpoint),
+    margin: getReactiveProp(margin, breakpoint),
+    width: getReactiveProp(width, breakpoint),
+    height: getReactiveProp(height, breakpoint),
 
     ...getReactiveProp(style, breakpoint)
   });

@@ -75,8 +75,8 @@ export const Flex = forwardRef(function Flex(
     flexGrow: getReactiveProp(grow, breakpoint) ? 1 : undefined,
     flexWrap: getReactiveProp(wrap, breakpoint),
 
-    backgroundColor: theme.getColor(getReactiveProp(backgroundColor, breakpoint))?.base,
-    color: theme.getColor(getReactiveProp(color, breakpoint))?.base,
+    backgroundColor: theme.getColorHex(getReactiveProp(backgroundColor, breakpoint)),
+    color: theme.getColorHex(getReactiveProp(color, breakpoint)),
     padding: getReactiveProp(padding, breakpoint),
     margin: getReactiveProp(margin, breakpoint),
     width: getReactiveProp(width, breakpoint),
