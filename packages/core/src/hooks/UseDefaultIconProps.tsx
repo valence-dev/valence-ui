@@ -6,6 +6,7 @@ interface IUseDefaultIconProps {
   get: (color?: string, size?: number) => TablerIconsProps;
 }
 
+/** @deprecated This hook is deprecated. Use the `Icon` component instead.*/
 export function useDefaultIconProps(): IUseDefaultIconProps {
   const theme = useContext(ValenceContext);
 
@@ -14,7 +15,7 @@ export function useDefaultIconProps(): IUseDefaultIconProps {
       return {
         size: size ?? 20,
         stroke: 1.5,
-        color: color ? getTextColor(color, undefined, theme) ?? color : undefined,
+        color: color ? getTextColor(color, undefined, theme) : undefined,
       }
     }
   }

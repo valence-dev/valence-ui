@@ -3,12 +3,15 @@ import { Text, TextProps } from "../../display";
 import { Flex, FlexProps } from "../Flex";
 import { ValenceContext } from "../../../ValenceProvider";
 import { useBreakpoint } from "../../../hooks";
-import { ComponentSize, GenericReactiveFloatingLayoutProps, getReactiveProp } from "@valence-ui/utils";
+import { ComponentSize, GenericReactiveFloatingLayoutProps, ReactiveProp, getReactiveProp } from "@valence-ui/utils";
 
 export type OutlineContainerProps =
   GenericReactiveFloatingLayoutProps
   & FlexProps
   & {
+    /** Determines if this container will stick to the window, or simply be a part of it. `true` by default. */
+    sticky?: ReactiveProp<boolean>;
+
     /** A label to display below the container */
     label?: string;
     /** Optional props to pass to the label component */
@@ -31,15 +34,17 @@ export const OutlineContainer = forwardRef(function OutlineContainer(
 
   // Defaults
   const {
+    sticky = true,
+
     label, labelProps,
     spacing = 5,
     radius = theme.defaultRadius,
 
-    position = "sticky",
-    zIndex = 151,
-    top = { default: spacing * 2, mobile: 75 },
-    left = spacing * 2,
-    right = spacing * 2,
+    position = sticky ? "sticky" : "relative",
+    zIndex = sticky ? 151 : undefined,
+    top = sticky ? { default: spacing * 2, mobile: 75 } : undefined,
+    left = sticky ? spacing * 2 : undefined,
+    right = sticky ? spacing * 2 : undefined,
     bottom,
 
     width = "100%",
