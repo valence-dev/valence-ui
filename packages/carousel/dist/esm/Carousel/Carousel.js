@@ -12,17 +12,16 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { Flex, IconButton, ValenceContext, useBreakpoint, useDefaultIconProps } from "@valence-ui/core";
+import { Flex, Icon, IconButton, ValenceContext, useBreakpoint } from "@valence-ui/core";
 import { getReactiveProp } from "@valence-ui/utils";
 import React, { forwardRef, useContext, useEffect, useRef, useState } from "react";
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 const Carousel = forwardRef(function Card(props, ref) {
     var _a, _b;
-    const defaultIconProps = useDefaultIconProps();
     const breakpoint = useBreakpoint();
     const { allowDrag = { default: true, mobile: false }, showScrollbar = false, snapToChildren = true, contentProps, activeChild: controlledActiveChild, setActiveChild: controlledSetActiveChild, showControls = { default: true, mobile: false }, controlIcons = {
-        prev: _jsx(IconArrowLeft, Object.assign({}, defaultIconProps.get())),
-        next: _jsx(IconArrowRight, Object.assign({}, defaultIconProps.get())),
+        prev: _jsx(Icon, { children: _jsx(IconArrowLeft, {}) }),
+        next: _jsx(Icon, { children: _jsx(IconArrowRight, {}) }),
     }, controlButtonProps, width = "100%", height = "fit-content", gap = 10, style, children } = props, rest = __rest(props, ["allowDrag", "showScrollbar", "snapToChildren", "contentProps", "activeChild", "setActiveChild", "showControls", "controlIcons", "controlButtonProps", "width", "height", "gap", "style", "children"]);
     const _c = controlButtonProps !== null && controlButtonProps !== void 0 ? controlButtonProps : {}, { color: buttonColor = "black", radius: buttonRadius = "xl" } = _c, buttonPropsRest = __rest(_c, ["color", "radius"]);
     const theme = useContext(ValenceContext);

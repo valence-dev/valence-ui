@@ -1,12 +1,13 @@
 import { CSSProperties, ReactNode, cloneElement, createContext, forwardRef, useContext } from "react";
 import { Flex, FlexProps } from "../../layout";
-import { useBreakpoint, useDefaultIconProps } from "../../../hooks";
+import { useBreakpoint } from "../../../hooks";
 import { IconChevronLeft } from "@tabler/icons-react";
 import { Title, TitleProps } from "../Text";
 import { ControlledList } from "../../../hooks/UseControlledList";
 import { UnstyledButton } from "../../buttons";
 import { Spoiler } from "../Spoiler";
 import { getReactiveProp } from "@valence-ui/utils";
+import { Icon } from "../Icon";
 
 export type AccordionProps = FlexProps & {
   /** The list of items associated with this accordion */
@@ -185,8 +186,6 @@ const Control = forwardRef(function AccordionControl(
   props: AccordionControlProps,
   ref: any
 ) {
-  const defaultIconProps = useDefaultIconProps();
-
   // Defaults
   const {
     direction = "row",
@@ -194,7 +193,7 @@ const Control = forwardRef(function AccordionControl(
     align = "center",
 
     opened = false,
-    chevronIcon = <IconChevronLeft {...defaultIconProps.get()} />,
+    chevronIcon = <IconChevronLeft />,
     title,
     titleProps = {
       order: 3,
@@ -228,7 +227,7 @@ const Control = forwardRef(function AccordionControl(
       {children}
 
       <span style={ChevronContainerStyle}>
-        {chevronIcon}
+        <Icon color="black">{chevronIcon}</Icon>
       </span>
     </Flex>
   )

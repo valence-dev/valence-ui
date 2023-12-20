@@ -5,6 +5,7 @@ import { IconUserCircle } from "@tabler/icons-react"
 
 import { IconButton as IB } from "./IconButton";
 import { ValenceProvider } from "../../../ValenceProvider";
+import { Flex } from "../../..";
 
 const meta: Meta<typeof IB> = {
   component: IB,
@@ -23,9 +24,6 @@ const meta: Meta<typeof IB> = {
       control: { type: "select" }
     },
 
-    aspectRatio: {
-      control: { type: "text" },
-    },
     square: {
       control: { type: "boolean" },
     },
@@ -56,7 +54,13 @@ type Story = StoryObj<typeof IB>;
 
 export const Icon: Story = (args: any) => (
   <ValenceProvider>
-    <IB data-testId="InputField-id" {...args} />
+    <Flex>
+      <IB {...args} size="xs" />
+      <IB {...args} size="sm" />
+      <IB {...args} size="md" />
+      <IB {...args} size="lg" />
+      <IB {...args} size="xl" />
+    </Flex>
   </ValenceProvider>
 );
 Icon.args = {

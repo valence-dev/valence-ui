@@ -4,7 +4,7 @@ exports.useBreakpoint = void 0;
 const usehooks_ts_1 = require("usehooks-ts");
 const __1 = require("..");
 function useBreakpoint() {
-    const theme = (0, __1.useValenceContext)();
+    const theme = (0, __1.useValence)();
     const { width, height } = (0, usehooks_ts_1.useWindowSize)();
     const isDesktopThin = width <= theme.breakpoints.desktopThinWidth
         && width > theme.breakpoints.mobileWidth;

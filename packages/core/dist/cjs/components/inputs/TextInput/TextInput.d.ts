@@ -35,8 +35,8 @@ export declare const TextInput: import("react").ForwardRefExoticComponent<import
     form?: string | undefined;
     name?: string | undefined;
 } & {
-    icon?: import("react").ReactNode; /** The autocomplete behaviour to use. Defaults to `off` */
-    placeholder?: string | undefined;
+    icon?: import("react").ReactNode;
+    placeholder?: string | undefined; /** For `type=email`, this specifies if this input accepts multiple values */
     minLength?: number | undefined;
     maxLength?: number | undefined;
     pattern?: string | undefined;

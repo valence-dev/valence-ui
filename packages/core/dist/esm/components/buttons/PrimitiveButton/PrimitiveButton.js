@@ -16,10 +16,10 @@ import { useReducedMotion } from "framer-motion";
 import { getBackgroundColor, getMotionBehaviour, getTextColor } from "../Helpers";
 import { Loader } from "../../display/Loader";
 import { PolymorphicButton } from "@valence-ui/utils";
-import { useValenceContext } from "../../../ValenceProvider";
+import { useValence } from "../../../ValenceProvider";
 import { css } from "@emotion/react";
 export const PrimitiveButton = forwardRef(function PrimitiveButton(props, ref) {
-    const theme = useValenceContext();
+    const theme = useValence();
     // Hooks & states
     const reducedMotion = useReducedMotion();
     // Defaults

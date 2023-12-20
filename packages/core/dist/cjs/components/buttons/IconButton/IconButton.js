@@ -13,9 +13,12 @@ var __rest = (this && this.__rest) || function (s, e) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.IconButton = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
+const ValenceProvider_1 = require("../../../ValenceProvider");
+const display_1 = require("../../display");
 const PrimitiveButton_1 = require("../PrimitiveButton");
 const react_1 = require("react");
 exports.IconButton = (0, react_1.forwardRef)(function IconButton(props, ref) {
-    const { square = true, children } = props, rest = __rest(props, ["square", "children"]);
-    return ((0, jsx_runtime_1.jsx)(PrimitiveButton_1.PrimitiveButton, Object.assign({ square: square, ref: ref }, rest, { children: children })));
+    const { size, square = true, children } = props, rest = __rest(props, ["size", "square", "children"]);
+    const theme = (0, ValenceProvider_1.useValence)();
+    return ((0, jsx_runtime_1.jsx)(PrimitiveButton_1.PrimitiveButton, Object.assign({ size: size, square: square, ref: ref }, rest, { children: (0, jsx_runtime_1.jsx)(display_1.Icon, { size: theme.getSize("iconSize", size), children: children }) })));
 });

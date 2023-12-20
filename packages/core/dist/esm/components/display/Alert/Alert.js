@@ -17,10 +17,11 @@ import { Flex } from "../../layout";
 import { Text } from "../Text";
 import { getBackgroundColor, getMotionBehaviour, getTextColor } from "../../buttons";
 import { CLICKABLE_ELEMENTS, PolymorphicButton } from "@valence-ui/utils";
-import { useValenceContext } from "../../../ValenceProvider";
+import { useValence } from "../../../ValenceProvider";
 import { css } from "@emotion/react";
+import { Icon } from "../Icon";
 export const Alert = forwardRef(function Alert(props, ref) {
-    const theme = useValenceContext();
+    const theme = useValence();
     // Hooks & states
     const reducedMotion = useReducedMotion();
     // Defaults
@@ -30,6 +31,6 @@ export const Alert = forwardRef(function Alert(props, ref) {
             ? `1px solid ${theme.getColorHex(backgroundColor, "medium")}`
             : "none", textDecoration: "none", backgroundColor: getBackgroundColor(backgroundColor, variant, false, theme), color: getTextColor(color, variant, theme), boxShadow: shadow ? theme.defaultShadow : "none", cursor: CLICKABLE_ELEMENTS.includes(component) ? "pointer" : "default" }, style));
     return (_jsx(AnimatePresence, { children: show &&
-            _jsxs(PolymorphicButton, Object.assign({ css: AlertStyle, onMouseDown: (e) => e.preventDefault(), component: component, initial: { opacity: 0, scale: 0.9 }, animate: { opacity: 1, scale: 1 }, exit: { opacity: 0, scale: 0.9 }, transition: { ease: "backOut" }, whileHover: motionBehaviour.whileHover, whileTap: motionBehaviour.whileTap, ref: ref }, rest, { children: [alert.icon, _jsxs(Flex, { direction: "column", align: "flex-start", gap: padding / 2, children: [_jsx(Text, { bold: true, style: { flexGrow: 1 }, color: getTextColor(color, variant, theme), size: size, children: alert.title }), alert.message &&
+            _jsxs(PolymorphicButton, Object.assign({ css: AlertStyle, onMouseDown: (e) => e.preventDefault(), component: component, initial: { opacity: 0, scale: 0.9 }, animate: { opacity: 1, scale: 1 }, exit: { opacity: 0, scale: 0.9 }, transition: { ease: "backOut" }, whileHover: motionBehaviour.whileHover, whileTap: motionBehaviour.whileTap, ref: ref }, rest, { children: [_jsx(Icon, { size: theme.getSize("iconSize", size), children: alert.icon }), _jsxs(Flex, { direction: "column", align: "flex-start", gap: padding / 2, children: [_jsx(Text, { bold: true, style: { flexGrow: 1 }, color: getTextColor(color, variant, theme), size: size, children: alert.title }), alert.message &&
                                 _jsx(Text, { fontSize: theme.sizeClasses.fontSize[size] - 2, color: getTextColor(color, variant, theme), children: alert.message })] })] })) }));
 });

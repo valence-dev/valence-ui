@@ -3,8 +3,8 @@ import { IconButton, IconButtonProps, UnstyledButtonProps, getBackgroundColor, g
 import { CSSProperties, ReactNode, forwardRef } from "react";
 import { useValence } from "../../../ValenceProvider";
 import { IconX } from "@tabler/icons-react";
-import { useDefaultIconProps } from "../../../hooks";
 import { Text, TextProps } from "../Text";
+import { Icon } from "../Icon";
 
 export type PillProps =
   GenericLayoutProps
@@ -50,7 +50,6 @@ export const Pill = forwardRef(function Pill(
   ref: any,
 ) {
   const theme = useValence();
-  const defaultIconProps = useDefaultIconProps();
 
 
   // Defaults
@@ -60,7 +59,7 @@ export const Pill = forwardRef(function Pill(
     radius = "xl",
 
     withRemoveButton = false,
-    removeButtonIcon = <IconX {...defaultIconProps.get()} />,
+    removeButtonIcon = <Icon><IconX /></Icon>,
     removeButtonProps,
     onRemove,
 

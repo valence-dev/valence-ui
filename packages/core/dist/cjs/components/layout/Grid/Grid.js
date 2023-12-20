@@ -20,7 +20,7 @@ const ValenceProvider_1 = require("../../../ValenceProvider");
 const hooks_1 = require("../../../hooks");
 const react_2 = require("@emotion/react");
 const Grid = (0, react_1.forwardRef)(function Grid(props, ref) {
-    const theme = (0, ValenceProvider_1.useValenceContext)();
+    const theme = (0, ValenceProvider_1.useValence)();
     const breakpoint = (0, hooks_1.useBreakpoint)();
     // Defaults
     const { grid = "auto", gap = theme.sizeClasses.padding[theme.defaultSize], rowGap, columnGap, template, templateRows, templateColumns, templateAreas, autoRows, autoColumns, autoFlow, justifyItems, justifyContent, alignItems, alignContent, backgroundColor, color, padding, margin, width, height, style, children } = props, rest = __rest(props, ["grid", "gap", "rowGap", "columnGap", "template", "templateRows", "templateColumns", "templateAreas", "autoRows", "autoColumns", "autoFlow", "justifyItems", "justifyContent", "alignItems", "alignContent", "backgroundColor", "color", "padding", "margin", "width", "height", "style", "children"]);
@@ -29,7 +29,7 @@ const Grid = (0, react_1.forwardRef)(function Grid(props, ref) {
     return ((0, jsx_runtime_1.jsx)(utils_1.PolymorphicLayout, Object.assign({ css: GridStyle, ref: ref }, rest, { children: children })));
 });
 const Item = (0, react_1.forwardRef)(function GridItem(props, ref) {
-    const theme = (0, ValenceProvider_1.useValenceContext)();
+    const theme = (0, ValenceProvider_1.useValence)();
     const breakpoint = (0, hooks_1.useBreakpoint)();
     // Defaults
     const { area, column = "auto", columnStart, columnEnd, row = "auto", rowStart, rowEnd, justify = "stretch", align = "stretch", place, order, backgroundColor, color, padding, margin, width, height, style, children } = props, rest = __rest(props, ["area", "column", "columnStart", "columnEnd", "row", "rowStart", "rowEnd", "justify", "align", "place", "order", "backgroundColor", "color", "padding", "margin", "width", "height", "style", "children"]);

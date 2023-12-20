@@ -4,7 +4,7 @@ exports.useDefaultIconProps = void 0;
 const __1 = require("..");
 /** @deprecated This hook is deprecated. Use the `Icon` component instead.*/
 function useDefaultIconProps() {
-    const theme = (0, __1.useValenceContext)();
+    const theme = (0, __1.useValence)();
     return {
         get: (color, size) => {
             return {

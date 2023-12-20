@@ -23,9 +23,8 @@ exports.Sidebar = (0, react_1.forwardRef)(function Sidebar(props, ref) {
     var _a, _b;
     const theme = (0, react_1.useContext)(core_1.ValenceContext);
     const breakpoint = (0, core_1.useBreakpoint)();
-    const defaultIconProps = (0, core_1.useDefaultIconProps)();
     // Defaults 
-    const { gap = theme.sizeClasses.padding[theme.defaultSize], mobileFabProps = {}, mobileFabIcon = (0, jsx_runtime_1.jsx)(icons_react_1.IconMenu, Object.assign({}, defaultIconProps.get("white"))), width = "100%", height = "100%", children, style } = props, rest = __rest(props, ["gap", "mobileFabProps", "mobileFabIcon", "width", "height", "children", "style"]);
+    const { gap = theme.sizeClasses.padding[theme.defaultSize], mobileFabProps = {}, mobileFabIcon = (0, jsx_runtime_1.jsx)(core_1.Icon, { color: "white", children: (0, jsx_runtime_1.jsx)(icons_react_1.IconMenu, {}) }), width = "100%", height = "100%", children, style } = props, rest = __rest(props, ["gap", "mobileFabProps", "mobileFabIcon", "width", "height", "children", "style"]);
     // Styles
     const DesktopStyle = Object.assign({ width: (0, utils_1.getReactiveProp)(width, breakpoint), height: (0, utils_1.getReactiveProp)(height, breakpoint), borderRight: `1px solid ${((_a = theme.getColor("black")) === null || _a === void 0 ? void 0 : _a.base)
             + ((_b = theme.getColor("black")) === null || _b === void 0 ? void 0 : _b.opacity.weak)}`, paddingRight: 10, position: "sticky", top: 0, overflowX: "hidden", overflowY: "auto" }, (0, utils_1.getReactiveProp)(style, breakpoint));

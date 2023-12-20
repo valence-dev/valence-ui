@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { CSSProperties, ReactNode, createRef, forwardRef } from "react";
 import { InputContainer } from "../InputContainer";
-import { GenericInputProps, GenericTextInputEventProps, useDefaultIconProps, useValence } from "../../..";
+import { GenericInputProps, GenericTextInputEventProps, useValence } from "../../..";
 import { IconButton, getTextColor } from "../../buttons";
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 import { css } from "@emotion/react";
@@ -44,7 +44,6 @@ export const NumberInput = forwardRef(function NumberInput(
   ref: any
 ) {
   const theme = useValence();
-  const defaultIconProps = useDefaultIconProps();
   const inputRef = ref ?? createRef<HTMLInputElement>();
 
 
@@ -59,8 +58,8 @@ export const NumberInput = forwardRef(function NumberInput(
     max,
     step = 1,
     controlIcons = {
-      up: <IconChevronUp {...defaultIconProps.get()} opacity={0.5} />,
-      down: <IconChevronDown {...defaultIconProps.get()} opacity={0.5} />
+      up: <IconChevronUp opacity={0.5} />,
+      down: <IconChevronDown opacity={0.5} />,
     },
     showControls = true,
 
@@ -160,7 +159,7 @@ export const NumberInput = forwardRef(function NumberInput(
       style={style}
       inputRef={inputRef}
 
-      button={ showControls &&
+      button={showControls &&
         <>
           <IconButton
             color={color}

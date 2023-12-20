@@ -2,7 +2,7 @@ import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { Button } from "./TextButton";
 import { Storybook } from "../../../../storybook"
-import { ValenceProvider } from "../../..";
+import { Flex, ValenceProvider } from "../../..";
 
 const meta: Meta<typeof Button> = {
   component: Button,
@@ -51,7 +51,13 @@ type Story = StoryObj<typeof Button>;
 
 export const Text: Story = (args: any) => (
   <ValenceProvider>
-    <Button data-testId="InputField-id" {...args} />
+    <Flex direction="column">
+      <Button {...args} size="xs" />
+      <Button {...args} size="sm" />
+      <Button {...args} size="md" />
+      <Button {...args} size="lg" />
+      <Button {...args} size="xl" />
+    </Flex>
   </ValenceProvider>
 );
 Text.args = {

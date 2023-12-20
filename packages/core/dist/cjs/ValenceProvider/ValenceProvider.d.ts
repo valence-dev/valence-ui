@@ -4,7 +4,7 @@ import { IValenceContext } from "./ValenceProvider.types";
 import { TextProps } from "../components";
 import { ComponentSize, FillVariant, SizeClasses } from "@valence-ui/utils";
 export declare const ValenceContext: import("react").Context<IValenceContext>;
-export declare const useValenceContext: () => IValenceContext;
+export declare const useValence: () => IValenceContext;
 export type ValenceProviderProps = {
     children?: React.ReactNode;
     colors?: ColorReactive[];
@@ -24,6 +24,7 @@ export type ValenceProviderProps = {
         height: SizeClasses<CSSProperties["height"]>;
         radius: SizeClasses<CSSProperties["borderRadius"]>;
         fontSize: SizeClasses<CSSProperties["fontSize"]>;
+        iconSize: SizeClasses<CSSProperties["fontSize"]>;
     };
     titles?: {
         1: TextProps;

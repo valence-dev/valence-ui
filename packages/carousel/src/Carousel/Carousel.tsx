@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { Flex, FlexProps, IconButton, IconButtonProps, ValenceContext, useBreakpoint, useDefaultIconProps } from "@valence-ui/core";
+import { Flex, FlexProps, Icon, IconButton, IconButtonProps, ValenceContext, useBreakpoint } from "@valence-ui/core";
 import { ReactiveProp, getReactiveProp } from "@valence-ui/utils";
 import React, { CSSProperties, ReactNode, forwardRef, useContext, useEffect, useRef, useState } from "react";
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
@@ -41,7 +41,6 @@ const Carousel = forwardRef(function Card(
   props: CarouselProps,
   ref: any
 ) {
-  const defaultIconProps = useDefaultIconProps();
   const breakpoint = useBreakpoint();
 
   const {
@@ -55,8 +54,8 @@ const Carousel = forwardRef(function Card(
 
     showControls = { default: true, mobile: false },
     controlIcons = {
-      prev: <IconArrowLeft {...defaultIconProps.get()} />,
-      next: <IconArrowRight {...defaultIconProps.get()} />,
+      prev: <Icon><IconArrowLeft /></Icon>,
+      next: <Icon><IconArrowRight /></Icon>,
     },
     controlButtonProps,
 

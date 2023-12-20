@@ -12,9 +12,9 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx } from "react/jsx-runtime";
 import { forwardRef } from "react";
 import { Text } from "./Text";
-import { useValenceContext } from "../../..";
+import { useValence } from "../../..";
 export const Title = forwardRef(function Title(props, ref) {
-    const theme = useValenceContext();
+    const theme = useValence();
     const { order = 1, component = `h${order !== null && order !== void 0 ? order : 1}`, family = theme.getFont("heading") } = props, rest = __rest(props, ["order", "component", "family"]);
     return (_jsx(Text, Object.assign({ component: component, family: family, ref: ref }, theme.titles[order], rest, { children: props.children })));
 });

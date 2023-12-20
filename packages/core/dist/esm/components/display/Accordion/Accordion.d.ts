@@ -45,7 +45,7 @@ declare const AccordionNamespace: import("react").ForwardRefExoticComponent<impo
     alignSelf?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.AlignSelf | undefined>;
     gap?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Gap<string | number> | undefined>;
     grow?: import("@valence-ui/utils").ReactiveProp<boolean> | undefined;
-    wrap?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.FlexWrap | undefined>;
+    wrap?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.FlexWrap | undefined>; /** Optional props to pass to the title */
 } & {
     /** The list of items associated with this accordion */
     itemList: ControlledList<string>;
@@ -70,7 +70,7 @@ declare const AccordionNamespace: import("react").ForwardRefExoticComponent<impo
         alignSelf?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.AlignSelf | undefined>;
         gap?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Gap<string | number> | undefined>;
         grow?: import("@valence-ui/utils").ReactiveProp<boolean> | undefined;
-        wrap?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.FlexWrap | undefined>;
+        wrap?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.FlexWrap | undefined>; /** Optional props to pass to the title */
     } & {
         /** The value of this accordion item */
         value: string;
@@ -98,7 +98,7 @@ declare const AccordionNamespace: import("react").ForwardRefExoticComponent<impo
         alignSelf?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.AlignSelf | undefined>;
         gap?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Gap<string | number> | undefined>;
         grow?: import("@valence-ui/utils").ReactiveProp<boolean> | undefined;
-        wrap?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.FlexWrap | undefined>;
+        wrap?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.FlexWrap | undefined>; /** Optional props to pass to the title */
     } & import("react").RefAttributes<unknown>>;
     Control: import("react").ForwardRefExoticComponent<import("@valence-ui/utils").GenericProps & {
         style?: import("@valence-ui/utils").ReactiveProp<CSSProperties> | undefined;
@@ -119,7 +119,7 @@ declare const AccordionNamespace: import("react").ForwardRefExoticComponent<impo
         alignSelf?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.AlignSelf | undefined>;
         gap?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Gap<string | number> | undefined>;
         grow?: import("@valence-ui/utils").ReactiveProp<boolean> | undefined;
-        wrap?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.FlexWrap | undefined>;
+        wrap?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.FlexWrap | undefined>; /** Optional props to pass to the title */
     } & {
         /** The title to display in the control */
         title: string;

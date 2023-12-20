@@ -41,7 +41,7 @@ const REGEX_PATTERNS = {
  * - `{...}` for monospace text
  */
 exports.Text = (0, react_1.forwardRef)(function Text(props, ref) {
-    const theme = (0, ValenceProvider_1.useValenceContext)();
+    const theme = (0, ValenceProvider_1.useValence)();
     // Defaults
     const { bold = false, italic = false, monospace = false, family = monospace ? theme.getFont("monospace") : theme.getFont("default"), weight = bold ? "bold" : "normal", align = "left", transform = "none", size = theme.defaultSize, fontSize = theme.sizeClasses.fontSize[size], color = "black", children, style } = props, rest = __rest(props, ["bold", "italic", "monospace", "family", "weight", "align", "transform", "size", "fontSize", "color", "children", "style"]);
     // Run through formatters

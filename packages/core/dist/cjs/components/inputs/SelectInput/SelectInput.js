@@ -17,18 +17,16 @@ const jsx_runtime_1 = require("@emotion/react/jsx-runtime");
 const react_1 = require("@emotion/react");
 const react_2 = require("react");
 const ValenceProvider_1 = require("../../../ValenceProvider");
-const hooks_1 = require("../../../hooks");
 const icons_react_1 = require("@tabler/icons-react");
 const InputContainer_1 = require("../InputContainer");
 const buttons_1 = require("../../buttons");
 const OptionsFilter_1 = require("../OptionContainer/OptionsFilter");
 const OptionContainer_1 = require("../OptionContainer");
 exports.SelectInput = (0, react_2.forwardRef)(function SelectInput(props, ref) {
-    const theme = (0, ValenceProvider_1.useValenceContext)();
+    const theme = (0, ValenceProvider_1.useValence)();
     const inputRef = ref !== null && ref !== void 0 ? ref : (0, react_2.createRef)();
-    const defaultIconProps = (0, hooks_1.useDefaultIconProps)();
     // Defaults
-    const { value, setValue, options, onSelect, filter = OptionsFilter_1.DefaultOptionsFilter, nothingFound = "Nothing found...", icon, placeholder, actionIcon = (0, jsx_runtime_1.jsx)(icons_react_1.IconSelector, Object.assign({}, defaultIconProps.get())), size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, loading, autoFocus, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding, margin, width, height, grow, onEnterPress, onKeyPress, dropdownProps = {
+    const { value, setValue, options, onSelect, filter = OptionsFilter_1.DefaultOptionsFilter, nothingFound = "Nothing found...", icon, placeholder, actionIcon = (0, jsx_runtime_1.jsx)(icons_react_1.IconSelector, {}), size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, loading, autoFocus, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding, margin, width, height, grow, onEnterPress, onKeyPress, dropdownProps = {
         padding: InputContainer_1.INPUT_SIZES[size].padding,
         backgroundColor: "white",
         color: "black",

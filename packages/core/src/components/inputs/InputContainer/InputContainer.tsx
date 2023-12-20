@@ -2,7 +2,7 @@
 import { CSSProperties, ReactNode, forwardRef } from "react";
 import { useValence } from "../../..";
 import { getBackgroundColor, getTextColor } from "../../buttons";
-import { Loader } from "../../display";
+import { Icon, Loader } from "../../display";
 import { ComponentSize, FillVariant, GenericLayoutProps, MouseClickEvents, MouseEvents, PointerEvents, SizeClasses } from "@valence-ui/utils";
 import { css } from "@emotion/react";
 
@@ -195,7 +195,7 @@ export const InputContainer = forwardRef(function InputContainer(
         <div css={IconContainerStyle}>
           {loading ?
             <Loader color={variant === "filled" ? "white" : color } /> :
-            icon
+            <Icon>{icon}</Icon>
           }
         </div>
       }

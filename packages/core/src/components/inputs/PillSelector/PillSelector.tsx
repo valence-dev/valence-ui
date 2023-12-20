@@ -6,9 +6,9 @@ import { ReactNode, forwardRef, useState } from "react";
 import { Button, IconButton, IconButtonProps, TextButtonProps } from "../../buttons";
 import { Flex, FlexProps } from "../../layout";
 import { useValence } from "../../../ValenceProvider";
-import { useDefaultIconProps } from "../../../hooks";
 import { IconX } from "@tabler/icons-react";
 import { CSSProperties } from "styled-components";
+import { Icon } from "../../display";
 
 export type PillSelectorEventProps =
   MouseClickEvents & MouseEvents & PointerEvents & FocusEvents & KeyboardEvents
@@ -57,7 +57,6 @@ export const PillSelector = forwardRef(function PillSelector(
   ref: any,
 ) {
   const theme = useValence();
-  const defaultIconProps = useDefaultIconProps();
 
 
   // Defaults
@@ -71,7 +70,7 @@ export const PillSelector = forwardRef(function PillSelector(
 
     maxSelectable = Infinity,
 
-    clearButtonIcon = <IconX {...defaultIconProps.get()} />,
+    clearButtonIcon = <IconX />,
     clearButtonProps,
 
     pillProps,

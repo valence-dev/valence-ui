@@ -51,6 +51,7 @@ export declare const PillSelector: import("react").ForwardRefExoticComponent<imp
     value: string[];
     setValue: import("react").Dispatch<import("react").SetStateAction<string[]>>;
     size?: import("@valence-ui/utils").ComponentSize | undefined;
+    /** Callback to be called when a pill is selected. */
     radius?: import("@valence-ui/utils").ComponentSize | undefined;
     variant?: import("@valence-ui/utils").FillVariant | undefined;
     disabled?: boolean | undefined;
@@ -125,7 +126,7 @@ export declare const PillSelector: import("react").ForwardRefExoticComponent<imp
         motion?: import("../../buttons").MotionBehaviourProps | undefined;
     } & {
         children?: string | undefined;
-        textProps?: import("../..").TextProps | undefined;
+        textProps?: import("../../display").TextProps | undefined;
     } & {
         children?: undefined;
     }) | undefined;
@@ -152,7 +153,7 @@ export declare const PillSelector: import("react").ForwardRefExoticComponent<imp
         motion?: import("../../buttons").MotionBehaviourProps | undefined;
     } & {
         children?: string | undefined;
-        textProps?: import("../..").TextProps | undefined;
+        textProps?: import("../../display").TextProps | undefined;
     } & {
         children?: undefined;
     }) | undefined;
@@ -172,7 +173,7 @@ export declare const PillSelector: import("react").ForwardRefExoticComponent<imp
     } & {
         direction?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.FlexDirection | undefined>;
         align?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.AlignItems | undefined>;
-        justify?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.JustifyContent | undefined>; /** Callback to be called when a pill is selected. */
+        justify?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.JustifyContent | undefined>;
         alignSelf?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.AlignSelf | undefined>;
         gap?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Gap<string | number> | undefined>;
         grow?: import("@valence-ui/utils").ReactiveProp<boolean> | undefined;

@@ -5,6 +5,7 @@ import { IconUserCircle } from "@tabler/icons-react"
 
 import { ButtonWithIcon as BWI } from "./ButtonWithIcon";
 import { ValenceProvider } from "../../../ValenceProvider";
+import { Flex } from "../../../../dist/esm";
 
 const meta: Meta<typeof BWI> = {
   component: BWI,
@@ -22,13 +23,9 @@ const meta: Meta<typeof BWI> = {
       options: Storybook.componentSizes,
       control: { type: "select" }
     },
-    color: { 
+    color: {
       options: Storybook.colors,
       control: { type: "select" },
-    },
-    
-    aspectRatio: {
-      control: { type: "text" },
     },
     square: {
       control: { type: "boolean" },
@@ -60,7 +57,13 @@ type Story = StoryObj<typeof BWI>;
 
 export const WithIcon: Story = (args: any) => (
   <ValenceProvider>
-    <BWI data-testId="InputField-id" {...args} />
+    <Flex direction="column">
+      <BWI {...args} size="xs" />
+      <BWI {...args} size="sm" />
+      <BWI {...args} size="md" />
+      <BWI {...args} size="lg" />
+      <BWI {...args} size="xl" />
+    </Flex>
   </ValenceProvider>
 );
 WithIcon.args = {

@@ -22,7 +22,7 @@ const utils_1 = require("@valence-ui/utils");
 const ValenceProvider_1 = require("../../../ValenceProvider");
 const react_2 = require("@emotion/react");
 exports.PrimitiveButton = (0, react_1.forwardRef)(function PrimitiveButton(props, ref) {
-    const theme = (0, ValenceProvider_1.useValenceContext)();
+    const theme = (0, ValenceProvider_1.useValence)();
     // Hooks & states
     const reducedMotion = (0, framer_motion_1.useReducedMotion)();
     // Defaults

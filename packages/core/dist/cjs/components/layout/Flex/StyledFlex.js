@@ -20,7 +20,7 @@ const Flex_1 = require("./Flex");
 const utils_1 = require("@valence-ui/utils");
 /** A styled version of the `Flex` component that offers many props in line with the button styling system */
 exports.StyledFlex = (0, react_1.forwardRef)(function StyledFlex(props, ref) {
-    const theme = (0, __1.useValenceContext)();
+    const theme = (0, __1.useValence)();
     const breakpoint = (0, __1.useBreakpoint)();
     // Defaults
     const { variant = theme.defaultVariant, size = { default: theme.defaultSize }, radius = { default: theme.defaultRadius }, padding = { default: theme.sizeClasses.padding[theme.defaultSize] }, color = { default: theme.primaryColor }, backgroundColor = color, style, children } = props, rest = __rest(props, ["variant", "size", "radius", "padding", "color", "backgroundColor", "style", "children"]);

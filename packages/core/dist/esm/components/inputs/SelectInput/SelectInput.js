@@ -13,19 +13,17 @@ import { jsx as _jsx, Fragment as _Fragment } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { createRef, forwardRef, useEffect, useState } from "react";
-import { useValenceContext } from "../../../ValenceProvider";
-import { useDefaultIconProps } from "../../../hooks";
+import { useValence } from "../../../ValenceProvider";
 import { IconSelector } from "@tabler/icons-react";
 import { INPUT_SIZES } from "../InputContainer";
 import { getTextColor } from "../../buttons";
 import { DefaultOptionsFilter } from "../OptionContainer/OptionsFilter";
 import { OptionContainer } from "../OptionContainer";
 export const SelectInput = forwardRef(function SelectInput(props, ref) {
-    const theme = useValenceContext();
+    const theme = useValence();
     const inputRef = ref !== null && ref !== void 0 ? ref : createRef();
-    const defaultIconProps = useDefaultIconProps();
     // Defaults
-    const { value, setValue, options, onSelect, filter = DefaultOptionsFilter, nothingFound = "Nothing found...", icon, placeholder, actionIcon = _jsx(IconSelector, Object.assign({}, defaultIconProps.get())), size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, loading, autoFocus, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding, margin, width, height, grow, onEnterPress, onKeyPress, dropdownProps = {
+    const { value, setValue, options, onSelect, filter = DefaultOptionsFilter, nothingFound = "Nothing found...", icon, placeholder, actionIcon = _jsx(IconSelector, {}), size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, loading, autoFocus, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding, margin, width, height, grow, onEnterPress, onKeyPress, dropdownProps = {
         padding: INPUT_SIZES[size].padding,
         backgroundColor: "white",
         color: "black",

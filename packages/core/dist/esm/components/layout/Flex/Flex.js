@@ -12,12 +12,12 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
 import { forwardRef } from "react";
-import { useBreakpoint, useValenceContext } from "../../..";
+import { useBreakpoint, useValence } from "../../..";
 import { PolymorphicLayout, getReactiveProp } from "@valence-ui/utils";
 import { css } from "@emotion/react";
 /** A basic formattable flexbox component that accepts many common flexbox properties. This component is also reactive, thus it will accept both a single value and an object of values that will be applied at different breakpoints. */
 export const Flex = forwardRef(function Flex(props, ref) {
-    const theme = useValenceContext();
+    const theme = useValence();
     const breakpoint = useBreakpoint();
     // Defaults
     const { direction = { default: "row" }, align = { default: "flex-start" }, justify = { default: "flex-start" }, alignSelf = { default: "stretch" }, gap = theme.sizeClasses.padding[theme.defaultSize], grow = { default: false }, wrap = { default: "nowrap" }, backgroundColor, color, padding, margin, width, height, style, children } = props, rest = __rest(props, ["direction", "align", "justify", "alignSelf", "gap", "grow", "wrap", "backgroundColor", "color", "padding", "margin", "width", "height", "style", "children"]);

@@ -24,7 +24,6 @@ export declare const Switch: import("react").ForwardRefExoticComponent<import("@
 } & {
     value: boolean;
     setValue: import("react").Dispatch<import("react").SetStateAction<boolean>>;
-    /** Shorthand for `flex-grow = 1` */
     size?: import("@valence-ui/utils").ComponentSize | undefined;
     radius?: import("@valence-ui/utils").ComponentSize | undefined;
     variant?: import("@valence-ui/utils").FillVariant | undefined;

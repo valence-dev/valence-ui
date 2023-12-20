@@ -10,15 +10,16 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useValenceContext } from "../../..";
+import { useValence } from "../../..";
 import { PrimitiveButton } from "../PrimitiveButton";
-import { Text } from "../../display";
+import { Icon, Text } from "../../display";
 import { getTextColor } from "../Helpers";
 export function ButtonWithIcon(props) {
-    const theme = useValenceContext();
+    const theme = useValence();
     // Defaults
     const { icon, iconPosition = "left", size = theme.defaultSize, variant = theme.defaultVariant, color = theme.primaryColor, style, textProps } = props, rest = __rest(props, ["icon", "iconPosition", "size", "variant", "color", "style", "textProps"]);
     // Styles
-    const styles = Object.assign({ flexDirection: iconPosition === "left" ? "row" : "row-reverse", justifyContent: "flex-start", paddingLeft: iconPosition === "left" ? 10 : undefined, paddingRight: iconPosition === "right" ? 10 : undefined, gap: 8 }, style);
-    return (_jsxs(PrimitiveButton, Object.assign({ size: size, variant: variant, color: color, style: styles }, rest, { children: [icon, _jsx(Text, Object.assign({ size: size, color: getTextColor(color, variant, theme) }, textProps, { children: props.children }))] })));
+    const padding = theme.getSize("padding", size);
+    const styles = Object.assign({ flexDirection: iconPosition === "left" ? "row" : "row-reverse", justifyContent: "flex-start", paddingLeft: iconPosition === "left" ? padding / 1.5 : undefined, paddingRight: iconPosition === "right" ? padding / 1.5 : undefined, gap: padding / 2 }, style);
+    return (_jsxs(PrimitiveButton, Object.assign({ size: size, variant: variant, color: color, style: styles }, rest, { children: [_jsx(Icon, { size: theme.getSize("iconSize", size), color: getTextColor(color, variant, theme), children: icon }), _jsx(Text, Object.assign({ size: size, color: getTextColor(color, variant, theme) }, textProps, { children: props.children }))] })));
 }

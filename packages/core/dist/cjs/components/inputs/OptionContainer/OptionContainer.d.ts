@@ -45,7 +45,7 @@ export declare const OptionContainer: import("react").ForwardRefExoticComponent<
     icon?: ReactNode;
     button?: ReactNode;
     size?: import("@valence-ui/utils").ComponentSize | undefined;
-    radius?: import("@valence-ui/utils").ComponentSize | undefined; /** Callback to be called when an option is selected. */
+    radius?: import("@valence-ui/utils").ComponentSize | undefined;
     variant?: import("@valence-ui/utils").FillVariant | undefined;
     grow?: boolean | undefined;
     disabled?: boolean | undefined;
@@ -53,7 +53,7 @@ export declare const OptionContainer: import("react").ForwardRefExoticComponent<
     loading?: boolean | undefined;
     inputRef?: any;
     iconContainerStyle?: CSSProperties | undefined;
-    requireIndicatorStyle?: CSSProperties | undefined;
+    requireIndicatorStyle?: CSSProperties | undefined; /** Optional props to pass to the dropdown buttons */
     buttonContainerStyle?: CSSProperties | undefined;
 } & OptionContainerEventProps & {
     /** The currently selected option */

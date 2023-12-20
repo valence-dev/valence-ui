@@ -13,11 +13,11 @@ import { jsx as _jsx } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
 import { PolymorphicLayout, getReactiveProp } from "@valence-ui/utils";
 import { forwardRef } from "react";
-import { useValenceContext } from "../../../ValenceProvider";
+import { useValence } from "../../../ValenceProvider";
 import { useBreakpoint } from "../../../hooks";
 import { css } from "@emotion/react";
 const Grid = forwardRef(function Grid(props, ref) {
-    const theme = useValenceContext();
+    const theme = useValence();
     const breakpoint = useBreakpoint();
     // Defaults
     const { grid = "auto", gap = theme.sizeClasses.padding[theme.defaultSize], rowGap, columnGap, template, templateRows, templateColumns, templateAreas, autoRows, autoColumns, autoFlow, justifyItems, justifyContent, alignItems, alignContent, backgroundColor, color, padding, margin, width, height, style, children } = props, rest = __rest(props, ["grid", "gap", "rowGap", "columnGap", "template", "templateRows", "templateColumns", "templateAreas", "autoRows", "autoColumns", "autoFlow", "justifyItems", "justifyContent", "alignItems", "alignContent", "backgroundColor", "color", "padding", "margin", "width", "height", "style", "children"]);
@@ -26,7 +26,7 @@ const Grid = forwardRef(function Grid(props, ref) {
     return (_jsx(PolymorphicLayout, Object.assign({ css: GridStyle, ref: ref }, rest, { children: children })));
 });
 const Item = forwardRef(function GridItem(props, ref) {
-    const theme = useValenceContext();
+    const theme = useValence();
     const breakpoint = useBreakpoint();
     // Defaults
     const { area, column = "auto", columnStart, columnEnd, row = "auto", rowStart, rowEnd, justify = "stretch", align = "stretch", place, order, backgroundColor, color, padding, margin, width, height, style, children } = props, rest = __rest(props, ["area", "column", "columnStart", "columnEnd", "row", "rowStart", "rowEnd", "justify", "align", "place", "order", "backgroundColor", "color", "padding", "margin", "width", "height", "style", "children"]);

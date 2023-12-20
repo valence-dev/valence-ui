@@ -30,5 +30,5 @@ exports.GridButton = (0, react_2.forwardRef)(function GridButton(props, ref) {
         width: "100%",
         height: "100%",
     });
-    return ((0, jsx_runtime_1.jsxs)(core_1.PrimitiveButton, Object.assign({ size: size, variant: variant, color: color, height: height, width: width, square: square, style: styles, ref: ref }, rest, { children: [(0, jsx_runtime_1.jsx)("div", { css: IconContainerStyle, children: icon }), (0, jsx_runtime_1.jsx)(core_1.Text, Object.assign({ fontSize: theme.sizeClasses.fontSize[size] * 0.8, color: (0, core_1.getTextColor)(color, variant, theme), align: "center" }, textProps, { children: props.children }))] })));
+    return ((0, jsx_runtime_1.jsxs)(core_1.PrimitiveButton, Object.assign({ size: size, variant: variant, color: color, height: height, width: width, square: square, style: styles, ref: ref }, rest, { children: [(0, jsx_runtime_1.jsx)("div", { css: IconContainerStyle, children: (0, jsx_runtime_1.jsx)(core_1.Icon, { size: theme.getSize("iconSize", size) * 1.5, children: icon }) }), (0, jsx_runtime_1.jsx)(core_1.Text, Object.assign({ fontSize: theme.sizeClasses.fontSize[size] * 0.8, color: (0, core_1.getTextColor)(color, variant, theme), align: "center" }, textProps, { children: props.children }))] })));
 });

@@ -13,11 +13,11 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { forwardRef } from "react";
 import { Text } from "../../display";
 import { Flex } from "../Flex";
-import { useValenceContext } from "../../../ValenceProvider";
+import { useValence } from "../../../ValenceProvider";
 import { useBreakpoint } from "../../../hooks";
 import { getReactiveProp } from "@valence-ui/utils";
 export const OutlineContainer = forwardRef(function OutlineContainer(props, ref) {
-    const theme = useValenceContext();
+    const theme = useValence();
     const breakpoint = useBreakpoint();
     // Defaults
     const { sticky = true, label, labelProps, spacing = 5, radius = theme.defaultRadius, position = sticky ? "sticky" : "relative", zIndex = sticky ? 151 : undefined, top = sticky ? { default: spacing * 2, mobile: 75 } : undefined, left = sticky ? spacing * 2 : undefined, right = sticky ? spacing * 2 : undefined, bottom, width = "100%", height, color = "black", children, style } = props, rest = __rest(props, ["sticky", "label", "labelProps", "spacing", "radius", "position", "zIndex", "top", "left", "right", "bottom", "width", "height", "color", "children", "style"]);

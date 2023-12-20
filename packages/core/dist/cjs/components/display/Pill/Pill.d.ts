@@ -31,7 +31,7 @@ export declare const Pill: import("react").ForwardRefExoticComponent<import("@va
     padding?: import("csstype").Property.Padding<string | number> | undefined;
     margin?: import("csstype").Property.Margin<string | number> | undefined;
     width?: import("csstype").Property.Width<string | number> | undefined;
-    height?: import("csstype").Property.Height<string | number> | undefined; /** Border radius of this pill. Defaults to theme default. */
+    height?: import("csstype").Property.Height<string | number> | undefined;
 } & import("@valence-ui/utils").PolymorphicElementProps & {
     css?: any;
 } & import("@valence-ui/utils").MouseClickEvents & import("@valence-ui/utils").MouseEvents & import("@valence-ui/utils").PointerEvents & import("@valence-ui/utils").FocusEvents & import("@valence-ui/utils").GenericClickableProps & {
@@ -54,13 +54,13 @@ export declare const Pill: import("react").ForwardRefExoticComponent<import("@va
         padding?: import("csstype").Property.Padding<string | number> | undefined;
         margin?: import("csstype").Property.Margin<string | number> | undefined;
         width?: import("csstype").Property.Width<string | number> | undefined;
-        height?: import("csstype").Property.Height<string | number> | undefined; /** Border radius of this pill. Defaults to theme default. */
+        height?: import("csstype").Property.Height<string | number> | undefined;
     } & {
         variant?: import("@valence-ui/utils/src/generics/Global").FillVariant | undefined;
         size?: import("@valence-ui/utils/src/generics/Global").ComponentSize | undefined;
         radius?: import("@valence-ui/utils/src/generics/Global").ComponentSize | undefined;
         square?: boolean | undefined;
-        shadow?: boolean | undefined;
+        shadow?: boolean | undefined; /** Icon to use for the remove button. Defaults to `IconX`. */
         grow?: boolean | undefined;
         disabled?: boolean | undefined;
         loading?: boolean | undefined;
@@ -77,8 +77,7 @@ export declare const Pill: import("react").ForwardRefExoticComponent<import("@va
     } & {
         family?: import("csstype").Property.FontFamily | undefined;
         weight?: import("csstype").Property.FontWeight | undefined;
-        /** Whether to include a remove button. `false` by default. */
-        fontSize?: import("csstype").Property.FontSize<string | number> | undefined;
+        fontSize?: import("csstype").Property.FontSize<string | number> | undefined; /** Icon to use for the remove button. Defaults to `IconX`. */
         align?: import("csstype").Property.TextAlign | undefined;
         transform?: import("csstype").Property.TextTransform | undefined;
         size?: ComponentSize | undefined;

@@ -27,7 +27,7 @@ function interpolateHeight(max, min, scrollY) {
  */
 exports.Header = (0, react_1.forwardRef)(function Header(props, ref) {
     var _a;
-    const theme = (0, __1.useValenceContext)();
+    const theme = (0, __1.useValence)();
     // Defaults
     const { regularHeight = 100, tallHeight = 150, compactHeight = 75, compactOnScroll = true, backgroundColor = "white", children, style } = props, rest = __rest(props, ["regularHeight", "tallHeight", "compactHeight", "compactOnScroll", "backgroundColor", "children", "style"]);
     // Hooks & States

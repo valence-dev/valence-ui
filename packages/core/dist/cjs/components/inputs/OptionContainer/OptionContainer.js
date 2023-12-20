@@ -20,15 +20,14 @@ const buttons_1 = require("../../buttons");
 const InputContainer_1 = require("../InputContainer");
 const react_3 = require("react");
 const icons_react_1 = require("@tabler/icons-react");
-const hooks_1 = require("../../../hooks");
 const ValenceProvider_1 = require("../../../ValenceProvider");
 const layout_1 = require("../../layout");
 const display_1 = require("../../display");
+const hooks_1 = require("../../../hooks");
 exports.OptionContainer = (0, react_3.forwardRef)(function OptionContainer(props, ref) {
-    const theme = (0, ValenceProvider_1.useValenceContext)();
-    const defaultIconProps = (0, hooks_1.useDefaultIconProps)();
+    const theme = (0, ValenceProvider_1.useValence)();
     // Defaults
-    const { selectedOption, options, onSelect, nothingFound = "Nothing found...", selectKeys = ["Enter"], closeKeys = ["Escape"], icon, rightIcon = (0, jsx_runtime_1.jsx)(icons_react_1.IconSelector, Object.assign({}, defaultIconProps.get())), size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, loading, disabled, required, color = "black", backgroundColor = color, padding, margin, width, height, grow, dropdownProps = {
+    const { selectedOption, options, onSelect, nothingFound = "Nothing found...", selectKeys = ["Enter"], closeKeys = ["Escape"], icon, rightIcon = (0, jsx_runtime_1.jsx)(icons_react_1.IconSelector, {}), size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, loading, disabled, required, color = "black", backgroundColor = color, padding, margin, width, height, grow, dropdownProps = {
         padding: InputContainer_1.INPUT_SIZES[size].padding,
         backgroundColor: "white",
         color: "black",
@@ -115,12 +114,12 @@ exports.OptionContainer = (0, react_3.forwardRef)(function OptionContainer(props
             backgroundColor: theme.getColorHex(dropdownProps.color, "medium"),
             borderRadius: 5,
         } }, dropdownStyle), floatingStyles));
-    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(InputContainer_1.InputContainer, Object.assign({ icon: icon, button: rightIcon, size: size, radius: radius, variant: variant, loading: loading, disabled: disabled, required: required, color: color, backgroundColor: backgroundColor, padding: padding, margin: margin, width: width, height: height, grow: grow, style: style, inputRef: inputRef, ref: refs.setReference }, getReferenceProps(), rest, { children: children })), isOpen && ((0, jsx_runtime_1.jsx)(react_2.FloatingPortal, { children: (0, jsx_runtime_1.jsx)("div", Object.assign({ css: DropdownStyle, ref: refs.setFloating }, getFloatingProps(), { children: options.length === 0 ?
+    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(InputContainer_1.InputContainer, Object.assign({ icon: icon, button: (0, jsx_runtime_1.jsx)(display_1.Icon, { children: rightIcon }), size: size, radius: radius, variant: variant, loading: loading, disabled: disabled, required: required, color: color, backgroundColor: backgroundColor, padding: padding, margin: margin, width: width, height: height, grow: grow, style: style, inputRef: inputRef, ref: refs.setReference }, getReferenceProps(), rest, { children: children })), isOpen && ((0, jsx_runtime_1.jsx)(react_2.FloatingPortal, { children: (0, jsx_runtime_1.jsx)("div", Object.assign({ css: DropdownStyle, ref: refs.setFloating }, getFloatingProps(), { children: options.length === 0 ?
                         (0, jsx_runtime_1.jsx)(layout_1.Flex, { height: theme.sizeClasses.height[size], align: "center", justify: "center", children: typeof nothingFound === "string" ?
                                 (0, jsx_runtime_1.jsx)(display_1.Text, { align: "center", color: theme.getColorHex("black", "strong"), children: nothingFound })
                                 :
                                     nothingFound })
                         : options.map((option, i) => ((0, jsx_runtime_1.jsx)(buttons_1.ButtonWithIcon, Object.assign({ icon: (selectedOption === null || selectedOption === void 0 ? void 0 : selectedOption.label) === option.label
-                                ? (0, jsx_runtime_1.jsx)(icons_react_1.IconCheck, Object.assign({}, defaultIconProps.get()))
+                                ? (0, jsx_runtime_1.jsx)(display_1.Icon, { children: (0, jsx_runtime_1.jsx)(icons_react_1.IconCheck, {}) })
                                 : option.left, color: color, variant: highlightedIndex === i ? "light" : "subtle", radius: radius, size: size, width: "100%" }, dropdownButtonProps, { onClick: () => handleSelect(option), children: option.label }), i))) })) }))] }));
 });

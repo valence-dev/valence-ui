@@ -44,11 +44,10 @@ const react_2 = __importStar(require("react"));
 const icons_react_1 = require("@tabler/icons-react");
 const Carousel = (0, react_2.forwardRef)(function Card(props, ref) {
     var _a, _b;
-    const defaultIconProps = (0, core_1.useDefaultIconProps)();
     const breakpoint = (0, core_1.useBreakpoint)();
     const { allowDrag = { default: true, mobile: false }, showScrollbar = false, snapToChildren = true, contentProps, activeChild: controlledActiveChild, setActiveChild: controlledSetActiveChild, showControls = { default: true, mobile: false }, controlIcons = {
-        prev: (0, jsx_runtime_1.jsx)(icons_react_1.IconArrowLeft, Object.assign({}, defaultIconProps.get())),
-        next: (0, jsx_runtime_1.jsx)(icons_react_1.IconArrowRight, Object.assign({}, defaultIconProps.get())),
+        prev: (0, jsx_runtime_1.jsx)(core_1.Icon, { children: (0, jsx_runtime_1.jsx)(icons_react_1.IconArrowLeft, {}) }),
+        next: (0, jsx_runtime_1.jsx)(core_1.Icon, { children: (0, jsx_runtime_1.jsx)(icons_react_1.IconArrowRight, {}) }),
     }, controlButtonProps, width = "100%", height = "fit-content", gap = 10, style, children } = props, rest = __rest(props, ["allowDrag", "showScrollbar", "snapToChildren", "contentProps", "activeChild", "setActiveChild", "showControls", "controlIcons", "controlButtonProps", "width", "height", "gap", "style", "children"]);
     const _c = controlButtonProps !== null && controlButtonProps !== void 0 ? controlButtonProps : {}, { color: buttonColor = "black", radius: buttonRadius = "xl" } = _c, buttonPropsRest = __rest(_c, ["color", "radius"]);
     const theme = (0, react_2.useContext)(core_1.ValenceContext);

@@ -17,10 +17,10 @@ import { INPUT_SIZES, InputContainer, InputContainerProps } from "../InputContai
 import { Option } from "./OptionsFilter";
 import { CSSProperties, ReactNode, forwardRef, useEffect, useState } from "react";
 import { IconCheck, IconSelector } from "@tabler/icons-react";
-import { useDefaultIconProps, useDetectKeyDown } from "../../../hooks";
 import { useValence } from "../../../ValenceProvider";
 import { Flex } from "../../layout";
-import { Text } from "../../display";
+import { Icon, Text } from "../../display";
+import { useDetectKeyDown } from "../../../hooks";
 
 export type OptionContainerEventProps = {
   /** Callback to be called when an option is selected. */
@@ -71,7 +71,6 @@ export const OptionContainer = forwardRef(function OptionContainer(
   ref: any,
 ) {
   const theme = useValence();
-  const defaultIconProps = useDefaultIconProps();
 
   // Defaults
   const {
@@ -84,7 +83,7 @@ export const OptionContainer = forwardRef(function OptionContainer(
     closeKeys = ["Escape"],
 
     icon,
-    rightIcon = <IconSelector {...defaultIconProps.get()} />,
+    rightIcon = <IconSelector />,
 
     size = theme.defaultSize,
     radius = theme.defaultRadius,
@@ -231,7 +230,7 @@ export const OptionContainer = forwardRef(function OptionContainer(
     <>
       <InputContainer
         icon={icon}
-        button={rightIcon}
+        button={<Icon>{rightIcon}</Icon>}
 
         size={size}
         radius={radius}
@@ -279,7 +278,7 @@ export const OptionContainer = forwardRef(function OptionContainer(
                   >
                     {nothingFound}
                   </Text>
-                  : 
+                  :
                   nothingFound
                 }
               </Flex>
@@ -288,7 +287,7 @@ export const OptionContainer = forwardRef(function OptionContainer(
                   key={i}
                   icon={
                     selectedOption?.label === option.label
-                      ? <IconCheck {...defaultIconProps.get()} />
+                      ? <Icon><IconCheck /></Icon>
                       : option.left
                   }
 

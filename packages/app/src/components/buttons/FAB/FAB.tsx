@@ -1,4 +1,4 @@
-import { IconButtonProps, PrimitiveButton, useBreakpoint } from "@valence-ui/core";
+import { Icon, IconButtonProps, PrimitiveButton, useBreakpoint, useValence } from "@valence-ui/core";
 import { CSSProperties, forwardRef } from "react";
 
 export type FABProps = IconButtonProps & {
@@ -18,6 +18,7 @@ export const FAB = forwardRef(function FAB(
   ref: any
 ) {
   const breakpoint = useBreakpoint();
+  const theme = useValence();
 
 
   // Defaults
@@ -27,6 +28,7 @@ export const FAB = forwardRef(function FAB(
     offset = 20,
     zIndex = 100,
 
+    size,
     variant = "filled",
     square = true,
     shadow = true,
@@ -53,6 +55,7 @@ export const FAB = forwardRef(function FAB(
 
   return (
     <PrimitiveButton
+      size={size}
       variant={variant}
       square={square}
       shadow={shadow}
@@ -62,7 +65,7 @@ export const FAB = forwardRef(function FAB(
       ref={ref}
       {...rest}
     >
-      {children}
+      <Icon size={theme.getSize("iconSize", size) as number}>{children}</Icon>
     </PrimitiveButton>
   )
 });

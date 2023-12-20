@@ -21,13 +21,12 @@ const buttons_1 = require("../../buttons");
 const icons_react_1 = require("@tabler/icons-react");
 const react_2 = require("@emotion/react");
 exports.NumberInput = (0, react_1.forwardRef)(function NumberInput(props, ref) {
-    const theme = (0, __1.useValenceContext)();
-    const defaultIconProps = (0, __1.useDefaultIconProps)();
+    const theme = (0, __1.useValence)();
     const inputRef = ref !== null && ref !== void 0 ? ref : (0, react_1.createRef)();
     // Defaults
     const { value, setValue, icon, min, max, step = 1, controlIcons = {
-        up: (0, jsx_runtime_1.jsx)(icons_react_1.IconChevronUp, Object.assign({}, defaultIconProps.get(), { opacity: 0.5 })),
-        down: (0, jsx_runtime_1.jsx)(icons_react_1.IconChevronDown, Object.assign({}, defaultIconProps.get(), { opacity: 0.5 }))
+        up: (0, jsx_runtime_1.jsx)(icons_react_1.IconChevronUp, { opacity: 0.5 }),
+        down: (0, jsx_runtime_1.jsx)(icons_react_1.IconChevronDown, { opacity: 0.5 }),
     }, showControls = true, size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, grow, loading, autoFocus, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding, margin, width, height, onEnterPress, onKeyPress, inputStyle, style } = props, rest = __rest(props, ["value", "setValue", "icon", "min", "max", "step", "controlIcons", "showControls", "size", "radius", "variant", "grow", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "onEnterPress", "onKeyPress", "inputStyle", "style"]);
     // Styles
     const InputStyle = (0, react_2.css)(Object.assign({ border: "none", outline: "none", background: "none", flexGrow: 1, width: "100%", height: "100%", margin: 0, padding: 0, cursor: disabled ? "not-allowed" : "text", fontSize: theme.sizeClasses.fontSize[size], fontFamily: theme.getFont("default"), color: (0, buttons_1.getTextColor)(color, variant, theme), "&::placeholder": {

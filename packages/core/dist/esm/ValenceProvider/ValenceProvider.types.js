@@ -20,7 +20,9 @@ export const ValenceContextDefaults = {
         height: { xs: 30, sm: 35, md: 40, lg: 50, xl: 60 },
         radius: { xs: 2, sm: 5, md: 10, lg: 15, xl: 25 },
         fontSize: { xs: 12, sm: 14, md: 16, lg: 18, xl: 20 },
+        iconSize: { xs: 18, sm: 20, md: 24, lg: 26, xl: 30 },
     },
+    getSize: () => undefined,
     titles: {
         1: { fontSize: 28, bold: true },
         2: { fontSize: 22, bold: true },

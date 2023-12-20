@@ -12,9 +12,9 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx, jsxs as _jsxs } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
 import { forwardRef } from "react";
-import { useValenceContext } from "../../..";
+import { useValence } from "../../..";
 import { getBackgroundColor, getTextColor } from "../../buttons";
-import { Loader } from "../../display";
+import { Icon, Loader } from "../../display";
 import { css } from "@emotion/react";
 export const INPUT_SIZES = {
     xs: { padding: 4 },
@@ -24,7 +24,7 @@ export const INPUT_SIZES = {
     xl: { padding: 12 },
 };
 export const InputContainer = forwardRef(function InputContainer(props, ref) {
-    const theme = useValenceContext();
+    const theme = useValence();
     // Defaults
     const { icon, button, size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, grow, disabled = false, required = false, loading = false, color = "black", backgroundColor = color, width = "100%", height = theme.sizeClasses.height[size], padding = INPUT_SIZES[size].padding, margin, inputRef, onClick, iconContainerStyle, requireIndicatorStyle, buttonContainerStyle, children, style } = props, rest = __rest(props, ["icon", "button", "size", "radius", "variant", "grow", "disabled", "required", "loading", "color", "backgroundColor", "width", "height", "padding", "margin", "inputRef", "onClick", "iconContainerStyle", "requireIndicatorStyle", "buttonContainerStyle", "children", "style"]);
     // Functions
@@ -49,6 +49,6 @@ export const InputContainer = forwardRef(function InputContainer(props, ref) {
     return (_jsxs("div", Object.assign({ css: ContainerStyle, ref: ref, onClick: (event) => handleClick(event) }, rest, { children: [required && _jsx("div", { css: RequireIndicatorStyle }), (icon || loading) &&
                 _jsx("div", { css: IconContainerStyle, children: loading ?
                         _jsx(Loader, { color: variant === "filled" ? "white" : color }) :
-                        icon }), children, button &&
+                        _jsx(Icon, { children: icon }) }), children, button &&
                 _jsx("div", { css: ButtonContainerStyle, children: button })] })));
 });

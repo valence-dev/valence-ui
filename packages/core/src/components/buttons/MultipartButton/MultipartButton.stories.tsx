@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import { MultipartButton as MPB } from "./MultipartButton";
 import { Storybook } from "../../../../storybook"
 import { IconApps } from "@tabler/icons-react";
-import { ValenceProvider } from "../../..";
+import { Flex, ValenceProvider } from "../../..";
 
 const meta: Meta<typeof MPB> = {
   component: MPB,
@@ -20,10 +20,6 @@ const meta: Meta<typeof MPB> = {
     radius: {
       options: Storybook.componentSizes,
       control: { type: "select" }
-    },
-
-    aspectRatio: {
-      control: { type: "text" },
     },
     square: {
       control: { type: "boolean" },
@@ -59,7 +55,13 @@ type Story = StoryObj<typeof MPB>;
 
 export const Multipart: Story = (args: any) => (
   <ValenceProvider>
-    <MPB data-testId="InputField-id" {...args} />
+    <Flex direction="column">
+      <MPB {...args} size="xs" />
+      <MPB {...args} size="sm" />
+      <MPB {...args} size="md" />
+      <MPB {...args} size="lg" />
+      <MPB {...args} size="xl" />
+    </Flex>
   </ValenceProvider>
 );
 Multipart.args = {

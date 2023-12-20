@@ -6,7 +6,6 @@ import { useValence } from "../../../ValenceProvider";
 import { Pill, PillProps } from "../../display";
 import { css } from "@emotion/react";
 import { Flex, FlexProps } from "../../layout";
-import { useDefaultIconProps } from "../../../hooks";
 import { IconX } from "@tabler/icons-react";
 import { DefaultOptionsFilter, Option, OptionContainer, OptionsFilter } from "../OptionContainer";
 
@@ -81,7 +80,6 @@ export const PillInput = forwardRef(function PillInput(
 ) {
   const theme = useValence();
   const inputRef = ref ?? createRef<HTMLInputElement>();
-  const defaultIconProps = useDefaultIconProps();
 
 
   // Defaults
@@ -104,7 +102,7 @@ export const PillInput = forwardRef(function PillInput(
     minLength = 0,
     maxLength = Infinity,
 
-    clearButtonIcon = <IconX {...defaultIconProps.get()} />,
+    clearButtonIcon = <IconX />,
     clearButtonProps,
 
     pillProps,

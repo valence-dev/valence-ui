@@ -30,18 +30,19 @@ export declare const NumberInput: import("react").ForwardRefExoticComponent<impo
     backgroundColor?: import("csstype").Property.BackgroundColor | undefined;
     padding?: import("csstype").Property.Padding<string | number> | undefined;
     margin?: import("csstype").Property.Margin<string | number> | undefined;
+    /** Text that appears in this input when it has no value */
     width?: import("csstype").Property.Width<string | number> | undefined;
     height?: import("csstype").Property.Height<string | number> | undefined;
 } & {
     value: number;
     setValue: import("react").Dispatch<import("react").SetStateAction<number>>;
     size?: import("@valence-ui/utils").ComponentSize | undefined;
-    radius?: import("@valence-ui/utils").ComponentSize | undefined; /** The step value of this input. Defaults to 1 */
+    radius?: import("@valence-ui/utils").ComponentSize | undefined;
     variant?: import("@valence-ui/utils").FillVariant | undefined;
     disabled?: boolean | undefined;
     readOnly?: boolean | undefined;
     required?: boolean | undefined;
-    autoFocus?: boolean | undefined; /** Optional styles to apply to the input component */
+    autoFocus?: boolean | undefined;
     loading?: boolean | undefined;
     form?: string | undefined;
     name?: string | undefined;

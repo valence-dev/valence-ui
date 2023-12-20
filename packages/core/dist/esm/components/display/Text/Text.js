@@ -14,7 +14,7 @@ import { jsx as _jsx } from "@emotion/react/jsx-runtime";
 import { forwardRef } from "react";
 import reactStringReplace from "react-string-replace";
 import { PolymorphicText } from "@valence-ui/utils";
-import { useValenceContext } from "../../../ValenceProvider";
+import { useValence } from "../../../ValenceProvider";
 import { css } from "@emotion/react";
 const REGEX_PATTERNS = {
     newline: /(\n)/,
@@ -35,7 +35,7 @@ const REGEX_PATTERNS = {
  * - `{...}` for monospace text
  */
 export const Text = forwardRef(function Text(props, ref) {
-    const theme = useValenceContext();
+    const theme = useValence();
     // Defaults
     const { bold = false, italic = false, monospace = false, family = monospace ? theme.getFont("monospace") : theme.getFont("default"), weight = bold ? "bold" : "normal", align = "left", transform = "none", size = theme.defaultSize, fontSize = theme.sizeClasses.fontSize[size], color = "black", children, style } = props, rest = __rest(props, ["bold", "italic", "monospace", "family", "weight", "align", "transform", "size", "fontSize", "color", "children", "style"]);
     // Run through formatters

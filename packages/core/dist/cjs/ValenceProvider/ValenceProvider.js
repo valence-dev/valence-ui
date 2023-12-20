@@ -1,19 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ValenceProvider = exports.useValenceContext = exports.ValenceContext = void 0;
+exports.ValenceProvider = exports.useValence = exports.ValenceContext = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
 const Color_1 = require("../Color");
 const ValenceProvider_types_1 = require("./ValenceProvider.types");
 const hooks_1 = require("../hooks");
 exports.ValenceContext = (0, react_1.createContext)(ValenceProvider_types_1.ValenceContextDefaults);
-const useValenceContext = () => {
+const useValence = () => {
     const context = (0, react_1.useContext)(exports.ValenceContext);
     if (context === null)
         throw new Error("Valence components must be wrapped in <ValenceProvider />");
     return context;
 };
-exports.useValenceContext = useValenceContext;
+exports.useValence = useValence;
 function ValenceProvider(props) {
     // Hooks
     const { isDarkMode } = (0, hooks_1.useColorScheme)();
@@ -46,6 +46,10 @@ function ValenceProvider(props) {
             case "monospace": return (_b = fontFamily.monospace) !== null && _b !== void 0 ? _b : fontFamily.default;
         }
     }
+    function getSize(context, size) {
+        size = size !== null && size !== void 0 ? size : defaultSize;
+        return sizeClasses[context][size];
+    }
     return ((0, jsx_runtime_1.jsx)(exports.ValenceContext.Provider, { value: {
             colors,
             getColor,
@@ -59,6 +63,7 @@ function ValenceProvider(props) {
             fontFamily,
             getFont,
             sizeClasses,
+            getSize,
             titles,
             breakpoints,
         }, children: props.children }));

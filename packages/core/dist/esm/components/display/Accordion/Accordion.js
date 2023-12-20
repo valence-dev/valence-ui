@@ -12,12 +12,13 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { cloneElement, createContext, forwardRef, useContext } from "react";
 import { Flex } from "../../layout";
-import { useBreakpoint, useDefaultIconProps } from "../../../hooks";
+import { useBreakpoint } from "../../../hooks";
 import { IconChevronLeft } from "@tabler/icons-react";
 import { Title } from "../Text";
 import { UnstyledButton } from "../../buttons";
 import { Spoiler } from "../Spoiler";
 import { getReactiveProp } from "@valence-ui/utils";
+import { Icon } from "../Icon";
 const AccordionContext = createContext(null);
 const useAccordionContext = () => {
     const context = useContext(AccordionContext);
@@ -59,9 +60,8 @@ const Item = forwardRef(function AccordionItem(props, ref) {
     return (_jsxs(Flex, Object.assign({ direction: direction, justify: justify, align: align, gap: 0, ref: ref }, rest, { children: [_jsx(UnstyledButton, { onClick: handleOpen, style: ButtonStyle, children: cloneElement(control, { opened: context.itemList.includes(value) }) }), _jsx(Spoiler, { show: context.itemList.includes(value), children: _jsx(Flex, Object.assign({ style: { marginTop: getReactiveProp(gap, breakpoint) } }, flexProps, { children: children })) })] })));
 });
 const Control = forwardRef(function AccordionControl(props, ref) {
-    const defaultIconProps = useDefaultIconProps();
     // Defaults
-    const { direction = "row", justify = "space-between", align = "center", opened = false, chevronIcon = _jsx(IconChevronLeft, Object.assign({}, defaultIconProps.get())), title, titleProps = {
+    const { direction = "row", justify = "space-between", align = "center", opened = false, chevronIcon = _jsx(IconChevronLeft, {}), title, titleProps = {
         order: 3,
     }, children } = props, rest = __rest(props, ["direction", "justify", "align", "opened", "chevronIcon", "title", "titleProps", "children"]);
     // Styles
@@ -70,7 +70,7 @@ const Control = forwardRef(function AccordionControl(props, ref) {
         transformOrigin: "center",
         transition: "transform 0.1s ease-in-out",
     };
-    return (_jsxs(Flex, Object.assign({ direction: direction, justify: justify, align: align, ref: ref }, rest, { children: [_jsx(Title, Object.assign({}, titleProps, { children: title })), children, _jsx("span", { style: ChevronContainerStyle, children: chevronIcon })] })));
+    return (_jsxs(Flex, Object.assign({ direction: direction, justify: justify, align: align, ref: ref }, rest, { children: [_jsx(Title, Object.assign({}, titleProps, { children: title })), children, _jsx("span", { style: ChevronContainerStyle, children: _jsx(Icon, { color: "black", children: chevronIcon }) })] })));
 });
 const Panel = forwardRef(function AccordionPanel(props, ref) {
     // Defaults

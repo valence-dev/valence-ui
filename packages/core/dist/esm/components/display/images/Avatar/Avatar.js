@@ -12,17 +12,16 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx } from "react/jsx-runtime";
 import { forwardRef } from "react";
 import { Image } from "../Image";
-import { useValenceContext } from "../../../../ValenceProvider";
+import { useValence } from "../../../../ValenceProvider";
 import { IconUserCircle } from "@tabler/icons-react";
-import { useDefaultIconProps } from "../../../../hooks";
 import { getBackgroundColor, getTextColor } from "../../../buttons";
 import { Flex } from "../../../layout";
+import { Icon } from "../../Icon";
 export const Avatar = forwardRef(function Avatar(props, ref) {
-    const theme = useValenceContext();
-    const defaultIconProps = useDefaultIconProps();
+    const theme = useValence();
     // Defaults
-    const { placeholderIcon, placeholderColor = theme.primaryColor, fillVariant = theme.defaultVariant, placeholder = _jsx(Flex, { align: "center", justify: "center", height: "100%", width: "100%", children: _jsx(IconUserCircle, Object.assign({}, defaultIconProps.get())) }), square = true, radius = "xl", style } = props, rest = __rest(props, ["placeholderIcon", "placeholderColor", "fillVariant", "placeholder", "square", "radius", "style"]);
+    const { placeholderIcon, placeholderColor = theme.primaryColor, fillVariant = theme.defaultVariant, placeholder = _jsx(IconUserCircle, {}), square = true, radius = "xl", style } = props, rest = __rest(props, ["placeholderIcon", "placeholderColor", "fillVariant", "placeholder", "square", "radius", "style"]);
     // Styles
     const imageStyle = Object.assign({ backgroundColor: getBackgroundColor(placeholderColor, fillVariant, false, theme), color: getTextColor(placeholderColor, fillVariant, theme) }, style);
-    return (_jsx(Image, Object.assign({ style: imageStyle, radius: radius, square: square, placeholder: placeholder, ref: ref }, rest)));
+    return (_jsx(Image, Object.assign({ style: imageStyle, radius: radius, square: square, placeholder: _jsx(Flex, { align: "center", justify: "center", height: "100%", width: "100%", children: _jsx(Icon, { children: placeholder }) }), ref: ref }, rest)));
 });

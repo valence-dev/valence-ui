@@ -13,19 +13,17 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "@emotion/reac
 /** @jsxImportSource @emotion/react */
 import { createRef, forwardRef, useState } from "react";
 import { Button, IconButton, getTextColor } from "../../buttons";
-import { useValenceContext } from "../../../ValenceProvider";
+import { useValence } from "../../../ValenceProvider";
 import { Pill } from "../../display";
 import { css } from "@emotion/react";
 import { Flex } from "../../layout";
-import { useDefaultIconProps } from "../../../hooks";
 import { IconX } from "@tabler/icons-react";
 import { DefaultOptionsFilter, OptionContainer } from "../OptionContainer";
 export const PillInput = forwardRef(function PillInput(props, ref) {
-    const theme = useValenceContext();
+    const theme = useValence();
     const inputRef = ref !== null && ref !== void 0 ? ref : createRef();
-    const defaultIconProps = useDefaultIconProps();
     // Defaults
-    const { value, setValue, autofillKeys = ["Tab"], selectKeys = [" ", "Enter"], options = [], filter = DefaultOptionsFilter, nothingFound, allowDuplicates = false, allowClear = true, allowBackspaceRemove = true, grow, maxPills = Infinity, minLength = 0, maxLength = Infinity, clearButtonIcon = _jsx(IconX, Object.assign({}, defaultIconProps.get())), clearButtonProps, pillProps, pillContainerProps, icon, placeholder, size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, loading, autoFocus, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding, margin, width, height = theme.sizeClasses.height[size], onEnterPress, onKeyPress, onPillAdd, onPillRemove, inputStyle, dropdownStyle, style } = props, rest = __rest(props, ["value", "setValue", "autofillKeys", "selectKeys", "options", "filter", "nothingFound", "allowDuplicates", "allowClear", "allowBackspaceRemove", "grow", "maxPills", "minLength", "maxLength", "clearButtonIcon", "clearButtonProps", "pillProps", "pillContainerProps", "icon", "placeholder", "size", "radius", "variant", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "onEnterPress", "onKeyPress", "onPillAdd", "onPillRemove", "inputStyle", "dropdownStyle", "style"]);
+    const { value, setValue, autofillKeys = ["Tab"], selectKeys = [" ", "Enter"], options = [], filter = DefaultOptionsFilter, nothingFound, allowDuplicates = false, allowClear = true, allowBackspaceRemove = true, grow, maxPills = Infinity, minLength = 0, maxLength = Infinity, clearButtonIcon = _jsx(IconX, {}), clearButtonProps, pillProps, pillContainerProps, icon, placeholder, size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, loading, autoFocus, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding, margin, width, height = theme.sizeClasses.height[size], onEnterPress, onKeyPress, onPillAdd, onPillRemove, inputStyle, dropdownStyle, style } = props, rest = __rest(props, ["value", "setValue", "autofillKeys", "selectKeys", "options", "filter", "nothingFound", "allowDuplicates", "allowClear", "allowBackspaceRemove", "grow", "maxPills", "minLength", "maxLength", "clearButtonIcon", "clearButtonProps", "pillProps", "pillContainerProps", "icon", "placeholder", "size", "radius", "variant", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "onEnterPress", "onKeyPress", "onPillAdd", "onPillRemove", "inputStyle", "dropdownStyle", "style"]);
     // States
     const [searchValue, setSearchValue] = useState("");
     const [visibleOptions, setVisibleOptions] = useState(filterOptions(options, searchValue, value));

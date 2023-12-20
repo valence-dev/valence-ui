@@ -7,6 +7,7 @@ import { MotionBehaviourProps, getBackgroundColor, getMotionBehaviour, getTextCo
 import { CLICKABLE_ELEMENTS, ComponentSize, FillVariant, GenericClickableEventProps, GenericClickableProps, GenericLayoutProps, PolymorphicButton, PolymorphicButtonProps } from "@valence-ui/utils";
 import { useValence } from "../../../ValenceProvider";
 import { css } from "@emotion/react";
+import { Icon } from "../Icon";
 
 export type AlertContent = {
   /** The title of this alert */
@@ -123,7 +124,11 @@ export const Alert = forwardRef(function Alert(
           ref={ref}
           {...rest}
         >
-          {alert.icon}
+          <Icon
+            size={theme.getSize("iconSize", size) as number}
+          >
+            {alert.icon}
+          </Icon>
 
           <Flex
             direction="column"

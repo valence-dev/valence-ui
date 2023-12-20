@@ -25,7 +25,7 @@ const react_2 = require("@emotion/react");
 const react_3 = require("@floating-ui/react");
 const usehooks_ts_1 = require("usehooks-ts");
 exports.Modal = (0, react_1.forwardRef)(function Modal(props, ref) {
-    const theme = (0, __1.useValenceContext)();
+    const theme = (0, __1.useValence)();
     // Defaults
     const { disclosure, title, header = (props) => (0, jsx_runtime_1.jsx)(exports.DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), closeOnOverlayClick = true, closeOnEscape = true, lockScroll = true, withShadow = true, radius = theme.defaultRadius, backgroundColor = "white", color = "black", padding = theme.sizeClasses.padding[theme.defaultSize], margin, width = 500, height = "fit-content", flexProps, overlayBackgroundProps, children, style } = props, rest = __rest(props, ["disclosure", "title", "header", "closeOnOverlayClick", "closeOnEscape", "lockScroll", "withShadow", "radius", "backgroundColor", "color", "padding", "margin", "width", "height", "flexProps", "overlayBackgroundProps", "children", "style"]);
     // Hooks
@@ -49,12 +49,11 @@ exports.Modal = (0, react_1.forwardRef)(function Modal(props, ref) {
 });
 exports.DefaultModalHeader = (0, react_1.forwardRef)(function DefaultModalHeader(props, ref) {
     const { title, disclosure } = props;
-    const defaultIconProps = (0, __1.useDefaultIconProps)();
     const HeaderStyle = (0, react_2.css)({
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
         width: "100%",
     });
-    return ((0, jsx_runtime_1.jsxs)("header", { css: HeaderStyle, ref: ref, children: [(0, jsx_runtime_1.jsx)(display_1.Title, { order: 2, children: title }), (0, jsx_runtime_1.jsx)(buttons_1.IconButton, { onClick: disclosure.close, color: "black", variant: "subtle", children: (0, jsx_runtime_1.jsx)(icons_react_1.IconX, Object.assign({}, defaultIconProps.get())) })] }));
+    return ((0, jsx_runtime_1.jsxs)("header", { css: HeaderStyle, ref: ref, children: [(0, jsx_runtime_1.jsx)(display_1.Title, { order: 2, children: title }), (0, jsx_runtime_1.jsx)(buttons_1.IconButton, { onClick: disclosure.close, color: "black", variant: "subtle", children: (0, jsx_runtime_1.jsx)(display_1.Icon, { children: (0, jsx_runtime_1.jsx)(icons_react_1.IconX, {}) }) })] }));
 });

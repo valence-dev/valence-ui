@@ -27,7 +27,7 @@ exports.INPUT_SIZES = {
     xl: { padding: 12 },
 };
 exports.InputContainer = (0, react_1.forwardRef)(function InputContainer(props, ref) {
-    const theme = (0, __1.useValenceContext)();
+    const theme = (0, __1.useValence)();
     // Defaults
     const { icon, button, size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, grow, disabled = false, required = false, loading = false, color = "black", backgroundColor = color, width = "100%", height = theme.sizeClasses.height[size], padding = exports.INPUT_SIZES[size].padding, margin, inputRef, onClick, iconContainerStyle, requireIndicatorStyle, buttonContainerStyle, children, style } = props, rest = __rest(props, ["icon", "button", "size", "radius", "variant", "grow", "disabled", "required", "loading", "color", "backgroundColor", "width", "height", "padding", "margin", "inputRef", "onClick", "iconContainerStyle", "requireIndicatorStyle", "buttonContainerStyle", "children", "style"]);
     // Functions
@@ -52,6 +52,6 @@ exports.InputContainer = (0, react_1.forwardRef)(function InputContainer(props, 
     return ((0, jsx_runtime_1.jsxs)("div", Object.assign({ css: ContainerStyle, ref: ref, onClick: (event) => handleClick(event) }, rest, { children: [required && (0, jsx_runtime_1.jsx)("div", { css: RequireIndicatorStyle }), (icon || loading) &&
                 (0, jsx_runtime_1.jsx)("div", { css: IconContainerStyle, children: loading ?
                         (0, jsx_runtime_1.jsx)(display_1.Loader, { color: variant === "filled" ? "white" : color }) :
-                        icon }), children, button &&
+                        (0, jsx_runtime_1.jsx)(display_1.Icon, { children: icon }) }), children, button &&
                 (0, jsx_runtime_1.jsx)("div", { css: ButtonContainerStyle, children: button })] })));
 });

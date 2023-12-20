@@ -12,17 +12,17 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx, jsxs as _jsxs } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
 import { forwardRef } from "react";
-import { ModalBackground, useDefaultIconProps, useDetectKeyDown, useValenceContext } from "../../..";
+import { ModalBackground, useDetectKeyDown, useValence } from "../../..";
 import { Flex } from "../../layout";
 import { AnimatePresence, motion } from "framer-motion";
-import { Title } from "../../display";
+import { Icon, Title } from "../../display";
 import { IconX } from "@tabler/icons-react";
 import { IconButton } from "../../buttons";
 import { css } from "@emotion/react";
 import { FloatingFocusManager, useFloating, useId, useInteractions, useRole } from "@floating-ui/react";
 import { useLockedBody } from "usehooks-ts";
 export const Modal = forwardRef(function Modal(props, ref) {
-    const theme = useValenceContext();
+    const theme = useValence();
     // Defaults
     const { disclosure, title, header = (props) => _jsx(DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), closeOnOverlayClick = true, closeOnEscape = true, lockScroll = true, withShadow = true, radius = theme.defaultRadius, backgroundColor = "white", color = "black", padding = theme.sizeClasses.padding[theme.defaultSize], margin, width = 500, height = "fit-content", flexProps, overlayBackgroundProps, children, style } = props, rest = __rest(props, ["disclosure", "title", "header", "closeOnOverlayClick", "closeOnEscape", "lockScroll", "withShadow", "radius", "backgroundColor", "color", "padding", "margin", "width", "height", "flexProps", "overlayBackgroundProps", "children", "style"]);
     // Hooks
@@ -46,12 +46,11 @@ export const Modal = forwardRef(function Modal(props, ref) {
 });
 export const DefaultModalHeader = forwardRef(function DefaultModalHeader(props, ref) {
     const { title, disclosure } = props;
-    const defaultIconProps = useDefaultIconProps();
     const HeaderStyle = css({
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
         width: "100%",
     });
-    return (_jsxs("header", { css: HeaderStyle, ref: ref, children: [_jsx(Title, { order: 2, children: title }), _jsx(IconButton, { onClick: disclosure.close, color: "black", variant: "subtle", children: _jsx(IconX, Object.assign({}, defaultIconProps.get())) })] }));
+    return (_jsxs("header", { css: HeaderStyle, ref: ref, children: [_jsx(Title, { order: 2, children: title }), _jsx(IconButton, { onClick: disclosure.close, color: "black", variant: "subtle", children: _jsx(Icon, { children: _jsx(IconX, {}) }) })] }));
 });

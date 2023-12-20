@@ -17,15 +17,14 @@ import { ButtonWithIcon } from "../../buttons";
 import { INPUT_SIZES, InputContainer } from "../InputContainer";
 import { forwardRef, useEffect, useState } from "react";
 import { IconCheck, IconSelector } from "@tabler/icons-react";
-import { useDefaultIconProps, useDetectKeyDown } from "../../../hooks";
-import { useValenceContext } from "../../../ValenceProvider";
+import { useValence } from "../../../ValenceProvider";
 import { Flex } from "../../layout";
-import { Text } from "../../display";
+import { Icon, Text } from "../../display";
+import { useDetectKeyDown } from "../../../hooks";
 export const OptionContainer = forwardRef(function OptionContainer(props, ref) {
-    const theme = useValenceContext();
-    const defaultIconProps = useDefaultIconProps();
+    const theme = useValence();
     // Defaults
-    const { selectedOption, options, onSelect, nothingFound = "Nothing found...", selectKeys = ["Enter"], closeKeys = ["Escape"], icon, rightIcon = _jsx(IconSelector, Object.assign({}, defaultIconProps.get())), size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, loading, disabled, required, color = "black", backgroundColor = color, padding, margin, width, height, grow, dropdownProps = {
+    const { selectedOption, options, onSelect, nothingFound = "Nothing found...", selectKeys = ["Enter"], closeKeys = ["Escape"], icon, rightIcon = _jsx(IconSelector, {}), size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, loading, disabled, required, color = "black", backgroundColor = color, padding, margin, width, height, grow, dropdownProps = {
         padding: INPUT_SIZES[size].padding,
         backgroundColor: "white",
         color: "black",
@@ -112,12 +111,12 @@ export const OptionContainer = forwardRef(function OptionContainer(props, ref) {
             backgroundColor: theme.getColorHex(dropdownProps.color, "medium"),
             borderRadius: 5,
         } }, dropdownStyle), floatingStyles));
-    return (_jsxs(_Fragment, { children: [_jsx(InputContainer, Object.assign({ icon: icon, button: rightIcon, size: size, radius: radius, variant: variant, loading: loading, disabled: disabled, required: required, color: color, backgroundColor: backgroundColor, padding: padding, margin: margin, width: width, height: height, grow: grow, style: style, inputRef: inputRef, ref: refs.setReference }, getReferenceProps(), rest, { children: children })), isOpen && (_jsx(FloatingPortal, { children: _jsx("div", Object.assign({ css: DropdownStyle, ref: refs.setFloating }, getFloatingProps(), { children: options.length === 0 ?
+    return (_jsxs(_Fragment, { children: [_jsx(InputContainer, Object.assign({ icon: icon, button: _jsx(Icon, { children: rightIcon }), size: size, radius: radius, variant: variant, loading: loading, disabled: disabled, required: required, color: color, backgroundColor: backgroundColor, padding: padding, margin: margin, width: width, height: height, grow: grow, style: style, inputRef: inputRef, ref: refs.setReference }, getReferenceProps(), rest, { children: children })), isOpen && (_jsx(FloatingPortal, { children: _jsx("div", Object.assign({ css: DropdownStyle, ref: refs.setFloating }, getFloatingProps(), { children: options.length === 0 ?
                         _jsx(Flex, { height: theme.sizeClasses.height[size], align: "center", justify: "center", children: typeof nothingFound === "string" ?
                                 _jsx(Text, { align: "center", color: theme.getColorHex("black", "strong"), children: nothingFound })
                                 :
                                     nothingFound })
                         : options.map((option, i) => (_jsx(ButtonWithIcon, Object.assign({ icon: (selectedOption === null || selectedOption === void 0 ? void 0 : selectedOption.label) === option.label
-                                ? _jsx(IconCheck, Object.assign({}, defaultIconProps.get()))
+                                ? _jsx(Icon, { children: _jsx(IconCheck, {}) })
                                 : option.left, color: color, variant: highlightedIndex === i ? "light" : "subtle", radius: radius, size: size, width: "100%" }, dropdownButtonProps, { onClick: () => handleSelect(option), children: option.label }), i))) })) }))] }));
 });

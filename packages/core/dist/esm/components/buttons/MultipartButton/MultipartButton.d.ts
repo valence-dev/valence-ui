@@ -35,6 +35,7 @@ export declare const MultipartButton: import("react").ForwardRefExoticComponent<
     shadow?: boolean | undefined;
     grow?: boolean | undefined;
     disabled?: boolean | undefined;
+    /** This button does not accept children */
     loading?: boolean | undefined;
 } & {
     motion?: import("../Helpers").MotionBehaviourProps | undefined;

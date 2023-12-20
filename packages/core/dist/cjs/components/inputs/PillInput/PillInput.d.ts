@@ -74,7 +74,7 @@ export declare const PillInput: import("react").ForwardRefExoticComponent<import
     radius?: import("@valence-ui/utils").ComponentSize | undefined;
     variant?: import("@valence-ui/utils").FillVariant | undefined;
     disabled?: boolean | undefined;
-    readOnly?: boolean | undefined;
+    readOnly?: boolean | undefined; /** The placeholder text to display when this input is empty */
     required?: boolean | undefined;
     autoFocus?: boolean | undefined;
     loading?: boolean | undefined;
@@ -134,10 +134,10 @@ export declare const PillInput: import("react").ForwardRefExoticComponent<import
     } & {
         variant?: import("@valence-ui/utils/src/generics/Global").FillVariant | undefined;
         size?: import("@valence-ui/utils/src/generics/Global").ComponentSize | undefined;
-        radius?: import("@valence-ui/utils/src/generics/Global").ComponentSize | undefined; /** Callback to be called when a pill is added. */
+        radius?: import("@valence-ui/utils/src/generics/Global").ComponentSize | undefined;
         square?: boolean | undefined;
         shadow?: boolean | undefined;
-        grow?: boolean | undefined;
+        grow?: boolean | undefined; /** An icon to display at the left side of this input */
         disabled?: boolean | undefined;
         loading?: boolean | undefined;
     } & {
@@ -173,10 +173,10 @@ export declare const PillInput: import("react").ForwardRefExoticComponent<import
         } & {
             variant?: import("@valence-ui/utils/src/generics/Global").FillVariant | undefined;
             size?: import("@valence-ui/utils/src/generics/Global").ComponentSize | undefined;
-            radius?: import("@valence-ui/utils/src/generics/Global").ComponentSize | undefined; /** Callback to be called when a pill is added. */
+            radius?: import("@valence-ui/utils/src/generics/Global").ComponentSize | undefined;
             square?: boolean | undefined;
             shadow?: boolean | undefined;
-            grow?: boolean | undefined;
+            grow?: boolean | undefined; /** An icon to display at the left side of this input */
             disabled?: boolean | undefined;
             loading?: boolean | undefined;
         } & {
@@ -191,7 +191,7 @@ export declare const PillInput: import("react").ForwardRefExoticComponent<import
             family?: import("csstype").Property.FontFamily | undefined;
             weight?: import("csstype").Property.FontWeight | undefined;
             fontSize?: import("csstype").Property.FontSize<string | number> | undefined;
-            align?: import("csstype").Property.TextAlign | undefined;
+            align?: import("csstype").Property.TextAlign | undefined; /** An icon to display at the left side of this input */
             transform?: import("csstype").Property.TextTransform | undefined;
             size?: import("@valence-ui/utils").ComponentSize | undefined;
             color?: import("csstype").Property.Color | undefined;
@@ -207,6 +207,7 @@ export declare const PillInput: import("react").ForwardRefExoticComponent<import
     }) | undefined;
     /** Optional props to pass to the pill container */
     pillContainerProps?: (import("@valence-ui/utils").GenericProps & {
+        /** Keys used to select an option. Defaults to `Enter` and `Space` */
         style?: import("@valence-ui/utils").ReactiveProp<CSSProperties> | undefined;
         tabIndex?: import("@valence-ui/utils").ReactiveProp<number> | undefined;
     } & {
@@ -225,6 +226,7 @@ export declare const PillInput: import("react").ForwardRefExoticComponent<import
         alignSelf?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.AlignSelf | undefined>;
         gap?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Gap<string | number> | undefined>;
         grow?: import("@valence-ui/utils").ReactiveProp<boolean> | undefined;
+        /** The placeholder text to display when this input is empty */
         wrap?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.FlexWrap | undefined>;
     } & {
         children?: undefined;

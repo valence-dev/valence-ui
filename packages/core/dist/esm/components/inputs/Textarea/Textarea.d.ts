@@ -36,7 +36,7 @@ export declare const Textarea: import("react").ForwardRefExoticComponent<import(
 } & {
     value: string;
     setValue: import("react").Dispatch<import("react").SetStateAction<string>>;
-    size?: import("@valence-ui/utils").ComponentSize | undefined;
+    size?: import("@valence-ui/utils").ComponentSize | undefined; /** Whether the input is subject to spell checking by the browser/OS. Defaults to `true`. */
     radius?: import("@valence-ui/utils").ComponentSize | undefined;
     variant?: import("@valence-ui/utils").FillVariant | undefined;
     disabled?: boolean | undefined;

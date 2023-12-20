@@ -12,10 +12,10 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { IconButton, getBackgroundColor, getTextColor } from "../../buttons";
 import { forwardRef } from "react";
-import { useValenceContext } from "../../../ValenceProvider";
+import { useValence } from "../../../ValenceProvider";
 import { IconX } from "@tabler/icons-react";
-import { useDefaultIconProps } from "../../../hooks";
 import { Text } from "../Text";
+import { Icon } from "../Icon";
 const SIZES = {
     xs: { paddingHorizontal: 8, paddingVertical: 2 },
     sm: { paddingHorizontal: 10, paddingVertical: 3 },
@@ -24,10 +24,9 @@ const SIZES = {
     xl: { paddingHorizontal: 14, paddingVertical: 4 },
 };
 export const Pill = forwardRef(function Pill(props, ref) {
-    const theme = useValenceContext();
-    const defaultIconProps = useDefaultIconProps();
+    const theme = useValence();
     // Defaults
-    const { variant = theme.defaultVariant, size = theme.defaultSize, radius = "xl", withRemoveButton = false, removeButtonIcon = _jsx(IconX, Object.assign({}, defaultIconProps.get())), removeButtonProps, onRemove, textProps, color = "black", backgroundColor = color, padding = SIZES[size].paddingVertical + "px " + SIZES[size].paddingHorizontal + "px", margin, width = "fit-content", height, style, children } = props, rest = __rest(props, ["variant", "size", "radius", "withRemoveButton", "removeButtonIcon", "removeButtonProps", "onRemove", "textProps", "color", "backgroundColor", "padding", "margin", "width", "height", "style", "children"]);
+    const { variant = theme.defaultVariant, size = theme.defaultSize, radius = "xl", withRemoveButton = false, removeButtonIcon = _jsx(Icon, { children: _jsx(IconX, {}) }), removeButtonProps, onRemove, textProps, color = "black", backgroundColor = color, padding = SIZES[size].paddingVertical + "px " + SIZES[size].paddingHorizontal + "px", margin, width = "fit-content", height, style, children } = props, rest = __rest(props, ["variant", "size", "radius", "withRemoveButton", "removeButtonIcon", "removeButtonProps", "onRemove", "textProps", "color", "backgroundColor", "padding", "margin", "width", "height", "style", "children"]);
     // Styles
     const PillStyle = Object.assign({ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "stretch", backgroundColor: getBackgroundColor(backgroundColor, variant, false, theme), color: getTextColor(color, variant, theme), borderRadius: theme.sizeClasses.radius[radius], outline: variant === "subtle" ?
             `1px solid ${theme.getColorHex(backgroundColor, "medium")}`

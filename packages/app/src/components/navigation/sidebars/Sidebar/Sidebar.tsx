@@ -1,4 +1,4 @@
-import { Flex, ValenceContext, useBreakpoint, useDefaultIconProps, useDisclosure } from "@valence-ui/core";
+import { Flex, Icon, ValenceContext, useBreakpoint, useDisclosure } from "@valence-ui/core";
 import { GenericReactiveLayoutProps, ReactiveProp, getReactiveProp } from "@valence-ui/utils";
 import { CSSProperties, ReactNode, forwardRef, useContext } from "react";
 import { FAB, FABProps } from "../../../buttons";
@@ -22,14 +22,13 @@ export const Sidebar = forwardRef(function Sidebar(
 ) {
   const theme = useContext(ValenceContext);
   const breakpoint = useBreakpoint();
-  const defaultIconProps = useDefaultIconProps();
 
 
   // Defaults 
   const {
     gap = theme.sizeClasses.padding[theme.defaultSize],
     mobileFabProps = {},
-    mobileFabIcon = <IconMenu {...defaultIconProps.get("white")} />,
+    mobileFabIcon = <Icon color="white"><IconMenu /></Icon>,
 
     width = "100%",
     height = "100%",

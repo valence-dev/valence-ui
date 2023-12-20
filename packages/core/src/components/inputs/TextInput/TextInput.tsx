@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { createRef, forwardRef } from "react";
-import { GenericTextInputEventProps, GenericTextInputProps, ValenceContext, getTextColor, useValence } from "../../..";
+import { GenericTextInputEventProps, GenericTextInputProps, getTextColor, useValence } from "../../..";
 import { InputContainer } from "../InputContainer";
 import { css } from "@emotion/react";
 

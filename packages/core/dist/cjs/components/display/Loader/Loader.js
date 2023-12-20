@@ -24,7 +24,7 @@ const SIZES = {
     xl: { height: 25, thickness: 3.5 },
 };
 exports.Loader = (0, react_1.forwardRef)(function Loader(props, ref) {
-    const theme = (0, __1.useValenceContext)();
+    const theme = (0, __1.useValence)();
     // Defaults
     const { size = theme.defaultSize, color = theme.primaryColor, style } = props, rest = __rest(props, ["size", "color", "style"]);
     // Styles

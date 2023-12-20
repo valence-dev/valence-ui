@@ -20,7 +20,7 @@ const utils_1 = require("@valence-ui/utils");
 const react_2 = require("@emotion/react");
 /** A basic formattable flexbox component that accepts many common flexbox properties. This component is also reactive, thus it will accept both a single value and an object of values that will be applied at different breakpoints. */
 exports.Flex = (0, react_1.forwardRef)(function Flex(props, ref) {
-    const theme = (0, __1.useValenceContext)();
+    const theme = (0, __1.useValence)();
     const breakpoint = (0, __1.useBreakpoint)();
     // Defaults
     const { direction = { default: "row" }, align = { default: "flex-start" }, justify = { default: "flex-start" }, alignSelf = { default: "stretch" }, gap = theme.sizeClasses.padding[theme.defaultSize], grow = { default: false }, wrap = { default: "nowrap" }, backgroundColor, color, padding, margin, width, height, style, children } = props, rest = __rest(props, ["direction", "align", "justify", "alignSelf", "gap", "grow", "wrap", "backgroundColor", "color", "padding", "margin", "width", "height", "style", "children"]);

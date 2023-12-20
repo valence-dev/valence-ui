@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { forwardRef } from "react";
-import { ModalBackground, Disclosure, useDefaultIconProps, useDetectKeyDown, useValence } from "../../..";
+import { ModalBackground, Disclosure, useDetectKeyDown, useValence } from "../../..";
 import { Flex, FlexProps } from "../../layout";
 import { AnimatePresence, motion } from "framer-motion";
-import { Title } from "../../display";
+import { Icon, Title } from "../../display";
 import { IconX } from "@tabler/icons-react";
 import { GenericOverlayHeaderProps, GenericOverlayProps } from "@valence-ui/utils";
 import { IconButton } from "../../buttons";
@@ -156,9 +156,6 @@ export const DefaultModalHeader = forwardRef(function DefaultModalHeader(
   const { title, disclosure } = props;
 
 
-  const defaultIconProps = useDefaultIconProps();
-
-
   const HeaderStyle = css({
     display: "flex",
     alignItems: "center",
@@ -183,7 +180,7 @@ export const DefaultModalHeader = forwardRef(function DefaultModalHeader(
         color="black"
         variant="subtle"
       >
-        <IconX {...defaultIconProps.get()} />
+        <Icon><IconX /></Icon>
       </IconButton>
     </header>
   )

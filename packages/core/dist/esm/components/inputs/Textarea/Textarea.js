@@ -11,13 +11,13 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
-import { useValenceContext } from "../../../ValenceProvider";
+import { useValence } from "../../../ValenceProvider";
 import { createRef, forwardRef } from "react";
 import { getTextColor } from "../../buttons";
 import { css } from "@emotion/react";
 import { InputContainer } from "../InputContainer";
 export const Textarea = forwardRef(function Textarea(props, ref) {
-    const theme = useValenceContext();
+    const theme = useValence();
     const inputRef = ref !== null && ref !== void 0 ? ref : createRef();
     // Defaults
     const { value, setValue, icon, placeholder = "", autoComplete = false, spellCheck = true, size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, grow, resize = "none", minHeight = theme.sizeClasses.height[size], maxHeight, minWidth, maxWidth, autoFocus, loading, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding = 10, margin, width = "100%", height = "auto", onEnterPress, onKeyPress, style, inputStyle } = props, rest = __rest(props, ["value", "setValue", "icon", "placeholder", "autoComplete", "spellCheck", "size", "radius", "variant", "grow", "resize", "minHeight", "maxHeight", "minWidth", "maxWidth", "autoFocus", "loading", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "onEnterPress", "onKeyPress", "style", "inputStyle"]);

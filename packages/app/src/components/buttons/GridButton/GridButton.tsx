@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { PrimitiveButton, Text, TextButtonProps, ValenceContext, getTextColor } from "@valence-ui/core";
+import { Icon, PrimitiveButton, Text, TextButtonProps, ValenceContext, getTextColor } from "@valence-ui/core";
 import { ReactNode, forwardRef, useContext } from "react";
 
 export type GridButtonProps = TextButtonProps & {
@@ -68,7 +68,11 @@ export const GridButton = forwardRef(function GridButton(
       {...rest}
     >
       <div css={IconContainerStyle}>
-        {icon}
+        <Icon
+          size={theme.getSize("iconSize", size) as number * 1.5}
+        >
+          {icon}
+        </Icon>
       </div>
 
       <Text

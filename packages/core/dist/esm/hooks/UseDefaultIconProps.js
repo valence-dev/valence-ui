@@ -1,7 +1,7 @@
-import { getTextColor, useValenceContext } from "..";
+import { getTextColor, useValence } from "..";
 /** @deprecated This hook is deprecated. Use the `Icon` component instead.*/
 export function useDefaultIconProps() {
-    const theme = useValenceContext();
+    const theme = useValence();
     return {
         get: (color, size) => {
             return {

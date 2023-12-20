@@ -12,7 +12,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx, jsxs as _jsxs } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { PrimitiveButton, Text, ValenceContext, getTextColor } from "@valence-ui/core";
+import { Icon, PrimitiveButton, Text, ValenceContext, getTextColor } from "@valence-ui/core";
 import { forwardRef, useContext } from "react";
 export const GridButton = forwardRef(function GridButton(props, ref) {
     const theme = useContext(ValenceContext);
@@ -27,5 +27,5 @@ export const GridButton = forwardRef(function GridButton(props, ref) {
         width: "100%",
         height: "100%",
     });
-    return (_jsxs(PrimitiveButton, Object.assign({ size: size, variant: variant, color: color, height: height, width: width, square: square, style: styles, ref: ref }, rest, { children: [_jsx("div", { css: IconContainerStyle, children: icon }), _jsx(Text, Object.assign({ fontSize: theme.sizeClasses.fontSize[size] * 0.8, color: getTextColor(color, variant, theme), align: "center" }, textProps, { children: props.children }))] })));
+    return (_jsxs(PrimitiveButton, Object.assign({ size: size, variant: variant, color: color, height: height, width: width, square: square, style: styles, ref: ref }, rest, { children: [_jsx("div", { css: IconContainerStyle, children: _jsx(Icon, { size: theme.getSize("iconSize", size) * 1.5, children: icon }) }), _jsx(Text, Object.assign({ fontSize: theme.sizeClasses.fontSize[size] * 0.8, color: getTextColor(color, variant, theme), align: "center" }, textProps, { children: props.children }))] })));
 });

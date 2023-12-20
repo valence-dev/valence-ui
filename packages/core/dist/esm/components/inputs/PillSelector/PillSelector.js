@@ -15,14 +15,12 @@ import { css } from "@emotion/react";
 import { forwardRef, useState } from "react";
 import { Button, IconButton } from "../../buttons";
 import { Flex } from "../../layout";
-import { useValenceContext } from "../../../ValenceProvider";
-import { useDefaultIconProps } from "../../../hooks";
+import { useValence } from "../../../ValenceProvider";
 import { IconX } from "@tabler/icons-react";
 export const PillSelector = forwardRef(function PillSelector(props, ref) {
-    const theme = useValenceContext();
-    const defaultIconProps = useDefaultIconProps();
+    const theme = useValence();
     // Defaults
-    const { value, setValue, pills, allowClear = true, gap = 5, maxSelectable = Infinity, clearButtonIcon = _jsx(IconX, Object.assign({}, defaultIconProps.get())), clearButtonProps, pillProps, selectedPillProps = pillProps, pillContainerProps, size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, loading, autoFocus, disabled, readOnly = disabled, required, color = "black", backgroundColor = color, padding, margin, width, height = "auto", grow = true, onPillSelected, onPillDeselected, style } = props, rest = __rest(props, ["value", "setValue", "pills", "allowClear", "gap", "maxSelectable", "clearButtonIcon", "clearButtonProps", "pillProps", "selectedPillProps", "pillContainerProps", "size", "radius", "variant", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "grow", "onPillSelected", "onPillDeselected", "style"]);
+    const { value, setValue, pills, allowClear = true, gap = 5, maxSelectable = Infinity, clearButtonIcon = _jsx(IconX, {}), clearButtonProps, pillProps, selectedPillProps = pillProps, pillContainerProps, size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, loading, autoFocus, disabled, readOnly = disabled, required, color = "black", backgroundColor = color, padding, margin, width, height = "auto", grow = true, onPillSelected, onPillDeselected, style } = props, rest = __rest(props, ["value", "setValue", "pills", "allowClear", "gap", "maxSelectable", "clearButtonIcon", "clearButtonProps", "pillProps", "selectedPillProps", "pillContainerProps", "size", "radius", "variant", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "grow", "onPillSelected", "onPillDeselected", "style"]);
     const _a = pillContainerProps !== null && pillContainerProps !== void 0 ? pillContainerProps : {}, { style: pillContainerStyle } = _a, pillContainerPropsRest = __rest(_a, ["style"]);
     const _b = clearButtonProps !== null && clearButtonProps !== void 0 ? clearButtonProps : {}, { style: clearButtonStyle } = _b, clearButtonPropsRest = __rest(_b, ["style"]);
     // States

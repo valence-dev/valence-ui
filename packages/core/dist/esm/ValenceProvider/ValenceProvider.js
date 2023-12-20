@@ -4,7 +4,7 @@ import { getUnidentifiedHexColor, getReactiveColor } from "../Color";
 import { ValenceContextDefaults as VCD } from "./ValenceProvider.types";
 import { useColorScheme } from "../hooks";
 export const ValenceContext = createContext(VCD);
-export const useValenceContext = () => {
+export const useValence = () => {
     const context = useContext(ValenceContext);
     if (context === null)
         throw new Error("Valence components must be wrapped in <ValenceProvider />");
@@ -42,6 +42,10 @@ export function ValenceProvider(props) {
             case "monospace": return (_b = fontFamily.monospace) !== null && _b !== void 0 ? _b : fontFamily.default;
         }
     }
+    function getSize(context, size) {
+        size = size !== null && size !== void 0 ? size : defaultSize;
+        return sizeClasses[context][size];
+    }
     return (_jsx(ValenceContext.Provider, { value: {
             colors,
             getColor,
@@ -55,6 +59,7 @@ export function ValenceProvider(props) {
             fontFamily,
             getFont,
             sizeClasses,
+            getSize,
             titles,
             breakpoints,
         }, children: props.children }));

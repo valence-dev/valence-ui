@@ -3,9 +3,9 @@ import { Image, ImageProps } from "../Image";
 import { FillVariant } from "@valence-ui/utils";
 import { useValence } from "../../../../ValenceProvider";
 import { IconUserCircle } from "@tabler/icons-react";
-import { useDefaultIconProps } from "../../../../hooks";
 import { getBackgroundColor, getTextColor } from "../../../buttons";
 import { Flex } from "../../../layout";
+import { Icon } from "../../Icon";
 
 export type AvatarProps = ImageProps & {
   /** Placeholder icon for this avatar */
@@ -22,7 +22,6 @@ export const Avatar = forwardRef(function Avatar(
   ref: any
 ) {
   const theme = useValence();
-  const defaultIconProps = useDefaultIconProps();
 
 
   // Defaults
@@ -30,10 +29,7 @@ export const Avatar = forwardRef(function Avatar(
     placeholderIcon,
     placeholderColor = theme.primaryColor,
     fillVariant = theme.defaultVariant,
-    placeholder =
-    <Flex align="center" justify="center" height="100%" width="100%">
-      <IconUserCircle {...defaultIconProps.get()} />
-    </Flex>,
+    placeholder = <IconUserCircle />,
 
     square = true,
     radius = "xl",
@@ -56,7 +52,11 @@ export const Avatar = forwardRef(function Avatar(
       style={imageStyle}
       radius={radius}
       square={square}
-      placeholder={placeholder}
+      placeholder={
+        <Flex align="center" justify="center" height="100%" width="100%">
+          <Icon>{placeholder}</Icon>
+        </Flex>
+      }
 
       ref={ref}
       {...rest}

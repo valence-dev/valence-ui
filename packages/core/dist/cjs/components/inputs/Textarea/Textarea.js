@@ -20,7 +20,7 @@ const buttons_1 = require("../../buttons");
 const react_2 = require("@emotion/react");
 const InputContainer_1 = require("../InputContainer");
 exports.Textarea = (0, react_1.forwardRef)(function Textarea(props, ref) {
-    const theme = (0, ValenceProvider_1.useValenceContext)();
+    const theme = (0, ValenceProvider_1.useValence)();
     const inputRef = ref !== null && ref !== void 0 ? ref : (0, react_1.createRef)();
     // Defaults
     const { value, setValue, icon, placeholder = "", autoComplete = false, spellCheck = true, size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, grow, resize = "none", minHeight = theme.sizeClasses.height[size], maxHeight, minWidth, maxWidth, autoFocus, loading, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding = 10, margin, width = "100%", height = "auto", onEnterPress, onKeyPress, style, inputStyle } = props, rest = __rest(props, ["value", "setValue", "icon", "placeholder", "autoComplete", "spellCheck", "size", "radius", "variant", "grow", "resize", "minHeight", "maxHeight", "minWidth", "maxWidth", "autoFocus", "loading", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "onEnterPress", "onKeyPress", "style", "inputStyle"]);

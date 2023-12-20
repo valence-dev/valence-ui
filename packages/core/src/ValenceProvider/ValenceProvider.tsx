@@ -41,6 +41,7 @@ export type ValenceProviderProps = {
     height: SizeClasses<CSSProperties["height"]>;
     radius: SizeClasses<CSSProperties["borderRadius"]>;
     fontSize: SizeClasses<CSSProperties["fontSize"]>;
+    iconSize: SizeClasses<CSSProperties["fontSize"]>;
   }
 
   titles?: {
@@ -112,6 +113,11 @@ export function ValenceProvider(props: ValenceProviderProps) {
     }
   }
 
+  function getSize(context: "padding" | "height" | "radius" | "fontSize" | "iconSize", size?: ComponentSize) {
+    size = size ?? defaultSize;
+    return sizeClasses[context][size];
+  }
+
 
   return (
     <ValenceContext.Provider
@@ -131,6 +137,7 @@ export function ValenceProvider(props: ValenceProviderProps) {
         getFont,
 
         sizeClasses,
+        getSize,
         titles,
 
         breakpoints,

@@ -13,11 +13,11 @@ import { jsx as _jsx } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
 import { forwardRef } from "react";
 import { getReactiveProp } from "@valence-ui/utils";
-import { useValenceContext } from "../../../../ValenceProvider";
+import { useValence } from "../../../../ValenceProvider";
 import { useBreakpoint } from "../../../../hooks";
 import { css } from "@emotion/react";
 export const Image = forwardRef(function Image(props, ref) {
-    const theme = useValenceContext();
+    const theme = useValence();
     const breakpoint = useBreakpoint();
     // Defaults
     const { src, alt, placeholder, radius = theme.defaultRadius, fit = "cover", position = "center", square = false, height = "fit-content", width = square ? height : "auto", shadow = false, style } = props, rest = __rest(props, ["src", "alt", "placeholder", "radius", "fit", "position", "square", "height", "width", "shadow", "style"]);

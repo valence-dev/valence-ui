@@ -2,7 +2,7 @@ import { CSSProperties, ReactNode, useContext } from "react";
 import { TextButtonProps } from "../TextButton";
 import { useValence } from "../../..";
 import { PrimitiveButton } from "../PrimitiveButton";
-import { Text } from "../../display";
+import { Icon, Text } from "../../display";
 import { getTextColor } from "../Helpers";
 
 export type ButtonWithIconProps = TextButtonProps & {
@@ -31,12 +31,13 @@ export function ButtonWithIcon(props: ButtonWithIconProps) {
 
 
   // Styles
+  const padding = theme.getSize("padding", size) as number;
   const styles: CSSProperties = {
     flexDirection: iconPosition === "left" ? "row" : "row-reverse",
     justifyContent: "flex-start",
-    paddingLeft: iconPosition === "left" ? 10 : undefined,
-    paddingRight: iconPosition === "right" ? 10 : undefined,
-    gap: 8,
+    paddingLeft: iconPosition === "left" ? padding / 1.5 : undefined,
+    paddingRight: iconPosition === "right" ? padding / 1.5 : undefined,
+    gap: padding / 2,
 
     ...style
   }
@@ -50,7 +51,12 @@ export function ButtonWithIcon(props: ButtonWithIconProps) {
       style={styles}
       {...rest}
     >
-      {icon}
+      <Icon
+        size={theme.getSize("iconSize", size) as number}
+        color={getTextColor(color, variant, theme)}
+      >
+        {icon}
+      </Icon>
 
       <Text
         size={size}

@@ -48,7 +48,11 @@ export type IValenceContext = {
         radius: SizeClasses<CSSProperties["borderRadius"]>;
         /** The font size to use for components */
         fontSize: SizeClasses<CSSProperties["fontSize"]>;
+        /** The icon size to use for components */
+        iconSize: SizeClasses<CSSProperties["fontSize"]>;
     };
+    /** Finds a size within the theme context **/
+    getSize: (context: "padding" | "height" | "radius" | "fontSize" | "iconSize", size?: ComponentSize) => any;
     /** Props to refer to for titles */
     titles: {
         1: TextProps;

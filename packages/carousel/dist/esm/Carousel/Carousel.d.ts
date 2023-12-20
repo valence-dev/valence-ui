@@ -44,7 +44,7 @@ declare const CarouselNamespace: React.ForwardRefExoticComponent<import("@valenc
     alignSelf?: ReactiveProp<import("csstype").Property.AlignSelf | undefined>;
     gap?: ReactiveProp<import("csstype").Property.Gap<string | number> | undefined>;
     grow?: ReactiveProp<boolean> | undefined;
-    wrap?: ReactiveProp<import("csstype").Property.FlexWrap | undefined>; /** The active child of this carousel. For use when controlled. */
+    wrap?: ReactiveProp<import("csstype").Property.FlexWrap | undefined>;
 } & {
     /** Whether to allow the carousel content to be dragged on desktop. `true` on desktop devices by default. */
     allowDrag?: ReactiveProp<boolean> | undefined;

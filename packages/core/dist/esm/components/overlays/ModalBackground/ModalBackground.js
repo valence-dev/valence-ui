@@ -12,12 +12,12 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
 import { forwardRef } from "react";
-import { useValenceContext } from "../../..";
+import { useValence } from "../../..";
 import { motion } from "framer-motion";
 import { css } from "@emotion/react";
 import { FloatingPortal } from "@floating-ui/react";
 export const ModalBackground = forwardRef(function ModalBackground(props, ref) {
-    const theme = useValenceContext();
+    const theme = useValence();
     // Defaults
     const { disclosure, closeOnClick = true, backdropFilter = "blur", backgroundColor = "permaBlack", padding = theme.sizeClasses.padding[theme.defaultSize], zIndex = 1002, children, style } = props, rest = __rest(props, ["disclosure", "closeOnClick", "backdropFilter", "backgroundColor", "padding", "zIndex", "children", "style"]);
     // Styles

@@ -3,7 +3,6 @@ import { css } from "@emotion/react";
 import { CSSProperties, ReactNode, createRef, forwardRef, useEffect, useState } from "react";
 import { GenericInputProps, GenericTextInputEventProps } from "../../../generics";
 import { useValence } from "../../../ValenceProvider";
-import { useDefaultIconProps } from "../../../hooks";
 import { IconSelector } from "@tabler/icons-react";
 import { INPUT_SIZES } from "../InputContainer";
 import { TextButtonProps, getTextColor } from "../../buttons";
@@ -71,7 +70,6 @@ export const SelectInput = forwardRef(function SelectInput(
 ) {
   const theme = useValence();
   const inputRef = ref ?? createRef<HTMLInputElement>();
-  const defaultIconProps = useDefaultIconProps();
 
 
   // Defaults
@@ -86,7 +84,7 @@ export const SelectInput = forwardRef(function SelectInput(
 
     icon,
     placeholder,
-    actionIcon = <IconSelector {...defaultIconProps.get()} />,
+    actionIcon = <IconSelector />,
 
     size = theme.defaultSize,
     radius = theme.defaultRadius,

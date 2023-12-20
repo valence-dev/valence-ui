@@ -14,10 +14,10 @@ import { Flex } from "../Flex";
 import { forwardRef } from "react";
 import { Grid } from "../Grid";
 import { getReactiveProp } from "@valence-ui/utils";
-import { useValenceContext } from "../../../ValenceProvider";
+import { useValence } from "../../../ValenceProvider";
 import { useBreakpoint } from "../../../hooks";
 const Column = forwardRef(function Column(props, ref) {
-    const theme = useValenceContext();
+    const theme = useValence();
     // Defaults
     const { direction = "column", justify = "center", color = "black", backgroundColor, padding = theme.sizeClasses.padding[theme.defaultSize], margin, width, height, children } = props, rest = __rest(props, ["direction", "justify", "color", "backgroundColor", "padding", "margin", "width", "height", "children"]);
     return (_jsx(Flex, Object.assign({ direction: direction, justify: justify, color: color, backgroundColor: backgroundColor, padding: padding, margin: margin, width: width, height: height, ref: ref }, rest, { children: children })));

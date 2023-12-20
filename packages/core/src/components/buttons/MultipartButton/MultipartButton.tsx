@@ -4,9 +4,8 @@ import { PrimitiveButton, PrimitiveButtonProps } from "../PrimitiveButton";
 import { IconChevronRight } from "@tabler/icons-react";
 import { getTextColor } from "../Helpers";
 import { Flex } from "../../layout";
-import { Text, TextProps } from "../../display";
+import { Icon, Text, TextProps } from "../../display";
 import { useValence } from "../../../ValenceProvider";
-import { useDefaultIconProps } from "../../../hooks";
 import { SizeClasses } from "@valence-ui/utils";
 import { css } from "@emotion/react";
 
@@ -47,11 +46,6 @@ export const MultipartButton = forwardRef(function MultipartButton(
 ) {
   const theme = useValence();
 
-
-  // Hooks
-  const defaultIconProps = useDefaultIconProps();
-
-
   // Defaults
   const {
     size = theme.defaultSize,
@@ -63,7 +57,7 @@ export const MultipartButton = forwardRef(function MultipartButton(
     title,
     subtitle,
     leftIcon,
-    rightIcon = <IconChevronRight {...defaultIconProps.get()} opacity={0.5} />,
+    rightIcon = <IconChevronRight opacity={0.5} />,
 
     titleProps,
     subtitleProps,
@@ -102,7 +96,14 @@ export const MultipartButton = forwardRef(function MultipartButton(
       ref={ref}
       {...rest}
     >
-      {leftIcon && <div css={ContainerStyle}>{leftIcon}</div>}
+      {leftIcon && <div css={ContainerStyle}>
+        <Icon
+          size={theme.getSize("iconSize", size) as number}
+          color={getTextColor(color, variant, theme)}
+        >
+          {leftIcon}
+        </Icon>
+      </div>}
 
       <Flex
         direction="column"
@@ -128,7 +129,14 @@ export const MultipartButton = forwardRef(function MultipartButton(
         </Text>
       </Flex>
 
-      <div css={ContainerStyle}>{rightIcon}</div>
+      <div css={ContainerStyle}>
+        <Icon
+          size={theme.getSize("iconSize", size) as number}
+          color={getTextColor(color, variant, theme)}
+        >
+          {rightIcon}
+        </Icon>
+      </div>
     </PrimitiveButton>
   )
 });
