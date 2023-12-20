@@ -18,14 +18,15 @@ export declare const Switch: import("react").ForwardRefExoticComponent<import("@
     color?: import("csstype").Property.Color | undefined;
     backgroundColor?: import("csstype").Property.BackgroundColor | undefined;
     padding?: import("csstype").Property.Padding<string | number> | undefined;
-    margin?: import("csstype").Property.Margin<string | number> | undefined; /** The label associated with this input */
-    width?: import("csstype").Property.Width<string | number> | undefined; /** Shorthand for `flex-grow = 1` */
+    margin?: import("csstype").Property.Margin<string | number> | undefined;
+    width?: import("csstype").Property.Width<string | number> | undefined;
     height?: import("csstype").Property.Height<string | number> | undefined;
 } & {
     value: boolean;
     setValue: import("react").Dispatch<import("react").SetStateAction<boolean>>;
+    /** Shorthand for `flex-grow = 1` */
     size?: import("@valence-ui/utils").ComponentSize | undefined;
-    radius?: import("@valence-ui/utils").ComponentSize | undefined; /** Optional props to pass to the `Text` label component */
+    radius?: import("@valence-ui/utils").ComponentSize | undefined;
     variant?: import("@valence-ui/utils").FillVariant | undefined;
     disabled?: boolean | undefined;
     readOnly?: boolean | undefined;

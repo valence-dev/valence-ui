@@ -22,7 +22,7 @@ const ValenceProvider_1 = require("../../../ValenceProvider");
 const hooks_1 = require("../../../hooks");
 const icons_react_1 = require("@tabler/icons-react");
 exports.PillSelector = (0, react_2.forwardRef)(function PillSelector(props, ref) {
-    const theme = (0, react_2.useContext)(ValenceProvider_1.ValenceContext);
+    const theme = (0, ValenceProvider_1.useValenceContext)();
     const defaultIconProps = (0, hooks_1.useDefaultIconProps)();
     // Defaults
     const { value, setValue, pills, allowClear = true, gap = 5, maxSelectable = Infinity, clearButtonIcon = (0, jsx_runtime_1.jsx)(icons_react_1.IconX, Object.assign({}, defaultIconProps.get())), clearButtonProps, pillProps, selectedPillProps = pillProps, pillContainerProps, size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, loading, autoFocus, disabled, readOnly = disabled, required, color = "black", backgroundColor = color, padding, margin, width, height = "auto", grow = true, onPillSelected, onPillDeselected, style } = props, rest = __rest(props, ["value", "setValue", "pills", "allowClear", "gap", "maxSelectable", "clearButtonIcon", "clearButtonProps", "pillProps", "selectedPillProps", "pillContainerProps", "size", "radius", "variant", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "grow", "onPillSelected", "onPillDeselected", "style"]);

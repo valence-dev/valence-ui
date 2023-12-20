@@ -8,7 +8,7 @@ export type ModalBackgroundProps = GenericOverlayBackgroundProps & {
 export declare const ModalBackground: import("react").ForwardRefExoticComponent<import("@valence-ui/utils").GenericProps & import("@valence-ui/utils").PolymorphicElementProps & {
     css?: any;
 } & {
-    closeOnClick?: boolean | undefined; /** A disclosure to specify state information about the modal */
+    closeOnClick?: boolean | undefined;
     backdropFilter?: import("@valence-ui/utils").BackdropFilter | undefined;
     backgroundColor?: import("csstype").Property.BackgroundColor | undefined;
     padding?: import("csstype").Property.Padding<string | number> | undefined;

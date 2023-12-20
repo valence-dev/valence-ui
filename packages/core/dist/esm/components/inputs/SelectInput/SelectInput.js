@@ -12,8 +12,8 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx, Fragment as _Fragment } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { createRef, forwardRef, useContext, useEffect, useState } from "react";
-import { ValenceContext } from "../../../ValenceProvider";
+import { createRef, forwardRef, useEffect, useState } from "react";
+import { useValenceContext } from "../../../ValenceProvider";
 import { useDefaultIconProps } from "../../../hooks";
 import { IconSelector } from "@tabler/icons-react";
 import { INPUT_SIZES } from "../InputContainer";
@@ -21,7 +21,7 @@ import { getTextColor } from "../../buttons";
 import { DefaultOptionsFilter } from "../OptionContainer/OptionsFilter";
 import { OptionContainer } from "../OptionContainer";
 export const SelectInput = forwardRef(function SelectInput(props, ref) {
-    const theme = useContext(ValenceContext);
+    const theme = useValenceContext();
     const inputRef = ref !== null && ref !== void 0 ? ref : createRef();
     const defaultIconProps = useDefaultIconProps();
     // Defaults

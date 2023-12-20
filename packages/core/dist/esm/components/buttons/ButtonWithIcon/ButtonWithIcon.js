@@ -10,13 +10,12 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useContext } from "react";
-import { ValenceContext } from "../../..";
+import { useValenceContext } from "../../..";
 import { PrimitiveButton } from "../PrimitiveButton";
 import { Text } from "../../display";
 import { getTextColor } from "../Helpers";
 export function ButtonWithIcon(props) {
-    const theme = useContext(ValenceContext);
+    const theme = useValenceContext();
     // Defaults
     const { icon, iconPosition = "left", size = theme.defaultSize, variant = theme.defaultVariant, color = theme.primaryColor, style, textProps } = props, rest = __rest(props, ["icon", "iconPosition", "size", "variant", "color", "style", "textProps"]);
     // Styles

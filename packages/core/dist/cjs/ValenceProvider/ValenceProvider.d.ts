@@ -4,6 +4,7 @@ import { IValenceContext } from "./ValenceProvider.types";
 import { TextProps } from "../components";
 import { ComponentSize, FillVariant, SizeClasses } from "@valence-ui/utils";
 export declare const ValenceContext: import("react").Context<IValenceContext>;
+export declare const useValenceContext: () => IValenceContext;
 export type ValenceProviderProps = {
     children?: React.ReactNode;
     colors?: ColorReactive[];

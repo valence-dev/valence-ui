@@ -1,5 +1,5 @@
-import React, { ReactNode, forwardRef, useContext } from "react";
-import { ValenceContext } from "../../../ValenceProvider";
+import React, { ReactNode, forwardRef } from "react";
+import { useValence } from "../../../ValenceProvider";
 
 export type IconProps = {
   /** Size of the icon. `20` by default. */
@@ -34,7 +34,7 @@ export const Icon = forwardRef(function Icon(
     children,
   } = props;
 
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
 
   return React.cloneElement(children as any, {
     size: size,

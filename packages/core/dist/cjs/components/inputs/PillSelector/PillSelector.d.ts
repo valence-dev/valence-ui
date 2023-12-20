@@ -162,7 +162,7 @@ export declare const PillSelector: import("react").ForwardRefExoticComponent<imp
         tabIndex?: import("@valence-ui/utils").ReactiveProp<number> | undefined;
     } & {
         backgroundColor?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.BackgroundColor | undefined>;
-        color?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Color | undefined>; /** Whether to allow pills to be cleared. `true` by default. */
+        color?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Color | undefined>;
         padding?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Padding<string | number> | undefined>;
         margin?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Margin<string | number> | undefined>;
         width?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Width<string | number> | undefined>;

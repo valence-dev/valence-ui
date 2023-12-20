@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import { CSSProperties, forwardRef, useContext } from "react";
-import { ValenceContext, useBreakpoint } from "../../..";
+import { CSSProperties, forwardRef } from "react";
+import { useBreakpoint, useValence } from "../../..";
 import { GenericReactiveLayoutProps, PolymorphicLayout, PolymorphicLayoutProps, ReactiveProp, getReactiveProp } from "@valence-ui/utils";
 import { css } from "@emotion/react";
 
@@ -32,7 +32,7 @@ export const Flex = forwardRef(function Flex(
   props: FlexProps,
   ref: any
 ) {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
   const breakpoint = useBreakpoint();
 
 

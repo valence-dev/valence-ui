@@ -1,8 +1,7 @@
-import { useContext } from "react";
 import { useWindowSize } from "usehooks-ts";
-import { ValenceContext } from "..";
+import { useValence } from "..";
 export function useBreakpoint() {
-    const theme = useContext(ValenceContext);
+    const theme = useValence();
     const { width, height } = useWindowSize();
     const isDesktopThin = width <= theme.breakpoints.desktopThinWidth
         && width > theme.breakpoints.mobileWidth;

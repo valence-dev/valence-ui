@@ -82,7 +82,6 @@ export declare const OptionContainer: import("react").ForwardRefExoticComponent<
         radius?: import("@valence-ui/utils/src/generics/Global").ComponentSize | undefined;
         square?: boolean | undefined;
         shadow?: boolean | undefined;
-        /** Callback to be called when an option is selected. */
         grow?: boolean | undefined;
         disabled?: boolean | undefined;
         loading?: boolean | undefined;

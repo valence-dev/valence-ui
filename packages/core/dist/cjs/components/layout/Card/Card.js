@@ -31,7 +31,7 @@ exports.CARD_DEFAULTS = {
     }
 };
 const Card = (0, react_1.forwardRef)(function Card(props, ref) {
-    const theme = (0, react_1.useContext)(ValenceProvider_1.ValenceContext);
+    const theme = (0, ValenceProvider_1.useValenceContext)();
     const breakpoint = (0, hooks_1.useBreakpoint)();
     // Defaults
     const { size = theme.defaultSize, radius = theme.defaultRadius, gap = 0, buttonProps, flexProps, height = "fit-content", width = exports.CARD_DEFAULTS.width[(0, utils_1.getReactiveProp)(size, breakpoint)], padding = 0, margin, color = "black", backgroundColor = color, children, style } = props, rest = __rest(props, ["size", "radius", "gap", "buttonProps", "flexProps", "height", "width", "padding", "margin", "color", "backgroundColor", "children", "style"]);
@@ -43,19 +43,19 @@ const Card = (0, react_1.forwardRef)(function Card(props, ref) {
         }, ref: ref }, buttonProps, rest, { children: (0, jsx_runtime_1.jsx)(__1.Flex, Object.assign({ direction: "column", gap: gap }, flexProps, { children: children })) })));
 });
 const Image = (0, react_1.forwardRef)(function CardImage(props, ref) {
-    const theme = (0, react_1.useContext)(ValenceProvider_1.ValenceContext);
+    const theme = (0, ValenceProvider_1.useValenceContext)();
     // Defaults
     const { radius = theme.defaultRadius, width = "100%", height = "fit-content" } = props, rest = __rest(props, ["radius", "width", "height"]);
     return ((0, jsx_runtime_1.jsx)(display_1.Image, Object.assign({ radius: radius, width: width, height: height, ref: ref }, rest)));
 });
 const Section = (0, react_1.forwardRef)(function CardSection(props, ref) {
-    const theme = (0, react_1.useContext)(ValenceProvider_1.ValenceContext);
+    const theme = (0, ValenceProvider_1.useValenceContext)();
     // Defaults
     const { width = "100%", height = "fit-content", padding = theme.sizeClasses.padding[theme.defaultSize], children } = props, rest = __rest(props, ["width", "height", "padding", "children"]);
     return ((0, jsx_runtime_1.jsx)(__1.Flex, Object.assign({ width: width, height: height, padding: padding, ref: ref }, rest, { children: children })));
 });
 const Buttons = (0, react_1.forwardRef)(function CardButtons(props, ref) {
-    const theme = (0, react_1.useContext)(ValenceProvider_1.ValenceContext);
+    const theme = (0, ValenceProvider_1.useValenceContext)();
     const breakpoint = (0, hooks_1.useBreakpoint)();
     // Defaults
     const { width = "100%", height = "fit-content", padding = theme.sizeClasses.padding[theme.defaultSize], direction = "row", align = "center", justify = "flex-start", children } = props, rest = __rest(props, ["width", "height", "padding", "direction", "align", "justify", "children"]);

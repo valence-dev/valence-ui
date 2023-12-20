@@ -1,8 +1,8 @@
 import { Flex, FlexProps } from "../Flex";
-import { forwardRef, useContext } from "react";
+import { forwardRef } from "react";
 import { Grid, GridProps } from "../Grid";
 import { GenericReactiveLayoutProps, ReactiveProp, getReactiveProp } from "@valence-ui/utils";
-import { ValenceContext } from "../../../ValenceProvider";
+import { useValence } from "../../../ValenceProvider";
 import { useBreakpoint } from "../../../hooks";
 
 export type ColumnProps = FlexProps;
@@ -22,7 +22,7 @@ const Column = forwardRef(function Column(
   props: ColumnProps,
   ref: any
 ) {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
 
   // Defaults
   const {

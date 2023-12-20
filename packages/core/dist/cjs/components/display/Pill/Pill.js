@@ -27,7 +27,7 @@ const SIZES = {
     xl: { paddingHorizontal: 14, paddingVertical: 4 },
 };
 exports.Pill = (0, react_1.forwardRef)(function Pill(props, ref) {
-    const theme = (0, react_1.useContext)(ValenceProvider_1.ValenceContext);
+    const theme = (0, ValenceProvider_1.useValenceContext)();
     const defaultIconProps = (0, hooks_1.useDefaultIconProps)();
     // Defaults
     const { variant = theme.defaultVariant, size = theme.defaultSize, radius = "xl", withRemoveButton = false, removeButtonIcon = (0, jsx_runtime_1.jsx)(icons_react_1.IconX, Object.assign({}, defaultIconProps.get())), removeButtonProps, onRemove, textProps, color = "black", backgroundColor = color, padding = SIZES[size].paddingVertical + "px " + SIZES[size].paddingHorizontal + "px", margin, width = "fit-content", height, style, children } = props, rest = __rest(props, ["variant", "size", "radius", "withRemoveButton", "removeButtonIcon", "removeButtonProps", "onRemove", "textProps", "color", "backgroundColor", "padding", "margin", "width", "height", "style", "children"]);

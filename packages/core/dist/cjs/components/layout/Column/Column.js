@@ -20,7 +20,7 @@ const utils_1 = require("@valence-ui/utils");
 const ValenceProvider_1 = require("../../../ValenceProvider");
 const hooks_1 = require("../../../hooks");
 const Column = (0, react_1.forwardRef)(function Column(props, ref) {
-    const theme = (0, react_1.useContext)(ValenceProvider_1.ValenceContext);
+    const theme = (0, ValenceProvider_1.useValenceContext)();
     // Defaults
     const { direction = "column", justify = "center", color = "black", backgroundColor, padding = theme.sizeClasses.padding[theme.defaultSize], margin, width, height, children } = props, rest = __rest(props, ["direction", "justify", "color", "backgroundColor", "padding", "margin", "width", "height", "children"]);
     return ((0, jsx_runtime_1.jsx)(Flex_1.Flex, Object.assign({ direction: direction, justify: justify, color: color, backgroundColor: backgroundColor, padding: padding, margin: margin, width: width, height: height, ref: ref }, rest, { children: children })));

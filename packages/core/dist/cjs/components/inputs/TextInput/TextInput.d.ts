@@ -1,5 +1,4 @@
-/** @jsxImportSource @emotion/react */
-import { ReactNode } from "react";
+/// <reference types="react" />
 import { GenericTextInputEventProps, GenericTextInputProps } from "../../..";
 /** Defines the type of input that will be rendered */
 export type TextInputType = "text" | "password" | "email" | "number" | "tel" | "url" | "search";
@@ -36,7 +35,7 @@ export declare const TextInput: import("react").ForwardRefExoticComponent<import
     form?: string | undefined;
     name?: string | undefined;
 } & {
-    icon?: ReactNode;
+    icon?: import("react").ReactNode; /** The autocomplete behaviour to use. Defaults to `off` */
     placeholder?: string | undefined;
     minLength?: number | undefined;
     maxLength?: number | undefined;

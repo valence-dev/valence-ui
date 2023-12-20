@@ -1,11 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.useBreakpoint = void 0;
-const react_1 = require("react");
 const usehooks_ts_1 = require("usehooks-ts");
 const __1 = require("..");
 function useBreakpoint() {
-    const theme = (0, react_1.useContext)(__1.ValenceContext);
+    const theme = (0, __1.useValenceContext)();
     const { width, height } = (0, usehooks_ts_1.useWindowSize)();
     const isDesktopThin = width <= theme.breakpoints.desktopThinWidth
         && width > theme.breakpoints.mobileWidth;

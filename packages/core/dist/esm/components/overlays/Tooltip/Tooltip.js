@@ -16,7 +16,7 @@ import { useBreakpoint, useTooltip } from "../../../hooks";
 import { FloatingPortal, useMergeRefs } from "@floating-ui/react";
 import { StyledFlex } from "../../layout";
 import { css } from "@emotion/react";
-import { ValenceContext } from "../../../ValenceProvider";
+import { useValenceContext } from "../../../ValenceProvider";
 import { getReactiveProp } from "@valence-ui/utils";
 import { Text } from "../../display";
 const TooltipContext = createContext(null);
@@ -42,7 +42,7 @@ const Content = forwardRef(function Content(props, propRef) {
     const { color = "white", backgroundColor = "black", radius = "xl", variant = "filled", padding = "5px 10px", withShadow = true, zIndex = 2, children } = props, rest = __rest(props, ["color", "backgroundColor", "radius", "variant", "padding", "withShadow", "zIndex", "children"]);
     const context = useTooltipContext();
     const ref = useMergeRefs([context.refs.setFloating, propRef]);
-    const theme = useContext(ValenceContext);
+    const theme = useValenceContext();
     const breakpoint = useBreakpoint();
     // Styles
     const FloatingStyle = css(Object.assign({ borderRadius: theme.sizeClasses.radius[getReactiveProp(radius, breakpoint)], boxShadow: !withShadow ? undefined : theme.defaultShadow, zIndex: zIndex, animationName: "in", animationDuration: "0.1s", overflowY: "auto", "@keyframes in": {

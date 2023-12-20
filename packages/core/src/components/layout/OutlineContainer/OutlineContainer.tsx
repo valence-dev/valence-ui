@@ -1,7 +1,7 @@
-import { CSSProperties, forwardRef, useContext } from "react";
+import { CSSProperties, forwardRef } from "react";
 import { Text, TextProps } from "../../display";
 import { Flex, FlexProps } from "../Flex";
-import { ValenceContext } from "../../../ValenceProvider";
+import { useValence } from "../../../ValenceProvider";
 import { useBreakpoint } from "../../../hooks";
 import { ComponentSize, GenericReactiveFloatingLayoutProps, ReactiveProp, getReactiveProp } from "@valence-ui/utils";
 
@@ -28,7 +28,7 @@ export const OutlineContainer = forwardRef(function OutlineContainer(
   props: OutlineContainerProps,
   ref: any,
 ) {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
   const breakpoint = useBreakpoint();
 
 

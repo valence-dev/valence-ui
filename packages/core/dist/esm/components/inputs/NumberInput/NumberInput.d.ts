@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { CSSProperties, Dispatch, ReactNode, SetStateAction } from "react";
+import { CSSProperties, ReactNode } from "react";
 import { GenericInputProps, GenericTextInputEventProps } from "../../..";
 export type NumberInputProps = GenericInputProps<number> & GenericTextInputEventProps & {
     /** An icon to display at the left side of this input */
@@ -34,14 +34,14 @@ export declare const NumberInput: import("react").ForwardRefExoticComponent<impo
     height?: import("csstype").Property.Height<string | number> | undefined;
 } & {
     value: number;
-    setValue: Dispatch<SetStateAction<number>>;
+    setValue: import("react").Dispatch<import("react").SetStateAction<number>>;
     size?: import("@valence-ui/utils").ComponentSize | undefined;
-    radius?: import("@valence-ui/utils").ComponentSize | undefined;
+    radius?: import("@valence-ui/utils").ComponentSize | undefined; /** The step value of this input. Defaults to 1 */
     variant?: import("@valence-ui/utils").FillVariant | undefined;
     disabled?: boolean | undefined;
-    readOnly?: boolean | undefined; /** Sets custom icons for the stepper control buttons */
+    readOnly?: boolean | undefined;
     required?: boolean | undefined;
-    autoFocus?: boolean | undefined;
+    autoFocus?: boolean | undefined; /** Optional styles to apply to the input component */
     loading?: boolean | undefined;
     form?: string | undefined;
     name?: string | undefined;

@@ -7,6 +7,13 @@ declare const GridNamespace: import("react").ForwardRefExoticComponent<import("@
     style?: import("@valence-ui/utils").ReactiveProp<import("react").CSSProperties> | undefined;
     tabIndex?: import("@valence-ui/utils").ReactiveProp<number> | undefined;
 } & {
+    backgroundColor?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.BackgroundColor | undefined>;
+    color?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Color | undefined>;
+    padding?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Padding<string | number> | undefined>;
+    margin?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Margin<string | number> | undefined>;
+    width?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Width<string | number> | undefined>;
+    height?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Height<string | number> | undefined>;
+} & {
     grid?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Grid | undefined>;
     gap?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Gap<string | number> | undefined>;
     rowGap?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.RowGap<string | number> | undefined>;
@@ -28,6 +35,13 @@ declare const GridNamespace: import("react").ForwardRefExoticComponent<import("@
     Item: import("react").ForwardRefExoticComponent<import("@valence-ui/utils").GenericProps & {
         style?: import("@valence-ui/utils").ReactiveProp<import("react").CSSProperties> | undefined;
         tabIndex?: import("@valence-ui/utils").ReactiveProp<number> | undefined;
+    } & {
+        backgroundColor?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.BackgroundColor | undefined>;
+        color?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Color | undefined>;
+        padding?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Padding<string | number> | undefined>;
+        margin?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Margin<string | number> | undefined>;
+        width?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Width<string | number> | undefined>;
+        height?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Height<string | number> | undefined>;
     } & {
         area?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.GridArea | undefined>;
         column?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.GridColumn | undefined>;

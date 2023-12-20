@@ -11,7 +11,7 @@ export declare const Button: import("react").ForwardRefExoticComponent<import("@
     css?: any;
 } & import("@valence-ui/utils/src/generics/Global").GenericProps & {
     color?: import("csstype").Property.Color | undefined;
-    backgroundColor?: import("csstype").Property.BackgroundColor | undefined;
+    backgroundColor?: import("csstype").Property.BackgroundColor | undefined; /** Properties to apply to the `Text` component. */
     padding?: import("csstype").Property.Padding<string | number> | undefined;
     margin?: import("csstype").Property.Margin<string | number> | undefined;
     width?: import("csstype").Property.Width<string | number> | undefined;

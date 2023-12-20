@@ -10,14 +10,14 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import { jsx as _jsx } from "react/jsx-runtime";
-import { forwardRef, useContext } from "react";
-import { ValenceContext, useBreakpoint } from "../../..";
+import { forwardRef } from "react";
+import { useBreakpoint, useValenceContext } from "../../..";
 import { getBackgroundColor, getTextColor } from "../../buttons";
 import { Flex } from "./Flex";
 import { getReactiveProp } from "@valence-ui/utils";
 /** A styled version of the `Flex` component that offers many props in line with the button styling system */
 export const StyledFlex = forwardRef(function StyledFlex(props, ref) {
-    const theme = useContext(ValenceContext);
+    const theme = useValenceContext();
     const breakpoint = useBreakpoint();
     // Defaults
     const { variant = theme.defaultVariant, size = { default: theme.defaultSize }, radius = { default: theme.defaultRadius }, padding = { default: theme.sizeClasses.padding[theme.defaultSize] }, color = { default: theme.primaryColor }, backgroundColor = color, style, children } = props, rest = __rest(props, ["variant", "size", "radius", "padding", "color", "backgroundColor", "style", "children"]);

@@ -24,7 +24,7 @@ const buttons_1 = require("../../buttons");
 const OptionsFilter_1 = require("../OptionContainer/OptionsFilter");
 const OptionContainer_1 = require("../OptionContainer");
 exports.SelectInput = (0, react_2.forwardRef)(function SelectInput(props, ref) {
-    const theme = (0, react_2.useContext)(ValenceProvider_1.ValenceContext);
+    const theme = (0, ValenceProvider_1.useValenceContext)();
     const inputRef = ref !== null && ref !== void 0 ? ref : (0, react_2.createRef)();
     const defaultIconProps = (0, hooks_1.useDefaultIconProps)();
     // Defaults

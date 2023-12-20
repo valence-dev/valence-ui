@@ -1,5 +1,5 @@
-import { CSSProperties, forwardRef, useContext } from "react";
-import { ValenceContext, useBreakpoint } from "../../..";
+import { CSSProperties, forwardRef } from "react";
+import { useBreakpoint, useValence } from "../../..";
 import { getBackgroundColor, getTextColor } from "../../buttons"
 import { Flex, FlexProps } from "./Flex";
 import { ComponentSize, FillVariant, ReactiveProp, getReactiveProp } from "@valence-ui/utils";
@@ -22,7 +22,7 @@ export const StyledFlex = forwardRef(function StyledFlex(
   props: StyledFlexProps,
   ref: any
 ) {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
   const breakpoint = useBreakpoint();
 
 

@@ -21,7 +21,7 @@ const buttons_1 = require("../../buttons");
 const icons_react_1 = require("@tabler/icons-react");
 const react_2 = require("@emotion/react");
 exports.NumberInput = (0, react_1.forwardRef)(function NumberInput(props, ref) {
-    const theme = (0, react_1.useContext)(__1.ValenceContext);
+    const theme = (0, __1.useValenceContext)();
     const defaultIconProps = (0, __1.useDefaultIconProps)();
     const inputRef = ref !== null && ref !== void 0 ? ref : (0, react_1.createRef)();
     // Defaults

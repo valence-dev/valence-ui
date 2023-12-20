@@ -20,7 +20,7 @@ const ValenceProvider_1 = require("../../../../ValenceProvider");
 const hooks_1 = require("../../../../hooks");
 const react_2 = require("@emotion/react");
 exports.Image = (0, react_1.forwardRef)(function Image(props, ref) {
-    const theme = (0, react_1.useContext)(ValenceProvider_1.ValenceContext);
+    const theme = (0, ValenceProvider_1.useValenceContext)();
     const breakpoint = (0, hooks_1.useBreakpoint)();
     // Defaults
     const { src, alt, placeholder, radius = theme.defaultRadius, fit = "cover", position = "center", square = false, height = "fit-content", width = square ? height : "auto", shadow = false, style } = props, rest = __rest(props, ["src", "alt", "placeholder", "radius", "fit", "position", "square", "height", "width", "shadow", "style"]);

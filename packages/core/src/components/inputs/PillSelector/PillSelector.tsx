@@ -2,10 +2,10 @@
 import { css } from "@emotion/react";
 import { FocusEvents, KeyboardEvents, MouseClickEvents, MouseEvents, PointerEvents } from "@valence-ui/utils";
 import { GenericInputProps } from "../../../generics";
-import { ReactNode, forwardRef, useContext, useState } from "react";
+import { ReactNode, forwardRef, useState } from "react";
 import { Button, IconButton, IconButtonProps, TextButtonProps } from "../../buttons";
 import { Flex, FlexProps } from "../../layout";
-import { ValenceContext } from "../../../ValenceProvider";
+import { useValence } from "../../../ValenceProvider";
 import { useDefaultIconProps } from "../../../hooks";
 import { IconX } from "@tabler/icons-react";
 import { CSSProperties } from "styled-components";
@@ -56,7 +56,7 @@ export const PillSelector = forwardRef(function PillSelector(
   props: PillSelectorProps,
   ref: any,
 ) {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
   const defaultIconProps = useDefaultIconProps();
 
 

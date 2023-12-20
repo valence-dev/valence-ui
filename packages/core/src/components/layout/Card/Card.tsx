@@ -1,8 +1,8 @@
 import { ComponentSize, GenericReactiveLayoutProps, GenericReactiveProps, PolymorphicButtonProps, ReactiveProp, SizeClasses, getReactiveProp } from "@valence-ui/utils";
 import { Flex, FlexProps } from "..";
 import { PrimitiveButton, PrimitiveButtonProps } from "../../buttons/PrimitiveButton";
-import { CSSProperties, forwardRef, useContext } from "react";
-import { ValenceContext } from "../../../ValenceProvider";
+import { CSSProperties, forwardRef } from "react";
+import { useValence } from "../../../ValenceProvider";
 import { useBreakpoint } from "../../../hooks";
 import { GenericImageProps, Image as ImageComponent } from "../../display";
 import { UnstyledButton } from "../../buttons";
@@ -39,7 +39,7 @@ const Card = forwardRef(function Card(
   props: CardProps,
   ref: any
 ) {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
   const breakpoint = useBreakpoint();
 
 
@@ -122,7 +122,7 @@ const Image = forwardRef(function CardImage(
   props: CardImageProps,
   ref: any
 ) {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
 
 
   // Defaults
@@ -154,7 +154,7 @@ const Section = forwardRef(function CardSection(
   props: CardSectionProps,
   ref: any
 ) {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
 
 
   // Defaults
@@ -189,7 +189,7 @@ const Buttons = forwardRef(function CardButtons(
   props: CardButtonsProps,
   ref: any
 ) {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
   const breakpoint = useBreakpoint();
 
 

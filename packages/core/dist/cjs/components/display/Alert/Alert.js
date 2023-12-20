@@ -23,7 +23,7 @@ const utils_1 = require("@valence-ui/utils");
 const ValenceProvider_1 = require("../../../ValenceProvider");
 const react_2 = require("@emotion/react");
 exports.Alert = (0, react_1.forwardRef)(function Alert(props, ref) {
-    const theme = (0, react_1.useContext)(ValenceProvider_1.ValenceContext);
+    const theme = (0, ValenceProvider_1.useValenceContext)();
     // Hooks & states
     const reducedMotion = (0, framer_motion_1.useReducedMotion)();
     // Defaults

@@ -24,7 +24,7 @@ const hooks_1 = require("../../../hooks");
 const icons_react_1 = require("@tabler/icons-react");
 const OptionContainer_1 = require("../OptionContainer");
 exports.PillInput = (0, react_1.forwardRef)(function PillInput(props, ref) {
-    const theme = (0, react_1.useContext)(ValenceProvider_1.ValenceContext);
+    const theme = (0, ValenceProvider_1.useValenceContext)();
     const inputRef = ref !== null && ref !== void 0 ? ref : (0, react_1.createRef)();
     const defaultIconProps = (0, hooks_1.useDefaultIconProps)();
     // Defaults

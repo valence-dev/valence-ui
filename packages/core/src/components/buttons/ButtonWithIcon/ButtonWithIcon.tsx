@@ -1,6 +1,6 @@
 import { CSSProperties, ReactNode, useContext } from "react";
 import { TextButtonProps } from "../TextButton";
-import { ValenceContext } from "../../..";
+import { useValence } from "../../..";
 import { PrimitiveButton } from "../PrimitiveButton";
 import { Text } from "../../display";
 import { getTextColor } from "../Helpers";
@@ -13,7 +13,7 @@ export type ButtonWithIconProps = TextButtonProps & {
 }
 
 export function ButtonWithIcon(props: ButtonWithIconProps) {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
 
 
   // Defaults

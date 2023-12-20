@@ -25,7 +25,7 @@ const react_2 = require("@emotion/react");
 const react_3 = require("@floating-ui/react");
 const usehooks_ts_1 = require("usehooks-ts");
 exports.Modal = (0, react_1.forwardRef)(function Modal(props, ref) {
-    const theme = (0, react_1.useContext)(__1.ValenceContext);
+    const theme = (0, __1.useValenceContext)();
     // Defaults
     const { disclosure, title, header = (props) => (0, jsx_runtime_1.jsx)(exports.DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), closeOnOverlayClick = true, closeOnEscape = true, lockScroll = true, withShadow = true, radius = theme.defaultRadius, backgroundColor = "white", color = "black", padding = theme.sizeClasses.padding[theme.defaultSize], margin, width = 500, height = "fit-content", flexProps, overlayBackgroundProps, children, style } = props, rest = __rest(props, ["disclosure", "title", "header", "closeOnOverlayClick", "closeOnEscape", "lockScroll", "withShadow", "radius", "backgroundColor", "color", "padding", "margin", "width", "height", "flexProps", "overlayBackgroundProps", "children", "style"]);
     // Hooks

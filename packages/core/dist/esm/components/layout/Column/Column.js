@@ -11,13 +11,13 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx } from "react/jsx-runtime";
 import { Flex } from "../Flex";
-import { forwardRef, useContext } from "react";
+import { forwardRef } from "react";
 import { Grid } from "../Grid";
 import { getReactiveProp } from "@valence-ui/utils";
-import { ValenceContext } from "../../../ValenceProvider";
+import { useValenceContext } from "../../../ValenceProvider";
 import { useBreakpoint } from "../../../hooks";
 const Column = forwardRef(function Column(props, ref) {
-    const theme = useContext(ValenceContext);
+    const theme = useValenceContext();
     // Defaults
     const { direction = "column", justify = "center", color = "black", backgroundColor, padding = theme.sizeClasses.padding[theme.defaultSize], margin, width, height, children } = props, rest = __rest(props, ["direction", "justify", "color", "backgroundColor", "padding", "margin", "width", "height", "children"]);
     return (_jsx(Flex, Object.assign({ direction: direction, justify: justify, color: color, backgroundColor: backgroundColor, padding: padding, margin: margin, width: width, height: height, ref: ref }, rest, { children: children })));

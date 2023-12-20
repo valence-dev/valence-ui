@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { FocusEvents } from "@valence-ui/utils";
-import { forwardRef, useContext } from "react";
-import { ValenceContext } from "../../../ValenceProvider";
+import { forwardRef } from "react";
+import { useValence } from "../../../ValenceProvider";
 import { PrimitiveButton, PrimitiveButtonProps, getBackgroundColor } from "../../buttons";
 import { Loader, Text, TextProps } from "../../display";
 import { motion } from "framer-motion";
@@ -30,7 +30,7 @@ export const Switch = forwardRef(function Switch(
   props: SwitchProps,
   ref: any,
 ) {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
 
 
   // Defaults

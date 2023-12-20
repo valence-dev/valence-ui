@@ -10,9 +10,9 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import { jsx as _jsx } from "react/jsx-runtime";
-import { forwardRef, useContext } from "react";
+import { forwardRef } from "react";
 import { motion } from "framer-motion";
-import { ValenceContext } from "../../..";
+import { useValenceContext } from "../../..";
 const SIZES = {
     xs: { height: 12, thickness: 2 },
     sm: { height: 14, thickness: 2 },
@@ -21,7 +21,7 @@ const SIZES = {
     xl: { height: 25, thickness: 3.5 },
 };
 export const Loader = forwardRef(function Loader(props, ref) {
-    const theme = useContext(ValenceContext);
+    const theme = useValenceContext();
     // Defaults
     const { size = theme.defaultSize, color = theme.primaryColor, style } = props, rest = __rest(props, ["size", "color", "style"]);
     // Styles

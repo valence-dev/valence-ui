@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import { CSSProperties, ReactNode, forwardRef, useContext } from "react";
+import { CSSProperties, ReactNode, forwardRef } from "react";
 import { ComponentSize, GenericReactiveProps, ReactiveProp, getReactiveProp } from "@valence-ui/utils";
-import { ValenceContext } from "../../../../ValenceProvider";
+import { useValence } from "../../../../ValenceProvider";
 import { useBreakpoint } from "../../../../hooks";
 import { css } from "@emotion/react";
 
@@ -41,7 +41,7 @@ export const Image = forwardRef(function Image(
   props: ImageProps,
   ref: any
 ) {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
   const breakpoint = useBreakpoint();
 
 

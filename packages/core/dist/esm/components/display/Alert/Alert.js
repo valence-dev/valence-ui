@@ -11,16 +11,16 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx, jsxs as _jsxs } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
-import { forwardRef, useContext } from "react";
+import { forwardRef } from "react";
 import { AnimatePresence, useReducedMotion } from "framer-motion";
 import { Flex } from "../../layout";
 import { Text } from "../Text";
 import { getBackgroundColor, getMotionBehaviour, getTextColor } from "../../buttons";
 import { CLICKABLE_ELEMENTS, PolymorphicButton } from "@valence-ui/utils";
-import { ValenceContext } from "../../../ValenceProvider";
+import { useValenceContext } from "../../../ValenceProvider";
 import { css } from "@emotion/react";
 export const Alert = forwardRef(function Alert(props, ref) {
-    const theme = useContext(ValenceContext);
+    const theme = useValenceContext();
     // Hooks & states
     const reducedMotion = useReducedMotion();
     // Defaults

@@ -21,7 +21,7 @@ const hooks_1 = require("../../../../hooks");
 const buttons_1 = require("../../../buttons");
 const layout_1 = require("../../../layout");
 exports.Avatar = (0, react_1.forwardRef)(function Avatar(props, ref) {
-    const theme = (0, react_1.useContext)(ValenceProvider_1.ValenceContext);
+    const theme = (0, ValenceProvider_1.useValenceContext)();
     const defaultIconProps = (0, hooks_1.useDefaultIconProps)();
     // Defaults
     const { placeholderIcon, placeholderColor = theme.primaryColor, fillVariant = theme.defaultVariant, placeholder = (0, jsx_runtime_1.jsx)(layout_1.Flex, { align: "center", justify: "center", height: "100%", width: "100%", children: (0, jsx_runtime_1.jsx)(icons_react_1.IconUserCircle, Object.assign({}, defaultIconProps.get())) }), square = true, radius = "xl", style } = props, rest = __rest(props, ["placeholderIcon", "placeholderColor", "fillVariant", "placeholder", "square", "radius", "style"]);

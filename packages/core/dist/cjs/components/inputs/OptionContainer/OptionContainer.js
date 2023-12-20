@@ -25,7 +25,7 @@ const ValenceProvider_1 = require("../../../ValenceProvider");
 const layout_1 = require("../../layout");
 const display_1 = require("../../display");
 exports.OptionContainer = (0, react_3.forwardRef)(function OptionContainer(props, ref) {
-    const theme = (0, react_3.useContext)(ValenceProvider_1.ValenceContext);
+    const theme = (0, ValenceProvider_1.useValenceContext)();
     const defaultIconProps = (0, hooks_1.useDefaultIconProps)();
     // Defaults
     const { selectedOption, options, onSelect, nothingFound = "Nothing found...", selectKeys = ["Enter"], closeKeys = ["Escape"], icon, rightIcon = (0, jsx_runtime_1.jsx)(icons_react_1.IconSelector, Object.assign({}, defaultIconProps.get())), size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, loading, disabled, required, color = "black", backgroundColor = color, padding, margin, width, height, grow, dropdownProps = {

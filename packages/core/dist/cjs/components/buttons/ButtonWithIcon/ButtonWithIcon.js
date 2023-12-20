@@ -13,13 +13,12 @@ var __rest = (this && this.__rest) || function (s, e) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ButtonWithIcon = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
-const react_1 = require("react");
 const __1 = require("../../..");
 const PrimitiveButton_1 = require("../PrimitiveButton");
 const display_1 = require("../../display");
 const Helpers_1 = require("../Helpers");
 function ButtonWithIcon(props) {
-    const theme = (0, react_1.useContext)(__1.ValenceContext);
+    const theme = (0, __1.useValenceContext)();
     // Defaults
     const { icon, iconPosition = "left", size = theme.defaultSize, variant = theme.defaultVariant, color = theme.primaryColor, style, textProps } = props, rest = __rest(props, ["icon", "iconPosition", "size", "variant", "color", "style", "textProps"]);
     // Styles

@@ -19,5 +19,4 @@ __exportStar(require("./UseColorScheme"), exports);
 __exportStar(require("./UseDefaultIconProps"), exports);
 __exportStar(require("./UseDetectKeyDown"), exports);
 __exportStar(require("./UseDisclosure"), exports);
-__exportStar(require("./UseScrollManager"), exports);
 __exportStar(require("./UseTooltip"), exports);

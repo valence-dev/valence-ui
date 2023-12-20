@@ -11,15 +11,15 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
-import { forwardRef, useContext } from "react";
+import { forwardRef } from "react";
 import { useReducedMotion } from "framer-motion";
 import { getBackgroundColor, getMotionBehaviour, getTextColor } from "../Helpers";
 import { Loader } from "../../display/Loader";
 import { PolymorphicButton } from "@valence-ui/utils";
-import { ValenceContext } from "../../../ValenceProvider";
+import { useValenceContext } from "../../../ValenceProvider";
 import { css } from "@emotion/react";
 export const PrimitiveButton = forwardRef(function PrimitiveButton(props, ref) {
-    const theme = useContext(ValenceContext);
+    const theme = useValenceContext();
     // Hooks & states
     const reducedMotion = useReducedMotion();
     // Defaults

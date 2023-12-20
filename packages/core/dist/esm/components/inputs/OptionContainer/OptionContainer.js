@@ -15,14 +15,14 @@ import { css } from "@emotion/react";
 import { useFloating, useClick, useDismiss, useInteractions, offset, flip, size as sizeFn, autoUpdate, FloatingPortal, } from "@floating-ui/react";
 import { ButtonWithIcon } from "../../buttons";
 import { INPUT_SIZES, InputContainer } from "../InputContainer";
-import { forwardRef, useContext, useEffect, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import { IconCheck, IconSelector } from "@tabler/icons-react";
 import { useDefaultIconProps, useDetectKeyDown } from "../../../hooks";
-import { ValenceContext } from "../../../ValenceProvider";
+import { useValenceContext } from "../../../ValenceProvider";
 import { Flex } from "../../layout";
 import { Text } from "../../display";
 export const OptionContainer = forwardRef(function OptionContainer(props, ref) {
-    const theme = useContext(ValenceContext);
+    const theme = useValenceContext();
     const defaultIconProps = useDefaultIconProps();
     // Defaults
     const { selectedOption, options, onSelect, nothingFound = "Nothing found...", selectKeys = ["Enter"], closeKeys = ["Escape"], icon, rightIcon = _jsx(IconSelector, Object.assign({}, defaultIconProps.get())), size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, loading, disabled, required, color = "black", backgroundColor = color, padding, margin, width, height, grow, dropdownProps = {

@@ -31,7 +31,7 @@ const SIZES = {
     xl: { height: 90 },
 };
 exports.MultipartButton = (0, react_1.forwardRef)(function MultipartButton(props, ref) {
-    const theme = (0, react_1.useContext)(ValenceProvider_1.ValenceContext);
+    const theme = (0, ValenceProvider_1.useValenceContext)();
     // Hooks
     const defaultIconProps = (0, hooks_1.useDefaultIconProps)();
     // Defaults

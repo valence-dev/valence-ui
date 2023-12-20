@@ -1,6 +1,6 @@
-import { CSSProperties, forwardRef, useContext } from "react";
+import { CSSProperties, forwardRef } from "react";
 import { motion } from "framer-motion";
-import { ValenceContext } from "../../..";
+import { useValence } from "../../..";
 import { ComponentSize, GenericProps, SizeClasses } from "@valence-ui/utils";
 
 export type LoaderProps = GenericProps & {
@@ -22,7 +22,7 @@ export const Loader = forwardRef(function Loader(
   props: LoaderProps,
   ref: any
 ) {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
 
 
   // Defaults

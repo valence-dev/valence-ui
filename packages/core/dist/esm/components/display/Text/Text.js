@@ -11,10 +11,10 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
-import { forwardRef, useContext } from "react";
+import { forwardRef } from "react";
 import reactStringReplace from "react-string-replace";
 import { PolymorphicText } from "@valence-ui/utils";
-import { ValenceContext } from "../../../ValenceProvider";
+import { useValenceContext } from "../../../ValenceProvider";
 import { css } from "@emotion/react";
 const REGEX_PATTERNS = {
     newline: /(\n)/,
@@ -35,7 +35,7 @@ const REGEX_PATTERNS = {
  * - `{...}` for monospace text
  */
 export const Text = forwardRef(function Text(props, ref) {
-    const theme = useContext(ValenceContext);
+    const theme = useValenceContext();
     // Defaults
     const { bold = false, italic = false, monospace = false, family = monospace ? theme.getFont("monospace") : theme.getFont("default"), weight = bold ? "bold" : "normal", align = "left", transform = "none", size = theme.defaultSize, fontSize = theme.sizeClasses.fontSize[size], color = "black", children, style } = props, rest = __rest(props, ["bold", "italic", "monospace", "family", "weight", "align", "transform", "size", "fontSize", "color", "children", "style"]);
     // Run through formatters

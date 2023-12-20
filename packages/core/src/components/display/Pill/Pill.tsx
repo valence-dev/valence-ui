@@ -1,7 +1,7 @@
 import { ComponentSize, FillVariant, GenericLayoutProps, SizeClasses } from "@valence-ui/utils";
 import { IconButton, IconButtonProps, UnstyledButtonProps, getBackgroundColor, getTextColor } from "../../buttons";
-import { CSSProperties, ReactNode, forwardRef, useContext } from "react";
-import { ValenceContext } from "../../../ValenceProvider";
+import { CSSProperties, ReactNode, forwardRef } from "react";
+import { useValence } from "../../../ValenceProvider";
 import { IconX } from "@tabler/icons-react";
 import { useDefaultIconProps } from "../../../hooks";
 import { Text, TextProps } from "../Text";
@@ -49,7 +49,7 @@ export const Pill = forwardRef(function Pill(
   props: PillProps,
   ref: any,
 ) {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
   const defaultIconProps = useDefaultIconProps();
 
 

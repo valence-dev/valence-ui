@@ -11,12 +11,12 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
-import { createRef, forwardRef, useContext } from "react";
-import { ValenceContext, getTextColor } from "../../..";
+import { createRef, forwardRef } from "react";
+import { getTextColor, useValenceContext } from "../../..";
 import { InputContainer } from "../InputContainer";
 import { css } from "@emotion/react";
 export const TextInput = forwardRef(function TextInput(props, ref) {
-    const theme = useContext(ValenceContext);
+    const theme = useValenceContext();
     const inputRef = ref !== null && ref !== void 0 ? ref : createRef();
     // Defaults
     const { value, setValue, icon, type = "text", autoComplete = "off", size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, grow, loading, autoFocus, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding, margin, width, height, onEnterPress, onKeyPress, inputStyle, style } = props, rest = __rest(props, ["value", "setValue", "icon", "type", "autoComplete", "size", "radius", "variant", "grow", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "onEnterPress", "onKeyPress", "inputStyle", "style"]);

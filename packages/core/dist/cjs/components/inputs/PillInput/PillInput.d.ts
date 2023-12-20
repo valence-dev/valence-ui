@@ -76,7 +76,6 @@ export declare const PillInput: import("react").ForwardRefExoticComponent<import
     disabled?: boolean | undefined;
     readOnly?: boolean | undefined;
     required?: boolean | undefined;
-    /** The placeholder text to display when this input is empty */
     autoFocus?: boolean | undefined;
     loading?: boolean | undefined;
     form?: string | undefined;
@@ -84,7 +83,7 @@ export declare const PillInput: import("react").ForwardRefExoticComponent<import
 } & import("@valence-ui/utils/src/generics/Events").MouseClickEvents & import("@valence-ui/utils/src/generics/Events").MouseEvents & import("@valence-ui/utils/src/generics/Events").PointerEvents & import("@valence-ui/utils/src/generics/Events").FocusEvents & import("@valence-ui/utils/src/generics/Events").KeyboardEvents & {
     onInput?: ((event: import("react").FormEvent<Element>) => void) | undefined;
     onChange?: ((event: import("react").FormEvent<Element>) => void) | undefined;
-    onInvalid?: ((event: import("react").FormEvent<Element>) => void) | undefined; /** Optional props to pass to all pills */
+    onInvalid?: ((event: import("react").FormEvent<Element>) => void) | undefined;
     onEnterPress?: ((e: import("react").KeyboardEvent<Element>) => void) | undefined;
 } & {
     /** Callback to be called when a pill is added. */
@@ -135,11 +134,11 @@ export declare const PillInput: import("react").ForwardRefExoticComponent<import
     } & {
         variant?: import("@valence-ui/utils/src/generics/Global").FillVariant | undefined;
         size?: import("@valence-ui/utils/src/generics/Global").ComponentSize | undefined;
-        radius?: import("@valence-ui/utils/src/generics/Global").ComponentSize | undefined;
+        radius?: import("@valence-ui/utils/src/generics/Global").ComponentSize | undefined; /** Callback to be called when a pill is added. */
         square?: boolean | undefined;
         shadow?: boolean | undefined;
         grow?: boolean | undefined;
-        disabled?: boolean | undefined; /** An icon to display at the left side of this input */
+        disabled?: boolean | undefined;
         loading?: boolean | undefined;
     } & {
         motion?: import("../../buttons").MotionBehaviourProps | undefined;
@@ -174,11 +173,11 @@ export declare const PillInput: import("react").ForwardRefExoticComponent<import
         } & {
             variant?: import("@valence-ui/utils/src/generics/Global").FillVariant | undefined;
             size?: import("@valence-ui/utils/src/generics/Global").ComponentSize | undefined;
-            radius?: import("@valence-ui/utils/src/generics/Global").ComponentSize | undefined;
+            radius?: import("@valence-ui/utils/src/generics/Global").ComponentSize | undefined; /** Callback to be called when a pill is added. */
             square?: boolean | undefined;
             shadow?: boolean | undefined;
             grow?: boolean | undefined;
-            disabled?: boolean | undefined; /** An icon to display at the left side of this input */
+            disabled?: boolean | undefined;
             loading?: boolean | undefined;
         } & {
             motion?: import("../../buttons").MotionBehaviourProps | undefined;
@@ -211,7 +210,7 @@ export declare const PillInput: import("react").ForwardRefExoticComponent<import
         style?: import("@valence-ui/utils").ReactiveProp<CSSProperties> | undefined;
         tabIndex?: import("@valence-ui/utils").ReactiveProp<number> | undefined;
     } & {
-        backgroundColor?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.BackgroundColor | undefined>; /** An icon to display at the left side of this input */
+        backgroundColor?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.BackgroundColor | undefined>;
         color?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Color | undefined>;
         padding?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Padding<string | number> | undefined>;
         margin?: import("@valence-ui/utils").ReactiveProp<import("csstype").Property.Margin<string | number> | undefined>;

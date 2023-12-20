@@ -1,8 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import { CSSProperties, Dispatch, ReactNode, SetStateAction, createRef, forwardRef, useContext } from "react";
+import { CSSProperties, ReactNode, createRef, forwardRef } from "react";
 import { InputContainer } from "../InputContainer";
-import { GenericInputProps, GenericTextInputEventProps, ValenceContext, useDefaultIconProps } from "../../..";
-import { Flex } from "../../layout";
+import { GenericInputProps, GenericTextInputEventProps, useDefaultIconProps, useValence } from "../../..";
 import { IconButton, getTextColor } from "../../buttons";
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 import { css } from "@emotion/react";
@@ -44,7 +43,7 @@ export const NumberInput = forwardRef(function NumberInput(
   props: NumberInputProps,
   ref: any
 ) {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
   const defaultIconProps = useDefaultIconProps();
   const inputRef = ref ?? createRef<HTMLInputElement>();
 

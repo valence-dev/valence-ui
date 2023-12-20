@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { GenericGridItemProps, GenericGridProps, PolymorphicLayout, PolymorphicLayoutProps, getReactiveProp } from "@valence-ui/utils";
-import { forwardRef, useContext } from "react";
-import { ValenceContext } from "../../../ValenceProvider";
+import { forwardRef } from "react";
+import { useValence } from "../../../ValenceProvider";
 import { useBreakpoint } from "../../../hooks";
 import { css } from "@emotion/react";
 
@@ -18,7 +18,7 @@ const Grid = forwardRef(function Grid(
   props: GridProps,
   ref: any,
 ) {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
   const breakpoint = useBreakpoint();
 
 
@@ -94,7 +94,7 @@ const Item = forwardRef(function GridItem(
   props: GridItemProps,
   ref: any,
 ) {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
   const breakpoint = useBreakpoint();
 
 

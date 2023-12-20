@@ -21,7 +21,7 @@ const framer_motion_1 = require("framer-motion");
 const layout_1 = require("../../layout");
 const react_2 = require("@emotion/react");
 exports.Switch = (0, react_1.forwardRef)(function Switch(props, ref) {
-    const theme = (0, react_1.useContext)(ValenceProvider_1.ValenceContext);
+    const theme = (0, ValenceProvider_1.useValenceContext)();
     // Defaults
     const { value, setValue, label, size = theme.defaultSize, radius = "xl", variant = theme.defaultVariant, grow = false, disabled = false, readOnly = false, loading = false, onFocus, onBlur, buttonProps, labelProps, color = theme.primaryColor, backgroundColor = color, padding = 4, margin = 0, width, height, style } = props, rest = __rest(props, ["value", "setValue", "label", "size", "radius", "variant", "grow", "disabled", "readOnly", "loading", "onFocus", "onBlur", "buttonProps", "labelProps", "color", "backgroundColor", "padding", "margin", "width", "height", "style"]);
     // Handlers

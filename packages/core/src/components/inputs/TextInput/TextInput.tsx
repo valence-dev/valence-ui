@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import { ReactNode, createRef, forwardRef, useContext } from "react";
-import { GenericTextInputEventProps, GenericTextInputProps, ValenceContext, getTextColor } from "../../..";
+import { createRef, forwardRef } from "react";
+import { GenericTextInputEventProps, GenericTextInputProps, ValenceContext, getTextColor, useValence } from "../../..";
 import { InputContainer } from "../InputContainer";
 import { css } from "@emotion/react";
 
@@ -32,7 +32,7 @@ export const TextInput = forwardRef(function TextInput(
   props: TextInputProps,
   ref: any,
 ) {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
   const inputRef = ref ?? createRef<HTMLInputElement>();
 
 

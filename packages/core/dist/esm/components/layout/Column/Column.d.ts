@@ -34,6 +34,13 @@ declare const ColumnNamespace: import("react").ForwardRefExoticComponent<import(
         style?: ReactiveProp<import("react").CSSProperties> | undefined;
         tabIndex?: ReactiveProp<number> | undefined;
     } & {
+        backgroundColor?: ReactiveProp<import("csstype").Property.BackgroundColor | undefined>;
+        color?: ReactiveProp<import("csstype").Property.Color | undefined>;
+        padding?: ReactiveProp<import("csstype").Property.Padding<string | number> | undefined>;
+        margin?: ReactiveProp<import("csstype").Property.Margin<string | number> | undefined>;
+        width?: ReactiveProp<import("csstype").Property.Width<string | number> | undefined>;
+        height?: ReactiveProp<import("csstype").Property.Height<string | number> | undefined>;
+    } & {
         grid?: ReactiveProp<import("csstype").Property.Grid | undefined>;
         gap?: ReactiveProp<import("csstype").Property.Gap<string | number> | undefined>;
         rowGap?: ReactiveProp<import("csstype").Property.RowGap<string | number> | undefined>;
@@ -51,13 +58,6 @@ declare const ColumnNamespace: import("react").ForwardRefExoticComponent<import(
         alignContent?: ReactiveProp<import("csstype").Property.AlignContent | undefined>;
     } & import("@valence-ui/utils").PolymorphicElementProps & {
         css?: any;
-    } & {
-        backgroundColor?: ReactiveProp<import("csstype").Property.BackgroundColor | undefined>;
-        color?: ReactiveProp<import("csstype").Property.Color | undefined>;
-        padding?: ReactiveProp<import("csstype").Property.Padding<string | number> | undefined>;
-        margin?: ReactiveProp<import("csstype").Property.Margin<string | number> | undefined>;
-        width?: ReactiveProp<import("csstype").Property.Width<string | number> | undefined>;
-        height?: ReactiveProp<import("csstype").Property.Height<string | number> | undefined>;
     } & {
         /** Sets the number of columns in the grid. `2` by default */
         columns?: ReactiveProp<number> | undefined;

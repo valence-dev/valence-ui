@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import { CSSProperties, ReactNode, forwardRef, useContext } from "react";
-import { ValenceContext } from "../../..";
+import { CSSProperties, ReactNode, forwardRef } from "react";
+import { useValence } from "../../..";
 import { getBackgroundColor, getTextColor } from "../../buttons";
 import { Loader } from "../../display";
 import { ComponentSize, FillVariant, GenericLayoutProps, MouseClickEvents, MouseEvents, PointerEvents, SizeClasses } from "@valence-ui/utils";
@@ -61,7 +61,7 @@ export const InputContainer = forwardRef(function InputContainer(
   props: InputContainerProps,
   ref: any,
 ) {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
 
 
   // Defaults

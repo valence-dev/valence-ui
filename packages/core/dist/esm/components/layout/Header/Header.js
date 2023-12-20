@@ -10,9 +10,9 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import { jsx as _jsx } from "react/jsx-runtime";
-import { forwardRef, useContext, useState } from "react";
+import { forwardRef, useState } from "react";
 import { Flex } from "../Flex";
-import { ValenceContext, useBreakpoint } from "../../..";
+import { useBreakpoint, useValenceContext } from "../../..";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 import { getReactiveProp } from "@valence-ui/utils";
 function interpolateHeight(max, min, scrollY) {
@@ -24,7 +24,7 @@ function interpolateHeight(max, min, scrollY) {
  */
 export const Header = forwardRef(function Header(props, ref) {
     var _a;
-    const theme = useContext(ValenceContext);
+    const theme = useValenceContext();
     // Defaults
     const { regularHeight = 100, tallHeight = 150, compactHeight = 75, compactOnScroll = true, backgroundColor = "white", children, style } = props, rest = __rest(props, ["regularHeight", "tallHeight", "compactHeight", "compactOnScroll", "backgroundColor", "children", "style"]);
     // Hooks & States

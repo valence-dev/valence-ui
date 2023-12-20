@@ -1,10 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import { ValenceContext } from "../../../ValenceProvider";
-import { CSSProperties, Dispatch, SetStateAction, createRef, forwardRef, useContext } from "react";
-import { getBackgroundColor, getTextColor } from "../../buttons";
+import { useValence } from "../../../ValenceProvider";
+import { CSSProperties, createRef, forwardRef } from "react";
+import { getTextColor } from "../../buttons";
 import { css } from "@emotion/react";
-import { Flex } from "../../layout";
-import { Loader } from "../../display";
 import { GenericTextInputEventProps, GenericTextInputProps } from "../../../generics";
 import { InputContainer } from "../InputContainer";
 
@@ -46,7 +44,7 @@ export const Textarea = forwardRef(function Textarea(
   props: TextareaProps,
   ref: any
 ) {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
   const inputRef = ref ?? createRef<HTMLTextAreaElement>();
 
 

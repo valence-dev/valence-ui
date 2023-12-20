@@ -1,9 +1,9 @@
-import { forwardRef, useContext } from "react";
+import { forwardRef } from "react";
 import { PrimitiveButtonProps } from "../PrimitiveButton";
 import { PrimitiveButton } from "../PrimitiveButton/PrimitiveButton";
 import { getTextColor } from "../Helpers";
 import { Text, TextProps } from "../../display";
-import { ValenceContext } from "../../../ValenceProvider";
+import { useValence } from "../../../ValenceProvider";
 
 export type TextButtonProps =
   PrimitiveButtonProps
@@ -18,7 +18,7 @@ export const Button = forwardRef(function Button(
   props: TextButtonProps,
   ref: any
 ) {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
 
   // Defaults
   const {

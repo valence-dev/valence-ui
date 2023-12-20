@@ -27,6 +27,7 @@ export type ImageProps = GenericImageProps & GenericReactiveProps & {
     children?: never;
 };
 export declare const Image: import("react").ForwardRefExoticComponent<GenericImageProps & import("@valence-ui/utils").GenericProps & {
+    /** **[REACTIVE]** Shorthand for `aspect-ratio = "1/1"` */
     style?: ReactiveProp<CSSProperties> | undefined;
     tabIndex?: ReactiveProp<number> | undefined;
 } & {

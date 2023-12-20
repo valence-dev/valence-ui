@@ -1,4 +1,4 @@
-import { CSSProperties, createContext } from "react";
+import { CSSProperties, createContext, useContext } from "react";
 import { ColorReactive, getUnidentifiedHexColor, getReactiveColor } from "../Color";
 import { IValenceContext, ValenceContextDefaults as VCD } from "./ValenceProvider.types";
 import { useColorScheme } from "../hooks";
@@ -7,6 +7,15 @@ import { ComponentSize, FillVariant, SizeClasses } from "@valence-ui/utils";
 
 
 export const ValenceContext = createContext<IValenceContext>(VCD);
+
+export const useValence = () => {
+  const context = useContext(ValenceContext);
+
+  if (context === null)
+    throw new Error("Valence components must be wrapped in <ValenceProvider />");
+
+  return context;
+}
 
 
 export type ValenceProviderProps = {

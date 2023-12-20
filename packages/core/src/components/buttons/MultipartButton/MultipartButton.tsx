@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { CSSProperties, ReactNode, forwardRef, useContext } from "react";
+import { CSSProperties, ReactNode, forwardRef } from "react";
 import { PrimitiveButton, PrimitiveButtonProps } from "../PrimitiveButton";
 import { IconChevronRight } from "@tabler/icons-react";
 import { getTextColor } from "../Helpers";
 import { Flex } from "../../layout";
 import { Text, TextProps } from "../../display";
-import { ValenceContext } from "../../../ValenceProvider";
+import { useValence } from "../../../ValenceProvider";
 import { useDefaultIconProps } from "../../../hooks";
 import { SizeClasses } from "@valence-ui/utils";
 import { css } from "@emotion/react";
@@ -45,7 +45,7 @@ export const MultipartButton = forwardRef(function MultipartButton(
   props: MultipartButtonProps,
   ref: any,
 ) {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
 
 
   // Hooks

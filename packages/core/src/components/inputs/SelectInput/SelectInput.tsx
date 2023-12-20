@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { CSSProperties, ReactNode, createRef, forwardRef, useContext, useEffect, useState } from "react";
+import { CSSProperties, ReactNode, createRef, forwardRef, useEffect, useState } from "react";
 import { GenericInputProps, GenericTextInputEventProps } from "../../../generics";
-import { ValenceContext } from "../../../ValenceProvider";
+import { useValence } from "../../../ValenceProvider";
 import { useDefaultIconProps } from "../../../hooks";
 import { IconSelector } from "@tabler/icons-react";
 import { INPUT_SIZES } from "../InputContainer";
@@ -69,7 +69,7 @@ export const SelectInput = forwardRef(function SelectInput(
   props: SelectInputProps,
   ref: any,
 ) {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
   const inputRef = ref ?? createRef<HTMLInputElement>();
   const defaultIconProps = useDefaultIconProps();
 

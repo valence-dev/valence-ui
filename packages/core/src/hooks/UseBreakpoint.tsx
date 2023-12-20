@@ -1,11 +1,10 @@
-import { useContext } from "react";
 import { useWindowSize } from "usehooks-ts"
-import { ValenceContext } from "..";
+import { useValence } from "..";
 import { Breakpoint } from "@valence-ui/utils";
 
 
 export function useBreakpoint(): Breakpoint {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
   const { width, height } = useWindowSize();
 
   const isDesktopThin: boolean = width <= theme.breakpoints.desktopThinWidth

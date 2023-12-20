@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import { CSSProperties, ReactNode, createRef, forwardRef, useContext, useState } from "react";
+import { CSSProperties, ReactNode, createRef, forwardRef, useState } from "react";
 import { GenericInputProps, GenericTextInputEventProps } from "../../../generics";
 import { Button, IconButton, IconButtonProps, getTextColor } from "../../buttons";
-import { ValenceContext } from "../../../ValenceProvider";
+import { useValence } from "../../../ValenceProvider";
 import { Pill, PillProps } from "../../display";
 import { css } from "@emotion/react";
 import { Flex, FlexProps } from "../../layout";
@@ -79,7 +79,7 @@ export const PillInput = forwardRef(function PillInput(
   props: PillInputProps,
   ref: any,
 ) {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
   const inputRef = ref ?? createRef<HTMLInputElement>();
   const defaultIconProps = useDefaultIconProps();
 

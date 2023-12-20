@@ -11,9 +11,9 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
-import { createRef, forwardRef, useContext, useState } from "react";
+import { createRef, forwardRef, useState } from "react";
 import { Button, IconButton, getTextColor } from "../../buttons";
-import { ValenceContext } from "../../../ValenceProvider";
+import { useValenceContext } from "../../../ValenceProvider";
 import { Pill } from "../../display";
 import { css } from "@emotion/react";
 import { Flex } from "../../layout";
@@ -21,7 +21,7 @@ import { useDefaultIconProps } from "../../../hooks";
 import { IconX } from "@tabler/icons-react";
 import { DefaultOptionsFilter, OptionContainer } from "../OptionContainer";
 export const PillInput = forwardRef(function PillInput(props, ref) {
-    const theme = useContext(ValenceContext);
+    const theme = useValenceContext();
     const inputRef = ref !== null && ref !== void 0 ? ref : createRef();
     const defaultIconProps = useDefaultIconProps();
     // Defaults

@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import { forwardRef, useContext } from "react";
+import { forwardRef } from "react";
 import { useReducedMotion } from "framer-motion";
 import { MotionBehaviourProps, getBackgroundColor, getMotionBehaviour, getTextColor } from "../Helpers";
 import { Loader } from "../../display/Loader";
 import { PolymorphicButton } from "@valence-ui/utils";
-import { ValenceContext } from "../../../ValenceProvider";
+import { useValence } from "../../../ValenceProvider";
 import { css } from "@emotion/react";
 import { GenericButtonProps } from "../../../generics";
 
@@ -21,7 +21,7 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
   ref: any
 ) {
 
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
 
   // Hooks & states
   const reducedMotion = useReducedMotion();

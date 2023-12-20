@@ -11,8 +11,8 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx, jsxs as _jsxs } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
-import { forwardRef, useContext } from "react";
-import { ValenceContext } from "../../..";
+import { forwardRef } from "react";
+import { useValenceContext } from "../../..";
 import { getBackgroundColor, getTextColor } from "../../buttons";
 import { Loader } from "../../display";
 import { css } from "@emotion/react";
@@ -24,7 +24,7 @@ export const INPUT_SIZES = {
     xl: { padding: 12 },
 };
 export const InputContainer = forwardRef(function InputContainer(props, ref) {
-    const theme = useContext(ValenceContext);
+    const theme = useValenceContext();
     // Defaults
     const { icon, button, size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, grow, disabled = false, required = false, loading = false, color = "black", backgroundColor = color, width = "100%", height = theme.sizeClasses.height[size], padding = INPUT_SIZES[size].padding, margin, inputRef, onClick, iconContainerStyle, requireIndicatorStyle, buttonContainerStyle, children, style } = props, rest = __rest(props, ["icon", "button", "size", "radius", "variant", "grow", "disabled", "required", "loading", "color", "backgroundColor", "width", "height", "padding", "margin", "inputRef", "onClick", "iconContainerStyle", "requireIndicatorStyle", "buttonContainerStyle", "children", "style"]);
     // Functions

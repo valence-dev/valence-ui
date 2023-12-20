@@ -20,10 +20,10 @@ const ValenceProvider_1 = require("../../../ValenceProvider");
 const hooks_1 = require("../../../hooks");
 const utils_1 = require("@valence-ui/utils");
 exports.OutlineContainer = (0, react_1.forwardRef)(function OutlineContainer(props, ref) {
-    const theme = (0, react_1.useContext)(ValenceProvider_1.ValenceContext);
+    const theme = (0, ValenceProvider_1.useValenceContext)();
     const breakpoint = (0, hooks_1.useBreakpoint)();
     // Defaults
-    const { label, labelProps, spacing = 5, radius = theme.defaultRadius, position = "sticky", zIndex = 151, top = { default: spacing * 2, mobile: 75 }, left = spacing * 2, right = spacing * 2, bottom, width = "100%", height, color = "black", children, style } = props, rest = __rest(props, ["label", "labelProps", "spacing", "radius", "position", "zIndex", "top", "left", "right", "bottom", "width", "height", "color", "children", "style"]);
+    const { sticky = true, label, labelProps, spacing = 5, radius = theme.defaultRadius, position = sticky ? "sticky" : "relative", zIndex = sticky ? 151 : undefined, top = sticky ? { default: spacing * 2, mobile: 75 } : undefined, left = sticky ? spacing * 2 : undefined, right = sticky ? spacing * 2 : undefined, bottom, width = "100%", height, color = "black", children, style } = props, rest = __rest(props, ["sticky", "label", "labelProps", "spacing", "radius", "position", "zIndex", "top", "left", "right", "bottom", "width", "height", "color", "children", "style"]);
     const _a = labelProps || {}, { style: labelStyle } = _a, labelRest = __rest(_a, ["style"]);
     // Styles
     const OuterFlexStyle = {

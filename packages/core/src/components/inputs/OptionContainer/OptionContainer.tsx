@@ -15,10 +15,10 @@ import { GenericLayoutProps } from "@valence-ui/utils";
 import { ButtonWithIcon, TextButtonProps } from "../../buttons";
 import { INPUT_SIZES, InputContainer, InputContainerProps } from "../InputContainer";
 import { Option } from "./OptionsFilter";
-import { CSSProperties, ReactNode, forwardRef, useContext, useEffect, useState } from "react";
+import { CSSProperties, ReactNode, forwardRef, useEffect, useState } from "react";
 import { IconCheck, IconSelector } from "@tabler/icons-react";
 import { useDefaultIconProps, useDetectKeyDown } from "../../../hooks";
-import { ValenceContext } from "../../../ValenceProvider";
+import { useValence } from "../../../ValenceProvider";
 import { Flex } from "../../layout";
 import { Text } from "../../display";
 
@@ -70,7 +70,7 @@ export const OptionContainer = forwardRef(function OptionContainer(
   props: OptionContainerProps,
   ref: any,
 ) {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
   const defaultIconProps = useDefaultIconProps();
 
   // Defaults

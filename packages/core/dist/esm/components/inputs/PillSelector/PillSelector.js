@@ -12,14 +12,14 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx, jsxs as _jsxs } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { forwardRef, useContext, useState } from "react";
+import { forwardRef, useState } from "react";
 import { Button, IconButton } from "../../buttons";
 import { Flex } from "../../layout";
-import { ValenceContext } from "../../../ValenceProvider";
+import { useValenceContext } from "../../../ValenceProvider";
 import { useDefaultIconProps } from "../../../hooks";
 import { IconX } from "@tabler/icons-react";
 export const PillSelector = forwardRef(function PillSelector(props, ref) {
-    const theme = useContext(ValenceContext);
+    const theme = useValenceContext();
     const defaultIconProps = useDefaultIconProps();
     // Defaults
     const { value, setValue, pills, allowClear = true, gap = 5, maxSelectable = Infinity, clearButtonIcon = _jsx(IconX, Object.assign({}, defaultIconProps.get())), clearButtonProps, pillProps, selectedPillProps = pillProps, pillContainerProps, size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, loading, autoFocus, disabled, readOnly = disabled, required, color = "black", backgroundColor = color, padding, margin, width, height = "auto", grow = true, onPillSelected, onPillDeselected, style } = props, rest = __rest(props, ["value", "setValue", "pills", "allowClear", "gap", "maxSelectable", "clearButtonIcon", "clearButtonProps", "pillProps", "selectedPillProps", "pillContainerProps", "size", "radius", "variant", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "grow", "onPillSelected", "onPillDeselected", "style"]);

@@ -11,14 +11,14 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
-import { createRef, forwardRef, useContext } from "react";
+import { createRef, forwardRef } from "react";
 import { InputContainer } from "../InputContainer";
-import { ValenceContext, useDefaultIconProps } from "../../..";
+import { useDefaultIconProps, useValenceContext } from "../../..";
 import { IconButton, getTextColor } from "../../buttons";
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 import { css } from "@emotion/react";
 export const NumberInput = forwardRef(function NumberInput(props, ref) {
-    const theme = useContext(ValenceContext);
+    const theme = useValenceContext();
     const defaultIconProps = useDefaultIconProps();
     const inputRef = ref !== null && ref !== void 0 ? ref : createRef();
     // Defaults

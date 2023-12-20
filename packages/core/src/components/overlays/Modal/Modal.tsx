@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import { forwardRef, useContext } from "react";
-import { ModalBackground, Disclosure, ValenceContext, useDefaultIconProps, useDetectKeyDown } from "../../..";
+import { forwardRef } from "react";
+import { ModalBackground, Disclosure, useDefaultIconProps, useDetectKeyDown, useValence } from "../../..";
 import { Flex, FlexProps } from "../../layout";
 import { AnimatePresence, motion } from "framer-motion";
 import { Title } from "../../display";
@@ -26,7 +26,7 @@ export const Modal = forwardRef(function Modal(
   props: ModalProps,
   ref: any
 ) {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
 
 
   // Defaults

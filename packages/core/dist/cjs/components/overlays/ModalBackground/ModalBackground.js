@@ -20,7 +20,7 @@ const framer_motion_1 = require("framer-motion");
 const react_2 = require("@emotion/react");
 const react_3 = require("@floating-ui/react");
 exports.ModalBackground = (0, react_1.forwardRef)(function ModalBackground(props, ref) {
-    const theme = (0, react_1.useContext)(__1.ValenceContext);
+    const theme = (0, __1.useValenceContext)();
     // Defaults
     const { disclosure, closeOnClick = true, backdropFilter = "blur", backgroundColor = "permaBlack", padding = theme.sizeClasses.padding[theme.defaultSize], zIndex = 1002, children, style } = props, rest = __rest(props, ["disclosure", "closeOnClick", "backdropFilter", "backgroundColor", "padding", "zIndex", "children", "style"]);
     // Styles

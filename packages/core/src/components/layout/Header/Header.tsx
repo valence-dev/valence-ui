@@ -1,6 +1,6 @@
-import { CSSProperties, forwardRef, useContext, useState } from "react";
+import { CSSProperties, forwardRef, useState } from "react";
 import { Flex, FlexProps } from "../Flex";
-import { ValenceContext, useBreakpoint } from "../../..";
+import { useBreakpoint, useValence } from "../../..";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 import { getReactiveProp } from "@valence-ui/utils";
 
@@ -29,7 +29,7 @@ export const Header = forwardRef(function Header(
   props: HeaderProps,
   ref: any
 ) {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
 
 
   // Defaults

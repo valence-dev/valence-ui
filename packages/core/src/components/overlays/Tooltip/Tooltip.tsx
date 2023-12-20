@@ -4,7 +4,7 @@ import { TooltipOptions, useBreakpoint, useTooltip } from "../../../hooks";
 import { FloatingPortal, useMergeRefs } from "@floating-ui/react";
 import { StyledFlex, StyledFlexProps } from "../../layout";
 import { css } from "@emotion/react";
-import { ValenceContext } from "../../../ValenceProvider";
+import { useValence } from "../../../ValenceProvider";
 import { getReactiveProp } from "@valence-ui/utils";
 import { Text } from "../../display";
 
@@ -99,7 +99,7 @@ const Content = forwardRef(function Content(
 
   const context = useTooltipContext();
   const ref = useMergeRefs([context.refs.setFloating, propRef]);
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
   const breakpoint = useBreakpoint();
 
 

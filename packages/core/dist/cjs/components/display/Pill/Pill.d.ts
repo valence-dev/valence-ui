@@ -31,7 +31,7 @@ export declare const Pill: import("react").ForwardRefExoticComponent<import("@va
     padding?: import("csstype").Property.Padding<string | number> | undefined;
     margin?: import("csstype").Property.Margin<string | number> | undefined;
     width?: import("csstype").Property.Width<string | number> | undefined;
-    height?: import("csstype").Property.Height<string | number> | undefined;
+    height?: import("csstype").Property.Height<string | number> | undefined; /** Border radius of this pill. Defaults to theme default. */
 } & import("@valence-ui/utils").PolymorphicElementProps & {
     css?: any;
 } & import("@valence-ui/utils").MouseClickEvents & import("@valence-ui/utils").MouseEvents & import("@valence-ui/utils").PointerEvents & import("@valence-ui/utils").FocusEvents & import("@valence-ui/utils").GenericClickableProps & {
@@ -54,10 +54,10 @@ export declare const Pill: import("react").ForwardRefExoticComponent<import("@va
         padding?: import("csstype").Property.Padding<string | number> | undefined;
         margin?: import("csstype").Property.Margin<string | number> | undefined;
         width?: import("csstype").Property.Width<string | number> | undefined;
-        height?: import("csstype").Property.Height<string | number> | undefined;
+        height?: import("csstype").Property.Height<string | number> | undefined; /** Border radius of this pill. Defaults to theme default. */
     } & {
-        variant?: import("@valence-ui/utils/src/generics/Global").FillVariant | undefined; /** Fill variant of this pill. Defaults to theme default. */
-        size?: import("@valence-ui/utils/src/generics/Global").ComponentSize | undefined; /** Size class of this pill. Defaults to theme default.  */
+        variant?: import("@valence-ui/utils/src/generics/Global").FillVariant | undefined;
+        size?: import("@valence-ui/utils/src/generics/Global").ComponentSize | undefined;
         radius?: import("@valence-ui/utils/src/generics/Global").ComponentSize | undefined;
         square?: boolean | undefined;
         shadow?: boolean | undefined;

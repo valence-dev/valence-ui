@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import { CSSProperties, forwardRef, useContext } from "react";
-import { Disclosure, ValenceContext } from "../../..";
+import { forwardRef } from "react";
+import { Disclosure, useValence } from "../../..";
 import { motion } from "framer-motion";
 import { GenericOverlayBackgroundProps } from "@valence-ui/utils";
 import { css } from "@emotion/react";
@@ -18,7 +18,7 @@ export const ModalBackground = forwardRef(function ModalBackground(
   props: ModalBackgroundProps,
   ref: any
 ) {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
 
 
   // Defaults

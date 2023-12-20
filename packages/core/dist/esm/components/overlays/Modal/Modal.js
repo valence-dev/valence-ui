@@ -11,8 +11,8 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx, jsxs as _jsxs } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
-import { forwardRef, useContext } from "react";
-import { ModalBackground, ValenceContext, useDefaultIconProps, useDetectKeyDown } from "../../..";
+import { forwardRef } from "react";
+import { ModalBackground, useDefaultIconProps, useDetectKeyDown, useValenceContext } from "../../..";
 import { Flex } from "../../layout";
 import { AnimatePresence, motion } from "framer-motion";
 import { Title } from "../../display";
@@ -22,7 +22,7 @@ import { css } from "@emotion/react";
 import { FloatingFocusManager, useFloating, useId, useInteractions, useRole } from "@floating-ui/react";
 import { useLockedBody } from "usehooks-ts";
 export const Modal = forwardRef(function Modal(props, ref) {
-    const theme = useContext(ValenceContext);
+    const theme = useValenceContext();
     // Defaults
     const { disclosure, title, header = (props) => _jsx(DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), closeOnOverlayClick = true, closeOnEscape = true, lockScroll = true, withShadow = true, radius = theme.defaultRadius, backgroundColor = "white", color = "black", padding = theme.sizeClasses.padding[theme.defaultSize], margin, width = 500, height = "fit-content", flexProps, overlayBackgroundProps, children, style } = props, rest = __rest(props, ["disclosure", "title", "header", "closeOnOverlayClick", "closeOnEscape", "lockScroll", "withShadow", "radius", "backgroundColor", "color", "padding", "margin", "width", "height", "flexProps", "overlayBackgroundProps", "children", "style"]);
     // Hooks

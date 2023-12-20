@@ -1,9 +1,15 @@
 import { jsx as _jsx } from "react/jsx-runtime";
-import { createContext } from "react";
+import { createContext, useContext } from "react";
 import { getUnidentifiedHexColor, getReactiveColor } from "../Color";
 import { ValenceContextDefaults as VCD } from "./ValenceProvider.types";
 import { useColorScheme } from "../hooks";
 export const ValenceContext = createContext(VCD);
+export const useValenceContext = () => {
+    const context = useContext(ValenceContext);
+    if (context === null)
+        throw new Error("Valence components must be wrapped in <ValenceProvider />");
+    return context;
+};
 export function ValenceProvider(props) {
     // Hooks
     const { isDarkMode } = useColorScheme();

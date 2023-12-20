@@ -1,7 +1,7 @@
-import { CSSProperties, ReactNode, forwardRef, useContext } from "react";
+import { CSSProperties, ReactNode, forwardRef } from "react";
 import { Image, ImageProps } from "../Image";
 import { FillVariant } from "@valence-ui/utils";
-import { ValenceContext } from "../../../../ValenceProvider";
+import { useValence } from "../../../../ValenceProvider";
 import { IconUserCircle } from "@tabler/icons-react";
 import { useDefaultIconProps } from "../../../../hooks";
 import { getBackgroundColor, getTextColor } from "../../../buttons";
@@ -21,7 +21,7 @@ export const Avatar = forwardRef(function Avatar(
   props: AvatarProps,
   ref: any
 ) {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
   const defaultIconProps = useDefaultIconProps();
 
 

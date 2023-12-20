@@ -1,4 +1,4 @@
-import { CSSProperties, Dispatch, SetStateAction } from "react";
+import { CSSProperties } from "react";
 import { GenericTextInputEventProps, GenericTextInputProps } from "../../../generics";
 export type LineWrapBehaviour = "soft" | "hard" | "off";
 export type ResizeBehaviour = "none" | "both" | "horizontal" | "vertical";
@@ -35,12 +35,11 @@ export declare const Textarea: import("react").ForwardRefExoticComponent<import(
     height?: import("csstype").Property.Height<string | number> | undefined;
 } & {
     value: string;
-    setValue: Dispatch<SetStateAction<string>>;
-    size?: import("@valence-ui/utils").ComponentSize | undefined; /** Whether the value of the input can be automatically completed by the browser/OS. Defaults to `false`. */
+    setValue: import("react").Dispatch<import("react").SetStateAction<string>>;
+    size?: import("@valence-ui/utils").ComponentSize | undefined;
     radius?: import("@valence-ui/utils").ComponentSize | undefined;
     variant?: import("@valence-ui/utils").FillVariant | undefined;
     disabled?: boolean | undefined;
-    /** Specifies the visible width of the input. */
     readOnly?: boolean | undefined;
     required?: boolean | undefined;
     autoFocus?: boolean | undefined;

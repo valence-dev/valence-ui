@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { ReactNode, forwardRef, useContext } from "react";
+import { ReactNode, forwardRef } from "react";
 import { AnimatePresence, useReducedMotion } from "framer-motion";
 import { Flex } from "../../layout";
 import { Text } from "../Text";
 import { MotionBehaviourProps, getBackgroundColor, getMotionBehaviour, getTextColor } from "../../buttons";
 import { CLICKABLE_ELEMENTS, ComponentSize, FillVariant, GenericClickableEventProps, GenericClickableProps, GenericLayoutProps, PolymorphicButton, PolymorphicButtonProps } from "@valence-ui/utils";
-import { ValenceContext } from "../../../ValenceProvider";
+import { useValence } from "../../../ValenceProvider";
 import { css } from "@emotion/react";
 
 export type AlertContent = {
@@ -45,7 +45,7 @@ export const Alert = forwardRef(function Alert(
   props: AlertProps,
   ref: any
 ) {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
 
   // Hooks & states
   const reducedMotion = useReducedMotion();

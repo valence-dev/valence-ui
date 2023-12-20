@@ -19,7 +19,7 @@ const __1 = require("../../..");
 const InputContainer_1 = require("../InputContainer");
 const react_2 = require("@emotion/react");
 exports.TextInput = (0, react_1.forwardRef)(function TextInput(props, ref) {
-    const theme = (0, react_1.useContext)(__1.ValenceContext);
+    const theme = (0, __1.useValenceContext)();
     const inputRef = ref !== null && ref !== void 0 ? ref : (0, react_1.createRef)();
     // Defaults
     const { value, setValue, icon, type = "text", autoComplete = "off", size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, grow, loading, autoFocus, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding, margin, width, height, onEnterPress, onKeyPress, inputStyle, style } = props, rest = __rest(props, ["value", "setValue", "icon", "type", "autoComplete", "size", "radius", "variant", "grow", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "onEnterPress", "onKeyPress", "inputStyle", "style"]);

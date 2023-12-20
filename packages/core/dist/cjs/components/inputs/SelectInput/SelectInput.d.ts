@@ -98,7 +98,7 @@ export declare const SelectInput: import("react").ForwardRefExoticComponent<impo
         variant?: import("@valence-ui/utils/src/generics/Global").FillVariant | undefined;
         size?: import("@valence-ui/utils/src/generics/Global").ComponentSize | undefined;
         radius?: import("@valence-ui/utils/src/generics/Global").ComponentSize | undefined;
-        square?: boolean | undefined; /** Callback to be called when an option is selected. */
+        square?: boolean | undefined;
         shadow?: boolean | undefined;
         grow?: boolean | undefined;
         disabled?: boolean | undefined;

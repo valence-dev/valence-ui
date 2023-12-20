@@ -1,6 +1,5 @@
 import { TablerIconsProps } from "@tabler/icons-react";
-import { useContext } from "react";
-import { ValenceContext, getTextColor } from "..";
+import { getTextColor, useValence } from "..";
 
 interface IUseDefaultIconProps {
   get: (color?: string, size?: number) => TablerIconsProps;
@@ -8,7 +7,7 @@ interface IUseDefaultIconProps {
 
 /** @deprecated This hook is deprecated. Use the `Icon` component instead.*/
 export function useDefaultIconProps(): IUseDefaultIconProps {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
 
   return {
     get: (color?: string, size?: number) => {

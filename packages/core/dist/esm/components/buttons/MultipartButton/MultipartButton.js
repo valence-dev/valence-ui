@@ -11,13 +11,13 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx, jsxs as _jsxs } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
-import { forwardRef, useContext } from "react";
+import { forwardRef } from "react";
 import { PrimitiveButton } from "../PrimitiveButton";
 import { IconChevronRight } from "@tabler/icons-react";
 import { getTextColor } from "../Helpers";
 import { Flex } from "../../layout";
 import { Text } from "../../display";
-import { ValenceContext } from "../../../ValenceProvider";
+import { useValenceContext } from "../../../ValenceProvider";
 import { useDefaultIconProps } from "../../../hooks";
 import { css } from "@emotion/react";
 const SIZES = {
@@ -28,7 +28,7 @@ const SIZES = {
     xl: { height: 90 },
 };
 export const MultipartButton = forwardRef(function MultipartButton(props, ref) {
-    const theme = useContext(ValenceContext);
+    const theme = useValenceContext();
     // Hooks
     const defaultIconProps = useDefaultIconProps();
     // Defaults

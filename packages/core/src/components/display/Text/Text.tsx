@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import { CSSProperties, forwardRef, useContext } from "react";
+import { CSSProperties, forwardRef } from "react";
 import reactStringReplace from "react-string-replace";
 import { ComponentSize, GenericClickableProps, GenericProps, PolymorphicText, PolymorphicTextProps } from "@valence-ui/utils";
-import { ValenceContext } from "../../../ValenceProvider";
+import { useValence } from "../../../ValenceProvider";
 import { css } from "@emotion/react";
 
 const REGEX_PATTERNS = {
@@ -60,7 +60,7 @@ export const Text = forwardRef(function Text(
   props: TextProps,
   ref: any
 ) {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
 
 
   // Defaults

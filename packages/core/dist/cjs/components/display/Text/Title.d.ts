@@ -5,7 +5,6 @@ export type TitleProps = TextProps & {
     order?: 1 | 2 | 3 | 4 | 5 | 6;
 };
 export declare const Title: import("react").ForwardRefExoticComponent<import("@valence-ui/utils").GenericProps & import("@valence-ui/utils").GenericClickableProps & import("@valence-ui/utils").PolymorphicElementProps & {
-    /** Sets the order of the title */
     css?: any;
 } & {
     family?: import("csstype").Property.FontFamily | undefined;
