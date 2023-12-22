@@ -20,7 +20,7 @@ const meta: Meta<typeof PrimitiveButton> = {
       options: Storybook.componentSizes,
       control: { type: "select" }
     },
-    
+
     square: {
       control: { type: "boolean" },
     },
@@ -55,7 +55,11 @@ type Story = StoryObj<typeof PrimitiveButton>;
 
 export const Primitive: Story = (args: any) => (
   <ValenceProvider>
-    <PrimitiveButton  {...args} />
+    <PrimitiveButton
+      {...args}
+      component="a"
+      href="barcelona://create?text=Hello%20World%0A%0A%0ANice"
+    />
   </ValenceProvider>
 );
 Primitive.args = {

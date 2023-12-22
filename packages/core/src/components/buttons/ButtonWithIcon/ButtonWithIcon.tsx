@@ -1,4 +1,4 @@
-import { CSSProperties, ReactNode, useContext } from "react";
+import { CSSProperties, ReactNode } from "react";
 import { TextButtonProps } from "../TextButton";
 import { useValence } from "../../..";
 import { PrimitiveButton } from "../PrimitiveButton";
