@@ -28,7 +28,7 @@ export const Tooltip: Story = (args: any) => {
           >Tooltip (controlled)</Button>
         </T.Trigger>
 
-        <T.Content>
+        <T.Content backgroundColor="primary">
           <Text align="center" color="white">Tooltip Content</Text>
         </T.Content>
       </T>

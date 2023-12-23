@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 export type IconProps = {
-    /** Size of the icon. `20` by default. */
+    /** Size of the icon. Defaults to theme default icon size. */
     size?: number;
     /** Stroke width of the icon. `1.5` by default. */
     stroke?: number;

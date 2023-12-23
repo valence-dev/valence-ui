@@ -230,7 +230,7 @@ export const OptionContainer = forwardRef(function OptionContainer(
     <>
       <InputContainer
         icon={icon}
-        button={<Icon>{rightIcon}</Icon>}
+        button={rightIcon}
 
         size={size}
         radius={radius}

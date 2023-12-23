@@ -204,7 +204,7 @@ export const InputContainer = forwardRef(function InputContainer(
 
       {button &&
         <div css={ButtonContainerStyle}>
-          {button}
+          <Icon>{button}</Icon>
         </div>
       }
     </div>

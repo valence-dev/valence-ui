@@ -50,5 +50,5 @@ export const InputContainer = forwardRef(function InputContainer(props, ref) {
                 _jsx("div", { css: IconContainerStyle, children: loading ?
                         _jsx(Loader, { color: variant === "filled" ? "white" : color }) :
                         _jsx(Icon, { children: icon }) }), children, button &&
-                _jsx("div", { css: ButtonContainerStyle, children: button })] })));
+                _jsx("div", { css: ButtonContainerStyle, children: _jsx(Icon, { children: button }) })] })));
 });

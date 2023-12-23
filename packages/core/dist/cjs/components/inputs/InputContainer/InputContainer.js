@@ -53,5 +53,5 @@ exports.InputContainer = (0, react_1.forwardRef)(function InputContainer(props, 
                 (0, jsx_runtime_1.jsx)("div", { css: IconContainerStyle, children: loading ?
                         (0, jsx_runtime_1.jsx)(display_1.Loader, { color: variant === "filled" ? "white" : color }) :
                         (0, jsx_runtime_1.jsx)(display_1.Icon, { children: icon }) }), children, button &&
-                (0, jsx_runtime_1.jsx)("div", { css: ButtonContainerStyle, children: button })] })));
+                (0, jsx_runtime_1.jsx)("div", { css: ButtonContainerStyle, children: (0, jsx_runtime_1.jsx)(display_1.Icon, { children: button }) })] })));
 });

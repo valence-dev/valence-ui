@@ -2,7 +2,7 @@ import React, { ReactNode, forwardRef } from "react";
 import { useValence } from "../../../ValenceProvider";
 
 export type IconProps = {
-  /** Size of the icon. `20` by default. */
+  /** Size of the icon. Defaults to theme default icon size. */
   size?: number;
   /** Stroke width of the icon. `1.5` by default. */
   stroke?: number;
@@ -27,15 +27,17 @@ export const Icon = forwardRef(function Icon(
   props: IconProps,
   ref: any,
 ) {
+  const theme = useValence();
+
   const {
-    size = 20,
+    size = theme.getSize("iconSize", theme.defaultSize),
     stroke = 1.5,
     color,
     children,
   } = props;
 
-  const theme = useValence();
 
+  if (children === undefined) return children;
   return React.cloneElement(children as any, {
     size: size,
     stroke: stroke,
