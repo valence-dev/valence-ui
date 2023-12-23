@@ -306,6 +306,7 @@ const Carousel = forwardRef(function Card(
                 key: i,
                 isNearest: i === nearestChild,
                 isActive: i === activeChild,
+                isDragging: isDragging,
                 onClick: () => {
                   !isDragging && setActiveChild(i);
                   !isDragging && scrollToChild(i);

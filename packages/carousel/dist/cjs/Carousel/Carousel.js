@@ -216,6 +216,7 @@ const Carousel = (0, react_2.forwardRef)(function Card(props, ref) {
                             key: i,
                             isNearest: i === nearestChild,
                             isActive: i === activeChild,
+                            isDragging: isDragging,
                             onClick: () => {
                                 !isDragging && setActiveChild(i);
                                 !isDragging && scrollToChild(i);

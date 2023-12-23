@@ -190,6 +190,7 @@ const Carousel = forwardRef(function Card(props, ref) {
                             key: i,
                             isNearest: i === nearestChild,
                             isActive: i === activeChild,
+                            isDragging: isDragging,
                             onClick: () => {
                                 !isDragging && setActiveChild(i);
                                 !isDragging && scrollToChild(i);

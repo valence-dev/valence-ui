@@ -3,5 +3,7 @@ export type CarouselChildProps = {
     isNearest?: boolean;
     /** Indicates whether this child is the one currently focused  */
     isActive?: boolean;
+    /** Indicates whether the parent carousel is being dragged.  */
+    isDragging?: boolean;
 };
 //# sourceMappingURL=CarouselChild.d.ts.map
