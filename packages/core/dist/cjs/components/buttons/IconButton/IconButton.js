@@ -22,7 +22,7 @@ exports.IconButton = (0, react_1.forwardRef)(function IconButton(props, ref) {
     const { tooltip, tooltipProps, tooltipContentProps, color = "primary", size, square = true, children } = props, rest = __rest(props, ["tooltip", "tooltipProps", "tooltipContentProps", "color", "size", "square", "children"]);
     const theme = (0, ValenceProvider_1.useValence)();
     return (tooltip ?
-        (0, jsx_runtime_1.jsxs)(overlays_1.Tooltip, Object.assign({}, tooltipProps, { children: [(0, jsx_runtime_1.jsx)(overlays_1.Tooltip.Trigger, { children: (0, jsx_runtime_1.jsx)(Button, Object.assign({ color: color, size: size, square: square }, rest, { ref: ref, children: children })) }), (0, jsx_runtime_1.jsx)(overlays_1.Tooltip.Content, Object.assign({ backgroundColor: color }, tooltipContentProps, { children: tooltip }))] }))
+        (0, jsx_runtime_1.jsxs)(overlays_1.Tooltip, Object.assign({ placement: "bottom" }, tooltipProps, { children: [(0, jsx_runtime_1.jsx)(overlays_1.Tooltip.Trigger, { children: (0, jsx_runtime_1.jsx)(Button, Object.assign({ color: color, size: size, square: square }, rest, { ref: ref, children: children })) }), (0, jsx_runtime_1.jsx)(overlays_1.Tooltip.Content, Object.assign({ backgroundColor: color, zIndex: 999 }, tooltipContentProps, { children: tooltip }))] }))
         :
             (0, jsx_runtime_1.jsx)(Button, Object.assign({ color: color, size: size, square: square }, rest, { ref: ref, children: children })));
 });

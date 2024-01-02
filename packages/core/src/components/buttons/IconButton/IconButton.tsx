@@ -35,6 +35,7 @@ export const IconButton = forwardRef(function IconButton(
   return (
     tooltip ?
       <Tooltip
+        placement="bottom"
         {...tooltipProps}
       >
         <Tooltip.Trigger>
@@ -50,6 +51,7 @@ export const IconButton = forwardRef(function IconButton(
         </Tooltip.Trigger>
         <Tooltip.Content
           backgroundColor={color}
+          zIndex={999}
           {...tooltipContentProps}
         >
           {tooltip}

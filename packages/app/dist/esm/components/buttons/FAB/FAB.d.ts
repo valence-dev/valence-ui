@@ -31,6 +31,10 @@ export declare const FAB: import("react").ForwardRefExoticComponent<import("@val
 } & {
     motion?: import("@valence-ui/core").MotionBehaviourProps | undefined;
 } & {
+    tooltip?: string | undefined;
+    tooltipProps?: Omit<import("@valence-ui/core").TooltipProps, "children"> | undefined;
+    tooltipContentProps?: Omit<import("@valence-ui/core").TooltipContentProps, "children"> | undefined;
+} & {
     /** Vertical position of this button on the page. Defaults to `"bottom"` */
     vPosition?: "top" | "bottom" | undefined;
     /** Horizontal position of this button on the page. Defaults to `"right"` */

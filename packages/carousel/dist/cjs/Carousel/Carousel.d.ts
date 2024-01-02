@@ -71,7 +71,7 @@ declare const CarouselNamespace: React.ForwardRefExoticComponent<import("@valenc
         next: ReactNode;
     } | undefined;
     /** Optional props to pass to the control buttons */
-    controlButtonProps?: import("@valence-ui/core").PrimitiveButtonProps | undefined;
+    controlButtonProps?: IconButtonProps | undefined;
     children: ReactNode[];
 } & React.RefAttributes<unknown>>;
 export { CarouselNamespace as Carousel };

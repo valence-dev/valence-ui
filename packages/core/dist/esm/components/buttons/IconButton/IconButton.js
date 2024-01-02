@@ -19,7 +19,7 @@ export const IconButton = forwardRef(function IconButton(props, ref) {
     const { tooltip, tooltipProps, tooltipContentProps, color = "primary", size, square = true, children } = props, rest = __rest(props, ["tooltip", "tooltipProps", "tooltipContentProps", "color", "size", "square", "children"]);
     const theme = useValence();
     return (tooltip ?
-        _jsxs(Tooltip, Object.assign({}, tooltipProps, { children: [_jsx(Tooltip.Trigger, { children: _jsx(Button, Object.assign({ color: color, size: size, square: square }, rest, { ref: ref, children: children })) }), _jsx(Tooltip.Content, Object.assign({ backgroundColor: color }, tooltipContentProps, { children: tooltip }))] }))
+        _jsxs(Tooltip, Object.assign({ placement: "bottom" }, tooltipProps, { children: [_jsx(Tooltip.Trigger, { children: _jsx(Button, Object.assign({ color: color, size: size, square: square }, rest, { ref: ref, children: children })) }), _jsx(Tooltip.Content, Object.assign({ backgroundColor: color, zIndex: 999 }, tooltipContentProps, { children: tooltip }))] }))
         :
             _jsx(Button, Object.assign({ color: color, size: size, square: square }, rest, { ref: ref, children: children })));
 });
