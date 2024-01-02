@@ -2,18 +2,18 @@ import { CSSProperties, forwardRef, useState } from "react";
 import { Flex, FlexProps } from "../Flex";
 import { useBreakpoint, useValence } from "../../..";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
-import { getReactiveProp } from "@valence-ui/utils";
+import { BreakpointCondition, ReactiveProp, getReactiveProp, meetsBreakpointCondition } from "@valence-ui/utils";
 
-export type HeaderProps = FlexProps & {
-  /** The height of this header for regular devices. Defaults to `100`. */
-  regularHeight?: number;
-  /** The height of this header for tall mobile devices. Defaults to `150`. */
-  tallHeight?: number;
+export type HeaderProps = Omit<FlexProps, "height"> & {
+  /** **[REACTIVE]** Defines the height of this header. Defaults to `100` for regular devices, and `150` for `mobileTall` devices. */
+  height?: ReactiveProp<number>;
   /** The height of this header when it has been compacted. Defaults to `75`. */
   compactHeight?: number;
 
-  /** Whether this header should compact when the user scrolls down (mobile). Defaults to `true`. */
-  compactOnScroll?: boolean;
+  /** **[REACTIVE]** Defines the position of this header`. */
+  position?: ReactiveProp<CSSProperties["position"]>;
+  /** Defines the breakpoints at which the header should compact during scroll. Leave this list empty to By default this is `[ "mobile", "mobileTall" ]` */
+  compact?: BreakpointCondition[];
 }
 
 function interpolateHeight(max: number, min: number, scrollY: number) {
@@ -34,10 +34,17 @@ export const Header = forwardRef(function Header(
 
   // Defaults
   const {
-    regularHeight = 100,
-    tallHeight = 150,
+    height: headerHeight = {
+      default: 100,
+      mobileTall: 150,
+    },
     compactHeight = 75,
-    compactOnScroll = true,
+
+    position = { 
+      default: "relative",
+      mobile: "fixed",
+    },
+    compact = ["mobile", "mobileTall"],
 
     backgroundColor = "white",
 
@@ -50,16 +57,16 @@ export const Header = forwardRef(function Header(
   // Hooks & States
   const breakpoint = useBreakpoint();
   const [height, setHeight] = useState(
-    props.height ?? breakpoint.isMobileTall ? tallHeight : regularHeight,
+    getReactiveProp(headerHeight, breakpoint)
   );
 
 
   // Scroll listener
   useScrollPosition(
     ({ prevPos, currPos }) => {
-      if (!compactOnScroll || !breakpoint.isMobile) return;
+      if (!meetsBreakpointCondition(breakpoint, compact)) return;
       setHeight(interpolateHeight(
-        props.height ?? breakpoint.isMobileTall ? tallHeight : regularHeight,
+        getReactiveProp(headerHeight, breakpoint),
         compactHeight,
         (prevPos.y + currPos.y) / 2,
       ));
@@ -73,8 +80,8 @@ export const Header = forwardRef(function Header(
       getReactiveProp(backgroundColor, breakpoint),
       "strong"
     ),
-    backdropFilter: breakpoint.isMobile ? "blur(5px)" : undefined,
-    position: breakpoint.isMobile ? "fixed" : undefined,
+    backdropFilter: "blur(10px)",
+    position: getReactiveProp(position, breakpoint),
     top: 0,
     zIndex: 150,
     width: "100%",

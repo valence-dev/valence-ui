@@ -1,6 +1,25 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getReactiveProp = void 0;
+exports.getReactiveProp = exports.meetsBreakpointCondition = void 0;
+/** Checks whether the current breakpoint and condition/s meet
+ * @param breakpoint Information about the current breakpoint, as provided by the useBreakpoint hook
+ * @param condition The condition or conditions to check
+ * @param matchAll Whether all conditions must be met, or just one (only useful when a list of conditions are supplied); defaults to `false`
+*/
+function meetsBreakpointCondition(breakpoint, condition, matchAll = false) {
+    if (Array.isArray(condition)) {
+        if (matchAll)
+            return condition.every(c => meetsBreakpointCondition(breakpoint, c));
+        return condition.some(c => meetsBreakpointCondition(breakpoint, c));
+    }
+    switch (condition) {
+        case "mobile": return breakpoint.isMobile;
+        case "mobileTall": return breakpoint.isMobileTall;
+        case "desktopThin": return breakpoint.isDesktopThin;
+        default: return condition === "desktop";
+    }
+}
+exports.meetsBreakpointCondition = meetsBreakpointCondition;
 /** Retrieves the best-fitting prop from a ReactProp, given the availability of that prop and the current breakpoint.
  * @param prop The prop to retrieve
  * @param breakpoint Information about the current breakpoint, as provided by the useBreakpoint hook

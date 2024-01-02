@@ -1,7 +1,35 @@
+/** A list of names for the breakpoint conditions */
+export type BreakpointCondition = "desktop" | "desktopThin" | "mobile" | "mobileTall";
+
+
 export type Breakpoint = {
   isDesktopThin: boolean;
   isMobile: boolean;
   isMobileTall: boolean;
+}
+
+
+/** Checks whether the current breakpoint and condition/s meet 
+ * @param breakpoint Information about the current breakpoint, as provided by the useBreakpoint hook
+ * @param condition The condition or conditions to check
+ * @param matchAll Whether all conditions must be met, or just one (only useful when a list of conditions are supplied); defaults to `false`
+*/
+export function meetsBreakpointCondition(
+  breakpoint: Breakpoint,
+  condition: BreakpointCondition | BreakpointCondition[],
+  matchAll = false,
+): boolean {
+  if (Array.isArray(condition)) {
+    if (matchAll) return condition.every(c => meetsBreakpointCondition(breakpoint, c));
+    return condition.some(c => meetsBreakpointCondition(breakpoint, c));
+  }
+
+  switch (condition) {
+    case "mobile": return breakpoint.isMobile;
+    case "mobileTall": return breakpoint.isMobileTall;
+    case "desktopThin": return breakpoint.isDesktopThin;
+    default: return condition === "desktop";
+  }
 }
 
 

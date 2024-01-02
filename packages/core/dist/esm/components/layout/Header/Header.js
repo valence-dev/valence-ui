@@ -14,7 +14,7 @@ import { forwardRef, useState } from "react";
 import { Flex } from "../Flex";
 import { useBreakpoint, useValence } from "../../..";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
-import { getReactiveProp } from "@valence-ui/utils";
+import { getReactiveProp, meetsBreakpointCondition } from "@valence-ui/utils";
 function interpolateHeight(max, min, scrollY) {
     return Math.max(max + scrollY, min);
 }
@@ -23,21 +23,25 @@ function interpolateHeight(max, min, scrollY) {
  * On desktop devices, the `Header` will act as a static container that can be placed anywhere and will scroll with the content. On mobile devices, however, the `Header` will become fixed tot he top of the screen and can shrink as the user scrolls.
  */
 export const Header = forwardRef(function Header(props, ref) {
-    var _a;
     const theme = useValence();
     // Defaults
-    const { regularHeight = 100, tallHeight = 150, compactHeight = 75, compactOnScroll = true, backgroundColor = "white", children, style } = props, rest = __rest(props, ["regularHeight", "tallHeight", "compactHeight", "compactOnScroll", "backgroundColor", "children", "style"]);
+    const { height: headerHeight = {
+        default: 100,
+        mobileTall: 150,
+    }, compactHeight = 75, position = {
+        default: "relative",
+        mobile: "fixed",
+    }, compact = ["mobile", "mobileTall"], backgroundColor = "white", children, style } = props, rest = __rest(props, ["height", "compactHeight", "position", "compact", "backgroundColor", "children", "style"]);
     // Hooks & States
     const breakpoint = useBreakpoint();
-    const [height, setHeight] = useState(((_a = props.height) !== null && _a !== void 0 ? _a : breakpoint.isMobileTall) ? tallHeight : regularHeight);
+    const [height, setHeight] = useState(getReactiveProp(headerHeight, breakpoint));
     // Scroll listener
     useScrollPosition(({ prevPos, currPos }) => {
-        var _a;
-        if (!compactOnScroll || !breakpoint.isMobile)
+        if (!meetsBreakpointCondition(breakpoint, compact))
             return;
-        setHeight(interpolateHeight(((_a = props.height) !== null && _a !== void 0 ? _a : breakpoint.isMobileTall) ? tallHeight : regularHeight, compactHeight, (prevPos.y + currPos.y) / 2));
+        setHeight(interpolateHeight(getReactiveProp(headerHeight, breakpoint), compactHeight, (prevPos.y + currPos.y) / 2));
     });
     // Styles
-    const HeaderStyle = Object.assign({ backgroundColor: theme.getColorHex(getReactiveProp(backgroundColor, breakpoint), "strong"), backdropFilter: breakpoint.isMobile ? "blur(5px)" : undefined, position: breakpoint.isMobile ? "fixed" : undefined, top: 0, zIndex: 150, width: "100%" }, getReactiveProp(style, breakpoint));
+    const HeaderStyle = Object.assign({ backgroundColor: theme.getColorHex(getReactiveProp(backgroundColor, breakpoint), "strong"), backdropFilter: "blur(10px)", position: getReactiveProp(position, breakpoint), top: 0, zIndex: 150, width: "100%" }, getReactiveProp(style, breakpoint));
     return (_jsx(Flex, Object.assign({ style: HeaderStyle, direction: "column", justify: "center", height: height, ref: ref }, rest, { children: children })));
 });

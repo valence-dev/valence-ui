@@ -19,11 +19,16 @@ export type AppContainerProps = GenericReactiveLayoutProps & PolymorphicLayoutPr
     sidebarWidth?: number;
     /** The width of the nav element */
     navWidth?: number;
+    /** Whether to show a spacer element below the header. Defaults to `true`. */
+    showHeaderSpacer?: boolean;
+    /** Whether to show the nav element. Defaults to `true`. */
+    showNav?: ReactiveProp<boolean>;
 };
 /**
  * The `AppContainer` component is a layout component that provides a consistent layout for pages in the application. It includes a navigation element, a header element, and an optional sidebar element. The `AppContainer` component is responsive and adjusts its layout based on the screen size.
  */
 export declare const AppContainer: import("react").ForwardRefExoticComponent<import("@valence-ui/utils").GenericProps & {
+    /** The width of the nav element */
     style?: ReactiveProp<CSSProperties> | undefined;
     tabIndex?: ReactiveProp<number> | undefined;
 } & {
@@ -54,5 +59,9 @@ export declare const AppContainer: import("react").ForwardRefExoticComponent<imp
     sidebarWidth?: number | undefined;
     /** The width of the nav element */
     navWidth?: number | undefined;
+    /** Whether to show a spacer element below the header. Defaults to `true`. */
+    showHeaderSpacer?: boolean | undefined;
+    /** Whether to show the nav element. Defaults to `true`. */
+    showNav?: ReactiveProp<boolean> | undefined;
 } & import("react").RefAttributes<unknown>>;
 //# sourceMappingURL=AppContainer.d.ts.map

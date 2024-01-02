@@ -143,6 +143,10 @@ export declare const PillInput: import("react").ForwardRefExoticComponent<import
     } & {
         motion?: import("../../buttons").MotionBehaviourProps | undefined;
     } & {
+        tooltip?: string | undefined;
+        tooltipProps?: Omit<import("../..").TooltipProps, "children"> | undefined;
+        tooltipContentProps?: Omit<import("../..").TooltipContentProps, "children"> | undefined;
+    } & {
         children?: undefined;
     }) | undefined;
     /** Optional props to pass to all pills */
@@ -181,6 +185,10 @@ export declare const PillInput: import("react").ForwardRefExoticComponent<import
             loading?: boolean | undefined;
         } & {
             motion?: import("../../buttons").MotionBehaviourProps | undefined;
+        } & {
+            tooltip?: string | undefined;
+            tooltipProps?: Omit<import("../..").TooltipProps, "children"> | undefined;
+            tooltipContentProps?: Omit<import("../..").TooltipContentProps, "children"> | undefined;
         } & {
             children?: undefined;
         }) | undefined;

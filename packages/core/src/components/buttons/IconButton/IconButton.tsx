@@ -1,16 +1,29 @@
 import { useValence } from "../../../ValenceProvider";
 import { Icon } from "../../display";
+import { Tooltip, TooltipContentProps, TooltipProps } from "../../overlays";
 import { PrimitiveButton, PrimitiveButtonProps } from "../PrimitiveButton"
 import { forwardRef } from "react";
 
 export type IconButtonProps =
-  PrimitiveButtonProps;
+  PrimitiveButtonProps & {
+    /** An optional tooltip to include. The tooltip will inherit the button's color.*/
+    tooltip?: string;
+
+    /** Optional props to pass to the tooltip. */
+    tooltipProps?: Omit<TooltipProps, "children">;
+    tooltipContentProps?: Omit<TooltipContentProps, "children">;
+  };
 
 export const IconButton = forwardRef(function IconButton(
   props: IconButtonProps,
   ref: any
 ) {
   const {
+    tooltip,
+    tooltipProps,
+    tooltipContentProps,
+
+    color = "primary",
     size,
     square = true,
     children,
@@ -20,9 +33,56 @@ export const IconButton = forwardRef(function IconButton(
   const theme = useValence();
 
   return (
+    tooltip ?
+      <Tooltip
+        {...tooltipProps}
+      >
+        <Tooltip.Trigger>
+          <Button
+            color={color}
+            size={size}
+            square={square}
+            {...rest}
+            ref={ref}
+          >
+            {children}
+          </Button>
+        </Tooltip.Trigger>
+        <Tooltip.Content
+          backgroundColor={color}
+          {...tooltipContentProps}
+        >
+          {tooltip}
+        </Tooltip.Content>
+      </Tooltip>
+      :
+      <Button
+        color={color}
+        size={size}
+        square={square}
+        {...rest}
+        ref={ref}
+      >
+        {children}
+      </Button >
+  )
+});
+
+const Button = forwardRef(function Button(
+  props: Omit<IconButtonProps, "tooltip" | "tooltipProps" | "tooltipContentProps">,
+  ref: any
+) {
+  const {
+    size,
+    children,
+    ...rest
+  } = props;
+
+  const theme = useValence();
+
+  return (
     <PrimitiveButton
       size={size}
-      square={square}
       ref={ref}
       {...rest}
     >
@@ -33,4 +93,4 @@ export const IconButton = forwardRef(function IconButton(
       </Icon>
     </PrimitiveButton>
   )
-});
+})

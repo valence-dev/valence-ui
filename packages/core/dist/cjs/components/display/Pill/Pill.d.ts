@@ -67,6 +67,10 @@ export declare const Pill: import("react").ForwardRefExoticComponent<import("@va
     } & {
         motion?: import("../../buttons").MotionBehaviourProps | undefined;
     } & {
+        tooltip?: string | undefined;
+        tooltipProps?: Omit<import("../..").TooltipProps, "children"> | undefined;
+        tooltipContentProps?: Omit<import("../..").TooltipContentProps, "children"> | undefined;
+    } & {
         children?: undefined;
     }) | undefined;
     /** Callback to be called when the remove button is clicked. */

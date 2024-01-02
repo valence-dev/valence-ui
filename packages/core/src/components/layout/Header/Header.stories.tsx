@@ -15,7 +15,7 @@ type Story = StoryObj<typeof H>;
 
 export const Header: Story = (args: any) => (
   <ValenceProvider>
-    <H data-testId="InputField-id" {...args} />
+    <H {...args} />
     <Flex height={5000} />
   </ValenceProvider>
 );

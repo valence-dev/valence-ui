@@ -101,6 +101,10 @@ export declare const PillSelector: import("react").ForwardRefExoticComponent<imp
     } & {
         motion?: import("../../buttons").MotionBehaviourProps | undefined;
     } & {
+        tooltip?: string | undefined;
+        tooltipProps?: Omit<import("../..").TooltipProps, "children"> | undefined;
+        tooltipContentProps?: Omit<import("../..").TooltipContentProps, "children"> | undefined;
+    } & {
         children?: undefined;
     }) | undefined;
     /** Optional props to pass to all pills */

@@ -1,5 +1,5 @@
 import { CSSProperties, ReactNode, forwardRef, useContext } from "react";
-import { ComponentSize, GenericReactiveLayoutProps, PolymorphicLayoutProps, ReactiveProp } from "@valence-ui/utils";
+import { ComponentSize, GenericReactiveLayoutProps, PolymorphicLayoutProps, ReactiveProp, getReactiveProp } from "@valence-ui/utils";
 import { Flex, Header, Space, ValenceContext, useBreakpoint } from "@valence-ui/core";
 
 export type AppContainerProps =
@@ -27,6 +27,11 @@ export type AppContainerProps =
     sidebarWidth?: number;
     /** The width of the nav element */
     navWidth?: number;
+
+    /** Whether to show a spacer element below the header. Defaults to `true`. */
+    showHeaderSpacer?: boolean;
+    /** Whether to show the nav element. Defaults to `true`. */
+    showNav?: ReactiveProp<boolean>;
   }
 
 
@@ -53,6 +58,9 @@ export const AppContainer = forwardRef(function AppContainer(
     contentWidth = 700,
     sidebarWidth = 270,
     navWidth = 65,
+
+    showHeaderSpacer = true,
+    showNav = true,
 
     children,
     style,
@@ -87,7 +95,9 @@ export const AppContainer = forwardRef(function AppContainer(
       padding: 10,
     }, mobile: {
       backgroundColor: theme.getColor("white")?.base,
-      borderRadius: `0px 0px ${borderRadius}px ${borderRadius}px`,
+      borderRadius: getReactiveProp(showNav, breakpoint) ?
+        `0px 0px ${borderRadius}px ${borderRadius}px`
+        : 0,
       overflow: "auto",
       padding: `0px 10px`,
       minHeight: borderRadius,
@@ -127,7 +137,8 @@ export const AppContainer = forwardRef(function AppContainer(
         {...rest}
       >
         {/* Nav */}
-        <Flex
+
+        {getReactiveProp(showNav, breakpoint) && <Flex
           direction="column"
           align="center"
           margin={10}
@@ -135,6 +146,7 @@ export const AppContainer = forwardRef(function AppContainer(
         >
           {nav}
         </Flex>
+        }
 
         {/* Sidebar */}
         <Flex
@@ -166,7 +178,7 @@ export const AppContainer = forwardRef(function AppContainer(
         >
           {!props.sidebar || breakpoint.isMobile ? header : <Header />}
 
-          {breakpoint.isMobile && <Space height={120} />}
+          {breakpoint.isMobile && showHeaderSpacer && <Space height={120} />}
 
           {children}
         </Flex>

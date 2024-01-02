@@ -11,6 +11,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { forwardRef, useContext } from "react";
+import { getReactiveProp } from "@valence-ui/utils";
 import { Flex, Header, Space, ValenceContext, useBreakpoint } from "@valence-ui/core";
 /**
  * The `AppContainer` component is a layout component that provides a consistent layout for pages in the application. It includes a navigation element, a header element, and an optional sidebar element. The `AppContainer` component is responsive and adjusts its layout based on the screen size.
@@ -20,7 +21,7 @@ export const AppContainer = forwardRef(function AppContainer(props, ref) {
     const theme = useContext(ValenceContext);
     const breakpoint = useBreakpoint();
     // Defaults
-    const { nav, header, sidebar, radius = theme.defaultRadius, navContainerProps, pageProps, contentWidth = 700, sidebarWidth = 270, navWidth = 65, children, style } = props, rest = __rest(props, ["nav", "header", "sidebar", "radius", "navContainerProps", "pageProps", "contentWidth", "sidebarWidth", "navWidth", "children", "style"]);
+    const { nav, header, sidebar, radius = theme.defaultRadius, navContainerProps, pageProps, contentWidth = 700, sidebarWidth = 270, navWidth = 65, showHeaderSpacer = true, showNav = true, children, style } = props, rest = __rest(props, ["nav", "header", "sidebar", "radius", "navContainerProps", "pageProps", "contentWidth", "sidebarWidth", "navWidth", "showHeaderSpacer", "showNav", "children", "style"]);
     const borderRadius = theme.sizeClasses.radius[radius] + 5;
     // Styles
     const pageContainerStyle = Object.assign({ default: {
@@ -44,7 +45,9 @@ export const AppContainer = forwardRef(function AppContainer(props, ref) {
             padding: 10,
         }, mobile: {
             backgroundColor: (_b = theme.getColor("white")) === null || _b === void 0 ? void 0 : _b.base,
-            borderRadius: `0px 0px ${borderRadius}px ${borderRadius}px`,
+            borderRadius: getReactiveProp(showNav, breakpoint) ?
+                `0px 0px ${borderRadius}px ${borderRadius}px`
+                : 0,
             overflow: "auto",
             padding: `0px 10px`,
             minHeight: borderRadius,
@@ -67,6 +70,6 @@ export const AppContainer = forwardRef(function AppContainer(props, ref) {
         minHeight: "100vh",
         paddingBottom: 200,
     };
-    return (_jsxs(_Fragment, { children: [_jsxs(Flex, Object.assign({ direction: { default: "row", mobile: "column-reverse" }, backgroundColor: "primary", style: pageContainerStyle, gap: 0, ref: ref }, rest, { children: [_jsx(Flex, Object.assign({ direction: "column", align: "center", margin: 10 }, navContainerProps, { children: nav })), _jsx(Flex, { direction: "column", style: sidebarContainerStyle, children: sidebar &&
-                            _jsxs(_Fragment, { children: [!breakpoint.isMobile && header, sidebar] }) })] })), _jsx(Flex, { id: "root-content", align: "center", justify: "center", grow: true, style: contentContainerStyle, children: _jsxs(Flex, Object.assign({ direction: "column", style: contentStyle }, pageProps, { children: [!props.sidebar || breakpoint.isMobile ? header : _jsx(Header, {}), breakpoint.isMobile && _jsx(Space, { height: 120 }), children] })) })] }));
+    return (_jsxs(_Fragment, { children: [_jsxs(Flex, Object.assign({ direction: { default: "row", mobile: "column-reverse" }, backgroundColor: "primary", style: pageContainerStyle, gap: 0, ref: ref }, rest, { children: [getReactiveProp(showNav, breakpoint) && _jsx(Flex, Object.assign({ direction: "column", align: "center", margin: 10 }, navContainerProps, { children: nav })), _jsx(Flex, { direction: "column", style: sidebarContainerStyle, children: sidebar &&
+                            _jsxs(_Fragment, { children: [!breakpoint.isMobile && header, sidebar] }) })] })), _jsx(Flex, { id: "root-content", align: "center", justify: "center", grow: true, style: contentContainerStyle, children: _jsxs(Flex, Object.assign({ direction: "column", style: contentStyle }, pageProps, { children: [!props.sidebar || breakpoint.isMobile ? header : _jsx(Header, {}), breakpoint.isMobile && showHeaderSpacer && _jsx(Space, { height: 120 }), children] })) })] }));
 });

@@ -1,6 +1,13 @@
 /// <reference types="react" />
+import { TooltipContentProps, TooltipProps } from "../../overlays";
 import { PrimitiveButtonProps } from "../PrimitiveButton";
-export type IconButtonProps = PrimitiveButtonProps;
+export type IconButtonProps = PrimitiveButtonProps & {
+    /** An optional tooltip to include. The tooltip will inherit the button's color.*/
+    tooltip?: string;
+    /** Optional props to pass to the tooltip. */
+    tooltipProps?: Omit<TooltipProps, "children">;
+    tooltipContentProps?: Omit<TooltipContentProps, "children">;
+};
 export declare const IconButton: import("react").ForwardRefExoticComponent<import("@valence-ui/utils/src/generics/Clickable").GenericClickableProps & import("@valence-ui/utils/src/generics/Events").MouseClickEvents & import("@valence-ui/utils/src/generics/Events").MouseEvents & import("@valence-ui/utils/src/generics/Events").PointerEvents & import("@valence-ui/utils/src/generics/Events").FocusEvents & import("@valence-ui/utils").PolymorphicElementProps & {
     css?: any;
 } & import("@valence-ui/utils/src/generics/Global").GenericProps & {
@@ -21,5 +28,11 @@ export declare const IconButton: import("react").ForwardRefExoticComponent<impor
     loading?: boolean | undefined;
 } & {
     motion?: import("..").MotionBehaviourProps | undefined;
+} & {
+    /** An optional tooltip to include. The tooltip will inherit the button's color.*/
+    tooltip?: string | undefined;
+    /** Optional props to pass to the tooltip. */
+    tooltipProps?: Omit<TooltipProps, "children"> | undefined;
+    tooltipContentProps?: Omit<TooltipContentProps, "children"> | undefined;
 } & import("react").RefAttributes<unknown>>;
 //# sourceMappingURL=IconButton.d.ts.map
