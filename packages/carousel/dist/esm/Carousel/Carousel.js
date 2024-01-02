@@ -19,10 +19,10 @@ import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 const Carousel = forwardRef(function Card(props, ref) {
     var _a, _b;
     const breakpoint = useBreakpoint();
-    const { allowDrag = { default: true, mobile: false }, showScrollbar = false, snapToChildren = true, contentProps, activeChild: controlledActiveChild, setActiveChild: controlledSetActiveChild, showControls = { default: true, mobile: false }, controlIcons = {
+    const { allowDrag = { default: true, mobile: false }, showScrollbar = false, snapToChildren = true, changeActiveOnScroll = true, contentProps, activeChild: controlledActiveChild, setActiveChild: controlledSetActiveChild, showControls = { default: true, mobile: false }, controlIcons = {
         prev: _jsx(Icon, { children: _jsx(IconArrowLeft, {}) }),
         next: _jsx(Icon, { children: _jsx(IconArrowRight, {}) }),
-    }, controlButtonProps, width = "100%", height = "fit-content", gap = 10, style, children } = props, rest = __rest(props, ["allowDrag", "showScrollbar", "snapToChildren", "contentProps", "activeChild", "setActiveChild", "showControls", "controlIcons", "controlButtonProps", "width", "height", "gap", "style", "children"]);
+    }, controlButtonProps, width = "100%", height = "fit-content", gap = 10, style, children } = props, rest = __rest(props, ["allowDrag", "showScrollbar", "snapToChildren", "changeActiveOnScroll", "contentProps", "activeChild", "setActiveChild", "showControls", "controlIcons", "controlButtonProps", "width", "height", "gap", "style", "children"]);
     const _c = controlButtonProps !== null && controlButtonProps !== void 0 ? controlButtonProps : {}, { color: buttonColor = "black", radius: buttonRadius = "xl" } = _c, buttonPropsRest = __rest(_c, ["color", "radius"]);
     const theme = useContext(ValenceContext);
     const contentRef = useRef(null);
@@ -48,10 +48,10 @@ const Carousel = forwardRef(function Card(props, ref) {
         e.stopPropagation();
         if (!isDragging)
             return;
-        if (getReactiveProp(snapToChildren, breakpoint)) {
+        if (getReactiveProp(snapToChildren, breakpoint))
             scrollToChild(nearestChild);
+        if (getReactiveProp(changeActiveOnScroll, breakpoint))
             setActiveChild(nearestChild);
-        }
         setTimeout(() => {
             setIsDragging(false);
         }, 100);
@@ -124,7 +124,8 @@ const Carousel = forwardRef(function Card(props, ref) {
                 }
             }
             setNearestChild(nearestChild);
-            if (!isAutoScrolling)
+            if (!isAutoScrolling
+                && getReactiveProp(changeActiveOnScroll, breakpoint))
                 setActiveChild(nearestChild);
         }
     }

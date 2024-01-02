@@ -28,7 +28,7 @@ export const SegmentedControl = forwardRef(function SegmentedControl(props, ref)
     // Hooks
     const breakpoint = useBreakpoint();
     const theme = useValence();
-    const { value, setValue, options, onSelect, equalWidth = true, buttonProps, variant, size, radius, color = "black", backgroundColor = color, margin, padding = 5, gap = padding, disabled, readOnly, required, autoFocus, loading, style } = props, rest = __rest(props, ["value", "setValue", "options", "onSelect", "equalWidth", "buttonProps", "variant", "size", "radius", "color", "backgroundColor", "margin", "padding", "gap", "disabled", "readOnly", "required", "autoFocus", "loading", "style"]);
+    const { value, setValue, options, onSelect, equalWidth = true, buttonProps, variant, size = theme.defaultSize, radius = theme.defaultRadius, color = "black", backgroundColor = color, margin, padding = 5, gap = padding, disabled, readOnly, required, autoFocus, loading, style } = props, rest = __rest(props, ["value", "setValue", "options", "onSelect", "equalWidth", "buttonProps", "variant", "size", "radius", "color", "backgroundColor", "margin", "padding", "gap", "disabled", "readOnly", "required", "autoFocus", "loading", "style"]);
     const { color: buttonColor = variant === "filled" ?
         "white" : getReactiveProp(color, breakpoint), backgroundColor: buttonBackgroundColor = variant === "filled" ?
         "white" : getReactiveProp(backgroundColor, breakpoint), size: buttonSize = size, radius: buttonRadius = radius, } = buttonProps !== null && buttonProps !== void 0 ? buttonProps : {};

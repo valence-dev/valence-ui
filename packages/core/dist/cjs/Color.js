@@ -21,7 +21,9 @@ function getUnidentifiedHexColor(hex) {
     return { base: hex, opacity: { weak: "20", medium: "4A", strong: "A0" } };
 }
 exports.getUnidentifiedHexColor = getUnidentifiedHexColor;
+// Black and white will automatically flip between light and dark modes
 const BASE_WHITE = { base: "#EFEEEE", opacity: { weak: "19", medium: "2A", strong: "A0" } }, BASE_BLACK = { base: "#11181C", opacity: { weak: "19", medium: "30", strong: "5A" } };
+// Default colors to use
 exports.DEFAULT_COLORS = [
     {
         key: "white",

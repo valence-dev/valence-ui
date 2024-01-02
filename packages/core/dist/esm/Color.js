@@ -16,7 +16,9 @@ export function getReactiveColor(colorReactive, isDarkMode = false) {
 export function getUnidentifiedHexColor(hex) {
     return { base: hex, opacity: { weak: "20", medium: "4A", strong: "A0" } };
 }
+// Black and white will automatically flip between light and dark modes
 const BASE_WHITE = { base: "#EFEEEE", opacity: { weak: "19", medium: "2A", strong: "A0" } }, BASE_BLACK = { base: "#11181C", opacity: { weak: "19", medium: "30", strong: "5A" } };
+// Default colors to use
 export const DEFAULT_COLORS = [
     {
         key: "white",

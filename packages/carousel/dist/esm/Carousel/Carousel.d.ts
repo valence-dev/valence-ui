@@ -8,6 +8,8 @@ export type CarouselProps = FlexProps & {
     showScrollbar?: ReactiveProp<boolean>;
     /** Whether to snap to the nearest child when no longer scrolling. `true` by default. */
     snapToChildren?: ReactiveProp<boolean>;
+    /** Whether the active child should be changed during scroll. `true` by default. */
+    changeActiveOnScroll?: ReactiveProp<boolean>;
     /** Optional props to pass to the content flex component */
     contentProps?: FlexProps;
     /** The active child of this carousel. For use when controlled. */
@@ -27,6 +29,7 @@ export type CarouselProps = FlexProps & {
 };
 declare const CarouselNamespace: React.ForwardRefExoticComponent<import("@valence-ui/utils").GenericProps & {
     style?: ReactiveProp<React.CSSProperties> | undefined;
+    /** Whether to the carousel controls. `true` by default. */
     tabIndex?: ReactiveProp<number> | undefined;
 } & {
     backgroundColor?: ReactiveProp<import("csstype").Property.BackgroundColor | undefined>;
@@ -52,6 +55,8 @@ declare const CarouselNamespace: React.ForwardRefExoticComponent<import("@valenc
     showScrollbar?: ReactiveProp<boolean> | undefined;
     /** Whether to snap to the nearest child when no longer scrolling. `true` by default. */
     snapToChildren?: ReactiveProp<boolean> | undefined;
+    /** Whether the active child should be changed during scroll. `true` by default. */
+    changeActiveOnScroll?: ReactiveProp<boolean> | undefined;
     /** Optional props to pass to the content flex component */
     contentProps?: FlexProps | undefined;
     /** The active child of this carousel. For use when controlled. */
