@@ -14,6 +14,8 @@ export type CarouselProps =
     showScrollbar?: ReactiveProp<boolean>;
     /** Whether to snap to the nearest child when no longer scrolling. `true` by default. */
     snapToChildren?: ReactiveProp<boolean>;
+    /** Whether the active child should be changed during scroll. `true` by default. */
+    changeActiveOnScroll?: ReactiveProp<boolean>;
 
     /** Optional props to pass to the content flex component */
     contentProps?: FlexProps;
@@ -47,6 +49,7 @@ const Carousel = forwardRef(function Card(
     allowDrag = { default: true, mobile: false },
     showScrollbar = false,
     snapToChildren = true,
+    changeActiveOnScroll = true,
     contentProps,
 
     activeChild: controlledActiveChild,
@@ -99,10 +102,10 @@ const Carousel = forwardRef(function Card(
     e.stopPropagation();
     if (!isDragging) return;
 
-    if (getReactiveProp(snapToChildren, breakpoint)) {
+    if (getReactiveProp(snapToChildren, breakpoint))
       scrollToChild(nearestChild);
+    if (getReactiveProp(changeActiveOnScroll, breakpoint))
       setActiveChild(nearestChild);
-    }
 
     setTimeout(() => {
       setIsDragging(false);
@@ -185,7 +188,9 @@ const Carousel = forwardRef(function Card(
         }
       }
       setNearestChild(nearestChild);
-      if (!isAutoScrolling) setActiveChild(nearestChild);
+      if (!isAutoScrolling
+        && getReactiveProp(changeActiveOnScroll, breakpoint))
+        setActiveChild(nearestChild);
     }
   }
 

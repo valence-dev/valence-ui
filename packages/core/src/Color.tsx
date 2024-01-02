@@ -45,10 +45,12 @@ export function getUnidentifiedHexColor(hex: string): Color {
 
 
 
-
+// Black and white will automatically flip between light and dark modes
 const
   BASE_WHITE: Color = { base: "#EFEEEE", opacity: { weak: "19", medium: "2A", strong: "A0" } },
   BASE_BLACK: Color = { base: "#11181C", opacity: { weak: "19", medium: "30", strong: "5A" } };
+
+// Default colors to use
 export const DEFAULT_COLORS: ColorReactive[] = [
   {
     key: "white",

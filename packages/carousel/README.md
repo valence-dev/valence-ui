@@ -79,6 +79,7 @@ Additionally, the active child is "debounced" such that it does not change as fr
 - `allowDrag: boolean` - Whether to allow the carousel to be dragged by a user's pointer on desktop devices. `true` on desktop devices by default.
 - `showScrollbar: boolean` - Whether to show the horizontal scrollbar. `false` by default.
 - `snapToChildren: boolean` - Whether to snap to the nearest child when no longer scrolling or being dragged. `true` by default.
+- `changeActiveOnScroll` - Whether the active child should be changed while scrolling. `true` by default.
 - `showControls: boolean` - Whether to show the carousel controls. `true` by default.
 
 
