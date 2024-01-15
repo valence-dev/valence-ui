@@ -63,9 +63,9 @@ export const NumberInput = forwardRef(function NumberInput(
     },
     showControls = true,
 
-    size = theme.defaultSize,
-    radius = theme.defaultRadius,
-    variant = theme.defaultVariant,
+    size = theme.defaults.size,
+    radius = theme.defaults.radius,
+    variant = theme.defaults.variant,
     grow,
 
     loading,

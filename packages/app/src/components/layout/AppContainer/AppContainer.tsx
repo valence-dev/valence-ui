@@ -51,7 +51,7 @@ export const AppContainer = forwardRef(function AppContainer(
     nav,
     header,
     sidebar,
-    radius = theme.defaultRadius,
+    radius = theme.defaults.radius,
     navContainerProps,
     pageProps,
 
@@ -90,11 +90,11 @@ export const AppContainer = forwardRef(function AppContainer(
   const sidebarContainerStyle: ReactiveProp<CSSProperties> = {
     default: {
       width: sidebar ? sidebarWidth : 0,
-      backgroundColor: theme.getColor("white")?.base,
+      backgroundColor: theme.getColorHex("white"),
       borderRadius: `${borderRadius}px 0px 0px ${borderRadius}px`,
       padding: 10,
     }, mobile: {
-      backgroundColor: theme.getColor("white")?.base,
+      backgroundColor: theme.getColorHex("white"),
       borderRadius: getReactiveProp(showNav, breakpoint) ?
         `0px 0px ${borderRadius}px ${borderRadius}px`
         : 0,
@@ -106,7 +106,7 @@ export const AppContainer = forwardRef(function AppContainer(
   };
   const contentContainerStyle: ReactiveProp<CSSProperties> = {
     default: {
-      backgroundColor: theme.getColor("white")?.base,
+      backgroundColor: theme.getColorHex("white"),
       paddingLeft: props.sidebar ? sidebarWidth + navWidth : navWidth,
       paddingRight: 30,
       width: "100vw",

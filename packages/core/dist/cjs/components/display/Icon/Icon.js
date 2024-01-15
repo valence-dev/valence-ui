@@ -38,7 +38,7 @@ const ValenceProvider_1 = require("../../../ValenceProvider");
 */
 exports.Icon = (0, react_1.forwardRef)(function Icon(props, ref) {
     const theme = (0, ValenceProvider_1.useValence)();
-    const { size = theme.getSize("iconSize", theme.defaultSize), stroke = 1.5, color, children, } = props;
+    const { size = theme.getSize("iconSize", theme.defaults.size), stroke = 1.5, color, children, } = props;
     if (children === undefined)
         return children;
     return react_1.default.cloneElement(children, {

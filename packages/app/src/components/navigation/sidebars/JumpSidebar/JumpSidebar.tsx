@@ -49,8 +49,8 @@ export const JumpSidebar = forwardRef(function JumpSidebar(
   const containerStyle: ReactiveProp<CSSProperties> = {
     default: {
       width: getReactiveProp(width, breakpoint),
-      borderRight: `1px solid ${theme.getColor("black")?.base as string
-        + theme.getColor("black")?.opacity.weak}`,
+      borderRight: `1px solid ${theme.getColorHex("black") as string
+        + theme.getColorHex("black", "weak")}`,
 
       paddingRight: 10,
       position: "sticky",
@@ -63,11 +63,11 @@ export const JumpSidebar = forwardRef(function JumpSidebar(
     },
     mobile: {
       width: getReactiveProp(width, breakpoint),
-      borderTop: `1px solid ${theme.getColor("black")?.base as string
-        + theme.getColor("black")?.opacity.weak}`,
+      borderTop: `1px solid ${theme.getColorHex("black") as string
+        + theme.getColorHex("black", "weak")}`,
 
       padding: "10px 0px 10px 0px",
-      backgroundColor: theme.getColor("white")?.base,
+      backgroundColor: theme.getColorHex("white"),
 
       position: "sticky",
       top: 0,

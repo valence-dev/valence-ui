@@ -45,9 +45,9 @@ export const TextInput = forwardRef(function TextInput(
     type = "text",
     autoComplete = "off",
 
-    size = theme.defaultSize,
-    radius = theme.defaultRadius,
-    variant = theme.defaultVariant,
+    size = theme.defaults.size,
+    radius = theme.defaults.radius,
+    variant = theme.defaults.variant,
     grow,
 
     loading,

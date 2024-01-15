@@ -22,8 +22,8 @@ export const Button = forwardRef(function Button(
 
   // Defaults
   const {
-    size = theme.defaultSize,
-    variant = theme.defaultVariant,
+    size = theme.defaults.size,
+    variant = theme.defaults.variant,
     color = theme.primaryColor,
     textProps,
     ...rest

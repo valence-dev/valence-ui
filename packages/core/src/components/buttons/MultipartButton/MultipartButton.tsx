@@ -48,8 +48,8 @@ export const MultipartButton = forwardRef(function MultipartButton(
 
   // Defaults
   const {
-    size = theme.defaultSize,
-    variant = theme.defaultVariant,
+    size = theme.defaults.size,
+    variant = theme.defaults.variant,
     color = theme.primaryColor,
     height = SIZES[size].height,
     width = "100%",

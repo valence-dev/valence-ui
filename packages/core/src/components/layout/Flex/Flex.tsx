@@ -43,7 +43,7 @@ export const Flex = forwardRef(function Flex(
     justify = { default: "flex-start" },
 
     alignSelf = { default: "stretch" },
-    gap = theme.sizeClasses.padding[theme.defaultSize],
+    gap = theme.sizeClasses.padding[theme.defaults.size],
 
     grow = { default: false },
     wrap = { default: "nowrap" },

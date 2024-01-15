@@ -12,7 +12,7 @@ import { useValence } from "../../../ValenceProvider";
 */
 export const Icon = forwardRef(function Icon(props, ref) {
     const theme = useValence();
-    const { size = theme.getSize("iconSize", theme.defaultSize), stroke = 1.5, color, children, } = props;
+    const { size = theme.getSize("iconSize", theme.defaults.size), stroke = 1.5, color, children, } = props;
     if (children === undefined)
         return children;
     return React.cloneElement(children, {

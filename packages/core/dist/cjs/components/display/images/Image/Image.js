@@ -23,9 +23,9 @@ exports.Image = (0, react_1.forwardRef)(function Image(props, ref) {
     const theme = (0, ValenceProvider_1.useValence)();
     const breakpoint = (0, hooks_1.useBreakpoint)();
     // Defaults
-    const { src, alt, placeholder, radius = theme.defaultRadius, fit = "cover", position = "center", square = false, height = "fit-content", width = square ? height : "auto", shadow = false, style } = props, rest = __rest(props, ["src", "alt", "placeholder", "radius", "fit", "position", "square", "height", "width", "shadow", "style"]);
+    const { src, alt, placeholder, radius = theme.defaults.radius, fit = "cover", position = "center", square = false, height = "fit-content", width = square ? height : "auto", shadow = false, style } = props, rest = __rest(props, ["src", "alt", "placeholder", "radius", "fit", "position", "square", "height", "width", "shadow", "style"]);
     // Styles
-    const ContainerStyle = (0, react_2.css)(Object.assign({ height: (0, utils_1.getReactiveProp)(height, breakpoint), width: (0, utils_1.getReactiveProp)(width, breakpoint), minWidth: (0, utils_1.getReactiveProp)(width, breakpoint), borderRadius: theme.sizeClasses.radius[(0, utils_1.getReactiveProp)(radius, breakpoint)], aspectRatio: square ? "1/1" : undefined, overflow: "hidden", boxShadow: (0, utils_1.getReactiveProp)(shadow, breakpoint) ? theme.defaultShadow : "none" }, (0, utils_1.getReactiveProp)(style, breakpoint)));
+    const ContainerStyle = (0, react_2.css)(Object.assign({ height: (0, utils_1.getReactiveProp)(height, breakpoint), width: (0, utils_1.getReactiveProp)(width, breakpoint), minWidth: (0, utils_1.getReactiveProp)(width, breakpoint), borderRadius: theme.sizeClasses.radius[(0, utils_1.getReactiveProp)(radius, breakpoint)], aspectRatio: square ? "1/1" : undefined, overflow: "hidden", boxShadow: (0, utils_1.getReactiveProp)(shadow, breakpoint) ? theme.defaults.shadow : "none" }, (0, utils_1.getReactiveProp)(style, breakpoint)));
     const ImageStyle = (0, react_2.css)({
         width: "100%",
         height: "100%",

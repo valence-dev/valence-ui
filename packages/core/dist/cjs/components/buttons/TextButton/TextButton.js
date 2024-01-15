@@ -21,6 +21,6 @@ const ValenceProvider_1 = require("../../../ValenceProvider");
 exports.Button = (0, react_1.forwardRef)(function Button(props, ref) {
     const theme = (0, ValenceProvider_1.useValence)();
     // Defaults
-    const { size = theme.defaultSize, variant = theme.defaultVariant, color = theme.primaryColor, textProps } = props, rest = __rest(props, ["size", "variant", "color", "textProps"]);
+    const { size = theme.defaults.size, variant = theme.defaults.variant, color = theme.primaryColor, textProps } = props, rest = __rest(props, ["size", "variant", "color", "textProps"]);
     return ((0, jsx_runtime_1.jsx)(PrimitiveButton_1.PrimitiveButton, Object.assign({ size: size, variant: variant, color: color, ref: ref }, rest, { children: (0, jsx_runtime_1.jsx)(display_1.Text, Object.assign({ size: size, color: (0, Helpers_1.getTextColor)(color, variant, theme) }, textProps, { children: props.children })) })));
 });

@@ -40,7 +40,7 @@ export const SideSheet = forwardRef(function SideSheet(
     backgroundColor = theme.getColorHex("white"),
     color = theme.getColorHex("black"),
 
-    padding = theme.sizeClasses.padding[theme.defaultSize],
+    padding = theme.sizeClasses.padding[theme.defaults.size],
     margin = 0,
 
     width = 350,
@@ -83,7 +83,7 @@ export const SideSheet = forwardRef(function SideSheet(
     borderRadius: getReactiveProp(type, breakpoint) !== "overlay" ? undefined :
       `${borderRadius}px 0 0 ${borderRadius}px`,
     boxShadow: withShadow && getReactiveProp(type, breakpoint) === "overlay" ?
-      theme.defaultShadow : undefined,
+      theme.defaults.shadow : undefined,
 
     borderLeft: getReactiveProp(type, breakpoint) === "overlay" ? undefined :
       `1px solid ${theme.getColorHex("black", "weak")}`,

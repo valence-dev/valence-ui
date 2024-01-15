@@ -13,8 +13,9 @@ export const useValence = () => {
 export function ValenceProvider(props) {
     // Hooks
     const { isDarkMode } = useColorScheme();
-    // Defaults
-    const { colors = props.colors ? VCD.colors.concat(props.colors) : VCD.colors, primaryColor = VCD.primaryColor, defaultSize = VCD.defaultSize, defaultRadius = VCD.defaultRadius, defaultTransitionDuration = VCD.defaultTransitionDuration, defaultShadow = VCD.defaultShadow, defaultVariant = VCD.defaultVariant, fontFamily = VCD.fontFamily, sizeClasses = VCD.sizeClasses, titles = VCD.titles, breakpoints = VCD.breakpoints, } = props;
+    // Fallback properties
+    const { colors = props.colors ? VCD.colors.concat(props.colors) : VCD.colors, primaryColor = VCD.primaryColor, defaults = VCD.defaults, fontFamily = VCD.fontFamily, sizeClasses = VCD.sizeClasses, titles = VCD.titles, breakpoints = VCD.breakpoints, } = props;
+    // Functions
     function getColor(key) {
         if (key === undefined)
             return undefined;
@@ -43,7 +44,7 @@ export function ValenceProvider(props) {
         }
     }
     function getSize(context, size) {
-        size = size !== null && size !== void 0 ? size : defaultSize;
+        size = size !== null && size !== void 0 ? size : defaults.size;
         return sizeClasses[context][size];
     }
     return (_jsx(ValenceContext.Provider, { value: {
@@ -51,11 +52,7 @@ export function ValenceProvider(props) {
             getColor,
             getColorHex,
             primaryColor,
-            defaultSize,
-            defaultRadius,
-            defaultTransitionDuration,
-            defaultShadow,
-            defaultVariant,
+            defaults,
             fontFamily,
             getFont,
             sizeClasses,

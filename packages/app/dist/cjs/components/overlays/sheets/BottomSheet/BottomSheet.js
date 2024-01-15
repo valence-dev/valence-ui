@@ -23,7 +23,7 @@ exports.BottomSheet = (0, react_2.forwardRef)(function BottomSheet(props, ref) {
     const theme = (0, react_2.useContext)(core_1.ValenceContext);
     const controls = (0, framer_motion_1.useDragControls)();
     // Defaults
-    const { disclosure, title, header = (props) => (0, jsx_runtime_1.jsx)(core_1.DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), releaseOffset = Math.round(window.innerHeight / 2), releaseVelocity = 500, closeOnOverlayClick = true, closeOnEscape = true, lockScroll = false, radius = "lg", withShadow = true, backgroundColor = theme.getColorHex("white"), color = theme.getColorHex("black"), padding = theme.sizeClasses.padding[theme.defaultSize], margin = 0, width, height = "100%", flexProps, overlayBackgroundProps = {
+    const { disclosure, title, header = (props) => (0, jsx_runtime_1.jsx)(core_1.DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), releaseOffset = Math.round(window.innerHeight / 2), releaseVelocity = 500, closeOnOverlayClick = true, closeOnEscape = true, lockScroll = false, radius = "lg", withShadow = true, backgroundColor = theme.getColorHex("white"), color = theme.getColorHex("black"), padding = theme.sizeClasses.padding[theme.defaults.size], margin = 0, width, height = "100%", flexProps, overlayBackgroundProps = {
         padding: 0,
         style: {
             alignItems: "flex-end",
@@ -46,7 +46,7 @@ exports.BottomSheet = (0, react_2.forwardRef)(function BottomSheet(props, ref) {
         padding: padding,
         margin: margin,
         borderRadius: `${borderRadius}px ${borderRadius}px 0 0`,
-        boxShadow: withShadow ? theme.defaultShadow : undefined,
+        boxShadow: withShadow ? theme.defaults.shadow : undefined,
         overflowX: "hidden",
         overflowY: "auto",
     };

@@ -149,7 +149,7 @@ const Carousel = forwardRef(function Card(props, ref) {
         scrollToChild(ac);
     }
     // Styles
-    const buttonWidth = (_b = theme.sizeClasses.height[(_a = buttonPropsRest.size) !== null && _a !== void 0 ? _a : theme.defaultSize]) !== null && _b !== void 0 ? _b : 35;
+    const buttonWidth = (_b = theme.sizeClasses.height[(_a = buttonPropsRest.size) !== null && _a !== void 0 ? _a : theme.defaults.size]) !== null && _b !== void 0 ? _b : 35;
     const gapWidth = getReactiveProp(gap, breakpoint);
     const ContainerStyle = {
         marginLeft: getReactiveProp(showControls, breakpoint) ?

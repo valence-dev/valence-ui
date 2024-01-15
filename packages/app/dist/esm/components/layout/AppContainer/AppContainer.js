@@ -17,11 +17,11 @@ import { Flex, Header, Space, ValenceContext, useBreakpoint } from "@valence-ui/
  * The `AppContainer` component is a layout component that provides a consistent layout for pages in the application. It includes a navigation element, a header element, and an optional sidebar element. The `AppContainer` component is responsive and adjusts its layout based on the screen size.
  */
 export const AppContainer = forwardRef(function AppContainer(props, ref) {
-    var _a, _b, _c, _d;
+    var _a;
     const theme = useContext(ValenceContext);
     const breakpoint = useBreakpoint();
     // Defaults
-    const { nav, header, sidebar, radius = theme.defaultRadius, navContainerProps, pageProps, contentWidth = 700, sidebarWidth = 270, navWidth = 65, showHeaderSpacer = true, showNav = true, children, style } = props, rest = __rest(props, ["nav", "header", "sidebar", "radius", "navContainerProps", "pageProps", "contentWidth", "sidebarWidth", "navWidth", "showHeaderSpacer", "showNav", "children", "style"]);
+    const { nav, header, sidebar, radius = theme.defaults.radius, navContainerProps, pageProps, contentWidth = 700, sidebarWidth = 270, navWidth = 65, showHeaderSpacer = true, showNav = true, children, style } = props, rest = __rest(props, ["nav", "header", "sidebar", "radius", "navContainerProps", "pageProps", "contentWidth", "sidebarWidth", "navWidth", "showHeaderSpacer", "showNav", "children", "style"]);
     const borderRadius = theme.sizeClasses.radius[radius] + 5;
     // Styles
     const pageContainerStyle = Object.assign({ default: {
@@ -40,11 +40,11 @@ export const AppContainer = forwardRef(function AppContainer(props, ref) {
     const sidebarContainerStyle = {
         default: {
             width: sidebar ? sidebarWidth : 0,
-            backgroundColor: (_a = theme.getColor("white")) === null || _a === void 0 ? void 0 : _a.base,
+            backgroundColor: theme.getColorHex("white"),
             borderRadius: `${borderRadius}px 0px 0px ${borderRadius}px`,
             padding: 10,
         }, mobile: {
-            backgroundColor: (_b = theme.getColor("white")) === null || _b === void 0 ? void 0 : _b.base,
+            backgroundColor: theme.getColorHex("white"),
             borderRadius: getReactiveProp(showNav, breakpoint) ?
                 `0px 0px ${borderRadius}px ${borderRadius}px`
                 : 0,
@@ -55,13 +55,13 @@ export const AppContainer = forwardRef(function AppContainer(props, ref) {
     };
     const contentContainerStyle = {
         default: {
-            backgroundColor: (_c = theme.getColor("white")) === null || _c === void 0 ? void 0 : _c.base,
+            backgroundColor: theme.getColorHex("white"),
             paddingLeft: props.sidebar ? sidebarWidth + navWidth : navWidth,
             paddingRight: 30,
             width: "100vw",
             transition: "padding-right 0.3s ease-in-out",
         }, mobile: {
-            backgroundColor: (_d = theme.getColor("white")) === null || _d === void 0 ? void 0 : _d.base,
+            backgroundColor: (_a = theme.getColor("white")) === null || _a === void 0 ? void 0 : _a.base,
             padding: 20,
         }
     };

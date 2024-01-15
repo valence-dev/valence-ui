@@ -85,9 +85,9 @@ export const OptionContainer = forwardRef(function OptionContainer(
     icon,
     rightIcon = <IconSelector />,
 
-    size = theme.defaultSize,
-    radius = theme.defaultRadius,
-    variant = theme.defaultVariant,
+    size = theme.defaults.size,
+    radius = theme.defaults.radius,
+    variant = theme.defaults.variant,
 
     loading, disabled, required,
 
@@ -198,7 +198,7 @@ export const OptionContainer = forwardRef(function OptionContainer(
 
     borderRadius: theme.sizeClasses.radius[radius] as number + (dropdownProps.padding as number),
     padding: dropdownProps.padding,
-    boxShadow: dropdownProps.shadow ? theme.defaultShadow : undefined,
+    boxShadow: dropdownProps.shadow ? theme.defaults.shadow : undefined,
 
     animationName: "in",
     animationDuration: "0.1s",

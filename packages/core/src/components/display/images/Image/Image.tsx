@@ -51,7 +51,7 @@ export const Image = forwardRef(function Image(
     alt,
     placeholder,
 
-    radius = theme.defaultRadius,
+    radius = theme.defaults.radius,
     fit = "cover",
     position = "center",
     square = false,
@@ -73,7 +73,7 @@ export const Image = forwardRef(function Image(
     aspectRatio: square ? "1/1" : undefined,
     overflow: "hidden",
 
-    boxShadow: getReactiveProp(shadow, breakpoint) ? theme.defaultShadow : "none",
+    boxShadow: getReactiveProp(shadow, breakpoint) ? theme.defaults.shadow : "none",
 
     ...getReactiveProp(style, breakpoint)
   });

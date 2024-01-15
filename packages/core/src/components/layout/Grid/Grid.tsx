@@ -25,7 +25,7 @@ const Grid = forwardRef(function Grid(
   // Defaults
   const {
     grid = "auto",
-    gap = theme.sizeClasses.padding[theme.defaultSize],
+    gap = theme.sizeClasses.padding[theme.defaults.size],
     rowGap, columnGap,
 
     template, templateRows, templateColumns, templateAreas,

@@ -20,7 +20,7 @@ export const BottomSheet = forwardRef(function BottomSheet(props, ref) {
     const theme = useContext(ValenceContext);
     const controls = useDragControls();
     // Defaults
-    const { disclosure, title, header = (props) => _jsx(DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), releaseOffset = Math.round(window.innerHeight / 2), releaseVelocity = 500, closeOnOverlayClick = true, closeOnEscape = true, lockScroll = false, radius = "lg", withShadow = true, backgroundColor = theme.getColorHex("white"), color = theme.getColorHex("black"), padding = theme.sizeClasses.padding[theme.defaultSize], margin = 0, width, height = "100%", flexProps, overlayBackgroundProps = {
+    const { disclosure, title, header = (props) => _jsx(DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), releaseOffset = Math.round(window.innerHeight / 2), releaseVelocity = 500, closeOnOverlayClick = true, closeOnEscape = true, lockScroll = false, radius = "lg", withShadow = true, backgroundColor = theme.getColorHex("white"), color = theme.getColorHex("black"), padding = theme.sizeClasses.padding[theme.defaults.size], margin = 0, width, height = "100%", flexProps, overlayBackgroundProps = {
         padding: 0,
         style: {
             alignItems: "flex-end",
@@ -43,7 +43,7 @@ export const BottomSheet = forwardRef(function BottomSheet(props, ref) {
         padding: padding,
         margin: margin,
         borderRadius: `${borderRadius}px ${borderRadius}px 0 0`,
-        boxShadow: withShadow ? theme.defaultShadow : undefined,
+        boxShadow: withShadow ? theme.defaults.shadow : undefined,
         overflowX: "hidden",
         overflowY: "auto",
     };

@@ -11,6 +11,7 @@ export type IValenceContext = {
   primaryColor: string;
   /** Finds a color within the theme context
    * @param key key of the color to find. Using `primary` will return the theme primary color. Alternatively, an accepted hex code (prefixed with `#`) can be used to retrieve a color that is not defined in the theme.
+   * @deprecated Use `getColorHex` instead
    */
   getColor: (key: string | undefined) => Color | undefined;
   /** Finds a color within the theme context and returns it as a hex code
@@ -19,16 +20,19 @@ export type IValenceContext = {
   getColorHex: (key: string | undefined, opacity?: "weak" | "medium" | "strong") => string | undefined;
 
 
-  /** The default size to use for components */
-  defaultSize: ComponentSize;
-  /** The default radius to use for components */
-  defaultRadius: ComponentSize;
-  /** The default transition duration to use for components */
-  defaultTransitionDuration: CSSProperties["transitionDuration"];
-  /** The default shadow to use for components that accept shadows */
-  defaultShadow: CSSProperties["boxShadow"];
-  /** The default variant to use for buttons */
-  defaultVariant: FillVariant;
+  /** Default sizes and parameters for common attributes */
+  defaults: { 
+    /** The default component size */
+    size: ComponentSize;
+    /** The default component radius size */
+    radius: ComponentSize;
+    /** The default component fill variant */
+    variant: FillVariant;
+    /** The default transition duration for animated properties */
+    transitionDuration: CSSProperties["transitionDuration"];
+    /** The default shadow style to apply */
+    shadow: CSSProperties["boxShadow"];
+  }
 
 
   /** The default font families to use in specific contexts */
@@ -41,9 +45,9 @@ export type IValenceContext = {
     monospace?: string;
   }
   /** Finds a font family within the theme context
-   * @param context the context to find the font family for
+   * @param property the property to find the font family for
    */
-  getFont: (context: "default" | "heading" | "monospace") => string;
+  getFont: (property: "default" | "heading" | "monospace") => string;
 
 
   /** Standardised sizing guide to use for components */
@@ -59,8 +63,10 @@ export type IValenceContext = {
     /** The icon size to use for components */
     iconSize: SizeClasses<CSSProperties["fontSize"]>;
   }
-  /** Finds a size within the theme context **/
-  getSize: (context: "padding" | "height" | "radius" | "fontSize" | "iconSize", size?: ComponentSize) => any;
+  /** Finds a size within the theme context 
+   * @param property the property to find the size for
+   **/
+  getSize: (property: "padding" | "height" | "radius" | "fontSize" | "iconSize", size?: ComponentSize) => any;
 
   /** Props to refer to for titles */
   titles: {
@@ -91,11 +97,13 @@ export const ValenceContextDefaults: IValenceContext = {
   getColorHex: () => undefined,
   primaryColor: "pink",
 
-  defaultSize: "sm",
-  defaultRadius: "sm",
-  defaultTransitionDuration: "0.1s",
-  defaultShadow: "0px 10px 30px rgba(0, 0, 0, 0.2)",
-  defaultVariant: "light",
+  defaults: { 
+    size: "sm",
+    radius: "sm",
+    variant: "light",
+    transitionDuration: "0.1s",
+    shadow: "0px 10px 30px rgba(0, 0, 0, 0.2)",
+  },
 
   fontFamily: {
     default: "Inter, sans-serif",

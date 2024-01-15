@@ -38,7 +38,7 @@ export const OutlineContainer = forwardRef(function OutlineContainer(
 
     label, labelProps,
     spacing = 5,
-    radius = theme.defaultRadius,
+    radius = theme.defaults.radius,
 
     position = sticky ? "sticky" : "relative",
     zIndex = sticky ? 151 : undefined,

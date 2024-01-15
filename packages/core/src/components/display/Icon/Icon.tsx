@@ -30,7 +30,7 @@ export const Icon = forwardRef(function Icon(
   const theme = useValence();
 
   const {
-    size = theme.getSize("iconSize", theme.defaultSize),
+    size = theme.getSize("iconSize", theme.defaults.size),
     stroke = 1.5,
     color,
     children,

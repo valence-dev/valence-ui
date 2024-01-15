@@ -24,11 +24,13 @@ export type ValenceProviderProps = {
   colors?: ColorReactive[];
   primaryColor?: string;
 
-  defaultSize?: ComponentSize;
-  defaultRadius?: ComponentSize;
-  defaultTransitionDuration?: React.CSSProperties["transitionDuration"];
-  defaultShadow?: React.CSSProperties["boxShadow"];
-  defaultVariant?: FillVariant;
+  defaults?: { 
+    size: ComponentSize;
+    radius: ComponentSize;
+    variant: FillVariant;
+    transitionDuration: CSSProperties["transitionDuration"];
+    shadow: CSSProperties["boxShadow"];
+  };
 
   fontFamily?: {
     default: string;
@@ -42,7 +44,7 @@ export type ValenceProviderProps = {
     radius: SizeClasses<CSSProperties["borderRadius"]>;
     fontSize: SizeClasses<CSSProperties["fontSize"]>;
     iconSize: SizeClasses<CSSProperties["fontSize"]>;
-  }
+  };
 
   titles?: {
     1: TextProps;
@@ -51,14 +53,14 @@ export type ValenceProviderProps = {
     4: TextProps;
     5: TextProps;
     6: TextProps;
-  }
+  };
 
 
   breakpoints?: {
     desktopThinWidth: number;
     mobileWidth: number;
     mobileTallHeight: number;
-  }
+  };
 }
 
 export function ValenceProvider(props: ValenceProviderProps) {
@@ -67,16 +69,12 @@ export function ValenceProvider(props: ValenceProviderProps) {
   const { isDarkMode } = useColorScheme();
 
 
-  // Defaults
+  // Fallback properties
   const {
     colors = props.colors ? VCD.colors.concat(props.colors) : VCD.colors,
     primaryColor = VCD.primaryColor,
 
-    defaultSize = VCD.defaultSize,
-    defaultRadius = VCD.defaultRadius,
-    defaultTransitionDuration = VCD.defaultTransitionDuration,
-    defaultShadow = VCD.defaultShadow,
-    defaultVariant = VCD.defaultVariant,
+    defaults = VCD.defaults,
 
     fontFamily = VCD.fontFamily,
     sizeClasses = VCD.sizeClasses,
@@ -86,6 +84,7 @@ export function ValenceProvider(props: ValenceProviderProps) {
   } = props;
 
 
+  // Functions
   function getColor(key: string | undefined) {
     if (key === undefined) return undefined;
     if (key === "primary")
@@ -114,7 +113,7 @@ export function ValenceProvider(props: ValenceProviderProps) {
   }
 
   function getSize(context: "padding" | "height" | "radius" | "fontSize" | "iconSize", size?: ComponentSize) {
-    size = size ?? defaultSize;
+    size = size ?? defaults.size;
     return sizeClasses[context][size];
   }
 
@@ -127,11 +126,7 @@ export function ValenceProvider(props: ValenceProviderProps) {
         getColorHex,
         primaryColor,
 
-        defaultSize,
-        defaultRadius,
-        defaultTransitionDuration,
-        defaultShadow,
-        defaultVariant,
+        defaults,
 
         fontFamily,
         getFont,

@@ -20,8 +20,8 @@ export function ButtonWithIcon(props: ButtonWithIconProps) {
   const {
     icon,
     iconPosition = "left",
-    size = theme.defaultSize,
-    variant = theme.defaultVariant,
+    size = theme.defaults.size,
+    variant = theme.defaults.variant,
     color = theme.primaryColor,
 
     style,

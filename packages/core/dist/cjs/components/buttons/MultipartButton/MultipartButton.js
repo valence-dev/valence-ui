@@ -32,7 +32,7 @@ const SIZES = {
 exports.MultipartButton = (0, react_1.forwardRef)(function MultipartButton(props, ref) {
     const theme = (0, ValenceProvider_1.useValence)();
     // Defaults
-    const { size = theme.defaultSize, variant = theme.defaultVariant, color = theme.primaryColor, height = SIZES[size].height, width = "100%", title, subtitle, leftIcon, rightIcon = (0, jsx_runtime_1.jsx)(icons_react_1.IconChevronRight, { opacity: 0.5 }), titleProps, subtitleProps, style } = props, rest = __rest(props, ["size", "variant", "color", "height", "width", "title", "subtitle", "leftIcon", "rightIcon", "titleProps", "subtitleProps", "style"]);
+    const { size = theme.defaults.size, variant = theme.defaults.variant, color = theme.primaryColor, height = SIZES[size].height, width = "100%", title, subtitle, leftIcon, rightIcon = (0, jsx_runtime_1.jsx)(icons_react_1.IconChevronRight, { opacity: 0.5 }), titleProps, subtitleProps, style } = props, rest = __rest(props, ["size", "variant", "color", "height", "width", "title", "subtitle", "leftIcon", "rightIcon", "titleProps", "subtitleProps", "style"]);
     // Styles
     const buttonStyle = Object.assign({ justifyContent: "flex-start", padding: 0, paddingLeft: !leftIcon ? theme.sizeClasses.padding[size] : undefined }, style);
     const ContainerStyle = (0, react_2.css)({

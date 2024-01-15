@@ -21,8 +21,8 @@ export const GridButton = forwardRef(function GridButton(
   const {
     icon,
     iconPosition = "top",
-    size = theme.defaultSize,
-    variant = theme.defaultVariant,
+    size = theme.defaults.size,
+    variant = theme.defaults.variant,
     color = theme.primaryColor,
 
     width = theme.sizeClasses.height[size] as number * 2.5,

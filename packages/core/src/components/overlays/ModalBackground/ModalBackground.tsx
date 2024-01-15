@@ -28,7 +28,7 @@ export const ModalBackground = forwardRef(function ModalBackground(
     backdropFilter = "blur",
 
     backgroundColor = "permaBlack",
-    padding = theme.sizeClasses.padding[theme.defaultSize],
+    padding = theme.sizeClasses.padding[theme.defaults.size],
     zIndex = 1002,
     children,
     style,

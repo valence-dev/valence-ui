@@ -28,10 +28,10 @@ export const StyledFlex = forwardRef(function StyledFlex(
 
   // Defaults
   const {
-    variant = theme.defaultVariant,
-    size = { default: theme.defaultSize },
-    radius = { default: theme.defaultRadius },
-    padding = { default: theme.sizeClasses.padding[theme.defaultSize] },
+    size = theme.defaults.size,
+    radius = theme.defaults.radius,
+    variant = theme.defaults.variant,
+    padding = theme.sizeClasses.padding[theme.defaults.size],
 
     color = { default: theme.primaryColor },
     backgroundColor = color,
@@ -57,7 +57,7 @@ export const StyledFlex = forwardRef(function StyledFlex(
     borderRadius: theme.sizeClasses.radius[getReactiveProp(radius, breakpoint)],
 
     boxShadow: getReactiveProp(props.shadow, breakpoint)
-      ? theme.defaultShadow : undefined,
+      ? theme.defaults.shadow : undefined,
 
     ...getReactiveProp(style, breakpoint)
   }

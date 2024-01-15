@@ -65,8 +65,8 @@ export const SegmentedControl = forwardRef(function SegmentedControl(
     buttonProps,
 
     variant,
-    size = theme.defaultSize,
-    radius = theme.defaultRadius,
+    size = theme.defaults.size,
+    radius = theme.defaults.radius,
 
     color = "black",
     backgroundColor = color,

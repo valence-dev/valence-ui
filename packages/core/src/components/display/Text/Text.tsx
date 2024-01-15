@@ -74,7 +74,7 @@ export const Text = forwardRef(function Text(
     align = "left",
     transform = "none",
 
-    size = theme.defaultSize,
+    size = theme.defaults.size,
     fontSize = theme.sizeClasses.fontSize[size],
     color = "black",
 

@@ -31,7 +31,7 @@ const Column = forwardRef(function Column(
 
     color = "black",
     backgroundColor,
-    padding = theme.sizeClasses.padding[theme.defaultSize],
+    padding = theme.sizeClasses.padding[theme.defaults.size],
     margin,
     width,
     height,

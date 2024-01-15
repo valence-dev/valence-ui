@@ -22,7 +22,7 @@ const hooks_1 = require("../../../hooks");
 const Column = (0, react_1.forwardRef)(function Column(props, ref) {
     const theme = (0, ValenceProvider_1.useValence)();
     // Defaults
-    const { direction = "column", justify = "center", color = "black", backgroundColor, padding = theme.sizeClasses.padding[theme.defaultSize], margin, width, height, children } = props, rest = __rest(props, ["direction", "justify", "color", "backgroundColor", "padding", "margin", "width", "height", "children"]);
+    const { direction = "column", justify = "center", color = "black", backgroundColor, padding = theme.sizeClasses.padding[theme.defaults.size], margin, width, height, children } = props, rest = __rest(props, ["direction", "justify", "color", "backgroundColor", "padding", "margin", "width", "height", "children"]);
     return ((0, jsx_runtime_1.jsx)(Flex_1.Flex, Object.assign({ direction: direction, justify: justify, color: color, backgroundColor: backgroundColor, padding: padding, margin: margin, width: width, height: height, ref: ref }, rest, { children: children })));
 });
 const Container = (0, react_1.forwardRef)(function ColumnContainer(props, ref) {

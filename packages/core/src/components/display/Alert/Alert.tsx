@@ -57,8 +57,8 @@ export const Alert = forwardRef(function Alert(
     alert,
     show,
     variant = "filled",
-    size = theme.defaultSize,
-    radius = theme.defaultRadius,
+    size = theme.defaults.size,
+    radius = theme.defaults.radius,
     shadow = false,
     motion,
 
@@ -98,7 +98,7 @@ export const Alert = forwardRef(function Alert(
 
     backgroundColor: getBackgroundColor(backgroundColor, variant, false, theme),
     color: getTextColor(color, variant, theme),
-    boxShadow: shadow ? theme.defaultShadow : "none",
+    boxShadow: shadow ? theme.defaults.shadow : "none",
     cursor: CLICKABLE_ELEMENTS.includes(component as string) ? "pointer" : "default",
 
     ...style

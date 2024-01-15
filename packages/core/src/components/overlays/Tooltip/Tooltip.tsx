@@ -106,7 +106,7 @@ const Content = forwardRef(function Content(
   // Styles
   const FloatingStyle = css({
     borderRadius: theme.sizeClasses.radius[getReactiveProp(radius, breakpoint)],
-    boxShadow: !withShadow ? undefined : theme.defaultShadow,
+    boxShadow: !withShadow ? undefined : theme.defaults.shadow,
     zIndex: zIndex,
 
     animationName: "in",

@@ -54,9 +54,9 @@ export const Pill = forwardRef(function Pill(
 
   // Defaults
   const {
-    variant = theme.defaultVariant,
-    size = theme.defaultSize,
+    size = theme.defaults.size,
     radius = "xl",
+    variant = theme.defaults.variant,
 
     withRemoveButton = false,
     removeButtonIcon = <Icon><IconX /></Icon>,

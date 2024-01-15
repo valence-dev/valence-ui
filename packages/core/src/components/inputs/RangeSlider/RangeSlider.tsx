@@ -61,9 +61,9 @@ export const RangeSlider = forwardRef(function RangeSlider(
     invert = false,
 
     color = "black",
-    size = theme.defaultSize,
-    radius = theme.defaultRadius,
-    variant = theme.defaultVariant,
+    size = theme.defaults.size,
+    radius = theme.defaults.radius,
+    variant = theme.defaults.variant,
 
     height = theme.getSize("height", size),
     width = "100%",

@@ -23,7 +23,7 @@ import { Text } from "../../display";
 import { NumberInput } from "../NumberInput";
 const Slider = forwardRef(function Slider(props, ref) {
     const theme = useValence();
-    const { value, setValue, min = 0, max = 100, step = 1, showValue = false, invert = false, color = "black", size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, height = theme.getSize("height", size), width = "100%", includeManualInput = true, manualInputPosition = "right", trackProps, thumbProps, onAfterChange, onBeforeChange, onChange, onSliderClick, style } = props, rest = __rest(props, ["value", "setValue", "min", "max", "step", "showValue", "invert", "color", "size", "radius", "variant", "height", "width", "includeManualInput", "manualInputPosition", "trackProps", "thumbProps", "onAfterChange", "onBeforeChange", "onChange", "onSliderClick", "style"]);
+    const { value, setValue, min = 0, max = 100, step = 1, showValue = false, invert = false, color = "black", size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, height = theme.getSize("height", size), width = "100%", includeManualInput = true, manualInputPosition = "right", trackProps, thumbProps, onAfterChange, onBeforeChange, onChange, onSliderClick, style } = props, rest = __rest(props, ["value", "setValue", "min", "max", "step", "showValue", "invert", "color", "size", "radius", "variant", "height", "width", "includeManualInput", "manualInputPosition", "trackProps", "thumbProps", "onAfterChange", "onBeforeChange", "onChange", "onSliderClick", "style"]);
     // Styles
     const SliderStyle = css({
         display: "flex",
@@ -42,7 +42,7 @@ props, ref) {
     // Hooks 
     const breakpoint = useBreakpoint();
     const theme = useValence();
-    const { state, highlight, radius = "xl", size = theme.defaultSize, width, height = 2, padding = 0, color = "black", variant = highlight ? "filled" : "light", style } = props, rest = __rest(props, ["state", "highlight", "radius", "size", "width", "height", "padding", "color", "variant", "style"]);
+    const { state, highlight, radius = "xl", size = theme.defaults.size, width, height = 2, padding = 0, color = "black", variant = highlight ? "filled" : "light", style } = props, rest = __rest(props, ["state", "highlight", "radius", "size", "width", "height", "padding", "color", "variant", "style"]);
     // Styles
     const TrackStyle = Object.assign({ backgroundColor: getBackgroundColor(highlight ? getReactiveProp(color, breakpoint) : "black", variant, false, theme), borderRadius: theme.getSize("radius", getReactiveProp(radius, breakpoint)) }, getReactiveProp(style, breakpoint));
     return (_jsx(Flex, Object.assign({ width: width, height: height, padding: padding, style: TrackStyle, ref: ref }, rest)));
@@ -52,7 +52,7 @@ const SliderThumb = forwardRef(function SliderThumb(
 props, ref) {
     // Hooks
     const theme = useValence();
-    const { state, showValue = false, variant = "filled", size = theme.defaultSize, width = showValue ? theme.getSize("height", size) : theme.getSize("height", size) / 2, height = theme.getSize("height", size) / 2, radius = "xl", color = "black", padding = showValue ? "1px 5px" : 0, align = "center", justify = "center", style } = props, rest = __rest(props, ["state", "showValue", "variant", "size", "width", "height", "radius", "color", "padding", "align", "justify", "style"]);
+    const { state, showValue = false, variant = "filled", size = theme.defaults.size, width = showValue ? theme.getSize("height", size) : theme.getSize("height", size) / 2, height = theme.getSize("height", size) / 2, radius = "xl", color = "black", padding = showValue ? "1px 5px" : 0, align = "center", justify = "center", style } = props, rest = __rest(props, ["state", "showValue", "variant", "size", "width", "height", "radius", "color", "padding", "align", "justify", "style"]);
     // Styles
     const ThumbStyle = Object.assign({ cursor: "grab", top: theme.getSize("height", size) / 2 - height / 2 }, style);
     return (_jsx(StyledFlex, Object.assign({ width: width, height: height, radius: radius, color: color, padding: padding, variant: variant, align: align, justify: justify, style: ThumbStyle, ref: ref }, rest, { children: showValue &&

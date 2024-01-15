@@ -86,9 +86,9 @@ const Slider = forwardRef(function Slider(
     invert = false,
 
     color = "black",
-    size = theme.defaultSize,
-    radius = theme.defaultRadius,
-    variant = theme.defaultVariant,
+    size = theme.defaults.size,
+    radius = theme.defaults.radius,
+    variant = theme.defaults.variant,
 
     height = theme.getSize("height", size),
     width = "100%",
@@ -205,7 +205,7 @@ const SliderTrack = forwardRef(function SliderTrack(
     highlight,
 
     radius = "xl",
-    size = theme.defaultSize,
+    size = theme.defaults.size,
 
     width,
     height = 2,
@@ -261,7 +261,7 @@ const SliderThumb = forwardRef(function SliderThumb(
     showValue = false,
 
     variant = "filled",
-    size = theme.defaultSize,
+    size = theme.defaults.size,
     width = showValue ? theme.getSize("height", size) : theme.getSize("height", size) / 2,
     height = theme.getSize("height", size) / 2,
     radius = "xl",

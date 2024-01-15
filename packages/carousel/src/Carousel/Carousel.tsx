@@ -216,7 +216,7 @@ const Carousel = forwardRef(function Card(
 
 
   // Styles
-  const buttonWidth = theme.sizeClasses.height[buttonPropsRest.size ?? theme.defaultSize] ?? 35;
+  const buttonWidth = theme.sizeClasses.height[buttonPropsRest.size ?? theme.defaults.size] ?? 35;
   const gapWidth = getReactiveProp(gap, breakpoint);
   const ContainerStyle: CSSProperties = {
     marginLeft: getReactiveProp(showControls, breakpoint) ?

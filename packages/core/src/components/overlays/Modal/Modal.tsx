@@ -43,11 +43,11 @@ export const Modal = forwardRef(function Modal(
     lockScroll = true,
 
     withShadow = true,
-    radius = theme.defaultRadius,
+    radius = theme.defaults.radius,
 
     backgroundColor = "white",
     color = "black",
-    padding = theme.sizeClasses.padding[theme.defaultSize],
+    padding = theme.sizeClasses.padding[theme.defaults.size],
     margin,
     width = 500,
     height = "fit-content",
@@ -91,7 +91,7 @@ export const Modal = forwardRef(function Modal(
     width: width,
     height: height,
     borderRadius: theme.sizeClasses.radius[radius],
-    boxShadow: withShadow ? theme.defaultShadow : undefined,
+    boxShadow: withShadow ? theme.defaults.shadow : undefined,
     
     boxSizing: "border-box",
     maxWidth: "100%",

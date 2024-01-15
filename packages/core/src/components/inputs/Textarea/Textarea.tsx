@@ -59,9 +59,9 @@ export const Textarea = forwardRef(function Textarea(
     autoComplete = false,
     spellCheck = true,
 
-    size = theme.defaultSize,
-    radius = theme.defaultRadius,
-    variant = theme.defaultVariant,
+    size = theme.defaults.size,
+    radius = theme.defaults.radius,
+    variant = theme.defaults.variant,
     grow,
 
     resize = "none",

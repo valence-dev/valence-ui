@@ -17,8 +17,9 @@ exports.useValence = useValence;
 function ValenceProvider(props) {
     // Hooks
     const { isDarkMode } = (0, hooks_1.useColorScheme)();
-    // Defaults
-    const { colors = props.colors ? ValenceProvider_types_1.ValenceContextDefaults.colors.concat(props.colors) : ValenceProvider_types_1.ValenceContextDefaults.colors, primaryColor = ValenceProvider_types_1.ValenceContextDefaults.primaryColor, defaultSize = ValenceProvider_types_1.ValenceContextDefaults.defaultSize, defaultRadius = ValenceProvider_types_1.ValenceContextDefaults.defaultRadius, defaultTransitionDuration = ValenceProvider_types_1.ValenceContextDefaults.defaultTransitionDuration, defaultShadow = ValenceProvider_types_1.ValenceContextDefaults.defaultShadow, defaultVariant = ValenceProvider_types_1.ValenceContextDefaults.defaultVariant, fontFamily = ValenceProvider_types_1.ValenceContextDefaults.fontFamily, sizeClasses = ValenceProvider_types_1.ValenceContextDefaults.sizeClasses, titles = ValenceProvider_types_1.ValenceContextDefaults.titles, breakpoints = ValenceProvider_types_1.ValenceContextDefaults.breakpoints, } = props;
+    // Fallback properties
+    const { colors = props.colors ? ValenceProvider_types_1.ValenceContextDefaults.colors.concat(props.colors) : ValenceProvider_types_1.ValenceContextDefaults.colors, primaryColor = ValenceProvider_types_1.ValenceContextDefaults.primaryColor, defaults = ValenceProvider_types_1.ValenceContextDefaults.defaults, fontFamily = ValenceProvider_types_1.ValenceContextDefaults.fontFamily, sizeClasses = ValenceProvider_types_1.ValenceContextDefaults.sizeClasses, titles = ValenceProvider_types_1.ValenceContextDefaults.titles, breakpoints = ValenceProvider_types_1.ValenceContextDefaults.breakpoints, } = props;
+    // Functions
     function getColor(key) {
         if (key === undefined)
             return undefined;
@@ -47,7 +48,7 @@ function ValenceProvider(props) {
         }
     }
     function getSize(context, size) {
-        size = size !== null && size !== void 0 ? size : defaultSize;
+        size = size !== null && size !== void 0 ? size : defaults.size;
         return sizeClasses[context][size];
     }
     return ((0, jsx_runtime_1.jsx)(exports.ValenceContext.Provider, { value: {
@@ -55,11 +56,7 @@ function ValenceProvider(props) {
             getColor,
             getColorHex,
             primaryColor,
-            defaultSize,
-            defaultRadius,
-            defaultTransitionDuration,
-            defaultShadow,
-            defaultVariant,
+            defaults,
             fontFamily,
             getFont,
             sizeClasses,

@@ -4,7 +4,7 @@ import { ValenceContext, ModalBackground, Flex, useDetectKeyDown, DefaultModalHe
 import { GenericOverlayHeaderProps, } from "@valence-ui/utils";
 import { useContext, forwardRef, CSSProperties } from "react";
 import { AnimatePresence, motion, useDragControls } from "framer-motion";
-import { useLockedBody, useScreen } from "usehooks-ts";
+import { useLockedBody } from "usehooks-ts";
 import { GenericSheetProps } from "../Generics";
 
 export type BottomSheetProps = GenericSheetProps & {
@@ -44,7 +44,7 @@ export const BottomSheet = forwardRef(function BottomSheet(
     backgroundColor = theme.getColorHex("white"),
     color = theme.getColorHex("black"),
 
-    padding = theme.sizeClasses.padding[theme.defaultSize],
+    padding = theme.sizeClasses.padding[theme.defaults.size],
     margin = 0,
 
     width,
@@ -100,7 +100,7 @@ export const BottomSheet = forwardRef(function BottomSheet(
     margin: margin,
 
     borderRadius: `${borderRadius}px ${borderRadius}px 0 0`,
-    boxShadow: withShadow ? theme.defaultShadow : undefined,
+    boxShadow: withShadow ? theme.defaults.shadow : undefined,
 
     overflowX: "hidden",
     overflowY: "auto",

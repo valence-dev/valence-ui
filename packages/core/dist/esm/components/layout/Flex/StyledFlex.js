@@ -20,9 +20,9 @@ export const StyledFlex = forwardRef(function StyledFlex(props, ref) {
     const theme = useValence();
     const breakpoint = useBreakpoint();
     // Defaults
-    const { variant = theme.defaultVariant, size = { default: theme.defaultSize }, radius = { default: theme.defaultRadius }, padding = { default: theme.sizeClasses.padding[theme.defaultSize] }, color = { default: theme.primaryColor }, backgroundColor = color, style, children } = props, rest = __rest(props, ["variant", "size", "radius", "padding", "color", "backgroundColor", "style", "children"]);
+    const { size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, padding = theme.sizeClasses.padding[theme.defaults.size], color = { default: theme.primaryColor }, backgroundColor = color, style, children } = props, rest = __rest(props, ["size", "radius", "variant", "padding", "color", "backgroundColor", "style", "children"]);
     // Styles
     const styles = Object.assign({ backgroundColor: getBackgroundColor(getReactiveProp(backgroundColor, breakpoint), getReactiveProp(variant, breakpoint), false, theme), color: getTextColor(getReactiveProp(color, breakpoint), getReactiveProp(variant, breakpoint), theme), borderRadius: theme.sizeClasses.radius[getReactiveProp(radius, breakpoint)], boxShadow: getReactiveProp(props.shadow, breakpoint)
-            ? theme.defaultShadow : undefined }, getReactiveProp(style, breakpoint));
+            ? theme.defaults.shadow : undefined }, getReactiveProp(style, breakpoint));
     return (_jsx(Flex, Object.assign({ padding: padding, style: styles, ref: ref }, rest, { children: children })));
 });

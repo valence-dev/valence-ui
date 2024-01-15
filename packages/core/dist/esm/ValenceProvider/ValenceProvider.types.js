@@ -4,11 +4,13 @@ export const ValenceContextDefaults = {
     getColor: () => undefined,
     getColorHex: () => undefined,
     primaryColor: "pink",
-    defaultSize: "sm",
-    defaultRadius: "sm",
-    defaultTransitionDuration: "0.1s",
-    defaultShadow: "0px 10px 30px rgba(0, 0, 0, 0.2)",
-    defaultVariant: "light",
+    defaults: {
+        size: "sm",
+        radius: "sm",
+        variant: "light",
+        transitionDuration: "0.1s",
+        shadow: "0px 10px 30px rgba(0, 0, 0, 0.2)",
+    },
     fontFamily: {
         default: "Inter, sans-serif",
         heading: undefined,

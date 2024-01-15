@@ -20,9 +20,9 @@ export const Image = forwardRef(function Image(props, ref) {
     const theme = useValence();
     const breakpoint = useBreakpoint();
     // Defaults
-    const { src, alt, placeholder, radius = theme.defaultRadius, fit = "cover", position = "center", square = false, height = "fit-content", width = square ? height : "auto", shadow = false, style } = props, rest = __rest(props, ["src", "alt", "placeholder", "radius", "fit", "position", "square", "height", "width", "shadow", "style"]);
+    const { src, alt, placeholder, radius = theme.defaults.radius, fit = "cover", position = "center", square = false, height = "fit-content", width = square ? height : "auto", shadow = false, style } = props, rest = __rest(props, ["src", "alt", "placeholder", "radius", "fit", "position", "square", "height", "width", "shadow", "style"]);
     // Styles
-    const ContainerStyle = css(Object.assign({ height: getReactiveProp(height, breakpoint), width: getReactiveProp(width, breakpoint), minWidth: getReactiveProp(width, breakpoint), borderRadius: theme.sizeClasses.radius[getReactiveProp(radius, breakpoint)], aspectRatio: square ? "1/1" : undefined, overflow: "hidden", boxShadow: getReactiveProp(shadow, breakpoint) ? theme.defaultShadow : "none" }, getReactiveProp(style, breakpoint)));
+    const ContainerStyle = css(Object.assign({ height: getReactiveProp(height, breakpoint), width: getReactiveProp(width, breakpoint), minWidth: getReactiveProp(width, breakpoint), borderRadius: theme.sizeClasses.radius[getReactiveProp(radius, breakpoint)], aspectRatio: square ? "1/1" : undefined, overflow: "hidden", boxShadow: getReactiveProp(shadow, breakpoint) ? theme.defaults.shadow : "none" }, getReactiveProp(style, breakpoint)));
     const ImageStyle = css({
         width: "100%",
         height: "100%",

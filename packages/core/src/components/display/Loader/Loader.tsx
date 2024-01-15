@@ -27,7 +27,7 @@ export const Loader = forwardRef(function Loader(
 
   // Defaults
   const { 
-    size = theme.defaultSize,
+    size = theme.defaults.size,
     color = theme.primaryColor,
     style,
     ...rest

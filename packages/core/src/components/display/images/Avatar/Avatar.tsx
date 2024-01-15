@@ -28,7 +28,7 @@ export const Avatar = forwardRef(function Avatar(
   const {
     placeholderIcon,
     placeholderColor = theme.primaryColor,
-    fillVariant = theme.defaultVariant,
+    fillVariant = theme.defaults.variant,
     placeholder = <IconUserCircle />,
 
     square = true,

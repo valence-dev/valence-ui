@@ -23,7 +23,7 @@ export const SelectInput = forwardRef(function SelectInput(props, ref) {
     const theme = useValence();
     const inputRef = ref !== null && ref !== void 0 ? ref : createRef();
     // Defaults
-    const { value, setValue, options, onSelect, filter = DefaultOptionsFilter, nothingFound = "Nothing found...", icon, placeholder, actionIcon = _jsx(IconSelector, {}), size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, loading, autoFocus, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding, margin, width, height, grow, onEnterPress, onKeyPress, dropdownProps = {
+    const { value, setValue, options, onSelect, filter = DefaultOptionsFilter, nothingFound = "Nothing found...", icon, placeholder, actionIcon = _jsx(IconSelector, {}), size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, loading, autoFocus, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding, margin, width, height, grow, onEnterPress, onKeyPress, dropdownProps = {
         padding: INPUT_SIZES[size].padding,
         backgroundColor: "white",
         color: "black",

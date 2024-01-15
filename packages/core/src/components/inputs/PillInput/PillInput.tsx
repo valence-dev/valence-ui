@@ -110,9 +110,9 @@ export const PillInput = forwardRef(function PillInput(
 
     icon,
     placeholder,
-    size = theme.defaultSize,
-    radius = theme.defaultRadius,
-    variant = theme.defaultVariant,
+    size = theme.defaults.size,
+    radius = theme.defaults.radius,
+    variant = theme.defaults.variant,
 
     loading,
     autoFocus,

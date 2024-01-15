@@ -19,7 +19,7 @@ import { FloatingPortal } from "@floating-ui/react";
 export const ModalBackground = forwardRef(function ModalBackground(props, ref) {
     const theme = useValence();
     // Defaults
-    const { disclosure, closeOnClick = true, backdropFilter = "blur", backgroundColor = "permaBlack", padding = theme.sizeClasses.padding[theme.defaultSize], zIndex = 1002, children, style } = props, rest = __rest(props, ["disclosure", "closeOnClick", "backdropFilter", "backgroundColor", "padding", "zIndex", "children", "style"]);
+    const { disclosure, closeOnClick = true, backdropFilter = "blur", backgroundColor = "permaBlack", padding = theme.sizeClasses.padding[theme.defaults.size], zIndex = 1002, children, style } = props, rest = __rest(props, ["disclosure", "closeOnClick", "backdropFilter", "backgroundColor", "padding", "zIndex", "children", "style"]);
     // Styles
     const OverlayStyle = css(Object.assign({ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, zIndex: zIndex, padding: padding, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", backgroundColor: backdropFilter === "dot-blur" ? undefined : theme.getColorHex(backgroundColor, "strong"), backgroundImage: backdropFilter !== "dot-blur" ? undefined :
             `radial-gradient(rgba(0, 0, 0, 0) 1px, ${theme.getColorHex("white")} 1px)`, backgroundSize: backdropFilter !== "dot-blur" ? undefined : "4px 4px", backdropFilter: backdropFilter === "dot-blur" ? "blur(3px)" :

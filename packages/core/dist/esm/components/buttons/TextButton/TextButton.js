@@ -18,6 +18,6 @@ import { useValence } from "../../../ValenceProvider";
 export const Button = forwardRef(function Button(props, ref) {
     const theme = useValence();
     // Defaults
-    const { size = theme.defaultSize, variant = theme.defaultVariant, color = theme.primaryColor, textProps } = props, rest = __rest(props, ["size", "variant", "color", "textProps"]);
+    const { size = theme.defaults.size, variant = theme.defaults.variant, color = theme.primaryColor, textProps } = props, rest = __rest(props, ["size", "variant", "color", "textProps"]);
     return (_jsx(PrimitiveButton, Object.assign({ size: size, variant: variant, color: color, ref: ref }, rest, { children: _jsx(Text, Object.assign({ size: size, color: getTextColor(color, variant, theme) }, textProps, { children: props.children })) })));
 });

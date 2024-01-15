@@ -26,7 +26,7 @@ export const Sidebar = forwardRef(function Sidebar(
 
   // Defaults 
   const {
-    gap = theme.sizeClasses.padding[theme.defaultSize],
+    gap = theme.sizeClasses.padding[theme.defaults.size],
     mobileFabProps = {},
     mobileFabIcon = <Icon color="white"><IconMenu /></Icon>,
 

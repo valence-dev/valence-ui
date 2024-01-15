@@ -86,9 +86,9 @@ export const SelectInput = forwardRef(function SelectInput(
     placeholder,
     actionIcon = <IconSelector />,
 
-    size = theme.defaultSize,
-    radius = theme.defaultRadius,
-    variant = theme.defaultVariant,
+    size = theme.defaults.size,
+    radius = theme.defaults.radius,
+    variant = theme.defaults.variant,
 
     loading,
     autoFocus,

@@ -45,8 +45,8 @@ const Card = forwardRef(function Card(
 
   // Defaults
   const {
-    size = theme.defaultSize,
-    radius = theme.defaultRadius,
+    size = theme.defaults.size,
+    radius = theme.defaults.radius,
     gap = 0,
     buttonProps,
     flexProps,
@@ -127,7 +127,7 @@ const Image = forwardRef(function CardImage(
 
   // Defaults
   const {
-    radius = theme.defaultRadius,
+    radius = theme.defaults.radius,
     width = "100%",
     height = "fit-content",
 
@@ -161,7 +161,7 @@ const Section = forwardRef(function CardSection(
   const {
     width = "100%",
     height = "fit-content",
-    padding = theme.sizeClasses.padding[theme.defaultSize],
+    padding = theme.sizeClasses.padding[theme.defaults.size],
 
     children,
     ...rest
@@ -197,7 +197,7 @@ const Buttons = forwardRef(function CardButtons(
   const {
     width = "100%",
     height = "fit-content",
-    padding = theme.sizeClasses.padding[theme.defaultSize],
+    padding = theme.sizeClasses.padding[theme.defaults.size],
 
     direction = "row",
     align = "center",

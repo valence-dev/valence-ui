@@ -20,7 +20,7 @@ export const OutlineContainer = forwardRef(function OutlineContainer(props, ref)
     const theme = useValence();
     const breakpoint = useBreakpoint();
     // Defaults
-    const { sticky = true, label, labelProps, spacing = 5, radius = theme.defaultRadius, position = sticky ? "sticky" : "relative", zIndex = sticky ? 151 : undefined, top = sticky ? { default: spacing * 2, mobile: 75 } : undefined, left = sticky ? spacing * 2 : undefined, right = sticky ? spacing * 2 : undefined, bottom, width = "100%", height, color = "black", children, style } = props, rest = __rest(props, ["sticky", "label", "labelProps", "spacing", "radius", "position", "zIndex", "top", "left", "right", "bottom", "width", "height", "color", "children", "style"]);
+    const { sticky = true, label, labelProps, spacing = 5, radius = theme.defaults.radius, position = sticky ? "sticky" : "relative", zIndex = sticky ? 151 : undefined, top = sticky ? { default: spacing * 2, mobile: 75 } : undefined, left = sticky ? spacing * 2 : undefined, right = sticky ? spacing * 2 : undefined, bottom, width = "100%", height, color = "black", children, style } = props, rest = __rest(props, ["sticky", "label", "labelProps", "spacing", "radius", "position", "zIndex", "top", "left", "right", "bottom", "width", "height", "color", "children", "style"]);
     const _a = labelProps || {}, { style: labelStyle } = _a, labelRest = __rest(_a, ["style"]);
     // Styles
     const OuterFlexStyle = {

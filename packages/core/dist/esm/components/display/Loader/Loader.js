@@ -23,7 +23,7 @@ const SIZES = {
 export const Loader = forwardRef(function Loader(props, ref) {
     const theme = useValence();
     // Defaults
-    const { size = theme.defaultSize, color = theme.primaryColor, style } = props, rest = __rest(props, ["size", "color", "style"]);
+    const { size = theme.defaults.size, color = theme.primaryColor, style } = props, rest = __rest(props, ["size", "color", "style"]);
     // Styles
     const loaderStyle = Object.assign({ width: SIZES[size].height, height: SIZES[size].height, border: `${SIZES[size].thickness}px solid #11181C00`, borderBottomColor: theme.getColorHex(color), borderRadius: "50%", display: "inline-block", boxSizing: "border-box" }, style);
     return (_jsx(motion.div, Object.assign({ style: loaderStyle, animate: { rotate: 360 }, transition: { repeat: Infinity, type: "tween", duration: 0.8, ease: "linear" }, ref: ref }, rest)));

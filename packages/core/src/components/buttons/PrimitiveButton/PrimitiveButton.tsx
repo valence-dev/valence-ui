@@ -29,9 +29,9 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
 
   // Defaults
   const {
-    variant = theme.defaultVariant,
-    size = theme.defaultSize,
-    radius = theme.defaultRadius,
+    size = theme.defaults.size,
+    radius = theme.defaults.radius,
+    variant = theme.defaults.variant,
 
     square = false,
     shadow = false,
@@ -78,9 +78,9 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
       : loading ? "wait"
         : "pointer"
     ,
-    boxShadow: shadow ? theme.defaultShadow : "none",
+    boxShadow: shadow ? theme.defaults.shadow : "none",
 
-    transition: `background-color ${theme.defaultTransitionDuration} linear 0s`,
+    transition: `background-color ${theme.defaults.transitionDuration} linear 0s`,
     backgroundColor: getBackgroundColor(backgroundColor, variant, false, theme),
     color: getTextColor(color, variant, theme),
 

@@ -9,11 +9,13 @@ export type ValenceProviderProps = {
     children?: React.ReactNode;
     colors?: ColorReactive[];
     primaryColor?: string;
-    defaultSize?: ComponentSize;
-    defaultRadius?: ComponentSize;
-    defaultTransitionDuration?: React.CSSProperties["transitionDuration"];
-    defaultShadow?: React.CSSProperties["boxShadow"];
-    defaultVariant?: FillVariant;
+    defaults?: {
+        size: ComponentSize;
+        radius: ComponentSize;
+        variant: FillVariant;
+        transitionDuration: CSSProperties["transitionDuration"];
+        shadow: CSSProperties["boxShadow"];
+    };
     fontFamily?: {
         default: string;
         heading?: string;

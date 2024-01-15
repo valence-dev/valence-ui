@@ -71,7 +71,7 @@ const Content = (0, react_1.forwardRef)(function Content(props, propRef) {
     const theme = (0, ValenceProvider_1.useValence)();
     const breakpoint = (0, hooks_1.useBreakpoint)();
     // Styles
-    const FloatingStyle = (0, react_3.css)(Object.assign({ borderRadius: theme.sizeClasses.radius[(0, utils_1.getReactiveProp)(radius, breakpoint)], boxShadow: !withShadow ? undefined : theme.defaultShadow, zIndex: zIndex, animationName: "in", animationDuration: "0.1s", overflowY: "auto", "@keyframes in": {
+    const FloatingStyle = (0, react_3.css)(Object.assign({ borderRadius: theme.sizeClasses.radius[(0, utils_1.getReactiveProp)(radius, breakpoint)], boxShadow: !withShadow ? undefined : theme.defaults.shadow, zIndex: zIndex, animationName: "in", animationDuration: "0.1s", overflowY: "auto", "@keyframes in": {
             from: {
                 opacity: 0,
             },

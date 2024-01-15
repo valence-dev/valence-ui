@@ -23,7 +23,7 @@ const react_2 = require("@emotion/react");
 exports.Switch = (0, react_1.forwardRef)(function Switch(props, ref) {
     const theme = (0, ValenceProvider_1.useValence)();
     // Defaults
-    const { value, setValue, label, size = theme.defaultSize, radius = "xl", variant = theme.defaultVariant, grow = false, disabled = false, readOnly = false, loading = false, onFocus, onBlur, buttonProps, labelProps, color = theme.primaryColor, backgroundColor = color, padding = 4, margin = 0, width, height, style } = props, rest = __rest(props, ["value", "setValue", "label", "size", "radius", "variant", "grow", "disabled", "readOnly", "loading", "onFocus", "onBlur", "buttonProps", "labelProps", "color", "backgroundColor", "padding", "margin", "width", "height", "style"]);
+    const { value, setValue, label, size = theme.defaults.size, radius = "xl", variant = theme.defaults.variant, grow = false, disabled = false, readOnly = false, loading = false, onFocus, onBlur, buttonProps, labelProps, color = theme.primaryColor, backgroundColor = color, padding = 4, margin = 0, width, height, style } = props, rest = __rest(props, ["value", "setValue", "label", "size", "radius", "variant", "grow", "disabled", "readOnly", "loading", "onFocus", "onBlur", "buttonProps", "labelProps", "color", "backgroundColor", "padding", "margin", "width", "height", "style"]);
     // Handlers
     function handleClick() {
         if (disabled || readOnly || loading)
@@ -31,7 +31,7 @@ exports.Switch = (0, react_1.forwardRef)(function Switch(props, ref) {
         setValue(!value);
     }
     // Styles
-    const SwitchStyle = (0, react_2.css)(Object.assign({ display: "flex", flexDirection: "row", boxSizing: "border-box", flexGrow: grow ? 1 : "unset", width: width !== null && width !== void 0 ? width : theme.sizeClasses.height[size] * 1.75, height: height !== null && height !== void 0 ? height : theme.sizeClasses.height[size] * 0.75, borderRadius: `${theme.sizeClasses.radius[radius]}px`, padding: padding, margin: margin, opacity: disabled ? 0.5 : 1, cursor: disabled ? "not-allowed" : "pointer", transition: `background-color ${theme.defaultTransitionDuration} linear 0s`, backgroundColor: value ?
+    const SwitchStyle = (0, react_2.css)(Object.assign({ display: "flex", flexDirection: "row", boxSizing: "border-box", flexGrow: grow ? 1 : "unset", width: width !== null && width !== void 0 ? width : theme.sizeClasses.height[size] * 1.75, height: height !== null && height !== void 0 ? height : theme.sizeClasses.height[size] * 0.75, borderRadius: `${theme.sizeClasses.radius[radius]}px`, padding: padding, margin: margin, opacity: disabled ? 0.5 : 1, cursor: disabled ? "not-allowed" : "pointer", transition: `background-color ${theme.defaults.transitionDuration} linear 0s`, backgroundColor: value ?
             (0, buttons_1.getBackgroundColor)(backgroundColor, variant, false, theme) :
             (0, buttons_1.getBackgroundColor)("black", variant, false, theme), outline: variant === "subtle" ?
             value ?

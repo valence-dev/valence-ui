@@ -39,9 +39,9 @@ export const Switch = forwardRef(function Switch(
     setValue,
     label,
 
-    size = theme.defaultSize,
+    size = theme.defaults.size,
     radius = "xl",
-    variant = theme.defaultVariant,
+    variant = theme.defaults.variant,
     grow = false,
 
     disabled = false,
@@ -91,7 +91,7 @@ export const Switch = forwardRef(function Switch(
     opacity: disabled ? 0.5 : 1,
     cursor: disabled ? "not-allowed" : "pointer",
 
-    transition: `background-color ${theme.defaultTransitionDuration} linear 0s`,
+    transition: `background-color ${theme.defaults.transitionDuration} linear 0s`,
     backgroundColor: value ?
       getBackgroundColor(backgroundColor, variant, false, theme) :
       getBackgroundColor("black", variant, false, theme),

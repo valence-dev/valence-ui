@@ -68,9 +68,9 @@ export const InputContainer = forwardRef(function InputContainer(
   const {
     icon,
     button,
-    size = theme.defaultSize,
-    radius = theme.defaultRadius,
-    variant = theme.defaultVariant,
+    size = theme.defaults.size,
+    radius = theme.defaults.radius,
+    variant = theme.defaults.variant,
     grow,
 
     disabled = false,
@@ -130,7 +130,7 @@ export const InputContainer = forwardRef(function InputContainer(
     opacity: disabled ? 0.5 : 1,
     cursor: disabled ? "not-allowed" : "text",
 
-    transition: `background-color ${theme.defaultTransitionDuration} linear 0s`,
+    transition: `background-color ${theme.defaults.transitionDuration} linear 0s`,
     backgroundColor: getBackgroundColor(backgroundColor, variant, false, theme),
     color: getTextColor(color, variant, theme),
 
