@@ -1,4 +1,5 @@
 import { useValence } from "../../../ValenceProvider";
+import { MakeResponsive, useResponsiveProps } from "../../../responsive";
 import { Icon } from "../../display";
 import { Tooltip, TooltipContentProps, TooltipProps } from "../../overlays";
 import { PrimitiveButton, PrimitiveButtonProps } from "../PrimitiveButton"
@@ -15,7 +16,7 @@ export type IconButtonProps =
   };
 
 export const IconButton = forwardRef(function IconButton(
-  props: IconButtonProps,
+  props: MakeResponsive<IconButtonProps>,
   ref: any
 ) {
   const {
@@ -28,9 +29,7 @@ export const IconButton = forwardRef(function IconButton(
     square = true,
     children,
     ...rest
-  } = props;
-
-  const theme = useValence();
+  } = useResponsiveProps<IconButtonProps>(props);
 
   return (
     tooltip ?

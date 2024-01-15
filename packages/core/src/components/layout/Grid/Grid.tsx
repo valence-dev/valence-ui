@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import { GenericGridItemProps, GenericGridProps, PolymorphicLayout, PolymorphicLayoutProps, getReactiveProp } from "@valence-ui/utils";
+import { GenericGridItemProps, GenericGridProps, PolymorphicLayout, PolymorphicLayoutProps } from "@valence-ui/utils";
 import { forwardRef } from "react";
 import { useValence } from "../../../ValenceProvider";
-import { useBreakpoint } from "../../../hooks";
 import { css } from "@emotion/react";
+import { MakeResponsive, useResponsiveProps } from "../../../responsive";
 
 export type GridProps =
   GenericGridProps
@@ -15,11 +15,10 @@ export type GridItemProps =
 
 
 const Grid = forwardRef(function Grid(
-  props: GridProps,
+  props: MakeResponsive<GridProps>,
   ref: any,
 ) {
   const theme = useValence();
-  const breakpoint = useBreakpoint();
 
 
   // Defaults
@@ -42,41 +41,41 @@ const Grid = forwardRef(function Grid(
 
     children,
     ...rest
-  } = props;
+  } = useResponsiveProps<GridProps>(props);
 
 
   // Styles
   const GridStyle = css({
     display: "grid",
 
-    grid: getReactiveProp(grid, breakpoint),
+    grid: grid,
 
-    gap: getReactiveProp(gap, breakpoint),
-    rowGap: getReactiveProp(rowGap, breakpoint),
-    columnGap: getReactiveProp(columnGap, breakpoint),
+    gap: gap,
+    rowGap: rowGap,
+    columnGap: columnGap,
 
-    gridTemplate: getReactiveProp(template, breakpoint),
-    gridTemplateRows: getReactiveProp(templateRows, breakpoint),
-    gridTemplateColumns: getReactiveProp(templateColumns, breakpoint),
-    gridTemplateAreas: getReactiveProp(templateAreas, breakpoint),
+    gridTemplate: template,
+    gridTemplateRows: templateRows,
+    gridTemplateColumns: templateColumns,
+    gridTemplateAreas: templateAreas,
 
-    gridAutoRows: getReactiveProp(autoRows, breakpoint),
-    gridAutoColumns: getReactiveProp(autoColumns, breakpoint),
-    gridAutoFlow: getReactiveProp(autoFlow, breakpoint),
+    gridAutoRows: autoRows,
+    gridAutoColumns: autoColumns,
+    gridAutoFlow: autoFlow,
 
-    justifyItems: getReactiveProp(justifyItems, breakpoint),
-    justifyContent: getReactiveProp(justifyContent, breakpoint),
-    alignItems: getReactiveProp(alignItems, breakpoint),
-    alignContent: getReactiveProp(alignContent, breakpoint),
+    justifyItems: justifyItems,
+    justifyContent: justifyContent,
+    alignItems: alignItems,
+    alignContent: alignContent,
 
-    backgroundColor: theme.getColorHex(getReactiveProp(backgroundColor, breakpoint)),
-    color: theme.getColorHex(getReactiveProp(color, breakpoint)),
-    padding: getReactiveProp(padding, breakpoint),
-    margin: getReactiveProp(margin, breakpoint),
-    width: getReactiveProp(width, breakpoint),
-    height: getReactiveProp(height, breakpoint),
+    backgroundColor: theme.getColorHex(backgroundColor),
+    color: theme.getColorHex(color),
+    padding: padding,
+    margin: margin,
+    width: width,
+    height: height,
 
-    ...getReactiveProp(style, breakpoint)
+    ...style
   });
 
   return (
@@ -91,11 +90,10 @@ const Grid = forwardRef(function Grid(
 });
 
 const Item = forwardRef(function GridItem(
-  props: GridItemProps,
+  props: MakeResponsive<GridItemProps>,
   ref: any,
 ) {
   const theme = useValence();
-  const breakpoint = useBreakpoint();
 
 
   // Defaults
@@ -120,35 +118,35 @@ const Item = forwardRef(function GridItem(
 
     children,
     ...rest
-  } = props;
+  } = useResponsiveProps<GridItemProps>(props);
 
 
   // Styles
   const ItemStyle = css({
-    gridArea: getReactiveProp(area, breakpoint),
+    gridArea: area,
 
-    gridColumn: getReactiveProp(column, breakpoint),
-    gridColumnStart: getReactiveProp(columnStart, breakpoint),
-    gridColumnEnd: getReactiveProp(columnEnd, breakpoint),
+    gridColumn: column,
+    gridColumnStart: columnStart,
+    gridColumnEnd: columnEnd,
 
-    gridRow: getReactiveProp(row, breakpoint),
-    gridRowStart: getReactiveProp(rowStart, breakpoint),
-    gridRowEnd: getReactiveProp(rowEnd, breakpoint),
+    gridRow: row,
+    gridRowStart: rowStart,
+    gridRowEnd: rowEnd,
 
-    justifySelf: getReactiveProp(justify, breakpoint),
-    alignSelf: getReactiveProp(align, breakpoint),
-    placeSelf: getReactiveProp(place, breakpoint),
+    justifySelf: justify,
+    alignSelf: align,
+    placeSelf: place,
 
-    order: getReactiveProp(order, breakpoint),
+    order: order,
 
-    backgroundColor: theme.getColorHex(getReactiveProp(backgroundColor, breakpoint)),
-    color: theme.getColorHex(getReactiveProp(color, breakpoint)),
-    padding: getReactiveProp(padding, breakpoint),
-    margin: getReactiveProp(margin, breakpoint),
-    width: getReactiveProp(width, breakpoint),
-    height: getReactiveProp(height, breakpoint),
+    backgroundColor: theme.getColorHex(backgroundColor),
+    color: theme.getColorHex(color),
+    padding: padding,
+    margin: margin,
+    width: width,
+    height: height,
 
-    ...getReactiveProp(style, breakpoint)
+    ...style
   });
 
 

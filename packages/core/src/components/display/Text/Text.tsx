@@ -4,6 +4,7 @@ import reactStringReplace from "react-string-replace";
 import { ComponentSize, GenericClickableProps, GenericProps, PolymorphicText, PolymorphicTextProps } from "@valence-ui/utils";
 import { useValence } from "../../../ValenceProvider";
 import { css } from "@emotion/react";
+import { MakeResponsive, useResponsiveProps } from "../../../responsive";
 
 const REGEX_PATTERNS = {
   newline: /(\n)/,
@@ -57,7 +58,7 @@ export type TextProps =
  * - `{...}` for monospace text
  */
 export const Text = forwardRef(function Text(
-  props: TextProps,
+  props: MakeResponsive<TextProps>,
   ref: any
 ) {
   const theme = useValence();
@@ -81,7 +82,7 @@ export const Text = forwardRef(function Text(
     children,
     style,
     ...rest
-  } = props;
+  } = useResponsiveProps<TextProps>(props);
 
 
   // Run through formatters

@@ -29,7 +29,7 @@ exports.INPUT_SIZES = {
 exports.InputContainer = (0, react_1.forwardRef)(function InputContainer(props, ref) {
     const theme = (0, __1.useValence)();
     // Defaults
-    const { icon, button, size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, grow, disabled = false, required = false, loading = false, color = "black", backgroundColor = color, width = "100%", height = theme.sizeClasses.height[size], padding = exports.INPUT_SIZES[size].padding, margin, inputRef, onClick, iconContainerStyle, requireIndicatorStyle, buttonContainerStyle, children, style } = props, rest = __rest(props, ["icon", "button", "size", "radius", "variant", "grow", "disabled", "required", "loading", "color", "backgroundColor", "width", "height", "padding", "margin", "inputRef", "onClick", "iconContainerStyle", "requireIndicatorStyle", "buttonContainerStyle", "children", "style"]);
+    const _a = (0, __1.useResponsiveProps)(props), { icon, button, size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, grow, disabled = false, required = false, loading = false, color = "black", backgroundColor = color, width = "100%", height = theme.sizeClasses.height[size], padding = exports.INPUT_SIZES[size].padding, margin, inputRef, onClick, iconContainerStyle, requireIndicatorStyle, buttonContainerStyle, children, style } = _a, rest = __rest(_a, ["icon", "button", "size", "radius", "variant", "grow", "disabled", "required", "loading", "color", "backgroundColor", "width", "height", "padding", "margin", "inputRef", "onClick", "iconContainerStyle", "requireIndicatorStyle", "buttonContainerStyle", "children", "style"]);
     // Functions
     const handleClick = (e) => {
         if (disabled) {

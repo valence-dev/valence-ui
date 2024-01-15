@@ -26,6 +26,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Icon = void 0;
 const react_1 = __importStar(require("react"));
 const ValenceProvider_1 = require("../../../ValenceProvider");
+const responsive_1 = require("../../../responsive");
 /** This is the new wrapper component for Tabler Icons, designed to pass them
  * the necessary props to conform with the theme standards. This component
  * replaces the `useDefaultIconProps` hook.
@@ -38,7 +39,7 @@ const ValenceProvider_1 = require("../../../ValenceProvider");
 */
 exports.Icon = (0, react_1.forwardRef)(function Icon(props, ref) {
     const theme = (0, ValenceProvider_1.useValence)();
-    const { size = theme.getSize("iconSize", theme.defaults.size), stroke = 1.5, color, children, } = props;
+    const { size = theme.getSize("iconSize", theme.defaults.size), stroke = 1.5, color, children, } = (0, responsive_1.useResponsiveProps)(props);
     if (children === undefined)
         return children;
     return react_1.default.cloneElement(children, {

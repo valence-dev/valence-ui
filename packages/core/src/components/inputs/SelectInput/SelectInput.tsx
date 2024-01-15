@@ -9,6 +9,7 @@ import { TextButtonProps, getTextColor } from "../../buttons";
 import { GenericLayoutProps } from "@valence-ui/utils";
 import { DefaultOptionsFilter, Option, OptionsFilter } from "../OptionContainer/OptionsFilter";
 import { OptionContainer } from "../OptionContainer";
+import { MakeResponsive, useResponsiveProps } from "../../../responsive";
 
 
 export type SelectInputEventProps =
@@ -65,7 +66,7 @@ export type SelectDropdownProps =
 
 
 export const SelectInput = forwardRef(function SelectInput(
-  props: SelectInputProps,
+  props: MakeResponsive<SelectInputProps>,
   ref: any,
 ) {
   const theme = useValence();
@@ -120,7 +121,7 @@ export const SelectInput = forwardRef(function SelectInput(
     dropdownStyle,
     style,
     ...rest
-  } = props;
+  } = useResponsiveProps<SelectInputProps>(props);
 
 
   // States

@@ -5,6 +5,7 @@ import { getTextColor } from "../../buttons";
 import { css } from "@emotion/react";
 import { GenericTextInputEventProps, GenericTextInputProps } from "../../../generics";
 import { InputContainer } from "../InputContainer";
+import { MakeResponsive, useResponsiveProps } from "../../../responsive";
 
 export type LineWrapBehaviour = "soft" | "hard" | "off";
 export type ResizeBehaviour = "none" | "both" | "horizontal" | "vertical";
@@ -41,7 +42,7 @@ export type TextareaProps =
 
 
 export const Textarea = forwardRef(function Textarea(
-  props: TextareaProps,
+  props: MakeResponsive<TextareaProps>,
   ref: any
 ) {
   const theme = useValence();
@@ -89,7 +90,7 @@ export const Textarea = forwardRef(function Textarea(
     style,
     inputStyle,
     ...rest
-  } = props;
+  } = useResponsiveProps<TextareaProps>(props);
 
 
   // Styles

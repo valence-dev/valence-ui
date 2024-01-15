@@ -12,9 +12,8 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx } from "react/jsx-runtime";
 import { forwardRef, useState } from "react";
 import { Flex } from "../Flex";
-import { useBreakpoint, useValence } from "../../..";
+import { useResponsiveProp, useResponsiveProps, useValence } from "../../..";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
-import { getReactiveProp, meetsBreakpointCondition } from "@valence-ui/utils";
 function interpolateHeight(max, min, scrollY) {
     return Math.max(max + scrollY, min);
 }
@@ -25,23 +24,16 @@ function interpolateHeight(max, min, scrollY) {
 export const Header = forwardRef(function Header(props, ref) {
     const theme = useValence();
     // Defaults
-    const { height: headerHeight = {
-        default: 100,
-        mobileTall: 150,
-    }, compactHeight = 75, position = {
-        default: "relative",
-        mobile: "fixed",
-    }, compact = ["mobile", "mobileTall"], backgroundColor = "white", children, style } = props, rest = __rest(props, ["height", "compactHeight", "position", "compact", "backgroundColor", "children", "style"]);
+    const _a = useResponsiveProps(props), { height: headerHeight = useResponsiveProp({ default: 100, mobile: 150 }), compactHeight = 75, position = useResponsiveProp({ default: "relative", mobile: "sticky" }), compact = useResponsiveProp({ default: false, mobile: true }), backgroundColor = "white", children, style } = _a, rest = __rest(_a, ["height", "compactHeight", "position", "compact", "backgroundColor", "children", "style"]);
     // Hooks & States
-    const breakpoint = useBreakpoint();
-    const [height, setHeight] = useState(getReactiveProp(headerHeight, breakpoint));
+    const [height, setHeight] = useState(headerHeight);
     // Scroll listener
     useScrollPosition(({ prevPos, currPos }) => {
-        if (!meetsBreakpointCondition(breakpoint, compact))
+        if (!compact)
             return;
-        setHeight(interpolateHeight(getReactiveProp(headerHeight, breakpoint), compactHeight, (prevPos.y + currPos.y) / 2));
+        setHeight(interpolateHeight(headerHeight, compactHeight, (prevPos.y + currPos.y) / 2));
     });
     // Styles
-    const HeaderStyle = Object.assign({ backgroundColor: theme.getColorHex(getReactiveProp(backgroundColor, breakpoint), "strong"), backdropFilter: "blur(10px)", position: getReactiveProp(position, breakpoint), top: 0, zIndex: 150, width: "100%" }, getReactiveProp(style, breakpoint));
+    const HeaderStyle = Object.assign({ backgroundColor: theme.getColorHex(backgroundColor, "strong"), backdropFilter: "blur(10px)", position: position, top: 0, zIndex: 150, width: "100%" }, style);
     return (_jsx(Flex, Object.assign({ style: HeaderStyle, direction: "column", justify: "center", height: height, ref: ref }, rest, { children: children })));
 });

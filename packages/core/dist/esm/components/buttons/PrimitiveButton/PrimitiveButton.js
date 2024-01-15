@@ -18,12 +18,13 @@ import { Loader } from "../../display/Loader";
 import { PolymorphicButton } from "@valence-ui/utils";
 import { useValence } from "../../../ValenceProvider";
 import { css } from "@emotion/react";
+import { useResponsiveProps } from "../../../responsive";
 export const PrimitiveButton = forwardRef(function PrimitiveButton(props, ref) {
     const theme = useValence();
     // Hooks & states
     const reducedMotion = useReducedMotion();
     // Defaults
-    const { size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, square = false, shadow = false, grow = false, disabled = false, loading = false, motion = { onHover: variant === "filled" ? "raise" : undefined, onTap: "bounce" }, color = theme.primaryColor, backgroundColor = color, padding = square ? 0 : `0px ${theme.sizeClasses.padding[size]}px`, margin = 0, height = `${theme.sizeClasses.height[size]}px`, width = square ? height : "fit-content", style, children } = props, rest = __rest(props, ["size", "radius", "variant", "square", "shadow", "grow", "disabled", "loading", "motion", "color", "backgroundColor", "padding", "margin", "height", "width", "style", "children"]);
+    const _a = useResponsiveProps(props), { size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, square = false, shadow = false, grow = false, disabled = false, loading = false, motion = { onHover: variant === "filled" ? "raise" : undefined, onTap: "bounce" }, color = theme.primaryColor, backgroundColor = color, padding = square ? 0 : `0px ${theme.sizeClasses.padding[size]}px`, margin = 0, height = `${theme.sizeClasses.height[size]}px`, width = square ? height : "fit-content", style, children } = _a, rest = __rest(_a, ["size", "radius", "variant", "square", "shadow", "grow", "disabled", "loading", "motion", "color", "backgroundColor", "padding", "margin", "height", "width", "style", "children"]);
     const motionBehaviour = getMotionBehaviour(motion, reducedMotion);
     const ButtonStyle = css(Object.assign({ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", flexGrow: grow ? 1 : 0, width: width, height: height, minHeight: height, padding: padding, margin: margin, aspectRatio: square ? 1 : undefined, borderRadius: theme.sizeClasses.radius[radius], opacity: disabled ? 0.5 : 1, cursor: disabled ? "not-allowed"
             : loading ? "wait"

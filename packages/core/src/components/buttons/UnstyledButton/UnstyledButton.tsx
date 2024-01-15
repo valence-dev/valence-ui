@@ -2,6 +2,7 @@
 import { GenericClickableEventProps, GenericClickableProps, GenericProps, PolymorphicButton, PolymorphicButtonProps } from "@valence-ui/utils";
 import { css } from "@emotion/react";
 import { forwardRef } from "react";
+import { MakeResponsive, useResponsiveProps } from "../../../responsive";
 
 export type UnstyledButtonProps =
   PolymorphicButtonProps
@@ -10,7 +11,7 @@ export type UnstyledButtonProps =
   & GenericProps
 
 export const UnstyledButton = forwardRef(function UnstyledButton(
-  props: UnstyledButtonProps,
+  props: MakeResponsive<UnstyledButtonProps>,
   ref: any
 ) {
 
@@ -19,7 +20,7 @@ export const UnstyledButton = forwardRef(function UnstyledButton(
     style,
     children,
     ...rest
-  } = props;
+  } = useResponsiveProps<UnstyledButtonProps>(props);
 
 
   // Styles

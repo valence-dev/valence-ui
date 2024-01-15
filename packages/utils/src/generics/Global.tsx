@@ -1,5 +1,4 @@
 import { CSSProperties, ReactNode } from "react";
-import { ReactiveProp } from "../props";
 
 /** Defines standard sizes for components */
 export type ComponentSize = "xs" | "sm" | "md" | "lg" | "xl";
@@ -27,12 +26,4 @@ export type GenericProps = {
 
   /** Children nodes */
   children?: ReactNode;
-}
-
-/** Basic props that should be exposed to every component that reacts to the current breakpoint */
-export type GenericReactiveProps = GenericProps & {
-  /** **[REACTIVE]** Optional additional styles */
-  style?: ReactiveProp<CSSProperties>;
-  /** [REACTIVE] Used to allow or prevent elements from being sequentially focusable. [See more](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex) */
-  tabIndex?: ReactiveProp<number>;
 }

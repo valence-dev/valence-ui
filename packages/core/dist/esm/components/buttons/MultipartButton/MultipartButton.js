@@ -19,6 +19,7 @@ import { Flex } from "../../layout";
 import { Icon, Text } from "../../display";
 import { useValence } from "../../../ValenceProvider";
 import { css } from "@emotion/react";
+import { useResponsiveProps } from "../../../responsive";
 const SIZES = {
     xs: { height: 50 },
     sm: { height: 60 },
@@ -29,7 +30,7 @@ const SIZES = {
 export const MultipartButton = forwardRef(function MultipartButton(props, ref) {
     const theme = useValence();
     // Defaults
-    const { size = theme.defaults.size, variant = theme.defaults.variant, color = theme.primaryColor, height = SIZES[size].height, width = "100%", title, subtitle, leftIcon, rightIcon = _jsx(IconChevronRight, { opacity: 0.5 }), titleProps, subtitleProps, style } = props, rest = __rest(props, ["size", "variant", "color", "height", "width", "title", "subtitle", "leftIcon", "rightIcon", "titleProps", "subtitleProps", "style"]);
+    const _a = useResponsiveProps(props), { size = theme.defaults.size, variant = theme.defaults.variant, color = theme.primaryColor, height = SIZES[size].height, width = "100%", title, subtitle, leftIcon, rightIcon = _jsx(IconChevronRight, { opacity: 0.5 }), titleProps, subtitleProps, style } = _a, rest = __rest(_a, ["size", "variant", "color", "height", "width", "title", "subtitle", "leftIcon", "rightIcon", "titleProps", "subtitleProps", "style"]);
     // Styles
     const buttonStyle = Object.assign({ justifyContent: "flex-start", padding: 0, paddingLeft: !leftIcon ? theme.sizeClasses.padding[size] : undefined }, style);
     const ContainerStyle = css({

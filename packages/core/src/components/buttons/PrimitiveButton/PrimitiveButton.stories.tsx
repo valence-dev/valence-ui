@@ -64,4 +64,11 @@ export const Primitive: Story = (args: any) => (
 );
 Primitive.args = {
   children: "Button",
+  color: { 
+    default: "red",
+    mobile: "blue",
+    tablet: "green",
+    desktopLarge: "yellow",
+    tv: "violet"
+  }
 }

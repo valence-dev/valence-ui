@@ -1,6 +1,6 @@
-import { CSSProperties, ReactNode } from "react";
+import { CSSProperties, ReactNode, forwardRef } from "react";
 import { TextButtonProps } from "../TextButton";
-import { useValence } from "../../..";
+import { MakeResponsive, useResponsiveProps, useValence } from "../../..";
 import { PrimitiveButton } from "../PrimitiveButton";
 import { Icon, Text } from "../../display";
 import { getTextColor } from "../Helpers";
@@ -12,7 +12,10 @@ export type ButtonWithIconProps = TextButtonProps & {
   iconPosition?: "left" | "right";
 }
 
-export function ButtonWithIcon(props: ButtonWithIconProps) {
+export const ButtonWithIcon = forwardRef(function ButtonWithIcon(
+  props: MakeResponsive<ButtonWithIconProps>,
+  ref: any
+  ) {
   const theme = useValence();
 
 
@@ -26,8 +29,9 @@ export function ButtonWithIcon(props: ButtonWithIconProps) {
 
     style,
     textProps,
+    children,
     ...rest
-  } = props;
+  } = useResponsiveProps<ButtonWithIconProps>(props);
 
 
   // Styles
@@ -49,6 +53,8 @@ export function ButtonWithIcon(props: ButtonWithIconProps) {
       variant={variant}
       color={color}
       style={styles}
+
+      ref={ref}
       {...rest}
     >
       <Icon
@@ -63,8 +69,8 @@ export function ButtonWithIcon(props: ButtonWithIconProps) {
         color={getTextColor(color, variant, theme)}
         {...textProps}
       >
-        {props.children}
+        {children}
       </Text>
     </PrimitiveButton>
   )
-}
+});

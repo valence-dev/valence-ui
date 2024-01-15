@@ -1,23 +1,23 @@
-import { ComponentSize, GenericReactiveLayoutProps, GenericReactiveProps, PolymorphicButtonProps, ReactiveProp, SizeClasses, getReactiveProp } from "@valence-ui/utils";
+import { ComponentSize, GenericLayoutProps, GenericProps, PolymorphicButtonProps, SizeClasses } from "@valence-ui/utils";
 import { Flex, FlexProps } from "..";
 import { PrimitiveButton, PrimitiveButtonProps } from "../../buttons/PrimitiveButton";
 import { CSSProperties, forwardRef } from "react";
 import { useValence } from "../../../ValenceProvider";
-import { useBreakpoint } from "../../../hooks";
 import { GenericImageProps, Image as ImageComponent } from "../../display";
 import { UnstyledButton } from "../../buttons";
+import { MakeResponsive, useResponsiveProps } from "../../../responsive";
 
 
 export type CardProps =
-  GenericReactiveLayoutProps
+  GenericLayoutProps
   & PolymorphicButtonProps
   & {
-    /** **[REACTIVE]** Defines the size class for this card */
-    size?: ReactiveProp<ComponentSize>;
-    /** **[REACTIVE]** Defines the radius size class for this card */
-    radius?: ReactiveProp<ComponentSize>;
-    /** **[REACTIVE]** Defines the gap size between this card's contents */
-    gap?: ReactiveProp<CSSProperties["gap"]>;
+    /**  Defines the size class for this card */
+    size?: ComponentSize;
+    /**  Defines the radius size class for this card */
+    radius?: ComponentSize;
+    /**  Defines the gap size between this card's contents */
+    gap?: CSSProperties["gap"];
 
     /** Optional props to pass to the button component of this card */
     buttonProps?: PrimitiveButtonProps;
@@ -36,11 +36,10 @@ export const CARD_DEFAULTS: { width: SizeClasses<CSSProperties["width"]> } = {
 
 
 const Card = forwardRef(function Card(
-  props: CardProps,
+  props: MakeResponsive<CardProps>,
   ref: any
 ) {
   const theme = useValence();
-  const breakpoint = useBreakpoint();
 
 
   // Defaults
@@ -52,7 +51,7 @@ const Card = forwardRef(function Card(
     flexProps,
 
     height = "fit-content",
-    width = CARD_DEFAULTS.width[getReactiveProp(size, breakpoint)],
+    width = CARD_DEFAULTS.width[size],
     padding = 0,
     margin,
 
@@ -62,28 +61,28 @@ const Card = forwardRef(function Card(
     children,
     style,
     ...rest
-  } = props;
+  } = useResponsiveProps<CardProps>(props);
 
 
   // Styles
   const cardStyle: CSSProperties = {
     overflow: "hidden",
-    padding: getReactiveProp(padding, breakpoint),
-    margin: getReactiveProp(margin, breakpoint),
+    padding: padding,
+    margin: margin,
     userSelect: "none",
 
-    ...getReactiveProp(style, breakpoint)
+    ...style
   }
 
 
   return (
     <PrimitiveButton
-      height={getReactiveProp(height, breakpoint)}
-      width={getReactiveProp(width, breakpoint)}
-      color={getReactiveProp(color, breakpoint)}
-      backgroundColor={getReactiveProp(backgroundColor, breakpoint)}
+      height={height}
+      width={width}
+      color={color}
+      backgroundColor={backgroundColor}
 
-      radius={getReactiveProp(radius, breakpoint)}
+      radius={radius}
       style={cardStyle}
 
       motion={{
@@ -107,19 +106,19 @@ const Card = forwardRef(function Card(
 });
 
 
-export type CardImageProps = GenericReactiveProps & GenericImageProps & {
-  /** **[REACTIVE]** Defines the radius size class of this image. Defaults to the theme default radius size class. */
-  radius?: ReactiveProp<ComponentSize>;
-  /** **[REACTIVE]** Sets `width` css property */
-  width?: ReactiveProp<CSSProperties["width"]>;
-  /** **[REACTIVE]** Sets `height` css property */
-  height?: ReactiveProp<CSSProperties["height"]>;
+export type CardImageProps = GenericProps & GenericImageProps & {
+  /**  Defines the radius size class of this image. Defaults to the theme default radius size class. */
+  radius?: ComponentSize;
+  /**  Sets `width` css property */
+  width?: CSSProperties["width"];
+  /**  Sets `height` css property */
+  height?: CSSProperties["height"];
 
   children?: never;
 }
 
 const Image = forwardRef(function CardImage(
-  props: CardImageProps,
+  props: MakeResponsive<CardImageProps>,
   ref: any
 ) {
   const theme = useValence();
@@ -132,7 +131,7 @@ const Image = forwardRef(function CardImage(
     height = "fit-content",
 
     ...rest
-  } = props;
+  } = useResponsiveProps<CardImageProps>(props);
 
 
   return (
@@ -151,7 +150,7 @@ const Image = forwardRef(function CardImage(
 export type CardSectionProps = FlexProps;
 
 const Section = forwardRef(function CardSection(
-  props: CardSectionProps,
+  props: MakeResponsive<CardSectionProps>,
   ref: any
 ) {
   const theme = useValence();
@@ -165,7 +164,7 @@ const Section = forwardRef(function CardSection(
 
     children,
     ...rest
-  } = props;
+  } = useResponsiveProps<CardSectionProps>(props);
 
 
   return (
@@ -186,11 +185,10 @@ const Section = forwardRef(function CardSection(
 export type CardButtonsProps = FlexProps;
 
 const Buttons = forwardRef(function CardButtons(
-  props: CardButtonsProps,
+  props: MakeResponsive<CardButtonsProps>,
   ref: any
 ) {
   const theme = useValence();
-  const breakpoint = useBreakpoint();
 
 
   // Defaults
@@ -205,14 +203,14 @@ const Buttons = forwardRef(function CardButtons(
 
     children,
     ...rest
-  } = props;
+  } = useResponsiveProps<CardButtonsProps>(props);
 
 
   // Styles
   const ButtonStyle: CSSProperties = {
-    width: getReactiveProp(width, breakpoint),
-    height: getReactiveProp(height, breakpoint),
-    padding: getReactiveProp(padding, breakpoint),
+    width: width,
+    height: height,
+    padding: padding,
 
     boxSizing: "border-box",
   }

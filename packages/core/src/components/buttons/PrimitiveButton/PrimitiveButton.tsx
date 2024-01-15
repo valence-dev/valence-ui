@@ -7,17 +7,17 @@ import { PolymorphicButton } from "@valence-ui/utils";
 import { useValence } from "../../../ValenceProvider";
 import { css } from "@emotion/react";
 import { GenericButtonProps } from "../../../generics";
+import { MakeResponsive, useResponsiveProps } from "../../../responsive";
 
-export type PrimitiveButtonProps =
+export type PrimitiveButtonProps = 
   GenericButtonProps
   & {
     /** Defines motion behavior for this button. This will automatically be overridden if the user has reduced motion enabled on their device. */
     motion?: MotionBehaviourProps;
   }
 
-
 export const PrimitiveButton = forwardRef(function PrimitiveButton(
-  props: PrimitiveButtonProps,
+  props: MakeResponsive<PrimitiveButtonProps>,
   ref: any
 ) {
 
@@ -52,7 +52,7 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
     style,
     children,
     ...rest
-  } = props;
+  } = useResponsiveProps<PrimitiveButtonProps>(props);
 
   const motionBehaviour = getMotionBehaviour(motion, reducedMotion);
 

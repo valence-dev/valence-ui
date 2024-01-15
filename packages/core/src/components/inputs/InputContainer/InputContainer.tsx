@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { CSSProperties, ReactNode, forwardRef } from "react";
-import { useValence } from "../../..";
+import { MakeResponsive, useResponsiveProps, useValence } from "../../..";
 import { getBackgroundColor, getTextColor } from "../../buttons";
 import { Icon, Loader } from "../../display";
 import { ComponentSize, FillVariant, GenericLayoutProps, MouseClickEvents, MouseEvents, PointerEvents, SizeClasses } from "@valence-ui/utils";
@@ -58,7 +58,7 @@ export const INPUT_SIZES: SizeClasses<{
 
 
 export const InputContainer = forwardRef(function InputContainer(
-  props: InputContainerProps,
+  props: MakeResponsive<InputContainerProps>,
   ref: any,
 ) {
   const theme = useValence();
@@ -94,7 +94,7 @@ export const InputContainer = forwardRef(function InputContainer(
     children,
     style,
     ...rest
-  } = props;
+  } = useResponsiveProps<InputContainerProps>(props);
 
 
   // Functions

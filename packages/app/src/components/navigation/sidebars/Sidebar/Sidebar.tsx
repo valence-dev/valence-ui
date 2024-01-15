@@ -1,23 +1,25 @@
-import { Flex, Icon, ValenceContext, useBreakpoint, useDisclosure } from "@valence-ui/core";
-import { GenericReactiveLayoutProps, ReactiveProp, getReactiveProp } from "@valence-ui/utils";
+import { Flex, Icon, MakeResponsive, ValenceContext, useBreakpoint, useDisclosure, useResponsiveProps } from "@valence-ui/core";
 import { CSSProperties, ReactNode, forwardRef, useContext } from "react";
 import { FAB, FABProps } from "../../../buttons";
 import { BottomSheet } from "../../../overlays";
 import { IconMenu } from "@tabler/icons-react";
+import { GenericLayoutProps } from "@valence-ui/utils";
 
-export type SidebarProps = GenericReactiveLayoutProps & {
-  /** Sets `gap` css property */
-  gap?: ReactiveProp<CSSProperties["gap"]>;
+export type SidebarProps =
+  GenericLayoutProps
+  & {
+    /** Sets `gap` css property */
+    gap?: CSSProperties["gap"];
 
-  /** An icon to display on the mobile FAB */
-  mobileFabIcon?: ReactNode;
-  /** Props to pass to the mobile FAB */
-  mobileFabProps?: FABProps;
-}
+    /** An icon to display on the mobile FAB */
+    mobileFabIcon?: ReactNode;
+    /** Props to pass to the mobile FAB */
+    mobileFabProps?: FABProps;
+  }
 
 
 export const Sidebar = forwardRef(function Sidebar(
-  props: SidebarProps,
+  props: MakeResponsive<SidebarProps>,
   ref: any
 ) {
   const theme = useContext(ValenceContext);
@@ -36,16 +38,16 @@ export const Sidebar = forwardRef(function Sidebar(
     children,
     style,
     ...rest
-  } = props;
+  } = useResponsiveProps<SidebarProps>(props);
 
 
   // Styles
   const DesktopStyle: CSSProperties = {
-    width: getReactiveProp(width, breakpoint),
-    height: getReactiveProp(height, breakpoint),
+    width: width,
+    height: height,
 
-    borderRight: `1px solid ${theme.getColor("black")?.base as string
-      + theme.getColor("black")?.opacity.weak}`,
+    borderRight: `1px solid ${theme.getColorHex("black") as string
+      + theme.getColorHex("black", "weak")}`,
 
     paddingRight: 10,
     position: "sticky",
@@ -54,7 +56,7 @@ export const Sidebar = forwardRef(function Sidebar(
     overflowX: "hidden",
     overflowY: "auto",
 
-    ...getReactiveProp(style, breakpoint)
+    ...style
   }
 
 

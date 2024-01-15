@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { ValenceContext, ModalBackground, Flex, useDetectKeyDown, DefaultModalHeader, UnstyledButton } from "@valence-ui/core";
+import { ValenceContext, ModalBackground, Flex, useDetectKeyDown, DefaultModalHeader, UnstyledButton, MakeResponsive, useResponsiveProps } from "@valence-ui/core";
 import { GenericOverlayHeaderProps, } from "@valence-ui/utils";
 import { useContext, forwardRef, CSSProperties } from "react";
 import { AnimatePresence, motion, useDragControls } from "framer-motion";
@@ -15,7 +15,7 @@ export type BottomSheetProps = GenericSheetProps & {
 };
 
 export const BottomSheet = forwardRef(function BottomSheet(
-  props: BottomSheetProps,
+  props: MakeResponsive<BottomSheetProps>,
   ref: any
 ) {
   const theme = useContext(ValenceContext);
@@ -61,7 +61,7 @@ export const BottomSheet = forwardRef(function BottomSheet(
     style,
     children,
     ...rest
-  } = props;
+  } = useResponsiveProps<BottomSheetProps>(props);
 
 
   // Functions

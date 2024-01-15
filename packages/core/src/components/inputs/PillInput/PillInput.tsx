@@ -8,6 +8,7 @@ import { css } from "@emotion/react";
 import { Flex, FlexProps } from "../../layout";
 import { IconX } from "@tabler/icons-react";
 import { DefaultOptionsFilter, Option, OptionContainer, OptionsFilter } from "../OptionContainer";
+import { MakeResponsive, useResponsiveProps } from "../../../responsive";
 
 export type PillInputEventProps =
   GenericTextInputEventProps
@@ -75,7 +76,7 @@ export type PillInputProps =
 
 
 export const PillInput = forwardRef(function PillInput(
-  props: PillInputProps,
+  props: MakeResponsive<PillInputProps>,
   ref: any,
 ) {
   const theme = useValence();
@@ -136,7 +137,7 @@ export const PillInput = forwardRef(function PillInput(
     dropdownStyle,
     style,
     ...rest
-  } = props;
+  } = useResponsiveProps<PillInputProps>(props);
 
 
   // States

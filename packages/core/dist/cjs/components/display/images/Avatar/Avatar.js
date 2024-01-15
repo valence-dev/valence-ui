@@ -20,10 +20,11 @@ const icons_react_1 = require("@tabler/icons-react");
 const buttons_1 = require("../../../buttons");
 const layout_1 = require("../../../layout");
 const Icon_1 = require("../../Icon");
+const responsive_1 = require("../../../../responsive");
 exports.Avatar = (0, react_1.forwardRef)(function Avatar(props, ref) {
     const theme = (0, ValenceProvider_1.useValence)();
     // Defaults
-    const { placeholderIcon, placeholderColor = theme.primaryColor, fillVariant = theme.defaults.variant, placeholder = (0, jsx_runtime_1.jsx)(icons_react_1.IconUserCircle, {}), square = true, radius = "xl", style } = props, rest = __rest(props, ["placeholderIcon", "placeholderColor", "fillVariant", "placeholder", "square", "radius", "style"]);
+    const _a = (0, responsive_1.useResponsiveProps)(props), { placeholderIcon, placeholderColor = theme.primaryColor, fillVariant = theme.defaults.variant, placeholder = (0, jsx_runtime_1.jsx)(icons_react_1.IconUserCircle, {}), square = true, radius = "xl", style } = _a, rest = __rest(_a, ["placeholderIcon", "placeholderColor", "fillVariant", "placeholder", "square", "radius", "style"]);
     // Styles
     const imageStyle = Object.assign({ backgroundColor: (0, buttons_1.getBackgroundColor)(placeholderColor, fillVariant, false, theme), color: (0, buttons_1.getTextColor)(placeholderColor, fillVariant, theme) }, style);
     return ((0, jsx_runtime_1.jsx)(Image_1.Image, Object.assign({ style: imageStyle, radius: radius, square: square, placeholder: (0, jsx_runtime_1.jsx)(layout_1.Flex, { align: "center", justify: "center", height: "100%", width: "100%", children: (0, jsx_runtime_1.jsx)(Icon_1.Icon, { children: placeholder }) }), ref: ref }, rest)));

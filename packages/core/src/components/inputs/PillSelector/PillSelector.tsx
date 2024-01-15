@@ -8,7 +8,7 @@ import { Flex, FlexProps } from "../../layout";
 import { useValence } from "../../../ValenceProvider";
 import { IconX } from "@tabler/icons-react";
 import { CSSProperties } from "styled-components";
-import { Icon } from "../../display";
+import { MakeResponsive, useResponsiveProps } from "../../../responsive";
 
 export type PillSelectorEventProps =
   MouseClickEvents & MouseEvents & PointerEvents & FocusEvents & KeyboardEvents
@@ -53,7 +53,7 @@ export type PillSelectorProps =
 
 
 export const PillSelector = forwardRef(function PillSelector(
-  props: PillSelectorProps,
+  props: MakeResponsive<PillSelectorProps>,
   ref: any,
 ) {
   const theme = useValence();
@@ -100,7 +100,7 @@ export const PillSelector = forwardRef(function PillSelector(
 
     style,
     ...rest
-  } = props;
+  } = useResponsiveProps<PillSelectorProps>(props);
 
   const {
     style: pillContainerStyle,

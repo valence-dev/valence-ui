@@ -12,14 +12,14 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
 import { createRef, forwardRef } from "react";
-import { getTextColor, useValence } from "../../..";
+import { getTextColor, useResponsiveProps, useValence } from "../../..";
 import { InputContainer } from "../InputContainer";
 import { css } from "@emotion/react";
 export const TextInput = forwardRef(function TextInput(props, ref) {
     const theme = useValence();
     const inputRef = ref !== null && ref !== void 0 ? ref : createRef();
     // Defaults
-    const { value, setValue, icon, type = "text", autoComplete = "off", size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, grow, loading, autoFocus, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding, margin, width, height, onEnterPress, onKeyPress, inputStyle, style } = props, rest = __rest(props, ["value", "setValue", "icon", "type", "autoComplete", "size", "radius", "variant", "grow", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "onEnterPress", "onKeyPress", "inputStyle", "style"]);
+    const _a = useResponsiveProps(props), { value, setValue, icon, type = "text", autoComplete = "off", size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, grow, loading, autoFocus, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding, margin, width, height, onEnterPress, onKeyPress, inputStyle, style } = _a, rest = __rest(_a, ["value", "setValue", "icon", "type", "autoComplete", "size", "radius", "variant", "grow", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "onEnterPress", "onKeyPress", "inputStyle", "style"]);
     // Styles
     const InputStyle = css(Object.assign({ border: "none", outline: "none", background: "none", flexGrow: 1, width: "100%", height: "100%", margin: 0, padding: 0, cursor: disabled ? "not-allowed" : "text", fontSize: theme.sizeClasses.fontSize[size], fontFamily: theme.getFont("default"), color: getTextColor(color, variant, theme), "&::placeholder": {
             color: `${getTextColor(color, variant, theme)}80`,

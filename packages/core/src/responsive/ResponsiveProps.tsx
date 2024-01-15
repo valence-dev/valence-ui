@@ -13,7 +13,7 @@
  * sizes, and thus will need to adapt.
  */
 
-import { ResponsiveBreakpoint } from "./UseResponsiveBreakpoint";
+import { Breakpoint } from "./UseBreakpoint";
 
 
 /** A wrapper type used to denote a prop that is reactive to the screen dimensions. */
@@ -26,7 +26,7 @@ export type Responsive<T> = T | {
 }
 
 /** A wrapper type used to denote a series of responsive props. */
-export type ResponsiveProps<T> = {
+export type MakeResponsive<T> = {
   [K in keyof T]: Responsive<T[K]>
 }
 
@@ -38,7 +38,7 @@ export type ResponsiveProps<T> = {
  */
 export function getResponsiveProp<T>(
   prop: Responsive<T>,
-  breakpoint: ResponsiveBreakpoint
+  breakpoint: Breakpoint
 ): T {
   if (prop && prop.hasOwnProperty("default")) {
     // @ts-ignore
@@ -60,8 +60,8 @@ export function getResponsiveProp<T>(
  * @param breakpoint - The breakpoint to use to retrieve the props
  */
 export function getResponsiveProps<T>(
-  props: ResponsiveProps<T>,
-  breakpoint: ResponsiveBreakpoint
+  props: MakeResponsive<T>,
+  breakpoint: Breakpoint
 ): T {
   const responsiveProps: Partial<T> = {};
   for (const key in props) {

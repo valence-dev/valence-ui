@@ -22,6 +22,7 @@ const react_string_replace_1 = __importDefault(require("react-string-replace"));
 const utils_1 = require("@valence-ui/utils");
 const ValenceProvider_1 = require("../../../ValenceProvider");
 const react_2 = require("@emotion/react");
+const responsive_1 = require("../../../responsive");
 const REGEX_PATTERNS = {
     newline: /(\n)/,
     boldItalic: /\*\*\*(.+?)\*\*\*(?!\*)/,
@@ -43,7 +44,7 @@ const REGEX_PATTERNS = {
 exports.Text = (0, react_1.forwardRef)(function Text(props, ref) {
     const theme = (0, ValenceProvider_1.useValence)();
     // Defaults
-    const { bold = false, italic = false, monospace = false, family = monospace ? theme.getFont("monospace") : theme.getFont("default"), weight = bold ? "bold" : "normal", align = "left", transform = "none", size = theme.defaults.size, fontSize = theme.sizeClasses.fontSize[size], color = "black", children, style } = props, rest = __rest(props, ["bold", "italic", "monospace", "family", "weight", "align", "transform", "size", "fontSize", "color", "children", "style"]);
+    const _a = (0, responsive_1.useResponsiveProps)(props), { bold = false, italic = false, monospace = false, family = monospace ? theme.getFont("monospace") : theme.getFont("default"), weight = bold ? "bold" : "normal", align = "left", transform = "none", size = theme.defaults.size, fontSize = theme.sizeClasses.fontSize[size], color = "black", children, style } = _a, rest = __rest(_a, ["bold", "italic", "monospace", "family", "weight", "align", "transform", "size", "fontSize", "color", "children", "style"]);
     // Run through formatters
     let replacements = children;
     replacements = (0, react_string_replace_1.default)(replacements, REGEX_PATTERNS.newline, (match, i) => ((0, jsx_runtime_1.jsx)("br", {}, match + i)));

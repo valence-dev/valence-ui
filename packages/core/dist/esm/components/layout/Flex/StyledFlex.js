@@ -11,18 +11,16 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx } from "react/jsx-runtime";
 import { forwardRef } from "react";
-import { useBreakpoint, useValence } from "../../..";
+import { useResponsiveProps, useValence } from "../../..";
 import { getBackgroundColor, getTextColor } from "../../buttons";
 import { Flex } from "./Flex";
-import { getReactiveProp } from "@valence-ui/utils";
 /** A styled version of the `Flex` component that offers many props in line with the button styling system */
 export const StyledFlex = forwardRef(function StyledFlex(props, ref) {
     const theme = useValence();
-    const breakpoint = useBreakpoint();
     // Defaults
-    const { size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, padding = theme.sizeClasses.padding[theme.defaults.size], color = { default: theme.primaryColor }, backgroundColor = color, style, children } = props, rest = __rest(props, ["size", "radius", "variant", "padding", "color", "backgroundColor", "style", "children"]);
+    const _a = useResponsiveProps(props), { size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, padding = theme.sizeClasses.padding[theme.defaults.size], color = theme.primaryColor, backgroundColor = color, style, children } = _a, rest = __rest(_a, ["size", "radius", "variant", "padding", "color", "backgroundColor", "style", "children"]);
     // Styles
-    const styles = Object.assign({ backgroundColor: getBackgroundColor(getReactiveProp(backgroundColor, breakpoint), getReactiveProp(variant, breakpoint), false, theme), color: getTextColor(getReactiveProp(color, breakpoint), getReactiveProp(variant, breakpoint), theme), borderRadius: theme.sizeClasses.radius[getReactiveProp(radius, breakpoint)], boxShadow: getReactiveProp(props.shadow, breakpoint)
-            ? theme.defaults.shadow : undefined }, getReactiveProp(style, breakpoint));
+    const styles = Object.assign({ backgroundColor: getBackgroundColor(backgroundColor, variant, false, theme), color: getTextColor(color, variant, theme), borderRadius: theme.sizeClasses.radius[radius], boxShadow: props.shadow
+            ? theme.defaults.shadow : undefined }, style);
     return (_jsx(Flex, Object.assign({ padding: padding, style: styles, ref: ref }, rest, { children: children })));
 });

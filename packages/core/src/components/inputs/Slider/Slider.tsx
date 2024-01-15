@@ -5,11 +5,10 @@ import ReactSlider from "react-slider";
 import { css } from "@emotion/react";
 import { useValence } from "../../../ValenceProvider";
 import { Flex, StyledFlex, StyledFlexProps } from "../../layout";
-import { useBreakpoint } from "../../../hooks";
-import { getReactiveProp } from "@valence-ui/utils";
 import { getBackgroundColor } from "../../buttons";
 import { Text } from "../../display";
 import { NumberInput } from "../NumberInput";
+import { MakeResponsive, useResponsiveProps } from "../../../responsive";
 
 export type SliderEventProps<T = number> = {
   /** Callback fired after a thumb has been moved. */
@@ -69,7 +68,7 @@ export type SliderThumbProps =
 
 
 const Slider = forwardRef(function Slider(
-  props: SliderProps,
+  props: MakeResponsive<SliderProps>,
   ref: any
 ) {
   const theme = useValence();
@@ -106,7 +105,7 @@ const Slider = forwardRef(function Slider(
 
     style,
     ...rest
-  } = props;
+  } = useResponsiveProps<SliderProps>(props);
 
 
   // Styles
@@ -196,7 +195,6 @@ const SliderTrack = forwardRef(function SliderTrack(
   ref: any,
 ) {
   // Hooks 
-  const breakpoint = useBreakpoint();
   const theme = useValence();
 
 
@@ -223,13 +221,12 @@ const SliderTrack = forwardRef(function SliderTrack(
   // Styles
   const TrackStyle: CSSProperties = {
     backgroundColor: getBackgroundColor(
-      highlight ? getReactiveProp(color, breakpoint) : "black",
+      highlight ? color : "black",
       variant, false, theme
     ),
-    borderRadius: theme.getSize("radius", getReactiveProp(radius, breakpoint)),
+    borderRadius: theme.getSize("radius", radius),
 
-    ...getReactiveProp(style, breakpoint),
-
+    ...style,
   }
 
 

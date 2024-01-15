@@ -1,7 +1,7 @@
 import { CSSProperties, ReactNode, forwardRef, useContext, useEffect } from "react";
 import { GenericSheetProps } from "../Generics";
-import { DefaultModalHeader, Disclosure, Flex, ModalBackground, ValenceContext, useBreakpoint, useDetectKeyDown } from "@valence-ui/core";
-import { GenericOverlayBackgroundProps, GenericOverlayHeaderProps, ReactiveProp, getReactiveProp } from "@valence-ui/utils";
+import { DefaultModalHeader, Disclosure, Flex, MakeResponsive, ModalBackground, ValenceContext, useBreakpoint, useDetectKeyDown, useResponsiveProps } from "@valence-ui/core";
+import { GenericOverlayBackgroundProps, GenericOverlayHeaderProps } from "@valence-ui/utils";
 import { useLockedBody } from "usehooks-ts";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
@@ -9,15 +9,14 @@ import { motion } from "framer-motion";
 export type SideSheetType = "standard" | "overlay";
 
 export type SideSheetProps = GenericSheetProps & {
-  type?: ReactiveProp<SideSheetType>;
+  type?: SideSheetType;
 };
 
 export const SideSheet = forwardRef(function SideSheet(
-  props: SideSheetProps,
+  props: MakeResponsive<SideSheetProps>,
   ref: any
 ) {
   const theme = useContext(ValenceContext);
-  const breakpoint = useBreakpoint();
 
 
   // Defaults
@@ -57,7 +56,7 @@ export const SideSheet = forwardRef(function SideSheet(
     style,
     children,
     ...rest
-  } = props;
+  } = useResponsiveProps<SideSheetProps>(props);
 
 
   // Styles
@@ -80,12 +79,12 @@ export const SideSheet = forwardRef(function SideSheet(
     margin: margin,
     boxSizing: "border-box",
 
-    borderRadius: getReactiveProp(type, breakpoint) !== "overlay" ? undefined :
+    borderRadius: type !== "overlay" ? undefined :
       `${borderRadius}px 0 0 ${borderRadius}px`,
-    boxShadow: withShadow && getReactiveProp(type, breakpoint) === "overlay" ?
+    boxShadow: withShadow && type === "overlay" ?
       theme.defaults.shadow : undefined,
 
-    borderLeft: getReactiveProp(type, breakpoint) === "overlay" ? undefined :
+    borderLeft: type === "overlay" ? undefined :
       `1px solid ${theme.getColorHex("black", "weak")}`,
 
     overflowX: "hidden",
@@ -96,7 +95,7 @@ export const SideSheet = forwardRef(function SideSheet(
 
 
   // Hooks
-  useLockedBody(disclosure.opened && lockScroll && getReactiveProp(type, breakpoint) === "overlay", "root");
+  useLockedBody(disclosure.opened && lockScroll && type === "overlay", "root");
   useDetectKeyDown(disclosure.close, "Escape", closeOnEscape, [closeOnEscape, close]);
 
 
@@ -107,7 +106,7 @@ export const SideSheet = forwardRef(function SideSheet(
     const element = document.getElementById("root-content");
     if (!element) return;
 
-    if (disclosure.opened && getReactiveProp(type, breakpoint) === "standard") {
+    if (disclosure.opened && type === "standard") {
       element.style.paddingRight = `calc(30px + ${width}px)`;
     } else {
       element.style.paddingRight = `30px`;
@@ -121,7 +120,7 @@ export const SideSheet = forwardRef(function SideSheet(
       {disclosure.opened &&
         <OptionalBackground
           disclosure={disclosure}
-          showBackground={getReactiveProp(type, breakpoint) === "overlay"}
+          showBackground={type === "overlay"}
           backgroundProps={overlayBackgroundProps}
         >
           <motion.div

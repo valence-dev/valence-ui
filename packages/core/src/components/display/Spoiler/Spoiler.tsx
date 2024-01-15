@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { GenericProps } from "@valence-ui/utils";
 import { CSSProperties, forwardRef } from "react";
+import { MakeResponsive, useResponsiveProps } from "../../../responsive";
 
 export type SpoilerProps = GenericProps & {
   /** Whether to show or hide the spoiler content. Defaults to `true`. */
@@ -9,7 +10,7 @@ export type SpoilerProps = GenericProps & {
 
 /** A simple wrapper component used to show or hide content at will. */
 export const Spoiler = forwardRef(function Spoiler(
-  props: SpoilerProps,
+  props: MakeResponsive<SpoilerProps>,
   ref: any
 ) {
   // Defaults
@@ -18,7 +19,7 @@ export const Spoiler = forwardRef(function Spoiler(
     style,
     children,
     ...rest
-  } = props;
+  } = useResponsiveProps<SpoilerProps>(props);
 
 
   // Styles

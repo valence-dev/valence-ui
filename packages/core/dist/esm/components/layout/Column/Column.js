@@ -13,27 +13,25 @@ import { jsx as _jsx } from "react/jsx-runtime";
 import { Flex } from "../Flex";
 import { forwardRef } from "react";
 import { Grid } from "../Grid";
-import { getReactiveProp } from "@valence-ui/utils";
 import { useValence } from "../../../ValenceProvider";
-import { useBreakpoint } from "../../../hooks";
+import { useResponsiveProps } from "../../../responsive";
 const Column = forwardRef(function Column(props, ref) {
     const theme = useValence();
     // Defaults
-    const { direction = "column", justify = "center", color = "black", backgroundColor, padding = theme.sizeClasses.padding[theme.defaults.size], margin, width, height, children } = props, rest = __rest(props, ["direction", "justify", "color", "backgroundColor", "padding", "margin", "width", "height", "children"]);
+    const _a = useResponsiveProps(props), { direction = "column", justify = "center", color = "black", backgroundColor, padding = theme.sizeClasses.padding[theme.defaults.size], margin, width, height, children } = _a, rest = __rest(_a, ["direction", "justify", "color", "backgroundColor", "padding", "margin", "width", "height", "children"]);
     return (_jsx(Flex, Object.assign({ direction: direction, justify: justify, color: color, backgroundColor: backgroundColor, padding: padding, margin: margin, width: width, height: height, ref: ref }, rest, { children: children })));
 });
 const Container = forwardRef(function ColumnContainer(props, ref) {
-    const breakpoint = useBreakpoint();
     // Defaults
-    const { columns = 2, rows = 1, templateColumns = `repeat(${getReactiveProp(columns, breakpoint)}, 1fr)`, templateRows = `repeat(${getReactiveProp(rows, breakpoint)}, 1fr)`, color = "black", backgroundColor, padding, margin, width, height, children } = props, rest = __rest(props, ["columns", "rows", "templateColumns", "templateRows", "color", "backgroundColor", "padding", "margin", "width", "height", "children"]);
+    const _a = useResponsiveProps(props), { columns = 2, rows = 1, templateColumns = `repeat(${columns}, 1fr)`, templateRows = `repeat(${rows}, 1fr)`, color = "black", backgroundColor, padding, margin, width, height, children } = _a, rest = __rest(_a, ["columns", "rows", "templateColumns", "templateRows", "color", "backgroundColor", "padding", "margin", "width", "height", "children"]);
     // Styles
     const ContainerStyle = {
-        color: getReactiveProp(color, breakpoint),
-        backgroundColor: getReactiveProp(backgroundColor, breakpoint),
-        padding: getReactiveProp(padding, breakpoint),
-        margin: getReactiveProp(margin, breakpoint),
-        width: getReactiveProp(width, breakpoint),
-        height: getReactiveProp(height, breakpoint),
+        color: color,
+        backgroundColor: backgroundColor,
+        padding: padding,
+        margin: margin,
+        width: width,
+        height: height,
     };
     return (_jsx(Grid, Object.assign({ templateColumns: templateColumns, style: ContainerStyle, ref: ref }, rest, { children: children })));
 });

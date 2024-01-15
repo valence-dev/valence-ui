@@ -21,12 +21,13 @@ const Loader_1 = require("../../display/Loader");
 const utils_1 = require("@valence-ui/utils");
 const ValenceProvider_1 = require("../../../ValenceProvider");
 const react_2 = require("@emotion/react");
+const responsive_1 = require("../../../responsive");
 exports.PrimitiveButton = (0, react_1.forwardRef)(function PrimitiveButton(props, ref) {
     const theme = (0, ValenceProvider_1.useValence)();
     // Hooks & states
     const reducedMotion = (0, framer_motion_1.useReducedMotion)();
     // Defaults
-    const { size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, square = false, shadow = false, grow = false, disabled = false, loading = false, motion = { onHover: variant === "filled" ? "raise" : undefined, onTap: "bounce" }, color = theme.primaryColor, backgroundColor = color, padding = square ? 0 : `0px ${theme.sizeClasses.padding[size]}px`, margin = 0, height = `${theme.sizeClasses.height[size]}px`, width = square ? height : "fit-content", style, children } = props, rest = __rest(props, ["size", "radius", "variant", "square", "shadow", "grow", "disabled", "loading", "motion", "color", "backgroundColor", "padding", "margin", "height", "width", "style", "children"]);
+    const _a = (0, responsive_1.useResponsiveProps)(props), { size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, square = false, shadow = false, grow = false, disabled = false, loading = false, motion = { onHover: variant === "filled" ? "raise" : undefined, onTap: "bounce" }, color = theme.primaryColor, backgroundColor = color, padding = square ? 0 : `0px ${theme.sizeClasses.padding[size]}px`, margin = 0, height = `${theme.sizeClasses.height[size]}px`, width = square ? height : "fit-content", style, children } = _a, rest = __rest(_a, ["size", "radius", "variant", "square", "shadow", "grow", "disabled", "loading", "motion", "color", "backgroundColor", "padding", "margin", "height", "width", "style", "children"]);
     const motionBehaviour = (0, Helpers_1.getMotionBehaviour)(motion, reducedMotion);
     const ButtonStyle = (0, react_2.css)(Object.assign({ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", flexGrow: grow ? 1 : 0, width: width, height: height, minHeight: height, padding: padding, margin: margin, aspectRatio: square ? 1 : undefined, borderRadius: theme.sizeClasses.radius[radius], opacity: disabled ? 0.5 : 1, cursor: disabled ? "not-allowed"
             : loading ? "wait"

@@ -1,8 +1,7 @@
 import { ReactNode, forwardRef } from "react";
 import { SideSheet, SideSheetProps, SideSheetType } from "../SideSheet";
 import { BottomSheet, BottomSheetProps } from "../BottomSheet";
-import { ReactiveProp, getReactiveProp } from "@valence-ui/utils";
-import { Disclosure, useBreakpoint } from "@valence-ui/core";
+import { Disclosure, MakeResponsive, useResponsiveProps } from "@valence-ui/core";
 
 export type DynamicSheetType = SideSheetType | "bottom";
 
@@ -11,7 +10,7 @@ export type DyanmicSheetProps = {
   disclosure: Disclosure;
   title: string;
 
-  type?: ReactiveProp<DynamicSheetType>;
+  type?: DynamicSheetType;
 
   sideSheetProps?: SideSheetProps;
   bottomSheetProps?: BottomSheetProps;
@@ -19,12 +18,9 @@ export type DyanmicSheetProps = {
 
 
 export const DynamicSheet = forwardRef(function DynamicSheet(
-  props: DyanmicSheetProps,
+  props: MakeResponsive<DyanmicSheetProps>,
   ref: any
 ) {
-  const breakpoint = useBreakpoint();
-
-
   // Defaults
   const {
     type = { default: "standard", desktopThin: "overlay", mobile: "bottom" },
@@ -34,12 +30,12 @@ export const DynamicSheet = forwardRef(function DynamicSheet(
     sideSheetProps,
     bottomSheetProps,
     children
-  } = props;
+  } = useResponsiveProps<DyanmicSheetProps>(props);
 
 
   return (
     <>
-      {getReactiveProp(type, breakpoint) === "bottom" ? (
+      {type === "bottom" ? (
         <BottomSheet
           disclosure={disclosure}
           title={title}

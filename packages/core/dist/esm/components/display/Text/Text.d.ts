@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { CSSProperties } from "react";
 import { ComponentSize, GenericClickableProps, GenericProps, PolymorphicTextProps } from "@valence-ui/utils";
+import { MakeResponsive } from "../../../responsive";
 export type TextProps = GenericProps & GenericClickableProps & PolymorphicTextProps & {
     /** Sets `font-family` css property */
     family?: CSSProperties["fontFamily"];
@@ -33,28 +34,5 @@ export type TextProps = GenericProps & GenericClickableProps & PolymorphicTextPr
  * - `*{...}*` for italicized text
  * - `{...}` for monospace text
  */
-export declare const Text: import("react").ForwardRefExoticComponent<GenericProps & GenericClickableProps & import("@valence-ui/utils").PolymorphicElementProps & {
-    css?: any;
-} & {
-    /** Sets `font-family` css property */
-    family?: CSSProperties["fontFamily"];
-    /** Sets `font-weight` css property */
-    weight?: CSSProperties["fontWeight"];
-    /** Sets `font-size` css property */
-    fontSize?: CSSProperties["fontSize"];
-    /** Sets `text-align` css property */
-    align?: CSSProperties["textAlign"];
-    /** Sets `text-transform` css property */
-    transform?: React.CSSProperties["textTransform"];
-    /** Sets the size of the text */
-    size?: ComponentSize | undefined;
-    /** Sets `color` css property */
-    color?: CSSProperties["color"];
-    /** Shorthand for `font-style: italic` */
-    italic?: boolean | undefined;
-    /** Shorthand for `font-weight: 800` */
-    bold?: boolean | undefined;
-    /** Shorthand for `font-family: monospace` */
-    monospace?: boolean | undefined;
-} & import("react").RefAttributes<unknown>>;
+export declare const Text: import("react").ForwardRefExoticComponent<MakeResponsive<TextProps> & import("react").RefAttributes<unknown>>;
 //# sourceMappingURL=Text.d.ts.map

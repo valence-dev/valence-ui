@@ -12,13 +12,12 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { cloneElement, createContext, forwardRef, useContext } from "react";
 import { Flex } from "../../layout";
-import { useBreakpoint } from "../../../hooks";
 import { IconChevronLeft } from "@tabler/icons-react";
 import { Title } from "../Text";
 import { UnstyledButton } from "../../buttons";
 import { Spoiler } from "../Spoiler";
-import { getReactiveProp } from "@valence-ui/utils";
 import { Icon } from "../Icon";
+import { useResponsiveProps } from "../../../responsive";
 const AccordionContext = createContext(null);
 const useAccordionContext = () => {
     const context = useContext(AccordionContext);
@@ -28,7 +27,7 @@ const useAccordionContext = () => {
 };
 const Accordion = forwardRef(function Accordion(props, ref) {
     // Defaults
-    const { itemList, direction = "column", justify = "flex-start", align = "stretch", children } = props, rest = __rest(props, ["itemList", "direction", "justify", "align", "children"]);
+    const _a = useResponsiveProps(props), { itemList, direction = "column", justify = "flex-start", align = "stretch", children } = _a, rest = __rest(_a, ["itemList", "direction", "justify", "align", "children"]);
     const newChildren = children.map((child) => cloneElement(child, {
         opened: itemList.includes(child.props.value),
         setOpened: (opened) => {
@@ -44,9 +43,8 @@ const Accordion = forwardRef(function Accordion(props, ref) {
 });
 const Item = forwardRef(function AccordionItem(props, ref) {
     // Defaults
-    const { direction = "column", justify = "flex-start", align = "stretch", gap = 5, value, control, flexProps, children } = props, rest = __rest(props, ["direction", "justify", "align", "gap", "value", "control", "flexProps", "children"]);
+    const _a = useResponsiveProps(props), { direction = "column", justify = "flex-start", align = "stretch", gap = 5, value, control, flexProps, children } = _a, rest = __rest(_a, ["direction", "justify", "align", "gap", "value", "control", "flexProps", "children"]);
     const context = useAccordionContext();
-    const breakpoint = useBreakpoint();
     const handleOpen = () => {
         if (context.itemList.includes(value))
             context.itemList.remove(value);
@@ -57,13 +55,13 @@ const Item = forwardRef(function AccordionItem(props, ref) {
     const ButtonStyle = {
         cursor: "pointer",
     };
-    return (_jsxs(Flex, Object.assign({ direction: direction, justify: justify, align: align, gap: 0, ref: ref }, rest, { children: [_jsx(UnstyledButton, { onClick: handleOpen, style: ButtonStyle, children: cloneElement(control, { opened: context.itemList.includes(value) }) }), _jsx(Spoiler, { show: context.itemList.includes(value), children: _jsx(Flex, Object.assign({ style: { marginTop: getReactiveProp(gap, breakpoint) } }, flexProps, { children: children })) })] })));
+    return (_jsxs(Flex, Object.assign({ direction: direction, justify: justify, align: align, gap: 0, ref: ref }, rest, { children: [_jsx(UnstyledButton, { onClick: handleOpen, style: ButtonStyle, children: cloneElement(control, { opened: context.itemList.includes(value) }) }), _jsx(Spoiler, { show: context.itemList.includes(value), children: _jsx(Flex, Object.assign({ style: { marginTop: gap } }, flexProps, { children: children })) })] })));
 });
 const Control = forwardRef(function AccordionControl(props, ref) {
     // Defaults
-    const { direction = "row", justify = "space-between", align = "center", opened = false, chevronIcon = _jsx(IconChevronLeft, {}), title, titleProps = {
+    const _a = useResponsiveProps(props), { direction = "row", justify = "space-between", align = "center", opened = false, chevronIcon = _jsx(IconChevronLeft, {}), title, titleProps = {
         order: 3,
-    }, children } = props, rest = __rest(props, ["direction", "justify", "align", "opened", "chevronIcon", "title", "titleProps", "children"]);
+    }, children } = _a, rest = __rest(_a, ["direction", "justify", "align", "opened", "chevronIcon", "title", "titleProps", "children"]);
     // Styles
     const ChevronContainerStyle = {
         transform: opened ? "rotate(-90deg)" : "rotate(0deg)",
@@ -74,7 +72,7 @@ const Control = forwardRef(function AccordionControl(props, ref) {
 });
 const Panel = forwardRef(function AccordionPanel(props, ref) {
     // Defaults
-    const { direction = "column", justify = "flex-start", align = "stretch", children } = props, rest = __rest(props, ["direction", "justify", "align", "children"]);
+    const _a = useResponsiveProps(props), { direction = "column", justify = "flex-start", align = "stretch", children } = _a, rest = __rest(_a, ["direction", "justify", "align", "children"]);
     return (_jsx(Flex, Object.assign({ direction: direction, justify: justify, align: align, ref: ref }, rest, { children: children })));
 });
 const AccordionNamespace = Object.assign(Accordion, {

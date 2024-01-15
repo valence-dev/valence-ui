@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { CSSProperties, ReactNode, createRef, forwardRef } from "react";
 import { InputContainer } from "../InputContainer";
-import { GenericInputProps, GenericTextInputEventProps, useValence } from "../../..";
+import { GenericInputProps, GenericTextInputEventProps, MakeResponsive, useResponsiveProps, useValence } from "../../..";
 import { IconButton, getTextColor } from "../../buttons";
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 import { css } from "@emotion/react";
@@ -40,7 +40,7 @@ export type NumberInputProps =
 
 
 export const NumberInput = forwardRef(function NumberInput(
-  props: NumberInputProps,
+  props: MakeResponsive<NumberInputProps>,
   ref: any
 ) {
   const theme = useValence();
@@ -87,7 +87,7 @@ export const NumberInput = forwardRef(function NumberInput(
     inputStyle,
     style,
     ...rest
-  } = props;
+  } = useResponsiveProps<NumberInputProps>(props);
 
 
   // Styles

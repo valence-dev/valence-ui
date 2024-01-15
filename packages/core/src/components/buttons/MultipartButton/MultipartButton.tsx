@@ -8,6 +8,7 @@ import { Icon, Text, TextProps } from "../../display";
 import { useValence } from "../../../ValenceProvider";
 import { SizeClasses } from "@valence-ui/utils";
 import { css } from "@emotion/react";
+import { MakeResponsive, useResponsiveProps } from "../../../responsive";
 
 export type MultipartButtonProps =
   PrimitiveButtonProps
@@ -41,7 +42,7 @@ const SIZES: SizeClasses<{ height: number }> = {
 
 
 export const MultipartButton = forwardRef(function MultipartButton(
-  props: MultipartButtonProps,
+  props: MakeResponsive<MultipartButtonProps>,
   ref: any,
 ) {
   const theme = useValence();
@@ -64,7 +65,7 @@ export const MultipartButton = forwardRef(function MultipartButton(
 
     style,
     ...rest
-  } = props;
+  } = useResponsiveProps<MultipartButtonProps>(props);
 
 
   // Styles

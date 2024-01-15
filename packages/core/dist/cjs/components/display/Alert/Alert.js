@@ -23,12 +23,13 @@ const utils_1 = require("@valence-ui/utils");
 const ValenceProvider_1 = require("../../../ValenceProvider");
 const react_2 = require("@emotion/react");
 const Icon_1 = require("../Icon");
+const responsive_1 = require("../../../responsive");
 exports.Alert = (0, react_1.forwardRef)(function Alert(props, ref) {
     const theme = (0, ValenceProvider_1.useValence)();
     // Hooks & states
     const reducedMotion = (0, framer_motion_1.useReducedMotion)();
     // Defaults
-    const { alert, show, variant = "filled", size = theme.defaults.size, radius = theme.defaults.radius, shadow = false, motion, color = theme.primaryColor, backgroundColor = color, padding = theme.sizeClasses.padding[size], margin = 0, width = "100%", height = "auto", component = "div", style } = props, rest = __rest(props, ["alert", "show", "variant", "size", "radius", "shadow", "motion", "color", "backgroundColor", "padding", "margin", "width", "height", "component", "style"]);
+    const _a = (0, responsive_1.useResponsiveProps)(props), { alert, show, variant = "filled", size = theme.defaults.size, radius = theme.defaults.radius, shadow = false, motion, color = theme.primaryColor, backgroundColor = color, padding = theme.sizeClasses.padding[size], margin = 0, width = "100%", height = "auto", component = "div", style } = _a, rest = __rest(_a, ["alert", "show", "variant", "size", "radius", "shadow", "motion", "color", "backgroundColor", "padding", "margin", "width", "height", "component", "style"]);
     const motionBehaviour = (0, buttons_1.getMotionBehaviour)(motion, reducedMotion);
     const AlertStyle = (0, react_2.css)(Object.assign({ display: "flex", flexDirection: "row", alignItems: "center", gap: padding, boxSizing: "border-box", width: width, height: height, padding: padding, borderRadius: theme.sizeClasses.radius[radius], border: "none", outline: variant === "subtle"
             ? `1px solid ${theme.getColorHex(backgroundColor, "medium")}`

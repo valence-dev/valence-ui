@@ -22,17 +22,18 @@ const InputContainer_1 = require("../InputContainer");
 const buttons_1 = require("../../buttons");
 const OptionsFilter_1 = require("../OptionContainer/OptionsFilter");
 const OptionContainer_1 = require("../OptionContainer");
+const responsive_1 = require("../../../responsive");
 exports.SelectInput = (0, react_2.forwardRef)(function SelectInput(props, ref) {
     const theme = (0, ValenceProvider_1.useValence)();
     const inputRef = ref !== null && ref !== void 0 ? ref : (0, react_2.createRef)();
     // Defaults
-    const { value, setValue, options, onSelect, filter = OptionsFilter_1.DefaultOptionsFilter, nothingFound = "Nothing found...", icon, placeholder, actionIcon = (0, jsx_runtime_1.jsx)(icons_react_1.IconSelector, {}), size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, loading, autoFocus, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding, margin, width, height, grow, onEnterPress, onKeyPress, dropdownProps = {
+    const _a = (0, responsive_1.useResponsiveProps)(props), { value, setValue, options, onSelect, filter = OptionsFilter_1.DefaultOptionsFilter, nothingFound = "Nothing found...", icon, placeholder, actionIcon = (0, jsx_runtime_1.jsx)(icons_react_1.IconSelector, {}), size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, loading, autoFocus, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding, margin, width, height, grow, onEnterPress, onKeyPress, dropdownProps = {
         padding: InputContainer_1.INPUT_SIZES[size].padding,
         backgroundColor: "white",
         color: "black",
         shadow: true,
         height: 200,
-    }, dropdownButtonProps, inputStyle, dropdownStyle, style } = props, rest = __rest(props, ["value", "setValue", "options", "onSelect", "filter", "nothingFound", "icon", "placeholder", "actionIcon", "size", "radius", "variant", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "grow", "onEnterPress", "onKeyPress", "dropdownProps", "dropdownButtonProps", "inputStyle", "dropdownStyle", "style"]);
+    }, dropdownButtonProps, inputStyle, dropdownStyle, style } = _a, rest = __rest(_a, ["value", "setValue", "options", "onSelect", "filter", "nothingFound", "icon", "placeholder", "actionIcon", "size", "radius", "variant", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "grow", "onEnterPress", "onKeyPress", "dropdownProps", "dropdownButtonProps", "inputStyle", "dropdownStyle", "style"]);
     // States
     const [searchValue, setSearchValue] = (0, react_2.useState)("");
     const [visibleOptions, setVisibleOptions] = (0, react_2.useState)(options);

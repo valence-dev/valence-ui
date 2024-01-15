@@ -15,5 +15,5 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./ResponsiveProps"), exports);
-__exportStar(require("./UseResponsiveBreakpoint"), exports);
+__exportStar(require("./UseBreakpoint"), exports);
 __exportStar(require("./UseResponsiveProps"), exports);

@@ -19,7 +19,7 @@ exports.FAB = (0, react_1.forwardRef)(function FAB(props, ref) {
     const breakpoint = (0, core_1.useBreakpoint)();
     const theme = (0, core_1.useValence)();
     // Defaults
-    const { vPosition = "bottom", hPosition = "right", offset = 20, zIndex = 100, size, variant = "filled", square = true, shadow = true, radius = "xl", children, style } = props, rest = __rest(props, ["vPosition", "hPosition", "offset", "zIndex", "size", "variant", "square", "shadow", "radius", "children", "style"]);
+    const _a = (0, core_1.useResponsiveProps)(props), { vPosition = "bottom", hPosition = "right", offset = 20, zIndex = 100, size, variant = "filled", square = true, shadow = true, radius = "xl", children, style } = _a, rest = __rest(_a, ["vPosition", "hPosition", "offset", "zIndex", "size", "variant", "square", "shadow", "radius", "children", "style"]);
     // Styles
     const FABStyle = Object.assign({ position: "fixed", zIndex: zIndex, bottom: vPosition === "bottom" ? breakpoint.isMobile ? offset + 60 : offset : undefined, top: vPosition === "top" ? offset : undefined, left: hPosition === "left" ? offset : undefined, right: hPosition === "right" ? offset : undefined }, style);
     return ((0, jsx_runtime_1.jsx)(core_1.PrimitiveButton, Object.assign({ size: size, variant: variant, square: square, shadow: shadow, radius: radius, style: FABStyle, ref: ref }, rest, { children: (0, jsx_runtime_1.jsx)(core_1.Icon, { size: theme.getSize("iconSize", size), children: children }) })));

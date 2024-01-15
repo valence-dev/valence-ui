@@ -1,5 +1,6 @@
 import React, { ReactNode, forwardRef } from "react";
 import { useValence } from "../../../ValenceProvider";
+import { MakeResponsive, useResponsiveProps } from "../../../responsive";
 
 export type IconProps = {
   /** Size of the icon. Defaults to theme default icon size. */
@@ -24,7 +25,7 @@ export type IconProps = {
  * ```
 */
 export const Icon = forwardRef(function Icon(
-  props: IconProps,
+  props: MakeResponsive<IconProps>,
   ref: any,
 ) {
   const theme = useValence();
@@ -34,7 +35,7 @@ export const Icon = forwardRef(function Icon(
     stroke = 1.5,
     color,
     children,
-  } = props;
+  } = useResponsiveProps<IconProps>(props);
 
 
   if (children === undefined) return children;

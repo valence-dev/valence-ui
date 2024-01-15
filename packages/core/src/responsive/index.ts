@@ -1,3 +1,3 @@
 export * from "./ResponsiveProps";
-export * from "./UseResponsiveBreakpoint";
+export * from "./UseBreakpoint";
 export * from "./UseResponsiveProps";

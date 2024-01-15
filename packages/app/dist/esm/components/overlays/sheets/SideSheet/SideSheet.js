@@ -11,29 +11,27 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { forwardRef, useContext, useEffect } from "react";
-import { DefaultModalHeader, Flex, ModalBackground, ValenceContext, useBreakpoint, useDetectKeyDown } from "@valence-ui/core";
-import { getReactiveProp } from "@valence-ui/utils";
+import { DefaultModalHeader, Flex, ModalBackground, ValenceContext, useDetectKeyDown, useResponsiveProps } from "@valence-ui/core";
 import { useLockedBody } from "usehooks-ts";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
 export const SideSheet = forwardRef(function SideSheet(props, ref) {
     const theme = useContext(ValenceContext);
-    const breakpoint = useBreakpoint();
     // Defaults
-    const { disclosure, title, header = (props) => _jsx(DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), type = { default: "standard", desktopThin: "overlay", mobile: "overlay" }, closeOnOverlayClick = true, closeOnEscape = true, lockScroll = false, radius = "lg", withShadow = true, backgroundColor = theme.getColorHex("white"), color = theme.getColorHex("black"), padding = theme.sizeClasses.padding[theme.defaults.size], margin = 0, width = 350, height = "100vh", flexProps, overlayBackgroundProps = {
+    const _a = useResponsiveProps(props), { disclosure, title, header = (props) => _jsx(DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), type = { default: "standard", desktopThin: "overlay", mobile: "overlay" }, closeOnOverlayClick = true, closeOnEscape = true, lockScroll = false, radius = "lg", withShadow = true, backgroundColor = theme.getColorHex("white"), color = theme.getColorHex("black"), padding = theme.sizeClasses.padding[theme.defaults.size], margin = 0, width = 350, height = "100vh", flexProps, overlayBackgroundProps = {
         padding: 0,
         style: {
             alignItems: "flex-end",
         }
-    }, style, children } = props, rest = __rest(props, ["disclosure", "title", "header", "type", "closeOnOverlayClick", "closeOnEscape", "lockScroll", "radius", "withShadow", "backgroundColor", "color", "padding", "margin", "width", "height", "flexProps", "overlayBackgroundProps", "style", "children"]);
+    }, style, children } = _a, rest = __rest(_a, ["disclosure", "title", "header", "type", "closeOnOverlayClick", "closeOnEscape", "lockScroll", "radius", "withShadow", "backgroundColor", "color", "padding", "margin", "width", "height", "flexProps", "overlayBackgroundProps", "style", "children"]);
     // Styles
     const borderRadius = theme.sizeClasses.radius[radius];
-    const SheetStyle = Object.assign({ position: "fixed", top: 0, right: 0, bottom: 0, zIndex: 999, width: width, maxWidth: "100%", height: height, backgroundColor: backgroundColor, color: color, padding: padding, margin: margin, boxSizing: "border-box", borderRadius: getReactiveProp(type, breakpoint) !== "overlay" ? undefined :
-            `${borderRadius}px 0 0 ${borderRadius}px`, boxShadow: withShadow && getReactiveProp(type, breakpoint) === "overlay" ?
-            theme.defaults.shadow : undefined, borderLeft: getReactiveProp(type, breakpoint) === "overlay" ? undefined :
+    const SheetStyle = Object.assign({ position: "fixed", top: 0, right: 0, bottom: 0, zIndex: 999, width: width, maxWidth: "100%", height: height, backgroundColor: backgroundColor, color: color, padding: padding, margin: margin, boxSizing: "border-box", borderRadius: type !== "overlay" ? undefined :
+            `${borderRadius}px 0 0 ${borderRadius}px`, boxShadow: withShadow && type === "overlay" ?
+            theme.defaults.shadow : undefined, borderLeft: type === "overlay" ? undefined :
             `1px solid ${theme.getColorHex("black", "weak")}`, overflowX: "hidden", overflowY: "auto" }, style);
     // Hooks
-    useLockedBody(disclosure.opened && lockScroll && getReactiveProp(type, breakpoint) === "overlay", "root");
+    useLockedBody(disclosure.opened && lockScroll && type === "overlay", "root");
     useDetectKeyDown(disclosure.close, "Escape", closeOnEscape, [closeOnEscape, close]);
     // Effects
     useEffect(() => {
@@ -42,7 +40,7 @@ export const SideSheet = forwardRef(function SideSheet(props, ref) {
         const element = document.getElementById("root-content");
         if (!element)
             return;
-        if (disclosure.opened && getReactiveProp(type, breakpoint) === "standard") {
+        if (disclosure.opened && type === "standard") {
             element.style.paddingRight = `calc(30px + ${width}px)`;
         }
         else {
@@ -50,7 +48,7 @@ export const SideSheet = forwardRef(function SideSheet(props, ref) {
         }
     }, [disclosure.opened]);
     return (_jsx(AnimatePresence, { children: disclosure.opened &&
-            _jsx(OptionalBackground, { disclosure: disclosure, showBackground: getReactiveProp(type, breakpoint) === "overlay", backgroundProps: overlayBackgroundProps, children: _jsx(motion.div, Object.assign({ style: SheetStyle, onClick: e => e.stopPropagation(), initial: { x: "100%" }, animate: {
+            _jsx(OptionalBackground, { disclosure: disclosure, showBackground: type === "overlay", backgroundProps: overlayBackgroundProps, children: _jsx(motion.div, Object.assign({ style: SheetStyle, onClick: e => e.stopPropagation(), initial: { x: "100%" }, animate: {
                         x: 0,
                         transition: {
                             type: "spring",

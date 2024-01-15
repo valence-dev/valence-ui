@@ -1,9 +1,9 @@
 import { CSSProperties, ReactNode, forwardRef, useContext } from "react";
-import { ComponentSize, GenericReactiveLayoutProps, PolymorphicLayoutProps, ReactiveProp, getReactiveProp } from "@valence-ui/utils";
-import { Flex, Header, Space, ValenceContext, useBreakpoint } from "@valence-ui/core";
+import { ComponentSize, GenericLayoutProps, PolymorphicLayoutProps } from "@valence-ui/utils";
+import { Flex, Header, MakeResponsive, Responsive, Space, ValenceContext, useBreakpoint, useResponsiveProps } from "@valence-ui/core";
 
 export type AppContainerProps =
-  GenericReactiveLayoutProps
+  GenericLayoutProps
   & PolymorphicLayoutProps
   & {
     /** The primary root navigation element. This element should be consistent across pages; its recommended to be based off the `<Nav />` component. */
@@ -17,9 +17,9 @@ export type AppContainerProps =
     radius?: ComponentSize;
 
     /** Properties to apply to the nav container element */
-    navContainerProps?: GenericReactiveLayoutProps;
+    navContainerProps?: GenericLayoutProps;
     /** Properties to apply to the page container element */
-    pageProps?: GenericReactiveLayoutProps;
+    pageProps?: GenericLayoutProps;
 
     /** The maximum width of this page's content */
     contentWidth?: number;
@@ -31,7 +31,7 @@ export type AppContainerProps =
     /** Whether to show a spacer element below the header. Defaults to `true`. */
     showHeaderSpacer?: boolean;
     /** Whether to show the nav element. Defaults to `true`. */
-    showNav?: ReactiveProp<boolean>;
+    showNav?: boolean;
   }
 
 
@@ -39,7 +39,7 @@ export type AppContainerProps =
  * The `AppContainer` component is a layout component that provides a consistent layout for pages in the application. It includes a navigation element, a header element, and an optional sidebar element. The `AppContainer` component is responsive and adjusts its layout based on the screen size.
  */
 export const AppContainer = forwardRef(function AppContainer(
-  props: AppContainerProps,
+  props: MakeResponsive<AppContainerProps>,
   ref: any
 ) {
   const theme = useContext(ValenceContext);
@@ -65,13 +65,13 @@ export const AppContainer = forwardRef(function AppContainer(
     children,
     style,
     ...rest
-  } = props;
+  } = useResponsiveProps<AppContainerProps>(props);
 
   const borderRadius = theme.sizeClasses.radius[radius] as number + 5;
 
 
   // Styles
-  const pageContainerStyle: ReactiveProp<CSSProperties> = {
+  const pageContainerStyle: Responsive<CSSProperties> = {
     default: {
       position: "fixed",
       top: 0,
@@ -87,7 +87,7 @@ export const AppContainer = forwardRef(function AppContainer(
     },
     ...style,
   };
-  const sidebarContainerStyle: ReactiveProp<CSSProperties> = {
+  const sidebarContainerStyle: Responsive<CSSProperties> = {
     default: {
       width: sidebar ? sidebarWidth : 0,
       backgroundColor: theme.getColorHex("white"),
@@ -95,7 +95,7 @@ export const AppContainer = forwardRef(function AppContainer(
       padding: 10,
     }, mobile: {
       backgroundColor: theme.getColorHex("white"),
-      borderRadius: getReactiveProp(showNav, breakpoint) ?
+      borderRadius: showNav ?
         `0px 0px ${borderRadius}px ${borderRadius}px`
         : 0,
       overflow: "auto",
@@ -104,10 +104,10 @@ export const AppContainer = forwardRef(function AppContainer(
     },
 
   };
-  const contentContainerStyle: ReactiveProp<CSSProperties> = {
+  const contentContainerStyle: Responsive<CSSProperties> = {
     default: {
       backgroundColor: theme.getColorHex("white"),
-      paddingLeft: props.sidebar ? sidebarWidth + navWidth : navWidth,
+      paddingLeft: sidebar ? sidebarWidth + navWidth : navWidth,
       paddingRight: 30,
       width: "100vw",
 
@@ -138,7 +138,7 @@ export const AppContainer = forwardRef(function AppContainer(
       >
         {/* Nav */}
 
-        {getReactiveProp(showNav, breakpoint) && <Flex
+        {showNav && <Flex
           direction="column"
           align="center"
           margin={10}

@@ -17,9 +17,8 @@ const react_1 = require("react");
 const layout_1 = require("../../layout");
 const buttons_1 = require("../../buttons");
 const display_1 = require("../../display");
-const hooks_1 = require("../../../hooks");
-const utils_1 = require("@valence-ui/utils");
 const ValenceProvider_1 = require("../../../ValenceProvider");
+const responsive_1 = require("../../../responsive");
 function getOptionValue(option) {
     return typeof option === "string" ? option : option.value;
 }
@@ -29,14 +28,13 @@ function getOptionLabel(option) {
 }
 exports.SegmentedControl = (0, react_1.forwardRef)(function SegmentedControl(props, ref) {
     // Hooks
-    const breakpoint = (0, hooks_1.useBreakpoint)();
     const theme = (0, ValenceProvider_1.useValence)();
-    const { value, setValue, options, onSelect, equalWidth = true, buttonProps, variant, size = theme.defaults.size, radius = theme.defaults.radius, color = "black", backgroundColor = color, margin, padding = 5, gap = padding, disabled, readOnly, required, autoFocus, loading, style } = props, rest = __rest(props, ["value", "setValue", "options", "onSelect", "equalWidth", "buttonProps", "variant", "size", "radius", "color", "backgroundColor", "margin", "padding", "gap", "disabled", "readOnly", "required", "autoFocus", "loading", "style"]);
+    const _a = (0, responsive_1.useResponsiveProps)(props), { value, setValue, options, onSelect, equalWidth = true, buttonProps, variant, size = theme.defaults.size, radius = theme.defaults.radius, color = "black", backgroundColor = color, margin, padding = 5, gap = padding, disabled, readOnly, required, autoFocus, loading, style } = _a, rest = __rest(_a, ["value", "setValue", "options", "onSelect", "equalWidth", "buttonProps", "variant", "size", "radius", "color", "backgroundColor", "margin", "padding", "gap", "disabled", "readOnly", "required", "autoFocus", "loading", "style"]);
     const { color: buttonColor = variant === "filled" ?
-        "white" : (0, utils_1.getReactiveProp)(color, breakpoint), backgroundColor: buttonBackgroundColor = variant === "filled" ?
-        "white" : (0, utils_1.getReactiveProp)(backgroundColor, breakpoint), size: buttonSize = size, radius: buttonRadius = radius, } = buttonProps !== null && buttonProps !== void 0 ? buttonProps : {};
+        "white" : color, backgroundColor: buttonBackgroundColor = variant === "filled" ?
+        "white" : backgroundColor, size: buttonSize = size, radius: buttonRadius = radius, } = buttonProps !== null && buttonProps !== void 0 ? buttonProps : {};
     // Styles
-    const containerStyle = Object.assign({ borderRadius: theme.getSize("radius", (0, utils_1.getReactiveProp)(radius, breakpoint)) + (0, utils_1.getReactiveProp)(padding, breakpoint) }, style);
+    const containerStyle = Object.assign({ borderRadius: theme.getSize("radius", radius) + padding }, style);
     // Functions
     function handleSetOptionValue(option) {
         if (disabled || readOnly || loading)

@@ -6,6 +6,7 @@ import { IconUserCircle } from "@tabler/icons-react";
 import { getBackgroundColor, getTextColor } from "../../../buttons";
 import { Flex } from "../../../layout";
 import { Icon } from "../../Icon";
+import { MakeResponsive, useResponsiveProps } from "../../../../responsive";
 
 export type AvatarProps = ImageProps & {
   /** Placeholder icon for this avatar */
@@ -18,7 +19,7 @@ export type AvatarProps = ImageProps & {
 
 
 export const Avatar = forwardRef(function Avatar(
-  props: AvatarProps,
+  props: MakeResponsive<AvatarProps>,
   ref: any
 ) {
   const theme = useValence();
@@ -36,7 +37,7 @@ export const Avatar = forwardRef(function Avatar(
 
     style,
     ...rest
-  } = props;
+  } = useResponsiveProps<AvatarProps>(props);
 
 
   // Styles

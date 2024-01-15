@@ -15,9 +15,10 @@ import { PrimitiveButton } from "../PrimitiveButton/PrimitiveButton";
 import { getTextColor } from "../Helpers";
 import { Text } from "../../display";
 import { useValence } from "../../../ValenceProvider";
+import { useResponsiveProps } from "../../../responsive";
 export const Button = forwardRef(function Button(props, ref) {
     const theme = useValence();
     // Defaults
-    const { size = theme.defaults.size, variant = theme.defaults.variant, color = theme.primaryColor, textProps } = props, rest = __rest(props, ["size", "variant", "color", "textProps"]);
-    return (_jsx(PrimitiveButton, Object.assign({ size: size, variant: variant, color: color, ref: ref }, rest, { children: _jsx(Text, Object.assign({ size: size, color: getTextColor(color, variant, theme) }, textProps, { children: props.children })) })));
+    const _a = useResponsiveProps(props), { size = theme.defaults.size, variant = theme.defaults.variant, color = theme.primaryColor, textProps, children } = _a, rest = __rest(_a, ["size", "variant", "color", "textProps", "children"]);
+    return (_jsx(PrimitiveButton, Object.assign({ size: size, variant: variant, color: color, ref: ref }, rest, { children: _jsx(Text, Object.assign({ size: size, color: getTextColor(color, variant, theme) }, textProps, { children: children })) })));
 });

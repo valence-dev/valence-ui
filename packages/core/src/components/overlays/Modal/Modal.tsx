@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { forwardRef } from "react";
-import { ModalBackground, Disclosure, useDetectKeyDown, useValence } from "../../..";
+import { ModalBackground, Disclosure, useDetectKeyDown, useValence, MakeResponsive, useResponsiveProps } from "../../..";
 import { Flex, FlexProps } from "../../layout";
 import { AnimatePresence, motion } from "framer-motion";
 import { Icon, Title } from "../../display";
@@ -23,7 +23,7 @@ export type ModalProps =
 
 
 export const Modal = forwardRef(function Modal(
-  props: ModalProps,
+  props: MakeResponsive<ModalProps>,
   ref: any
 ) {
   const theme = useValence();
@@ -59,7 +59,7 @@ export const Modal = forwardRef(function Modal(
     style,
 
     ...rest
-  } = props;
+  } = useResponsiveProps<ModalProps>(props);
 
 
   // Hooks
@@ -150,10 +150,10 @@ export type DefaultModalHeaderProps =
   }
 
 export const DefaultModalHeader = forwardRef(function DefaultModalHeader(
-  props: DefaultModalHeaderProps,
+  props: MakeResponsive<DefaultModalHeaderProps>,
   ref: any,
 ) {
-  const { title, disclosure } = props;
+  const { title, disclosure } = useResponsiveProps<DefaultModalHeaderProps>(props);
 
 
   const HeaderStyle = css({

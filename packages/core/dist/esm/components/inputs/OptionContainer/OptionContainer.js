@@ -21,16 +21,17 @@ import { useValence } from "../../../ValenceProvider";
 import { Flex } from "../../layout";
 import { Icon, Text } from "../../display";
 import { useDetectKeyDown } from "../../../hooks";
+import { useResponsiveProps } from "../../../responsive";
 export const OptionContainer = forwardRef(function OptionContainer(props, ref) {
     const theme = useValence();
     // Defaults
-    const { selectedOption, options, onSelect, nothingFound = "Nothing found...", selectKeys = ["Enter"], closeKeys = ["Escape"], icon, rightIcon = _jsx(IconSelector, {}), size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, loading, disabled, required, color = "black", backgroundColor = color, padding, margin, width, height, grow, dropdownProps = {
+    const _a = useResponsiveProps(props), { selectedOption, options, onSelect, nothingFound = "Nothing found...", selectKeys = ["Enter"], closeKeys = ["Escape"], icon, rightIcon = _jsx(IconSelector, {}), size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, loading, disabled, required, color = "black", backgroundColor = color, padding, margin, width, height, grow, dropdownProps = {
         padding: INPUT_SIZES[size].padding,
         backgroundColor: "white",
         color: "black",
         shadow: true,
         height: 200,
-    }, dropdownButtonProps, dropdownStyle, style, inputRef, children } = props, rest = __rest(props, ["selectedOption", "options", "onSelect", "nothingFound", "selectKeys", "closeKeys", "icon", "rightIcon", "size", "radius", "variant", "loading", "disabled", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "grow", "dropdownProps", "dropdownButtonProps", "dropdownStyle", "style", "inputRef", "children"]);
+    }, dropdownButtonProps, dropdownStyle, style, inputRef, children } = _a, rest = __rest(_a, ["selectedOption", "options", "onSelect", "nothingFound", "selectKeys", "closeKeys", "icon", "rightIcon", "size", "radius", "variant", "loading", "disabled", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "grow", "dropdownProps", "dropdownButtonProps", "dropdownStyle", "style", "inputRef", "children"]);
     // States
     const [isOpen, setIsOpen] = useState(false);
     const [highlightedIndex, setHighlightedIndex] = useState(0);

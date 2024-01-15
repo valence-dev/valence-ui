@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { createRef, forwardRef } from "react";
-import { GenericTextInputEventProps, GenericTextInputProps, getTextColor, useValence } from "../../..";
+import { GenericTextInputEventProps, GenericTextInputProps, MakeResponsive, getTextColor, useResponsiveProps, useValence } from "../../..";
 import { InputContainer } from "../InputContainer";
 import { css } from "@emotion/react";
 
@@ -29,7 +29,7 @@ export type TextInputProps =
 
 
 export const TextInput = forwardRef(function TextInput(
-  props: TextInputProps,
+  props: MakeResponsive<TextInputProps>,
   ref: any,
 ) {
   const theme = useValence();
@@ -69,7 +69,7 @@ export const TextInput = forwardRef(function TextInput(
     inputStyle,
     style,
     ...rest
-  } = props;
+  } = useResponsiveProps<TextInputProps>(props);
 
 
   // Styles

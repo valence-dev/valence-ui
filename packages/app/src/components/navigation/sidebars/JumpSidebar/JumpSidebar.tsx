@@ -1,6 +1,6 @@
 import { CSSProperties, forwardRef, useContext } from "react";
-import { ButtonWithIcon, ButtonWithIconProps, Flex, IconButton, ValenceContext, useBreakpoint } from "@valence-ui/core";
-import { GenericReactiveLayoutProps, PolymorphicLayoutProps, ReactiveProp, getReactiveProp } from "@valence-ui/utils";
+import { ButtonWithIcon, ButtonWithIconProps, Flex, IconButton, MakeResponsive, Responsive, ValenceContext, useBreakpoint, useResponsiveProps } from "@valence-ui/core";
+import { GenericLayoutProps, PolymorphicLayoutProps } from "@valence-ui/utils";
 
 export type JumpSidebarButtonProps = ButtonWithIconProps & {
   /** Specifies if this button is highlighted */
@@ -10,7 +10,7 @@ export type JumpSidebarButtonProps = ButtonWithIconProps & {
 }
 
 export type JumpSidebarProps =
-  GenericReactiveLayoutProps
+  GenericLayoutProps
   & PolymorphicLayoutProps
   & {
     /** Buttons to display on the sidebar */
@@ -19,13 +19,13 @@ export type JumpSidebarProps =
     jumpToSection?: (section: string) => void;
 
     /** Sets `gap` css property */
-    gap?: ReactiveProp<CSSProperties["gap"]>;
+    gap?: CSSProperties["gap"];
   }
 
 
 /** The App Sidebar is a page used for navigation and high-level actions within the context of an individual page. This particular sidebar is designed for navigation, and will automatically adapt between desktop and mobile-class devices.  */
 export const JumpSidebar = forwardRef(function JumpSidebar(
-  props: JumpSidebarProps,
+  props: MakeResponsive<JumpSidebarProps>,
   ref: any
 ) {
   const theme = useContext(ValenceContext);
@@ -42,13 +42,13 @@ export const JumpSidebar = forwardRef(function JumpSidebar(
 
     style,
     ...rest
-  } = props;
+  } = useResponsiveProps<JumpSidebarProps>(props);
 
 
   // Styles
-  const containerStyle: ReactiveProp<CSSProperties> = {
+  const containerStyle: Responsive<CSSProperties> = {
     default: {
-      width: getReactiveProp(width, breakpoint),
+      width: width,
       borderRight: `1px solid ${theme.getColorHex("black") as string
         + theme.getColorHex("black", "weak")}`,
 
@@ -59,10 +59,10 @@ export const JumpSidebar = forwardRef(function JumpSidebar(
       overflowX: "hidden",
       overflowY: "auto",
 
-      ...getReactiveProp(style, breakpoint)
+      ...style
     },
     mobile: {
-      width: getReactiveProp(width, breakpoint),
+      width: width,
       borderTop: `1px solid ${theme.getColorHex("black") as string
         + theme.getColorHex("black", "weak")}`,
 
@@ -73,7 +73,7 @@ export const JumpSidebar = forwardRef(function JumpSidebar(
       top: 0,
       zIndex: 999,
 
-      ...getReactiveProp(style, breakpoint)
+      ...style
     }
   }
 

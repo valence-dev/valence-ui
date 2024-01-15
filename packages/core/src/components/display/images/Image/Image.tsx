@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { CSSProperties, ReactNode, forwardRef } from "react";
-import { ComponentSize, GenericReactiveProps, ReactiveProp, getReactiveProp } from "@valence-ui/utils";
+import { ComponentSize, GenericProps } from "@valence-ui/utils";
 import { useValence } from "../../../../ValenceProvider";
-import { useBreakpoint } from "../../../../hooks";
 import { css } from "@emotion/react";
+import { MakeResponsive, useResponsiveProps } from "../../../../responsive";
 
 export type GenericImageProps = {
   /** Source URI of this image */
@@ -11,38 +11,37 @@ export type GenericImageProps = {
   /** Alt text for this image */
   alt: string;
 
-  /** **[REACTIVE]** Sets `object-fit` css property */
-  fit?: ReactiveProp<CSSProperties["objectFit"]>;
-  /** **[REACTIVE]** Sets `object-position` css property */
-  position?: ReactiveProp<CSSProperties["objectPosition"]>;
+  /** Sets `object-fit` css property */
+  fit?: CSSProperties["objectFit"];
+  /** Sets `object-position` css property */
+  position?: CSSProperties["objectPosition"];
 }
 
-export type ImageProps = GenericImageProps & GenericReactiveProps & {
+export type ImageProps = GenericImageProps & GenericProps & {
   /** Placeholder content for this image */
   placeholder?: ReactNode;
 
-  /** **[REACTIVE]** Defines the border radius size class of this image. Defaults to the theme default radius size class. */
-  radius?: ReactiveProp<ComponentSize>;
-  /** **[REACTIVE]** Sets `width` css property */
-  width?: ReactiveProp<CSSProperties["width"]>;
-  /** **[REACTIVE]** Sets `height` css property */
-  height?: ReactiveProp<CSSProperties["height"]>;
-  /** **[REACTIVE]** Shorthand for `aspect-ratio = "1/1"` */
-  square?: ReactiveProp<boolean>;
+  /** Defines the border radius size class of this image. Defaults to the theme default radius size class. */
+  radius?: ComponentSize;
+  /** Sets `width` css property */
+  width?: CSSProperties["width"];
+  /** Sets `height` css property */
+  height?: CSSProperties["height"];
+  /** Shorthand for `aspect-ratio = "1/1"` */
+  square?: boolean;
 
-  /** **[REACTIVE]** Specifies if a shadow will be shown */
-  shadow?: ReactiveProp<boolean>;
+  /** Specifies if a shadow will be shown */
+  shadow?: boolean;
 
   children?: never;
 }
 
 
 export const Image = forwardRef(function Image(
-  props: ImageProps,
+  props: MakeResponsive<ImageProps>,
   ref: any
 ) {
   const theme = useValence();
-  const breakpoint = useBreakpoint();
 
 
   // Defaults
@@ -61,28 +60,28 @@ export const Image = forwardRef(function Image(
 
     style,
     ...rest
-  } = props;
+  } = useResponsiveProps<ImageProps>(props);
 
 
   // Styles
   const ContainerStyle = css({
-    height: getReactiveProp(height, breakpoint),
-    width: getReactiveProp(width, breakpoint),
-    minWidth: getReactiveProp(width, breakpoint),
-    borderRadius: theme.sizeClasses.radius[getReactiveProp(radius, breakpoint)],
+    height: height,
+    width: width,
+    minWidth: width,
+    borderRadius: theme.sizeClasses.radius[radius],
     aspectRatio: square ? "1/1" : undefined,
     overflow: "hidden",
 
-    boxShadow: getReactiveProp(shadow, breakpoint) ? theme.defaults.shadow : "none",
+    boxShadow: shadow ? theme.defaults.shadow : "none",
 
-    ...getReactiveProp(style, breakpoint)
+    ...style
   });
   const ImageStyle = css({
     width: "100%",
     height: "100%",
 
-    objectFit: getReactiveProp(fit, breakpoint),
-    objectPosition: getReactiveProp(position, breakpoint)
+    objectFit: fit,
+    objectPosition: position
   });
 
 

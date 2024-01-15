@@ -20,12 +20,13 @@ import { CLICKABLE_ELEMENTS, PolymorphicButton } from "@valence-ui/utils";
 import { useValence } from "../../../ValenceProvider";
 import { css } from "@emotion/react";
 import { Icon } from "../Icon";
+import { useResponsiveProps } from "../../../responsive";
 export const Alert = forwardRef(function Alert(props, ref) {
     const theme = useValence();
     // Hooks & states
     const reducedMotion = useReducedMotion();
     // Defaults
-    const { alert, show, variant = "filled", size = theme.defaults.size, radius = theme.defaults.radius, shadow = false, motion, color = theme.primaryColor, backgroundColor = color, padding = theme.sizeClasses.padding[size], margin = 0, width = "100%", height = "auto", component = "div", style } = props, rest = __rest(props, ["alert", "show", "variant", "size", "radius", "shadow", "motion", "color", "backgroundColor", "padding", "margin", "width", "height", "component", "style"]);
+    const _a = useResponsiveProps(props), { alert, show, variant = "filled", size = theme.defaults.size, radius = theme.defaults.radius, shadow = false, motion, color = theme.primaryColor, backgroundColor = color, padding = theme.sizeClasses.padding[size], margin = 0, width = "100%", height = "auto", component = "div", style } = _a, rest = __rest(_a, ["alert", "show", "variant", "size", "radius", "shadow", "motion", "color", "backgroundColor", "padding", "margin", "width", "height", "component", "style"]);
     const motionBehaviour = getMotionBehaviour(motion, reducedMotion);
     const AlertStyle = css(Object.assign({ display: "flex", flexDirection: "row", alignItems: "center", gap: padding, boxSizing: "border-box", width: width, height: height, padding: padding, borderRadius: theme.sizeClasses.radius[radius], border: "none", outline: variant === "subtle"
             ? `1px solid ${theme.getColorHex(backgroundColor, "medium")}`

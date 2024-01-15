@@ -8,6 +8,7 @@ import { CLICKABLE_ELEMENTS, ComponentSize, FillVariant, GenericClickableEventPr
 import { useValence } from "../../../ValenceProvider";
 import { css } from "@emotion/react";
 import { Icon } from "../Icon";
+import { MakeResponsive, useResponsiveProps } from "../../../responsive";
 
 export type AlertContent = {
   /** The title of this alert */
@@ -43,7 +44,7 @@ export type AlertProps =
   }
 
 export const Alert = forwardRef(function Alert(
-  props: AlertProps,
+  props: MakeResponsive<AlertProps>,
   ref: any
 ) {
   const theme = useValence();
@@ -72,7 +73,7 @@ export const Alert = forwardRef(function Alert(
     component = "div",
     style,
     ...rest
-  } = props;
+  } = useResponsiveProps<AlertProps>(props);
 
   const motionBehaviour = getMotionBehaviour(motion, reducedMotion);
 

@@ -20,7 +20,7 @@ const react_2 = require("react");
 exports.GridButton = (0, react_2.forwardRef)(function GridButton(props, ref) {
     const theme = (0, react_2.useContext)(core_1.ValenceContext);
     // Defaults
-    const { icon, iconPosition = "top", size = theme.defaults.size, variant = theme.defaults.variant, color = theme.primaryColor, width = theme.sizeClasses.height[size] * 2.5, height = width, square = true, style, textProps } = props, rest = __rest(props, ["icon", "iconPosition", "size", "variant", "color", "width", "height", "square", "style", "textProps"]);
+    const _a = (0, core_1.useResponsiveProps)(props), { icon, iconPosition = "top", size = theme.defaults.size, variant = theme.defaults.variant, color = theme.primaryColor, width = theme.sizeClasses.height[size] * 2.5, height = width, square = true, style, textProps } = _a, rest = __rest(_a, ["icon", "iconPosition", "size", "variant", "color", "width", "height", "square", "style", "textProps"]);
     // Styles
     const styles = Object.assign({ flexDirection: iconPosition === "top" ? "column" : "column-reverse", justifyContent: "flex-start", padding: theme.sizeClasses.padding[size], gap: theme.sizeClasses.padding[size] / 2 }, style);
     const IconContainerStyle = (0, react_1.css)({

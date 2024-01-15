@@ -5,6 +5,7 @@ import { useValence } from "../../../ValenceProvider";
 import { IconX } from "@tabler/icons-react";
 import { Text, TextProps } from "../Text";
 import { Icon } from "../Icon";
+import { MakeResponsive, useResponsiveProps } from "../../../responsive";
 
 export type PillProps =
   GenericLayoutProps
@@ -46,7 +47,7 @@ const SIZES: SizeClasses<{
 
 
 export const Pill = forwardRef(function Pill(
-  props: PillProps,
+  props: MakeResponsive<PillProps>,
   ref: any,
 ) {
   const theme = useValence();
@@ -72,10 +73,12 @@ export const Pill = forwardRef(function Pill(
     width = "fit-content",
     height,
 
+    onClick,
+
     style,
     children,
     ...rest
-  } = props;
+  } = useResponsiveProps<PillProps>(props);
 
 
   // Styles
@@ -111,7 +114,7 @@ export const Pill = forwardRef(function Pill(
     e.stopPropagation();
     if (!withRemoveButton) return;
     onRemove?.();
-    props.onClick?.(e);
+    onClick?.(e);
   }
 
 

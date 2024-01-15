@@ -21,6 +21,7 @@ import { useValence } from "../../../ValenceProvider";
 import { Flex } from "../../layout";
 import { Icon, Text } from "../../display";
 import { useDetectKeyDown } from "../../../hooks";
+import { MakeResponsive, useResponsiveProps } from "../../../responsive";
 
 export type OptionContainerEventProps = {
   /** Callback to be called when an option is selected. */
@@ -67,7 +68,7 @@ export type OptionDropdownProps =
 
 
 export const OptionContainer = forwardRef(function OptionContainer(
-  props: OptionContainerProps,
+  props: MakeResponsive<OptionContainerProps>,
   ref: any,
 ) {
   const theme = useValence();
@@ -109,7 +110,7 @@ export const OptionContainer = forwardRef(function OptionContainer(
     inputRef,
     children,
     ...rest
-  } = props;
+  } = useResponsiveProps<OptionContainerProps>(props);
 
 
   // States

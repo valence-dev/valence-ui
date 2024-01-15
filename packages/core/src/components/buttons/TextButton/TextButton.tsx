@@ -4,6 +4,7 @@ import { PrimitiveButton } from "../PrimitiveButton/PrimitiveButton";
 import { getTextColor } from "../Helpers";
 import { Text, TextProps } from "../../display";
 import { useValence } from "../../../ValenceProvider";
+import { MakeResponsive, useResponsiveProps } from "../../../responsive";
 
 export type TextButtonProps =
   PrimitiveButtonProps
@@ -14,8 +15,9 @@ export type TextButtonProps =
     textProps?: TextProps;
   }
 
+
 export const Button = forwardRef(function Button(
-  props: TextButtonProps,
+  props: MakeResponsive<TextButtonProps>,
   ref: any
 ) {
   const theme = useValence();
@@ -26,8 +28,10 @@ export const Button = forwardRef(function Button(
     variant = theme.defaults.variant,
     color = theme.primaryColor,
     textProps,
+
+    children,
     ...rest
-  } = props;
+  } = useResponsiveProps<TextButtonProps>(props);
 
 
   return (
@@ -44,7 +48,7 @@ export const Button = forwardRef(function Button(
         color={getTextColor(color, variant, theme)}
         {...textProps}
       >
-        {props.children}
+        {children}
       </Text>
     </PrimitiveButton>
   )

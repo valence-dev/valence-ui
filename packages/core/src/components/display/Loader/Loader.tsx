@@ -1,6 +1,6 @@
 import { CSSProperties, forwardRef } from "react";
 import { motion } from "framer-motion";
-import { useValence } from "../../..";
+import { MakeResponsive, useResponsiveProps, useValence } from "../../..";
 import { ComponentSize, GenericProps, SizeClasses } from "@valence-ui/utils";
 
 export type LoaderProps = GenericProps & {
@@ -19,7 +19,7 @@ const SIZES: SizeClasses<{ height: number, thickness: number }> = {
 }
 
 export const Loader = forwardRef(function Loader(
-  props: LoaderProps,
+  props: MakeResponsive<LoaderProps>,
   ref: any
 ) {
   const theme = useValence();
@@ -31,7 +31,7 @@ export const Loader = forwardRef(function Loader(
     color = theme.primaryColor,
     style,
     ...rest
-  } = props;
+  } = useResponsiveProps<LoaderProps>(props);
 
 
   // Styles

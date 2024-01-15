@@ -38,7 +38,5 @@ export const ValenceContextDefaults = {
         tabletWidth: 768,
         desktopLargeWidth: 1024,
         tvWidth: 1440,
-        desktopThinWidth: 1280,
-        mobileTallHeight: 800,
     }
 };

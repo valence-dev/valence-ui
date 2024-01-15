@@ -12,7 +12,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx, jsxs as _jsxs } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
 import { forwardRef } from "react";
-import { ModalBackground, useDetectKeyDown, useValence } from "../../..";
+import { ModalBackground, useDetectKeyDown, useValence, useResponsiveProps } from "../../..";
 import { Flex } from "../../layout";
 import { AnimatePresence, motion } from "framer-motion";
 import { Icon, Title } from "../../display";
@@ -24,7 +24,7 @@ import { useLockedBody } from "usehooks-ts";
 export const Modal = forwardRef(function Modal(props, ref) {
     const theme = useValence();
     // Defaults
-    const { disclosure, title, header = (props) => _jsx(DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), closeOnOverlayClick = true, closeOnEscape = true, lockScroll = true, withShadow = true, radius = theme.defaults.radius, backgroundColor = "white", color = "black", padding = theme.sizeClasses.padding[theme.defaults.size], margin, width = 500, height = "fit-content", flexProps, overlayBackgroundProps, children, style } = props, rest = __rest(props, ["disclosure", "title", "header", "closeOnOverlayClick", "closeOnEscape", "lockScroll", "withShadow", "radius", "backgroundColor", "color", "padding", "margin", "width", "height", "flexProps", "overlayBackgroundProps", "children", "style"]);
+    const _a = useResponsiveProps(props), { disclosure, title, header = (props) => _jsx(DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), closeOnOverlayClick = true, closeOnEscape = true, lockScroll = true, withShadow = true, radius = theme.defaults.radius, backgroundColor = "white", color = "black", padding = theme.sizeClasses.padding[theme.defaults.size], margin, width = 500, height = "fit-content", flexProps, overlayBackgroundProps, children, style } = _a, rest = __rest(_a, ["disclosure", "title", "header", "closeOnOverlayClick", "closeOnEscape", "lockScroll", "withShadow", "radius", "backgroundColor", "color", "padding", "margin", "width", "height", "flexProps", "overlayBackgroundProps", "children", "style"]);
     // Hooks
     useLockedBody(disclosure.opened && lockScroll, "root");
     useDetectKeyDown(() => disclosure.close(), "Escape", closeOnEscape && disclosure.opened);
@@ -45,7 +45,7 @@ export const Modal = forwardRef(function Modal(props, ref) {
             _jsx(ModalBackground, Object.assign({ disclosure: disclosure }, overlayBackgroundProps, { children: _jsx(FloatingFocusManager, { context: context, children: _jsx(motion.div, Object.assign({ css: ContainerStyle, onClick: e => e.stopPropagation(), initial: { opacity: 0, scale: 0.9 }, animate: { opacity: 1, scale: 1 }, exit: { opacity: 0, scale: 0.9 }, transition: { ease: "backOut" }, ref: refs.setFloating, "aria-labelledby": labelId, "aria-describedby": descriptionId }, getFloatingProps(), rest, { children: _jsxs(Flex, Object.assign({ direction: "column", gap: 15 }, flexProps, { children: [header({ title }), children] })) })) }) })) }));
 });
 export const DefaultModalHeader = forwardRef(function DefaultModalHeader(props, ref) {
-    const { title, disclosure } = props;
+    const { title, disclosure } = useResponsiveProps(props);
     const HeaderStyle = css({
         display: "flex",
         alignItems: "center",

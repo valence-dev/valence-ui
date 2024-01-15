@@ -24,10 +24,10 @@ exports.NumberInput = (0, react_1.forwardRef)(function NumberInput(props, ref) {
     const theme = (0, __1.useValence)();
     const inputRef = ref !== null && ref !== void 0 ? ref : (0, react_1.createRef)();
     // Defaults
-    const { value, setValue, icon, min, max, step = 1, controlIcons = {
+    const _a = (0, __1.useResponsiveProps)(props), { value, setValue, icon, min, max, step = 1, controlIcons = {
         up: (0, jsx_runtime_1.jsx)(icons_react_1.IconChevronUp, { opacity: 0.5 }),
         down: (0, jsx_runtime_1.jsx)(icons_react_1.IconChevronDown, { opacity: 0.5 }),
-    }, showControls = true, size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, grow, loading, autoFocus, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding, margin, width, height, onEnterPress, onKeyPress, inputStyle, style } = props, rest = __rest(props, ["value", "setValue", "icon", "min", "max", "step", "controlIcons", "showControls", "size", "radius", "variant", "grow", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "onEnterPress", "onKeyPress", "inputStyle", "style"]);
+    }, showControls = true, size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, grow, loading, autoFocus, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding, margin, width, height, onEnterPress, onKeyPress, inputStyle, style } = _a, rest = __rest(_a, ["value", "setValue", "icon", "min", "max", "step", "controlIcons", "showControls", "size", "radius", "variant", "grow", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "onEnterPress", "onKeyPress", "inputStyle", "style"]);
     // Styles
     const InputStyle = (0, react_2.css)(Object.assign({ border: "none", outline: "none", background: "none", flexGrow: 1, width: "100%", height: "100%", margin: 0, padding: 0, cursor: disabled ? "not-allowed" : "text", fontSize: theme.sizeClasses.fontSize[size], fontFamily: theme.getFont("default"), color: (0, buttons_1.getTextColor)(color, variant, theme), "&::placeholder": {
             color: `${(0, buttons_1.getTextColor)(color, variant, theme)}80`,

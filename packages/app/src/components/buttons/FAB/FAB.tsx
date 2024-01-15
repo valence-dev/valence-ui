@@ -1,4 +1,4 @@
-import { Icon, IconButtonProps, PrimitiveButton, useBreakpoint, useValence } from "@valence-ui/core";
+import { Icon, IconButtonProps, MakeResponsive, PrimitiveButton, useBreakpoint, useResponsiveProps, useValence } from "@valence-ui/core";
 import { CSSProperties, forwardRef } from "react";
 
 export type FABProps = IconButtonProps & {
@@ -14,7 +14,7 @@ export type FABProps = IconButtonProps & {
 };
 
 export const FAB = forwardRef(function FAB(
-  props: FABProps,
+  props: MakeResponsive<FABProps>,
   ref: any
 ) {
   const breakpoint = useBreakpoint();
@@ -37,7 +37,7 @@ export const FAB = forwardRef(function FAB(
     children,
     style,
     ...rest
-  } = props;
+  } = useResponsiveProps<FABProps>(props);
 
 
   // Styles

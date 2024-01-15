@@ -12,7 +12,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx, jsxs as _jsxs } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
 import { forwardRef } from "react";
-import { useValence } from "../../..";
+import { useResponsiveProps, useValence } from "../../..";
 import { getBackgroundColor, getTextColor } from "../../buttons";
 import { Icon, Loader } from "../../display";
 import { css } from "@emotion/react";
@@ -26,7 +26,7 @@ export const INPUT_SIZES = {
 export const InputContainer = forwardRef(function InputContainer(props, ref) {
     const theme = useValence();
     // Defaults
-    const { icon, button, size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, grow, disabled = false, required = false, loading = false, color = "black", backgroundColor = color, width = "100%", height = theme.sizeClasses.height[size], padding = INPUT_SIZES[size].padding, margin, inputRef, onClick, iconContainerStyle, requireIndicatorStyle, buttonContainerStyle, children, style } = props, rest = __rest(props, ["icon", "button", "size", "radius", "variant", "grow", "disabled", "required", "loading", "color", "backgroundColor", "width", "height", "padding", "margin", "inputRef", "onClick", "iconContainerStyle", "requireIndicatorStyle", "buttonContainerStyle", "children", "style"]);
+    const _a = useResponsiveProps(props), { icon, button, size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, grow, disabled = false, required = false, loading = false, color = "black", backgroundColor = color, width = "100%", height = theme.sizeClasses.height[size], padding = INPUT_SIZES[size].padding, margin, inputRef, onClick, iconContainerStyle, requireIndicatorStyle, buttonContainerStyle, children, style } = _a, rest = __rest(_a, ["icon", "button", "size", "radius", "variant", "grow", "disabled", "required", "loading", "color", "backgroundColor", "width", "height", "padding", "margin", "inputRef", "onClick", "iconContainerStyle", "requireIndicatorStyle", "buttonContainerStyle", "children", "style"]);
     // Functions
     const handleClick = (e) => {
         if (disabled) {

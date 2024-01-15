@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import { TextProps, Text } from "./Text";
-import { useValence } from "../../..";
+import { MakeResponsive, useResponsiveProps, useValence } from "../../..";
 
 export type TitleProps = TextProps & {
   /** Sets the order of the title */
@@ -8,7 +8,7 @@ export type TitleProps = TextProps & {
 }
 
 export const Title = forwardRef(function Title(
-  props: TitleProps,
+  props: MakeResponsive<TitleProps>,
   ref: any
 ) {
   const theme = useValence();
@@ -18,7 +18,7 @@ export const Title = forwardRef(function Title(
     component = `h${order ?? 1}`,
     family = theme.getFont("heading"),
     ...rest
-  } = props;
+  } = useResponsiveProps<TitleProps>(props);
 
 
   return (

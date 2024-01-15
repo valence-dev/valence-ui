@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import { Flex } from "../../layout";
 import { css } from "@emotion/react";
 import { GenericInputProps } from "../../../generics";
+import { MakeResponsive, useResponsiveProps } from "../../../responsive";
 
 export type SwitchProps =
   GenericInputProps<boolean>
@@ -27,7 +28,7 @@ export type SwitchProps =
 
 
 export const Switch = forwardRef(function Switch(
-  props: SwitchProps,
+  props: MakeResponsive<SwitchProps>,
   ref: any,
 ) {
   const theme = useValence();
@@ -63,7 +64,7 @@ export const Switch = forwardRef(function Switch(
 
     style,
     ...rest
-  } = props;
+  } = useResponsiveProps<SwitchProps>(props);
 
 
   // Handlers

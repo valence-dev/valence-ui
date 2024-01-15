@@ -24,9 +24,10 @@ const layout_1 = require("../../layout");
 const react_slider_1 = __importDefault(require("react-slider"));
 const react_2 = require("@emotion/react");
 const NumberInput_1 = require("../NumberInput");
+const responsive_1 = require("../../../responsive");
 exports.RangeSlider = (0, react_1.forwardRef)(function RangeSlider(props, ref) {
     const theme = (0, ValenceProvider_1.useValence)();
-    const { value, setValue, min = 0, max = 100, step = 1, minDistance = 0, pearling = true, showValue = false, invert = false, color = "black", size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, height = theme.getSize("height", size), width = "100%", includeManualInput = true, manualInputPosition = "right", trackProps, thumbProps, onAfterChange, onBeforeChange, onChange, onSliderClick, style } = props, rest = __rest(props, ["value", "setValue", "min", "max", "step", "minDistance", "pearling", "showValue", "invert", "color", "size", "radius", "variant", "height", "width", "includeManualInput", "manualInputPosition", "trackProps", "thumbProps", "onAfterChange", "onBeforeChange", "onChange", "onSliderClick", "style"]);
+    const _a = (0, responsive_1.useResponsiveProps)(props), { value, setValue, min = 0, max = 100, step = 1, minDistance = 0, pearling = true, showValue = false, invert = false, color = "black", size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, height = theme.getSize("height", size), width = "100%", includeManualInput = true, manualInputPosition = "right", trackProps, thumbProps, onAfterChange, onBeforeChange, onChange, onSliderClick, style } = _a, rest = __rest(_a, ["value", "setValue", "min", "max", "step", "minDistance", "pearling", "showValue", "invert", "color", "size", "radius", "variant", "height", "width", "includeManualInput", "manualInputPosition", "trackProps", "thumbProps", "onAfterChange", "onBeforeChange", "onChange", "onSliderClick", "style"]);
     // Styles
     const SliderStyle = (0, react_2.css)({
         display: "flex",

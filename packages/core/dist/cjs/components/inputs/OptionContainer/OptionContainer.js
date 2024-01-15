@@ -24,16 +24,17 @@ const ValenceProvider_1 = require("../../../ValenceProvider");
 const layout_1 = require("../../layout");
 const display_1 = require("../../display");
 const hooks_1 = require("../../../hooks");
+const responsive_1 = require("../../../responsive");
 exports.OptionContainer = (0, react_3.forwardRef)(function OptionContainer(props, ref) {
     const theme = (0, ValenceProvider_1.useValence)();
     // Defaults
-    const { selectedOption, options, onSelect, nothingFound = "Nothing found...", selectKeys = ["Enter"], closeKeys = ["Escape"], icon, rightIcon = (0, jsx_runtime_1.jsx)(icons_react_1.IconSelector, {}), size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, loading, disabled, required, color = "black", backgroundColor = color, padding, margin, width, height, grow, dropdownProps = {
+    const _a = (0, responsive_1.useResponsiveProps)(props), { selectedOption, options, onSelect, nothingFound = "Nothing found...", selectKeys = ["Enter"], closeKeys = ["Escape"], icon, rightIcon = (0, jsx_runtime_1.jsx)(icons_react_1.IconSelector, {}), size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, loading, disabled, required, color = "black", backgroundColor = color, padding, margin, width, height, grow, dropdownProps = {
         padding: InputContainer_1.INPUT_SIZES[size].padding,
         backgroundColor: "white",
         color: "black",
         shadow: true,
         height: 200,
-    }, dropdownButtonProps, dropdownStyle, style, inputRef, children } = props, rest = __rest(props, ["selectedOption", "options", "onSelect", "nothingFound", "selectKeys", "closeKeys", "icon", "rightIcon", "size", "radius", "variant", "loading", "disabled", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "grow", "dropdownProps", "dropdownButtonProps", "dropdownStyle", "style", "inputRef", "children"]);
+    }, dropdownButtonProps, dropdownStyle, style, inputRef, children } = _a, rest = __rest(_a, ["selectedOption", "options", "onSelect", "nothingFound", "selectKeys", "closeKeys", "icon", "rightIcon", "size", "radius", "variant", "loading", "disabled", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "grow", "dropdownProps", "dropdownButtonProps", "dropdownStyle", "style", "inputRef", "children"]);
     // States
     const [isOpen, setIsOpen] = (0, react_3.useState)(false);
     const [highlightedIndex, setHighlightedIndex] = (0, react_3.useState)(0);

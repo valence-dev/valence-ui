@@ -1,4 +1,5 @@
 import React, { ReactNode } from "react";
+import { MakeResponsive } from "../../../responsive";
 export type IconProps = {
     /** Size of the icon. Defaults to theme default icon size. */
     size?: number;
@@ -18,5 +19,5 @@ export type IconProps = {
  * </Icon>
  * ```
 */
-export declare const Icon: React.ForwardRefExoticComponent<IconProps & React.RefAttributes<unknown>>;
+export declare const Icon: React.ForwardRefExoticComponent<MakeResponsive<IconProps> & React.RefAttributes<unknown>>;
 //# sourceMappingURL=Icon.d.ts.map

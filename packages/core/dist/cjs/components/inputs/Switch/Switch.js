@@ -20,10 +20,11 @@ const display_1 = require("../../display");
 const framer_motion_1 = require("framer-motion");
 const layout_1 = require("../../layout");
 const react_2 = require("@emotion/react");
+const responsive_1 = require("../../../responsive");
 exports.Switch = (0, react_1.forwardRef)(function Switch(props, ref) {
     const theme = (0, ValenceProvider_1.useValence)();
     // Defaults
-    const { value, setValue, label, size = theme.defaults.size, radius = "xl", variant = theme.defaults.variant, grow = false, disabled = false, readOnly = false, loading = false, onFocus, onBlur, buttonProps, labelProps, color = theme.primaryColor, backgroundColor = color, padding = 4, margin = 0, width, height, style } = props, rest = __rest(props, ["value", "setValue", "label", "size", "radius", "variant", "grow", "disabled", "readOnly", "loading", "onFocus", "onBlur", "buttonProps", "labelProps", "color", "backgroundColor", "padding", "margin", "width", "height", "style"]);
+    const _a = (0, responsive_1.useResponsiveProps)(props), { value, setValue, label, size = theme.defaults.size, radius = "xl", variant = theme.defaults.variant, grow = false, disabled = false, readOnly = false, loading = false, onFocus, onBlur, buttonProps, labelProps, color = theme.primaryColor, backgroundColor = color, padding = 4, margin = 0, width, height, style } = _a, rest = __rest(_a, ["value", "setValue", "label", "size", "radius", "variant", "grow", "disabled", "readOnly", "loading", "onFocus", "onBlur", "buttonProps", "labelProps", "color", "backgroundColor", "padding", "margin", "width", "height", "style"]);
     // Handlers
     function handleClick() {
         if (disabled || readOnly || loading)

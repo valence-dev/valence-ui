@@ -12,7 +12,7 @@
  * the screen size. This is because platforms (such as iOS) may have different screen
  * sizes, and thus will need to adapt.
  */
-import { ResponsiveBreakpoint } from "./UseResponsiveBreakpoint";
+import { Breakpoint } from "./UseBreakpoint";
 /** A wrapper type used to denote a prop that is reactive to the screen dimensions. */
 export type Responsive<T> = T | {
     mobile?: T;
@@ -22,7 +22,7 @@ export type Responsive<T> = T | {
     tv?: T;
 };
 /** A wrapper type used to denote a series of responsive props. */
-export type ResponsiveProps<T> = {
+export type MakeResponsive<T> = {
     [K in keyof T]: Responsive<T[K]>;
 };
 /** A method that retrieves an individual responsive prop based on the supplied
@@ -30,11 +30,11 @@ export type ResponsiveProps<T> = {
  * @param prop The responsive prop to retrieve
  * @param breakpoint The breakpoint to use to retrieve the prop
  */
-export declare function getResponsiveProp<T>(prop: Responsive<T>, breakpoint: ResponsiveBreakpoint): T;
+export declare function getResponsiveProp<T>(prop: Responsive<T>, breakpoint: Breakpoint): T;
 /** A method that retrieves a series of responsive props based on the supplied
  * breakpoint.
  * @param props - The responsive props to retrieve
  * @param breakpoint - The breakpoint to use to retrieve the props
  */
-export declare function getResponsiveProps<T>(props: ResponsiveProps<T>, breakpoint: ResponsiveBreakpoint): T;
+export declare function getResponsiveProps<T>(props: MakeResponsive<T>, breakpoint: Breakpoint): T;
 //# sourceMappingURL=ResponsiveProps.d.ts.map

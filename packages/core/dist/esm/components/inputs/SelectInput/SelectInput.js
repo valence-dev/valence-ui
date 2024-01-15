@@ -19,17 +19,18 @@ import { INPUT_SIZES } from "../InputContainer";
 import { getTextColor } from "../../buttons";
 import { DefaultOptionsFilter } from "../OptionContainer/OptionsFilter";
 import { OptionContainer } from "../OptionContainer";
+import { useResponsiveProps } from "../../../responsive";
 export const SelectInput = forwardRef(function SelectInput(props, ref) {
     const theme = useValence();
     const inputRef = ref !== null && ref !== void 0 ? ref : createRef();
     // Defaults
-    const { value, setValue, options, onSelect, filter = DefaultOptionsFilter, nothingFound = "Nothing found...", icon, placeholder, actionIcon = _jsx(IconSelector, {}), size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, loading, autoFocus, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding, margin, width, height, grow, onEnterPress, onKeyPress, dropdownProps = {
+    const _a = useResponsiveProps(props), { value, setValue, options, onSelect, filter = DefaultOptionsFilter, nothingFound = "Nothing found...", icon, placeholder, actionIcon = _jsx(IconSelector, {}), size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, loading, autoFocus, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding, margin, width, height, grow, onEnterPress, onKeyPress, dropdownProps = {
         padding: INPUT_SIZES[size].padding,
         backgroundColor: "white",
         color: "black",
         shadow: true,
         height: 200,
-    }, dropdownButtonProps, inputStyle, dropdownStyle, style } = props, rest = __rest(props, ["value", "setValue", "options", "onSelect", "filter", "nothingFound", "icon", "placeholder", "actionIcon", "size", "radius", "variant", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "grow", "onEnterPress", "onKeyPress", "dropdownProps", "dropdownButtonProps", "inputStyle", "dropdownStyle", "style"]);
+    }, dropdownButtonProps, inputStyle, dropdownStyle, style } = _a, rest = __rest(_a, ["value", "setValue", "options", "onSelect", "filter", "nothingFound", "icon", "placeholder", "actionIcon", "size", "radius", "variant", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "grow", "onEnterPress", "onKeyPress", "dropdownProps", "dropdownButtonProps", "inputStyle", "dropdownStyle", "style"]);
     // States
     const [searchValue, setSearchValue] = useState("");
     const [visibleOptions, setVisibleOptions] = useState(options);

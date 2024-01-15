@@ -1,6 +1,6 @@
 import { CSSProperties, forwardRef } from "react";
-import { Flex, IconButton, IconButtonProps, PrimitiveButton, PrimitiveButtonProps, Space, useBreakpoint } from "@valence-ui/core";
-import { GenericReactiveLayoutProps, PolymorphicLayoutProps, ReactiveProp, getReactiveProp } from "@valence-ui/utils";
+import { Flex, IconButton, IconButtonProps, MakeResponsive, PrimitiveButton, PrimitiveButtonProps, Responsive, Space, useBreakpoint, useResponsiveProps } from "@valence-ui/core";
+import { GenericLayoutProps, PolymorphicLayoutProps } from "@valence-ui/utils";
 
 export type NavButtonProps = IconButtonProps & {
   /** Specifies if this button is highlighted */
@@ -8,7 +8,7 @@ export type NavButtonProps = IconButtonProps & {
 }
 
 export type GenericNavProps =
-  GenericReactiveLayoutProps
+  GenericLayoutProps
   & PolymorphicLayoutProps
   & {
     /** Buttons to display on the top of the navigation */
@@ -16,8 +16,8 @@ export type GenericNavProps =
     /** Buttons to display on the bottom of the navigation. On mobile devices these will be groups with `buttons` horizontally along the bottom of the screen */
     bottomButtons?: NavButtonProps[];
 
-    /** **[REACTIVE]** Sets `gap` css property */
-    gap?: ReactiveProp<CSSProperties["gap"]>;
+    /** Sets `gap` css property */
+    gap?: CSSProperties["gap"];
   }
 
 export type NavProps = GenericNavProps & {
@@ -30,7 +30,7 @@ export type NavProps = GenericNavProps & {
 
 /** The App Nav is designed to handle inter-page navigation and application-level actions, such as page navigation, signing out, etc. This particular navigator is presented as a vertical icon button strip down the left-hand side of the screen on desktop devices, and a horizontal icon button strip along the bottom of the screen on mobile devices. */
 export const Nav = forwardRef(function Nav(
-  props: NavProps,
+  props: MakeResponsive<NavProps>,
   ref: any
 ) {
   const breakpoint = useBreakpoint();
@@ -45,20 +45,20 @@ export const Nav = forwardRef(function Nav(
 
     style,
     ...rest
-  } = props;
+  } = useResponsiveProps<NavProps>(props);
 
 
   // Styles
-  const navStyle: ReactiveProp<CSSProperties> = {
+  const navStyle: Responsive<CSSProperties> = {
     default: {
       height: "100%",
 
-      ...getReactiveProp(style, breakpoint)
+      ...style
     },
     mobile: {
       width: "100%",
 
-      ...getReactiveProp(style, breakpoint)
+      ...style
     },
   }
   const faviconStyle: CSSProperties = {

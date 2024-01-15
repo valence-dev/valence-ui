@@ -17,12 +17,13 @@ import { Button, IconButton } from "../../buttons";
 import { Flex } from "../../layout";
 import { useValence } from "../../../ValenceProvider";
 import { IconX } from "@tabler/icons-react";
+import { useResponsiveProps } from "../../../responsive";
 export const PillSelector = forwardRef(function PillSelector(props, ref) {
     const theme = useValence();
     // Defaults
-    const { value, setValue, pills, allowClear = true, gap = 5, maxSelectable = Infinity, clearButtonIcon = _jsx(IconX, {}), clearButtonProps, pillProps, selectedPillProps = pillProps, pillContainerProps, size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, loading, autoFocus, disabled, readOnly = disabled, required, color = "black", backgroundColor = color, padding, margin, width, height = "auto", grow = true, onPillSelected, onPillDeselected, style } = props, rest = __rest(props, ["value", "setValue", "pills", "allowClear", "gap", "maxSelectable", "clearButtonIcon", "clearButtonProps", "pillProps", "selectedPillProps", "pillContainerProps", "size", "radius", "variant", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "grow", "onPillSelected", "onPillDeselected", "style"]);
-    const _a = pillContainerProps !== null && pillContainerProps !== void 0 ? pillContainerProps : {}, { style: pillContainerStyle } = _a, pillContainerPropsRest = __rest(_a, ["style"]);
-    const _b = clearButtonProps !== null && clearButtonProps !== void 0 ? clearButtonProps : {}, { style: clearButtonStyle } = _b, clearButtonPropsRest = __rest(_b, ["style"]);
+    const _a = useResponsiveProps(props), { value, setValue, pills, allowClear = true, gap = 5, maxSelectable = Infinity, clearButtonIcon = _jsx(IconX, {}), clearButtonProps, pillProps, selectedPillProps = pillProps, pillContainerProps, size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, loading, autoFocus, disabled, readOnly = disabled, required, color = "black", backgroundColor = color, padding, margin, width, height = "auto", grow = true, onPillSelected, onPillDeselected, style } = _a, rest = __rest(_a, ["value", "setValue", "pills", "allowClear", "gap", "maxSelectable", "clearButtonIcon", "clearButtonProps", "pillProps", "selectedPillProps", "pillContainerProps", "size", "radius", "variant", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "grow", "onPillSelected", "onPillDeselected", "style"]);
+    const _b = pillContainerProps !== null && pillContainerProps !== void 0 ? pillContainerProps : {}, { style: pillContainerStyle } = _b, pillContainerPropsRest = __rest(_b, ["style"]);
+    const _c = clearButtonProps !== null && clearButtonProps !== void 0 ? clearButtonProps : {}, { style: clearButtonStyle } = _c, clearButtonPropsRest = __rest(_c, ["style"]);
     // States
     const [pillList, setPillList] = useState(sortPills(pills));
     // Functions

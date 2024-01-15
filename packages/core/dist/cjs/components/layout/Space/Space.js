@@ -16,10 +16,11 @@ const jsx_runtime_1 = require("@emotion/react/jsx-runtime");
 /** @jsxImportSource @emotion/react */
 const react_1 = require("react");
 const react_2 = require("@emotion/react");
+const responsive_1 = require("../../../responsive");
 /** A basic, unstyled layout assistant that creates blank space between any two objects. */
 exports.Space = (0, react_1.forwardRef)(function Space(props, ref) {
     // Defaults
-    const { height, width, grow, style } = props, rest = __rest(props, ["height", "width", "grow", "style"]);
+    const _a = (0, responsive_1.useResponsiveProps)(props), { height, width, grow, style } = _a, rest = __rest(_a, ["height", "width", "grow", "style"]);
     // Styles
     const SpaceStyle = (0, react_2.css)(Object.assign({ width: width, height: height, flexGrow: grow ? 1 : undefined }, style));
     return ((0, jsx_runtime_1.jsx)("span", Object.assign({ css: SpaceStyle, ref: ref }, rest)));

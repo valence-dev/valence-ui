@@ -61,11 +61,6 @@ export type ValenceProviderProps = {
     tabletWidth: number;
     desktopLargeWidth: number;
     tvWidth: number;
-
-    /** @depreciated */
-    desktopThinWidth: number;
-    /** @depreciated */
-    mobileTallHeight: number;
   };
 }
 

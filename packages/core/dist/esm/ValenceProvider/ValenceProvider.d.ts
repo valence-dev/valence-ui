@@ -41,10 +41,6 @@ export type ValenceProviderProps = {
         tabletWidth: number;
         desktopLargeWidth: number;
         tvWidth: number;
-        /** @depreciated */
-        desktopThinWidth: number;
-        /** @depreciated */
-        mobileTallHeight: number;
     };
 };
 export declare function ValenceProvider(props: ValenceProviderProps): import("react/jsx-runtime").JSX.Element;

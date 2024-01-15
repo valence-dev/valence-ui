@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { Flex, FlexProps, Icon, IconButton, IconButtonProps, ValenceContext, useBreakpoint } from "@valence-ui/core";
-import { ReactiveProp, getReactiveProp } from "@valence-ui/utils";
+import { Flex, FlexProps, Icon, IconButton, IconButtonProps, MakeResponsive, ValenceContext, useBreakpoint, useResponsiveProp, useResponsiveProps } from "@valence-ui/core";
 import React, { CSSProperties, ReactNode, forwardRef, useContext, useEffect, useRef, useState } from "react";
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 
@@ -9,13 +8,13 @@ export type CarouselProps =
   FlexProps
   & {
     /** Whether to allow the carousel content to be dragged on desktop. `true` on desktop devices by default. */
-    allowDrag?: ReactiveProp<boolean>;
+    allowDrag?: boolean;
     /** Whether to show the horizontal scrollbar. `false` by default. */
-    showScrollbar?: ReactiveProp<boolean>;
+    showScrollbar?: boolean;
     /** Whether to snap to the nearest child when no longer scrolling. `true` by default. */
-    snapToChildren?: ReactiveProp<boolean>;
+    snapToChildren?: boolean;
     /** Whether the active child should be changed during scroll. `true` by default. */
-    changeActiveOnScroll?: ReactiveProp<boolean>;
+    changeActiveOnScroll?: boolean;
 
     /** Optional props to pass to the content flex component */
     contentProps?: FlexProps;
@@ -27,7 +26,7 @@ export type CarouselProps =
 
 
     /** Whether to the carousel controls. `true` by default. */
-    showControls?: ReactiveProp<boolean>;
+    showControls?: boolean;
     /** Optional overrides for the icons to use for the controls */
     controlIcons?: {
       prev: ReactNode;
@@ -40,7 +39,7 @@ export type CarouselProps =
   }
 
 const Carousel = forwardRef(function Card(
-  props: CarouselProps,
+  props: MakeResponsive<CarouselProps>,
   ref: any
 ) {
   const breakpoint = useBreakpoint();
@@ -70,7 +69,7 @@ const Carousel = forwardRef(function Card(
     style,
     children,
     ...rest
-  } = props;
+  } = useResponsiveProps<CarouselProps>(props);
   const {
     color: buttonColor = "black",
     radius: buttonRadius = "xl",
@@ -102,9 +101,9 @@ const Carousel = forwardRef(function Card(
     e.stopPropagation();
     if (!isDragging) return;
 
-    if (getReactiveProp(snapToChildren, breakpoint))
+    if (snapToChildren)
       scrollToChild(nearestChild);
-    if (getReactiveProp(changeActiveOnScroll, breakpoint))
+    if (changeActiveOnScroll)
       setActiveChild(nearestChild);
 
     setTimeout(() => {
@@ -189,7 +188,7 @@ const Carousel = forwardRef(function Card(
       }
       setNearestChild(nearestChild);
       if (!isAutoScrolling
-        && getReactiveProp(changeActiveOnScroll, breakpoint))
+        && changeActiveOnScroll)
         setActiveChild(nearestChild);
     }
   }
@@ -217,26 +216,26 @@ const Carousel = forwardRef(function Card(
 
   // Styles
   const buttonWidth = theme.sizeClasses.height[buttonPropsRest.size ?? theme.defaults.size] ?? 35;
-  const gapWidth = getReactiveProp(gap, breakpoint);
+  const gapWidth = gap;
   const ContainerStyle: CSSProperties = {
-    marginLeft: getReactiveProp(showControls, breakpoint) ?
+    marginLeft: showControls ?
       `calc(${-buttonWidth}px - ${gapWidth}px)`
       : undefined,
-    marginRight: getReactiveProp(showControls, breakpoint) ?
+    marginRight: showControls ?
       `calc(${-buttonWidth}px - ${gapWidth}px)`
       : undefined,
 
-    width: getReactiveProp(showControls, breakpoint) ?
+    width: showControls ?
       // @ts-ignore
-      `calc(${getReactiveProp(width, breakpoint)} + ${(2 * (buttonWidth + gapWidth))}px)`
-      : getReactiveProp(width, breakpoint),
+      `calc(${width} + ${(2 * (buttonWidth + gapWidth))}px)`
+      : width,
 
     boxSizing: "border-box",
   }
   const ParentStyle = css({
     overflowX: "scroll",
-    paddingBottom: getReactiveProp(showScrollbar, breakpoint) ? getReactiveProp(gap, breakpoint) : undefined,
-    cursor: getReactiveProp(allowDrag, breakpoint) ?
+    paddingBottom: showScrollbar ? gap : undefined,
+    cursor: allowDrag ?
       isMouseDown ? "grabbing" : "grab"
       : "unset",
     boxSizing: "border-box",
@@ -244,7 +243,7 @@ const Carousel = forwardRef(function Card(
     // Scrollbar
     "::-webkit-scrollbar": {
       height: 5,
-      display: getReactiveProp(showScrollbar, breakpoint) ? undefined : "none",
+      display: showScrollbar ? undefined : "none",
     },
     "::-webkit-scrollbar-thumb": {
       backgroundColor: theme.getColorHex("black", "weak"),
@@ -260,7 +259,7 @@ const Carousel = forwardRef(function Card(
       userSelect: "none",
     },
 
-    ...getReactiveProp(style, breakpoint),
+    ...style,
   });
 
 
@@ -271,7 +270,7 @@ const Carousel = forwardRef(function Card(
         align="center"
         style={ContainerStyle}
       >
-        {getReactiveProp(showControls, breakpoint) &&
+        {showControls &&
           <IconButton
             color={buttonColor}
             radius={buttonRadius}
@@ -321,7 +320,7 @@ const Carousel = forwardRef(function Card(
           </Flex>
         </Flex>
 
-        {getReactiveProp(showControls, breakpoint) &&
+        {showControls &&
           <IconButton
             color={buttonColor}
             radius={buttonRadius}

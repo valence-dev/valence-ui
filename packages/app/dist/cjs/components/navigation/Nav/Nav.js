@@ -15,16 +15,15 @@ exports.Nav = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
 const core_1 = require("@valence-ui/core");
-const utils_1 = require("@valence-ui/utils");
 /** The App Nav is designed to handle inter-page navigation and application-level actions, such as page navigation, signing out, etc. This particular navigator is presented as a vertical icon button strip down the left-hand side of the screen on desktop devices, and a horizontal icon button strip along the bottom of the screen on mobile devices. */
 exports.Nav = (0, react_1.forwardRef)(function Nav(props, ref) {
     const breakpoint = (0, core_1.useBreakpoint)();
     // Defaults
-    const { buttons, bottomButtons, gap = 5, favicon, faviconProps, style } = props, rest = __rest(props, ["buttons", "bottomButtons", "gap", "favicon", "faviconProps", "style"]);
+    const _a = (0, core_1.useResponsiveProps)(props), { buttons, bottomButtons, gap = 5, favicon, faviconProps, style } = _a, rest = __rest(_a, ["buttons", "bottomButtons", "gap", "favicon", "faviconProps", "style"]);
     // Styles
     const navStyle = {
-        default: Object.assign({ height: "100%" }, (0, utils_1.getReactiveProp)(style, breakpoint)),
-        mobile: Object.assign({ width: "100%" }, (0, utils_1.getReactiveProp)(style, breakpoint)),
+        default: Object.assign({ height: "100%" }, style),
+        mobile: Object.assign({ width: "100%" }, style),
     };
     const faviconStyle = {
         width: 25,

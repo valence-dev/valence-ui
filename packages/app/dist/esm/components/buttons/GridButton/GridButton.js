@@ -12,12 +12,12 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx, jsxs as _jsxs } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { Icon, PrimitiveButton, Text, ValenceContext, getTextColor } from "@valence-ui/core";
+import { Icon, PrimitiveButton, Text, ValenceContext, getTextColor, useResponsiveProps } from "@valence-ui/core";
 import { forwardRef, useContext } from "react";
 export const GridButton = forwardRef(function GridButton(props, ref) {
     const theme = useContext(ValenceContext);
     // Defaults
-    const { icon, iconPosition = "top", size = theme.defaults.size, variant = theme.defaults.variant, color = theme.primaryColor, width = theme.sizeClasses.height[size] * 2.5, height = width, square = true, style, textProps } = props, rest = __rest(props, ["icon", "iconPosition", "size", "variant", "color", "width", "height", "square", "style", "textProps"]);
+    const _a = useResponsiveProps(props), { icon, iconPosition = "top", size = theme.defaults.size, variant = theme.defaults.variant, color = theme.primaryColor, width = theme.sizeClasses.height[size] * 2.5, height = width, square = true, style, textProps } = _a, rest = __rest(_a, ["icon", "iconPosition", "size", "variant", "color", "width", "height", "square", "style", "textProps"]);
     // Styles
     const styles = Object.assign({ flexDirection: iconPosition === "top" ? "column" : "column-reverse", justifyContent: "flex-start", padding: theme.sizeClasses.padding[size], gap: theme.sizeClasses.padding[size] / 2 }, style);
     const IconContainerStyle = css({

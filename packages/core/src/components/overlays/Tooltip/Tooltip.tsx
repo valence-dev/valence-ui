@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import React, { CSSProperties, ReactElement, ReactNode, createContext, forwardRef, useContext } from "react";
-import { TooltipOptions, useBreakpoint, useTooltip } from "../../../hooks";
+import { TooltipOptions, useTooltip } from "../../../hooks";
 import { FloatingPortal, useMergeRefs } from "@floating-ui/react";
 import { StyledFlex, StyledFlexProps } from "../../layout";
 import { css } from "@emotion/react";
 import { useValence } from "../../../ValenceProvider";
-import { getReactiveProp } from "@valence-ui/utils";
 import { Text } from "../../display";
+import { MakeResponsive, useResponsiveProps } from "../../../responsive";
 
 
 // Tooltip context
@@ -80,7 +80,7 @@ export type TooltipContentProps = StyledFlexProps & {
 }
 
 const Content = forwardRef(function Content(
-  props: TooltipContentProps,
+  props: MakeResponsive<TooltipContentProps>,
   propRef: any,
 ) {
   const {
@@ -95,17 +95,16 @@ const Content = forwardRef(function Content(
 
     children,
     ...rest
-  } = props;
+  } = useResponsiveProps<TooltipContentProps>(props);
 
   const context = useTooltipContext();
   const ref = useMergeRefs([context.refs.setFloating, propRef]);
   const theme = useValence();
-  const breakpoint = useBreakpoint();
 
 
   // Styles
   const FloatingStyle = css({
-    borderRadius: theme.sizeClasses.radius[getReactiveProp(radius, breakpoint)],
+    borderRadius: theme.sizeClasses.radius[radius],
     boxShadow: !withShadow ? undefined : theme.defaults.shadow,
     zIndex: zIndex,
 

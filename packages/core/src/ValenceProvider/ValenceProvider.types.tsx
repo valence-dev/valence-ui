@@ -85,11 +85,6 @@ export type IValenceContext = {
     tabletWidth: number;
     desktopLargeWidth: number;
     tvWidth: number;
-
-    /** @depreciated */
-    desktopThinWidth: number;
-    /** @depreciated */
-    mobileTallHeight: number;
   }
 }
 
@@ -139,8 +134,5 @@ export const ValenceContextDefaults: IValenceContext = {
     tabletWidth: 768,
     desktopLargeWidth: 1024,
     tvWidth: 1440,
-
-    desktopThinWidth: 1280,
-    mobileTallHeight: 800,
   }
 }

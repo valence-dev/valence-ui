@@ -1,7 +1,7 @@
 import { useValence } from "../ValenceProvider";
 import { useWindowSize } from "usehooks-ts";
 
-export type ResponsiveBreakpoint = { 
+export type Breakpoint = { 
   isMobile: boolean;
   isTablet: boolean;
   isDefault: boolean;
@@ -17,7 +17,7 @@ export type ResponsiveBreakpoint = {
  * This hook will use breakpoints defined in the `ValenceProvider` to
  * determine the current breakpoint.
 */
-export function useResponsiveBreakpoint(): ResponsiveBreakpoint { 
+export function useBreakpoint(): Breakpoint { 
   const { breakpoints } = useValence();
   const { width } = useWindowSize();
 
@@ -32,7 +32,7 @@ export function useResponsiveBreakpoint(): ResponsiveBreakpoint {
   const isTV: boolean = width > breakpoints.tvWidth;
 
 
-  const breakpoint: ResponsiveBreakpoint = { 
+  const breakpoint: Breakpoint = { 
     isMobile,
     isTablet,
     isDefault,

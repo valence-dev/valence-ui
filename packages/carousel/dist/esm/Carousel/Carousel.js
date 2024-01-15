@@ -12,18 +12,17 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { Flex, Icon, IconButton, ValenceContext, useBreakpoint } from "@valence-ui/core";
-import { getReactiveProp } from "@valence-ui/utils";
+import { Flex, Icon, IconButton, ValenceContext, useBreakpoint, useResponsiveProps } from "@valence-ui/core";
 import React, { forwardRef, useContext, useEffect, useRef, useState } from "react";
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 const Carousel = forwardRef(function Card(props, ref) {
     var _a, _b;
     const breakpoint = useBreakpoint();
-    const { allowDrag = { default: true, mobile: false }, showScrollbar = false, snapToChildren = true, changeActiveOnScroll = true, contentProps, activeChild: controlledActiveChild, setActiveChild: controlledSetActiveChild, showControls = { default: true, mobile: false }, controlIcons = {
+    const _c = useResponsiveProps(props), { allowDrag = { default: true, mobile: false }, showScrollbar = false, snapToChildren = true, changeActiveOnScroll = true, contentProps, activeChild: controlledActiveChild, setActiveChild: controlledSetActiveChild, showControls = { default: true, mobile: false }, controlIcons = {
         prev: _jsx(Icon, { children: _jsx(IconArrowLeft, {}) }),
         next: _jsx(Icon, { children: _jsx(IconArrowRight, {}) }),
-    }, controlButtonProps, width = "100%", height = "fit-content", gap = 10, style, children } = props, rest = __rest(props, ["allowDrag", "showScrollbar", "snapToChildren", "changeActiveOnScroll", "contentProps", "activeChild", "setActiveChild", "showControls", "controlIcons", "controlButtonProps", "width", "height", "gap", "style", "children"]);
-    const _c = controlButtonProps !== null && controlButtonProps !== void 0 ? controlButtonProps : {}, { color: buttonColor = "black", radius: buttonRadius = "xl" } = _c, buttonPropsRest = __rest(_c, ["color", "radius"]);
+    }, controlButtonProps, width = "100%", height = "fit-content", gap = 10, style, children } = _c, rest = __rest(_c, ["allowDrag", "showScrollbar", "snapToChildren", "changeActiveOnScroll", "contentProps", "activeChild", "setActiveChild", "showControls", "controlIcons", "controlButtonProps", "width", "height", "gap", "style", "children"]);
+    const _d = controlButtonProps !== null && controlButtonProps !== void 0 ? controlButtonProps : {}, { color: buttonColor = "black", radius: buttonRadius = "xl" } = _d, buttonPropsRest = __rest(_d, ["color", "radius"]);
     const theme = useContext(ValenceContext);
     const contentRef = useRef(null);
     const parentRef = ref !== null && ref !== void 0 ? ref : useRef(null);
@@ -48,9 +47,9 @@ const Carousel = forwardRef(function Card(props, ref) {
         e.stopPropagation();
         if (!isDragging)
             return;
-        if (getReactiveProp(snapToChildren, breakpoint))
+        if (snapToChildren)
             scrollToChild(nearestChild);
-        if (getReactiveProp(changeActiveOnScroll, breakpoint))
+        if (changeActiveOnScroll)
             setActiveChild(nearestChild);
         setTimeout(() => {
             setIsDragging(false);
@@ -125,7 +124,7 @@ const Carousel = forwardRef(function Card(props, ref) {
             }
             setNearestChild(nearestChild);
             if (!isAutoScrolling
-                && getReactiveProp(changeActiveOnScroll, breakpoint))
+                && changeActiveOnScroll)
                 setActiveChild(nearestChild);
         }
     }
@@ -150,27 +149,27 @@ const Carousel = forwardRef(function Card(props, ref) {
     }
     // Styles
     const buttonWidth = (_b = theme.sizeClasses.height[(_a = buttonPropsRest.size) !== null && _a !== void 0 ? _a : theme.defaults.size]) !== null && _b !== void 0 ? _b : 35;
-    const gapWidth = getReactiveProp(gap, breakpoint);
+    const gapWidth = gap;
     const ContainerStyle = {
-        marginLeft: getReactiveProp(showControls, breakpoint) ?
+        marginLeft: showControls ?
             `calc(${-buttonWidth}px - ${gapWidth}px)`
             : undefined,
-        marginRight: getReactiveProp(showControls, breakpoint) ?
+        marginRight: showControls ?
             `calc(${-buttonWidth}px - ${gapWidth}px)`
             : undefined,
-        width: getReactiveProp(showControls, breakpoint) ?
+        width: showControls ?
             // @ts-ignore
-            `calc(${getReactiveProp(width, breakpoint)} + ${(2 * (buttonWidth + gapWidth))}px)`
-            : getReactiveProp(width, breakpoint),
+            `calc(${width} + ${(2 * (buttonWidth + gapWidth))}px)`
+            : width,
         boxSizing: "border-box",
     };
-    const ParentStyle = css(Object.assign({ overflowX: "scroll", paddingBottom: getReactiveProp(showScrollbar, breakpoint) ? getReactiveProp(gap, breakpoint) : undefined, cursor: getReactiveProp(allowDrag, breakpoint) ?
+    const ParentStyle = css(Object.assign({ overflowX: "scroll", paddingBottom: showScrollbar ? gap : undefined, cursor: allowDrag ?
             isMouseDown ? "grabbing" : "grab"
             : "unset", boxSizing: "border-box", 
         // Scrollbar
         "::-webkit-scrollbar": {
             height: 5,
-            display: getReactiveProp(showScrollbar, breakpoint) ? undefined : "none",
+            display: showScrollbar ? undefined : "none",
         }, "::-webkit-scrollbar-thumb": {
             backgroundColor: theme.getColorHex("black", "weak"),
             borderRadius: 5,
@@ -181,8 +180,8 @@ const Carousel = forwardRef(function Card(props, ref) {
         "& > *": {
             draggable: false,
             userSelect: "none",
-        } }, getReactiveProp(style, breakpoint)));
-    return (_jsx(_Fragment, { children: _jsxs(Flex, { height: height, align: "center", style: ContainerStyle, children: [getReactiveProp(showControls, breakpoint) &&
+        } }, style));
+    return (_jsx(_Fragment, { children: _jsxs(Flex, { height: height, align: "center", style: ContainerStyle, children: [showControls &&
                     _jsx(IconButton, Object.assign({ color: buttonColor, radius: buttonRadius, onClick: prevChild, disabled: activeChild === 0 }, buttonPropsRest, { children: controlIcons.prev })), _jsx(Flex, Object.assign({ ref: parentRef, width: width, height: height, 
                     //@ts-ignore
                     style: ParentStyle }, rest, { children: _jsx(Flex, Object.assign({ width: "fit-content", height: "100%", gap: gap, 
@@ -196,7 +195,7 @@ const Carousel = forwardRef(function Card(props, ref) {
                                 !isDragging && setActiveChild(i);
                                 !isDragging && scrollToChild(i);
                             },
-                        })) })) })), getReactiveProp(showControls, breakpoint) &&
+                        })) })) })), showControls &&
                     _jsx(IconButton, Object.assign({ color: buttonColor, radius: buttonRadius, onClick: nextChild, disabled: activeChild === children.length - 1 }, buttonPropsRest, { children: controlIcons.next }))] }) }));
 });
 const CarouselNamespace = Object.assign(Carousel, {});

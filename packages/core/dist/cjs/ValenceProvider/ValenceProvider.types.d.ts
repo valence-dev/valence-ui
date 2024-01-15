@@ -74,10 +74,6 @@ export type IValenceContext = {
         tabletWidth: number;
         desktopLargeWidth: number;
         tvWidth: number;
-        /** @depreciated */
-        desktopThinWidth: number;
-        /** @depreciated */
-        mobileTallHeight: number;
     };
 };
 export declare const ValenceContextDefaults: IValenceContext;

@@ -14,9 +14,8 @@ import { forwardRef } from "react";
 import { Flex, StyledFlex } from "../../layout";
 import { PrimitiveButton } from "../../buttons";
 import { Loader, Text } from "../../display";
-import { useBreakpoint } from "../../../hooks";
-import { getReactiveProp } from "@valence-ui/utils";
 import { useValence } from "../../../ValenceProvider";
+import { useResponsiveProps } from "../../../responsive";
 function getOptionValue(option) {
     return typeof option === "string" ? option : option.value;
 }
@@ -26,14 +25,13 @@ function getOptionLabel(option) {
 }
 export const SegmentedControl = forwardRef(function SegmentedControl(props, ref) {
     // Hooks
-    const breakpoint = useBreakpoint();
     const theme = useValence();
-    const { value, setValue, options, onSelect, equalWidth = true, buttonProps, variant, size = theme.defaults.size, radius = theme.defaults.radius, color = "black", backgroundColor = color, margin, padding = 5, gap = padding, disabled, readOnly, required, autoFocus, loading, style } = props, rest = __rest(props, ["value", "setValue", "options", "onSelect", "equalWidth", "buttonProps", "variant", "size", "radius", "color", "backgroundColor", "margin", "padding", "gap", "disabled", "readOnly", "required", "autoFocus", "loading", "style"]);
+    const _a = useResponsiveProps(props), { value, setValue, options, onSelect, equalWidth = true, buttonProps, variant, size = theme.defaults.size, radius = theme.defaults.radius, color = "black", backgroundColor = color, margin, padding = 5, gap = padding, disabled, readOnly, required, autoFocus, loading, style } = _a, rest = __rest(_a, ["value", "setValue", "options", "onSelect", "equalWidth", "buttonProps", "variant", "size", "radius", "color", "backgroundColor", "margin", "padding", "gap", "disabled", "readOnly", "required", "autoFocus", "loading", "style"]);
     const { color: buttonColor = variant === "filled" ?
-        "white" : getReactiveProp(color, breakpoint), backgroundColor: buttonBackgroundColor = variant === "filled" ?
-        "white" : getReactiveProp(backgroundColor, breakpoint), size: buttonSize = size, radius: buttonRadius = radius, } = buttonProps !== null && buttonProps !== void 0 ? buttonProps : {};
+        "white" : color, backgroundColor: buttonBackgroundColor = variant === "filled" ?
+        "white" : backgroundColor, size: buttonSize = size, radius: buttonRadius = radius, } = buttonProps !== null && buttonProps !== void 0 ? buttonProps : {};
     // Styles
-    const containerStyle = Object.assign({ borderRadius: theme.getSize("radius", getReactiveProp(radius, breakpoint)) + getReactiveProp(padding, breakpoint) }, style);
+    const containerStyle = Object.assign({ borderRadius: theme.getSize("radius", radius) + padding }, style);
     // Functions
     function handleSetOptionValue(option) {
         if (disabled || readOnly || loading)

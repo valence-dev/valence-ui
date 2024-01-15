@@ -18,6 +18,6 @@ const Text_1 = require("./Text");
 const __1 = require("../../..");
 exports.Title = (0, react_1.forwardRef)(function Title(props, ref) {
     const theme = (0, __1.useValence)();
-    const { order = 1, component = `h${order !== null && order !== void 0 ? order : 1}`, family = theme.getFont("heading") } = props, rest = __rest(props, ["order", "component", "family"]);
+    const _a = (0, __1.useResponsiveProps)(props), { order = 1, component = `h${order !== null && order !== void 0 ? order : 1}`, family = theme.getFont("heading") } = _a, rest = __rest(_a, ["order", "component", "family"]);
     return ((0, jsx_runtime_1.jsx)(Text_1.Text, Object.assign({ component: component, family: family, ref: ref }, theme.titles[order], rest, { children: props.children })));
 });

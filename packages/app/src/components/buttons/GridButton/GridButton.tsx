@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { Icon, PrimitiveButton, Text, TextButtonProps, ValenceContext, getTextColor } from "@valence-ui/core";
+import { Icon, MakeResponsive, PrimitiveButton, Text, TextButtonProps, ValenceContext, getTextColor, useResponsiveProps } from "@valence-ui/core";
 import { ReactNode, forwardRef, useContext } from "react";
 
 export type GridButtonProps = TextButtonProps & {
@@ -11,7 +11,7 @@ export type GridButtonProps = TextButtonProps & {
 }
 
 export const GridButton = forwardRef(function GridButton(
-  props: GridButtonProps,
+  props: MakeResponsive<GridButtonProps>,
   ref: any
 ) {
   const theme = useContext(ValenceContext);
@@ -32,7 +32,7 @@ export const GridButton = forwardRef(function GridButton(
     style,
     textProps,
     ...rest
-  } = props;
+  } = useResponsiveProps<GridButtonProps>(props);
 
 
   // Styles

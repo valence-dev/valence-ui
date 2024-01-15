@@ -26,7 +26,7 @@ const SIZES = {
 exports.Loader = (0, react_1.forwardRef)(function Loader(props, ref) {
     const theme = (0, __1.useValence)();
     // Defaults
-    const { size = theme.defaults.size, color = theme.primaryColor, style } = props, rest = __rest(props, ["size", "color", "style"]);
+    const _a = (0, __1.useResponsiveProps)(props), { size = theme.defaults.size, color = theme.primaryColor, style } = _a, rest = __rest(_a, ["size", "color", "style"]);
     // Styles
     const loaderStyle = Object.assign({ width: SIZES[size].height, height: SIZES[size].height, border: `${SIZES[size].thickness}px solid #11181C00`, borderBottomColor: theme.getColorHex(color), borderRadius: "50%", display: "inline-block", boxSizing: "border-box" }, style);
     return ((0, jsx_runtime_1.jsx)(framer_motion_1.motion.div, Object.assign({ style: loaderStyle, animate: { rotate: 360 }, transition: { repeat: Infinity, type: "tween", duration: 0.8, ease: "linear" }, ref: ref }, rest)));

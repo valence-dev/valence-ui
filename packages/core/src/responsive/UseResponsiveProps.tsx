@@ -1,7 +1,5 @@
-import { ResponsiveProps, getResponsiveProps } from "./ResponsiveProps";
-import { useResponsiveBreakpoint } from "./UseResponsiveBreakpoint";
-
-export type UseResponsivePropsReturn<T> = T;
+import { MakeResponsive, Responsive, getResponsiveProp, getResponsiveProps } from "./ResponsiveProps";
+import { useBreakpoint } from "./UseBreakpoint";
 
 
 /** A hook that returns the current responsive props based on the current breakpoint. 
@@ -10,10 +8,20 @@ export type UseResponsivePropsReturn<T> = T;
  * breakpoint.
 */
 export function useResponsiveProps<T>(
-  props: ResponsiveProps<T>
-): UseResponsivePropsReturn<T> {
-  const breakpoint = useResponsiveBreakpoint();
+  props: MakeResponsive<T>
+): T {
+  const breakpoint = useBreakpoint();
   const calculatedProps = getResponsiveProps(props, breakpoint);
 
-  return  calculatedProps;
+  return calculatedProps;
+}
+
+
+export function useResponsiveProp<T>(
+  prop: Responsive<T>,
+): T {
+  const breakpoint = useBreakpoint();
+  const calculatedProp = getResponsiveProp(prop, breakpoint);
+
+  return calculatedProp;
 }

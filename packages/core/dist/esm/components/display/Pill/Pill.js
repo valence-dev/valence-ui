@@ -16,6 +16,7 @@ import { useValence } from "../../../ValenceProvider";
 import { IconX } from "@tabler/icons-react";
 import { Text } from "../Text";
 import { Icon } from "../Icon";
+import { useResponsiveProps } from "../../../responsive";
 const SIZES = {
     xs: { paddingHorizontal: 8, paddingVertical: 2 },
     sm: { paddingHorizontal: 10, paddingVertical: 3 },
@@ -26,7 +27,7 @@ const SIZES = {
 export const Pill = forwardRef(function Pill(props, ref) {
     const theme = useValence();
     // Defaults
-    const { size = theme.defaults.size, radius = "xl", variant = theme.defaults.variant, withRemoveButton = false, removeButtonIcon = _jsx(Icon, { children: _jsx(IconX, {}) }), removeButtonProps, onRemove, textProps, color = "black", backgroundColor = color, padding = SIZES[size].paddingVertical + "px " + SIZES[size].paddingHorizontal + "px", margin, width = "fit-content", height, style, children } = props, rest = __rest(props, ["size", "radius", "variant", "withRemoveButton", "removeButtonIcon", "removeButtonProps", "onRemove", "textProps", "color", "backgroundColor", "padding", "margin", "width", "height", "style", "children"]);
+    const _a = useResponsiveProps(props), { size = theme.defaults.size, radius = "xl", variant = theme.defaults.variant, withRemoveButton = false, removeButtonIcon = _jsx(Icon, { children: _jsx(IconX, {}) }), removeButtonProps, onRemove, textProps, color = "black", backgroundColor = color, padding = SIZES[size].paddingVertical + "px " + SIZES[size].paddingHorizontal + "px", margin, width = "fit-content", height, onClick, style, children } = _a, rest = __rest(_a, ["size", "radius", "variant", "withRemoveButton", "removeButtonIcon", "removeButtonProps", "onRemove", "textProps", "color", "backgroundColor", "padding", "margin", "width", "height", "onClick", "style", "children"]);
     // Styles
     const PillStyle = Object.assign({ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "stretch", backgroundColor: getBackgroundColor(backgroundColor, variant, false, theme), color: getTextColor(color, variant, theme), borderRadius: theme.sizeClasses.radius[radius], outline: variant === "subtle" ?
             `1px solid ${theme.getColorHex(backgroundColor, "medium")}`
@@ -34,12 +35,11 @@ export const Pill = forwardRef(function Pill(props, ref) {
             SIZES[size].paddingHorizontal, gap: SIZES[size].paddingVertical, margin: margin, width: width, height: height, cursor: withRemoveButton ? "pointer" : undefined }, style);
     // Events
     const handleClick = (e) => {
-        var _a;
         e.stopPropagation();
         if (!withRemoveButton)
             return;
         onRemove === null || onRemove === void 0 ? void 0 : onRemove();
-        (_a = props.onClick) === null || _a === void 0 ? void 0 : _a.call(props, e);
+        onClick === null || onClick === void 0 ? void 0 : onClick(e);
     };
     return (_jsxs("div", Object.assign({ onClick: handleClick, style: PillStyle, ref: ref }, rest, { children: [_jsx(Text, { size: size, color: getTextColor(color, variant, theme), children: children }), withRemoveButton && (_jsx(IconButton, Object.assign({ size: size, radius: radius, color: getTextColor(color, variant, theme), variant: "subtle", onClick: handleClick, height: 16 }, removeButtonProps, { children: removeButtonIcon })))] })));
 });

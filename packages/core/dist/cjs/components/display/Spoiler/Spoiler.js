@@ -15,10 +15,11 @@ exports.Spoiler = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const framer_motion_1 = require("framer-motion");
 const react_1 = require("react");
+const responsive_1 = require("../../../responsive");
 /** A simple wrapper component used to show or hide content at will. */
 exports.Spoiler = (0, react_1.forwardRef)(function Spoiler(props, ref) {
     // Defaults
-    const { show = true, style, children } = props, rest = __rest(props, ["show", "style", "children"]);
+    const _a = (0, responsive_1.useResponsiveProps)(props), { show = true, style, children } = _a, rest = __rest(_a, ["show", "style", "children"]);
     // Styles
     const SpoilerStyle = Object.assign({ overflow: "hidden" }, style);
     return ((0, jsx_runtime_1.jsx)(framer_motion_1.AnimatePresence, { children: show &&
