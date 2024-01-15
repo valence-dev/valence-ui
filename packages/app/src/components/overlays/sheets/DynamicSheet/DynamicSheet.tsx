@@ -1,7 +1,7 @@
 import { ReactNode, forwardRef } from "react";
 import { SideSheet, SideSheetProps, SideSheetType } from "../SideSheet";
 import { BottomSheet, BottomSheetProps } from "../BottomSheet";
-import { Disclosure, MakeResponsive, useResponsiveProps } from "@valence-ui/core";
+import { Disclosure, MakeResponsive, useResponsiveProp, useResponsiveProps } from "@valence-ui/core";
 
 export type DynamicSheetType = SideSheetType | "bottom";
 
@@ -23,7 +23,7 @@ export const DynamicSheet = forwardRef(function DynamicSheet(
 ) {
   // Defaults
   const {
-    type = { default: "standard", desktopThin: "overlay", mobile: "bottom" },
+    type = useResponsiveProp({ default: "standard", tablet: "overlay", mobile: "bottom" }),
     disclosure,
     title,
 
@@ -39,6 +39,8 @@ export const DynamicSheet = forwardRef(function DynamicSheet(
         <BottomSheet
           disclosure={disclosure}
           title={title}
+
+          ref={ref}
           {...bottomSheetProps}
         >
           {children}
@@ -48,6 +50,8 @@ export const DynamicSheet = forwardRef(function DynamicSheet(
           type={type as SideSheetType}
           disclosure={disclosure}
           title={title}
+
+          ref={ref}
           {...sideSheetProps}
         >
           {children}

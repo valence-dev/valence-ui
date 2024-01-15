@@ -8,6 +8,6 @@ const BottomSheet_1 = require("../BottomSheet");
 const core_1 = require("@valence-ui/core");
 exports.DynamicSheet = (0, react_1.forwardRef)(function DynamicSheet(props, ref) {
     // Defaults
-    const { type = { default: "standard", desktopThin: "overlay", mobile: "bottom" }, disclosure, title, sideSheetProps, bottomSheetProps, children } = (0, core_1.useResponsiveProps)(props);
-    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: type === "bottom" ? ((0, jsx_runtime_1.jsx)(BottomSheet_1.BottomSheet, Object.assign({ disclosure: disclosure, title: title }, bottomSheetProps, { children: children }))) : ((0, jsx_runtime_1.jsx)(SideSheet_1.SideSheet, Object.assign({ type: type, disclosure: disclosure, title: title }, sideSheetProps, { children: children }))) }));
+    const { type = (0, core_1.useResponsiveProp)({ default: "standard", tablet: "overlay", mobile: "bottom" }), disclosure, title, sideSheetProps, bottomSheetProps, children } = (0, core_1.useResponsiveProps)(props);
+    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: type === "bottom" ? ((0, jsx_runtime_1.jsx)(BottomSheet_1.BottomSheet, Object.assign({ disclosure: disclosure, title: title, ref: ref }, bottomSheetProps, { children: children }))) : ((0, jsx_runtime_1.jsx)(SideSheet_1.SideSheet, Object.assign({ type: type, disclosure: disclosure, title: title, ref: ref }, sideSheetProps, { children: children }))) }));
 });
