@@ -81,11 +81,14 @@ export type IValenceContext = {
 
   /** Breakpoints to use for determining breakpoint-sensitive props */
   breakpoints: { 
-    /** The maxmimum width of a thin desktop device (px) */
-    desktopThinWidth: number;
-    /** The maxmimum width of a mobile device (px) */
     mobileWidth: number;
-    /** The minimum of a tall mobile device (px) */
+    tabletWidth: number;
+    desktopLargeWidth: number;
+    tvWidth: number;
+
+    /** @depreciated */
+    desktopThinWidth: number;
+    /** @depreciated */
     mobileTallHeight: number;
   }
 }
@@ -132,8 +135,12 @@ export const ValenceContextDefaults: IValenceContext = {
 
 
   breakpoints: {
-    desktopThinWidth: 1200,
-    mobileWidth: 800,
-    mobileTallHeight: 750,
+    mobileWidth: 480,
+    tabletWidth: 768,
+    desktopLargeWidth: 1024,
+    tvWidth: 1440,
+
+    desktopThinWidth: 1280,
+    mobileTallHeight: 800,
   }
 }

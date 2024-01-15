@@ -57,8 +57,14 @@ export type ValenceProviderProps = {
 
 
   breakpoints?: {
-    desktopThinWidth: number;
     mobileWidth: number;
+    tabletWidth: number;
+    desktopLargeWidth: number;
+    tvWidth: number;
+
+    /** @depreciated */
+    desktopThinWidth: number;
+    /** @depreciated */
     mobileTallHeight: number;
   };
 }

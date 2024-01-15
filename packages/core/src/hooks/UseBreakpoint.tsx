@@ -3,6 +3,8 @@ import { useValence } from "..";
 import { Breakpoint } from "@valence-ui/utils";
 
 
+/** @deprecated Use `useResponsiveBreakpoint` instead!
+ */
 export function useBreakpoint(): Breakpoint {
   const theme = useValence();
   const { width, height } = useWindowSize();
