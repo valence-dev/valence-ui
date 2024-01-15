@@ -1,5 +1,7 @@
 import { useWindowSize } from "usehooks-ts";
 import { useValence } from "..";
+/** @deprecated Use `useResponsiveBreakpoint` instead!
+ */
 export function useBreakpoint() {
     const theme = useValence();
     const { width, height } = useWindowSize();

@@ -3,6 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.useBreakpoint = void 0;
 const usehooks_ts_1 = require("usehooks-ts");
 const __1 = require("..");
+/** @deprecated Use `useResponsiveBreakpoint` instead!
+ */
 function useBreakpoint() {
     const theme = (0, __1.useValence)();
     const { width, height } = (0, usehooks_ts_1.useWindowSize)();

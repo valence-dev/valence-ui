@@ -70,11 +70,13 @@ export type IValenceContext = {
     };
     /** Breakpoints to use for determining breakpoint-sensitive props */
     breakpoints: {
-        /** The maxmimum width of a thin desktop device (px) */
-        desktopThinWidth: number;
-        /** The maxmimum width of a mobile device (px) */
         mobileWidth: number;
-        /** The minimum of a tall mobile device (px) */
+        tabletWidth: number;
+        desktopLargeWidth: number;
+        tvWidth: number;
+        /** @depreciated */
+        desktopThinWidth: number;
+        /** @depreciated */
         mobileTallHeight: number;
     };
 };
