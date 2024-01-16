@@ -2,7 +2,7 @@
 import { ReactNode } from "react";
 import { PrimitiveButtonProps } from "../PrimitiveButton";
 import { TextProps } from "../../display";
-import { MakeResponsive } from "../../../responsive";
+import { MakeResponsive } from "../../../utilities/responsive";
 export type MultipartButtonProps = PrimitiveButtonProps & {
     /** Title/main text content of this button  */
     title: string;

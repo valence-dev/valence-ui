@@ -18,7 +18,7 @@ import { StyledFlex } from "../../layout";
 import { css } from "@emotion/react";
 import { useValence } from "../../../ValenceProvider";
 import { Text } from "../../display";
-import { useResponsiveProps } from "../../../responsive";
+import { useResponsiveProps } from "../../../utilities/responsive";
 const TooltipContext = createContext(null);
 const useTooltipContext = () => {
     const context = useContext(TooltipContext);

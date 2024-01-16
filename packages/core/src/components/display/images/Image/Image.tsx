@@ -3,7 +3,10 @@ import { CSSProperties, ReactNode, forwardRef } from "react";
 import { ComponentSize, GenericProps } from "@valence-ui/utils";
 import { useValence } from "../../../../ValenceProvider";
 import { css } from "@emotion/react";
-import { MakeResponsive, useResponsiveProps } from "../../../../responsive";
+import { MakeResponsive, useResponsiveProps } from "../../../../utilities/responsive";
+import { Flex } from "../../../layout";
+import { Icon } from "../../Icon";
+import { IconPhoto } from "@tabler/icons-react";
 
 export type GenericImageProps = {
   /** Source URI of this image */
@@ -48,7 +51,16 @@ export const Image = forwardRef(function Image(
   const {
     src,
     alt,
-    placeholder,
+    placeholder = (
+      <Flex
+        align="center"
+        justify="center"
+        height="100%"
+        width="100%"
+      >
+        <Icon><IconPhoto /></Icon>
+      </Flex>
+    ),
 
     radius = theme.defaults.radius,
     fit = "cover",

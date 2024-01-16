@@ -14,7 +14,7 @@ import { Flex } from "../Flex";
 import { forwardRef } from "react";
 import { Grid } from "../Grid";
 import { useValence } from "../../../ValenceProvider";
-import { useResponsiveProps } from "../../../responsive";
+import { useResponsiveProps } from "../../../utilities/responsive";
 const Column = forwardRef(function Column(props, ref) {
     const theme = useValence();
     // Defaults

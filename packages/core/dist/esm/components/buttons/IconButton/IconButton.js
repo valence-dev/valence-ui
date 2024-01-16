@@ -11,7 +11,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useValence } from "../../../ValenceProvider";
-import { useResponsiveProps } from "../../../responsive";
+import { useResponsiveProps } from "../../../utilities/responsive";
 import { Icon } from "../../display";
 import { Tooltip } from "../../overlays";
 import { PrimitiveButton } from "../PrimitiveButton";

@@ -45,6 +45,7 @@ const AppContext_1 = require("../../../contexts/AppContext");
  */
 exports.AppContainer = (0, react_1.forwardRef)(function AppContainer(props, ref) {
     const theme = (0, react_1.useContext)(core_1.ValenceContext);
+    const { getHex } = (0, core_1.useColors)();
     // Defaults
     const _a = (0, core_1.useResponsiveProps)(props), { nav, header, sidebar, pageProps, contentWidth = 700, showNav = true, children, style } = _a, rest = __rest(_a, ["nav", "header", "sidebar", "pageProps", "contentWidth", "showNav", "children", "style"]);
     const radius = theme.sizeClasses.radius[theme.defaults.radius] + 5;
@@ -70,23 +71,23 @@ exports.AppContainer = (0, react_1.forwardRef)(function AppContainer(props, ref)
         default: {
             width: radius,
             borderRadius: `${radius}px 0px 0px ${radius}px`,
-            backgroundColor: theme.getColorHex("white"),
+            backgroundColor: getHex("white"),
         },
         mobile: {
             height: radius,
             borderRadius: `0px 0px ${radius}px ${radius}px`,
-            backgroundColor: theme.getColorHex("white"),
+            backgroundColor: getHex("white"),
         }
     };
     const contentContainerStyle = {
         default: {
-            backgroundColor: theme.getColorHex("white"),
+            backgroundColor: getHex("white"),
             paddingLeft: leftWidth + 10,
             paddingRight: 0,
             width: "100vw",
             transition: "padding-right 0.3s ease-in-out",
         }, mobile: {
-            backgroundColor: theme.getColorHex("white"),
+            backgroundColor: getHex("white"),
             padding: 20,
         }
     };

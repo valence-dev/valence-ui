@@ -1,6 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { createContext, useContext } from "react";
-import { getUnidentifiedHexColor, getReactiveColor } from "../Color";
 import { ValenceContextDefaults as VCD } from "./ValenceProvider.types";
 import { useColorScheme } from "../hooks";
 import { CssOverride } from "./CssOverride";
@@ -16,26 +15,7 @@ export function ValenceProvider(props) {
     const { isDarkMode } = useColorScheme();
     // Fallback properties
     const { colors = props.colors ? VCD.colors.concat(props.colors) : VCD.colors, primaryColor = VCD.primaryColor, defaults = VCD.defaults, fontFamily = VCD.fontFamily, sizeClasses = VCD.sizeClasses, titles = VCD.titles, breakpoints = VCD.breakpoints, } = props;
-    // Functions
-    function getColor(key) {
-        if (key === undefined)
-            return undefined;
-        if (key === "primary")
-            return getReactiveColor(colors.find(i => i.key === primaryColor));
-        const colIndex = colors.findIndex(i => i.key === key);
-        if (colIndex === -1)
-            return key !== "#" ?
-                getUnidentifiedHexColor(key)
-                : getReactiveColor(colors.find(i => i.key === primaryColor), isDarkMode);
-        else
-            return getReactiveColor(colors.find(i => i.key === key), isDarkMode);
-    }
-    function getColorHex(key, opacity) {
-        const color = getColor(key);
-        if (color === undefined)
-            return undefined;
-        return `${color.base}` + (opacity ? `${color.opacity[opacity]}` : "");
-    }
+    // Methods
     function getFont(context) {
         var _a, _b;
         switch (context) {
@@ -50,8 +30,6 @@ export function ValenceProvider(props) {
     }
     return (_jsxs(ValenceContext.Provider, { value: {
             colors,
-            getColor,
-            getColorHex,
             primaryColor,
             defaults,
             fontFamily,

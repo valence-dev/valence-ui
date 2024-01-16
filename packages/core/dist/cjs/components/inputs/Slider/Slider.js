@@ -22,10 +22,10 @@ const react_slider_1 = __importDefault(require("react-slider"));
 const react_2 = require("@emotion/react");
 const ValenceProvider_1 = require("../../../ValenceProvider");
 const layout_1 = require("../../layout");
-const buttons_1 = require("../../buttons");
 const display_1 = require("../../display");
 const NumberInput_1 = require("../NumberInput");
-const responsive_1 = require("../../../responsive");
+const responsive_1 = require("../../../utilities/responsive");
+const color_1 = require("../../../utilities/color");
 const Slider = (0, react_1.forwardRef)(function Slider(props, ref) {
     const theme = (0, ValenceProvider_1.useValence)();
     const _a = (0, responsive_1.useResponsiveProps)(props), { value, setValue, min = 0, max = 100, step = 1, showValue = false, invert = false, color = "black", size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, height = theme.getSize("height", size), width = "100%", includeManualInput = true, manualInputPosition = "right", trackProps, thumbProps, onAfterChange, onBeforeChange, onChange, onSliderClick, style } = _a, rest = __rest(_a, ["value", "setValue", "min", "max", "step", "showValue", "invert", "color", "size", "radius", "variant", "height", "width", "includeManualInput", "manualInputPosition", "trackProps", "thumbProps", "onAfterChange", "onBeforeChange", "onChange", "onSliderClick", "style"]);
@@ -46,9 +46,10 @@ const SliderTrack = (0, react_1.forwardRef)(function SliderTrack(
 props, ref) {
     // Hooks 
     const theme = (0, ValenceProvider_1.useValence)();
+    const { getBgHex } = (0, color_1.useColors)();
     const { state, highlight, radius = "xl", size = theme.defaults.size, width, height = 2, padding = 0, color = "black", variant = highlight ? "filled" : "light", style } = props, rest = __rest(props, ["state", "highlight", "radius", "size", "width", "height", "padding", "color", "variant", "style"]);
     // Styles
-    const TrackStyle = Object.assign({ backgroundColor: (0, buttons_1.getBackgroundColor)(highlight ? color : "black", variant, false, theme), borderRadius: theme.getSize("radius", radius) }, style);
+    const TrackStyle = Object.assign({ backgroundColor: getBgHex(highlight ? color : "black", variant, false), borderRadius: theme.getSize("radius", radius) }, style);
     return ((0, jsx_runtime_1.jsx)(layout_1.Flex, Object.assign({ width: width, height: height, padding: padding, style: TrackStyle, ref: ref }, rest)));
 });
 const SliderThumb = (0, react_1.forwardRef)(function SliderThumb(

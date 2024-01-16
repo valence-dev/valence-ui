@@ -15,7 +15,7 @@ exports.Spoiler = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const framer_motion_1 = require("framer-motion");
 const react_1 = require("react");
-const responsive_1 = require("../../../responsive");
+const responsive_1 = require("../../../utilities/responsive");
 /** A simple wrapper component used to show or hide content at will. */
 exports.Spoiler = (0, react_1.forwardRef)(function Spoiler(props, ref) {
     // Defaults

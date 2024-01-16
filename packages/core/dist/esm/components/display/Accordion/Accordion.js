@@ -17,7 +17,7 @@ import { Title } from "../Text";
 import { UnstyledButton } from "../../buttons";
 import { Spoiler } from "../Spoiler";
 import { Icon } from "../Icon";
-import { useResponsiveProps } from "../../../responsive";
+import { useResponsiveProps } from "../../../utilities/responsive";
 const AccordionContext = createContext(null);
 const useAccordionContext = () => {
     const context = useContext(AccordionContext);

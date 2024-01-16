@@ -1,6 +1,6 @@
 import { CSSProperties, ReactNode, forwardRef, useContext, useEffect } from "react";
 import { GenericSheetProps } from "../Generics";
-import { DefaultModalHeader, Disclosure, Flex, MakeResponsive, ModalBackground, ValenceContext, useBreakpoint, useDetectKeyDown, useResponsiveProp, useResponsiveProps } from "@valence-ui/core";
+import { DefaultModalHeader, Disclosure, Flex, MakeResponsive, ModalBackground, ValenceContext, useBreakpoint, useColors, useDetectKeyDown, useResponsiveProp, useResponsiveProps } from "@valence-ui/core";
 import { GenericOverlayBackgroundProps, GenericOverlayHeaderProps } from "@valence-ui/utils";
 import { useLockedBody } from "usehooks-ts";
 import { AnimatePresence } from "framer-motion";
@@ -28,6 +28,7 @@ export const SideSheet = forwardRef(function SideSheet(
   ref: any
 ) {
   const theme = useContext(ValenceContext);
+  const { getHex } = useColors();
 
 
   // Defaults
@@ -48,8 +49,8 @@ export const SideSheet = forwardRef(function SideSheet(
     radius = "lg",
     withShadow = true,
 
-    backgroundColor = theme.getColorHex("white"),
-    color = theme.getColorHex("black"),
+    backgroundColor = getHex("white"),
+    color = getHex("black"),
 
     padding = theme.sizeClasses.padding[theme.defaults.size],
     margin = 0,
@@ -102,7 +103,7 @@ export const SideSheet = forwardRef(function SideSheet(
       theme.defaults.shadow : undefined,
 
     borderLeft: display === "overlay" ? undefined :
-      `1px solid ${theme.getColorHex("black", "weak")}`,
+      `1px solid ${getHex("black", "weak")}`,
 
     overflowX: "hidden",
     overflowY: "auto",

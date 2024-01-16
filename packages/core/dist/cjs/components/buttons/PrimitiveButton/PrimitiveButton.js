@@ -21,9 +21,11 @@ const Loader_1 = require("../../display/Loader");
 const utils_1 = require("@valence-ui/utils");
 const ValenceProvider_1 = require("../../../ValenceProvider");
 const react_2 = require("@emotion/react");
-const responsive_1 = require("../../../responsive");
+const responsive_1 = require("../../../utilities/responsive");
+const color_1 = require("../../../utilities/color");
 exports.PrimitiveButton = (0, react_1.forwardRef)(function PrimitiveButton(props, ref) {
     const theme = (0, ValenceProvider_1.useValence)();
+    const colors = (0, color_1.useColors)();
     // Hooks & states
     const reducedMotion = (0, framer_motion_1.useReducedMotion)();
     // Defaults
@@ -31,11 +33,13 @@ exports.PrimitiveButton = (0, react_1.forwardRef)(function PrimitiveButton(props
     const motionBehaviour = (0, Helpers_1.getMotionBehaviour)(motion, reducedMotion);
     const ButtonStyle = (0, react_2.css)(Object.assign({ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", flexGrow: grow ? 1 : 0, width: width, height: height, minHeight: height, padding: padding, margin: margin, aspectRatio: square ? 1 : undefined, borderRadius: theme.sizeClasses.radius[radius], opacity: disabled ? 0.5 : 1, cursor: disabled ? "not-allowed"
             : loading ? "wait"
-                : "pointer", boxShadow: shadow ? theme.defaults.shadow : "none", transition: `background-color ${theme.defaults.transitionDuration} linear 0s`, backgroundColor: (0, Helpers_1.getBackgroundColor)(backgroundColor, variant, false, theme), color: (0, Helpers_1.getTextColor)(color, variant, theme), outline: "none", border: "none", textDecoration: "none", "&:hover": {
-            backgroundColor: `${(0, Helpers_1.getBackgroundColor)(backgroundColor, variant, true, theme)}`,
+                : "pointer", boxShadow: shadow ? theme.defaults.shadow : "none", transition: `background-color ${theme.defaults.transitionDuration} linear 0s`, backgroundColor: colors.getBgHex(backgroundColor, variant, false), color: colors.getFgHex(color, variant), outline: "none", border: "none", textDecoration: "none", "&:hover": {
+            backgroundColor: `${colors.getBgHex(backgroundColor, variant, true)}`,
         }, "&:focus": {
-            outline: `1px solid ${(0, Helpers_1.getTextColor)(color, "light", theme)}`,
+            outline: `1px solid ${colors.getFgHex(color, variant)}`,
         } }, style));
-    return ((0, jsx_runtime_1.jsx)(utils_1.PolymorphicButton, Object.assign({ css: ButtonStyle, onMouseDown: (event) => event.preventDefault(), whileHover: motionBehaviour.whileHover, whileTap: motionBehaviour.whileTap, ref: ref }, rest, { children: loading ? (0, jsx_runtime_1.jsx)(Loader_1.Loader, { color: (0, Helpers_1.getTextColor)(color, variant, theme) }) :
-            children })));
+    return ((0, jsx_runtime_1.jsx)(utils_1.PolymorphicButton, Object.assign({ css: ButtonStyle, onMouseDown: (event) => event.preventDefault(), whileHover: motionBehaviour.whileHover, whileTap: motionBehaviour.whileTap, ref: ref }, rest, { children: loading ?
+            (0, jsx_runtime_1.jsx)(Loader_1.Loader, { color: colors.getFgHex(color, variant) })
+            :
+                children })));
 });

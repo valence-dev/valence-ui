@@ -43,13 +43,13 @@ const react_2 = __importStar(require("react"));
 const icons_react_1 = require("@tabler/icons-react");
 const Carousel = (0, react_2.forwardRef)(function Card(props, ref) {
     var _a, _b;
-    const breakpoint = (0, core_1.useBreakpoint)();
     const _c = (0, core_1.useResponsiveProps)(props), { allowDrag = { default: true, mobile: false }, showScrollbar = false, snapToChildren = true, changeActiveOnScroll = true, contentProps, activeChild: controlledActiveChild, setActiveChild: controlledSetActiveChild, showControls = { default: true, mobile: false }, controlIcons = {
         prev: (0, jsx_runtime_1.jsx)(core_1.Icon, { children: (0, jsx_runtime_1.jsx)(icons_react_1.IconArrowLeft, {}) }),
         next: (0, jsx_runtime_1.jsx)(core_1.Icon, { children: (0, jsx_runtime_1.jsx)(icons_react_1.IconArrowRight, {}) }),
     }, controlButtonProps, width = "100%", height = "fit-content", gap = 10, style, children } = _c, rest = __rest(_c, ["allowDrag", "showScrollbar", "snapToChildren", "changeActiveOnScroll", "contentProps", "activeChild", "setActiveChild", "showControls", "controlIcons", "controlButtonProps", "width", "height", "gap", "style", "children"]);
     const _d = controlButtonProps !== null && controlButtonProps !== void 0 ? controlButtonProps : {}, { color: buttonColor = "black", radius: buttonRadius = "xl" } = _d, buttonPropsRest = __rest(_d, ["color", "radius"]);
     const theme = (0, react_2.useContext)(core_1.ValenceContext);
+    const colors = (0, core_1.useColors)();
     const contentRef = (0, react_2.useRef)(null);
     const parentRef = ref !== null && ref !== void 0 ? ref : (0, react_2.useRef)(null);
     // Drag handling
@@ -197,10 +197,10 @@ const Carousel = (0, react_2.forwardRef)(function Card(props, ref) {
             height: 5,
             display: showScrollbar ? undefined : "none",
         }, "::-webkit-scrollbar-thumb": {
-            backgroundColor: theme.getColorHex("black", "weak"),
+            backgroundColor: colors.getHex("black", "weak"),
             borderRadius: 5,
         }, "::-webkit-scrollbar-thumb:hover": {
-            backgroundColor: theme.getColorHex("black", "medium"),
+            backgroundColor: colors.getHex("black", "medium"),
         }, 
         // Children
         "& > *": {

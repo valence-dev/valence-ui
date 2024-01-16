@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { Flex, FlexProps, Icon, IconButton, IconButtonProps, MakeResponsive, ValenceContext, useBreakpoint, useResponsiveProp, useResponsiveProps } from "@valence-ui/core";
+import { Flex, FlexProps, Icon, IconButton, IconButtonProps, MakeResponsive, ValenceContext, useBreakpoint, useColors, useResponsiveProps } from "@valence-ui/core";
 import React, { CSSProperties, ReactNode, forwardRef, useContext, useEffect, useRef, useState } from "react";
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 
@@ -42,8 +42,6 @@ const Carousel = forwardRef(function Card(
   props: MakeResponsive<CarouselProps>,
   ref: any
 ) {
-  const breakpoint = useBreakpoint();
-
   const {
     allowDrag = { default: true, mobile: false },
     showScrollbar = false,
@@ -77,6 +75,7 @@ const Carousel = forwardRef(function Card(
   } = controlButtonProps ?? {};
 
   const theme = useContext(ValenceContext);
+  const colors = useColors();
   const contentRef = useRef(null);
   const parentRef = ref ?? useRef(null);
 
@@ -246,11 +245,11 @@ const Carousel = forwardRef(function Card(
       display: showScrollbar ? undefined : "none",
     },
     "::-webkit-scrollbar-thumb": {
-      backgroundColor: theme.getColorHex("black", "weak"),
+      backgroundColor: colors.getHex("black", "weak"),
       borderRadius: 5,
     },
     "::-webkit-scrollbar-thumb:hover": {
-      backgroundColor: theme.getColorHex("black", "medium"),
+      backgroundColor: colors.getHex("black", "medium"),
     },
 
     // Children

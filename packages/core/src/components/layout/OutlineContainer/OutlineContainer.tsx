@@ -3,7 +3,8 @@ import { Text, TextProps } from "../../display";
 import { Flex, FlexProps } from "../Flex";
 import { useValence } from "../../../ValenceProvider";
 import { ComponentSize, GenericFloatingLayoutProps } from "@valence-ui/utils";
-import { MakeResponsive, useResponsiveProp, useResponsiveProps } from "../../../responsive";
+import { MakeResponsive, useResponsiveProp, useResponsiveProps } from "../../../utilities/responsive";
+import { useColors } from "../../../utilities/color";
 
 export type OutlineContainerProps =
   GenericFloatingLayoutProps
@@ -29,6 +30,7 @@ export const OutlineContainer = forwardRef(function OutlineContainer(
   ref: any,
 ) {
   const theme = useValence();
+  const { getHex } = useColors();
 
 
   // Defaults
@@ -68,9 +70,9 @@ export const OutlineContainer = forwardRef(function OutlineContainer(
     bottom: bottom,
   }
   const OutlineContainerStyle: CSSProperties = {
-    backgroundColor: theme.getColorHex("white", "strong"),
+    backgroundColor: getHex("white", "strong"),
     backdropFilter: "blur(5px)",
-    outlineColor: theme.getColorHex(color, "medium"),
+    outlineColor: getHex(color, "medium"),
     outlineWidth: 1,
     outlineStyle: "solid",
     padding: spacing,
@@ -79,7 +81,7 @@ export const OutlineContainer = forwardRef(function OutlineContainer(
     ...style
   }
   const LabelStyle: CSSProperties = {
-    backgroundColor: theme.getColorHex("white", "strong"),
+    backgroundColor: getHex("white", "strong"),
     backdropFilter: "blur(5px)",
     padding: `${spacing / 2}px ${spacing * 2}px`,
     borderRadius: 20,
@@ -114,7 +116,7 @@ export const OutlineContainer = forwardRef(function OutlineContainer(
         >
           <Text
             size="xs"
-            color={theme.getColorHex(color, "strong")}
+            color={getHex(color, "strong")}
             align="center"
             style={LabelStyle}
             {...labelRest}

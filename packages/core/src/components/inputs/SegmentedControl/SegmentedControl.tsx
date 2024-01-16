@@ -4,7 +4,7 @@ import { Flex, StyledFlex, StyledFlexProps } from "../../layout";
 import { PrimitiveButton, PrimitiveButtonProps } from "../../buttons";
 import { Loader, Text } from "../../display";
 import { useValence } from "../../../ValenceProvider";
-import { MakeResponsive, useResponsiveProps } from "../../../responsive";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
 
 export type SegmentedControlOption = {
   /** The value of this option */

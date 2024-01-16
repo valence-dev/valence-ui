@@ -2,7 +2,7 @@
 import React, { CSSProperties, ReactElement, ReactNode } from "react";
 import { TooltipOptions } from "../../../hooks";
 import { StyledFlexProps } from "../../layout";
-import { MakeResponsive } from "../../../responsive";
+import { MakeResponsive } from "../../../utilities/responsive";
 export type TooltipProps = TooltipOptions & {
     children: ReactNode;
 };

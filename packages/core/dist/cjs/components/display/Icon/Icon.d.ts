@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { MakeResponsive } from "../../../responsive";
+import { MakeResponsive } from "../../../utilities/responsive";
 export type IconProps = {
     /** Size of the icon. Defaults to theme default icon size. */
     size?: number;

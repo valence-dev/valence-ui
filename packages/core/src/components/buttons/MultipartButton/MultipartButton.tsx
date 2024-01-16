@@ -2,13 +2,13 @@
 import { CSSProperties, ReactNode, forwardRef } from "react";
 import { PrimitiveButton, PrimitiveButtonProps } from "../PrimitiveButton";
 import { IconChevronRight } from "@tabler/icons-react";
-import { getTextColor } from "../Helpers";
 import { Flex } from "../../layout";
 import { Icon, Text, TextProps } from "../../display";
 import { useValence } from "../../../ValenceProvider";
 import { SizeClasses } from "@valence-ui/utils";
 import { css } from "@emotion/react";
-import { MakeResponsive, useResponsiveProps } from "../../../responsive";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+import { useColors } from "../../../utilities/color";
 
 export type MultipartButtonProps =
   PrimitiveButtonProps
@@ -46,6 +46,7 @@ export const MultipartButton = forwardRef(function MultipartButton(
   ref: any,
 ) {
   const theme = useValence();
+  const colors = useColors();
 
   // Defaults
   const {
@@ -81,7 +82,7 @@ export const MultipartButton = forwardRef(function MultipartButton(
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    color: getTextColor(color, variant, theme),
+    color: colors.getFgHex(color, variant),
   });
 
 
@@ -100,7 +101,7 @@ export const MultipartButton = forwardRef(function MultipartButton(
       {leftIcon && <div css={ContainerStyle}>
         <Icon
           size={theme.getSize("iconSize", size) as number}
-          color={getTextColor(color, variant, theme)}
+          color={colors.getFgHex(color, variant)}
         >
           {leftIcon}
         </Icon>
@@ -115,7 +116,7 @@ export const MultipartButton = forwardRef(function MultipartButton(
       >
         <Text
           size={size}
-          color={getTextColor(color, variant, theme)}
+          color={colors.getFgHex(color, variant)}
           bold
           {...titleProps}
         >
@@ -123,7 +124,7 @@ export const MultipartButton = forwardRef(function MultipartButton(
         </Text>
         <Text
           fontSize={theme.sizeClasses.fontSize[size] as number - 2}
-          color={getTextColor(color, variant, theme)}
+          color={colors.getFgHex(color, variant)}
           {...subtitleProps}
         >
           {subtitle}
@@ -133,7 +134,7 @@ export const MultipartButton = forwardRef(function MultipartButton(
       <div css={ContainerStyle}>
         <Icon
           size={theme.getSize("iconSize", size) as number}
-          color={getTextColor(color, variant, theme)}
+          color={colors.getFgHex(color, variant)}
         >
           {rightIcon}
         </Icon>

@@ -5,11 +5,12 @@ import { GenericInputProps, GenericTextInputEventProps } from "../../../generics
 import { useValence } from "../../../ValenceProvider";
 import { IconSelector } from "@tabler/icons-react";
 import { INPUT_SIZES } from "../InputContainer";
-import { TextButtonProps, getTextColor } from "../../buttons";
+import { TextButtonProps } from "../../buttons";
 import { GenericLayoutProps } from "@valence-ui/utils";
 import { DefaultOptionsFilter, Option, OptionsFilter } from "../OptionContainer/OptionsFilter";
 import { OptionContainer } from "../OptionContainer";
-import { MakeResponsive, useResponsiveProps } from "../../../responsive";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+import { useColors } from "../../../utilities/color";
 
 
 export type SelectInputEventProps =
@@ -70,6 +71,7 @@ export const SelectInput = forwardRef(function SelectInput(
   ref: any,
 ) {
   const theme = useValence();
+  const { getFgHex } = useColors();
   const inputRef = ref ?? createRef<HTMLInputElement>();
 
 
@@ -148,8 +150,8 @@ export const SelectInput = forwardRef(function SelectInput(
   }
 
   // Detect a change in the value 
-  useEffect(() => { 
-    setSearchValue(value?.label ?? ""); 
+  useEffect(() => {
+    setSearchValue(value?.label ?? "");
   }, [value]);
 
 
@@ -168,10 +170,10 @@ export const SelectInput = forwardRef(function SelectInput(
 
     fontSize: theme.sizeClasses.fontSize[size],
     fontFamily: theme.getFont("default"),
-    color: getTextColor(color, variant, theme),
+    color: getFgHex(color, variant),
 
     "&::placeholder": {
-      color: `${getTextColor(color, variant, theme)}80`,
+      color: `${getFgHex(color, variant)}80`,
     },
 
     // Remove awful autofill color

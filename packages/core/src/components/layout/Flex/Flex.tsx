@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { CSSProperties, forwardRef } from "react";
-import { MakeResponsive, useResponsiveProps, useValence } from "../../..";
+import { MakeResponsive, useColors, useResponsiveProps, useValence } from "../../..";
 import { GenericLayoutProps, PolymorphicLayout, PolymorphicLayoutProps } from "@valence-ui/utils";
 import { css } from "@emotion/react";
 
@@ -33,6 +33,7 @@ export const Flex = forwardRef(function Flex(
   ref: any
 ) {
   const theme = useValence();
+  const { getHex } = useColors();
 
 
   // Defaults
@@ -74,8 +75,8 @@ export const Flex = forwardRef(function Flex(
     flexGrow: grow ? 1 : undefined,
     flexWrap: wrap,
 
-    backgroundColor: theme.getColorHex(backgroundColor),
-    color: theme.getColorHex(color),
+    backgroundColor: getHex(backgroundColor),
+    color: getHex(color),
     padding: padding,
     margin: margin,
     width: width,

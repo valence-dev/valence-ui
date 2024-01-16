@@ -1,15 +1,16 @@
 /** @jsxImportSource @emotion/react */
 import { forwardRef } from "react";
 import { useReducedMotion } from "framer-motion";
-import { MotionBehaviourProps, getBackgroundColor, getMotionBehaviour, getTextColor } from "../Helpers";
+import { MotionBehaviourProps, getMotionBehaviour } from "../Helpers";
 import { Loader } from "../../display/Loader";
 import { PolymorphicButton } from "@valence-ui/utils";
 import { useValence } from "../../../ValenceProvider";
 import { css } from "@emotion/react";
 import { GenericButtonProps } from "../../../generics";
-import { MakeResponsive, useResponsiveProps } from "../../../responsive";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+import { useColors } from "../../../utilities/color";
 
-export type PrimitiveButtonProps = 
+export type PrimitiveButtonProps =
   GenericButtonProps
   & {
     /** Defines motion behavior for this button. This will automatically be overridden if the user has reduced motion enabled on their device. */
@@ -22,6 +23,7 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
 ) {
 
   const theme = useValence();
+  const colors = useColors();
 
   // Hooks & states
   const reducedMotion = useReducedMotion();
@@ -81,18 +83,18 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
     boxShadow: shadow ? theme.defaults.shadow : "none",
 
     transition: `background-color ${theme.defaults.transitionDuration} linear 0s`,
-    backgroundColor: getBackgroundColor(backgroundColor, variant, false, theme),
-    color: getTextColor(color, variant, theme),
+    backgroundColor: colors.getBgHex(backgroundColor, variant, false),
+    color: colors.getFgHex(color, variant),
 
     outline: "none",
     border: "none",
     textDecoration: "none",
 
     "&:hover": {
-      backgroundColor: `${getBackgroundColor(backgroundColor, variant, true, theme)}`,
+      backgroundColor: `${colors.getBgHex(backgroundColor, variant, true)}`,
     },
     "&:focus": {
-      outline: `1px solid ${getTextColor(color, "light", theme)}`,
+      outline: `1px solid ${colors.getFgHex(color, variant)}`,
     },
 
     ...style
@@ -110,7 +112,11 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
       ref={ref}
       {...rest}
     >
-      {loading ? <Loader color={getTextColor(color, variant, theme)} /> :
+      {loading ?
+        <Loader
+          color={colors.getFgHex(color, variant)}
+        />
+        :
         children
       }
     </PolymorphicButton>

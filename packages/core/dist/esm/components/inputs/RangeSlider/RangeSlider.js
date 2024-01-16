@@ -18,7 +18,7 @@ import { Flex } from "../../layout";
 import ReactSlider from "react-slider";
 import { css } from "@emotion/react";
 import { NumberInput } from "../NumberInput";
-import { useResponsiveProps } from "../../../responsive";
+import { useResponsiveProps } from "../../../utilities/responsive";
 export const RangeSlider = forwardRef(function RangeSlider(props, ref) {
     const theme = useValence();
     const _a = useResponsiveProps(props), { value, setValue, min = 0, max = 100, step = 1, minDistance = 0, pearling = true, showValue = false, invert = false, color = "black", size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, height = theme.getSize("height", size), width = "100%", includeManualInput = true, manualInputPosition = "right", trackProps, thumbProps, onAfterChange, onBeforeChange, onChange, onSliderClick, style } = _a, rest = __rest(_a, ["value", "setValue", "min", "max", "step", "minDistance", "pearling", "showValue", "invert", "color", "size", "radius", "variant", "height", "width", "includeManualInput", "manualInputPosition", "trackProps", "thumbProps", "onAfterChange", "onBeforeChange", "onChange", "onSliderClick", "style"]);

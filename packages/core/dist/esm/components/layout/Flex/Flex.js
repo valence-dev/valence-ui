@@ -12,15 +12,16 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
 import { forwardRef } from "react";
-import { useResponsiveProps, useValence } from "../../..";
+import { useColors, useResponsiveProps, useValence } from "../../..";
 import { PolymorphicLayout } from "@valence-ui/utils";
 import { css } from "@emotion/react";
 /** A basic formattable flexbox component that accepts many common flexbox properties. This component is also reactive, thus it will accept both a single value and an object of values that will be applied at different breakpoints. */
 export const Flex = forwardRef(function Flex(props, ref) {
     const theme = useValence();
+    const { getHex } = useColors();
     // Defaults
     const _a = useResponsiveProps(props), { direction = "row", align = "flex-start", justify = "flex-start", alignSelf = "stretch", gap = theme.sizeClasses.padding[theme.defaults.size], grow = false, wrap = "nowrap", backgroundColor, color, padding, margin, width, height, style, children } = _a, rest = __rest(_a, ["direction", "align", "justify", "alignSelf", "gap", "grow", "wrap", "backgroundColor", "color", "padding", "margin", "width", "height", "style", "children"]);
     // Styles
-    const FlexStyle = css(Object.assign({ display: "flex", flexDirection: direction, alignItems: align, justifyContent: justify, boxSizing: "border-box", alignSelf: alignSelf, gap: gap, flexGrow: grow ? 1 : undefined, flexWrap: wrap, backgroundColor: theme.getColorHex(backgroundColor), color: theme.getColorHex(color), padding: padding, margin: margin, width: width, height: height }, style));
+    const FlexStyle = css(Object.assign({ display: "flex", flexDirection: direction, alignItems: align, justifyContent: justify, boxSizing: "border-box", alignSelf: alignSelf, gap: gap, flexGrow: grow ? 1 : undefined, flexWrap: wrap, backgroundColor: getHex(backgroundColor), color: getHex(color), padding: padding, margin: margin, width: width, height: height }, style));
     return (_jsx(PolymorphicLayout, Object.assign({ css: FlexStyle, ref: ref }, rest, { children: children })));
 });

@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { CSSProperties, ReactNode, forwardRef } from "react";
-import { MakeResponsive, useResponsiveProps, useValence } from "../../..";
-import { getBackgroundColor, getTextColor } from "../../buttons";
+import { MakeResponsive, useColors, useResponsiveProps, useValence } from "../../..";
 import { Icon, Loader } from "../../display";
 import { ComponentSize, FillVariant, GenericLayoutProps, MouseClickEvents, MouseEvents, PointerEvents, SizeClasses } from "@valence-ui/utils";
 import { css } from "@emotion/react";
@@ -48,7 +47,7 @@ export type InputContainerProps =
 
 export const INPUT_SIZES: SizeClasses<{
   padding: CSSProperties["padding"],
-}> = { 
+}> = {
   xs: { padding: 4 },
   sm: { padding: 6 },
   md: { padding: 8 },
@@ -62,6 +61,7 @@ export const InputContainer = forwardRef(function InputContainer(
   ref: any,
 ) {
   const theme = useValence();
+  const { getBgHex, getFgHex } = useColors();
 
 
   // Defaults
@@ -131,18 +131,18 @@ export const InputContainer = forwardRef(function InputContainer(
     cursor: disabled ? "not-allowed" : "text",
 
     transition: `background-color ${theme.defaults.transitionDuration} linear 0s`,
-    backgroundColor: getBackgroundColor(backgroundColor, variant, false, theme),
-    color: getTextColor(color, variant, theme),
+    backgroundColor: getBgHex(backgroundColor, variant, false),
+    color: getFgHex(color, variant),
 
     outline: "none",
     border: "none",
     textDecoration: "none",
 
     "&:hover": {
-      backgroundColor: !disabled ? getBackgroundColor(backgroundColor, variant, true, theme) : undefined,
+      backgroundColor: !disabled ? getBgHex(backgroundColor, variant, true) : undefined,
     },
     "&:focus-within": {
-      outline: `1px solid ${getTextColor(color, variant, theme)}`,
+      outline: `1px solid ${getFgHex(color, variant)}`,
     },
 
     ...style
@@ -174,7 +174,7 @@ export const InputContainer = forwardRef(function InputContainer(
     height: "calc(100% - 10px)",
     minHeight: 20,
     borderRadius: 3,
-    backgroundColor: getTextColor(color === "black" ? "red" : color, "light", theme),
+    backgroundColor: getFgHex(color === "black" ? "red" : color, "light"),
     cursor: disabled ? "not-allowed" : "text",
 
     ...requireIndicatorStyle,
@@ -194,7 +194,7 @@ export const InputContainer = forwardRef(function InputContainer(
       {(icon || loading) &&
         <div css={IconContainerStyle}>
           {loading ?
-            <Loader color={variant === "filled" ? "white" : color } /> :
+            <Loader color={variant === "filled" ? "white" : color} /> :
             <Icon>{icon}</Icon>
           }
         </div>

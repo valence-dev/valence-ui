@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import { GenericProps } from "@valence-ui/utils";
-import { MakeResponsive } from "../../../responsive";
+import { MakeResponsive } from "../../../utilities/responsive";
 export type SpoilerProps = GenericProps & {
     /** Whether to show or hide the spoiler content. Defaults to `true`. */
     show?: boolean;

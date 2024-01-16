@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { CSSProperties } from "react";
 import { ComponentSize, GenericClickableProps, GenericProps, PolymorphicTextProps } from "@valence-ui/utils";
-import { MakeResponsive } from "../../../responsive";
+import { MakeResponsive } from "../../../utilities/responsive";
 export type TextProps = GenericProps & GenericClickableProps & PolymorphicTextProps & {
     /** Sets `font-family` css property */
     family?: CSSProperties["fontFamily"];

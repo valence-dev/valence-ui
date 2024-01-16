@@ -19,12 +19,13 @@ const react_2 = require("react");
 const ValenceProvider_1 = require("../../../ValenceProvider");
 const icons_react_1 = require("@tabler/icons-react");
 const InputContainer_1 = require("../InputContainer");
-const buttons_1 = require("../../buttons");
 const OptionsFilter_1 = require("../OptionContainer/OptionsFilter");
 const OptionContainer_1 = require("../OptionContainer");
-const responsive_1 = require("../../../responsive");
+const responsive_1 = require("../../../utilities/responsive");
+const color_1 = require("../../../utilities/color");
 exports.SelectInput = (0, react_2.forwardRef)(function SelectInput(props, ref) {
     const theme = (0, ValenceProvider_1.useValence)();
+    const { getFgHex } = (0, color_1.useColors)();
     const inputRef = ref !== null && ref !== void 0 ? ref : (0, react_2.createRef)();
     // Defaults
     const _a = (0, responsive_1.useResponsiveProps)(props), { value, setValue, options, onSelect, filter = OptionsFilter_1.DefaultOptionsFilter, nothingFound = "Nothing found...", icon, placeholder, actionIcon = (0, jsx_runtime_1.jsx)(icons_react_1.IconSelector, {}), size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, loading, autoFocus, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding, margin, width, height, grow, onEnterPress, onKeyPress, dropdownProps = {
@@ -60,8 +61,8 @@ exports.SelectInput = (0, react_2.forwardRef)(function SelectInput(props, ref) {
         setSearchValue((_a = value === null || value === void 0 ? void 0 : value.label) !== null && _a !== void 0 ? _a : "");
     }, [value]);
     // Styles
-    const InputStyle = (0, react_1.css)(Object.assign({ border: "none", outline: "none", background: "none", flexGrow: 1, width: "100%", height: "100%", margin: 0, padding: 0, cursor: disabled ? "not-allowed" : "text", fontSize: theme.sizeClasses.fontSize[size], fontFamily: theme.getFont("default"), color: (0, buttons_1.getTextColor)(color, variant, theme), "&::placeholder": {
-            color: `${(0, buttons_1.getTextColor)(color, variant, theme)}80`,
+    const InputStyle = (0, react_1.css)(Object.assign({ border: "none", outline: "none", background: "none", flexGrow: 1, width: "100%", height: "100%", margin: 0, padding: 0, cursor: disabled ? "not-allowed" : "text", fontSize: theme.sizeClasses.fontSize[size], fontFamily: theme.getFont("default"), color: getFgHex(color, variant), "&::placeholder": {
+            color: `${getFgHex(color, variant)}80`,
         }, 
         // Remove awful autofill color
         "&:-webkit-autofill": { transition: `background-color 5000s ease-in-out 0s` }, "&:-webkit-autofill:focus": { transition: `background-color 5000s ease-in-out 0s` }, "&:-webkit-autofill:hover": { transition: `background-color 5000s ease-in-out 0s` }, "&:-webkit-autofill:active": { transition: `background-color 5000s ease-in-out 0s` } }, inputStyle));

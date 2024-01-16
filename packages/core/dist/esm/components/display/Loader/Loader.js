@@ -12,7 +12,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx } from "react/jsx-runtime";
 import { forwardRef } from "react";
 import { motion } from "framer-motion";
-import { useResponsiveProps, useValence } from "../../..";
+import { useColors, useResponsiveProps, useValence } from "../../..";
 const SIZES = {
     xs: { height: 12, thickness: 2 },
     sm: { height: 14, thickness: 2 },
@@ -22,9 +22,10 @@ const SIZES = {
 };
 export const Loader = forwardRef(function Loader(props, ref) {
     const theme = useValence();
+    const colors = useColors();
     // Defaults
     const _a = useResponsiveProps(props), { size = theme.defaults.size, color = theme.primaryColor, style } = _a, rest = __rest(_a, ["size", "color", "style"]);
     // Styles
-    const loaderStyle = Object.assign({ width: SIZES[size].height, height: SIZES[size].height, border: `${SIZES[size].thickness}px solid #11181C00`, borderBottomColor: theme.getColorHex(color), borderRadius: "50%", display: "inline-block", boxSizing: "border-box" }, style);
+    const loaderStyle = Object.assign({ width: SIZES[size].height, height: SIZES[size].height, border: `${SIZES[size].thickness}px solid #11181C00`, borderBottomColor: colors.getHex(color), borderRadius: "50%", display: "inline-block", boxSizing: "border-box" }, style);
     return (_jsx(motion.div, Object.assign({ style: loaderStyle, animate: { rotate: 360 }, transition: { repeat: Infinity, type: "tween", duration: 0.8, ease: "linear" }, ref: ref }, rest)));
 });

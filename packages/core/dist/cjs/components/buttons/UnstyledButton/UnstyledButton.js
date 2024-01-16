@@ -17,7 +17,7 @@ const jsx_runtime_1 = require("@emotion/react/jsx-runtime");
 const utils_1 = require("@valence-ui/utils");
 const react_1 = require("@emotion/react");
 const react_2 = require("react");
-const responsive_1 = require("../../../responsive");
+const responsive_1 = require("../../../utilities/responsive");
 exports.UnstyledButton = (0, react_2.forwardRef)(function UnstyledButton(props, ref) {
     // Defaults
     const _a = (0, responsive_1.useResponsiveProps)(props), { style, children } = _a, rest = __rest(_a, ["style", "children"]);

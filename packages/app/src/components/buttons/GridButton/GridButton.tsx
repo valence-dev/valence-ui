@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { Icon, MakeResponsive, PrimitiveButton, Text, TextButtonProps, ValenceContext, getTextColor, useResponsiveProps } from "@valence-ui/core";
+import { Icon, MakeResponsive, PrimitiveButton, Text, TextButtonProps, ValenceContext, useColors, useResponsiveProps } from "@valence-ui/core";
 import { ReactNode, forwardRef, useContext } from "react";
 
 export type GridButtonProps = TextButtonProps & {
@@ -15,6 +15,7 @@ export const GridButton = forwardRef(function GridButton(
   ref: any
 ) {
   const theme = useContext(ValenceContext);
+  const { getFgHex } = useColors();
 
 
   // Defaults
@@ -77,7 +78,7 @@ export const GridButton = forwardRef(function GridButton(
 
       <Text
         fontSize={theme.sizeClasses.fontSize[size] as number * 0.8}
-        color={getTextColor(color, variant, theme)}
+        color={getFgHex(color, variant)}
         align="center"
         {...textProps}
       >

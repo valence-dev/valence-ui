@@ -1,7 +1,7 @@
 /// <reference types="react" />
 /** @jsxImportSource @emotion/react */
 import { GenericGridItemProps, GenericGridProps, PolymorphicLayoutProps } from "@valence-ui/utils";
-import { MakeResponsive } from "../../../responsive";
+import { MakeResponsive } from "../../../utilities/responsive";
 export type GridProps = GenericGridProps & PolymorphicLayoutProps;
 export type GridItemProps = GenericGridItemProps & PolymorphicLayoutProps;
 declare const GridNamespace: import("react").ForwardRefExoticComponent<MakeResponsive<GridProps> & import("react").RefAttributes<unknown>> & {

@@ -2,7 +2,7 @@
 import { FlexProps } from "../Flex";
 import { GridProps } from "../Grid";
 import { GenericLayoutProps } from "@valence-ui/utils";
-import { MakeResponsive } from "../../../responsive";
+import { MakeResponsive } from "../../../utilities/responsive";
 export type ColumnProps = FlexProps;
 export type ColumnContainerProps = GridProps & GenericLayoutProps & {
     /** Sets the number of columns in the grid. `2` by default */

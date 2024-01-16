@@ -11,7 +11,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import React, { forwardRef, useContext } from "react";
-import { Flex, ValenceContext, useDisclosure, useResponsiveProps } from "@valence-ui/core";
+import { Flex, ValenceContext, useColors, useDisclosure, useResponsiveProps } from "@valence-ui/core";
 import { useElementSize } from "usehooks-ts";
 import { AppContext } from "../../../contexts/AppContext";
 /**
@@ -19,6 +19,7 @@ import { AppContext } from "../../../contexts/AppContext";
  */
 export const AppContainer = forwardRef(function AppContainer(props, ref) {
     const theme = useContext(ValenceContext);
+    const { getHex } = useColors();
     // Defaults
     const _a = useResponsiveProps(props), { nav, header, sidebar, pageProps, contentWidth = 700, showNav = true, children, style } = _a, rest = __rest(_a, ["nav", "header", "sidebar", "pageProps", "contentWidth", "showNav", "children", "style"]);
     const radius = theme.sizeClasses.radius[theme.defaults.radius] + 5;
@@ -44,23 +45,23 @@ export const AppContainer = forwardRef(function AppContainer(props, ref) {
         default: {
             width: radius,
             borderRadius: `${radius}px 0px 0px ${radius}px`,
-            backgroundColor: theme.getColorHex("white"),
+            backgroundColor: getHex("white"),
         },
         mobile: {
             height: radius,
             borderRadius: `0px 0px ${radius}px ${radius}px`,
-            backgroundColor: theme.getColorHex("white"),
+            backgroundColor: getHex("white"),
         }
     };
     const contentContainerStyle = {
         default: {
-            backgroundColor: theme.getColorHex("white"),
+            backgroundColor: getHex("white"),
             paddingLeft: leftWidth + 10,
             paddingRight: 0,
             width: "100vw",
             transition: "padding-right 0.3s ease-in-out",
         }, mobile: {
-            backgroundColor: theme.getColorHex("white"),
+            backgroundColor: getHex("white"),
             padding: 20,
         }
     };

@@ -4,7 +4,7 @@ import { FocusEvents } from "@valence-ui/utils";
 import { PrimitiveButtonProps } from "../../buttons";
 import { TextProps } from "../../display";
 import { GenericInputProps } from "../../../generics";
-import { MakeResponsive } from "../../../responsive";
+import { MakeResponsive } from "../../../utilities/responsive";
 export type SwitchProps = GenericInputProps<boolean> & FocusEvents & {
     /** The label associated with this input */
     label?: string;

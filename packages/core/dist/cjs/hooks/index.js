@@ -15,7 +15,6 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./UseColorScheme"), exports);
-__exportStar(require("./UseDefaultIconProps"), exports);
 __exportStar(require("./UseDetectKeyDown"), exports);
 __exportStar(require("./UseDisclosure"), exports);
 __exportStar(require("./UseTooltip"), exports);

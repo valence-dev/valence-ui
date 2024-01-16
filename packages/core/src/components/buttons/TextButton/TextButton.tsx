@@ -1,10 +1,10 @@
 import { forwardRef } from "react";
 import { PrimitiveButtonProps } from "../PrimitiveButton";
 import { PrimitiveButton } from "../PrimitiveButton/PrimitiveButton";
-import { getTextColor } from "../Helpers";
 import { Text, TextProps } from "../../display";
 import { useValence } from "../../../ValenceProvider";
-import { MakeResponsive, useResponsiveProps } from "../../../responsive";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+import { useColors } from "../../../utilities/color";
 
 export type TextButtonProps =
   PrimitiveButtonProps
@@ -21,6 +21,7 @@ export const Button = forwardRef(function Button(
   ref: any
 ) {
   const theme = useValence();
+  const colors = useColors();
 
   // Defaults
   const {
@@ -45,7 +46,7 @@ export const Button = forwardRef(function Button(
     >
       <Text
         size={size}
-        color={getTextColor(color, variant, theme)}
+        color={colors.getFgHex(color, variant)}
         {...textProps}
       >
         {children}

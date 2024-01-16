@@ -16,7 +16,7 @@ const jsx_runtime_1 = require("@emotion/react/jsx-runtime");
 /** @jsxImportSource @emotion/react */
 const react_1 = require("react");
 const react_2 = require("@emotion/react");
-const responsive_1 = require("../../../responsive");
+const responsive_1 = require("../../../utilities/responsive");
 /** A basic, unstyled layout assistant that creates blank space between any two objects. */
 exports.Space = (0, react_1.forwardRef)(function Space(props, ref) {
     // Defaults

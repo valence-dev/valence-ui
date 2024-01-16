@@ -21,7 +21,8 @@ import { useValence } from "../../../ValenceProvider";
 import { Flex } from "../../layout";
 import { Icon, Text } from "../../display";
 import { useDetectKeyDown } from "../../../hooks";
-import { MakeResponsive, useResponsiveProps } from "../../../responsive";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+import { useColors } from "../../../utilities/color";
 
 export type OptionContainerEventProps = {
   /** Callback to be called when an option is selected. */
@@ -72,6 +73,7 @@ export const OptionContainer = forwardRef(function OptionContainer(
   ref: any,
 ) {
   const theme = useValence();
+  const { getHex } = useColors();
 
   // Defaults
   const {
@@ -190,9 +192,9 @@ export const OptionContainer = forwardRef(function OptionContainer(
 
   // Styles
   const DropdownStyle = css({
-    backgroundColor: theme.getColorHex(dropdownProps.backgroundColor, "strong"),
-    color: theme.getColorHex(dropdownProps.color),
-    outline: `1px solid ${theme.getColorHex(dropdownProps.color, "weak")}`,
+    backgroundColor: getHex(dropdownProps.backgroundColor, "strong"),
+    color: getHex(dropdownProps.color),
+    outline: `1px solid ${getHex(dropdownProps.color, "weak")}`,
     backdropFilter: "blur(5px)",
 
     maxHeight: dropdownProps.height,
@@ -218,7 +220,7 @@ export const OptionContainer = forwardRef(function OptionContainer(
       width: 10,
     },
     "&::-webkit-scrollbar-thumb": {
-      backgroundColor: theme.getColorHex(dropdownProps.color, "medium"),
+      backgroundColor: getHex(dropdownProps.color, "medium"),
       borderRadius: 5,
     },
 
@@ -275,7 +277,7 @@ export const OptionContainer = forwardRef(function OptionContainer(
                 {typeof nothingFound === "string" ?
                   <Text
                     align="center"
-                    color={theme.getColorHex("black", "strong")}
+                    color={getHex("black", "strong")}
                   >
                     {nothingFound}
                   </Text>

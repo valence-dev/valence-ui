@@ -1,21 +1,12 @@
 import { CSSProperties } from "react";
-import { Color, ColorReactive } from "../Color";
 import { ComponentSize, FillVariant, SizeClasses } from "@valence-ui/utils";
 import { TextProps } from "../components";
+import { Color } from "../utilities/color";
 export type IValenceContext = {
     /** A list of all colors to use */
-    colors: ColorReactive[];
+    colors: Color[];
     /** The primary color to default upon */
     primaryColor: string;
-    /** Finds a color within the theme context
-     * @param key key of the color to find. Using `primary` will return the theme primary color. Alternatively, an accepted hex code (prefixed with `#`) can be used to retrieve a color that is not defined in the theme.
-     * @deprecated Use `getColorHex` instead
-     */
-    getColor: (key: string | undefined) => Color | undefined;
-    /** Finds a color within the theme context and returns it as a hex code
-     * @param key key of the color to find. Using `primary` will return the theme primary color. Alternatively, an accepted hex code (prefixed with `#`) can be used to retrieve a color that is not defined in the theme.
-     */
-    getColorHex: (key: string | undefined, opacity?: "weak" | "medium" | "strong") => string | undefined;
     /** Default sizes and parameters for common attributes */
     defaults: {
         /** The default component size */

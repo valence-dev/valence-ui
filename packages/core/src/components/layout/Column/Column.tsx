@@ -3,7 +3,7 @@ import { forwardRef } from "react";
 import { Grid, GridProps } from "../Grid";
 import { useValence } from "../../../ValenceProvider";
 import { GenericLayoutProps } from "@valence-ui/utils";
-import { MakeResponsive, useResponsiveProps } from "../../../responsive";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
 
 export type ColumnProps = FlexProps;
 export type ColumnContainerProps =

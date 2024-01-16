@@ -16,7 +16,8 @@ import reactStringReplace from "react-string-replace";
 import { PolymorphicText } from "@valence-ui/utils";
 import { useValence } from "../../../ValenceProvider";
 import { css } from "@emotion/react";
-import { useResponsiveProps } from "../../../responsive";
+import { useResponsiveProps } from "../../../utilities/responsive";
+import { useColors } from "../../../utilities/color";
 const REGEX_PATTERNS = {
     newline: /(\n)/,
     boldItalic: /\*\*\*(.+?)\*\*\*(?!\*)/,
@@ -37,6 +38,7 @@ const REGEX_PATTERNS = {
  */
 export const Text = forwardRef(function Text(props, ref) {
     const theme = useValence();
+    const colors = useColors();
     // Defaults
     const _a = useResponsiveProps(props), { bold = false, italic = false, monospace = false, family = monospace ? theme.getFont("monospace") : theme.getFont("default"), weight = bold ? "bold" : "normal", align = "left", transform = "none", size = theme.defaults.size, fontSize = theme.sizeClasses.fontSize[size], color = "black", children, style } = _a, rest = __rest(_a, ["bold", "italic", "monospace", "family", "weight", "align", "transform", "size", "fontSize", "color", "children", "style"]);
     // Run through formatters
@@ -56,6 +58,6 @@ export const Text = forwardRef(function Text(props, ref) {
             fontFamily: theme.getFont("monospace"),
         }, children: match }, match + i)));
     // Styles
-    const TextStyle = css(Object.assign({ fontFamily: family, fontWeight: weight, fontStyle: italic ? "italic" : "normal", fontSize: fontSize, textTransform: transform, textAlign: align, color: theme.getColorHex(color), margin: 0 }, style));
+    const TextStyle = css(Object.assign({ fontFamily: family, fontWeight: weight, fontStyle: italic ? "italic" : "normal", fontSize: fontSize, textTransform: transform, textAlign: align, color: colors.getHex(color), margin: 0 }, style));
     return (_jsx(PolymorphicText, Object.assign({ css: TextStyle, ref: ref }, rest, { children: replacements })));
 });

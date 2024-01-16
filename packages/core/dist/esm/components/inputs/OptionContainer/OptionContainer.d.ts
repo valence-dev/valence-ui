@@ -3,7 +3,7 @@ import { TextButtonProps } from "../../buttons";
 import { InputContainerProps } from "../InputContainer";
 import { Option } from "./OptionsFilter";
 import { CSSProperties, ReactNode } from "react";
-import { MakeResponsive } from "../../../responsive";
+import { MakeResponsive } from "../../../utilities/responsive";
 export type OptionContainerEventProps = {
     /** Callback to be called when an option is selected. */
     onSelect?: (value: Option) => void;

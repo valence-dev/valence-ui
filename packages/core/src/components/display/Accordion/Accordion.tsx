@@ -6,7 +6,7 @@ import { ControlledList } from "../../../hooks/UseControlledList";
 import { UnstyledButton } from "../../buttons";
 import { Spoiler } from "../Spoiler";
 import { Icon } from "../Icon";
-import { MakeResponsive, useResponsiveProps } from "../../../responsive";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
 
 export type AccordionProps = FlexProps & {
   /** The list of items associated with this accordion */

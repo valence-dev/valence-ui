@@ -2,7 +2,7 @@
 import { CSSProperties, forwardRef } from "react"
 import { GenericProps } from "@valence-ui/utils";
 import { css } from "@emotion/react";
-import { MakeResponsive, useResponsiveProps } from "../../../responsive";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
 
 export type SpaceProps = GenericProps & {
   /** Sets the `width` css property. */

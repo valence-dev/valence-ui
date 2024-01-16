@@ -18,7 +18,7 @@ const layout_1 = require("../../layout");
 const buttons_1 = require("../../buttons");
 const display_1 = require("../../display");
 const ValenceProvider_1 = require("../../../ValenceProvider");
-const responsive_1 = require("../../../responsive");
+const responsive_1 = require("../../../utilities/responsive");
 function getOptionValue(option) {
     return typeof option === "string" ? option : option.value;
 }

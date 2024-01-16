@@ -1,6 +1,6 @@
 import { CSSProperties } from "react";
 import { GenericTextInputEventProps, GenericTextInputProps } from "../../../generics";
-import { MakeResponsive } from "../../../responsive";
+import { MakeResponsive } from "../../../utilities/responsive";
 export type LineWrapBehaviour = "soft" | "hard" | "off";
 export type ResizeBehaviour = "none" | "both" | "horizontal" | "vertical";
 export type TextareaProps = GenericTextInputProps & GenericTextInputEventProps & {

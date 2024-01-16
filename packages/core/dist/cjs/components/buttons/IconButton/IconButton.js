@@ -14,7 +14,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.IconButton = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const ValenceProvider_1 = require("../../../ValenceProvider");
-const responsive_1 = require("../../../responsive");
+const responsive_1 = require("../../../utilities/responsive");
 const display_1 = require("../../display");
 const overlays_1 = require("../../overlays");
 const PrimitiveButton_1 = require("../PrimitiveButton");

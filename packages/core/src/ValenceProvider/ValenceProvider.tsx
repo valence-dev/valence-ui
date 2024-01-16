@@ -1,10 +1,10 @@
 import { CSSProperties, createContext, useContext } from "react";
-import { ColorReactive, getUnidentifiedHexColor, getReactiveColor } from "../Color";
 import { IValenceContext, ValenceContextDefaults as VCD } from "./ValenceProvider.types";
 import { useColorScheme } from "../hooks";
 import { TextProps } from "../components";
 import { ComponentSize, FillVariant, SizeClasses } from "@valence-ui/utils";
 import { CssOverride } from "./CssOverride";
+import { Color } from "../utilities/color";
 
 
 export const ValenceContext = createContext<IValenceContext>(VCD);
@@ -22,7 +22,7 @@ export const useValence = () => {
 export type ValenceProviderProps = {
   children?: React.ReactNode;
 
-  colors?: ColorReactive[];
+  colors?: Color[];
   primaryColor?: string;
 
   defaults?: { 
@@ -85,26 +85,7 @@ export function ValenceProvider(props: ValenceProviderProps) {
     breakpoints = VCD.breakpoints,
   } = props;
 
-
-  // Functions
-  function getColor(key: string | undefined) {
-    if (key === undefined) return undefined;
-    if (key === "primary")
-      return getReactiveColor(colors.find(i => i.key === primaryColor),);
-
-    const colIndex = colors.findIndex(i => i.key === key);
-    if (colIndex === -1) return key as string[0] !== "#" ?
-      getUnidentifiedHexColor(key as string)
-      : getReactiveColor(colors.find(i => i.key === primaryColor), isDarkMode);
-    else
-      return getReactiveColor(colors.find(i => i.key === key), isDarkMode);
-  }
-
-  function getColorHex(key: string | undefined, opacity?: "weak" | "medium" | "strong") {
-    const color = getColor(key);
-    if (color === undefined) return undefined;
-    return `${color.base}` + (opacity ? `${color.opacity[opacity]}` : "");
-  }
+  // Methods
 
   function getFont(context: "default" | "heading" | "monospace") {
     switch (context) {
@@ -124,8 +105,6 @@ export function ValenceProvider(props: ValenceProviderProps) {
     <ValenceContext.Provider
       value={{
         colors,
-        getColor,
-        getColorHex,
         primaryColor,
 
         defaults,

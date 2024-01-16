@@ -12,8 +12,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx, jsxs as _jsxs } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
 import { forwardRef } from "react";
-import { useResponsiveProps, useValence } from "../../..";
-import { getBackgroundColor, getTextColor } from "../../buttons";
+import { useColors, useResponsiveProps, useValence } from "../../..";
 import { Icon, Loader } from "../../display";
 import { css } from "@emotion/react";
 export const INPUT_SIZES = {
@@ -25,6 +24,7 @@ export const INPUT_SIZES = {
 };
 export const InputContainer = forwardRef(function InputContainer(props, ref) {
     const theme = useValence();
+    const { getBgHex, getFgHex } = useColors();
     // Defaults
     const _a = useResponsiveProps(props), { icon, button, size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, grow, disabled = false, required = false, loading = false, color = "black", backgroundColor = color, width = "100%", height = theme.sizeClasses.height[size], padding = INPUT_SIZES[size].padding, margin, inputRef, onClick, iconContainerStyle, requireIndicatorStyle, buttonContainerStyle, children, style } = _a, rest = __rest(_a, ["icon", "button", "size", "radius", "variant", "grow", "disabled", "required", "loading", "color", "backgroundColor", "width", "height", "padding", "margin", "inputRef", "onClick", "iconContainerStyle", "requireIndicatorStyle", "buttonContainerStyle", "children", "style"]);
     // Functions
@@ -38,14 +38,14 @@ export const InputContainer = forwardRef(function InputContainer(props, ref) {
         onClick === null || onClick === void 0 ? void 0 : onClick(e);
     };
     // Styles
-    const ContainerStyle = css(Object.assign({ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", boxSizing: "border-box", flexGrow: grow ? 1 : "unset", width: width, height: height, borderRadius: theme.sizeClasses.radius[radius], padding: padding, gap: padding, opacity: disabled ? 0.5 : 1, cursor: disabled ? "not-allowed" : "text", transition: `background-color ${theme.defaults.transitionDuration} linear 0s`, backgroundColor: getBackgroundColor(backgroundColor, variant, false, theme), color: getTextColor(color, variant, theme), outline: "none", border: "none", textDecoration: "none", "&:hover": {
-            backgroundColor: !disabled ? getBackgroundColor(backgroundColor, variant, true, theme) : undefined,
+    const ContainerStyle = css(Object.assign({ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", boxSizing: "border-box", flexGrow: grow ? 1 : "unset", width: width, height: height, borderRadius: theme.sizeClasses.radius[radius], padding: padding, gap: padding, opacity: disabled ? 0.5 : 1, cursor: disabled ? "not-allowed" : "text", transition: `background-color ${theme.defaults.transitionDuration} linear 0s`, backgroundColor: getBgHex(backgroundColor, variant, false), color: getFgHex(color, variant), outline: "none", border: "none", textDecoration: "none", "&:hover": {
+            backgroundColor: !disabled ? getBgHex(backgroundColor, variant, true) : undefined,
         }, "&:focus-within": {
-            outline: `1px solid ${getTextColor(color, variant, theme)}`,
+            outline: `1px solid ${getFgHex(color, variant)}`,
         } }, style));
     const IconContainerStyle = css(Object.assign({ height: "100%", opacity: 0.5, boxSizing: "border-box", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "row" }, iconContainerStyle));
     const ButtonContainerStyle = css(Object.assign({ height: "100%", opacity: 0.5, boxSizing: "border-box", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "row" }, buttonContainerStyle));
-    const RequireIndicatorStyle = css(Object.assign({ width: 3, height: "calc(100% - 10px)", minHeight: 20, borderRadius: 3, backgroundColor: getTextColor(color === "black" ? "red" : color, "light", theme), cursor: disabled ? "not-allowed" : "text" }, requireIndicatorStyle));
+    const RequireIndicatorStyle = css(Object.assign({ width: 3, height: "calc(100% - 10px)", minHeight: 20, borderRadius: 3, backgroundColor: getFgHex(color === "black" ? "red" : color, "light"), cursor: disabled ? "not-allowed" : "text" }, requireIndicatorStyle));
     return (_jsxs("div", Object.assign({ css: ContainerStyle, ref: ref, onClick: (event) => handleClick(event) }, rest, { children: [required && _jsx("div", { css: RequireIndicatorStyle }), (icon || loading) &&
                 _jsx("div", { css: IconContainerStyle, children: loading ?
                         _jsx(Loader, { color: variant === "filled" ? "white" : color }) :

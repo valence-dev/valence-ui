@@ -1,7 +1,7 @@
 /// <reference types="react" />
 import { PrimitiveButtonProps } from "../PrimitiveButton";
 import { TextProps } from "../../display";
-import { MakeResponsive } from "../../../responsive";
+import { MakeResponsive } from "../../../utilities/responsive";
 export type TextButtonProps = PrimitiveButtonProps & {
     /** Children of this component. */
     children?: string;

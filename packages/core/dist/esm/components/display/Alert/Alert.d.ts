@@ -2,7 +2,7 @@
 import { ReactNode } from "react";
 import { MotionBehaviourProps } from "../../buttons";
 import { ComponentSize, FillVariant, GenericClickableEventProps, GenericClickableProps, GenericLayoutProps, PolymorphicButtonProps } from "@valence-ui/utils";
-import { MakeResponsive } from "../../../responsive";
+import { MakeResponsive } from "../../../utilities/responsive";
 export type AlertContent = {
     /** The title of this alert */
     title: string;

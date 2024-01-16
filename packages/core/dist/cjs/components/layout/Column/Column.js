@@ -17,7 +17,7 @@ const Flex_1 = require("../Flex");
 const react_1 = require("react");
 const Grid_1 = require("../Grid");
 const ValenceProvider_1 = require("../../../ValenceProvider");
-const responsive_1 = require("../../../responsive");
+const responsive_1 = require("../../../utilities/responsive");
 const Column = (0, react_1.forwardRef)(function Column(props, ref) {
     const theme = (0, ValenceProvider_1.useValence)();
     // Defaults

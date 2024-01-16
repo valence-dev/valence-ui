@@ -1,11 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ValenceContextDefaults = void 0;
-const Color_1 = require("../Color");
+const color_1 = require("../utilities/color");
 exports.ValenceContextDefaults = {
-    colors: Color_1.DEFAULT_COLORS,
-    getColor: () => undefined,
-    getColorHex: () => undefined,
+    colors: color_1.DEFAULT_PALETTE,
     primaryColor: "pink",
     defaults: {
         size: "sm",

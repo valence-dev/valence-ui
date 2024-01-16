@@ -3,7 +3,7 @@ import { GenericInputProps, GenericTextInputEventProps } from "../../../generics
 import { TextButtonProps } from "../../buttons";
 import { GenericLayoutProps } from "@valence-ui/utils";
 import { Option, OptionsFilter } from "../OptionContainer/OptionsFilter";
-import { MakeResponsive } from "../../../responsive";
+import { MakeResponsive } from "../../../utilities/responsive";
 export type SelectInputEventProps = GenericTextInputEventProps & {
     /** Callback to be called when an option is selected. */
     onSelect?: (value: Option) => void;

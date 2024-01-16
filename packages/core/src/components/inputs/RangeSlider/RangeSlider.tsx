@@ -7,7 +7,7 @@ import { Flex } from "../../layout";
 import ReactSlider from "react-slider";
 import { css } from "@emotion/react";
 import { NumberInput } from "../NumberInput";
-import { MakeResponsive, useResponsiveProps } from "../../../responsive";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
 
 export type RangeSliderProps =
   GenericInputProps<number[]>

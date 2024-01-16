@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { createRef, forwardRef } from "react";
-import { GenericTextInputEventProps, GenericTextInputProps, MakeResponsive, getTextColor, useResponsiveProps, useValence } from "../../..";
+import { GenericTextInputEventProps, GenericTextInputProps, MakeResponsive, useColors, useResponsiveProps, useValence } from "../../..";
 import { InputContainer } from "../InputContainer";
 import { css } from "@emotion/react";
 
@@ -33,6 +33,7 @@ export const TextInput = forwardRef(function TextInput(
   ref: any,
 ) {
   const theme = useValence();
+  const { getFgHex } = useColors();
   const inputRef = ref ?? createRef<HTMLInputElement>();
 
 
@@ -87,10 +88,10 @@ export const TextInput = forwardRef(function TextInput(
 
     fontSize: theme.sizeClasses.fontSize[size],
     fontFamily: theme.getFont("default"),
-    color: getTextColor(color, variant, theme),
+    color: getFgHex(color, variant),
 
     "&::placeholder": {
-      color: `${getTextColor(color, variant, theme)}80`,
+      color: `${getFgHex(color, variant)}80`,
     },
 
     // Remove awful autofill color

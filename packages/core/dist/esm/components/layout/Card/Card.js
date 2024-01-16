@@ -16,7 +16,7 @@ import { forwardRef } from "react";
 import { useValence } from "../../../ValenceProvider";
 import { Image as ImageComponent } from "../../display";
 import { UnstyledButton } from "../../buttons";
-import { useResponsiveProps } from "../../../responsive";
+import { useResponsiveProps } from "../../../utilities/responsive";
 export const CARD_DEFAULTS = {
     width: {
         "xs": 150,

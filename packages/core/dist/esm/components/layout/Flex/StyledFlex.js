@@ -11,16 +11,16 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx } from "react/jsx-runtime";
 import { forwardRef } from "react";
-import { useResponsiveProps, useValence } from "../../..";
-import { getBackgroundColor, getTextColor } from "../../buttons";
+import { useColors, useResponsiveProps, useValence } from "../../..";
 import { Flex } from "./Flex";
 /** A styled version of the `Flex` component that offers many props in line with the button styling system */
 export const StyledFlex = forwardRef(function StyledFlex(props, ref) {
     const theme = useValence();
+    const { getFgHex, getBgHex } = useColors();
     // Defaults
     const _a = useResponsiveProps(props), { size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, padding = theme.sizeClasses.padding[theme.defaults.size], color = theme.primaryColor, backgroundColor = color, style, children } = _a, rest = __rest(_a, ["size", "radius", "variant", "padding", "color", "backgroundColor", "style", "children"]);
     // Styles
-    const styles = Object.assign({ backgroundColor: getBackgroundColor(backgroundColor, variant, false, theme), color: getTextColor(color, variant, theme), borderRadius: theme.sizeClasses.radius[radius], boxShadow: props.shadow
+    const styles = Object.assign({ backgroundColor: getBgHex(backgroundColor, variant, false), color: getFgHex(color, variant), borderRadius: theme.sizeClasses.radius[radius], boxShadow: props.shadow
             ? theme.defaults.shadow : undefined }, style);
     return (_jsx(Flex, Object.assign({ padding: padding, style: styles, ref: ref }, rest, { children: children })));
 });

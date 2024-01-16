@@ -1,7 +1,7 @@
 /// <reference types="react" />
 import { GenericInputProps } from "../../../generics";
 import { SliderEventProps, SliderThumbProps, SliderTrackProps } from "../Slider";
-import { MakeResponsive } from "../../../responsive";
+import { MakeResponsive } from "../../../utilities/responsive";
 export type RangeSliderProps = GenericInputProps<number[]> & SliderEventProps<number[]> & {
     /** The minimum value of this input. `0` by default. */
     min?: number;

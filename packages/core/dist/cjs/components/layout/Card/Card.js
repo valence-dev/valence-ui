@@ -19,7 +19,7 @@ const react_1 = require("react");
 const ValenceProvider_1 = require("../../../ValenceProvider");
 const display_1 = require("../../display");
 const buttons_1 = require("../../buttons");
-const responsive_1 = require("../../../responsive");
+const responsive_1 = require("../../../utilities/responsive");
 exports.CARD_DEFAULTS = {
     width: {
         "xs": 150,

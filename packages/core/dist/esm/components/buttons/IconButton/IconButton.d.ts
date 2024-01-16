@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import { MakeResponsive } from "../../../responsive";
+import { MakeResponsive } from "../../../utilities/responsive";
 import { TooltipContentProps, TooltipProps } from "../../overlays";
 import { PrimitiveButtonProps } from "../PrimitiveButton";
 export type IconButtonProps = PrimitiveButtonProps & {

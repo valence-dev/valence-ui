@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { CSSProperties, ReactNode } from "react";
 import { ComponentSize, GenericProps } from "@valence-ui/utils";
-import { MakeResponsive } from "../../../../responsive";
+import { MakeResponsive } from "../../../../utilities/responsive";
 export type GenericImageProps = {
     /** Source URI of this image */
     src: string | ArrayBuffer | undefined;

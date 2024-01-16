@@ -3,7 +3,7 @@ import { FlexProps } from "..";
 import { PrimitiveButtonProps } from "../../buttons/PrimitiveButton";
 import { CSSProperties } from "react";
 import { GenericImageProps } from "../../display";
-import { MakeResponsive } from "../../../responsive";
+import { MakeResponsive } from "../../../utilities/responsive";
 export type CardProps = GenericLayoutProps & PolymorphicButtonProps & {
     /**  Defines the size class for this card */
     size?: ComponentSize;

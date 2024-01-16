@@ -1,6 +1,6 @@
 import React, { CSSProperties, ReactNode, forwardRef, useContext } from "react";
 import { ComponentSize, GenericLayoutProps, PolymorphicLayoutProps } from "@valence-ui/utils";
-import { Flex, MakeResponsive, Responsive, ValenceContext, useDisclosure, useResponsiveProps } from "@valence-ui/core";
+import { Flex, MakeResponsive, Responsive, ValenceContext, useColors, useDisclosure, useResponsiveProps } from "@valence-ui/core";
 import { useElementSize } from "usehooks-ts";
 import { AppContext } from "../../../contexts/AppContext";
 
@@ -34,6 +34,7 @@ export const AppContainer = forwardRef(function AppContainer(
   ref: any
 ) {
   const theme = useContext(ValenceContext);
+  const { getHex} = useColors();
 
 
   // Defaults
@@ -84,24 +85,24 @@ export const AppContainer = forwardRef(function AppContainer(
     default: {
       width: radius,
       borderRadius: `${radius}px 0px 0px ${radius}px`,
-      backgroundColor: theme.getColorHex("white"),
+      backgroundColor: getHex("white"),
     },
     mobile: {
       height: radius,
       borderRadius: `0px 0px ${radius}px ${radius}px`,
-      backgroundColor: theme.getColorHex("white"),
+      backgroundColor: getHex("white"),
     }
   }
   const contentContainerStyle: Responsive<CSSProperties> = {
     default: {
-      backgroundColor: theme.getColorHex("white"),
+      backgroundColor: getHex("white"),
       paddingLeft: leftWidth + 10,
       paddingRight: 0,
       width: "100vw",
 
       transition: "padding-right 0.3s ease-in-out",
     }, mobile: {
-      backgroundColor: theme.getColorHex("white"),
+      backgroundColor: getHex("white"),
       padding: 20,
     }
   };

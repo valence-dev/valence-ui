@@ -12,7 +12,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx } from "react/jsx-runtime";
 import { forwardRef, useState } from "react";
 import { Flex } from "../Flex";
-import { useResponsiveProp, useResponsiveProps, useValence } from "../../..";
+import { useColors, useResponsiveProp, useResponsiveProps } from "../../..";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 function interpolateHeight(max, min, scrollY) {
     return Math.max(max + scrollY, min);
@@ -22,7 +22,7 @@ function interpolateHeight(max, min, scrollY) {
  * On desktop devices, the `Header` will act as a static container that can be placed anywhere and will scroll with the content. On mobile devices, however, the `Header` will become fixed tot he top of the screen and can shrink as the user scrolls.
  */
 export const Header = forwardRef(function Header(props, ref) {
-    const theme = useValence();
+    const { getHex } = useColors();
     // Defaults
     const _a = useResponsiveProps(props), { height: headerHeight = useResponsiveProp({ default: 100, mobile: 150 }), compactHeight = 75, position = useResponsiveProp({ default: "relative", mobile: "sticky" }), compact = useResponsiveProp({ default: false, mobile: true }), backgroundColor = "white", children, style } = _a, rest = __rest(_a, ["height", "compactHeight", "position", "compact", "backgroundColor", "children", "style"]);
     // Hooks & States
@@ -34,6 +34,6 @@ export const Header = forwardRef(function Header(props, ref) {
         setHeight(interpolateHeight(headerHeight, compactHeight, (prevPos.y + currPos.y) / 2));
     });
     // Styles
-    const HeaderStyle = Object.assign({ backgroundColor: theme.getColorHex(backgroundColor, "strong"), backdropFilter: "blur(10px)", position: position, top: 0, zIndex: 150, width: "100%" }, style);
+    const HeaderStyle = Object.assign({ backgroundColor: getHex(backgroundColor, "strong"), backdropFilter: "blur(10px)", position: position, top: 0, zIndex: 150, width: "100%" }, style);
     return (_jsx(Flex, Object.assign({ style: HeaderStyle, direction: "column", justify: "center", height: height, ref: ref }, rest, { children: children })));
 });

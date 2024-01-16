@@ -20,7 +20,7 @@ const Text_1 = require("../Text");
 const buttons_1 = require("../../buttons");
 const Spoiler_1 = require("../Spoiler");
 const Icon_1 = require("../Icon");
-const responsive_1 = require("../../../responsive");
+const responsive_1 = require("../../../utilities/responsive");
 const AccordionContext = (0, react_1.createContext)(null);
 const useAccordionContext = () => {
     const context = (0, react_1.useContext)(AccordionContext);

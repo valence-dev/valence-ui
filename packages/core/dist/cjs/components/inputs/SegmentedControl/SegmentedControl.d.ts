@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { GenericInputProps } from "../../../generics";
 import { StyledFlexProps } from "../../layout";
 import { PrimitiveButtonProps } from "../../buttons";
-import { MakeResponsive } from "../../../responsive";
+import { MakeResponsive } from "../../../utilities/responsive";
 export type SegmentedControlOption = {
     /** The value of this option */
     value: string;

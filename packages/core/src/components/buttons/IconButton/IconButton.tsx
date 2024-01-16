@@ -1,5 +1,5 @@
 import { useValence } from "../../../ValenceProvider";
-import { MakeResponsive, useResponsiveProps } from "../../../responsive";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
 import { Icon } from "../../display";
 import { Tooltip, TooltipContentProps, TooltipProps } from "../../overlays";
 import { PrimitiveButton, PrimitiveButtonProps } from "../PrimitiveButton"

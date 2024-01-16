@@ -15,7 +15,7 @@ import { Flex, StyledFlex } from "../../layout";
 import { PrimitiveButton } from "../../buttons";
 import { Loader, Text } from "../../display";
 import { useValence } from "../../../ValenceProvider";
-import { useResponsiveProps } from "../../../responsive";
+import { useResponsiveProps } from "../../../utilities/responsive";
 function getOptionValue(option) {
     return typeof option === "string" ? option : option.value;
 }

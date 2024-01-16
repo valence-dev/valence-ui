@@ -1,4 +1,4 @@
-import { Flex, FlexProps, MakeResponsive, Responsive, useResponsiveProp, useResponsiveProps, useValence } from "@valence-ui/core";
+import { Flex, FlexProps, MakeResponsive, Responsive, useColors, useResponsiveProp, useResponsiveProps, useValence } from "@valence-ui/core";
 import { CSSProperties, forwardRef } from "react";
 import { SideSheet, SideSheetProps } from "../../overlays";
 
@@ -40,6 +40,7 @@ export const Sidebar = forwardRef(function Sidebar(
 
   // Contexts
   const theme = useValence();
+  const { getHex } = useColors();
 
 
   // Styles
@@ -50,7 +51,7 @@ export const Sidebar = forwardRef(function Sidebar(
     padding: padding,
 
     borderRadius: `${borderRadius}px 0px 0px ${borderRadius}px`,
-    backgroundColor: `${theme.getColorHex(backgroundColor)}E8`,
+    backgroundColor: `${getHex(backgroundColor)}E8`,
 
     ...style
   }
@@ -58,12 +59,12 @@ export const Sidebar = forwardRef(function Sidebar(
     default: {
       width: borderRadius,
       borderRadius: `${borderRadius}px 0px 0px ${borderRadius}px`,
-      backgroundColor: theme.getColorHex("white"),
+      backgroundColor: getHex("white"),
     },
     mobile: {
       height: borderRadius,
       borderRadius: `0px 0px ${borderRadius}px ${borderRadius}px`,
-      backgroundColor: theme.getColorHex("white"),
+      backgroundColor: getHex("white"),
     }
   }
 

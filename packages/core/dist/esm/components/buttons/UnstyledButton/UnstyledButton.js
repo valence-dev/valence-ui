@@ -14,7 +14,7 @@ import { jsx as _jsx } from "@emotion/react/jsx-runtime";
 import { PolymorphicButton } from "@valence-ui/utils";
 import { css } from "@emotion/react";
 import { forwardRef } from "react";
-import { useResponsiveProps } from "../../../responsive";
+import { useResponsiveProps } from "../../../utilities/responsive";
 export const UnstyledButton = forwardRef(function UnstyledButton(props, ref) {
     // Defaults
     const _a = useResponsiveProps(props), { style, children } = _a, rest = __rest(_a, ["style", "children"]);

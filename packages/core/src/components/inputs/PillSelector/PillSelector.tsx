@@ -8,7 +8,8 @@ import { Flex, FlexProps } from "../../layout";
 import { useValence } from "../../../ValenceProvider";
 import { IconX } from "@tabler/icons-react";
 import { CSSProperties } from "styled-components";
-import { MakeResponsive, useResponsiveProps } from "../../../responsive";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+import { useColors } from "../../../utilities/color";
 
 export type PillSelectorEventProps =
   MouseClickEvents & MouseEvents & PointerEvents & FocusEvents & KeyboardEvents
@@ -57,6 +58,7 @@ export const PillSelector = forwardRef(function PillSelector(
   ref: any,
 ) {
   const theme = useValence();
+  const { getHex } = useColors();
 
 
   // Defaults
@@ -162,11 +164,11 @@ export const PillSelector = forwardRef(function PillSelector(
       height: 2,
     },
     "&::-webkit-scrollbar-thumb": {
-      backgroundColor: theme.getColorHex(color, "medium"),
+      backgroundColor: getHex(color, "medium"),
       borderRadius: 5,
     },
     "&::-webkit-scrollbar-thumb:hover": {
-      backgroundColor: theme.getColorHex(color, "strong"),
+      backgroundColor: getHex(color, "strong"),
       borderRadius: 5,
     },
 

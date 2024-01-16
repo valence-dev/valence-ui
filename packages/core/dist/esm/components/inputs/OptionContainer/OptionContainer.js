@@ -21,9 +21,11 @@ import { useValence } from "../../../ValenceProvider";
 import { Flex } from "../../layout";
 import { Icon, Text } from "../../display";
 import { useDetectKeyDown } from "../../../hooks";
-import { useResponsiveProps } from "../../../responsive";
+import { useResponsiveProps } from "../../../utilities/responsive";
+import { useColors } from "../../../utilities/color";
 export const OptionContainer = forwardRef(function OptionContainer(props, ref) {
     const theme = useValence();
+    const { getHex } = useColors();
     // Defaults
     const _a = useResponsiveProps(props), { selectedOption, options, onSelect, nothingFound = "Nothing found...", selectKeys = ["Enter"], closeKeys = ["Escape"], icon, rightIcon = _jsx(IconSelector, {}), size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, loading, disabled, required, color = "black", backgroundColor = color, padding, margin, width, height, grow, dropdownProps = {
         padding: INPUT_SIZES[size].padding,
@@ -99,7 +101,7 @@ export const OptionContainer = forwardRef(function OptionContainer(props, ref) {
     const dismiss = useDismiss(context);
     const { getReferenceProps, getFloatingProps, } = useInteractions([dismiss, click]);
     // Styles
-    const DropdownStyle = css(Object.assign(Object.assign({ backgroundColor: theme.getColorHex(dropdownProps.backgroundColor, "strong"), color: theme.getColorHex(dropdownProps.color), outline: `1px solid ${theme.getColorHex(dropdownProps.color, "weak")}`, backdropFilter: "blur(5px)", maxHeight: dropdownProps.height, borderRadius: theme.sizeClasses.radius[radius] + dropdownProps.padding, padding: dropdownProps.padding, boxShadow: dropdownProps.shadow ? theme.defaults.shadow : undefined, animationName: "in", animationDuration: "0.1s", overflowY: "auto", "@keyframes in": {
+    const DropdownStyle = css(Object.assign(Object.assign({ backgroundColor: getHex(dropdownProps.backgroundColor, "strong"), color: getHex(dropdownProps.color), outline: `1px solid ${getHex(dropdownProps.color, "weak")}`, backdropFilter: "blur(5px)", maxHeight: dropdownProps.height, borderRadius: theme.sizeClasses.radius[radius] + dropdownProps.padding, padding: dropdownProps.padding, boxShadow: dropdownProps.shadow ? theme.defaults.shadow : undefined, animationName: "in", animationDuration: "0.1s", overflowY: "auto", "@keyframes in": {
             from: {
                 opacity: 0,
             },
@@ -109,12 +111,12 @@ export const OptionContainer = forwardRef(function OptionContainer(props, ref) {
         }, "&::-webkit-scrollbar": {
             width: 10,
         }, "&::-webkit-scrollbar-thumb": {
-            backgroundColor: theme.getColorHex(dropdownProps.color, "medium"),
+            backgroundColor: getHex(dropdownProps.color, "medium"),
             borderRadius: 5,
         } }, dropdownStyle), floatingStyles));
     return (_jsxs(_Fragment, { children: [_jsx(InputContainer, Object.assign({ icon: icon, button: rightIcon, size: size, radius: radius, variant: variant, loading: loading, disabled: disabled, required: required, color: color, backgroundColor: backgroundColor, padding: padding, margin: margin, width: width, height: height, grow: grow, style: style, inputRef: inputRef, ref: refs.setReference }, getReferenceProps(), rest, { children: children })), isOpen && (_jsx(FloatingPortal, { children: _jsx("div", Object.assign({ css: DropdownStyle, ref: refs.setFloating }, getFloatingProps(), { children: options.length === 0 ?
                         _jsx(Flex, { height: theme.sizeClasses.height[size], align: "center", justify: "center", children: typeof nothingFound === "string" ?
-                                _jsx(Text, { align: "center", color: theme.getColorHex("black", "strong"), children: nothingFound })
+                                _jsx(Text, { align: "center", color: getHex("black", "strong"), children: nothingFound })
                                 :
                                     nothingFound })
                         : options.map((option, i) => (_jsx(ButtonWithIcon, Object.assign({ icon: (selectedOption === null || selectedOption === void 0 ? void 0 : selectedOption.label) === option.label

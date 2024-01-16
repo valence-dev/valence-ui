@@ -13,7 +13,7 @@ import { jsx as _jsx } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
 import { forwardRef } from "react";
 import { css } from "@emotion/react";
-import { useResponsiveProps } from "../../../responsive";
+import { useResponsiveProps } from "../../../utilities/responsive";
 /** A basic, unstyled layout assistant that creates blank space between any two objects. */
 export const Space = forwardRef(function Space(props, ref) {
     // Defaults

@@ -3,10 +3,10 @@ import { Image, ImageProps } from "../Image";
 import { FillVariant } from "@valence-ui/utils";
 import { useValence } from "../../../../ValenceProvider";
 import { IconUserCircle } from "@tabler/icons-react";
-import { getBackgroundColor, getTextColor } from "../../../buttons";
 import { Flex } from "../../../layout";
 import { Icon } from "../../Icon";
-import { MakeResponsive, useResponsiveProps } from "../../../../responsive";
+import { MakeResponsive, useResponsiveProps } from "../../../../utilities/responsive";
+import { useColors } from "../../../../utilities/color";
 
 export type AvatarProps = ImageProps & {
   /** Placeholder icon for this avatar */
@@ -14,7 +14,7 @@ export type AvatarProps = ImageProps & {
   /** Placeholder color for this avatar */
   placeholderColor?: CSSProperties["color"];
   /** Defines the fill variant for this avatar. Defaults to theme default fill variant */
-  fillVariant?: FillVariant;
+  variant?: FillVariant;
 }
 
 
@@ -23,13 +23,14 @@ export const Avatar = forwardRef(function Avatar(
   ref: any
 ) {
   const theme = useValence();
+  const colors = useColors();
 
 
   // Defaults
   const {
     placeholderIcon,
     placeholderColor = theme.primaryColor,
-    fillVariant = theme.defaults.variant,
+    variant = theme.defaults.variant,
     placeholder = <IconUserCircle />,
 
     square = true,
@@ -42,8 +43,8 @@ export const Avatar = forwardRef(function Avatar(
 
   // Styles
   const imageStyle: CSSProperties = {
-    backgroundColor: getBackgroundColor(placeholderColor, fillVariant, false, theme),
-    color: getTextColor(placeholderColor, fillVariant, theme),
+    backgroundColor: colors.getBgHex(placeholderColor, variant, false),
+    color: colors.getFgHex(placeholderColor, variant),
     ...style
   }
 
@@ -54,7 +55,12 @@ export const Avatar = forwardRef(function Avatar(
       radius={radius}
       square={square}
       placeholder={
-        <Flex align="center" justify="center" height="100%" width="100%">
+        <Flex
+          align="center"
+          justify="center"
+          height="100%"
+          width="100%"
+        >
           <Icon>{placeholder}</Icon>
         </Flex>
       }

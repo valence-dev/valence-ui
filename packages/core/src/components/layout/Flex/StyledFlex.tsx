@@ -1,6 +1,5 @@
 import { CSSProperties, forwardRef } from "react";
-import { MakeResponsive, useResponsiveProps, useValence } from "../../..";
-import { getBackgroundColor, getTextColor } from "../../buttons"
+import { MakeResponsive, useColors, useResponsiveProps, useValence } from "../../..";
 import { Flex, FlexProps } from "./Flex";
 import { ComponentSize, FillVariant } from "@valence-ui/utils";
 
@@ -23,6 +22,7 @@ export const StyledFlex = forwardRef(function StyledFlex(
   ref: any
 ) {
   const theme = useValence();
+  const { getFgHex, getBgHex } = useColors();
 
 
   // Defaults
@@ -43,15 +43,14 @@ export const StyledFlex = forwardRef(function StyledFlex(
 
   // Styles
   const styles: CSSProperties = {
-    backgroundColor: getBackgroundColor(
+    backgroundColor: getBgHex(
       backgroundColor,
       variant,
-      false, theme
+      false
     ),
-    color: getTextColor(
+    color: getFgHex(
       color,
-      variant,
-      theme
+      variant
     ),
     borderRadius: theme.sizeClasses.radius[radius],
 

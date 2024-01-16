@@ -20,8 +20,9 @@ const framer_motion_1 = require("framer-motion");
 const framer_motion_2 = require("framer-motion");
 exports.SideSheet = (0, react_1.forwardRef)(function SideSheet(props, ref) {
     const theme = (0, react_1.useContext)(core_1.ValenceContext);
+    const { getHex } = (0, core_1.useColors)();
     // Defaults
-    const _a = (0, core_1.useResponsiveProps)(props), { disclosure, title, header = (props) => (0, jsx_runtime_1.jsx)(core_1.DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), display = (0, core_1.useResponsiveProp)({ default: "inline", tablet: "overlay", mobile: "overlay" }), direction = "right", closeOnOverlayClick = true, closeOnEscape = true, lockScroll = false, radius = "lg", withShadow = true, backgroundColor = theme.getColorHex("white"), color = theme.getColorHex("black"), padding = theme.sizeClasses.padding[theme.defaults.size], margin = 0, width = 350, height = "100vh", flexProps, overlayBackgroundProps = {
+    const _a = (0, core_1.useResponsiveProps)(props), { disclosure, title, header = (props) => (0, jsx_runtime_1.jsx)(core_1.DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), display = (0, core_1.useResponsiveProp)({ default: "inline", tablet: "overlay", mobile: "overlay" }), direction = "right", closeOnOverlayClick = true, closeOnEscape = true, lockScroll = false, radius = "lg", withShadow = true, backgroundColor = getHex("white"), color = getHex("black"), padding = theme.sizeClasses.padding[theme.defaults.size], margin = 0, width = 350, height = "100vh", flexProps, overlayBackgroundProps = {
         padding: 0,
         style: {
             alignItems: "flex-end",
@@ -35,7 +36,7 @@ exports.SideSheet = (0, react_1.forwardRef)(function SideSheet(props, ref) {
                 `${borderRadius}px 0 0 ${borderRadius}px` :
                 `0 ${borderRadius}px ${borderRadius}px 0`, boxShadow: withShadow && display === "overlay" ?
             theme.defaults.shadow : undefined, borderLeft: display === "overlay" ? undefined :
-            `1px solid ${theme.getColorHex("black", "weak")}`, overflowX: "hidden", overflowY: "auto" }, style);
+            `1px solid ${getHex("black", "weak")}`, overflowX: "hidden", overflowY: "auto" }, style);
     // Hooks
     (0, usehooks_ts_1.useLockedBody)(disclosure.opened && lockScroll && display === "overlay", "root");
     (0, core_1.useDetectKeyDown)(disclosure.close, "Escape", closeOnEscape, [closeOnEscape, close]);

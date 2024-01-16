@@ -12,7 +12,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx } from "react/jsx-runtime";
 import { AnimatePresence, motion } from "framer-motion";
 import { forwardRef } from "react";
-import { useResponsiveProps } from "../../../responsive";
+import { useResponsiveProps } from "../../../utilities/responsive";
 /** A simple wrapper component used to show or hide content at will. */
 export const Spoiler = forwardRef(function Spoiler(props, ref) {
     // Defaults

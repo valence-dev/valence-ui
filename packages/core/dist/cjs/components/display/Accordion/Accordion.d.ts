@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { FlexProps } from "../../layout";
 import { TitleProps } from "../Text";
 import { ControlledList } from "../../../hooks/UseControlledList";
-import { MakeResponsive } from "../../../responsive";
+import { MakeResponsive } from "../../../utilities/responsive";
 export type AccordionProps = FlexProps & {
     /** The list of items associated with this accordion */
     itemList: ControlledList<string>;

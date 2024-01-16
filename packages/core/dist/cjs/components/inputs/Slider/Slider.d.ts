@@ -1,7 +1,7 @@
 /// <reference types="react" />
 import { GenericInputProps } from "../../../generics";
 import { StyledFlexProps } from "../../layout";
-import { MakeResponsive } from "../../../responsive";
+import { MakeResponsive } from "../../../utilities/responsive";
 export type SliderEventProps<T = number> = {
     /** Callback fired after a thumb has been moved. */
     onAfterChange?: (value: T, thumbIndex: number) => void;

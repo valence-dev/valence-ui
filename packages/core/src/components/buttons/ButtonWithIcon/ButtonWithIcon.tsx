@@ -1,9 +1,8 @@
 import { CSSProperties, ReactNode, forwardRef } from "react";
 import { TextButtonProps } from "../TextButton";
-import { MakeResponsive, useResponsiveProps, useValence } from "../../..";
+import { MakeResponsive, useColors, useResponsiveProps, useValence } from "../../..";
 import { PrimitiveButton } from "../PrimitiveButton";
 import { Icon, Text } from "../../display";
-import { getTextColor } from "../Helpers";
 
 export type ButtonWithIconProps = TextButtonProps & {
   /** The icon to include with this button */
@@ -15,8 +14,9 @@ export type ButtonWithIconProps = TextButtonProps & {
 export const ButtonWithIcon = forwardRef(function ButtonWithIcon(
   props: MakeResponsive<ButtonWithIconProps>,
   ref: any
-  ) {
+) {
   const theme = useValence();
+  const colors = useColors();
 
 
   // Defaults
@@ -59,14 +59,14 @@ export const ButtonWithIcon = forwardRef(function ButtonWithIcon(
     >
       <Icon
         size={theme.getSize("iconSize", size) as number}
-        color={getTextColor(color, variant, theme)}
+        color={colors.getFgHex(color, variant)}
       >
         {icon}
       </Icon>
 
       <Text
         size={size}
-        color={getTextColor(color, variant, theme)}
+        color={colors.getFgHex(color, variant)}
         {...textProps}
       >
         {children}

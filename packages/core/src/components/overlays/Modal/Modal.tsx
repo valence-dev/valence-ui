@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { forwardRef } from "react";
-import { ModalBackground, Disclosure, useDetectKeyDown, useValence, MakeResponsive, useResponsiveProps } from "../../..";
+import { ModalBackground, Disclosure, useDetectKeyDown, useValence, MakeResponsive, useResponsiveProps, useColors } from "../../..";
 import { Flex, FlexProps } from "../../layout";
 import { AnimatePresence, motion } from "framer-motion";
 import { Icon, Title } from "../../display";
@@ -27,6 +27,7 @@ export const Modal = forwardRef(function Modal(
   ref: any
 ) {
   const theme = useValence();
+  const { getHex } = useColors();
 
 
   // Defaults
@@ -84,8 +85,8 @@ export const Modal = forwardRef(function Modal(
 
   // Styles
   const ContainerStyle = css({
-    backgroundColor: theme.getColorHex(backgroundColor),
-    color: theme.getColorHex(color),
+    backgroundColor: getHex(backgroundColor),
+    color: getHex(color),
     padding: padding,
     margin: margin,
     width: width,

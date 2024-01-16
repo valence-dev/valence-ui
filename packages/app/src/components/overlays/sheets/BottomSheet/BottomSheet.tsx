@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { ValenceContext, ModalBackground, Flex, useDetectKeyDown, DefaultModalHeader, UnstyledButton, MakeResponsive, useResponsiveProps } from "@valence-ui/core";
+import { ValenceContext, ModalBackground, Flex, useDetectKeyDown, DefaultModalHeader, UnstyledButton, MakeResponsive, useResponsiveProps, useColors } from "@valence-ui/core";
 import { GenericOverlayHeaderProps, } from "@valence-ui/utils";
 import { useContext, forwardRef, CSSProperties } from "react";
 import { AnimatePresence, motion, useDragControls } from "framer-motion";
@@ -19,6 +19,7 @@ export const BottomSheet = forwardRef(function BottomSheet(
   ref: any
 ) {
   const theme = useContext(ValenceContext);
+  const { getHex } = useColors();
   const controls = useDragControls();
 
 
@@ -41,8 +42,8 @@ export const BottomSheet = forwardRef(function BottomSheet(
     radius = "lg",
     withShadow = true,
 
-    backgroundColor = theme.getColorHex("white"),
-    color = theme.getColorHex("black"),
+    backgroundColor = getHex("white"),
+    color = getHex("black"),
 
     padding = theme.sizeClasses.padding[theme.defaults.size],
     margin = 0,
@@ -120,7 +121,7 @@ export const BottomSheet = forwardRef(function BottomSheet(
     width: 50,
     height: 5,
     borderRadius: 5,
-    backgroundColor: theme.getColorHex("white", "strong"),
+    backgroundColor: getHex("white", "strong"),
   }
 
   // Hooks

@@ -2,7 +2,7 @@
 import { TextProps } from "../../display";
 import { FlexProps } from "../Flex";
 import { ComponentSize, GenericFloatingLayoutProps } from "@valence-ui/utils";
-import { MakeResponsive } from "../../../responsive";
+import { MakeResponsive } from "../../../utilities/responsive";
 export type OutlineContainerProps = GenericFloatingLayoutProps & FlexProps & {
     /** Determines if this container will stick to the window, or simply be a part of it. `true` by default. */
     sticky?: boolean;

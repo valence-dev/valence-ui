@@ -1,14 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import { CSSProperties, ReactNode, createRef, forwardRef, useState } from "react";
 import { GenericInputProps, GenericTextInputEventProps } from "../../../generics";
-import { Button, IconButton, IconButtonProps, getTextColor } from "../../buttons";
+import { Button, IconButton, IconButtonProps } from "../../buttons";
 import { useValence } from "../../../ValenceProvider";
 import { Pill, PillProps } from "../../display";
 import { css } from "@emotion/react";
 import { Flex, FlexProps } from "../../layout";
 import { IconX } from "@tabler/icons-react";
 import { DefaultOptionsFilter, Option, OptionContainer, OptionsFilter } from "../OptionContainer";
-import { MakeResponsive, useResponsiveProps } from "../../../responsive";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+import { useColors } from "../../../utilities/color";
 
 export type PillInputEventProps =
   GenericTextInputEventProps
@@ -80,6 +81,7 @@ export const PillInput = forwardRef(function PillInput(
   ref: any,
 ) {
   const theme = useValence();
+  const { getFgHex } = useColors();
   const inputRef = ref ?? createRef<HTMLInputElement>();
 
 
@@ -230,10 +232,10 @@ export const PillInput = forwardRef(function PillInput(
 
     fontSize: theme.sizeClasses.fontSize[size],
     fontFamily: theme.getFont("default"),
-    color: getTextColor(color, variant, theme),
+    color: getFgHex(color, variant),
 
     "&::placeholder": {
-      color: `${getTextColor(color, variant, theme)}80`,
+      color: `${getFgHex(color, variant)}80`,
     },
 
     // Remove awful autofill color

@@ -12,10 +12,11 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx, jsxs as _jsxs } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { Icon, PrimitiveButton, Text, ValenceContext, getTextColor, useResponsiveProps } from "@valence-ui/core";
+import { Icon, PrimitiveButton, Text, ValenceContext, useColors, useResponsiveProps } from "@valence-ui/core";
 import { forwardRef, useContext } from "react";
 export const GridButton = forwardRef(function GridButton(props, ref) {
     const theme = useContext(ValenceContext);
+    const { getFgHex } = useColors();
     // Defaults
     const _a = useResponsiveProps(props), { icon, iconPosition = "top", size = theme.defaults.size, variant = theme.defaults.variant, color = theme.primaryColor, width = theme.sizeClasses.height[size] * 2.5, height = width, square = true, style, textProps } = _a, rest = __rest(_a, ["icon", "iconPosition", "size", "variant", "color", "width", "height", "square", "style", "textProps"]);
     // Styles
@@ -27,5 +28,5 @@ export const GridButton = forwardRef(function GridButton(props, ref) {
         width: "100%",
         height: "100%",
     });
-    return (_jsxs(PrimitiveButton, Object.assign({ size: size, variant: variant, color: color, height: height, width: width, square: square, style: styles, ref: ref }, rest, { children: [_jsx("div", { css: IconContainerStyle, children: _jsx(Icon, { size: theme.getSize("iconSize", size) * 1.5, children: icon }) }), _jsx(Text, Object.assign({ fontSize: theme.sizeClasses.fontSize[size] * 0.8, color: getTextColor(color, variant, theme), align: "center" }, textProps, { children: props.children }))] })));
+    return (_jsxs(PrimitiveButton, Object.assign({ size: size, variant: variant, color: color, height: height, width: width, square: square, style: styles, ref: ref }, rest, { children: [_jsx("div", { css: IconContainerStyle, children: _jsx(Icon, { size: theme.getSize("iconSize", size) * 1.5, children: icon }) }), _jsx(Text, Object.assign({ fontSize: theme.sizeClasses.fontSize[size] * 0.8, color: getFgHex(color, variant), align: "center" }, textProps, { children: props.children }))] })));
 });

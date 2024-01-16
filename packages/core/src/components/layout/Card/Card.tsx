@@ -5,7 +5,7 @@ import { CSSProperties, forwardRef } from "react";
 import { useValence } from "../../../ValenceProvider";
 import { GenericImageProps, Image as ImageComponent } from "../../display";
 import { UnstyledButton } from "../../buttons";
-import { MakeResponsive, useResponsiveProps } from "../../../responsive";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
 
 
 export type CardProps =

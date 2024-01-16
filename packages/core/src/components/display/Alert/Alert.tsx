@@ -3,12 +3,13 @@ import { ReactNode, forwardRef } from "react";
 import { AnimatePresence, useReducedMotion } from "framer-motion";
 import { Flex } from "../../layout";
 import { Text } from "../Text";
-import { MotionBehaviourProps, getBackgroundColor, getMotionBehaviour, getTextColor } from "../../buttons";
+import { MotionBehaviourProps, getMotionBehaviour } from "../../buttons";
 import { CLICKABLE_ELEMENTS, ComponentSize, FillVariant, GenericClickableEventProps, GenericClickableProps, GenericLayoutProps, PolymorphicButton, PolymorphicButtonProps } from "@valence-ui/utils";
 import { useValence } from "../../../ValenceProvider";
 import { css } from "@emotion/react";
 import { Icon } from "../Icon";
-import { MakeResponsive, useResponsiveProps } from "../../../responsive";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+import { useColors } from "../../../utilities/color";
 
 export type AlertContent = {
   /** The title of this alert */
@@ -48,6 +49,7 @@ export const Alert = forwardRef(function Alert(
   ref: any
 ) {
   const theme = useValence();
+  const colors = useColors();
 
   // Hooks & states
   const reducedMotion = useReducedMotion();
@@ -93,12 +95,12 @@ export const Alert = forwardRef(function Alert(
 
     border: "none",
     outline: variant === "subtle"
-      ? `1px solid ${theme.getColorHex(backgroundColor, "medium")}`
+      ? `1px solid ${colors.getHex(backgroundColor, "medium")}`
       : "none",
     textDecoration: "none",
 
-    backgroundColor: getBackgroundColor(backgroundColor, variant, false, theme),
-    color: getTextColor(color, variant, theme),
+    backgroundColor: colors.getBgHex(backgroundColor, variant, false),
+    color: colors.getFgHex(color, variant),
     boxShadow: shadow ? theme.defaults.shadow : "none",
     cursor: CLICKABLE_ELEMENTS.includes(component as string) ? "pointer" : "default",
 
@@ -139,7 +141,7 @@ export const Alert = forwardRef(function Alert(
             <Text
               bold
               style={{ flexGrow: 1 }}
-              color={getTextColor(color, variant, theme)}
+              color={colors.getFgHex(color, variant)}
               size={size}
             >
               {alert.title}
@@ -148,7 +150,7 @@ export const Alert = forwardRef(function Alert(
             {alert.message &&
               <Text
                 fontSize={theme.sizeClasses.fontSize[size] as number - 2}
-                color={getTextColor(color, variant, theme)}
+                color={colors.getFgHex(color, variant)}
               >
                 {alert.message}
               </Text>

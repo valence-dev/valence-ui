@@ -3,7 +3,7 @@ import { GenericInputProps } from "../../../generics";
 import { ReactNode } from "react";
 import { IconButtonProps, TextButtonProps } from "../../buttons";
 import { FlexProps } from "../../layout";
-import { MakeResponsive } from "../../../responsive";
+import { MakeResponsive } from "../../../utilities/responsive";
 export type PillSelectorEventProps = MouseClickEvents & MouseEvents & PointerEvents & FocusEvents & KeyboardEvents & {
     /** Callback to be called when a pill is selected. */
     onPillSelected?: (value: string) => void;

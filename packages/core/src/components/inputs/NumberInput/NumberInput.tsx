@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { CSSProperties, ReactNode, createRef, forwardRef } from "react";
 import { InputContainer } from "../InputContainer";
-import { GenericInputProps, GenericTextInputEventProps, MakeResponsive, useResponsiveProps, useValence } from "../../..";
-import { IconButton, getTextColor } from "../../buttons";
+import { GenericInputProps, GenericTextInputEventProps, MakeResponsive, useColors, useResponsiveProps, useValence } from "../../..";
+import { IconButton } from "../../buttons";
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 import { css } from "@emotion/react";
 
@@ -44,6 +44,7 @@ export const NumberInput = forwardRef(function NumberInput(
   ref: any
 ) {
   const theme = useValence();
+  const { getFgHex } = useColors();
   const inputRef = ref ?? createRef<HTMLInputElement>();
 
 
@@ -105,10 +106,10 @@ export const NumberInput = forwardRef(function NumberInput(
 
     fontSize: theme.sizeClasses.fontSize[size],
     fontFamily: theme.getFont("default"),
-    color: getTextColor(color, variant, theme),
+    color: getFgHex(color, variant),
 
     "&::placeholder": {
-      color: `${getTextColor(color, variant, theme)}80`,
+      color: `${getFgHex(color, variant)}80`,
     },
 
     // Remove awful autofill color

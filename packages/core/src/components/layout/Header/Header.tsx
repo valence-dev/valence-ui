@@ -1,6 +1,6 @@
 import { CSSProperties, forwardRef, useState } from "react";
 import { Flex, FlexProps } from "../Flex";
-import { MakeResponsive, useResponsiveProp, useResponsiveProps, useValence } from "../../..";
+import { MakeResponsive, useColors, useResponsiveProp, useResponsiveProps } from "../../..";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 
 export type HeaderProps = Omit<FlexProps, "height"> & {
@@ -30,7 +30,7 @@ export const Header = forwardRef(function Header(
   props: MakeResponsive<HeaderProps>,
   ref: any
 ) {
-  const theme = useValence();
+  const { getHex } = useColors();
 
 
   // Defaults
@@ -68,7 +68,7 @@ export const Header = forwardRef(function Header(
 
   // Styles
   const HeaderStyle: CSSProperties = {
-    backgroundColor: theme.getColorHex(
+    backgroundColor: getHex(
       backgroundColor,
       "strong"
     ),

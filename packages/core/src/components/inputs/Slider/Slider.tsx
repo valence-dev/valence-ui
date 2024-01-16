@@ -5,10 +5,10 @@ import ReactSlider from "react-slider";
 import { css } from "@emotion/react";
 import { useValence } from "../../../ValenceProvider";
 import { Flex, StyledFlex, StyledFlexProps } from "../../layout";
-import { getBackgroundColor } from "../../buttons";
 import { Text } from "../../display";
 import { NumberInput } from "../NumberInput";
-import { MakeResponsive, useResponsiveProps } from "../../../responsive";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+import { useColors } from "../../../utilities/color";
 
 export type SliderEventProps<T = number> = {
   /** Callback fired after a thumb has been moved. */
@@ -196,6 +196,7 @@ const SliderTrack = forwardRef(function SliderTrack(
 ) {
   // Hooks 
   const theme = useValence();
+  const { getBgHex } = useColors();
 
 
   const {
@@ -220,9 +221,9 @@ const SliderTrack = forwardRef(function SliderTrack(
 
   // Styles
   const TrackStyle: CSSProperties = {
-    backgroundColor: getBackgroundColor(
+    backgroundColor: getBgHex(
       highlight ? color : "black",
-      variant, false, theme
+      variant, false
     ),
     borderRadius: theme.getSize("radius", radius),
 

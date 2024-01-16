@@ -6,7 +6,7 @@ import { StyledFlex, StyledFlexProps } from "../../layout";
 import { css } from "@emotion/react";
 import { useValence } from "../../../ValenceProvider";
 import { Text } from "../../display";
-import { MakeResponsive, useResponsiveProps } from "../../../responsive";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
 
 
 // Tooltip context

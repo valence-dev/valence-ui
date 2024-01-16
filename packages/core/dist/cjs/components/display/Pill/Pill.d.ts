@@ -2,7 +2,7 @@ import { ComponentSize, FillVariant, GenericLayoutProps } from "@valence-ui/util
 import { IconButtonProps, UnstyledButtonProps } from "../../buttons";
 import { ReactNode } from "react";
 import { TextProps } from "../Text";
-import { MakeResponsive } from "../../../responsive";
+import { MakeResponsive } from "../../../utilities/responsive";
 export type PillProps = GenericLayoutProps & UnstyledButtonProps & {
     /** Fill variant of this pill. Defaults to theme default. */
     variant?: FillVariant;

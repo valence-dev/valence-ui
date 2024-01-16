@@ -1,19 +1,3 @@
-import { CSSProperties } from "react";
-import { FillVariant } from "@valence-ui/utils";
-import { IValenceContext } from "../../ValenceProvider";
-/** Retrieves the most suitable background color, given the context
- * @param color The color to use
- * @param variant The variant of the button
- * @param hovered Whether the button is hovered
- * @param theme The theme context
- */
-export declare function getBackgroundColor(color: CSSProperties["backgroundColor"], variant: FillVariant | undefined, hovered: boolean, theme: IValenceContext): string;
-/** Retrieves the most suitable text color, given the context
- * @param color The color to use
- * @param variant The variant of the button
- * @param theme The theme context
- */
-export declare function getTextColor(color: CSSProperties["color"], variant: FillVariant | undefined, theme: IValenceContext): string;
 /** Defines expected behaviour for a component with motion behaviour */
 export type MotionBehaviourProps = {
     /** Behaviour for while the component is hovered

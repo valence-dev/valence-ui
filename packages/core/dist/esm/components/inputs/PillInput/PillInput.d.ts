@@ -5,7 +5,7 @@ import { IconButtonProps } from "../../buttons";
 import { PillProps } from "../../display";
 import { FlexProps } from "../../layout";
 import { Option, OptionsFilter } from "../OptionContainer";
-import { MakeResponsive } from "../../../responsive";
+import { MakeResponsive } from "../../../utilities/responsive";
 export type PillInputEventProps = GenericTextInputEventProps & {
     /** Callback to be called when a pill is added. */
     onPillAdd?: (value: string) => void;

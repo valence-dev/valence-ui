@@ -44,7 +44,7 @@ const layout_1 = require("../../layout");
 const react_3 = require("@emotion/react");
 const ValenceProvider_1 = require("../../../ValenceProvider");
 const display_1 = require("../../display");
-const responsive_1 = require("../../../responsive");
+const responsive_1 = require("../../../utilities/responsive");
 const TooltipContext = (0, react_1.createContext)(null);
 const useTooltipContext = () => {
     const context = (0, react_1.useContext)(TooltipContext);

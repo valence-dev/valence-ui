@@ -25,7 +25,7 @@ function interpolateHeight(max, min, scrollY) {
  * On desktop devices, the `Header` will act as a static container that can be placed anywhere and will scroll with the content. On mobile devices, however, the `Header` will become fixed tot he top of the screen and can shrink as the user scrolls.
  */
 exports.Header = (0, react_1.forwardRef)(function Header(props, ref) {
-    const theme = (0, __1.useValence)();
+    const { getHex } = (0, __1.useColors)();
     // Defaults
     const _a = (0, __1.useResponsiveProps)(props), { height: headerHeight = (0, __1.useResponsiveProp)({ default: 100, mobile: 150 }), compactHeight = 75, position = (0, __1.useResponsiveProp)({ default: "relative", mobile: "sticky" }), compact = (0, __1.useResponsiveProp)({ default: false, mobile: true }), backgroundColor = "white", children, style } = _a, rest = __rest(_a, ["height", "compactHeight", "position", "compact", "backgroundColor", "children", "style"]);
     // Hooks & States
@@ -37,6 +37,6 @@ exports.Header = (0, react_1.forwardRef)(function Header(props, ref) {
         setHeight(interpolateHeight(headerHeight, compactHeight, (prevPos.y + currPos.y) / 2));
     });
     // Styles
-    const HeaderStyle = Object.assign({ backgroundColor: theme.getColorHex(backgroundColor, "strong"), backdropFilter: "blur(10px)", position: position, top: 0, zIndex: 150, width: "100%" }, style);
+    const HeaderStyle = Object.assign({ backgroundColor: getHex(backgroundColor, "strong"), backdropFilter: "blur(10px)", position: position, top: 0, zIndex: 150, width: "100%" }, style);
     return ((0, jsx_runtime_1.jsx)(Flex_1.Flex, Object.assign({ style: HeaderStyle, direction: "column", justify: "center", height: height, ref: ref }, rest, { children: children })));
 });

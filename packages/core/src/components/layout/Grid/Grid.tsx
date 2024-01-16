@@ -3,7 +3,8 @@ import { GenericGridItemProps, GenericGridProps, PolymorphicLayout, PolymorphicL
 import { forwardRef } from "react";
 import { useValence } from "../../../ValenceProvider";
 import { css } from "@emotion/react";
-import { MakeResponsive, useResponsiveProps } from "../../../responsive";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+import { useColors } from "../../../utilities/color";
 
 export type GridProps =
   GenericGridProps
@@ -19,6 +20,7 @@ const Grid = forwardRef(function Grid(
   ref: any,
 ) {
   const theme = useValence();
+  const { getHex } = useColors();
 
 
   // Defaults
@@ -68,8 +70,8 @@ const Grid = forwardRef(function Grid(
     alignItems: alignItems,
     alignContent: alignContent,
 
-    backgroundColor: theme.getColorHex(backgroundColor),
-    color: theme.getColorHex(color),
+    backgroundColor: getHex(backgroundColor),
+    color: getHex(color),
     padding: padding,
     margin: margin,
     width: width,
@@ -94,6 +96,7 @@ const Item = forwardRef(function GridItem(
   ref: any,
 ) {
   const theme = useValence();
+  const { getHex } = useColors();
 
 
   // Defaults
@@ -139,8 +142,8 @@ const Item = forwardRef(function GridItem(
 
     order: order,
 
-    backgroundColor: theme.getColorHex(backgroundColor),
-    color: theme.getColorHex(color),
+    backgroundColor: getHex(backgroundColor),
+    color: getHex(color),
     padding: padding,
     margin: margin,
     width: width,

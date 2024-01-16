@@ -1,4 +1,4 @@
-import { useValence } from "../ValenceProvider";
+import { useValence } from "../../ValenceProvider";
 import { useWindowSize } from "usehooks-ts";
 
 export type Breakpoint = { 

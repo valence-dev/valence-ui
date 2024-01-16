@@ -4,7 +4,8 @@ import reactStringReplace from "react-string-replace";
 import { ComponentSize, GenericClickableProps, GenericProps, PolymorphicText, PolymorphicTextProps } from "@valence-ui/utils";
 import { useValence } from "../../../ValenceProvider";
 import { css } from "@emotion/react";
-import { MakeResponsive, useResponsiveProps } from "../../../responsive";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+import { useColors } from "../../../utilities/color";
 
 const REGEX_PATTERNS = {
   newline: /(\n)/,
@@ -62,6 +63,7 @@ export const Text = forwardRef(function Text(
   ref: any
 ) {
   const theme = useValence();
+  const colors = useColors();
 
 
   // Defaults
@@ -141,7 +143,7 @@ export const Text = forwardRef(function Text(
     textTransform: transform,
     textAlign: align,
 
-    color: theme.getColorHex(color),
+    color: colors.getHex(color),
     margin: 0,
 
     ...style,

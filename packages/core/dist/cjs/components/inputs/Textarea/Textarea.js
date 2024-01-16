@@ -16,23 +16,24 @@ const jsx_runtime_1 = require("@emotion/react/jsx-runtime");
 /** @jsxImportSource @emotion/react */
 const ValenceProvider_1 = require("../../../ValenceProvider");
 const react_1 = require("react");
-const buttons_1 = require("../../buttons");
 const react_2 = require("@emotion/react");
 const InputContainer_1 = require("../InputContainer");
-const responsive_1 = require("../../../responsive");
+const responsive_1 = require("../../../utilities/responsive");
+const color_1 = require("../../../utilities/color");
 exports.Textarea = (0, react_1.forwardRef)(function Textarea(props, ref) {
     const theme = (0, ValenceProvider_1.useValence)();
+    const { getFgHex } = (0, color_1.useColors)();
     const inputRef = ref !== null && ref !== void 0 ? ref : (0, react_1.createRef)();
     // Defaults
     const _a = (0, responsive_1.useResponsiveProps)(props), { value, setValue, icon, placeholder = "", autoComplete = false, spellCheck = true, size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, grow, resize = "none", minHeight = theme.sizeClasses.height[size], maxHeight, minWidth, maxWidth, autoFocus, loading, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding = 10, margin, width = "100%", height = "auto", onEnterPress, onKeyPress, style, inputStyle } = _a, rest = __rest(_a, ["value", "setValue", "icon", "placeholder", "autoComplete", "spellCheck", "size", "radius", "variant", "grow", "resize", "minHeight", "maxHeight", "minWidth", "maxWidth", "autoFocus", "loading", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "onEnterPress", "onKeyPress", "style", "inputStyle"]);
     // Styles
-    const TextareaStyle = (0, react_2.css)(Object.assign({ outline: "none", border: "none", textDecoration: "none", padding: 0, resize: resize, minHeight: minHeight, maxHeight: maxHeight, minWidth: minWidth, maxWidth: maxWidth, verticalAlign: "center", width: "100%", height: "100%", overflowY: "auto", background: "none", color: (0, buttons_1.getTextColor)(color, variant, theme), fontSize: theme.sizeClasses.fontSize[size], fontFamily: theme.getFont("default"), "&::-webkit-scrollbar": {
+    const TextareaStyle = (0, react_2.css)(Object.assign({ outline: "none", border: "none", textDecoration: "none", padding: 0, resize: resize, minHeight: minHeight, maxHeight: maxHeight, minWidth: minWidth, maxWidth: maxWidth, verticalAlign: "center", width: "100%", height: "100%", overflowY: "auto", background: "none", color: getFgHex(color, variant), fontSize: theme.sizeClasses.fontSize[size], fontFamily: theme.getFont("default"), "&::-webkit-scrollbar": {
             width: 10,
         }, "&::-webkit-scrollbar-thumb": {
             backgroundColor: "#11181C20",
             borderRadius: 5,
         }, "&::placeholder": {
-            color: `${(0, buttons_1.getTextColor)(color, variant, theme)}80`,
+            color: `${getFgHex(color, variant)}80`,
         }, 
         // Remove awful autofill color
         "&:-webkit-autofill": { transition: `background-color 5000s ease-in-out 0s` }, "&:-webkit-autofill:focus": { transition: `background-color 5000s ease-in-out 0s` }, "&:-webkit-autofill:hover": { transition: `background-color 5000s ease-in-out 0s` }, "&:-webkit-autofill:active": { transition: `background-color 5000s ease-in-out 0s` } }, inputStyle));

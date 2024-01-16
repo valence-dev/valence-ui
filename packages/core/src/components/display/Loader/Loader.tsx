@@ -1,6 +1,6 @@
 import { CSSProperties, forwardRef } from "react";
 import { motion } from "framer-motion";
-import { MakeResponsive, useResponsiveProps, useValence } from "../../..";
+import { MakeResponsive, useColors, useResponsiveProps, useValence } from "../../..";
 import { ComponentSize, GenericProps, SizeClasses } from "@valence-ui/utils";
 
 export type LoaderProps = GenericProps & {
@@ -23,6 +23,7 @@ export const Loader = forwardRef(function Loader(
   ref: any
 ) {
   const theme = useValence();
+  const colors = useColors();
 
 
   // Defaults
@@ -39,7 +40,7 @@ export const Loader = forwardRef(function Loader(
     width: SIZES[size].height,
     height: SIZES[size].height,
     border: `${SIZES[size].thickness}px solid #11181C00`,
-    borderBottomColor: theme.getColorHex(color),
+    borderBottomColor: colors.getHex(color),
     borderRadius: "50%",
     display: "inline-block",
     boxSizing: "border-box",
