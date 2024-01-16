@@ -33,9 +33,6 @@ const meta: Meta<typeof Fl> = {
     grow: {
       control: { type: "boolean" },
     },
-    noWrap: {
-      control: { type: "boolean" },
-    },
 
     width: {
       control: { type: "text" },

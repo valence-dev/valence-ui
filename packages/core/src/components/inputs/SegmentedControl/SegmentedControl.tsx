@@ -119,6 +119,7 @@ export const SegmentedControl = forwardRef(function SegmentedControl(
       padding={padding}
       gap={gap}
 
+      alignSelf="stretch"
       style={containerStyle}
 
       {...rest}

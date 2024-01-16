@@ -55,7 +55,12 @@ type Story = StoryObj<typeof MPB>;
 
 export const Multipart: Story = (args: any) => (
   <ValenceProvider>
-    <Flex direction="column">
+    <Flex
+      direction="column"
+      height="100vh"
+      center
+      padding={20}
+    >
       <MPB {...args} size="xs" />
       <MPB {...args} size="sm" />
       <MPB {...args} size="md" />

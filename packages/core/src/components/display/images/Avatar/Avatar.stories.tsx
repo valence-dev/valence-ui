@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { ValenceProvider } from "../../../..";
+import { Flex, ValenceProvider } from "../../../..";
 
 import { Avatar as A } from "./Avatar";
 
@@ -14,7 +14,9 @@ type Story = StoryObj<typeof A>;
 
 export const Avatar: Story = (args: any) => (
   <ValenceProvider>
-    <A {...args} />
+    <Flex center height="100vh">
+      <A {...args} />
+    </Flex>
   </ValenceProvider>
 );
 Avatar.args = {
@@ -23,5 +25,5 @@ Avatar.args = {
   alt: "A random image",
 
   width: 40,
-  fillVariant: "light",
+  variant: "light",
 }

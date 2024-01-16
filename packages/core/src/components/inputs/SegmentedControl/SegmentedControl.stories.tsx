@@ -1,7 +1,7 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
-import { Flex, Icon, SegmentedControl as SC, ValenceProvider } from "../../..";
+import { FlexCenter, Icon, SegmentedControl as SC, ValenceProvider } from "../../..";
 import { Icon123 } from "@tabler/icons-react";
 
 const meta: Meta<typeof SC> = {
@@ -18,7 +18,11 @@ export const SegmentedControl: Story = (args: any) => {
 
   return (
     <ValenceProvider>
-      <Flex direction="column">
+      <FlexCenter
+        innerProps={{
+          direction: "column",
+        }}
+      >
         <SC
           {...args}
           value={value}
@@ -38,7 +42,7 @@ export const SegmentedControl: Story = (args: any) => {
           setValue={setValue}
           variant="filled"
         />
-      </Flex>
+      </FlexCenter>
     </ValenceProvider>
   );
 }

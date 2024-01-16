@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { ValenceProvider } from "../../..";
+import { FlexCenter, ValenceProvider } from "../../..";
 
 import { NumberInput as NI } from "./NumberInput";
 import { IconNumber } from "@tabler/icons-react";
@@ -19,11 +19,13 @@ export const NumberInput: Story = (args: any) => {
 
   return (
     <ValenceProvider>
-      <NI
-        {...args}
-        value={value}
-        setValue={setValue}
-      />
+      <FlexCenter>
+        <NI
+          {...args}
+          value={value}
+          setValue={setValue}
+        />
+      </FlexCenter>
     </ValenceProvider>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { ValenceProvider } from "../../..";
+import { FlexCenter, ValenceProvider } from "../../..";
 
 import { Switch as SI } from "./Switch";
 
@@ -18,11 +18,13 @@ export const Switch: Story = (args: any) => {
 
   return (
     <ValenceProvider>
-      <SI
-        {...args}
-        value={checked}
-        setValue={setChecked}
-      />
+      <FlexCenter innerProps={{ justify: "center" }}>
+        <SI
+          {...args}
+          value={checked}
+          setValue={setChecked}
+        />
+      </FlexCenter>
     </ValenceProvider>
   );
 }

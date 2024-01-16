@@ -46,7 +46,7 @@ export const Flex = forwardRef(function Flex(
     align = center ? "center" : "flex-start",
     justify = center ? "center" : "flex-start",
 
-    alignSelf = "stretch",
+    alignSelf,
     gap = theme.sizeClasses.padding[theme.defaults.size],
 
     grow = false,

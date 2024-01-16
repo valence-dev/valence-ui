@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { Flex, ValenceProvider } from "../../..";
+import { FlexCenter, ValenceProvider } from "../../..";
 
 import { RangeSlider as S } from "./RangeSlider";
 
@@ -17,7 +17,11 @@ export const RangeSlider: Story = (args: any) => {
 
   return (
     <ValenceProvider>
-      <Flex direction="column">
+      <FlexCenter
+        innerProps={{
+          direction: "column",
+        }}
+      >
         <S
           {...args}
           value={value}
@@ -39,7 +43,7 @@ export const RangeSlider: Story = (args: any) => {
           size="md"
           manualInputPosition="left"
         />
-      </Flex>
+      </FlexCenter>
     </ValenceProvider>
   );
 }

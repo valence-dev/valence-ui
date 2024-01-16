@@ -122,6 +122,7 @@ const Slider = forwardRef(function Slider(
 
   return (
     <Flex
+      alignSelf="stretch"
       align="center"
       gap={5}
       height={height}

@@ -111,6 +111,7 @@ export const OutlineContainer = forwardRef(function OutlineContainer(
 
       {label && (
         <Flex
+          alignSelf="stretch"
           align="center"
           justify="center"
         >

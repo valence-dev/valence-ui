@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { ValenceProvider } from "../../..";
+import { FlexCenter, ValenceProvider } from "../../..";
 
 import { PillInput as PI } from "../../..";
 import { IconHash } from "@tabler/icons-react";
@@ -19,11 +19,13 @@ export const PillInput: Story = (args: any) => {
 
   return (
     <ValenceProvider>
-      <PI
-        {...args}
-        value={value}
-        setValue={setValue}
-      />
+      <FlexCenter>
+        <PI
+          {...args}
+          value={value}
+          setValue={setValue}
+        />
+      </FlexCenter>
     </ValenceProvider>
   );
 }

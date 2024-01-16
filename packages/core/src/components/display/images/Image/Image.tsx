@@ -7,6 +7,7 @@ import { MakeResponsive, useResponsiveProps } from "../../../../utilities/respon
 import { Flex } from "../../../layout";
 import { Icon } from "../../Icon";
 import { IconPhoto } from "@tabler/icons-react";
+import { useColors } from "../../../../utilities";
 
 export type GenericImageProps = {
   /** Source URI of this image */
@@ -33,6 +34,9 @@ export type ImageProps = GenericImageProps & GenericProps & {
   /** Shorthand for `aspect-ratio = "1/1"` */
   square?: boolean;
 
+  /** Sets `color` css property */
+  color?: CSSProperties["color"];
+
   /** Specifies if a shadow will be shown */
   shadow?: boolean;
 
@@ -45,12 +49,14 @@ export const Image = forwardRef(function Image(
   ref: any
 ) {
   const theme = useValence();
+  const { getHex } = useColors();
 
 
   // Defaults
   const {
     src,
     alt,
+    color = "black",
     placeholder = (
       <Flex
         align="center"
@@ -58,7 +64,7 @@ export const Image = forwardRef(function Image(
         height="100%"
         width="100%"
       >
-        <Icon><IconPhoto /></Icon>
+        <Icon color={color}><IconPhoto /></Icon>
       </Flex>
     ),
 
@@ -85,6 +91,7 @@ export const Image = forwardRef(function Image(
     overflow: "hidden",
 
     boxShadow: shadow ? theme.defaults.shadow : "none",
+    backgroundColor: getHex(color, "weak"),
 
     ...style
   });

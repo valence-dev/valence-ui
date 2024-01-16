@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { Button, Option, ValenceProvider } from "../../..";
+import { Button, FlexCenter, Option, ValenceProvider } from "../../..";
 
 import { SelectInput as SI } from "../../..";
 import { IconAward } from "@tabler/icons-react";
@@ -19,15 +19,19 @@ export const SelectInput: Story = (args: any) => {
 
   return (
     <ValenceProvider>
-      <SI
-        {...args}
-        value={value}
-        setValue={setValue}
-      />
+      <FlexCenter>
+        <SI
+          {...args}
+          value={value}
+          setValue={setValue}
+        />
 
-      <Button
-        onClick={() => setValue({ label: "Hello", value: "hello" })}
-      > Hi</Button>
+        <Button
+          onClick={() => setValue({ label: "Hello", value: "hello" })}
+        >
+          Reset
+        </Button>
+      </FlexCenter>
     </ValenceProvider>
   );
 }

@@ -2,7 +2,7 @@ import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { PrimitiveButton } from "./PrimitiveButton";
 import { Storybook } from "../../../../storybook"
-import { ValenceProvider } from "../../..";
+import { Flex, ValenceProvider } from "../../..";
 
 const meta: Meta<typeof PrimitiveButton> = {
   component: PrimitiveButton,
@@ -55,16 +55,18 @@ type Story = StoryObj<typeof PrimitiveButton>;
 
 export const Primitive: Story = (args: any) => (
   <ValenceProvider>
-    <PrimitiveButton
-      {...args}
-      component="a"
-      href="barcelona://create?text=Hello%20World%0A%0A%0ANice"
-    />
+    <Flex center height="100vh">
+      <PrimitiveButton
+        {...args}
+        component="a"
+        href="barcelona://create?text=Hello%20World%0A%0A%0ANice"
+      />
+    </Flex>
   </ValenceProvider>
 );
 Primitive.args = {
   children: "Button",
-  color: { 
+  color: {
     default: "red",
     mobile: "blue",
     tablet: "green",

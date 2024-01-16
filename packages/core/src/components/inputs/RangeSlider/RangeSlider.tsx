@@ -99,6 +99,7 @@ export const RangeSlider = forwardRef(function RangeSlider(
 
   return (
     <Flex
+      alignSelf="stretch"
       align="center"
       gap={5}
       height={height}

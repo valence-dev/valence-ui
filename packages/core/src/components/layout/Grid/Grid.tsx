@@ -95,7 +95,6 @@ const Item = forwardRef(function GridItem(
   props: MakeResponsive<GridItemProps>,
   ref: any,
 ) {
-  const theme = useValence();
   const { getHex } = useColors();
 
 

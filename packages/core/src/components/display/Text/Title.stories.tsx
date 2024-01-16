@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { ValenceProvider } from "../../..";
+import { Flex, ValenceProvider } from "../../..";
 import { Storybook } from "../../../../storybook"
 
 import { Title as Ti } from "./Title";
@@ -9,7 +9,7 @@ const meta: Meta<typeof Ti> = {
   component: Ti,
   title: "Valence/Core/Display/Text",
   argTypes: {
-    order: { 
+    order: {
       options: [1, 2, 3, 4, 5, 6],
       control: { type: "select" },
     },
@@ -20,7 +20,7 @@ const meta: Meta<typeof Ti> = {
     weight: {
       control: { type: "number" }
     },
-    align: { 
+    align: {
       options: Storybook.textAligns,
       control: { type: "select" },
     },
@@ -34,13 +34,13 @@ const meta: Meta<typeof Ti> = {
       control: { type: "select" },
     },
 
-    italic: { 
+    italic: {
       control: { type: "boolean" },
     },
-    bold: { 
+    bold: {
       control: { type: "boolean" },
     },
-    monospace: { 
+    monospace: {
       control: { type: "boolean" },
     },
   },
@@ -50,7 +50,9 @@ type Story = StoryObj<typeof Ti>;
 
 export const Title: Story = (args: any) => (
   <ValenceProvider>
-    <Ti data-testId="Text-id" {...args} />
+    <Flex center height="100vh">
+      <Ti {...args} />
+    </Flex>
   </ValenceProvider>
 );
 Title.args = {

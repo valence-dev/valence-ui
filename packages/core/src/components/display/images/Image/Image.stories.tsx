@@ -3,6 +3,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import { ValenceProvider } from "../../../../ValenceProvider";
 
 import { Image as I } from "./Image";
+import { Flex } from "../../../layout";
 
 const meta: Meta<typeof I> = {
   component: I,
@@ -15,7 +16,9 @@ type Story = StoryObj<typeof I>;
 
 export const Image: Story = (args: any) => (
   <ValenceProvider>
-    <I {...args} />
+    <Flex center height="100vh">
+      <I {...args} />
+    </Flex>
   </ValenceProvider>
 );
 Image.args = {

@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { Text, ValenceProvider } from "../../..";
+import { Flex, Text, ValenceProvider } from "../../..";
 import { Accordion as A } from "./Accordion";
 import { useControlledList } from "../../../hooks/UseControlledList";
 
