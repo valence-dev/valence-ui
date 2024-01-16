@@ -9,19 +9,23 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
-import { forwardRef, useContext } from "react";
-import { Flex, Header, Space, ValenceContext, useBreakpoint, useResponsiveProps } from "@valence-ui/core";
+import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
+import React, { forwardRef, useContext } from "react";
+import { Flex, ValenceContext, useDisclosure, useResponsiveProps } from "@valence-ui/core";
+import { useElementSize } from "usehooks-ts";
+import { AppContext } from "../../../contexts/AppContext";
 /**
  * The `AppContainer` component is a layout component that provides a consistent layout for pages in the application. It includes a navigation element, a header element, and an optional sidebar element. The `AppContainer` component is responsive and adjusts its layout based on the screen size.
  */
 export const AppContainer = forwardRef(function AppContainer(props, ref) {
-    var _a;
     const theme = useContext(ValenceContext);
-    const breakpoint = useBreakpoint();
     // Defaults
-    const _b = useResponsiveProps(props), { nav, header, sidebar, radius = theme.defaults.radius, navContainerProps, pageProps, contentWidth = 700, sidebarWidth = 270, navWidth = 65, showHeaderSpacer = true, showNav = true, children, style } = _b, rest = __rest(_b, ["nav", "header", "sidebar", "radius", "navContainerProps", "pageProps", "contentWidth", "sidebarWidth", "navWidth", "showHeaderSpacer", "showNav", "children", "style"]);
+    const _a = useResponsiveProps(props), { nav, header, sidebar, radius = theme.defaults.radius, pageProps, contentWidth = 700, showNav = true, children, style } = _a, rest = __rest(_a, ["nav", "header", "sidebar", "radius", "pageProps", "contentWidth", "showNav", "children", "style"]);
     const borderRadius = theme.sizeClasses.radius[radius] + 5;
+    // Hooks
+    const [leftRef, { width: leftWidth }] = useElementSize();
+    // States
+    const sidebarDisclosure = useDisclosure();
     // Styles
     const pageContainerStyle = Object.assign({ default: {
             position: "fixed",
@@ -36,31 +40,27 @@ export const AppContainer = forwardRef(function AppContainer(props, ref) {
             width: "100vw",
             zIndex: 999,
         } }, style);
-    const sidebarContainerStyle = {
+    const sidebarReplacementStyle = {
         default: {
-            width: sidebar ? sidebarWidth : 0,
-            backgroundColor: theme.getColorHex("white"),
+            width: borderRadius,
             borderRadius: `${borderRadius}px 0px 0px ${borderRadius}px`,
-            padding: 10,
-        }, mobile: {
             backgroundColor: theme.getColorHex("white"),
-            borderRadius: showNav ?
-                `0px 0px ${borderRadius}px ${borderRadius}px`
-                : 0,
-            overflow: "auto",
-            padding: `0px 10px`,
-            minHeight: borderRadius,
         },
+        mobile: {
+            height: borderRadius,
+            borderRadius: `0px 0px ${borderRadius}px ${borderRadius}px`,
+            backgroundColor: theme.getColorHex("white"),
+        }
     };
     const contentContainerStyle = {
         default: {
             backgroundColor: theme.getColorHex("white"),
-            paddingLeft: sidebar ? sidebarWidth + navWidth : navWidth,
-            paddingRight: 30,
+            paddingLeft: leftWidth + 10,
+            paddingRight: 0,
             width: "100vw",
             transition: "padding-right 0.3s ease-in-out",
         }, mobile: {
-            backgroundColor: (_a = theme.getColor("white")) === null || _a === void 0 ? void 0 : _a.base,
+            backgroundColor: theme.getColorHex("white"),
             padding: 20,
         }
     };
@@ -69,6 +69,14 @@ export const AppContainer = forwardRef(function AppContainer(props, ref) {
         minHeight: "100vh",
         paddingBottom: 200,
     };
-    return (_jsxs(_Fragment, { children: [_jsxs(Flex, Object.assign({ direction: { default: "row", mobile: "column-reverse" }, backgroundColor: "primary", style: pageContainerStyle, gap: 0, ref: ref }, rest, { children: [showNav && _jsx(Flex, Object.assign({ direction: "column", align: "center", margin: 10 }, navContainerProps, { children: nav })), _jsx(Flex, { direction: "column", style: sidebarContainerStyle, children: sidebar &&
-                            _jsxs(_Fragment, { children: [!breakpoint.isMobile && header, sidebar] }) })] })), _jsx(Flex, { id: "root-content", align: "center", justify: "center", grow: true, style: contentContainerStyle, children: _jsxs(Flex, Object.assign({ direction: "column", style: contentStyle }, pageProps, { children: [!props.sidebar || breakpoint.isMobile ? header : _jsx(Header, {}), breakpoint.isMobile && showHeaderSpacer && _jsx(Space, { height: 120 }), children] })) })] }));
+    return (_jsx(_Fragment, { children: _jsxs(AppContext.Provider, { value: {
+                sidebarDisclosure,
+                contentWidth,
+                leftWidth,
+            }, children: [_jsxs(Flex, Object.assign({ direction: { default: "row", mobile: "column-reverse" }, backgroundColor: "primary", style: pageContainerStyle, gap: 0, ref: leftRef }, rest, { children: [showNav && nav, sidebar ? React.cloneElement(sidebar, {
+                            sideSheetProps: {
+                                disclosure: sidebarDisclosure,
+                            }
+                        }) :
+                            _jsx(Flex, { style: sidebarReplacementStyle })] })), _jsx(Flex, { id: "root-content", align: "center", justify: "center", grow: true, style: contentContainerStyle, children: _jsxs(Flex, Object.assign({ direction: "column", style: contentStyle }, pageProps, { children: [header, children] })) })] }) }));
 });

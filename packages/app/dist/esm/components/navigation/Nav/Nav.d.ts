@@ -1,14 +1,18 @@
 import { CSSProperties } from "react";
-import { IconButtonProps, MakeResponsive, PrimitiveButtonProps } from "@valence-ui/core";
+import { IconButtonProps, MakeResponsive, PrimitiveButtonProps, Responsive } from "@valence-ui/core";
 import { GenericLayoutProps, PolymorphicLayoutProps } from "@valence-ui/utils";
 export type NavButtonProps = IconButtonProps & {
-    /** Specifies if this button is highlighted */
+    /** Whether this button is highlighted. `false` by default. */
     highlighted?: boolean;
+    /** Whether this button should be shown at this breakpoint. `true` by default. */
+    show?: Responsive<boolean>;
 };
 export type GenericNavProps = GenericLayoutProps & PolymorphicLayoutProps & {
     /** Buttons to display on the top of the navigation */
     buttons: NavButtonProps[];
-    /** Buttons to display on the bottom of the navigation. On mobile devices these will be groups with `buttons` horizontally along the bottom of the screen */
+    /** Buttons to display on the bottom of the navigation. On mobile devices these will be grouped
+     * with `buttons` horizontally along the bottom of the screen
+     */
     bottomButtons?: NavButtonProps[];
     /** Sets `gap` css property */
     gap?: CSSProperties["gap"];

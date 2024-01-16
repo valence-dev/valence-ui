@@ -6,5 +6,5 @@ import { useResponsiveProp, useResponsiveProps } from "@valence-ui/core";
 export const DynamicSheet = forwardRef(function DynamicSheet(props, ref) {
     // Defaults
     const { type = useResponsiveProp({ default: "standard", tablet: "overlay", mobile: "bottom" }), disclosure, title, sideSheetProps, bottomSheetProps, children } = useResponsiveProps(props);
-    return (_jsx(_Fragment, { children: type === "bottom" ? (_jsx(BottomSheet, Object.assign({ disclosure: disclosure, title: title, ref: ref }, bottomSheetProps, { children: children }))) : (_jsx(SideSheet, Object.assign({ type: type, disclosure: disclosure, title: title, ref: ref }, sideSheetProps, { children: children }))) }));
+    return (_jsx(_Fragment, { children: type === "bottom" ? (_jsx(BottomSheet, Object.assign({ disclosure: disclosure, title: title, ref: ref }, bottomSheetProps, { children: children }))) : (_jsx(SideSheet, Object.assign({ display: type, disclosure: disclosure, title: title, ref: ref }, sideSheetProps, { children: children }))) }));
 });

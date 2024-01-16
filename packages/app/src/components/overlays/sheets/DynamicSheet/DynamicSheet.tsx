@@ -1,9 +1,9 @@
 import { ReactNode, forwardRef } from "react";
-import { SideSheet, SideSheetProps, SideSheetType } from "../SideSheet";
+import { SideSheet, SideSheetProps, SideSheetDisplay } from "../SideSheet";
 import { BottomSheet, BottomSheetProps } from "../BottomSheet";
 import { Disclosure, MakeResponsive, useResponsiveProp, useResponsiveProps } from "@valence-ui/core";
 
-export type DynamicSheetType = SideSheetType | "bottom";
+export type DynamicSheetType = SideSheetDisplay | "bottom";
 
 export type DyanmicSheetProps = {
   children: ReactNode;
@@ -47,7 +47,7 @@ export const DynamicSheet = forwardRef(function DynamicSheet(
         </BottomSheet>
       ) : (
         <SideSheet
-          type={type as SideSheetType}
+          display={type as SideSheetDisplay}
           disclosure={disclosure}
           title={title}
 

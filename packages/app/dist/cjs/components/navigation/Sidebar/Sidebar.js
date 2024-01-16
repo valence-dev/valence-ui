@@ -13,26 +13,34 @@ var __rest = (this && this.__rest) || function (s, e) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Sidebar = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
-const react_1 = require("react");
 const core_1 = require("@valence-ui/core");
-const utils_1 = require("@valence-ui/utils");
-/** The App Sidebar is a page used for navigation and high-level actions within the context of an individual page. This particular sidebar is designed for navigation, and will automatically adapt between desktop and mobile-class devices.  */
-function Sidebar(props) {
-    var _a, _b, _c, _d, _e;
-    const theme = (0, react_1.useContext)(core_1.ValenceContext);
-    const breakpoint = (0, core_1.useBreakpoint)();
-    // Defaults
-    const { buttons, jumpToSection, gap = 5, width = "100%", style } = props, rest = __rest(props, ["buttons", "jumpToSection", "gap", "width", "style"]);
+const react_1 = require("react");
+const overlays_1 = require("../../overlays");
+exports.Sidebar = (0, react_1.forwardRef)(function Sidebar(props, ref) {
+    const _a = (0, core_1.useResponsiveProps)(props), { display = (0, core_1.useResponsiveProp)({
+        default: "inline",
+        mobile: "overlay"
+    }), width = 250, height = "100%", backgroundColor = "white", padding = 10, sideSheetProps, style, children } = _a, rest = __rest(_a, ["display", "width", "height", "backgroundColor", "padding", "sideSheetProps", "style", "children"]);
+    // Contexts
+    const theme = (0, core_1.useValence)();
     // Styles
-    const containerStyle = {
-        default: Object.assign({ width: (0, utils_1.getReactiveProp)(width, breakpoint), borderRight: `1px solid ${((_a = theme.getColor("black")) === null || _a === void 0 ? void 0 : _a.base)
-                + ((_b = theme.getColor("black")) === null || _b === void 0 ? void 0 : _b.opacity.weak)}`, paddingRight: 10, position: "sticky", top: 0 }, (0, utils_1.getReactiveProp)(style, breakpoint)),
-        mobile: Object.assign({ width: (0, utils_1.getReactiveProp)(width, breakpoint), borderTop: `1px solid ${((_c = theme.getColor("black")) === null || _c === void 0 ? void 0 : _c.base)
-                + ((_d = theme.getColor("black")) === null || _d === void 0 ? void 0 : _d.opacity.weak)}`, padding: "10px 0px 10px 0px", backgroundColor: (_e = theme.getColor("white")) === null || _e === void 0 ? void 0 : _e.base, position: "sticky", top: 0, zIndex: 999 }, (0, utils_1.getReactiveProp)(style, breakpoint))
+    const borderRadius = theme.sizeClasses.radius[theme.defaults.radius] + 5;
+    const sidebarStyle = Object.assign({ width: width, height: height, padding: padding, borderRadius: `${borderRadius}px 0px 0px ${borderRadius}px`, backgroundColor: `${theme.getColorHex(backgroundColor)}E8` }, style);
+    const sidebarReplacementStyle = {
+        default: {
+            width: borderRadius,
+            borderRadius: `${borderRadius}px 0px 0px ${borderRadius}px`,
+            backgroundColor: theme.getColorHex("white"),
+        },
+        mobile: {
+            height: borderRadius,
+            borderRadius: `0px 0px ${borderRadius}px ${borderRadius}px`,
+            backgroundColor: theme.getColorHex("white"),
+        }
     };
-    return ((0, jsx_runtime_1.jsx)(core_1.Flex, Object.assign({ direction: { default: "column", mobile: "row" }, justify: { default: "unset", mobile: "stretch" }, gap: gap, grow: true, style: containerStyle }, rest, { children: buttons.map(b => breakpoint.isMobile ?
-            (0, jsx_runtime_1.jsx)(core_1.IconButton, Object.assign({ square: false, color: "black", variant: b.highlighted ? "light" : "subtle", onClick: () => jumpToSection && b.jumpTo && jumpToSection(b.jumpTo), grow: true }, b, { children: b.icon }), b.id)
-            :
-                (0, jsx_runtime_1.jsx)(core_1.ButtonWithIcon, Object.assign({ color: "black", variant: b.highlighted ? "light" : "subtle", onClick: () => jumpToSection && b.jumpTo && jumpToSection(b.jumpTo), width: "100%" }, b, { children: b.children }), b.id)) })));
-}
-exports.Sidebar = Sidebar;
+    return (display === "inline" ?
+        (0, jsx_runtime_1.jsx)(core_1.Flex, Object.assign({ direction: "column", style: sidebarStyle, ref: ref }, rest, { children: children }))
+        :
+            (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(core_1.Flex, { style: sidebarReplacementStyle }), display === "overlay" && sideSheetProps &&
+                        (0, jsx_runtime_1.jsx)(overlays_1.SideSheet, Object.assign({ display: "overlay", direction: "left" }, sideSheetProps, { children: children }))] }));
+});

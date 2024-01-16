@@ -21,37 +21,42 @@ const framer_motion_2 = require("framer-motion");
 exports.SideSheet = (0, react_1.forwardRef)(function SideSheet(props, ref) {
     const theme = (0, react_1.useContext)(core_1.ValenceContext);
     // Defaults
-    const _a = (0, core_1.useResponsiveProps)(props), { disclosure, title, header = (props) => (0, jsx_runtime_1.jsx)(core_1.DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), type = { default: "standard", desktopThin: "overlay", mobile: "overlay" }, closeOnOverlayClick = true, closeOnEscape = true, lockScroll = false, radius = "lg", withShadow = true, backgroundColor = theme.getColorHex("white"), color = theme.getColorHex("black"), padding = theme.sizeClasses.padding[theme.defaults.size], margin = 0, width = 350, height = "100vh", flexProps, overlayBackgroundProps = {
+    const _a = (0, core_1.useResponsiveProps)(props), { disclosure, title, header = (props) => (0, jsx_runtime_1.jsx)(core_1.DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), display = (0, core_1.useResponsiveProp)({ default: "inline", tablet: "overlay", mobile: "overlay" }), direction = "right", closeOnOverlayClick = true, closeOnEscape = true, lockScroll = false, radius = "lg", withShadow = true, backgroundColor = theme.getColorHex("white"), color = theme.getColorHex("black"), padding = theme.sizeClasses.padding[theme.defaults.size], margin = 0, width = 350, height = "100vh", flexProps, overlayBackgroundProps = {
         padding: 0,
         style: {
             alignItems: "flex-end",
         }
-    }, style, children } = _a, rest = __rest(_a, ["disclosure", "title", "header", "type", "closeOnOverlayClick", "closeOnEscape", "lockScroll", "radius", "withShadow", "backgroundColor", "color", "padding", "margin", "width", "height", "flexProps", "overlayBackgroundProps", "style", "children"]);
+    }, style, children } = _a, rest = __rest(_a, ["disclosure", "title", "header", "display", "direction", "closeOnOverlayClick", "closeOnEscape", "lockScroll", "radius", "withShadow", "backgroundColor", "color", "padding", "margin", "width", "height", "flexProps", "overlayBackgroundProps", "style", "children"]);
+    const fixedDirection = display === "overlay" ? direction : "right";
     // Styles
     const borderRadius = theme.sizeClasses.radius[radius];
-    const SheetStyle = Object.assign({ position: "fixed", top: 0, right: 0, bottom: 0, zIndex: 999, width: width, maxWidth: "100%", height: height, backgroundColor: backgroundColor, color: color, padding: padding, margin: margin, boxSizing: "border-box", borderRadius: type !== "overlay" ? undefined :
-            `${borderRadius}px 0 0 ${borderRadius}px`, boxShadow: withShadow && type === "overlay" ?
-            theme.defaults.shadow : undefined, borderLeft: type === "overlay" ? undefined :
+    const SheetStyle = Object.assign({ position: "fixed", top: 0, right: fixedDirection === "right" ? 0 : undefined, left: fixedDirection === "left" ? 0 : undefined, bottom: 0, zIndex: 999, width: width, maxWidth: "100%", height: height, backgroundColor: backgroundColor, color: color, padding: padding, margin: margin, boxSizing: "border-box", borderRadius: display !== "overlay" ? undefined :
+            fixedDirection === "right" ?
+                `${borderRadius}px 0 0 ${borderRadius}px` :
+                `0 ${borderRadius}px ${borderRadius}px 0`, boxShadow: withShadow && display === "overlay" ?
+            theme.defaults.shadow : undefined, borderLeft: display === "overlay" ? undefined :
             `1px solid ${theme.getColorHex("black", "weak")}`, overflowX: "hidden", overflowY: "auto" }, style);
     // Hooks
-    (0, usehooks_ts_1.useLockedBody)(disclosure.opened && lockScroll && type === "overlay", "root");
+    (0, usehooks_ts_1.useLockedBody)(disclosure.opened && lockScroll && display === "overlay", "root");
     (0, core_1.useDetectKeyDown)(disclosure.close, "Escape", closeOnEscape, [closeOnEscape, close]);
     // Effects
     (0, react_1.useEffect)(() => {
-        // When the overlay is opened and the mode is "standard", we want to attempt to 
+        // When the overlay is opened and the mode is "inline", we want to attempt to 
         // find and set the right padding of the root element to the width of the sheet
         const element = document.getElementById("root-content");
         if (!element)
             return;
-        if (disclosure.opened && type === "standard") {
-            element.style.paddingRight = `calc(30px + ${width}px)`;
+        if (disclosure.opened && display === "inline") {
+            element.style.paddingRight = `calc(10px + ${width}px)`;
         }
         else {
-            element.style.paddingRight = `30px`;
+            element.style.paddingRight = `10px`;
         }
     }, [disclosure.opened]);
     return ((0, jsx_runtime_1.jsx)(framer_motion_1.AnimatePresence, { children: disclosure.opened &&
-            (0, jsx_runtime_1.jsx)(OptionalBackground, { disclosure: disclosure, showBackground: type === "overlay", backgroundProps: overlayBackgroundProps, children: (0, jsx_runtime_1.jsx)(framer_motion_2.motion.div, Object.assign({ style: SheetStyle, onClick: e => e.stopPropagation(), initial: { x: "100%" }, animate: {
+            (0, jsx_runtime_1.jsx)(OptionalBackground, { disclosure: disclosure, showBackground: display === "overlay", backgroundProps: overlayBackgroundProps, children: (0, jsx_runtime_1.jsx)(framer_motion_2.motion.div, Object.assign({ style: SheetStyle, onClick: e => e.stopPropagation(), initial: {
+                        x: fixedDirection === "right" ? "100%" : "-100%",
+                    }, animate: {
                         x: 0,
                         transition: {
                             type: "spring",
@@ -59,7 +64,9 @@ exports.SideSheet = (0, react_1.forwardRef)(function SideSheet(props, ref) {
                             damping: 40,
                             delay: 0.1,
                         }
-                    }, exit: { x: "100%" }, ref: ref }, rest, { children: (0, jsx_runtime_1.jsxs)(core_1.Flex, Object.assign({ direction: "column" }, flexProps, { children: [header({ title }), children] })) })) }) }));
+                    }, exit: {
+                        x: fixedDirection === "right" ? "100%" : "-100%",
+                    }, ref: ref }, rest, { children: (0, jsx_runtime_1.jsxs)(core_1.Flex, Object.assign({ direction: "column" }, flexProps, { children: [header({ title }), children] })) })) }) }));
 });
 function OptionalBackground(props) {
     const { children, disclosure, showBackground, backgroundProps } = props;

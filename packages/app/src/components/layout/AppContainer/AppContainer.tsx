@@ -1,6 +1,8 @@
-import { CSSProperties, ReactNode, forwardRef, useContext } from "react";
+import React, { CSSProperties, ReactNode, forwardRef, useContext } from "react";
 import { ComponentSize, GenericLayoutProps, PolymorphicLayoutProps } from "@valence-ui/utils";
-import { Flex, Header, MakeResponsive, Responsive, Space, ValenceContext, useBreakpoint, useResponsiveProps } from "@valence-ui/core";
+import { Flex, MakeResponsive, Responsive, ValenceContext, useDisclosure, useResponsiveProps } from "@valence-ui/core";
+import { useElementSize } from "usehooks-ts";
+import { AppContext } from "../../../contexts/AppContext";
 
 export type AppContainerProps =
   GenericLayoutProps
@@ -16,20 +18,12 @@ export type AppContainerProps =
     /** The border radius of the page container. Defaults to `5px` larger than the theme default. */
     radius?: ComponentSize;
 
-    /** Properties to apply to the nav container element */
-    navContainerProps?: GenericLayoutProps;
     /** Properties to apply to the page container element */
-    pageProps?: GenericLayoutProps;
+    pageProps?: Omit<GenericLayoutProps, "children">;
 
     /** The maximum width of this page's content */
     contentWidth?: number;
-    /** The width of the sidebar element */
-    sidebarWidth?: number;
-    /** The width of the nav element */
-    navWidth?: number;
 
-    /** Whether to show a spacer element below the header. Defaults to `true`. */
-    showHeaderSpacer?: boolean;
     /** Whether to show the nav element. Defaults to `true`. */
     showNav?: boolean;
   }
@@ -43,7 +37,6 @@ export const AppContainer = forwardRef(function AppContainer(
   ref: any
 ) {
   const theme = useContext(ValenceContext);
-  const breakpoint = useBreakpoint();
 
 
   // Defaults
@@ -52,14 +45,10 @@ export const AppContainer = forwardRef(function AppContainer(
     header,
     sidebar,
     radius = theme.defaults.radius,
-    navContainerProps,
     pageProps,
 
     contentWidth = 700,
-    sidebarWidth = 270,
-    navWidth = 65,
 
-    showHeaderSpacer = true,
     showNav = true,
 
     children,
@@ -68,6 +57,14 @@ export const AppContainer = forwardRef(function AppContainer(
   } = useResponsiveProps<AppContainerProps>(props);
 
   const borderRadius = theme.sizeClasses.radius[radius] as number + 5;
+
+
+  // Hooks
+  const [leftRef, { width: leftWidth }] = useElementSize();
+
+
+  // States
+  const sidebarDisclosure = useDisclosure();
 
 
   // Styles
@@ -87,33 +84,28 @@ export const AppContainer = forwardRef(function AppContainer(
     },
     ...style,
   };
-  const sidebarContainerStyle: Responsive<CSSProperties> = {
+  const sidebarReplacementStyle: Responsive<CSSProperties> = {
     default: {
-      width: sidebar ? sidebarWidth : 0,
-      backgroundColor: theme.getColorHex("white"),
+      width: borderRadius,
       borderRadius: `${borderRadius}px 0px 0px ${borderRadius}px`,
-      padding: 10,
-    }, mobile: {
       backgroundColor: theme.getColorHex("white"),
-      borderRadius: showNav ?
-        `0px 0px ${borderRadius}px ${borderRadius}px`
-        : 0,
-      overflow: "auto",
-      padding: `0px 10px`,
-      minHeight: borderRadius,
     },
-
-  };
+    mobile: {
+      height: borderRadius,
+      borderRadius: `0px 0px ${borderRadius}px ${borderRadius}px`,
+      backgroundColor: theme.getColorHex("white"),
+    }
+  }
   const contentContainerStyle: Responsive<CSSProperties> = {
     default: {
       backgroundColor: theme.getColorHex("white"),
-      paddingLeft: sidebar ? sidebarWidth + navWidth : navWidth,
-      paddingRight: 30,
+      paddingLeft: leftWidth + 10,
+      paddingRight: 0,
       width: "100vw",
 
       transition: "padding-right 0.3s ease-in-out",
     }, mobile: {
-      backgroundColor: theme.getColor("white")?.base,
+      backgroundColor: theme.getColorHex("white"),
       padding: 20,
     }
   };
@@ -126,63 +118,59 @@ export const AppContainer = forwardRef(function AppContainer(
 
   return (
     <>
-      {/* Nav & sidebar */}
-      <Flex
-        direction={{ default: "row", mobile: "column-reverse" }}
-        backgroundColor="primary"
-        style={pageContainerStyle}
-        gap={0}
-
-        ref={ref}
-        {...rest}
+      <AppContext.Provider
+        value={{
+          sidebarDisclosure,
+          contentWidth,
+          leftWidth,
+        }}
       >
-        {/* Nav */}
-
-        {showNav && <Flex
-          direction="column"
-          align="center"
-          margin={10}
-          {...navContainerProps}
-        >
-          {nav}
-        </Flex>
-        }
-
-        {/* Sidebar */}
+        {/* Nav & sidebar */}
         <Flex
-          direction="column"
-          style={sidebarContainerStyle}
+          direction={{ default: "row", mobile: "column-reverse" }}
+          backgroundColor="primary"
+          style={pageContainerStyle}
+          gap={0}
+
+          ref={leftRef}
+          {...rest}
         >
-          {sidebar &&
-            <>
-              {!breakpoint.isMobile && header}
-              {sidebar}
-            </>
+          {/* Nav */}
+          {showNav && nav}
+
+          {/* Sidebar */}
+          {sidebar ? React.cloneElement(
+            sidebar as React.ReactElement,
+            {
+              sideSheetProps: {
+                disclosure: sidebarDisclosure,
+              }
+            }
+          ) :
+            <Flex style={sidebarReplacementStyle} />
           }
         </Flex>
-      </Flex>
 
 
-      {/* Page content */}
-      <Flex
-        id="root-content"
-        align="center"
-        justify="center"
-        grow={true}
-        style={contentContainerStyle}
-      >
+        {/* Page content */}
         <Flex
-          direction="column"
-          style={contentStyle}
-          {...pageProps}
+          id="root-content"
+          align="center"
+          justify="center"
+          grow={true}
+          style={contentContainerStyle}
         >
-          {!props.sidebar || breakpoint.isMobile ? header : <Header />}
+          <Flex
+            direction="column"
+            style={contentStyle}
+            {...pageProps}
+          >
+            {header}
 
-          {breakpoint.isMobile && showHeaderSpacer && <Space height={120} />}
-
-          {children}
+            {children}
+          </Flex>
         </Flex>
-      </Flex>
+      </AppContext.Provider>
     </>
   )
 });

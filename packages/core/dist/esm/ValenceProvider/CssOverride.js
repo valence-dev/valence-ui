@@ -14,6 +14,7 @@ export function CssOverride() {
             width: "100vw",
             height: "100vh",
             overflowX: "hidden",
+            backgroundColor: theme.getColorHex("white"),
         },
         "input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active": {
             transition: "background-color 5000s ease-in-out 0s",
@@ -25,7 +26,7 @@ export function CssOverride() {
         },
         "*::-webkit-scrollbar-thumb": {
             borderRadius: 5,
-            backgroundColor: theme.getColorHex("black"),
+            backgroundColor: theme.getColorHex("black", "medium"),
         }
     });
     return (_jsx(Global, { styles: Style }));

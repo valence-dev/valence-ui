@@ -1,16 +1,27 @@
 import { CSSProperties, ReactNode, forwardRef, useContext, useEffect } from "react";
 import { GenericSheetProps } from "../Generics";
-import { DefaultModalHeader, Disclosure, Flex, MakeResponsive, ModalBackground, ValenceContext, useBreakpoint, useDetectKeyDown, useResponsiveProps } from "@valence-ui/core";
+import { DefaultModalHeader, Disclosure, Flex, MakeResponsive, ModalBackground, ValenceContext, useBreakpoint, useDetectKeyDown, useResponsiveProp, useResponsiveProps } from "@valence-ui/core";
 import { GenericOverlayBackgroundProps, GenericOverlayHeaderProps } from "@valence-ui/utils";
 import { useLockedBody } from "usehooks-ts";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
 
-export type SideSheetType = "standard" | "overlay";
+export type SideSheetDisplay = "inline" | "overlay";
 
-export type SideSheetProps = GenericSheetProps & {
-  type?: SideSheetType;
-};
+export type SideSheetProps =
+  GenericSheetProps
+  & {
+    /** The display option for the sidebar. Defaults to `inline` on desktop and 
+     * bigger, and `overlay` on mobile and smaller.
+     */
+    display?: SideSheetDisplay;
+
+    /** The direction that this sidebar will appear from. Direction will only
+     * be adhered to if the display type is `overlay`. Otherwise, it will be
+     * `right` by default. 
+     */
+    direction?: "left" | "right";
+  };
 
 export const SideSheet = forwardRef(function SideSheet(
   props: MakeResponsive<SideSheetProps>,
@@ -27,7 +38,8 @@ export const SideSheet = forwardRef(function SideSheet(
       disclosure={disclosure}
       {...props}
     />,
-    type = { default: "standard", desktopThin: "overlay", mobile: "overlay" },
+    display = useResponsiveProp({ default: "inline", tablet: "overlay", mobile: "overlay" }),
+    direction = "right",
 
     closeOnOverlayClick = true,
     closeOnEscape = true,
@@ -58,13 +70,16 @@ export const SideSheet = forwardRef(function SideSheet(
     ...rest
   } = useResponsiveProps<SideSheetProps>(props);
 
+  const fixedDirection = display === "overlay" ? direction : "right";
+
 
   // Styles
   const borderRadius = theme.sizeClasses.radius[radius];
   const SheetStyle: CSSProperties = {
     position: "fixed",
     top: 0,
-    right: 0,
+    right: fixedDirection === "right" ? 0 : undefined,
+    left: fixedDirection === "left" ? 0 : undefined,
     bottom: 0,
     zIndex: 999,
 
@@ -79,12 +94,14 @@ export const SideSheet = forwardRef(function SideSheet(
     margin: margin,
     boxSizing: "border-box",
 
-    borderRadius: type !== "overlay" ? undefined :
-      `${borderRadius}px 0 0 ${borderRadius}px`,
-    boxShadow: withShadow && type === "overlay" ?
+    borderRadius: display !== "overlay" ? undefined :
+      fixedDirection === "right" ?
+        `${borderRadius}px 0 0 ${borderRadius}px` :
+        `0 ${borderRadius}px ${borderRadius}px 0`,
+    boxShadow: withShadow && display === "overlay" ?
       theme.defaults.shadow : undefined,
 
-    borderLeft: type === "overlay" ? undefined :
+    borderLeft: display === "overlay" ? undefined :
       `1px solid ${theme.getColorHex("black", "weak")}`,
 
     overflowX: "hidden",
@@ -95,21 +112,21 @@ export const SideSheet = forwardRef(function SideSheet(
 
 
   // Hooks
-  useLockedBody(disclosure.opened && lockScroll && type === "overlay", "root");
+  useLockedBody(disclosure.opened && lockScroll && display === "overlay", "root");
   useDetectKeyDown(disclosure.close, "Escape", closeOnEscape, [closeOnEscape, close]);
 
 
   // Effects
   useEffect(() => {
-    // When the overlay is opened and the mode is "standard", we want to attempt to 
+    // When the overlay is opened and the mode is "inline", we want to attempt to 
     // find and set the right padding of the root element to the width of the sheet
     const element = document.getElementById("root-content");
     if (!element) return;
 
-    if (disclosure.opened && type === "standard") {
-      element.style.paddingRight = `calc(30px + ${width}px)`;
+    if (disclosure.opened && display === "inline") {
+      element.style.paddingRight = `calc(10px + ${width}px)`;
     } else {
-      element.style.paddingRight = `30px`;
+      element.style.paddingRight = `10px`;
     }
 
   }, [disclosure.opened])
@@ -120,14 +137,16 @@ export const SideSheet = forwardRef(function SideSheet(
       {disclosure.opened &&
         <OptionalBackground
           disclosure={disclosure}
-          showBackground={type === "overlay"}
+          showBackground={display === "overlay"}
           backgroundProps={overlayBackgroundProps}
         >
           <motion.div
             style={SheetStyle}
             onClick={e => e.stopPropagation()}
 
-            initial={{ x: "100%" }}
+            initial={{
+              x: fixedDirection === "right" ? "100%" : "-100%",
+            }}
             animate={{
               x: 0,
               transition: {
@@ -137,7 +156,9 @@ export const SideSheet = forwardRef(function SideSheet(
                 delay: 0.1,
               }
             }}
-            exit={{ x: "100%" }}
+            exit={{
+              x: fixedDirection === "right" ? "100%" : "-100%",
+            }}
 
             ref={ref}
             {...rest}
