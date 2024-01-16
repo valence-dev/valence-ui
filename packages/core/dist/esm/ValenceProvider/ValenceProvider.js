@@ -1,8 +1,9 @@
-import { jsx as _jsx } from "react/jsx-runtime";
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { createContext, useContext } from "react";
 import { getUnidentifiedHexColor, getReactiveColor } from "../Color";
 import { ValenceContextDefaults as VCD } from "./ValenceProvider.types";
 import { useColorScheme } from "../hooks";
+import { CssOverride } from "./CssOverride";
 export const ValenceContext = createContext(VCD);
 export const useValence = () => {
     const context = useContext(ValenceContext);
@@ -47,7 +48,7 @@ export function ValenceProvider(props) {
         size = size !== null && size !== void 0 ? size : defaults.size;
         return sizeClasses[context][size];
     }
-    return (_jsx(ValenceContext.Provider, { value: {
+    return (_jsxs(ValenceContext.Provider, { value: {
             colors,
             getColor,
             getColorHex,
@@ -59,5 +60,5 @@ export function ValenceProvider(props) {
             getSize,
             titles,
             breakpoints,
-        }, children: props.children }));
+        }, children: [_jsx(CssOverride, {}), props.children] }));
 }

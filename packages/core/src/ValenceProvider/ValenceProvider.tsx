@@ -4,6 +4,7 @@ import { IValenceContext, ValenceContextDefaults as VCD } from "./ValenceProvide
 import { useColorScheme } from "../hooks";
 import { TextProps } from "../components";
 import { ComponentSize, FillVariant, SizeClasses } from "@valence-ui/utils";
+import { CssOverride } from "./CssOverride";
 
 
 export const ValenceContext = createContext<IValenceContext>(VCD);
@@ -139,6 +140,9 @@ export function ValenceProvider(props: ValenceProviderProps) {
         breakpoints,
       }}
     >
+      {/* CSS overrider to avoid pasting a global.css file */}
+      <CssOverride />
+
       {props.children}
     </ValenceContext.Provider>
   )

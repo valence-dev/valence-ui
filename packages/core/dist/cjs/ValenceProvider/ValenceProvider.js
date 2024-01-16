@@ -6,6 +6,7 @@ const react_1 = require("react");
 const Color_1 = require("../Color");
 const ValenceProvider_types_1 = require("./ValenceProvider.types");
 const hooks_1 = require("../hooks");
+const CssOverride_1 = require("./CssOverride");
 exports.ValenceContext = (0, react_1.createContext)(ValenceProvider_types_1.ValenceContextDefaults);
 const useValence = () => {
     const context = (0, react_1.useContext)(exports.ValenceContext);
@@ -51,7 +52,7 @@ function ValenceProvider(props) {
         size = size !== null && size !== void 0 ? size : defaults.size;
         return sizeClasses[context][size];
     }
-    return ((0, jsx_runtime_1.jsx)(exports.ValenceContext.Provider, { value: {
+    return ((0, jsx_runtime_1.jsxs)(exports.ValenceContext.Provider, { value: {
             colors,
             getColor,
             getColorHex,
@@ -63,6 +64,6 @@ function ValenceProvider(props) {
             getSize,
             titles,
             breakpoints,
-        }, children: props.children }));
+        }, children: [(0, jsx_runtime_1.jsx)(CssOverride_1.CssOverride, {}), props.children] }));
 }
 exports.ValenceProvider = ValenceProvider;
