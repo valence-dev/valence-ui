@@ -8,7 +8,7 @@ export type UseColorsReturn = {
   /** Gets the swatch for the given color key. If the color does
    * not exist, this will return `undefined`.
    */
-  getSwatch(color: string | undefined): Swatch | undefined;
+  getSwatch(key: string | undefined): Swatch | undefined;
 
   /** Gets the hex code for the given color key. If the color does
    * not exist, this will return the key as-is.

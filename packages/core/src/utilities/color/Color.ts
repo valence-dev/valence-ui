@@ -1,5 +1,3 @@
-import { ColorScheme } from "../../hooks";
-
 /** Represents the opacity levels for a swatch. */
 export type SwatchOpacity = "weak" | "medium" | "strong";
 
