@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { FlexCenter, ValenceProvider } from "../../..";
+import { FlexCenter, Space, Text, ValenceProvider } from "../../..";
 
 import { PillSelector as PS } from "../../..";
 
@@ -18,7 +18,24 @@ export const PillSelector: Story = (args: any) => {
 
   return (
     <ValenceProvider>
-      <FlexCenter>
+      <FlexCenter innerProps={{ direction: "column" }}>
+        <Text>
+          Wrapped pill container
+        </Text>
+
+        <PS
+          {...args}
+          value={value}
+          setValue={setValue}
+          wrap="wrap"
+        />
+
+        <Space height={20} />
+
+        <Text>
+          Regular pill container
+        </Text>
+
         <PS
           {...args}
           value={value}

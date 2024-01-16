@@ -40,14 +40,17 @@ export type PillSelectorProps =
     /** An icon to use for the clear button. Defaults to `IconX`. */
     clearButtonIcon?: ReactNode;
     /** Optional props to pass to the clear button */
-    clearButtonProps?: IconButtonProps & { children?: never };
+    clearButtonProps?: Omit<IconButtonProps, "children">;
+
+    /** How the pills should wrap within their container. Defaults to `"nowrap"`. */
+    wrap?: CSSProperties["flexWrap"];
 
     /** Optional props to pass to all pills */
-    pillProps?: TextButtonProps & { children?: never };
+    pillProps?: Omit<TextButtonProps, "children">;
     /** Optional props to pass to selected pills. Will override attributes from pillProps */
-    selectedPillProps?: TextButtonProps & { children?: never };
+    selectedPillProps?: Omit<TextButtonProps, "children">;
     /** Optional props to pass to the pill container */
-    pillContainerProps?: FlexProps & { children?: never };
+    pillContainerProps?: Omit<FlexProps, "children">;
 
     children?: never;
   }
@@ -75,6 +78,8 @@ export const PillSelector = forwardRef(function PillSelector(
     clearButtonIcon = <IconX />,
     clearButtonProps,
 
+    wrap = "nowrap",
+
     pillProps,
     selectedPillProps = pillProps,
     pillContainerProps,
@@ -93,7 +98,7 @@ export const PillSelector = forwardRef(function PillSelector(
     backgroundColor = color,
     padding,
     margin,
-    width,
+    width = "100%",
     height = "auto",
     grow = true,
 
@@ -153,12 +158,16 @@ export const PillSelector = forwardRef(function PillSelector(
     height: height,
     flexGrow: grow ? 1 : undefined,
 
+    alignItems: "center",
+
     ...style,
   };
   const PillContainerStyle = css({
     padding: `${gap}px 0px`,
     overflowX: "auto",
     width: "100%",
+
+    flexWrap: wrap,
 
     "&::-webkit-scrollbar": {
       height: 2,
