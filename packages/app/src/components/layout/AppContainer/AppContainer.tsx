@@ -15,9 +15,6 @@ export type AppContainerProps =
     /** An optional sidebar element used for navigation or page-level actions. */
     sidebar?: ReactNode;
 
-    /** The border radius of the page container. Defaults to `5px` larger than the theme default. */
-    radius?: ComponentSize;
-
     /** Properties to apply to the page container element */
     pageProps?: Omit<GenericLayoutProps, "children">;
 
@@ -44,7 +41,6 @@ export const AppContainer = forwardRef(function AppContainer(
     nav,
     header,
     sidebar,
-    radius = theme.defaults.radius,
     pageProps,
 
     contentWidth = 700,
@@ -56,7 +52,7 @@ export const AppContainer = forwardRef(function AppContainer(
     ...rest
   } = useResponsiveProps<AppContainerProps>(props);
 
-  const borderRadius = theme.sizeClasses.radius[radius] as number + 5;
+  const radius = theme.sizeClasses.radius[theme.defaults.radius] as number + 5;
 
 
   // Hooks
@@ -86,13 +82,13 @@ export const AppContainer = forwardRef(function AppContainer(
   };
   const sidebarReplacementStyle: Responsive<CSSProperties> = {
     default: {
-      width: borderRadius,
-      borderRadius: `${borderRadius}px 0px 0px ${borderRadius}px`,
+      width: radius,
+      borderRadius: `${radius}px 0px 0px ${radius}px`,
       backgroundColor: theme.getColorHex("white"),
     },
     mobile: {
-      height: borderRadius,
-      borderRadius: `0px 0px ${borderRadius}px ${borderRadius}px`,
+      height: radius,
+      borderRadius: `0px 0px ${radius}px ${radius}px`,
       backgroundColor: theme.getColorHex("white"),
     }
   }

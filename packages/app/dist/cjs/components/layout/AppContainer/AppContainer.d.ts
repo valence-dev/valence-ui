@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { ComponentSize, GenericLayoutProps, PolymorphicLayoutProps } from "@valence-ui/utils";
+import { GenericLayoutProps, PolymorphicLayoutProps } from "@valence-ui/utils";
 import { MakeResponsive } from "@valence-ui/core";
 export type AppContainerProps = GenericLayoutProps & PolymorphicLayoutProps & {
     /** The primary root navigation element. This element should be consistent across pages; its recommended to be based off the `<Nav />` component. */
@@ -8,8 +8,6 @@ export type AppContainerProps = GenericLayoutProps & PolymorphicLayoutProps & {
     header: ReactNode;
     /** An optional sidebar element used for navigation or page-level actions. */
     sidebar?: ReactNode;
-    /** The border radius of the page container. Defaults to `5px` larger than the theme default. */
-    radius?: ComponentSize;
     /** Properties to apply to the page container element */
     pageProps?: Omit<GenericLayoutProps, "children">;
     /** The maximum width of this page's content */

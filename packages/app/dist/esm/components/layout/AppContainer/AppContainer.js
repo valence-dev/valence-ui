@@ -20,8 +20,8 @@ import { AppContext } from "../../../contexts/AppContext";
 export const AppContainer = forwardRef(function AppContainer(props, ref) {
     const theme = useContext(ValenceContext);
     // Defaults
-    const _a = useResponsiveProps(props), { nav, header, sidebar, radius = theme.defaults.radius, pageProps, contentWidth = 700, showNav = true, children, style } = _a, rest = __rest(_a, ["nav", "header", "sidebar", "radius", "pageProps", "contentWidth", "showNav", "children", "style"]);
-    const borderRadius = theme.sizeClasses.radius[radius] + 5;
+    const _a = useResponsiveProps(props), { nav, header, sidebar, pageProps, contentWidth = 700, showNav = true, children, style } = _a, rest = __rest(_a, ["nav", "header", "sidebar", "pageProps", "contentWidth", "showNav", "children", "style"]);
+    const radius = theme.sizeClasses.radius[theme.defaults.radius] + 5;
     // Hooks
     const [leftRef, { width: leftWidth }] = useElementSize();
     // States
@@ -42,13 +42,13 @@ export const AppContainer = forwardRef(function AppContainer(props, ref) {
         } }, style);
     const sidebarReplacementStyle = {
         default: {
-            width: borderRadius,
-            borderRadius: `${borderRadius}px 0px 0px ${borderRadius}px`,
+            width: radius,
+            borderRadius: `${radius}px 0px 0px ${radius}px`,
             backgroundColor: theme.getColorHex("white"),
         },
         mobile: {
-            height: borderRadius,
-            borderRadius: `0px 0px ${borderRadius}px ${borderRadius}px`,
+            height: radius,
+            borderRadius: `0px 0px ${radius}px ${radius}px`,
             backgroundColor: theme.getColorHex("white"),
         }
     };
