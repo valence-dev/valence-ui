@@ -8,6 +8,9 @@ export type FlexProps =
   GenericLayoutProps
   & PolymorphicLayoutProps
   & {
+    /** A shorthand property that sets both `align` and `justify` to `center`. */
+    center?: boolean;
+
     /** Sets `flex-direction` css property */
     direction?: CSSProperties["flexDirection"];
     /** Sets `align-items` css property */
@@ -38,9 +41,10 @@ export const Flex = forwardRef(function Flex(
 
   // Defaults
   const {
+    center = false,
     direction = "row",
-    align = "flex-start",
-    justify = "flex-start",
+    align = center ? "center" : "flex-start",
+    justify = center ? "center" : "flex-start",
 
     alignSelf = "stretch",
     gap = theme.sizeClasses.padding[theme.defaults.size],
