@@ -3,6 +3,8 @@ import { CSSProperties } from "react";
 import { MakeResponsive } from "../../..";
 import { GenericLayoutProps, PolymorphicLayoutProps } from "@valence-ui/utils";
 export type FlexProps = GenericLayoutProps & PolymorphicLayoutProps & {
+    /** A shorthand property that sets both `align` and `justify` to `center`. */
+    center?: boolean;
     /** Sets `flex-direction` css property */
     direction?: CSSProperties["flexDirection"];
     /** Sets `align-items` css property */

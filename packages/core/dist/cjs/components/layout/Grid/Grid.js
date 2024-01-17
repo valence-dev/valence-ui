@@ -30,7 +30,6 @@ const Grid = (0, react_1.forwardRef)(function Grid(props, ref) {
     return ((0, jsx_runtime_1.jsx)(utils_1.PolymorphicLayout, Object.assign({ css: GridStyle, ref: ref }, rest, { children: children })));
 });
 const Item = (0, react_1.forwardRef)(function GridItem(props, ref) {
-    const theme = (0, ValenceProvider_1.useValence)();
     const { getHex } = (0, color_1.useColors)();
     // Defaults
     const _a = (0, responsive_1.useResponsiveProps)(props), { area, column = "auto", columnStart, columnEnd, row = "auto", rowStart, rowEnd, justify = "stretch", align = "stretch", place, order, backgroundColor, color, padding, margin, width, height, style, children } = _a, rest = __rest(_a, ["area", "column", "columnStart", "columnEnd", "row", "rowStart", "rowEnd", "justify", "align", "place", "order", "backgroundColor", "color", "padding", "margin", "width", "height", "style", "children"]);

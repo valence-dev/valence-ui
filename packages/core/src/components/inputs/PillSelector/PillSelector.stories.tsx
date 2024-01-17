@@ -15,6 +15,7 @@ type Story = StoryObj<typeof PS>;
 
 export const PillSelector: Story = (args: any) => {
   const [value, setValue] = React.useState(["hello", "world", "amet"]);
+  const [pills, setPills] = React.useState(args.pills);
 
   return (
     <ValenceProvider>
@@ -27,7 +28,12 @@ export const PillSelector: Story = (args: any) => {
           {...args}
           value={value}
           setValue={setValue}
+
+          pills={pills}
+          setPills={setPills}
+
           wrap="wrap"
+          allowEditing
         />
 
         <Space height={20} />
@@ -37,10 +43,12 @@ export const PillSelector: Story = (args: any) => {
         </Text>
 
         <PS
-          {...args}
           value={value}
           setValue={setValue}
+          pills={pills}
         />
+
+        <Space height={20} />
       </FlexCenter>
     </ValenceProvider>
   );

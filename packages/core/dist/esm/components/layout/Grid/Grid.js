@@ -27,7 +27,6 @@ const Grid = forwardRef(function Grid(props, ref) {
     return (_jsx(PolymorphicLayout, Object.assign({ css: GridStyle, ref: ref }, rest, { children: children })));
 });
 const Item = forwardRef(function GridItem(props, ref) {
-    const theme = useValence();
     const { getHex } = useColors();
     // Defaults
     const _a = useResponsiveProps(props), { area, column = "auto", columnStart, columnEnd, row = "auto", rowStart, rowEnd, justify = "stretch", align = "stretch", place, order, backgroundColor, color, padding, margin, width, height, style, children } = _a, rest = __rest(_a, ["area", "column", "columnStart", "columnEnd", "row", "rowStart", "rowEnd", "justify", "align", "place", "order", "backgroundColor", "color", "padding", "margin", "width", "height", "style", "children"]);

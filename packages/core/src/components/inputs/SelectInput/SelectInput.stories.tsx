@@ -1,9 +1,10 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { Button, FlexCenter, Option, ValenceProvider } from "../../..";
+import { Button, FlexCenter, ValenceProvider } from "../../..";
 
 import { SelectInput as SI } from "../../..";
-import { IconAward } from "@tabler/icons-react";
+import { IconAward, IconCloud } from "@tabler/icons-react";
+import { Option } from "../DropdownContainer/Options";
 
 const meta: Meta<typeof SI> = {
   component: SI,
@@ -15,7 +16,7 @@ type Story = StoryObj<typeof SI>;
 
 
 export const SelectInput: Story = (args: any) => {
-  const [value, setValue] = React.useState<Option>({ label: "Hello", value: "hello" });
+  const [value, setValue] = React.useState<Option | null>("hi");
 
   return (
     <ValenceProvider>
@@ -27,9 +28,15 @@ export const SelectInput: Story = (args: any) => {
         />
 
         <Button
-          onClick={() => setValue({ label: "Hello", value: "hello" })}
+          onClick={() => setValue("hi")}
         >
           Reset
+        </Button>
+
+        <Button
+          onClick={() => setValue(null)}
+        >
+          Clear
         </Button>
       </FlexCenter>
     </ValenceProvider>
@@ -38,12 +45,9 @@ export const SelectInput: Story = (args: any) => {
 SelectInput.args = {
   placeholder: "Select something...",
   icon: <IconAward />,
-  options: [
-    { label: "Hello", value: "hello" },
-    { label: "World", value: "world" },
-    { label: "Foo", value: "foo" },
-    { label: "Bar", value: "bar" },
-    { label: "Baz", value: "baz" },
+  options: ["hi", "there", "mate", "how", "are", "you", "doing", "today",
+    { value: "son", label: "Father", icon: <IconCloud /> }
   ],
-  width: 300,
+  grow: true,
+  width: 20,
 }

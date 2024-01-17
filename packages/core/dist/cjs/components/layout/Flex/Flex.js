@@ -23,7 +23,7 @@ exports.Flex = (0, react_1.forwardRef)(function Flex(props, ref) {
     const theme = (0, __1.useValence)();
     const { getHex } = (0, __1.useColors)();
     // Defaults
-    const _a = (0, __1.useResponsiveProps)(props), { direction = "row", align = "flex-start", justify = "flex-start", alignSelf = "stretch", gap = theme.sizeClasses.padding[theme.defaults.size], grow = false, wrap = "nowrap", backgroundColor, color, padding, margin, width, height, style, children } = _a, rest = __rest(_a, ["direction", "align", "justify", "alignSelf", "gap", "grow", "wrap", "backgroundColor", "color", "padding", "margin", "width", "height", "style", "children"]);
+    const _a = (0, __1.useResponsiveProps)(props), { center = false, direction = "row", align = center ? "center" : "flex-start", justify = center ? "center" : "flex-start", alignSelf, gap = theme.sizeClasses.padding[theme.defaults.size], grow = false, wrap = "nowrap", backgroundColor, color, padding, margin, width, height, style, children } = _a, rest = __rest(_a, ["center", "direction", "align", "justify", "alignSelf", "gap", "grow", "wrap", "backgroundColor", "color", "padding", "margin", "width", "height", "style", "children"]);
     // Styles
     const FlexStyle = (0, react_2.css)(Object.assign({ display: "flex", flexDirection: direction, alignItems: align, justifyContent: justify, boxSizing: "border-box", alignSelf: alignSelf, gap: gap, flexGrow: grow ? 1 : undefined, flexWrap: wrap, backgroundColor: getHex(backgroundColor), color: getHex(color), padding: padding, margin: margin, width: width, height: height }, style));
     return ((0, jsx_runtime_1.jsx)(utils_1.PolymorphicLayout, Object.assign({ css: FlexStyle, ref: ref }, rest, { children: children })));

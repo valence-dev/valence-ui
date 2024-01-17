@@ -23,6 +23,8 @@ export type ImageProps = GenericImageProps & GenericProps & {
     height?: CSSProperties["height"];
     /** Shorthand for `aspect-ratio = "1/1"` */
     square?: boolean;
+    /** Sets `color` css property */
+    color?: CSSProperties["color"];
     /** Specifies if a shadow will be shown */
     shadow?: boolean;
     children?: never;

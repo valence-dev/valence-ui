@@ -42,7 +42,7 @@ exports.SegmentedControl = (0, react_1.forwardRef)(function SegmentedControl(pro
         setValue(getOptionValue(option));
         onSelect === null || onSelect === void 0 ? void 0 : onSelect(option);
     }
-    return ((0, jsx_runtime_1.jsx)(layout_1.StyledFlex, Object.assign({ ref: ref, variant: variant, size: size, color: color, backgroundColor: backgroundColor, margin: margin, padding: padding, gap: gap, style: containerStyle }, rest, { children: loading ?
+    return ((0, jsx_runtime_1.jsx)(layout_1.StyledFlex, Object.assign({ ref: ref, variant: variant, size: size, color: color, backgroundColor: backgroundColor, margin: margin, padding: padding, gap: gap, alignSelf: "stretch", style: containerStyle }, rest, { children: loading ?
             (0, jsx_runtime_1.jsx)(layout_1.Flex, { grow: true, justify: "center", align: "center", height: theme.getSize("height", buttonSize), children: (0, jsx_runtime_1.jsx)(display_1.Loader, { color: variant === "filled" ? "white" : color }) })
             :
                 options.map((option, index) => {

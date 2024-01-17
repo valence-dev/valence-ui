@@ -15,15 +15,15 @@ type Story = StoryObj<typeof DC>;
 
 
 export const DropdownContainer: Story = (args: any) => {
-  const [value, setValue] = React.useState(["hello", "world"]);
+  const [selected, setSelected] = React.useState<number | null>(0);
 
   return (
     <ValenceProvider>
       <FlexCenter>
         <DC
           {...args}
-          value={value}
-          setValue={setValue}
+          selected={selected}
+          setSelected={setSelected}
         />
       </FlexCenter>
     </ValenceProvider>

@@ -39,7 +39,7 @@ export const SegmentedControl = forwardRef(function SegmentedControl(props, ref)
         setValue(getOptionValue(option));
         onSelect === null || onSelect === void 0 ? void 0 : onSelect(option);
     }
-    return (_jsx(StyledFlex, Object.assign({ ref: ref, variant: variant, size: size, color: color, backgroundColor: backgroundColor, margin: margin, padding: padding, gap: gap, style: containerStyle }, rest, { children: loading ?
+    return (_jsx(StyledFlex, Object.assign({ ref: ref, variant: variant, size: size, color: color, backgroundColor: backgroundColor, margin: margin, padding: padding, gap: gap, alignSelf: "stretch", style: containerStyle }, rest, { children: loading ?
             _jsx(Flex, { grow: true, justify: "center", align: "center", height: theme.getSize("height", buttonSize), children: _jsx(Loader, { color: variant === "filled" ? "white" : color }) })
             :
                 options.map((option, index) => {

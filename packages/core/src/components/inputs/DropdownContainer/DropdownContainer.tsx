@@ -212,7 +212,7 @@ export function DropdownContainer(props: DropdownContainerProps) {
             >
               {options.map((value, i) => (
                 <ButtonWithIcon
-                  key={getOptionValue(value)}
+                  key={i}
                   ref={(node: any) => {
                     listRef.current[i] = node;
                   }}

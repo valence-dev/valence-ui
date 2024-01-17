@@ -21,12 +21,14 @@ const responsive_1 = require("../../../../utilities/responsive");
 const layout_1 = require("../../../layout");
 const Icon_1 = require("../../Icon");
 const icons_react_1 = require("@tabler/icons-react");
+const utilities_1 = require("../../../../utilities");
 exports.Image = (0, react_1.forwardRef)(function Image(props, ref) {
     const theme = (0, ValenceProvider_1.useValence)();
+    const { getHex } = (0, utilities_1.useColors)();
     // Defaults
-    const _a = (0, responsive_1.useResponsiveProps)(props), { src, alt, placeholder = ((0, jsx_runtime_1.jsx)(layout_1.Flex, { align: "center", justify: "center", height: "100%", width: "100%", children: (0, jsx_runtime_1.jsx)(Icon_1.Icon, { children: (0, jsx_runtime_1.jsx)(icons_react_1.IconPhoto, {}) }) })), radius = theme.defaults.radius, fit = "cover", position = "center", square = false, height = "fit-content", width = square ? height : "auto", shadow = false, style } = _a, rest = __rest(_a, ["src", "alt", "placeholder", "radius", "fit", "position", "square", "height", "width", "shadow", "style"]);
+    const _a = (0, responsive_1.useResponsiveProps)(props), { src, alt, color = "black", placeholder = ((0, jsx_runtime_1.jsx)(layout_1.Flex, { align: "center", justify: "center", height: "100%", width: "100%", children: (0, jsx_runtime_1.jsx)(Icon_1.Icon, { color: color, children: (0, jsx_runtime_1.jsx)(icons_react_1.IconPhoto, {}) }) })), radius = theme.defaults.radius, fit = "cover", position = "center", square = false, height = "fit-content", width = square ? height : "auto", shadow = false, style } = _a, rest = __rest(_a, ["src", "alt", "color", "placeholder", "radius", "fit", "position", "square", "height", "width", "shadow", "style"]);
     // Styles
-    const ContainerStyle = (0, react_2.css)(Object.assign({ height: height, width: width, minWidth: width, borderRadius: theme.sizeClasses.radius[radius], aspectRatio: square ? "1/1" : undefined, overflow: "hidden", boxShadow: shadow ? theme.defaults.shadow : "none" }, style));
+    const ContainerStyle = (0, react_2.css)(Object.assign({ height: height, width: width, minWidth: width, borderRadius: theme.sizeClasses.radius[radius], aspectRatio: square ? "1/1" : undefined, overflow: "hidden", boxShadow: shadow ? theme.defaults.shadow : "none", backgroundColor: getHex(color, "weak") }, style));
     const ImageStyle = (0, react_2.css)({
         width: "100%",
         height: "100%",

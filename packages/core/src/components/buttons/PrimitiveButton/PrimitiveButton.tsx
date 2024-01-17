@@ -48,7 +48,7 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
     backgroundColor = color,
     padding = square ? 0 : `0px ${theme.sizeClasses.padding[size]}px`,
     margin = 0,
-    height = `${theme.sizeClasses.height[size]}px`,
+    height = theme.sizeClasses.height[size],
     width = square ? height : "fit-content",
 
     style,

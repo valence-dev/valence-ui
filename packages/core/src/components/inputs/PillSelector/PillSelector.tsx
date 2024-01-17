@@ -10,6 +10,7 @@ import { IconX } from "@tabler/icons-react";
 import { CSSProperties } from "styled-components";
 import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
 import { useColors } from "../../../utilities/color";
+import { TextInput, TextInputProps } from "../TextInput";
 
 export type PillSelectorEventProps =
   MouseClickEvents & MouseEvents & PointerEvents & FocusEvents & KeyboardEvents
@@ -26,6 +27,8 @@ export type PillSelectorProps =
   & {
     /** A list of pills to display */
     pills: string[];
+    /** Optional callback to complete the state */
+    setPills?: (pills: string[]) => void;
 
     /** Whether to allow pills to be cleared. `true` by default. */
     allowClear?: boolean;
@@ -52,6 +55,17 @@ export type PillSelectorProps =
     /** Optional props to pass to the pill container */
     pillContainerProps?: Omit<FlexProps, "children">;
 
+
+    /** Whether to allow the creation of new pills or deletion of old ones. 
+     * This will not work if `wrap = "wrap"`. 
+     */
+    allowEditing?: boolean;
+    /** Placeholder text to display in the input. Will only show if `allowNew = true`. */
+    placeholder?: string;
+    /** Optional styles to pass to the input */
+    inputProps?: Omit<TextInputProps, "value" | "setValue">;
+
+
     children?: never;
   }
 
@@ -69,7 +83,8 @@ export const PillSelector = forwardRef(function PillSelector(
     value,
     setValue,
 
-    pills,
+    pills: _pills,
+    setPills: _setPills,
     allowClear = true,
     gap = 5,
 
@@ -83,6 +98,12 @@ export const PillSelector = forwardRef(function PillSelector(
     pillProps,
     selectedPillProps = pillProps,
     pillContainerProps,
+
+
+    allowEditing = false,
+    placeholder = "Add a pill...",
+    inputProps,
+
 
     size = theme.defaults.size,
     radius = theme.defaults.radius,
@@ -121,7 +142,12 @@ export const PillSelector = forwardRef(function PillSelector(
 
 
   // States
-  const [pillList, setPillList] = useState<string[]>(sortPills(pills));
+  const [__pills, __setPills] = useState<string[]>([]);
+  const pills = sortPills(_pills ?? __pills);
+  const setPills = _setPills ?? __setPills;
+
+  const [inputValue, setInputValue] = useState("");
+  const [newPills, setNewPills] = useState<string[]>([]);
 
 
   // Functions
@@ -133,20 +159,55 @@ export const PillSelector = forwardRef(function PillSelector(
 
   function handlePillClick(pill: string) {
     let v = [...value];
+    let pillList = [...pills];
     if (value.includes(pill)) {
       onPillDeselected?.(pill);
       v = value.filter(v => v !== pill);
+      pillList = removePill(pill);
     } else {
       onPillSelected?.(pill);
       v = [...value, pill];
     }
 
-    setPillList(sortPills(pillList, v));
+    setPills(sortPills(pillList, v));
     setValue(v);
   }
   function handleClearPills() {
     setValue([]);
-    setPillList(sortPills(pillList, []));
+    setPills(sortPills(pills, []));
+  }
+
+
+  // Input functions
+  function addPill() {
+    if (inputValue === "") return;
+
+    if (value.length >= maxSelectable) return;
+    if (value.includes(inputValue)) return setInputValue("");
+    if (pills.includes(inputValue)) {
+      handlePillClick(inputValue);
+      setInputValue("");
+      return;
+    }
+
+    const newValue = [...value, inputValue];
+    const newPillList = sortPills([...pills, inputValue], newValue);
+    setPills(newPillList);
+    setValue(newValue);
+
+    setNewPills([...newPills, inputValue]);
+
+    setInputValue("");
+  }
+  function removePill(pill: string): string[] { 
+    console.log(pill, newPills);
+    // If the pill has been removed and it is on the new pill list,
+    // delete it from the new pill list and the pill list
+    if (newPills.includes(pill)) {
+      setNewPills(newPills.filter(p => p !== pill));
+      return pills.filter(p => p !== pill);
+    }
+    return pills;
   }
 
 
@@ -202,7 +263,30 @@ export const PillSelector = forwardRef(function PillSelector(
         css={PillContainerStyle}
         {...pillContainerPropsRest}
       >
-        {pillList.map((pill, index) => {
+        {allowEditing && wrap === "wrap" &&
+          <TextInput
+            value={inputValue}
+            setValue={setInputValue}
+            onEnterPress={() => addPill()}
+
+            placeholder={placeholder}
+
+            variant={variant}
+            size={size}
+            radius={radius}
+            color={color}
+            backgroundColor={backgroundColor}
+
+            loading={loading}
+            disabled={disabled}
+            readOnly={readOnly}
+            required={required}
+
+            {...inputProps}
+          />
+        }
+
+        {pills.map((pill, index) => {
           const isSelected = value.includes(pill);
 
           return (

@@ -16,7 +16,18 @@ export function getOptionLabel(option: Option): string {
   return option.label ?? option.value;
 }
 export function getOptionIcon(option: Option): ReactNode {
-  console.log(option);
   if (typeof option === "string") return undefined;
   return option.icon;
 }
+
+
+
+// Search filters
+export type OptionFilter = (options: Option[], search: string) => Option[];
+
+export const defaultOptionFilter: OptionFilter = (options, search) => {
+  return options.filter(option => {
+    const label = getOptionLabel(option);
+    return label.toLowerCase().includes(search.toLowerCase());
+  });
+};
