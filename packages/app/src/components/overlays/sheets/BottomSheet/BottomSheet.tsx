@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { ValenceContext, ModalBackground, Flex, useDetectKeyDown, DefaultModalHeader, UnstyledButton, MakeResponsive, useResponsiveProps, useColors } from "@valence-ui/core";
+import { ValenceContext, ModalBackground, Flex, useDetectKeyDown, DefaultModalHeader, MakeResponsive, useResponsiveProps, useColors } from "@valence-ui/core";
 import { GenericOverlayHeaderProps, } from "@valence-ui/utils";
 import { useContext, forwardRef, CSSProperties } from "react";
-import { AnimatePresence, motion, useDragControls } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useLockedBody } from "usehooks-ts";
 import { GenericSheetProps } from "../Generics";
 
@@ -20,7 +20,6 @@ export const BottomSheet = forwardRef(function BottomSheet(
 ) {
   const theme = useContext(ValenceContext);
   const { getHex } = useColors();
-  const controls = useDragControls();
 
 
   // Defaults
@@ -141,8 +140,6 @@ export const BottomSheet = forwardRef(function BottomSheet(
             onClick={e => e.stopPropagation()}
 
             drag="y"
-            dragControls={controls}
-            dragListener={false}
             dragConstraints={{ top: 0 }}
             dragSnapToOrigin
             onDragEnd={handleDragEnd}
@@ -162,12 +159,11 @@ export const BottomSheet = forwardRef(function BottomSheet(
             ref={ref}
             {...rest}
           >
-            <UnstyledButton
+            <div
               style={DragStyle}
-              onPointerDown={(e) => controls.start(e)}
             >
               <div style={PillStyle} />
-            </UnstyledButton>
+            </div>
 
             <Flex
               direction="column"
