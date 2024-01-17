@@ -204,7 +204,6 @@ export const PillSelector = forwardRef(function PillSelector(
     setInputValue("");
   }
   function removePill(pill: string): string[] {
-    console.log(pill, newPills);
     // If the pill has been removed and it is on the new pill list,
     // delete it from the new pill list and the pill list
     if (newPills.includes(pill)) {
