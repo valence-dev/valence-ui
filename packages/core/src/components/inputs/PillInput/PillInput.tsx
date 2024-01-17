@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { CSSProperties, ReactNode, createRef, forwardRef, useState } from "react";
+import { CSSProperties, ReactNode, createRef, forwardRef, useEffect, useState } from "react";
 import { GenericInputProps, GenericTextInputEventProps } from "../../../generics";
 import { Button, IconButton, IconButtonProps } from "../../buttons";
 import { useValence } from "../../../ValenceProvider";
@@ -29,8 +29,6 @@ export type PillInputProps =
     /** The placeholder text to display when this input is empty */
     placeholder?: string;
 
-    /** Keys used to autofill a pill. Defaults to `Tab` */
-    autofillKeys?: string[];
     /** Keys used to select an option. Defaults to `Enter` and `Space` */
     selectKeys?: string[];
 
@@ -62,6 +60,9 @@ export type PillInputProps =
     /** Optional props to pass to the clear button */
     clearButtonProps?: IconButtonProps & { children?: never };
 
+    /** A template to use for the add button text. Defaults to `Add "${value}"` */
+    addButtonTextTemplate?: (value: string) => string;
+
     /** Optional props to pass to all pills */
     pillProps?: PillProps & { children?: never };
     /** Optional props to pass to the pill container */
@@ -89,7 +90,6 @@ export const PillInput = forwardRef(function PillInput(
   const {
     value,
     setValue,
-    autofillKeys = ["Tab"],
     selectKeys = [" ", "Enter"],
 
     options = [],
@@ -154,8 +154,10 @@ export const PillInput = forwardRef(function PillInput(
     // Call onEnterPress on "Enter" key
     if (e.key === "Enter") onEnterPress?.(e);
 
-    // Call handlePillAdd on actionKey
-    if (selectKeys.includes(e.key)) {
+
+    // If the visible options are empty, we want to default to this
+    if (selectKeys.includes(e.key) && visibleOptions.length === 0) {
+      console.log("e");
       e.preventDefault();
       handlePillAdd();
     }
@@ -259,16 +261,14 @@ export const PillInput = forwardRef(function PillInput(
       <OptionContainer
         options={visibleOptions ?? []}
         onSelect={(option) => handlePillAdd(option.label)}
-        selectKeys={autofillKeys}
+        selectKeys={selectKeys}
         nothingFound={
-          <Button
-            width="100%"
-            variant="subtle"
-            color={color}
-            onClick={() => handlePillAdd(searchValue)}
-          >
-            {`Add "${searchValue}"`}
-          </Button>
+          searchValue.length === 0 ? undefined :
+            <AddButton
+              value={searchValue}
+              color={color}
+              onClick={handlePillAdd}
+            />
         }
 
         icon={icon}
@@ -293,13 +293,14 @@ export const PillInput = forwardRef(function PillInput(
         style={ContainerStyle}
         inputRef={inputRef}
 
-        button={allowClear && value.length > 0 &&
+        button={allowClear &&
           <IconButton
             radius={radius}
             variant="subtle"
-            color="black"
+            color={color}
             onClick={clearPills}
             height={25}
+            disabled={disabled || value.length === 0}
             {...clearButtonProps}
           >
             {clearButtonIcon}
@@ -343,7 +344,7 @@ export const PillInput = forwardRef(function PillInput(
             readOnly={readOnly}
             required={required}
 
-            onKeyDown={handleKeyDown}
+            // onKeyDown={handleKeyDown}
 
             ref={inputRef}
             {...rest}
@@ -353,3 +354,34 @@ export const PillInput = forwardRef(function PillInput(
     </>
   )
 });
+
+
+
+type AddButtonProps = {
+  value: string;
+  color: PillInputProps["color"];
+  onClick: (value: string) => void;
+  textTemplate?: (value: string) => string;
+}
+
+function AddButton(props: AddButtonProps) {
+  const {
+    color,
+    value,
+    onClick,
+    textTemplate = (value) => `Add "${value}"`,
+  } = props;
+
+
+  return (
+    value === "" ? undefined :
+      <Button
+        width="100%"
+        variant="subtle"
+        color={color}
+        onClick={() => onClick(value)}
+      >
+        {textTemplate(value)}
+      </Button>
+  )
+}

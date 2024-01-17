@@ -134,6 +134,7 @@ export const OptionContainer = forwardRef(function OptionContainer(
         break;
       }
     }
+    console.log("Hi", e.key);
 
     if (selectKeys.includes(e.key)) {
       if (highlightedIndex === -1 || options.length === 0) return;
@@ -153,7 +154,7 @@ export const OptionContainer = forwardRef(function OptionContainer(
   useEffect(() => {
     if (document.activeElement === inputRef.current) setIsOpen(true);
     else setIsOpen(false);
-  }, [document.activeElement, isOpen]);
+  }, [document.activeElement, inputRef]);
 
 
   // Handlers
