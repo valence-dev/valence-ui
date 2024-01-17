@@ -6,7 +6,7 @@ import { ReactNode, forwardRef, useState } from "react";
 import { Button, IconButton, IconButtonProps, TextButtonProps } from "../../buttons";
 import { Flex, FlexProps } from "../../layout";
 import { useValence } from "../../../ValenceProvider";
-import { IconX } from "@tabler/icons-react";
+import { IconPlus, IconX } from "@tabler/icons-react";
 import { CSSProperties } from "styled-components";
 import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
 import { useColors } from "../../../utilities/color";
@@ -56,14 +56,16 @@ export type PillSelectorProps =
     pillContainerProps?: Omit<FlexProps, "children">;
 
 
-    /** Whether to allow the creation of new pills or deletion of old ones. 
-     * This will not work if `wrap = "wrap"`. 
-     */
+    /** Whether to allow the creation of new pills or deletion of old ones. */
     allowEditing?: boolean;
     /** Placeholder text to display in the input. Will only show if `allowNew = true`. */
     placeholder?: string;
     /** Optional styles to pass to the input */
     inputProps?: Omit<TextInputProps, "value" | "setValue">;
+    /** Optional props to pass to the add button */
+    addButtonProps?: Omit<IconButtonProps, "children">;
+    /** Optional icon to use for the add button */
+    addButtonIcon?: ReactNode;
 
 
     children?: never;
@@ -103,6 +105,8 @@ export const PillSelector = forwardRef(function PillSelector(
     allowEditing = false,
     placeholder = "Add a pill...",
     inputProps,
+    addButtonProps,
+    addButtonIcon = <IconPlus />,
 
 
     size = theme.defaults.size,
@@ -199,7 +203,7 @@ export const PillSelector = forwardRef(function PillSelector(
 
     setInputValue("");
   }
-  function removePill(pill: string): string[] { 
+  function removePill(pill: string): string[] {
     console.log(pill, newPills);
     // If the pill has been removed and it is on the new pill list,
     // delete it from the new pill list and the pill list
@@ -253,17 +257,17 @@ export const PillSelector = forwardRef(function PillSelector(
 
   return (
     <Flex
-      style={ContainerStyle}
+      direction="column"
       gap={gap}
+      style={ContainerStyle}
       ref={ref}
       {...rest}
     >
-      <Flex
-        gap={gap}
-        css={PillContainerStyle}
-        {...pillContainerPropsRest}
-      >
-        {allowEditing && wrap === "wrap" &&
+      {allowEditing &&
+        <Flex
+          width="100%"
+          gap={gap}
+        >
           <TextInput
             value={inputValue}
             setValue={setInputValue}
@@ -284,45 +288,68 @@ export const PillSelector = forwardRef(function PillSelector(
 
             {...inputProps}
           />
-        }
 
-        {pills.map((pill, index) => {
-          const isSelected = value.includes(pill);
-
-          return (
-            <Button
-              key={index}
-
-              size={size}
-              radius={radius}
-              variant={isSelected ?
-                variant === "filled" ? "light" : "filled"
-                : variant
-              }
-              color={color}
-
-              onClick={() => handlePillClick(pill)}
-
-              {...pillProps}
-              {...(isSelected ? selectedPillProps : undefined)}
-            >
-              {pill}
-            </Button>
-          )
-        })}
-      </Flex>
-
-      <IconButton
-        size={size}
-        radius={radius}
-        color={color}
-        variant="subtle"
-        onClick={() => handleClearPills()}
-        style={ButtonStyle}
-        {...clearButtonPropsRest}
+          <IconButton
+            size={size}
+            radius={radius}
+            color={color}
+            variant="subtle"
+            onClick={() => addPill()}
+            {...addButtonProps}
+          >
+            {addButtonIcon}
+          </IconButton>
+        </Flex>
+      }
+      <Flex
+        gap={gap}
+        width="100%"
+        height="fit-content"
+        align="center"
       >
-        {clearButtonIcon}
-      </IconButton>
+        <Flex
+          gap={gap}
+          css={PillContainerStyle}
+          {...pillContainerPropsRest}
+        >
+          {pills.map((pill, index) => {
+            const isSelected = value.includes(pill);
+
+            return (
+              <Button
+                key={index}
+
+                size={size}
+                radius={radius}
+                variant={isSelected ?
+                  variant === "filled" ? "light" : "filled"
+                  : variant
+                }
+                color={color}
+
+                onClick={() => handlePillClick(pill)}
+
+                {...pillProps}
+                {...(isSelected ? selectedPillProps : undefined)}
+              >
+                {pill}
+              </Button>
+            )
+          })}
+        </Flex>
+
+        <IconButton
+          size={size}
+          radius={radius}
+          color={color}
+          variant="subtle"
+          onClick={() => handleClearPills()}
+          style={ButtonStyle}
+          {...clearButtonPropsRest}
+        >
+          {clearButtonIcon}
+        </IconButton>
+      </Flex>
     </Flex>
   )
 });
