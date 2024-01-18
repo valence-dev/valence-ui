@@ -20,7 +20,7 @@ export type GenericButtonProps =
     square?: boolean;
     /** Whether a shadow will be shown under this button */
     shadow?: boolean;
-    /** Whether this button will grow to fill its container */
+    /** Shorthand for `flex-grow = 1` */
     grow?: boolean;
 
     /** Whether this button is disabled */

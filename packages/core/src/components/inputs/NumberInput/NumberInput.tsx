@@ -19,7 +19,7 @@ export type NumberInputProps =
     min?: number;
     /** The maximum value of this input */
     max?: number;
-    /** The step value of this input. Defaults to 1 */
+    /** The step value of this input. Defaults to `1` */
     step?: number;
 
     /** Whether the stepper controls are shown */
@@ -35,7 +35,6 @@ export type NumberInputProps =
 
     /** Optional styles to apply to the input component */
     inputStyle?: CSSProperties;
-    children?: never;
   }
 
 

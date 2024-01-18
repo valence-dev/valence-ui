@@ -14,7 +14,7 @@ import { CSSProperties } from "styled-components";
 
 
 export type DropdownContainerEventProps = {
-  /** A callback called when an item it selected. */
+  /** A callback fired when an item is selected. */
   onSelect?: (option: Option) => void;
 }
 
@@ -175,7 +175,7 @@ export function DropdownContainer(props: DropdownContainerProps) {
 
     ...dropdownStyle
   });
-  const ItemStyle: CSSProperties = { 
+  const ItemStyle: CSSProperties = {
     outline: "none !important",
   }
 
@@ -260,9 +260,8 @@ export function DropdownContainer(props: DropdownContainerProps) {
               ))}
             </div>
           </FloatingFocusManager>
-        </FloatingPortal >
-      )
-      }
+        </FloatingPortal>
+      )}
     </>
   )
 }

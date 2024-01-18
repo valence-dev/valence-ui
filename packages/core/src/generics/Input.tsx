@@ -35,24 +35,26 @@ export type GenericInputProps<T = string> =
   }
 
 
-export type GenericTextInputProps = GenericInputProps<string> & {
-  /** An icon to display at the left side of this input */
-  icon?: ReactNode;
-  /** Text that appears in this input when it has no value */
-  placeholder?: string;
+export type GenericTextInputProps =
+  Omit<GenericInputProps<string>, "children">
+  & {
+    /** An icon to display at the left side of this input */
+    icon?: ReactNode;
+    /** Text that appears in this input when it has no value */
+    placeholder?: string;
 
-  /** The minimum length of this input's `value` */
-  minLength?: number;
-  /** The maximum length of this input's `value` */
-  maxLength?: number;
+    /** The minimum length of this input's `value` */
+    minLength?: number;
+    /** The maximum length of this input's `value` */
+    maxLength?: number;
 
-  /** A regex pattern to use for validation */
-  pattern?: string;
+    /** A regex pattern to use for validation */
+    pattern?: string;
 
-  /** Optional styles to apply to the input component */
-  inputStyle?: CSSProperties;
-  children?: never;
-}
+    /** Optional styles to apply to the input component */
+    inputStyle?: CSSProperties;
+
+  }
 
 
 export type GenericTextInputEventProps =

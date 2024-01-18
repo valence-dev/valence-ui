@@ -2,12 +2,12 @@ import { CSSProperties, ReactNode, forwardRef } from "react";
 import { TextButtonProps } from "../TextButton";
 import { MakeResponsive, useColors, useResponsiveProps, useValence } from "../../..";
 import { PrimitiveButton } from "../PrimitiveButton";
-import { Icon, Text } from "../../display";
+import { Icon, Loader, Text } from "../../display";
 
 export type ButtonWithIconProps = TextButtonProps & {
-  /** The icon to include with this button */
+  /** The icon to include with this button. */
   icon: ReactNode;
-  /** The position of the icon relative to the text */
+  /** The position of the icon relative to the text. Defaults to `"left"`. */
   iconPosition?: "left" | "right";
 }
 
@@ -26,6 +26,8 @@ export const ButtonWithIcon = forwardRef(function ButtonWithIcon(
     size = theme.defaults.size,
     variant = theme.defaults.variant,
     color = theme.primaryColor,
+
+    loading,
 
     style,
     textProps,
@@ -57,12 +59,19 @@ export const ButtonWithIcon = forwardRef(function ButtonWithIcon(
       ref={ref}
       {...rest}
     >
-      <Icon
-        size={theme.getSize("iconSize", size) as number}
-        color={colors.getFgHex(color, variant)}
-      >
-        {icon}
-      </Icon>
+      {loading ?
+        <Loader
+          size={size}
+          color={colors.getFgHex(color, variant)}
+        />
+        :
+        <Icon
+          size={theme.getSize("iconSize", size) as number}
+          color={colors.getFgHex(color, variant)}
+        >
+          {icon}
+        </Icon>
+      }
 
       <Text
         size={size}

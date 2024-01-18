@@ -12,6 +12,7 @@ export type IconButtonProps =
 
     /** Optional props to pass to the tooltip. */
     tooltipProps?: Omit<TooltipProps, "children">;
+    /** Additional props to pass to the content sub-component of the tooltip. */
     tooltipContentProps?: Omit<TooltipContentProps, "children">;
   };
 

@@ -7,7 +7,7 @@ import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsiv
 import { useColors } from "../../../utilities/color";
 
 export type TextButtonProps =
-  PrimitiveButtonProps
+  Omit<PrimitiveButtonProps, "children">
   & {
     /** Children of this component. */
     children?: string;

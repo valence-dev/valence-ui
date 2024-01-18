@@ -72,5 +72,5 @@ export const Multipart: Story = (args: any) => (
 Multipart.args = {
   title: "Multipart button",
   subtitle: "With a great subtitle",
-  leftIcon: <IconApps />
+  leftIcon: <IconApps />,
 }

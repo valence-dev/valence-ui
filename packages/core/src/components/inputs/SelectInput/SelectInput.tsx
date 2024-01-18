@@ -16,7 +16,7 @@ export type SelectInputEventProps =
   }
 
 export type SelectInputProps =
-  GenericInputProps<Option | null>
+  Omit<GenericInputProps<Option | null>, "children">
   & SelectInputEventProps
   & {
     /** A list of options to supply for the content of this input */
@@ -34,8 +34,6 @@ export type SelectInputProps =
 
     /** Optional styles to apply to the dropdown container */
     dropdownStyle?: CSSProperties;
-
-    children?: never;
   }
 
 

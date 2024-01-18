@@ -3,7 +3,7 @@ import { CSSProperties, ReactNode, forwardRef } from "react";
 import { PrimitiveButton, PrimitiveButtonProps } from "../PrimitiveButton";
 import { IconChevronRight } from "@tabler/icons-react";
 import { Flex } from "../../layout";
-import { Icon, Text, TextProps } from "../../display";
+import { Icon, Loader, Text, TextProps } from "../../display";
 import { useValence } from "../../../ValenceProvider";
 import { SizeClasses } from "@valence-ui/utils";
 import { css } from "@emotion/react";
@@ -11,7 +11,7 @@ import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsiv
 import { useColors } from "../../../utilities/color";
 
 export type MultipartButtonProps =
-  PrimitiveButtonProps
+  Omit<PrimitiveButtonProps, "children">
   & {
     /** Title/main text content of this button  */
     title: string;
@@ -27,9 +27,6 @@ export type MultipartButtonProps =
     titleProps?: TextProps;
     /** Props to pass to the subtitle text component */
     subtitleProps?: TextProps;
-
-    /** This button does not accept children */
-    children?: never;
   }
 
 const SIZES: SizeClasses<{ height: number }> = {
@@ -60,6 +57,8 @@ export const MultipartButton = forwardRef(function MultipartButton(
     subtitle,
     leftIcon,
     rightIcon = <IconChevronRight opacity={0.5} />,
+
+    loading,
 
     titleProps,
     subtitleProps,
@@ -99,12 +98,19 @@ export const MultipartButton = forwardRef(function MultipartButton(
       {...rest}
     >
       {leftIcon && <div css={ContainerStyle}>
-        <Icon
-          size={theme.getSize("iconSize", size) as number}
-          color={colors.getFgHex(color, variant)}
-        >
-          {leftIcon}
-        </Icon>
+        {loading ?
+          <Loader
+            size={size}
+            color={colors.getFgHex(color, variant)}
+          />
+          :
+          <Icon
+            size={theme.getSize("iconSize", size) as number}
+            color={colors.getFgHex(color, variant)}
+          >
+            {leftIcon}
+          </Icon>
+        }
       </div>}
 
       <Flex
