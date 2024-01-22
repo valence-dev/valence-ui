@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { ValenceProvider } from "../../..";
+import { FlexCenter, Space, Text, ValenceProvider } from "../../..";
 
 import { PillSelector as PS } from "../../..";
 
@@ -15,14 +15,41 @@ type Story = StoryObj<typeof PS>;
 
 export const PillSelector: Story = (args: any) => {
   const [value, setValue] = React.useState(["hello", "world", "amet"]);
+  const [pills, setPills] = React.useState(args.pills);
 
   return (
     <ValenceProvider>
-      <PS
-        {...args}
-        value={value}
-        setValue={setValue}
-      />
+      <FlexCenter innerProps={{ direction: "column" }}>
+        <Text>
+          Wrapped pill container
+        </Text>
+
+        <PS
+          {...args}
+          value={value}
+          setValue={setValue}
+
+          pills={pills}
+          setPills={setPills}
+
+          wrap="wrap"
+          allowEditing
+        />
+
+        <Space height={20} />
+
+        <Text>
+          Regular pill container
+        </Text>
+
+        <PS
+          value={value}
+          setValue={setValue}
+          pills={pills}
+        />
+
+        <Space height={20} />
+      </FlexCenter>
     </ValenceProvider>
   );
 }

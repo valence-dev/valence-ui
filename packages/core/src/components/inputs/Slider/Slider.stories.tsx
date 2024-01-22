@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { Flex, ValenceProvider } from "../../..";
+import { FlexCenter, ValenceProvider } from "../../..";
 
 import { Slider as S } from "./Slider";
 
@@ -17,7 +17,11 @@ export const Slider: Story = (args: any) => {
 
   return (
     <ValenceProvider>
-      <Flex direction="column">
+      <FlexCenter
+        innerProps={{
+          direction: "column",
+        }}
+      >
         <S
           {...args}
           value={value}
@@ -39,7 +43,7 @@ export const Slider: Story = (args: any) => {
           size="md"
           manualInputPosition="left"
         />
-      </Flex>
+      </FlexCenter>
     </ValenceProvider>
   );
 }

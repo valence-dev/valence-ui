@@ -12,20 +12,20 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx, jsxs as _jsxs } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { ValenceContext, ModalBackground, Flex, useDetectKeyDown, DefaultModalHeader, UnstyledButton } from "@valence-ui/core";
+import { ValenceContext, ModalBackground, Flex, useDetectKeyDown, DefaultModalHeader, useResponsiveProps, useColors } from "@valence-ui/core";
 import { useContext, forwardRef } from "react";
-import { AnimatePresence, motion, useDragControls } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useLockedBody } from "usehooks-ts";
 export const BottomSheet = forwardRef(function BottomSheet(props, ref) {
     const theme = useContext(ValenceContext);
-    const controls = useDragControls();
+    const { getHex } = useColors();
     // Defaults
-    const { disclosure, title, header = (props) => _jsx(DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), releaseOffset = Math.round(window.innerHeight / 2), releaseVelocity = 500, closeOnOverlayClick = true, closeOnEscape = true, lockScroll = false, radius = "lg", withShadow = true, backgroundColor = theme.getColorHex("white"), color = theme.getColorHex("black"), padding = theme.sizeClasses.padding[theme.defaultSize], margin = 0, width, height = "100%", flexProps, overlayBackgroundProps = {
+    const _a = useResponsiveProps(props), { disclosure, title, header = (props) => _jsx(DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), releaseOffset = Math.round(window.innerHeight / 2), releaseVelocity = 500, closeOnOverlayClick = true, closeOnEscape = true, lockScroll = false, radius = "lg", withShadow = true, backgroundColor = getHex("white"), color = getHex("black"), padding = theme.sizeClasses.padding[theme.defaults.size], margin = 0, width, height = "100%", flexProps, overlayBackgroundProps = {
         padding: 0,
         style: {
             alignItems: "flex-end",
         }
-    }, style, children } = props, rest = __rest(props, ["disclosure", "title", "header", "releaseOffset", "releaseVelocity", "closeOnOverlayClick", "closeOnEscape", "lockScroll", "radius", "withShadow", "backgroundColor", "color", "padding", "margin", "width", "height", "flexProps", "overlayBackgroundProps", "style", "children"]);
+    }, style, children } = _a, rest = __rest(_a, ["disclosure", "title", "header", "releaseOffset", "releaseVelocity", "closeOnOverlayClick", "closeOnEscape", "lockScroll", "radius", "withShadow", "backgroundColor", "color", "padding", "margin", "width", "height", "flexProps", "overlayBackgroundProps", "style", "children"]);
     // Functions
     function handleDragEnd(e, { offset, velocity }) {
         if (offset.y > releaseOffset
@@ -43,7 +43,7 @@ export const BottomSheet = forwardRef(function BottomSheet(props, ref) {
         padding: padding,
         margin: margin,
         borderRadius: `${borderRadius}px ${borderRadius}px 0 0`,
-        boxShadow: withShadow ? theme.defaultShadow : undefined,
+        boxShadow: withShadow ? theme.defaults.shadow : undefined,
         overflowX: "hidden",
         overflowY: "auto",
     };
@@ -60,13 +60,13 @@ export const BottomSheet = forwardRef(function BottomSheet(props, ref) {
         width: 50,
         height: 5,
         borderRadius: 5,
-        backgroundColor: theme.getColorHex("white", "strong"),
+        backgroundColor: getHex("white", "strong"),
     };
     // Hooks
     useLockedBody(disclosure.opened && lockScroll, "root");
     useDetectKeyDown(disclosure.close, "Escape", closeOnEscape, [closeOnEscape, close]);
     return (_jsx(AnimatePresence, { children: disclosure.opened &&
-            _jsx(ModalBackground, Object.assign({ disclosure: disclosure }, overlayBackgroundProps, { children: _jsxs(motion.div, Object.assign({ css: ContainerStyles, onClick: e => e.stopPropagation(), drag: "y", dragControls: controls, dragListener: false, dragConstraints: { top: 0 }, dragSnapToOrigin: true, onDragEnd: handleDragEnd, initial: { y: "100%" }, animate: {
+            _jsx(ModalBackground, Object.assign({ disclosure: disclosure }, overlayBackgroundProps, { children: _jsxs(motion.div, Object.assign({ css: ContainerStyles, onClick: e => e.stopPropagation(), drag: "y", dragConstraints: { top: 0 }, dragSnapToOrigin: true, onDragEnd: handleDragEnd, initial: { y: "100%" }, animate: {
                         y: 0,
                         transition: {
                             type: "spring",
@@ -74,5 +74,5 @@ export const BottomSheet = forwardRef(function BottomSheet(props, ref) {
                             damping: 40,
                             delay: 0.1,
                         }
-                    }, exit: { y: "100%" }, ref: ref }, rest, { children: [_jsx(UnstyledButton, { style: DragStyle, onPointerDown: (e) => controls.start(e), children: _jsx("div", { style: PillStyle }) }), _jsxs(Flex, Object.assign({ direction: "column", style: SheetStyle }, flexProps, { children: [header({ title }), children] }))] })) })) }));
+                    }, exit: { y: "100%" }, ref: ref }, rest, { children: [_jsx("div", { style: DragStyle, children: _jsx("div", { style: PillStyle }) }), _jsxs(Flex, Object.assign({ direction: "column", style: SheetStyle }, flexProps, { children: [header({ title }), children] }))] })) })) }));
 });

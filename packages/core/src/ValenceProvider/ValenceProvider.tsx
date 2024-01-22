@@ -1,9 +1,9 @@
 import { CSSProperties, createContext, useContext } from "react";
-import { ColorReactive, getUnidentifiedHexColor, getReactiveColor } from "../Color";
 import { IValenceContext, ValenceContextDefaults as VCD } from "./ValenceProvider.types";
-import { useColorScheme } from "../hooks";
 import { TextProps } from "../components";
 import { ComponentSize, FillVariant, SizeClasses } from "@valence-ui/utils";
+import { CssOverride } from "./CssOverride";
+import { Color } from "../utilities/color";
 
 
 export const ValenceContext = createContext<IValenceContext>(VCD);
@@ -21,14 +21,16 @@ export const useValence = () => {
 export type ValenceProviderProps = {
   children?: React.ReactNode;
 
-  colors?: ColorReactive[];
+  colors?: Color[];
   primaryColor?: string;
 
-  defaultSize?: ComponentSize;
-  defaultRadius?: ComponentSize;
-  defaultTransitionDuration?: React.CSSProperties["transitionDuration"];
-  defaultShadow?: React.CSSProperties["boxShadow"];
-  defaultVariant?: FillVariant;
+  defaults?: { 
+    size: ComponentSize;
+    radius: ComponentSize;
+    variant: FillVariant;
+    transitionDuration: CSSProperties["transitionDuration"];
+    shadow: CSSProperties["boxShadow"];
+  };
 
   fontFamily?: {
     default: string;
@@ -42,7 +44,7 @@ export type ValenceProviderProps = {
     radius: SizeClasses<CSSProperties["borderRadius"]>;
     fontSize: SizeClasses<CSSProperties["fontSize"]>;
     iconSize: SizeClasses<CSSProperties["fontSize"]>;
-  }
+  };
 
   titles?: {
     1: TextProps;
@@ -51,32 +53,24 @@ export type ValenceProviderProps = {
     4: TextProps;
     5: TextProps;
     6: TextProps;
-  }
+  };
 
 
   breakpoints?: {
-    desktopThinWidth: number;
     mobileWidth: number;
-    mobileTallHeight: number;
-  }
+    tabletWidth: number;
+    desktopLargeWidth: number;
+    tvWidth: number;
+  };
 }
 
 export function ValenceProvider(props: ValenceProviderProps) {
-
-  // Hooks
-  const { isDarkMode } = useColorScheme();
-
-
-  // Defaults
+  // Fallback properties
   const {
     colors = props.colors ? VCD.colors.concat(props.colors) : VCD.colors,
     primaryColor = VCD.primaryColor,
 
-    defaultSize = VCD.defaultSize,
-    defaultRadius = VCD.defaultRadius,
-    defaultTransitionDuration = VCD.defaultTransitionDuration,
-    defaultShadow = VCD.defaultShadow,
-    defaultVariant = VCD.defaultVariant,
+    defaults = VCD.defaults,
 
     fontFamily = VCD.fontFamily,
     sizeClasses = VCD.sizeClasses,
@@ -85,25 +79,7 @@ export function ValenceProvider(props: ValenceProviderProps) {
     breakpoints = VCD.breakpoints,
   } = props;
 
-
-  function getColor(key: string | undefined) {
-    if (key === undefined) return undefined;
-    if (key === "primary")
-      return getReactiveColor(colors.find(i => i.key === primaryColor),);
-
-    const colIndex = colors.findIndex(i => i.key === key);
-    if (colIndex === -1) return key as string[0] !== "#" ?
-      getUnidentifiedHexColor(key as string)
-      : getReactiveColor(colors.find(i => i.key === primaryColor), isDarkMode);
-    else
-      return getReactiveColor(colors.find(i => i.key === key), isDarkMode);
-  }
-
-  function getColorHex(key: string | undefined, opacity?: "weak" | "medium" | "strong") {
-    const color = getColor(key);
-    if (color === undefined) return undefined;
-    return `${color.base}` + (opacity ? `${color.opacity[opacity]}` : "");
-  }
+  // Methods
 
   function getFont(context: "default" | "heading" | "monospace") {
     switch (context) {
@@ -114,7 +90,7 @@ export function ValenceProvider(props: ValenceProviderProps) {
   }
 
   function getSize(context: "padding" | "height" | "radius" | "fontSize" | "iconSize", size?: ComponentSize) {
-    size = size ?? defaultSize;
+    size = size ?? defaults.size;
     return sizeClasses[context][size];
   }
 
@@ -123,15 +99,9 @@ export function ValenceProvider(props: ValenceProviderProps) {
     <ValenceContext.Provider
       value={{
         colors,
-        getColor,
-        getColorHex,
         primaryColor,
 
-        defaultSize,
-        defaultRadius,
-        defaultTransitionDuration,
-        defaultShadow,
-        defaultVariant,
+        defaults,
 
         fontFamily,
         getFont,
@@ -143,6 +113,9 @@ export function ValenceProvider(props: ValenceProviderProps) {
         breakpoints,
       }}
     >
+      {/* CSS overrider to avoid pasting a global.css file */}
+      <CssOverride />
+
       {props.children}
     </ValenceContext.Provider>
   )

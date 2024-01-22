@@ -5,11 +5,10 @@ import ReactSlider from "react-slider";
 import { css } from "@emotion/react";
 import { useValence } from "../../../ValenceProvider";
 import { Flex, StyledFlex, StyledFlexProps } from "../../layout";
-import { useBreakpoint } from "../../../hooks";
-import { getReactiveProp } from "@valence-ui/utils";
-import { getBackgroundColor } from "../../buttons";
 import { Text } from "../../display";
 import { NumberInput } from "../NumberInput";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+import { useColors } from "../../../utilities/color";
 
 export type SliderEventProps<T = number> = {
   /** Callback fired after a thumb has been moved. */
@@ -69,7 +68,7 @@ export type SliderThumbProps =
 
 
 const Slider = forwardRef(function Slider(
-  props: SliderProps,
+  props: MakeResponsive<SliderProps>,
   ref: any
 ) {
   const theme = useValence();
@@ -86,9 +85,9 @@ const Slider = forwardRef(function Slider(
     invert = false,
 
     color = "black",
-    size = theme.defaultSize,
-    radius = theme.defaultRadius,
-    variant = theme.defaultVariant,
+    size = theme.defaults.size,
+    radius = theme.defaults.radius,
+    variant = theme.defaults.variant,
 
     height = theme.getSize("height", size),
     width = "100%",
@@ -106,7 +105,7 @@ const Slider = forwardRef(function Slider(
 
     style,
     ...rest
-  } = props;
+  } = useResponsiveProps<SliderProps>(props);
 
 
   // Styles
@@ -123,6 +122,7 @@ const Slider = forwardRef(function Slider(
 
   return (
     <Flex
+      alignSelf="stretch"
       align="center"
       gap={5}
       height={height}
@@ -196,8 +196,8 @@ const SliderTrack = forwardRef(function SliderTrack(
   ref: any,
 ) {
   // Hooks 
-  const breakpoint = useBreakpoint();
   const theme = useValence();
+  const { getBgHex } = useColors();
 
 
   const {
@@ -205,7 +205,7 @@ const SliderTrack = forwardRef(function SliderTrack(
     highlight,
 
     radius = "xl",
-    size = theme.defaultSize,
+    size = theme.defaults.size,
 
     width,
     height = 2,
@@ -222,14 +222,13 @@ const SliderTrack = forwardRef(function SliderTrack(
 
   // Styles
   const TrackStyle: CSSProperties = {
-    backgroundColor: getBackgroundColor(
-      highlight ? getReactiveProp(color, breakpoint) : "black",
-      variant, false, theme
+    backgroundColor: getBgHex(
+      highlight ? color : "black",
+      variant, false
     ),
-    borderRadius: theme.getSize("radius", getReactiveProp(radius, breakpoint)),
+    borderRadius: theme.getSize("radius", radius),
 
-    ...getReactiveProp(style, breakpoint),
-
+    ...style,
   }
 
 
@@ -261,7 +260,7 @@ const SliderThumb = forwardRef(function SliderThumb(
     showValue = false,
 
     variant = "filled",
-    size = theme.defaultSize,
+    size = theme.defaults.size,
     width = showValue ? theme.getSize("height", size) : theme.getSize("height", size) / 2,
     height = theme.getSize("height", size) / 2,
     radius = "xl",

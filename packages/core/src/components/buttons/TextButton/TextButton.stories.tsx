@@ -51,7 +51,11 @@ type Story = StoryObj<typeof Button>;
 
 export const Text: Story = (args: any) => (
   <ValenceProvider>
-    <Flex direction="column">
+    <Flex
+      direction="column"
+      height="100vh"
+      center
+    >
       <Button {...args} size="xs" />
       <Button {...args} size="sm" />
       <Button {...args} size="md" />

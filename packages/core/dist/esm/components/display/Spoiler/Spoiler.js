@@ -12,10 +12,11 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx } from "react/jsx-runtime";
 import { AnimatePresence, motion } from "framer-motion";
 import { forwardRef } from "react";
+import { useResponsiveProps } from "../../../utilities/responsive";
 /** A simple wrapper component used to show or hide content at will. */
 export const Spoiler = forwardRef(function Spoiler(props, ref) {
     // Defaults
-    const { show = true, style, children } = props, rest = __rest(props, ["show", "style", "children"]);
+    const _a = useResponsiveProps(props), { show = true, style, children } = _a, rest = __rest(_a, ["show", "style", "children"]);
     // Styles
     const SpoilerStyle = Object.assign({ overflow: "hidden" }, style);
     return (_jsx(AnimatePresence, { children: show &&

@@ -20,10 +20,13 @@ const display_1 = require("../../display");
 const framer_motion_1 = require("framer-motion");
 const layout_1 = require("../../layout");
 const react_2 = require("@emotion/react");
+const responsive_1 = require("../../../utilities/responsive");
+const color_1 = require("../../../utilities/color");
 exports.Switch = (0, react_1.forwardRef)(function Switch(props, ref) {
     const theme = (0, ValenceProvider_1.useValence)();
+    const { getBgHex, getHex } = (0, color_1.useColors)();
     // Defaults
-    const { value, setValue, label, size = theme.defaultSize, radius = "xl", variant = theme.defaultVariant, grow = false, disabled = false, readOnly = false, loading = false, onFocus, onBlur, buttonProps, labelProps, color = theme.primaryColor, backgroundColor = color, padding = 4, margin = 0, width, height, style } = props, rest = __rest(props, ["value", "setValue", "label", "size", "radius", "variant", "grow", "disabled", "readOnly", "loading", "onFocus", "onBlur", "buttonProps", "labelProps", "color", "backgroundColor", "padding", "margin", "width", "height", "style"]);
+    const _a = (0, responsive_1.useResponsiveProps)(props), { value, setValue, label, size = theme.defaults.size, radius = "xl", variant = theme.defaults.variant, grow = false, disabled = false, readOnly = false, loading = false, onFocus, onBlur, buttonProps, labelProps, color = theme.primaryColor, backgroundColor = color, padding = 4, margin = 0, width, height, style } = _a, rest = __rest(_a, ["value", "setValue", "label", "size", "radius", "variant", "grow", "disabled", "readOnly", "loading", "onFocus", "onBlur", "buttonProps", "labelProps", "color", "backgroundColor", "padding", "margin", "width", "height", "style"]);
     // Handlers
     function handleClick() {
         if (disabled || readOnly || loading)
@@ -31,24 +34,24 @@ exports.Switch = (0, react_1.forwardRef)(function Switch(props, ref) {
         setValue(!value);
     }
     // Styles
-    const SwitchStyle = (0, react_2.css)(Object.assign({ display: "flex", flexDirection: "row", boxSizing: "border-box", flexGrow: grow ? 1 : "unset", width: width !== null && width !== void 0 ? width : theme.sizeClasses.height[size] * 1.75, height: height !== null && height !== void 0 ? height : theme.sizeClasses.height[size] * 0.75, borderRadius: `${theme.sizeClasses.radius[radius]}px`, padding: padding, margin: margin, opacity: disabled ? 0.5 : 1, cursor: disabled ? "not-allowed" : "pointer", transition: `background-color ${theme.defaultTransitionDuration} linear 0s`, backgroundColor: value ?
-            (0, buttons_1.getBackgroundColor)(backgroundColor, variant, false, theme) :
-            (0, buttons_1.getBackgroundColor)("black", variant, false, theme), outline: variant === "subtle" ?
+    const SwitchStyle = (0, react_2.css)(Object.assign({ display: "flex", flexDirection: "row", boxSizing: "border-box", flexGrow: grow ? 1 : "unset", width: width !== null && width !== void 0 ? width : theme.sizeClasses.height[size] * 1.75, height: height !== null && height !== void 0 ? height : theme.sizeClasses.height[size] * 0.75, borderRadius: `${theme.sizeClasses.radius[radius]}px`, padding: padding, margin: margin, opacity: disabled ? 0.5 : 1, cursor: disabled ? "not-allowed" : "pointer", transition: `background-color ${theme.defaults.transitionDuration} linear 0s`, backgroundColor: value ?
+            getBgHex(backgroundColor, variant, false) :
+            getBgHex("black", variant, false), outline: variant === "subtle" ?
             value ?
-                `1px solid ${theme.getColorHex(backgroundColor, "medium")}` :
-                `1px solid ${theme.getColorHex("black", "medium")}`
+                `1px solid ${getHex(backgroundColor, "medium")}` :
+                `1px solid ${getHex("black", "medium")}`
             : "none", border: "none", "&:hover": {
             backgroundColor: value ?
-                (0, buttons_1.getBackgroundColor)(backgroundColor, variant, true, theme) :
-                (0, buttons_1.getBackgroundColor)("black", variant, true, theme),
+                getBgHex(backgroundColor, variant, true) :
+                getBgHex("black", variant, true),
         } }, style));
     const HandleStyle = (0, react_2.css)({
         width: "50%",
         height: "100%",
         borderRadius: `${theme.sizeClasses.radius[radius]}px`,
         backgroundColor: value ?
-            (0, buttons_1.getBackgroundColor)(variant === "filled" ? "white" : color, "filled", false, theme) :
-            (0, buttons_1.getBackgroundColor)(variant === "filled" ? "white" : "black", "filled", false, theme),
+            getBgHex(variant === "filled" ? "white" : color, "filled", false) :
+            getBgHex(variant === "filled" ? "white" : "black", "filled", false),
         outline: "none",
         border: "none",
     });

@@ -1,6 +1,6 @@
 import { Placement, autoUpdate, useFloating, offset as tooltipOffset, flip, shift, useHover, useFocus, useDismiss, useRole, useInteractions } from "@floating-ui/react";
 import { Disclosure, useDisclosure } from "./UseDisclosure";
-import { createContext, useContext, useMemo } from "react";
+import { useMemo } from "react";
 
 export type TooltipOptions = {
   /** The placement of the tooltip relative to the target */

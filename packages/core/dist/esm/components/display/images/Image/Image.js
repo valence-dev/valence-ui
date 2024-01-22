@@ -12,22 +12,25 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
 import { forwardRef } from "react";
-import { getReactiveProp } from "@valence-ui/utils";
 import { useValence } from "../../../../ValenceProvider";
-import { useBreakpoint } from "../../../../hooks";
 import { css } from "@emotion/react";
+import { useResponsiveProps } from "../../../../utilities/responsive";
+import { Flex } from "../../../layout";
+import { Icon } from "../../Icon";
+import { IconPhoto } from "@tabler/icons-react";
+import { useColors } from "../../../../utilities";
 export const Image = forwardRef(function Image(props, ref) {
     const theme = useValence();
-    const breakpoint = useBreakpoint();
+    const { getHex } = useColors();
     // Defaults
-    const { src, alt, placeholder, radius = theme.defaultRadius, fit = "cover", position = "center", square = false, height = "fit-content", width = square ? height : "auto", shadow = false, style } = props, rest = __rest(props, ["src", "alt", "placeholder", "radius", "fit", "position", "square", "height", "width", "shadow", "style"]);
+    const _a = useResponsiveProps(props), { src, alt, color = "black", placeholder = (_jsx(Flex, { align: "center", justify: "center", height: "100%", width: "100%", children: _jsx(Icon, { color: color, children: _jsx(IconPhoto, {}) }) })), radius = theme.defaults.radius, fit = "cover", position = "center", square = false, height = "fit-content", width = square ? height : "auto", shadow = false, style } = _a, rest = __rest(_a, ["src", "alt", "color", "placeholder", "radius", "fit", "position", "square", "height", "width", "shadow", "style"]);
     // Styles
-    const ContainerStyle = css(Object.assign({ height: getReactiveProp(height, breakpoint), width: getReactiveProp(width, breakpoint), minWidth: getReactiveProp(width, breakpoint), borderRadius: theme.sizeClasses.radius[getReactiveProp(radius, breakpoint)], aspectRatio: square ? "1/1" : undefined, overflow: "hidden", boxShadow: getReactiveProp(shadow, breakpoint) ? theme.defaultShadow : "none" }, getReactiveProp(style, breakpoint)));
+    const ContainerStyle = css(Object.assign({ height: height, width: width, minWidth: width, borderRadius: theme.sizeClasses.radius[radius], aspectRatio: square ? "1/1" : undefined, overflow: "hidden", boxShadow: shadow ? theme.defaults.shadow : "none", backgroundColor: getHex(color, "weak") }, style));
     const ImageStyle = css({
         width: "100%",
         height: "100%",
-        objectFit: getReactiveProp(fit, breakpoint),
-        objectPosition: getReactiveProp(position, breakpoint)
+        objectFit: fit,
+        objectPosition: position
     });
     return (_jsx("div", { css: ContainerStyle, children: props.src ?
             _jsx("img", Object.assign({ css: ImageStyle, src: src, alt: alt, ref: ref }, rest))

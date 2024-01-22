@@ -10,16 +10,20 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useValence } from "../../..";
+import { forwardRef } from "react";
+import { useColors, useResponsiveProps, useValence } from "../../..";
 import { PrimitiveButton } from "../PrimitiveButton";
-import { Icon, Text } from "../../display";
-import { getTextColor } from "../Helpers";
-export function ButtonWithIcon(props) {
+import { Icon, Loader, Text } from "../../display";
+export const ButtonWithIcon = forwardRef(function ButtonWithIcon(props, ref) {
     const theme = useValence();
+    const colors = useColors();
     // Defaults
-    const { icon, iconPosition = "left", size = theme.defaultSize, variant = theme.defaultVariant, color = theme.primaryColor, style, textProps } = props, rest = __rest(props, ["icon", "iconPosition", "size", "variant", "color", "style", "textProps"]);
+    const _a = useResponsiveProps(props), { icon, iconPosition = "left", size = theme.defaults.size, variant = theme.defaults.variant, color = theme.primaryColor, loading, style, textProps, children } = _a, rest = __rest(_a, ["icon", "iconPosition", "size", "variant", "color", "loading", "style", "textProps", "children"]);
     // Styles
     const padding = theme.getSize("padding", size);
     const styles = Object.assign({ flexDirection: iconPosition === "left" ? "row" : "row-reverse", justifyContent: "flex-start", paddingLeft: iconPosition === "left" ? padding / 1.5 : undefined, paddingRight: iconPosition === "right" ? padding / 1.5 : undefined, gap: padding / 2 }, style);
-    return (_jsxs(PrimitiveButton, Object.assign({ size: size, variant: variant, color: color, style: styles }, rest, { children: [_jsx(Icon, { size: theme.getSize("iconSize", size), color: getTextColor(color, variant, theme), children: icon }), _jsx(Text, Object.assign({ size: size, color: getTextColor(color, variant, theme) }, textProps, { children: props.children }))] })));
-}
+    return (_jsxs(PrimitiveButton, Object.assign({ size: size, variant: variant, color: color, style: styles, ref: ref }, rest, { children: [loading ?
+                _jsx(Loader, { size: size, color: colors.getFgHex(color, variant) })
+                :
+                    _jsx(Icon, { size: theme.getSize("iconSize", size), color: colors.getFgHex(color, variant), children: icon }), _jsx(Text, Object.assign({ size: size, color: colors.getFgHex(color, variant) }, textProps, { children: children }))] })));
+});

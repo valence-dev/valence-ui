@@ -2,12 +2,14 @@
 import { FocusEvents } from "@valence-ui/utils";
 import { forwardRef } from "react";
 import { useValence } from "../../../ValenceProvider";
-import { PrimitiveButton, PrimitiveButtonProps, getBackgroundColor } from "../../buttons";
+import { PrimitiveButton, PrimitiveButtonProps } from "../../buttons";
 import { Loader, Text, TextProps } from "../../display";
 import { motion } from "framer-motion";
 import { Flex } from "../../layout";
 import { css } from "@emotion/react";
 import { GenericInputProps } from "../../../generics";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+import { useColors } from "../../../utilities/color";
 
 export type SwitchProps =
   GenericInputProps<boolean>
@@ -27,10 +29,11 @@ export type SwitchProps =
 
 
 export const Switch = forwardRef(function Switch(
-  props: SwitchProps,
+  props: MakeResponsive<SwitchProps>,
   ref: any,
 ) {
   const theme = useValence();
+  const { getBgHex, getHex } = useColors();
 
 
   // Defaults
@@ -39,9 +42,9 @@ export const Switch = forwardRef(function Switch(
     setValue,
     label,
 
-    size = theme.defaultSize,
+    size = theme.defaults.size,
     radius = "xl",
-    variant = theme.defaultVariant,
+    variant = theme.defaults.variant,
     grow = false,
 
     disabled = false,
@@ -63,7 +66,7 @@ export const Switch = forwardRef(function Switch(
 
     style,
     ...rest
-  } = props;
+  } = useResponsiveProps<SwitchProps>(props);
 
 
   // Handlers
@@ -91,22 +94,22 @@ export const Switch = forwardRef(function Switch(
     opacity: disabled ? 0.5 : 1,
     cursor: disabled ? "not-allowed" : "pointer",
 
-    transition: `background-color ${theme.defaultTransitionDuration} linear 0s`,
+    transition: `background-color ${theme.defaults.transitionDuration} linear 0s`,
     backgroundColor: value ?
-      getBackgroundColor(backgroundColor, variant, false, theme) :
-      getBackgroundColor("black", variant, false, theme),
+      getBgHex(backgroundColor, variant, false) :
+      getBgHex("black", variant, false),
 
     outline: variant === "subtle" ?
       value ?
-        `1px solid ${theme.getColorHex(backgroundColor, "medium")}` :
-        `1px solid ${theme.getColorHex("black", "medium")}`
+        `1px solid ${getHex(backgroundColor, "medium")}` :
+        `1px solid ${getHex("black", "medium")}`
       : "none",
     border: "none",
 
     "&:hover": {
       backgroundColor: value ?
-        getBackgroundColor(backgroundColor, variant, true, theme) :
-        getBackgroundColor("black", variant, true, theme),
+        getBgHex(backgroundColor, variant, true) :
+        getBgHex("black", variant, true),
     },
 
     ...style
@@ -117,8 +120,8 @@ export const Switch = forwardRef(function Switch(
 
     borderRadius: `${theme.sizeClasses.radius[radius]}px`,
     backgroundColor: value ?
-      getBackgroundColor(variant === "filled" ? "white" : color, "filled", false, theme) :
-      getBackgroundColor(variant === "filled" ? "white" : "black", "filled", false, theme),
+      getBgHex(variant === "filled" ? "white" : color, "filled", false) :
+      getBgHex(variant === "filled" ? "white" : "black", "filled", false),
 
     outline: "none",
     border: "none",

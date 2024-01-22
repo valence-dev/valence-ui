@@ -1,14 +1,15 @@
 import { ComponentSize, FillVariant, GenericLayoutProps, SizeClasses } from "@valence-ui/utils";
-import { IconButton, IconButtonProps, UnstyledButtonProps, getBackgroundColor, getTextColor } from "../../buttons";
+import { IconButton, IconButtonProps, UnstyledButtonProps } from "../../buttons";
 import { CSSProperties, ReactNode, forwardRef } from "react";
 import { useValence } from "../../../ValenceProvider";
 import { IconX } from "@tabler/icons-react";
 import { Text, TextProps } from "../Text";
-import { Icon } from "../Icon";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+import { useColors } from "../../../utilities/color";
 
 export type PillProps =
-  GenericLayoutProps
-  & UnstyledButtonProps
+  Omit<GenericLayoutProps, "children">
+  & Omit<UnstyledButtonProps, "children">
   & {
     /** Fill variant of this pill. Defaults to theme default. */
     variant?: FillVariant;
@@ -22,12 +23,12 @@ export type PillProps =
     /** Icon to use for the remove button. Defaults to `IconX`. */
     removeButtonIcon?: ReactNode;
     /** Optional props to pass to the remove button. */
-    removeButtonProps?: IconButtonProps & { children?: never };
+    removeButtonProps?: Omit<IconButtonProps, "children">;
     /** Callback to be called when the remove button is clicked. */
     onRemove?: () => void;
 
     /** Optional props to pass to the `Text` component */
-    textProps?: TextProps & { children?: never };
+    textProps?: Omit<TextProps, "children">;
 
     children?: string;
   }
@@ -46,20 +47,21 @@ const SIZES: SizeClasses<{
 
 
 export const Pill = forwardRef(function Pill(
-  props: PillProps,
+  props: MakeResponsive<PillProps>,
   ref: any,
 ) {
   const theme = useValence();
+  const colors = useColors();
 
 
   // Defaults
   const {
-    variant = theme.defaultVariant,
-    size = theme.defaultSize,
+    size = theme.defaults.size,
     radius = "xl",
+    variant = theme.defaults.variant,
 
     withRemoveButton = false,
-    removeButtonIcon = <Icon><IconX /></Icon>,
+    removeButtonIcon = <IconX />,
     removeButtonProps,
     onRemove,
 
@@ -72,10 +74,12 @@ export const Pill = forwardRef(function Pill(
     width = "fit-content",
     height,
 
+    onClick,
+
     style,
     children,
     ...rest
-  } = props;
+  } = useResponsiveProps<PillProps>(props);
 
 
   // Styles
@@ -85,11 +89,11 @@ export const Pill = forwardRef(function Pill(
     alignItems: "center",
     justifyContent: "stretch",
 
-    backgroundColor: getBackgroundColor(backgroundColor, variant, false, theme),
-    color: getTextColor(color, variant, theme),
+    backgroundColor: colors.getBgHex(backgroundColor, variant, false),
+    color: colors.getFgHex(color, variant),
     borderRadius: theme.sizeClasses.radius[radius],
     outline: variant === "subtle" ?
-      `1px solid ${theme.getColorHex(backgroundColor, "medium")}`
+      `1px solid ${colors.getHex(backgroundColor)}`
       : "none",
 
     padding: padding,
@@ -111,7 +115,7 @@ export const Pill = forwardRef(function Pill(
     e.stopPropagation();
     if (!withRemoveButton) return;
     onRemove?.();
-    props.onClick?.(e);
+    onClick?.(e);
   }
 
 
@@ -124,7 +128,7 @@ export const Pill = forwardRef(function Pill(
     >
       <Text
         size={size}
-        color={getTextColor(color, variant, theme)}
+        color={colors.getFgHex(color, variant)}
       >
         {children}
       </Text>
@@ -133,7 +137,7 @@ export const Pill = forwardRef(function Pill(
         <IconButton
           size={size}
           radius={radius}
-          color={getTextColor(color, variant, theme)}
+          color={colors.getFgHex(color, variant)}
           variant="subtle"
           onClick={handleClick}
 

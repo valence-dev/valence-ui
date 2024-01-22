@@ -13,25 +13,25 @@ import { jsx as _jsx } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
 import { useValence } from "../../../ValenceProvider";
 import { createRef, forwardRef } from "react";
-import { getTextColor } from "../../buttons";
 import { css } from "@emotion/react";
 import { InputContainer } from "../InputContainer";
+import { useResponsiveProps } from "../../../utilities/responsive";
+import { useColors } from "../../../utilities/color";
 export const Textarea = forwardRef(function Textarea(props, ref) {
     const theme = useValence();
+    const { getFgHex } = useColors();
     const inputRef = ref !== null && ref !== void 0 ? ref : createRef();
     // Defaults
-    const { value, setValue, icon, placeholder = "", autoComplete = false, spellCheck = true, size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, grow, resize = "none", minHeight = theme.sizeClasses.height[size], maxHeight, minWidth, maxWidth, autoFocus, loading, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding = 10, margin, width = "100%", height = "auto", onEnterPress, onKeyPress, style, inputStyle } = props, rest = __rest(props, ["value", "setValue", "icon", "placeholder", "autoComplete", "spellCheck", "size", "radius", "variant", "grow", "resize", "minHeight", "maxHeight", "minWidth", "maxWidth", "autoFocus", "loading", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "onEnterPress", "onKeyPress", "style", "inputStyle"]);
+    const _a = useResponsiveProps(props), { value, setValue, icon, placeholder = "", autoComplete = false, spellCheck = true, size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, grow, resize = "none", minHeight = theme.sizeClasses.height[size], maxHeight, minWidth, maxWidth, autoFocus, loading, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding = 10, margin, width = "100%", height = "auto", onEnterPress, onKeyPress, style, inputStyle } = _a, rest = __rest(_a, ["value", "setValue", "icon", "placeholder", "autoComplete", "spellCheck", "size", "radius", "variant", "grow", "resize", "minHeight", "maxHeight", "minWidth", "maxWidth", "autoFocus", "loading", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "onEnterPress", "onKeyPress", "style", "inputStyle"]);
     // Styles
-    const TextareaStyle = css(Object.assign({ outline: "none", border: "none", textDecoration: "none", padding: 0, resize: resize, minHeight: minHeight, maxHeight: maxHeight, minWidth: minWidth, maxWidth: maxWidth, verticalAlign: "center", width: "100%", height: "100%", overflowY: "auto", background: "none", color: getTextColor(color, variant, theme), fontSize: theme.sizeClasses.fontSize[size], fontFamily: theme.getFont("default"), "&::-webkit-scrollbar": {
+    const TextareaStyle = css(Object.assign({ outline: "none", border: "none", textDecoration: "none", padding: 0, resize: resize, minHeight: minHeight, maxHeight: maxHeight, minWidth: minWidth, maxWidth: maxWidth, verticalAlign: "center", width: "100%", height: "100%", overflowY: "auto", background: "none", color: getFgHex(color, variant), fontSize: theme.sizeClasses.fontSize[size], fontFamily: theme.getFont("default"), "&::-webkit-scrollbar": {
             width: 10,
         }, "&::-webkit-scrollbar-thumb": {
             backgroundColor: "#11181C20",
             borderRadius: 5,
         }, "&::placeholder": {
-            color: `${getTextColor(color, variant, theme)}80`,
-        }, 
-        // Remove awful autofill color
-        "&:-webkit-autofill": { transition: `background-color 5000s ease-in-out 0s` }, "&:-webkit-autofill:focus": { transition: `background-color 5000s ease-in-out 0s` }, "&:-webkit-autofill:hover": { transition: `background-color 5000s ease-in-out 0s` }, "&:-webkit-autofill:active": { transition: `background-color 5000s ease-in-out 0s` } }, inputStyle));
+            color: `${getFgHex(color, variant)}80`,
+        } }, inputStyle));
     const ContainerStyle = Object.assign({ minHeight: height, height: "fit-content" }, style);
     // Handlers
     const handleKeyDown = (e) => {

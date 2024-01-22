@@ -1,14 +1,14 @@
-import { DEFAULT_COLORS } from "../Color";
+import { DEFAULT_PALETTE } from "../utilities/color";
 export const ValenceContextDefaults = {
-    colors: DEFAULT_COLORS,
-    getColor: () => undefined,
-    getColorHex: () => undefined,
+    colors: DEFAULT_PALETTE,
     primaryColor: "pink",
-    defaultSize: "sm",
-    defaultRadius: "sm",
-    defaultTransitionDuration: "0.1s",
-    defaultShadow: "0px 10px 30px rgba(0, 0, 0, 0.2)",
-    defaultVariant: "light",
+    defaults: {
+        size: "sm",
+        radius: "sm",
+        variant: "light",
+        transitionDuration: "0.1s",
+        shadow: "0px 10px 30px rgba(0, 0, 0, 0.2)",
+    },
     fontFamily: {
         default: "Inter, sans-serif",
         heading: undefined,
@@ -32,8 +32,9 @@ export const ValenceContextDefaults = {
         6: { fontSize: 12, bold: true },
     },
     breakpoints: {
-        desktopThinWidth: 1200,
-        mobileWidth: 800,
-        mobileTallHeight: 750,
+        mobileWidth: 480,
+        tabletWidth: 768,
+        desktopLargeWidth: 1024,
+        tvWidth: 1440,
     }
 };

@@ -2,20 +2,21 @@ import { CSSProperties, forwardRef } from "react";
 import { Text, TextProps } from "../../display";
 import { Flex, FlexProps } from "../Flex";
 import { useValence } from "../../../ValenceProvider";
-import { useBreakpoint } from "../../../hooks";
-import { ComponentSize, GenericReactiveFloatingLayoutProps, ReactiveProp, getReactiveProp } from "@valence-ui/utils";
+import { ComponentSize, GenericFloatingLayoutProps } from "@valence-ui/utils";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+import { useColors } from "../../../utilities/color";
 
 export type OutlineContainerProps =
-  GenericReactiveFloatingLayoutProps
+  GenericFloatingLayoutProps
   & FlexProps
   & {
     /** Determines if this container will stick to the window, or simply be a part of it. `true` by default. */
-    sticky?: ReactiveProp<boolean>;
+    sticky?: boolean;
 
     /** A label to display below the container */
     label?: string;
     /** Optional props to pass to the label component */
-    labelProps?: TextProps & { children?: never };
+    labelProps?: Omit<TextProps, "children">;
 
     /** Spacing around the container. `5px` by default */
     spacing?: number;
@@ -25,11 +26,11 @@ export type OutlineContainerProps =
 
 
 export const OutlineContainer = forwardRef(function OutlineContainer(
-  props: OutlineContainerProps,
+  props: MakeResponsive<OutlineContainerProps>,
   ref: any,
 ) {
   const theme = useValence();
-  const breakpoint = useBreakpoint();
+  const { getHex } = useColors();
 
 
   // Defaults
@@ -38,11 +39,11 @@ export const OutlineContainer = forwardRef(function OutlineContainer(
 
     label, labelProps,
     spacing = 5,
-    radius = theme.defaultRadius,
+    radius = theme.defaults.radius,
 
     position = sticky ? "sticky" : "relative",
     zIndex = sticky ? 151 : undefined,
-    top = sticky ? { default: spacing * 2, mobile: 75 } : undefined,
+    top = useResponsiveProps(sticky ? { default: spacing * 2, mobile: 75 } : undefined),
     left = sticky ? spacing * 2 : undefined,
     right = sticky ? spacing * 2 : undefined,
     bottom,
@@ -52,7 +53,7 @@ export const OutlineContainer = forwardRef(function OutlineContainer(
     color = "black",
 
     children, style, ...rest
-  } = props;
+  } = useResponsiveProps<OutlineContainerProps>(props);
   const {
     style: labelStyle,
     ...labelRest
@@ -61,17 +62,17 @@ export const OutlineContainer = forwardRef(function OutlineContainer(
 
   // Styles
   const OuterFlexStyle: CSSProperties = {
-    position: getReactiveProp(position, breakpoint),
-    zIndex: getReactiveProp(zIndex, breakpoint),
-    top: getReactiveProp(top, breakpoint),
-    left: getReactiveProp(left, breakpoint),
-    right: getReactiveProp(right, breakpoint),
-    bottom: getReactiveProp(bottom, breakpoint),
+    position: position,
+    zIndex: zIndex,
+    top: top,
+    left: left,
+    right: right,
+    bottom: bottom,
   }
   const OutlineContainerStyle: CSSProperties = {
-    backgroundColor: theme.getColorHex("white", "strong"),
+    backgroundColor: getHex("white", "strong"),
     backdropFilter: "blur(5px)",
-    outlineColor: theme.getColorHex(getReactiveProp(color, breakpoint), "medium"),
+    outlineColor: getHex(color, "medium"),
     outlineWidth: 1,
     outlineStyle: "solid",
     padding: spacing,
@@ -80,7 +81,7 @@ export const OutlineContainer = forwardRef(function OutlineContainer(
     ...style
   }
   const LabelStyle: CSSProperties = {
-    backgroundColor: theme.getColorHex("white", "strong"),
+    backgroundColor: getHex("white", "strong"),
     backdropFilter: "blur(5px)",
     padding: `${spacing / 2}px ${spacing * 2}px`,
     borderRadius: 20,
@@ -110,12 +111,13 @@ export const OutlineContainer = forwardRef(function OutlineContainer(
 
       {label && (
         <Flex
+          alignSelf="stretch"
           align="center"
           justify="center"
         >
           <Text
             size="xs"
-            color={theme.getColorHex(getReactiveProp(color, breakpoint), "strong")}
+            color={getHex(color, "strong")}
             align="center"
             style={LabelStyle}
             {...labelRest}

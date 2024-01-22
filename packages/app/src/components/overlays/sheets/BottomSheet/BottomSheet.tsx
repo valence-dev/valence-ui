@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { ValenceContext, ModalBackground, Flex, useDetectKeyDown, DefaultModalHeader, UnstyledButton } from "@valence-ui/core";
+import { ValenceContext, ModalBackground, Flex, useDetectKeyDown, DefaultModalHeader, MakeResponsive, useResponsiveProps, useColors } from "@valence-ui/core";
 import { GenericOverlayHeaderProps, } from "@valence-ui/utils";
 import { useContext, forwardRef, CSSProperties } from "react";
-import { AnimatePresence, motion, useDragControls } from "framer-motion";
-import { useLockedBody, useScreen } from "usehooks-ts";
+import { AnimatePresence, motion } from "framer-motion";
+import { useLockedBody } from "usehooks-ts";
 import { GenericSheetProps } from "../Generics";
 
 export type BottomSheetProps = GenericSheetProps & {
@@ -15,11 +15,11 @@ export type BottomSheetProps = GenericSheetProps & {
 };
 
 export const BottomSheet = forwardRef(function BottomSheet(
-  props: BottomSheetProps,
+  props: MakeResponsive<BottomSheetProps>,
   ref: any
 ) {
   const theme = useContext(ValenceContext);
-  const controls = useDragControls();
+  const { getHex } = useColors();
 
 
   // Defaults
@@ -41,10 +41,10 @@ export const BottomSheet = forwardRef(function BottomSheet(
     radius = "lg",
     withShadow = true,
 
-    backgroundColor = theme.getColorHex("white"),
-    color = theme.getColorHex("black"),
+    backgroundColor = getHex("white"),
+    color = getHex("black"),
 
-    padding = theme.sizeClasses.padding[theme.defaultSize],
+    padding = theme.sizeClasses.padding[theme.defaults.size],
     margin = 0,
 
     width,
@@ -61,7 +61,7 @@ export const BottomSheet = forwardRef(function BottomSheet(
     style,
     children,
     ...rest
-  } = props;
+  } = useResponsiveProps<BottomSheetProps>(props);
 
 
   // Functions
@@ -100,7 +100,7 @@ export const BottomSheet = forwardRef(function BottomSheet(
     margin: margin,
 
     borderRadius: `${borderRadius}px ${borderRadius}px 0 0`,
-    boxShadow: withShadow ? theme.defaultShadow : undefined,
+    boxShadow: withShadow ? theme.defaults.shadow : undefined,
 
     overflowX: "hidden",
     overflowY: "auto",
@@ -120,7 +120,7 @@ export const BottomSheet = forwardRef(function BottomSheet(
     width: 50,
     height: 5,
     borderRadius: 5,
-    backgroundColor: theme.getColorHex("white", "strong"),
+    backgroundColor: getHex("white", "strong"),
   }
 
   // Hooks
@@ -140,8 +140,6 @@ export const BottomSheet = forwardRef(function BottomSheet(
             onClick={e => e.stopPropagation()}
 
             drag="y"
-            dragControls={controls}
-            dragListener={false}
             dragConstraints={{ top: 0 }}
             dragSnapToOrigin
             onDragEnd={handleDragEnd}
@@ -161,12 +159,11 @@ export const BottomSheet = forwardRef(function BottomSheet(
             ref={ref}
             {...rest}
           >
-            <UnstyledButton
+            <div
               style={DragStyle}
-              onPointerDown={(e) => controls.start(e)}
             >
               <div style={PillStyle} />
-            </UnstyledButton>
+            </div>
 
             <Flex
               direction="column"

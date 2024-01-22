@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { forwardRef } from "react";
-import { Disclosure, useValence } from "../../..";
+import { Disclosure, MakeResponsive, useColors, useResponsiveProps, useValence } from "../../..";
 import { motion } from "framer-motion";
 import { GenericOverlayBackgroundProps } from "@valence-ui/utils";
 import { css } from "@emotion/react";
@@ -15,10 +15,11 @@ export type ModalBackgroundProps =
 
 
 export const ModalBackground = forwardRef(function ModalBackground(
-  props: ModalBackgroundProps,
+  props: MakeResponsive<ModalBackgroundProps>,
   ref: any
 ) {
   const theme = useValence();
+  const { getHex } = useColors();
 
 
   // Defaults
@@ -28,13 +29,13 @@ export const ModalBackground = forwardRef(function ModalBackground(
     backdropFilter = "blur",
 
     backgroundColor = "permaBlack",
-    padding = theme.sizeClasses.padding[theme.defaultSize],
+    padding = theme.sizeClasses.padding[theme.defaults.size],
     zIndex = 1002,
     children,
     style,
 
     ...rest
-  } = props;
+  } = useResponsiveProps<ModalBackgroundProps>(props);
 
 
   // Styles
@@ -50,9 +51,9 @@ export const ModalBackground = forwardRef(function ModalBackground(
     alignItems: "center",
     justifyContent: "center",
 
-    backgroundColor: backdropFilter === "dot-blur" ? undefined : theme.getColorHex(backgroundColor, "strong"),
+    backgroundColor: backdropFilter === "dot-blur" ? undefined : getHex(backgroundColor, "strong"),
     backgroundImage: backdropFilter !== "dot-blur" ? undefined :
-      `radial-gradient(rgba(0, 0, 0, 0) 1px, ${theme.getColorHex("white")} 1px)`,
+      `radial-gradient(rgba(0, 0, 0, 0) 1px, ${getHex("white")} 1px)`,
     backgroundSize: backdropFilter !== "dot-blur" ? undefined : "4px 4px",
     backdropFilter: backdropFilter === "dot-blur" ? "blur(3px)" :
       backdropFilter === "blur" ? "blur(10px)" : undefined,

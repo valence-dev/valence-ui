@@ -12,13 +12,13 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
 import React, { createContext, forwardRef, useContext } from "react";
-import { useBreakpoint, useTooltip } from "../../../hooks";
+import { useTooltip } from "../../../hooks";
 import { FloatingPortal, useMergeRefs } from "@floating-ui/react";
 import { StyledFlex } from "../../layout";
 import { css } from "@emotion/react";
 import { useValence } from "../../../ValenceProvider";
-import { getReactiveProp } from "@valence-ui/utils";
 import { Text } from "../../display";
+import { useResponsiveProps } from "../../../utilities/responsive";
 const TooltipContext = createContext(null);
 const useTooltipContext = () => {
     const context = useContext(TooltipContext);
@@ -39,13 +39,12 @@ const Trigger = forwardRef(function Trigger(props, propRef) {
     return React.cloneElement(children, context.getReferenceProps(Object.assign(Object.assign({ ref }, children.props), { "data-state": context.opened ? "open" : "closed" })));
 });
 const Content = forwardRef(function Content(props, propRef) {
-    const { color = "white", backgroundColor = "black", radius = "xl", variant = "filled", padding = "5px 10px", withShadow = true, zIndex = 2, children } = props, rest = __rest(props, ["color", "backgroundColor", "radius", "variant", "padding", "withShadow", "zIndex", "children"]);
+    const _a = useResponsiveProps(props), { color = "white", backgroundColor = "black", radius = "xl", variant = "filled", padding = "5px 10px", withShadow = true, zIndex = 2, children } = _a, rest = __rest(_a, ["color", "backgroundColor", "radius", "variant", "padding", "withShadow", "zIndex", "children"]);
     const context = useTooltipContext();
     const ref = useMergeRefs([context.refs.setFloating, propRef]);
     const theme = useValence();
-    const breakpoint = useBreakpoint();
     // Styles
-    const FloatingStyle = css(Object.assign({ borderRadius: theme.sizeClasses.radius[getReactiveProp(radius, breakpoint)], boxShadow: !withShadow ? undefined : theme.defaultShadow, zIndex: zIndex, animationName: "in", animationDuration: "0.1s", overflowY: "auto", "@keyframes in": {
+    const FloatingStyle = css(Object.assign({ borderRadius: theme.sizeClasses.radius[radius], boxShadow: !withShadow ? undefined : theme.defaults.shadow, zIndex: zIndex, animationName: "in", animationDuration: "0.1s", overflowY: "auto", "@keyframes in": {
             from: {
                 opacity: 0,
             },

@@ -4,6 +4,8 @@ import reactStringReplace from "react-string-replace";
 import { ComponentSize, GenericClickableProps, GenericProps, PolymorphicText, PolymorphicTextProps } from "@valence-ui/utils";
 import { useValence } from "../../../ValenceProvider";
 import { css } from "@emotion/react";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+import { useColors } from "../../../utilities/color";
 
 const REGEX_PATTERNS = {
   newline: /(\n)/,
@@ -29,7 +31,7 @@ export type TextProps =
     /** Sets `text-align` css property */
     align?: CSSProperties["textAlign"];
     /** Sets `text-transform` css property */
-    transform?: React.CSSProperties["textTransform"];
+    transform?: CSSProperties["textTransform"];
 
     /** Sets the size of the text */
     size?: ComponentSize;
@@ -57,10 +59,11 @@ export type TextProps =
  * - `{...}` for monospace text
  */
 export const Text = forwardRef(function Text(
-  props: TextProps,
+  props: MakeResponsive<TextProps>,
   ref: any
 ) {
   const theme = useValence();
+  const colors = useColors();
 
 
   // Defaults
@@ -74,14 +77,14 @@ export const Text = forwardRef(function Text(
     align = "left",
     transform = "none",
 
-    size = theme.defaultSize,
+    size = theme.defaults.size,
     fontSize = theme.sizeClasses.fontSize[size],
     color = "black",
 
     children,
     style,
     ...rest
-  } = props;
+  } = useResponsiveProps<TextProps>(props);
 
 
   // Run through formatters
@@ -140,7 +143,7 @@ export const Text = forwardRef(function Text(
     textTransform: transform,
     textAlign: align,
 
-    color: theme.getColorHex(color),
+    color: colors.getHex(color),
     margin: 0,
 
     ...style,

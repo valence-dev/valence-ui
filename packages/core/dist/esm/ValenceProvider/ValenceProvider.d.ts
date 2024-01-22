@@ -1,19 +1,21 @@
 import { CSSProperties } from "react";
-import { ColorReactive } from "../Color";
 import { IValenceContext } from "./ValenceProvider.types";
 import { TextProps } from "../components";
 import { ComponentSize, FillVariant, SizeClasses } from "@valence-ui/utils";
+import { Color } from "../utilities/color";
 export declare const ValenceContext: import("react").Context<IValenceContext>;
 export declare const useValence: () => IValenceContext;
 export type ValenceProviderProps = {
     children?: React.ReactNode;
-    colors?: ColorReactive[];
+    colors?: Color[];
     primaryColor?: string;
-    defaultSize?: ComponentSize;
-    defaultRadius?: ComponentSize;
-    defaultTransitionDuration?: React.CSSProperties["transitionDuration"];
-    defaultShadow?: React.CSSProperties["boxShadow"];
-    defaultVariant?: FillVariant;
+    defaults?: {
+        size: ComponentSize;
+        radius: ComponentSize;
+        variant: FillVariant;
+        transitionDuration: CSSProperties["transitionDuration"];
+        shadow: CSSProperties["boxShadow"];
+    };
     fontFamily?: {
         default: string;
         heading?: string;
@@ -35,9 +37,10 @@ export type ValenceProviderProps = {
         6: TextProps;
     };
     breakpoints?: {
-        desktopThinWidth: number;
         mobileWidth: number;
-        mobileTallHeight: number;
+        tabletWidth: number;
+        desktopLargeWidth: number;
+        tvWidth: number;
     };
 };
 export declare function ValenceProvider(props: ValenceProviderProps): import("react/jsx-runtime").JSX.Element;

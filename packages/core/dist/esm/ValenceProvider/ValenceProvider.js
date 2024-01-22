@@ -1,8 +1,7 @@
-import { jsx as _jsx } from "react/jsx-runtime";
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { createContext, useContext } from "react";
-import { getUnidentifiedHexColor, getReactiveColor } from "../Color";
 import { ValenceContextDefaults as VCD } from "./ValenceProvider.types";
-import { useColorScheme } from "../hooks";
+import { CssOverride } from "./CssOverride";
 export const ValenceContext = createContext(VCD);
 export const useValence = () => {
     const context = useContext(ValenceContext);
@@ -11,29 +10,9 @@ export const useValence = () => {
     return context;
 };
 export function ValenceProvider(props) {
-    // Hooks
-    const { isDarkMode } = useColorScheme();
-    // Defaults
-    const { colors = props.colors ? VCD.colors.concat(props.colors) : VCD.colors, primaryColor = VCD.primaryColor, defaultSize = VCD.defaultSize, defaultRadius = VCD.defaultRadius, defaultTransitionDuration = VCD.defaultTransitionDuration, defaultShadow = VCD.defaultShadow, defaultVariant = VCD.defaultVariant, fontFamily = VCD.fontFamily, sizeClasses = VCD.sizeClasses, titles = VCD.titles, breakpoints = VCD.breakpoints, } = props;
-    function getColor(key) {
-        if (key === undefined)
-            return undefined;
-        if (key === "primary")
-            return getReactiveColor(colors.find(i => i.key === primaryColor));
-        const colIndex = colors.findIndex(i => i.key === key);
-        if (colIndex === -1)
-            return key !== "#" ?
-                getUnidentifiedHexColor(key)
-                : getReactiveColor(colors.find(i => i.key === primaryColor), isDarkMode);
-        else
-            return getReactiveColor(colors.find(i => i.key === key), isDarkMode);
-    }
-    function getColorHex(key, opacity) {
-        const color = getColor(key);
-        if (color === undefined)
-            return undefined;
-        return `${color.base}` + (opacity ? `${color.opacity[opacity]}` : "");
-    }
+    // Fallback properties
+    const { colors = props.colors ? VCD.colors.concat(props.colors) : VCD.colors, primaryColor = VCD.primaryColor, defaults = VCD.defaults, fontFamily = VCD.fontFamily, sizeClasses = VCD.sizeClasses, titles = VCD.titles, breakpoints = VCD.breakpoints, } = props;
+    // Methods
     function getFont(context) {
         var _a, _b;
         switch (context) {
@@ -43,24 +22,18 @@ export function ValenceProvider(props) {
         }
     }
     function getSize(context, size) {
-        size = size !== null && size !== void 0 ? size : defaultSize;
+        size = size !== null && size !== void 0 ? size : defaults.size;
         return sizeClasses[context][size];
     }
-    return (_jsx(ValenceContext.Provider, { value: {
+    return (_jsxs(ValenceContext.Provider, { value: {
             colors,
-            getColor,
-            getColorHex,
             primaryColor,
-            defaultSize,
-            defaultRadius,
-            defaultTransitionDuration,
-            defaultShadow,
-            defaultVariant,
+            defaults,
             fontFamily,
             getFont,
             sizeClasses,
             getSize,
             titles,
             breakpoints,
-        }, children: props.children }));
+        }, children: [_jsx(CssOverride, {}), props.children] }));
 }

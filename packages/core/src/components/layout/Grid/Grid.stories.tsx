@@ -75,7 +75,7 @@ const meta: Meta<typeof G> = {
         type: "text"
       }
     },
-    
+
     alignItems: {
       control: {
         type: "text"
@@ -93,22 +93,50 @@ type Story = StoryObj<typeof G>;
 
 export const Grid: Story = (args: any) => (
   <ValenceProvider>
-    <G {...args}>
-      <G.Item style={{ backgroundColor: "lightgray" }}>
-        <Text align="center">GridItem</Text>
+    <G {...args} padding={20}>
+      <G.Item
+        backgroundColor="black"
+      >
+        <Text
+          align="center"
+          color="white"
+        >
+          GridItem
+        </Text>
       </G.Item>
-      <G.Item style={{ backgroundColor: "lightgray" }}>
-        <Text align="center">GridItem</Text>
+      <G.Item
+        backgroundColor="black"
+      >
+        <Text
+          align="center"
+          color="white"
+        >
+          GridItem
+        </Text>
       </G.Item>
-      <G.Item style={{ backgroundColor: "lightgray" }}>
-        <Text align="center">GridItem</Text>
+      <G.Item
+        backgroundColor="black"
+      >
+        <Text
+          align="center"
+          color="white"
+        >
+          GridItem
+        </Text>
       </G.Item>
-      <G.Item style={{ backgroundColor: "lightgray" }}>
-        <Text align="center">GridItem</Text>
+      <G.Item
+        backgroundColor="black"
+      >
+        <Text
+          align="center"
+          color="white"
+        >
+          GridItem
+        </Text>
       </G.Item>
     </G>
   </ValenceProvider>
 );
 Grid.args = {
-  
+
 }

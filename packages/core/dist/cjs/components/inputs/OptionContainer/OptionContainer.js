@@ -24,16 +24,19 @@ const ValenceProvider_1 = require("../../../ValenceProvider");
 const layout_1 = require("../../layout");
 const display_1 = require("../../display");
 const hooks_1 = require("../../../hooks");
+const responsive_1 = require("../../../utilities/responsive");
+const color_1 = require("../../../utilities/color");
 exports.OptionContainer = (0, react_3.forwardRef)(function OptionContainer(props, ref) {
     const theme = (0, ValenceProvider_1.useValence)();
+    const { getHex } = (0, color_1.useColors)();
     // Defaults
-    const { selectedOption, options, onSelect, nothingFound = "Nothing found...", selectKeys = ["Enter"], closeKeys = ["Escape"], icon, rightIcon = (0, jsx_runtime_1.jsx)(icons_react_1.IconSelector, {}), size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, loading, disabled, required, color = "black", backgroundColor = color, padding, margin, width, height, grow, dropdownProps = {
+    const _a = (0, responsive_1.useResponsiveProps)(props), { selectedOption, options, onSelect, nothingFound = "Nothing found...", selectKeys = ["Enter"], closeKeys = ["Escape"], icon, rightIcon = (0, jsx_runtime_1.jsx)(icons_react_1.IconSelector, {}), size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, loading, disabled, required, color = "black", backgroundColor = color, padding, margin, width, height, grow, dropdownProps = {
         padding: InputContainer_1.INPUT_SIZES[size].padding,
         backgroundColor: "white",
         color: "black",
         shadow: true,
         height: 200,
-    }, dropdownButtonProps, dropdownStyle, style, inputRef, children } = props, rest = __rest(props, ["selectedOption", "options", "onSelect", "nothingFound", "selectKeys", "closeKeys", "icon", "rightIcon", "size", "radius", "variant", "loading", "disabled", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "grow", "dropdownProps", "dropdownButtonProps", "dropdownStyle", "style", "inputRef", "children"]);
+    }, dropdownButtonProps, dropdownStyle, style, inputRef, children } = _a, rest = __rest(_a, ["selectedOption", "options", "onSelect", "nothingFound", "selectKeys", "closeKeys", "icon", "rightIcon", "size", "radius", "variant", "loading", "disabled", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "grow", "dropdownProps", "dropdownButtonProps", "dropdownStyle", "style", "inputRef", "children"]);
     // States
     const [isOpen, setIsOpen] = (0, react_3.useState)(false);
     const [highlightedIndex, setHighlightedIndex] = (0, react_3.useState)(0);
@@ -101,7 +104,7 @@ exports.OptionContainer = (0, react_3.forwardRef)(function OptionContainer(props
     const dismiss = (0, react_2.useDismiss)(context);
     const { getReferenceProps, getFloatingProps, } = (0, react_2.useInteractions)([dismiss, click]);
     // Styles
-    const DropdownStyle = (0, react_1.css)(Object.assign(Object.assign({ backgroundColor: theme.getColorHex(dropdownProps.backgroundColor, "strong"), color: theme.getColorHex(dropdownProps.color), outline: `1px solid ${theme.getColorHex(dropdownProps.color, "weak")}`, backdropFilter: "blur(5px)", maxHeight: dropdownProps.height, borderRadius: theme.sizeClasses.radius[radius] + dropdownProps.padding, padding: dropdownProps.padding, boxShadow: dropdownProps.shadow ? theme.defaultShadow : undefined, animationName: "in", animationDuration: "0.1s", overflowY: "auto", "@keyframes in": {
+    const DropdownStyle = (0, react_1.css)(Object.assign(Object.assign({ backgroundColor: getHex(dropdownProps.backgroundColor, "strong"), color: getHex(dropdownProps.color), outline: `1px solid ${getHex(dropdownProps.color, "weak")}`, backdropFilter: "blur(5px)", maxHeight: dropdownProps.height, borderRadius: theme.sizeClasses.radius[radius] + dropdownProps.padding, padding: dropdownProps.padding, boxShadow: dropdownProps.shadow ? theme.defaults.shadow : undefined, animationName: "in", animationDuration: "0.1s", overflowY: "auto", "@keyframes in": {
             from: {
                 opacity: 0,
             },
@@ -111,12 +114,12 @@ exports.OptionContainer = (0, react_3.forwardRef)(function OptionContainer(props
         }, "&::-webkit-scrollbar": {
             width: 10,
         }, "&::-webkit-scrollbar-thumb": {
-            backgroundColor: theme.getColorHex(dropdownProps.color, "medium"),
+            backgroundColor: getHex(dropdownProps.color, "medium"),
             borderRadius: 5,
         } }, dropdownStyle), floatingStyles));
     return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(InputContainer_1.InputContainer, Object.assign({ icon: icon, button: rightIcon, size: size, radius: radius, variant: variant, loading: loading, disabled: disabled, required: required, color: color, backgroundColor: backgroundColor, padding: padding, margin: margin, width: width, height: height, grow: grow, style: style, inputRef: inputRef, ref: refs.setReference }, getReferenceProps(), rest, { children: children })), isOpen && ((0, jsx_runtime_1.jsx)(react_2.FloatingPortal, { children: (0, jsx_runtime_1.jsx)("div", Object.assign({ css: DropdownStyle, ref: refs.setFloating }, getFloatingProps(), { children: options.length === 0 ?
                         (0, jsx_runtime_1.jsx)(layout_1.Flex, { height: theme.sizeClasses.height[size], align: "center", justify: "center", children: typeof nothingFound === "string" ?
-                                (0, jsx_runtime_1.jsx)(display_1.Text, { align: "center", color: theme.getColorHex("black", "strong"), children: nothingFound })
+                                (0, jsx_runtime_1.jsx)(display_1.Text, { align: "center", color: getHex("black", "strong"), children: nothingFound })
                                 :
                                     nothingFound })
                         : options.map((option, i) => ((0, jsx_runtime_1.jsx)(buttons_1.ButtonWithIcon, Object.assign({ icon: (selectedOption === null || selectedOption === void 0 ? void 0 : selectedOption.label) === option.label

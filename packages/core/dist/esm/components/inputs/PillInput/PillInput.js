@@ -12,18 +12,21 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "@emotion/react/jsx-runtime";
 /** @jsxImportSource @emotion/react */
 import { createRef, forwardRef, useState } from "react";
-import { Button, IconButton, getTextColor } from "../../buttons";
+import { Button, IconButton } from "../../buttons";
 import { useValence } from "../../../ValenceProvider";
 import { Pill } from "../../display";
 import { css } from "@emotion/react";
 import { Flex } from "../../layout";
 import { IconX } from "@tabler/icons-react";
 import { DefaultOptionsFilter, OptionContainer } from "../OptionContainer";
+import { useResponsiveProps } from "../../../utilities/responsive";
+import { useColors } from "../../../utilities/color";
 export const PillInput = forwardRef(function PillInput(props, ref) {
     const theme = useValence();
+    const { getFgHex } = useColors();
     const inputRef = ref !== null && ref !== void 0 ? ref : createRef();
     // Defaults
-    const { value, setValue, autofillKeys = ["Tab"], selectKeys = [" ", "Enter"], options = [], filter = DefaultOptionsFilter, nothingFound, allowDuplicates = false, allowClear = true, allowBackspaceRemove = true, grow, maxPills = Infinity, minLength = 0, maxLength = Infinity, clearButtonIcon = _jsx(IconX, {}), clearButtonProps, pillProps, pillContainerProps, icon, placeholder, size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, loading, autoFocus, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding, margin, width, height = theme.sizeClasses.height[size], onEnterPress, onKeyPress, onPillAdd, onPillRemove, inputStyle, dropdownStyle, style } = props, rest = __rest(props, ["value", "setValue", "autofillKeys", "selectKeys", "options", "filter", "nothingFound", "allowDuplicates", "allowClear", "allowBackspaceRemove", "grow", "maxPills", "minLength", "maxLength", "clearButtonIcon", "clearButtonProps", "pillProps", "pillContainerProps", "icon", "placeholder", "size", "radius", "variant", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "onEnterPress", "onKeyPress", "onPillAdd", "onPillRemove", "inputStyle", "dropdownStyle", "style"]);
+    const _a = useResponsiveProps(props), { value, setValue, autofillKeys = ["Tab"], selectKeys = [" ", "Enter"], options = [], filter = DefaultOptionsFilter, nothingFound, allowDuplicates = false, allowClear = true, allowBackspaceRemove = true, grow, maxPills = Infinity, minLength = 0, maxLength = Infinity, clearButtonIcon = _jsx(IconX, {}), clearButtonProps, pillProps, pillContainerProps, icon, placeholder, size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, loading, autoFocus, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding, margin, width, height = theme.sizeClasses.height[size], onEnterPress, onKeyPress, onPillAdd, onPillRemove, inputStyle, dropdownStyle, style } = _a, rest = __rest(_a, ["value", "setValue", "autofillKeys", "selectKeys", "options", "filter", "nothingFound", "allowDuplicates", "allowClear", "allowBackspaceRemove", "grow", "maxPills", "minLength", "maxLength", "clearButtonIcon", "clearButtonProps", "pillProps", "pillContainerProps", "icon", "placeholder", "size", "radius", "variant", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "onEnterPress", "onKeyPress", "onPillAdd", "onPillRemove", "inputStyle", "dropdownStyle", "style"]);
     // States
     const [searchValue, setSearchValue] = useState("");
     const [visibleOptions, setVisibleOptions] = useState(filterOptions(options, searchValue, value));
@@ -93,8 +96,8 @@ export const PillInput = forwardRef(function PillInput(props, ref) {
         setVisibleOptions(filterOptions(options, "", []));
     }
     // Styles
-    const InputStyle = css(Object.assign({ border: "none", outline: "none", background: "none", flexGrow: 1, margin: 0, padding: 0, cursor: disabled ? "not-allowed" : "text", fontSize: theme.sizeClasses.fontSize[size], fontFamily: theme.getFont("default"), color: getTextColor(color, variant, theme), "&::placeholder": {
-            color: `${getTextColor(color, variant, theme)}80`,
+    const InputStyle = css(Object.assign({ border: "none", outline: "none", background: "none", flexGrow: 1, margin: 0, padding: 0, cursor: disabled ? "not-allowed" : "text", fontSize: theme.sizeClasses.fontSize[size], fontFamily: theme.getFont("default"), color: getFgHex(color, variant), "&::placeholder": {
+            color: `${getFgHex(color, variant)}80`,
         }, 
         // Remove awful autofill color
         "&:-webkit-autofill": { transition: `background-color 5000s ease-in-out 0s` }, "&:-webkit-autofill:focus": { transition: `background-color 5000s ease-in-out 0s` }, "&:-webkit-autofill:hover": { transition: `background-color 5000s ease-in-out 0s` }, "&:-webkit-autofill:active": { transition: `background-color 5000s ease-in-out 0s` } }, inputStyle));

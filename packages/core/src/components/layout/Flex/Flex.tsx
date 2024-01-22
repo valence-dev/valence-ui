@@ -1,52 +1,55 @@
 /** @jsxImportSource @emotion/react */
 import { CSSProperties, forwardRef } from "react";
-import { useBreakpoint, useValence } from "../../..";
-import { GenericReactiveLayoutProps, PolymorphicLayout, PolymorphicLayoutProps, ReactiveProp, getReactiveProp } from "@valence-ui/utils";
+import { MakeResponsive, useColors, useResponsiveProps, useValence } from "../../..";
+import { GenericLayoutProps, PolymorphicLayout, PolymorphicLayoutProps } from "@valence-ui/utils";
 import { css } from "@emotion/react";
 
 export type FlexProps =
-  GenericReactiveLayoutProps
+  GenericLayoutProps
   & PolymorphicLayoutProps
   & {
-    /** **[REACTIVE]** Sets `flex-direction` css property */
-    direction?: ReactiveProp<CSSProperties["flexDirection"]>;
-    /** **[REACTIVE]** Sets `align-items` css property */
-    align?: ReactiveProp<CSSProperties["alignItems"]>;
-    /** **[REACTIVE]** Sets `justify-content` css property */
-    justify?: ReactiveProp<CSSProperties["justifyContent"]>;
+    /** Sets `flex-direction` css property */
+    direction?: CSSProperties["flexDirection"];
+    /** Sets `align-items` css property */
+    align?: CSSProperties["alignItems"];
+    /** Sets `justify-content` css property */
+    justify?: CSSProperties["justifyContent"];
 
-    /** **[REACTIVE]** Sets `align-self` css property */
-    alignSelf?: ReactiveProp<CSSProperties["alignSelf"]>;
-    /** **[REACTIVE]** Sets `gap` css property */
-    gap?: ReactiveProp<CSSProperties["gap"]>;
+    /** Sets `align-self` css property */
+    alignSelf?: CSSProperties["alignSelf"];
+    /** Sets `gap` css property */
+    gap?: CSSProperties["gap"];
+    /** Sets the `flex-wrap` property */
+    wrap?: CSSProperties["flexWrap"];
 
-    /** **[REACTIVE]** Shorthand for `flex-grow = 1` */
-    grow?: ReactiveProp<boolean>;
-    /** **[REACTIVE]** Sets the `flex-wrap` property */
-    wrap?: ReactiveProp<CSSProperties["flexWrap"]>;
+    /** Shorthand for `flex-grow = 1` */
+    grow?: boolean;
+    /** A shorthand property that sets both `align` and `justify` to `center`. */
+    center?: boolean;
   }
 
 
 /** A basic formattable flexbox component that accepts many common flexbox properties. This component is also reactive, thus it will accept both a single value and an object of values that will be applied at different breakpoints. */
 export const Flex = forwardRef(function Flex(
-  props: FlexProps,
+  props: MakeResponsive<FlexProps>,
   ref: any
 ) {
   const theme = useValence();
-  const breakpoint = useBreakpoint();
+  const { getHex } = useColors();
 
 
   // Defaults
   const {
-    direction = { default: "row" },
-    align = { default: "flex-start" },
-    justify = { default: "flex-start" },
+    center = false,
+    direction = "row",
+    align = center ? "center" : "flex-start",
+    justify = center ? "center" : "flex-start",
 
-    alignSelf = { default: "stretch" },
-    gap = theme.sizeClasses.padding[theme.defaultSize],
+    alignSelf,
+    gap = theme.sizeClasses.padding[theme.defaults.size],
 
-    grow = { default: false },
-    wrap = { default: "nowrap" },
+    grow = false,
+    wrap = "nowrap",
 
     backgroundColor,
     color,
@@ -58,31 +61,31 @@ export const Flex = forwardRef(function Flex(
 
     children,
     ...rest
-  } = props;
+  } = useResponsiveProps<FlexProps>(props);
 
 
   // Styles
   const FlexStyle = css({
     display: "flex",
-    flexDirection: getReactiveProp(direction, breakpoint),
-    alignItems: getReactiveProp(align, breakpoint),
-    justifyContent: getReactiveProp(justify, breakpoint),
+    flexDirection: direction,
+    alignItems: align,
+    justifyContent: justify,
     boxSizing: "border-box",
 
-    alignSelf: getReactiveProp(alignSelf, breakpoint),
-    gap: getReactiveProp(gap, breakpoint),
+    alignSelf: alignSelf,
+    gap: gap,
 
-    flexGrow: getReactiveProp(grow, breakpoint) ? 1 : undefined,
-    flexWrap: getReactiveProp(wrap, breakpoint),
+    flexGrow: grow ? 1 : undefined,
+    flexWrap: wrap,
 
-    backgroundColor: theme.getColorHex(getReactiveProp(backgroundColor, breakpoint)),
-    color: theme.getColorHex(getReactiveProp(color, breakpoint)),
-    padding: getReactiveProp(padding, breakpoint),
-    margin: getReactiveProp(margin, breakpoint),
-    width: getReactiveProp(width, breakpoint),
-    height: getReactiveProp(height, breakpoint),
+    backgroundColor: getHex(backgroundColor),
+    color: getHex(color),
+    padding: padding,
+    margin: margin,
+    width: width,
+    height: height,
 
-    ...getReactiveProp(style, breakpoint)
+    ...style
   });
 
 
@@ -93,6 +96,7 @@ export const Flex = forwardRef(function Flex(
       ref={ref}
       {...rest}
     >
+
       {children}
     </PolymorphicLayout>
   )

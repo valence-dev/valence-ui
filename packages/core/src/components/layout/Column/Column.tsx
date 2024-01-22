@@ -1,25 +1,25 @@
 import { Flex, FlexProps } from "../Flex";
 import { forwardRef } from "react";
 import { Grid, GridProps } from "../Grid";
-import { GenericReactiveLayoutProps, ReactiveProp, getReactiveProp } from "@valence-ui/utils";
 import { useValence } from "../../../ValenceProvider";
-import { useBreakpoint } from "../../../hooks";
+import { GenericLayoutProps } from "@valence-ui/utils";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
 
 export type ColumnProps = FlexProps;
 export type ColumnContainerProps =
   GridProps
-  & GenericReactiveLayoutProps
+  & GenericLayoutProps
   & {
     /** Sets the number of columns in the grid. `2` by default */
-    columns?: ReactiveProp<number>;
+    columns?: number;
     /** Sets the number of rows in the grid. `1` by default */
-    rows?: ReactiveProp<number>;
+    rows?: number;
   };
 
 
 
 const Column = forwardRef(function Column(
-  props: ColumnProps,
+  props: MakeResponsive<ColumnProps>,
   ref: any
 ) {
   const theme = useValence();
@@ -31,14 +31,14 @@ const Column = forwardRef(function Column(
 
     color = "black",
     backgroundColor,
-    padding = theme.sizeClasses.padding[theme.defaultSize],
+    padding = theme.sizeClasses.padding[theme.defaults.size],
     margin,
     width,
     height,
 
     children,
     ...rest
-  } = props;
+  } = useResponsiveProps<ColumnProps>(props);
 
 
   return (
@@ -63,10 +63,9 @@ const Column = forwardRef(function Column(
 
 
 const Container = forwardRef(function ColumnContainer(
-  props: ColumnContainerProps,
+  props: MakeResponsive<ColumnContainerProps>,
   ref: any
 ) {
-  const breakpoint = useBreakpoint();
 
 
   // Defaults
@@ -75,8 +74,8 @@ const Container = forwardRef(function ColumnContainer(
     rows = 1,
 
     
-    templateColumns = `repeat(${getReactiveProp(columns, breakpoint)}, 1fr)`,
-    templateRows = `repeat(${getReactiveProp(rows, breakpoint)}, 1fr)`,
+    templateColumns = `repeat(${columns}, 1fr)`,
+    templateRows = `repeat(${rows}, 1fr)`,
 
     color = "black",
     backgroundColor,
@@ -87,17 +86,17 @@ const Container = forwardRef(function ColumnContainer(
     
     children,
     ...rest
-  } = props;
+  } = useResponsiveProps<ColumnContainerProps>(props);
 
 
   // Styles
   const ContainerStyle = { 
-    color: getReactiveProp(color, breakpoint),
-    backgroundColor: getReactiveProp(backgroundColor, breakpoint),
-    padding: getReactiveProp(padding, breakpoint),
-    margin: getReactiveProp(margin, breakpoint),
-    width: getReactiveProp(width, breakpoint),
-    height: getReactiveProp(height, breakpoint),
+    color: color,
+    backgroundColor: backgroundColor,
+    padding: padding,
+    margin: margin,
+    width: width,
+    height: height,
   }
 
 

@@ -7,7 +7,7 @@ export type ControlledList<T> = {
   add: (item: T) => void;
   /** Remove an item from the list */
   remove: (item: T) => void;
-  /** Update items in the list */
+  /** Override all items in the list */
   update: (items: T[]) => void;
   /** Clear the list */
   clear: () => void;

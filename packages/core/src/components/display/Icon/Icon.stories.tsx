@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { ValenceProvider, useDefaultIconProps } from "../../..";
+import { Flex, ValenceProvider } from "../../..";
 
 import { Icon as I } from "../../..";
 import { Icon123 } from "@tabler/icons-react";
@@ -15,20 +15,20 @@ type Story = StoryObj<typeof I>;
 
 
 export const Icon: Story = (args: any) => {
-  const defaultIconProps = useDefaultIconProps();
 
   return (
     <div style={{ height: "200vh" }}>
       <ValenceProvider>
-        <I
-          {...args}
-          color="black"
-        >
+        <Flex center height="100vh">
+          <I
+            {...args}
+            color="black"
+          >
+            <Icon123 />
+          </I>
+
           <Icon123 />
-        </I>
-
-
-        <Icon123 {...defaultIconProps.get("black")} />
+        </Flex>
       </ValenceProvider>
     </div>
   );

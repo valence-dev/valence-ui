@@ -7,6 +7,7 @@ import { Flex } from "../../layout";
 import ReactSlider from "react-slider";
 import { css } from "@emotion/react";
 import { NumberInput } from "../NumberInput";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
 
 export type RangeSliderProps =
   GenericInputProps<number[]>
@@ -41,7 +42,7 @@ export type RangeSliderProps =
   }
 
 export const RangeSlider = forwardRef(function RangeSlider(
-  props: RangeSliderProps,
+  props: MakeResponsive<RangeSliderProps>,
   ref: any
 ) {
   const theme = useValence();
@@ -61,9 +62,9 @@ export const RangeSlider = forwardRef(function RangeSlider(
     invert = false,
 
     color = "black",
-    size = theme.defaultSize,
-    radius = theme.defaultRadius,
-    variant = theme.defaultVariant,
+    size = theme.defaults.size,
+    radius = theme.defaults.radius,
+    variant = theme.defaults.variant,
 
     height = theme.getSize("height", size),
     width = "100%",
@@ -81,7 +82,7 @@ export const RangeSlider = forwardRef(function RangeSlider(
 
     style,
     ...rest
-  } = props;
+  } = useResponsiveProps<RangeSliderProps>(props);
 
 
   // Styles
@@ -98,6 +99,7 @@ export const RangeSlider = forwardRef(function RangeSlider(
 
   return (
     <Flex
+      alignSelf="stretch"
       align="center"
       gap={5}
       height={height}

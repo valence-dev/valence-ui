@@ -3,9 +3,8 @@ import { GenericInputProps } from "../../../generics";
 import { Flex, StyledFlex, StyledFlexProps } from "../../layout";
 import { PrimitiveButton, PrimitiveButtonProps } from "../../buttons";
 import { Loader, Text } from "../../display";
-import { useBreakpoint } from "../../../hooks";
-import { getReactiveProp } from "@valence-ui/utils";
 import { useValence } from "../../../ValenceProvider";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
 
 export type SegmentedControlOption = {
   /** The value of this option */
@@ -46,12 +45,11 @@ export type SegmentedControlProps =
 
 
 export const SegmentedControl = forwardRef(function SegmentedControl(
-  props: SegmentedControlProps,
+  props: MakeResponsive<SegmentedControlProps>,
   ref: any
 ) {
 
   // Hooks
-  const breakpoint = useBreakpoint();
   const theme = useValence();
 
 
@@ -65,8 +63,8 @@ export const SegmentedControl = forwardRef(function SegmentedControl(
     buttonProps,
 
     variant,
-    size = theme.defaultSize,
-    radius = theme.defaultRadius,
+    size = theme.defaults.size,
+    radius = theme.defaults.radius,
 
     color = "black",
     backgroundColor = color,
@@ -82,12 +80,12 @@ export const SegmentedControl = forwardRef(function SegmentedControl(
 
     style,
     ...rest
-  } = props;
+  } = useResponsiveProps<SegmentedControlProps>(props);
   const {
     color: buttonColor = variant === "filled" ?
-      "white" : getReactiveProp(color, breakpoint),
+      "white" : color,
     backgroundColor: buttonBackgroundColor = variant === "filled" ?
-      "white" : getReactiveProp(backgroundColor, breakpoint),
+      "white" : backgroundColor,
     size: buttonSize = size,
     radius: buttonRadius = radius,
   } = buttonProps ?? {};
@@ -95,7 +93,7 @@ export const SegmentedControl = forwardRef(function SegmentedControl(
 
   // Styles
   const containerStyle: CSSProperties = {
-    borderRadius: theme.getSize("radius", getReactiveProp(radius, breakpoint)) + getReactiveProp(padding, breakpoint),
+    borderRadius: theme.getSize("radius", radius) + padding,
 
     ...style,
   }
@@ -121,6 +119,7 @@ export const SegmentedControl = forwardRef(function SegmentedControl(
       padding={padding}
       gap={gap}
 
+      alignSelf="stretch"
       style={containerStyle}
 
       {...rest}

@@ -1,10 +1,16 @@
 export type ColorScheme = "light" | "dark";
 export type UseColorSchemeOutput = {
+    /** The color scheme. */
     colorScheme: ColorScheme;
+    /** Is the color scheme `"dark"`? */
     isDarkMode: boolean;
+    /** Is the color scheme `"light"`? */
     isLightMode: boolean;
+    /** Toggle the color scheme. */
     toggle: () => void;
+    /** Set the color scheme to `"dark"`. */
     setDark: () => void;
+    /** Set the color scheme to `"light"`. */
     setLight: () => void;
 };
 /**

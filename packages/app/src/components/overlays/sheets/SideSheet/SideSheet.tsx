@@ -1,23 +1,34 @@
 import { CSSProperties, ReactNode, forwardRef, useContext, useEffect } from "react";
 import { GenericSheetProps } from "../Generics";
-import { DefaultModalHeader, Disclosure, Flex, ModalBackground, ValenceContext, useBreakpoint, useDetectKeyDown } from "@valence-ui/core";
-import { GenericOverlayBackgroundProps, GenericOverlayHeaderProps, ReactiveProp, getReactiveProp } from "@valence-ui/utils";
+import { DefaultModalHeader, Disclosure, Flex, MakeResponsive, ModalBackground, ValenceContext, useBreakpoint, useColors, useDetectKeyDown, useResponsiveProps } from "@valence-ui/core";
+import { GenericOverlayBackgroundProps, GenericOverlayHeaderProps } from "@valence-ui/utils";
 import { useLockedBody } from "usehooks-ts";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
 
-export type SideSheetType = "standard" | "overlay";
+export type SideSheetDisplay = "inline" | "overlay";
 
-export type SideSheetProps = GenericSheetProps & {
-  type?: ReactiveProp<SideSheetType>;
-};
+export type SideSheetProps =
+  GenericSheetProps
+  & {
+    /** The display option for the sidebar. Defaults to `inline` on desktop and 
+     * bigger, and `overlay` on mobile and smaller.
+     */
+    display?: SideSheetDisplay;
+
+    /** The direction that this sidebar will appear from. Direction will only
+     * be adhered to if the display type is `overlay`. Otherwise, it will be
+     * `right` by default. 
+     */
+    direction?: "left" | "right";
+  };
 
 export const SideSheet = forwardRef(function SideSheet(
-  props: SideSheetProps,
+  props: MakeResponsive<SideSheetProps>,
   ref: any
 ) {
   const theme = useContext(ValenceContext);
-  const breakpoint = useBreakpoint();
+  const { getHex } = useColors();
 
 
   // Defaults
@@ -28,7 +39,8 @@ export const SideSheet = forwardRef(function SideSheet(
       disclosure={disclosure}
       {...props}
     />,
-    type = { default: "standard", desktopThin: "overlay", mobile: "overlay" },
+    display = useResponsiveProps({ default: "inline", tablet: "overlay", mobile: "overlay" }),
+    direction = "right",
 
     closeOnOverlayClick = true,
     closeOnEscape = true,
@@ -37,10 +49,10 @@ export const SideSheet = forwardRef(function SideSheet(
     radius = "lg",
     withShadow = true,
 
-    backgroundColor = theme.getColorHex("white"),
-    color = theme.getColorHex("black"),
+    backgroundColor = getHex("white"),
+    color = getHex("black"),
 
-    padding = theme.sizeClasses.padding[theme.defaultSize],
+    padding = theme.sizeClasses.padding[theme.defaults.size],
     margin = 0,
 
     width = 350,
@@ -57,7 +69,9 @@ export const SideSheet = forwardRef(function SideSheet(
     style,
     children,
     ...rest
-  } = props;
+  } = useResponsiveProps<SideSheetProps>(props);
+
+  const fixedDirection = display === "overlay" ? direction : "right";
 
 
   // Styles
@@ -65,7 +79,8 @@ export const SideSheet = forwardRef(function SideSheet(
   const SheetStyle: CSSProperties = {
     position: "fixed",
     top: 0,
-    right: 0,
+    right: fixedDirection === "right" ? 0 : undefined,
+    left: fixedDirection === "left" ? 0 : undefined,
     bottom: 0,
     zIndex: 999,
 
@@ -80,13 +95,15 @@ export const SideSheet = forwardRef(function SideSheet(
     margin: margin,
     boxSizing: "border-box",
 
-    borderRadius: getReactiveProp(type, breakpoint) !== "overlay" ? undefined :
-      `${borderRadius}px 0 0 ${borderRadius}px`,
-    boxShadow: withShadow && getReactiveProp(type, breakpoint) === "overlay" ?
-      theme.defaultShadow : undefined,
+    borderRadius: display !== "overlay" ? undefined :
+      fixedDirection === "right" ?
+        `${borderRadius}px 0 0 ${borderRadius}px` :
+        `0 ${borderRadius}px ${borderRadius}px 0`,
+    boxShadow: withShadow && display === "overlay" ?
+      theme.defaults.shadow : undefined,
 
-    borderLeft: getReactiveProp(type, breakpoint) === "overlay" ? undefined :
-      `1px solid ${theme.getColorHex("black", "weak")}`,
+    borderLeft: display === "overlay" ? undefined :
+      `1px solid ${getHex("black", "weak")}`,
 
     overflowX: "hidden",
     overflowY: "auto",
@@ -96,21 +113,21 @@ export const SideSheet = forwardRef(function SideSheet(
 
 
   // Hooks
-  useLockedBody(disclosure.opened && lockScroll && getReactiveProp(type, breakpoint) === "overlay", "root");
+  useLockedBody(disclosure.opened && lockScroll && display === "overlay", "root");
   useDetectKeyDown(disclosure.close, "Escape", closeOnEscape, [closeOnEscape, close]);
 
 
   // Effects
   useEffect(() => {
-    // When the overlay is opened and the mode is "standard", we want to attempt to 
+    // When the overlay is opened and the mode is "inline", we want to attempt to 
     // find and set the right padding of the root element to the width of the sheet
     const element = document.getElementById("root-content");
     if (!element) return;
 
-    if (disclosure.opened && getReactiveProp(type, breakpoint) === "standard") {
-      element.style.paddingRight = `calc(30px + ${width}px)`;
+    if (disclosure.opened && display === "inline") {
+      element.style.paddingRight = `calc(10px + ${width}px)`;
     } else {
-      element.style.paddingRight = `30px`;
+      element.style.paddingRight = `10px`;
     }
 
   }, [disclosure.opened])
@@ -121,14 +138,16 @@ export const SideSheet = forwardRef(function SideSheet(
       {disclosure.opened &&
         <OptionalBackground
           disclosure={disclosure}
-          showBackground={getReactiveProp(type, breakpoint) === "overlay"}
+          showBackground={display === "overlay"}
           backgroundProps={overlayBackgroundProps}
         >
           <motion.div
             style={SheetStyle}
             onClick={e => e.stopPropagation()}
 
-            initial={{ x: "100%" }}
+            initial={{
+              x: fixedDirection === "right" ? "100%" : "-100%",
+            }}
             animate={{
               x: 0,
               transition: {
@@ -138,7 +157,9 @@ export const SideSheet = forwardRef(function SideSheet(
                 delay: 0.1,
               }
             }}
-            exit={{ x: "100%" }}
+            exit={{
+              x: fixedDirection === "right" ? "100%" : "-100%",
+            }}
 
             ref={ref}
             {...rest}

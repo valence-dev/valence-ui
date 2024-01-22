@@ -15,17 +15,15 @@ exports.StyledFlex = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
 const __1 = require("../../..");
-const buttons_1 = require("../../buttons");
 const Flex_1 = require("./Flex");
-const utils_1 = require("@valence-ui/utils");
 /** A styled version of the `Flex` component that offers many props in line with the button styling system */
 exports.StyledFlex = (0, react_1.forwardRef)(function StyledFlex(props, ref) {
     const theme = (0, __1.useValence)();
-    const breakpoint = (0, __1.useBreakpoint)();
+    const { getFgHex, getBgHex } = (0, __1.useColors)();
     // Defaults
-    const { variant = theme.defaultVariant, size = { default: theme.defaultSize }, radius = { default: theme.defaultRadius }, padding = { default: theme.sizeClasses.padding[theme.defaultSize] }, color = { default: theme.primaryColor }, backgroundColor = color, style, children } = props, rest = __rest(props, ["variant", "size", "radius", "padding", "color", "backgroundColor", "style", "children"]);
+    const _a = (0, __1.useResponsiveProps)(props), { size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, padding = theme.sizeClasses.padding[theme.defaults.size], color = theme.primaryColor, backgroundColor = color, style, children } = _a, rest = __rest(_a, ["size", "radius", "variant", "padding", "color", "backgroundColor", "style", "children"]);
     // Styles
-    const styles = Object.assign({ backgroundColor: (0, buttons_1.getBackgroundColor)((0, utils_1.getReactiveProp)(backgroundColor, breakpoint), (0, utils_1.getReactiveProp)(variant, breakpoint), false, theme), color: (0, buttons_1.getTextColor)((0, utils_1.getReactiveProp)(color, breakpoint), (0, utils_1.getReactiveProp)(variant, breakpoint), theme), borderRadius: theme.sizeClasses.radius[(0, utils_1.getReactiveProp)(radius, breakpoint)], boxShadow: (0, utils_1.getReactiveProp)(props.shadow, breakpoint)
-            ? theme.defaultShadow : undefined }, (0, utils_1.getReactiveProp)(style, breakpoint));
+    const styles = Object.assign({ backgroundColor: getBgHex(backgroundColor, variant, false), color: getFgHex(color, variant), borderRadius: theme.sizeClasses.radius[radius], boxShadow: props.shadow
+            ? theme.defaults.shadow : undefined }, style);
     return ((0, jsx_runtime_1.jsx)(Flex_1.Flex, Object.assign({ padding: padding, style: styles, ref: ref }, rest, { children: children })));
 });

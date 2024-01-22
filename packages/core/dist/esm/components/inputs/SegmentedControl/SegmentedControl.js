@@ -14,9 +14,8 @@ import { forwardRef } from "react";
 import { Flex, StyledFlex } from "../../layout";
 import { PrimitiveButton } from "../../buttons";
 import { Loader, Text } from "../../display";
-import { useBreakpoint } from "../../../hooks";
-import { getReactiveProp } from "@valence-ui/utils";
 import { useValence } from "../../../ValenceProvider";
+import { useResponsiveProps } from "../../../utilities/responsive";
 function getOptionValue(option) {
     return typeof option === "string" ? option : option.value;
 }
@@ -26,14 +25,13 @@ function getOptionLabel(option) {
 }
 export const SegmentedControl = forwardRef(function SegmentedControl(props, ref) {
     // Hooks
-    const breakpoint = useBreakpoint();
     const theme = useValence();
-    const { value, setValue, options, onSelect, equalWidth = true, buttonProps, variant, size = theme.defaultSize, radius = theme.defaultRadius, color = "black", backgroundColor = color, margin, padding = 5, gap = padding, disabled, readOnly, required, autoFocus, loading, style } = props, rest = __rest(props, ["value", "setValue", "options", "onSelect", "equalWidth", "buttonProps", "variant", "size", "radius", "color", "backgroundColor", "margin", "padding", "gap", "disabled", "readOnly", "required", "autoFocus", "loading", "style"]);
+    const _a = useResponsiveProps(props), { value, setValue, options, onSelect, equalWidth = true, buttonProps, variant, size = theme.defaults.size, radius = theme.defaults.radius, color = "black", backgroundColor = color, margin, padding = 5, gap = padding, disabled, readOnly, required, autoFocus, loading, style } = _a, rest = __rest(_a, ["value", "setValue", "options", "onSelect", "equalWidth", "buttonProps", "variant", "size", "radius", "color", "backgroundColor", "margin", "padding", "gap", "disabled", "readOnly", "required", "autoFocus", "loading", "style"]);
     const { color: buttonColor = variant === "filled" ?
-        "white" : getReactiveProp(color, breakpoint), backgroundColor: buttonBackgroundColor = variant === "filled" ?
-        "white" : getReactiveProp(backgroundColor, breakpoint), size: buttonSize = size, radius: buttonRadius = radius, } = buttonProps !== null && buttonProps !== void 0 ? buttonProps : {};
+        "white" : color, backgroundColor: buttonBackgroundColor = variant === "filled" ?
+        "white" : backgroundColor, size: buttonSize = size, radius: buttonRadius = radius, } = buttonProps !== null && buttonProps !== void 0 ? buttonProps : {};
     // Styles
-    const containerStyle = Object.assign({ borderRadius: theme.getSize("radius", getReactiveProp(radius, breakpoint)) + getReactiveProp(padding, breakpoint) }, style);
+    const containerStyle = Object.assign({ borderRadius: theme.getSize("radius", radius) + padding }, style);
     // Functions
     function handleSetOptionValue(option) {
         if (disabled || readOnly || loading)
@@ -41,7 +39,7 @@ export const SegmentedControl = forwardRef(function SegmentedControl(props, ref)
         setValue(getOptionValue(option));
         onSelect === null || onSelect === void 0 ? void 0 : onSelect(option);
     }
-    return (_jsx(StyledFlex, Object.assign({ ref: ref, variant: variant, size: size, color: color, backgroundColor: backgroundColor, margin: margin, padding: padding, gap: gap, style: containerStyle }, rest, { children: loading ?
+    return (_jsx(StyledFlex, Object.assign({ ref: ref, variant: variant, size: size, color: color, backgroundColor: backgroundColor, margin: margin, padding: padding, gap: gap, alignSelf: "stretch", style: containerStyle }, rest, { children: loading ?
             _jsx(Flex, { grow: true, justify: "center", align: "center", height: theme.getSize("height", buttonSize), children: _jsx(Loader, { color: variant === "filled" ? "white" : color }) })
             :
                 options.map((option, index) => {

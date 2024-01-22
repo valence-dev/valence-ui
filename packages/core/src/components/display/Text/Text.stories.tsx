@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import { Storybook } from "../../../../storybook"
 
 import { Text as Te } from "./Text";
-import { ValenceProvider } from "../../..";
+import { Flex, ValenceProvider } from "../../..";
 
 const meta: Meta<typeof Te> = {
   component: Te,
@@ -16,7 +16,7 @@ const meta: Meta<typeof Te> = {
     weight: {
       control: { type: "number" }
     },
-    align: { 
+    align: {
       options: Storybook.textAligns,
       control: { type: "select" },
     },
@@ -30,13 +30,13 @@ const meta: Meta<typeof Te> = {
       control: { type: "select" },
     },
 
-    italic: { 
+    italic: {
       control: { type: "boolean" },
     },
-    bold: { 
+    bold: {
       control: { type: "boolean" },
     },
-    monospace: { 
+    monospace: {
       control: { type: "boolean" },
     },
   },
@@ -46,7 +46,9 @@ type Story = StoryObj<typeof Te>;
 
 export const Text: Story = (args: any) => (
   <ValenceProvider>
-    <Te data-testId="Text-id" {...args} />
+    <Flex center height="100vh">
+      <Te {...args} />
+    </Flex>
   </ValenceProvider>
 );
 Text.args = {

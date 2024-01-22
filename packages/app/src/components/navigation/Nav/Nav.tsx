@@ -1,23 +1,27 @@
 import { CSSProperties, forwardRef } from "react";
-import { Flex, IconButton, IconButtonProps, PrimitiveButton, PrimitiveButtonProps, Space, useBreakpoint } from "@valence-ui/core";
-import { GenericReactiveLayoutProps, PolymorphicLayoutProps, ReactiveProp, getReactiveProp } from "@valence-ui/utils";
+import { Flex, IconButton, IconButtonProps, MakeResponsive, PrimitiveButton, PrimitiveButtonProps, Responsive, Space, useBreakpoint,  useResponsiveProps } from "@valence-ui/core";
+import { GenericLayoutProps, PolymorphicLayoutProps } from "@valence-ui/utils";
 
 export type NavButtonProps = IconButtonProps & {
-  /** Specifies if this button is highlighted */
+  /** Whether this button is highlighted. `false` by default. */
   highlighted?: boolean;
+  /** Whether this button should be shown at this breakpoint. `true` by default. */
+  show?: Responsive<boolean>;
 }
 
 export type GenericNavProps =
-  GenericReactiveLayoutProps
+  GenericLayoutProps
   & PolymorphicLayoutProps
   & {
     /** Buttons to display on the top of the navigation */
     buttons: NavButtonProps[];
-    /** Buttons to display on the bottom of the navigation. On mobile devices these will be groups with `buttons` horizontally along the bottom of the screen */
+    /** Buttons to display on the bottom of the navigation. On mobile devices these will be grouped 
+     * with `buttons` horizontally along the bottom of the screen 
+     */
     bottomButtons?: NavButtonProps[];
 
-    /** **[REACTIVE]** Sets `gap` css property */
-    gap?: ReactiveProp<CSSProperties["gap"]>;
+    /** Sets `gap` css property */
+    gap?: CSSProperties["gap"];
   }
 
 export type NavProps = GenericNavProps & {
@@ -30,7 +34,7 @@ export type NavProps = GenericNavProps & {
 
 /** The App Nav is designed to handle inter-page navigation and application-level actions, such as page navigation, signing out, etc. This particular navigator is presented as a vertical icon button strip down the left-hand side of the screen on desktop devices, and a horizontal icon button strip along the bottom of the screen on mobile devices. */
 export const Nav = forwardRef(function Nav(
-  props: NavProps,
+  props: MakeResponsive<NavProps>,
   ref: any
 ) {
   const breakpoint = useBreakpoint();
@@ -39,26 +43,29 @@ export const Nav = forwardRef(function Nav(
   const {
     buttons,
     bottomButtons,
-    gap = 5,
+    gap = 10,
+    padding = 10,
     favicon,
     faviconProps,
 
     style,
     ...rest
-  } = props;
+  } = useResponsiveProps<NavProps>(props);
 
 
   // Styles
-  const navStyle: ReactiveProp<CSSProperties> = {
+  const navStyle: Responsive<CSSProperties> = {
     default: {
       height: "100%",
+      boxSizing: "border-box",
 
-      ...getReactiveProp(style, breakpoint)
+      ...style
     },
     mobile: {
       width: "100%",
+      boxSizing: "border-box",
 
-      ...getReactiveProp(style, breakpoint)
+      ...style
     },
   }
   const faviconStyle: CSSProperties = {
@@ -69,7 +76,8 @@ export const Nav = forwardRef(function Nav(
   return (
     <Flex
       direction={{ default: "column", mobile: "row" }}
-      gap={props.gap}
+      gap={gap}
+      padding={padding}
       style={navStyle}
       justify={{ default: "unset", mobile: "space-around" }}
 
@@ -97,7 +105,16 @@ export const Nav = forwardRef(function Nav(
       }
 
       {buttons.map(b => {
-        const { id, highlighted, children, to, ...rest } = b;
+        const {
+          id,
+          highlighted,
+          show = true,
+          children,
+          to,
+          ...rest
+        } = b;
+
+        if (!useResponsiveProps(show)) return (<></>);
 
         return (
           <IconButton
@@ -118,7 +135,16 @@ export const Nav = forwardRef(function Nav(
       {!breakpoint.isMobile && <Space grow height="100%" />}
 
       {bottomButtons && bottomButtons.map(b => {
-        const { id, highlighted, children, to, ...rest } = b;
+        const { 
+          id, 
+          highlighted, 
+          show = true,
+          children, 
+          to, 
+          ...rest 
+        } = b;
+
+        if (!useResponsiveProps(show)) return (<></>);
 
         return (
           <IconButton

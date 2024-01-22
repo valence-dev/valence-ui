@@ -1,28 +1,29 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { Icon, PrimitiveButton, Text, TextButtonProps, ValenceContext, getTextColor } from "@valence-ui/core";
+import { Icon, MakeResponsive, PrimitiveButton, Text, TextButtonProps, ValenceContext, useColors, useResponsiveProps } from "@valence-ui/core";
 import { ReactNode, forwardRef, useContext } from "react";
 
 export type GridButtonProps = TextButtonProps & {
-  /** The icon to include with this button */
+  /** The icon to include with this button. */
   icon: ReactNode;
-  /** The position of the icon relative to the text. Defaults to `"top"` */
+  /** The position of the icon relative to the text. Defaults to `"top"`. */
   iconPosition?: "top" | "bottom";
 }
 
 export const GridButton = forwardRef(function GridButton(
-  props: GridButtonProps,
+  props: MakeResponsive<GridButtonProps>,
   ref: any
 ) {
   const theme = useContext(ValenceContext);
+  const { getFgHex } = useColors();
 
 
   // Defaults
   const {
     icon,
     iconPosition = "top",
-    size = theme.defaultSize,
-    variant = theme.defaultVariant,
+    size = theme.defaults.size,
+    variant = theme.defaults.variant,
     color = theme.primaryColor,
 
     width = theme.sizeClasses.height[size] as number * 2.5,
@@ -32,7 +33,7 @@ export const GridButton = forwardRef(function GridButton(
     style,
     textProps,
     ...rest
-  } = props;
+  } = useResponsiveProps<GridButtonProps>(props);
 
 
   // Styles
@@ -77,7 +78,7 @@ export const GridButton = forwardRef(function GridButton(
 
       <Text
         fontSize={theme.sizeClasses.fontSize[size] as number * 0.8}
-        color={getTextColor(color, variant, theme)}
+        color={getFgHex(color, variant)}
         align="center"
         {...textProps}
       >

@@ -1,67 +1,22 @@
-import { CSSProperties, ReactNode } from "react";
-import { ComponentSize, GenericReactiveLayoutProps, PolymorphicLayoutProps, ReactiveProp } from "@valence-ui/utils";
-export type AppContainerProps = GenericReactiveLayoutProps & PolymorphicLayoutProps & {
+import React, { ReactNode } from "react";
+import { GenericLayoutProps, PolymorphicLayoutProps } from "@valence-ui/utils";
+import { MakeResponsive } from "@valence-ui/core";
+export type AppContainerProps = GenericLayoutProps & PolymorphicLayoutProps & {
     /** The primary root navigation element. This element should be consistent across pages; its recommended to be based off the `<Nav />` component. */
     nav?: ReactNode;
     /** The  header containing the `<h1>` for this page. */
     header: ReactNode;
     /** An optional sidebar element used for navigation or page-level actions. */
     sidebar?: ReactNode;
-    /** The border radius of the page container. Defaults to `5px` larger than the theme default. */
-    radius?: ComponentSize;
-    /** Properties to apply to the nav container element */
-    navContainerProps?: GenericReactiveLayoutProps;
     /** Properties to apply to the page container element */
-    pageProps?: GenericReactiveLayoutProps;
+    pageProps?: Omit<GenericLayoutProps, "children">;
     /** The maximum width of this page's content */
     contentWidth?: number;
-    /** The width of the sidebar element */
-    sidebarWidth?: number;
-    /** The width of the nav element */
-    navWidth?: number;
-    /** Whether to show a spacer element below the header. Defaults to `true`. */
-    showHeaderSpacer?: boolean;
     /** Whether to show the nav element. Defaults to `true`. */
-    showNav?: ReactiveProp<boolean>;
+    showNav?: boolean;
 };
 /**
  * The `AppContainer` component is a layout component that provides a consistent layout for pages in the application. It includes a navigation element, a header element, and an optional sidebar element. The `AppContainer` component is responsive and adjusts its layout based on the screen size.
  */
-export declare const AppContainer: import("react").ForwardRefExoticComponent<import("@valence-ui/utils").GenericProps & {
-    /** The width of the nav element */
-    style?: ReactiveProp<CSSProperties> | undefined;
-    tabIndex?: ReactiveProp<number> | undefined;
-} & {
-    backgroundColor?: ReactiveProp<import("csstype").Property.BackgroundColor | undefined>;
-    color?: ReactiveProp<import("csstype").Property.Color | undefined>;
-    padding?: ReactiveProp<import("csstype").Property.Padding<string | number> | undefined>;
-    margin?: ReactiveProp<import("csstype").Property.Margin<string | number> | undefined>;
-    width?: ReactiveProp<import("csstype").Property.Width<string | number> | undefined>;
-    height?: ReactiveProp<import("csstype").Property.Height<string | number> | undefined>;
-} & import("@valence-ui/utils").PolymorphicElementProps & {
-    css?: any;
-} & {
-    /** The primary root navigation element. This element should be consistent across pages; its recommended to be based off the `<Nav />` component. */
-    nav?: ReactNode;
-    /** The  header containing the `<h1>` for this page. */
-    header: ReactNode;
-    /** An optional sidebar element used for navigation or page-level actions. */
-    sidebar?: ReactNode;
-    /** The border radius of the page container. Defaults to `5px` larger than the theme default. */
-    radius?: ComponentSize | undefined;
-    /** Properties to apply to the nav container element */
-    navContainerProps?: GenericReactiveLayoutProps | undefined;
-    /** Properties to apply to the page container element */
-    pageProps?: GenericReactiveLayoutProps | undefined;
-    /** The maximum width of this page's content */
-    contentWidth?: number | undefined;
-    /** The width of the sidebar element */
-    sidebarWidth?: number | undefined;
-    /** The width of the nav element */
-    navWidth?: number | undefined;
-    /** Whether to show a spacer element below the header. Defaults to `true`. */
-    showHeaderSpacer?: boolean | undefined;
-    /** Whether to show the nav element. Defaults to `true`. */
-    showNav?: ReactiveProp<boolean> | undefined;
-} & import("react").RefAttributes<unknown>>;
+export declare const AppContainer: React.ForwardRefExoticComponent<MakeResponsive<AppContainerProps> & React.RefAttributes<unknown>>;
 //# sourceMappingURL=AppContainer.d.ts.map

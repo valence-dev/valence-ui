@@ -3,11 +3,13 @@ import { ReactNode, forwardRef } from "react";
 import { AnimatePresence, useReducedMotion } from "framer-motion";
 import { Flex } from "../../layout";
 import { Text } from "../Text";
-import { MotionBehaviourProps, getBackgroundColor, getMotionBehaviour, getTextColor } from "../../buttons";
+import { MotionBehaviourProps, getMotionBehaviour } from "../../buttons";
 import { CLICKABLE_ELEMENTS, ComponentSize, FillVariant, GenericClickableEventProps, GenericClickableProps, GenericLayoutProps, PolymorphicButton, PolymorphicButtonProps } from "@valence-ui/utils";
 import { useValence } from "../../../ValenceProvider";
 import { css } from "@emotion/react";
 import { Icon } from "../Icon";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+import { useColors } from "../../../utilities/color";
 
 export type AlertContent = {
   /** The title of this alert */
@@ -33,7 +35,7 @@ export type AlertProps =
     variant?: FillVariant;
     /** The size of this alert. Defaults to the theme default size. */
     size?: ComponentSize;
-    /** The border size of this alert. Defaults to the theme default border size. */
+    /** The border size of this alert. Defaults to the theme default radius size. */
     radius?: ComponentSize;
     /** Specifies if a shadow will be shown */
     shadow?: boolean;
@@ -43,10 +45,11 @@ export type AlertProps =
   }
 
 export const Alert = forwardRef(function Alert(
-  props: AlertProps,
+  props: MakeResponsive<AlertProps>,
   ref: any
 ) {
   const theme = useValence();
+  const colors = useColors();
 
   // Hooks & states
   const reducedMotion = useReducedMotion();
@@ -57,8 +60,8 @@ export const Alert = forwardRef(function Alert(
     alert,
     show,
     variant = "filled",
-    size = theme.defaultSize,
-    radius = theme.defaultRadius,
+    size = theme.defaults.size,
+    radius = theme.defaults.radius,
     shadow = false,
     motion,
 
@@ -72,7 +75,7 @@ export const Alert = forwardRef(function Alert(
     component = "div",
     style,
     ...rest
-  } = props;
+  } = useResponsiveProps<AlertProps>(props);
 
   const motionBehaviour = getMotionBehaviour(motion, reducedMotion);
 
@@ -92,13 +95,13 @@ export const Alert = forwardRef(function Alert(
 
     border: "none",
     outline: variant === "subtle"
-      ? `1px solid ${theme.getColorHex(backgroundColor, "medium")}`
+      ? `1px solid ${colors.getHex(backgroundColor, "medium")}`
       : "none",
     textDecoration: "none",
 
-    backgroundColor: getBackgroundColor(backgroundColor, variant, false, theme),
-    color: getTextColor(color, variant, theme),
-    boxShadow: shadow ? theme.defaultShadow : "none",
+    backgroundColor: colors.getBgHex(backgroundColor, variant, false),
+    color: colors.getFgHex(color, variant),
+    boxShadow: shadow ? theme.defaults.shadow : "none",
     cursor: CLICKABLE_ELEMENTS.includes(component as string) ? "pointer" : "default",
 
     ...style
@@ -138,7 +141,7 @@ export const Alert = forwardRef(function Alert(
             <Text
               bold
               style={{ flexGrow: 1 }}
-              color={getTextColor(color, variant, theme)}
+              color={colors.getFgHex(color, variant)}
               size={size}
             >
               {alert.title}
@@ -147,7 +150,7 @@ export const Alert = forwardRef(function Alert(
             {alert.message &&
               <Text
                 fontSize={theme.sizeClasses.fontSize[size] as number - 2}
-                color={getTextColor(color, variant, theme)}
+                color={colors.getFgHex(color, variant)}
               >
                 {alert.message}
               </Text>

@@ -43,8 +43,8 @@ const react_2 = require("@floating-ui/react");
 const layout_1 = require("../../layout");
 const react_3 = require("@emotion/react");
 const ValenceProvider_1 = require("../../../ValenceProvider");
-const utils_1 = require("@valence-ui/utils");
 const display_1 = require("../../display");
+const responsive_1 = require("../../../utilities/responsive");
 const TooltipContext = (0, react_1.createContext)(null);
 const useTooltipContext = () => {
     const context = (0, react_1.useContext)(TooltipContext);
@@ -65,13 +65,12 @@ const Trigger = (0, react_1.forwardRef)(function Trigger(props, propRef) {
     return react_1.default.cloneElement(children, context.getReferenceProps(Object.assign(Object.assign({ ref }, children.props), { "data-state": context.opened ? "open" : "closed" })));
 });
 const Content = (0, react_1.forwardRef)(function Content(props, propRef) {
-    const { color = "white", backgroundColor = "black", radius = "xl", variant = "filled", padding = "5px 10px", withShadow = true, zIndex = 2, children } = props, rest = __rest(props, ["color", "backgroundColor", "radius", "variant", "padding", "withShadow", "zIndex", "children"]);
+    const _a = (0, responsive_1.useResponsiveProps)(props), { color = "white", backgroundColor = "black", radius = "xl", variant = "filled", padding = "5px 10px", withShadow = true, zIndex = 2, children } = _a, rest = __rest(_a, ["color", "backgroundColor", "radius", "variant", "padding", "withShadow", "zIndex", "children"]);
     const context = useTooltipContext();
     const ref = (0, react_2.useMergeRefs)([context.refs.setFloating, propRef]);
     const theme = (0, ValenceProvider_1.useValence)();
-    const breakpoint = (0, hooks_1.useBreakpoint)();
     // Styles
-    const FloatingStyle = (0, react_3.css)(Object.assign({ borderRadius: theme.sizeClasses.radius[(0, utils_1.getReactiveProp)(radius, breakpoint)], boxShadow: !withShadow ? undefined : theme.defaultShadow, zIndex: zIndex, animationName: "in", animationDuration: "0.1s", overflowY: "auto", "@keyframes in": {
+    const FloatingStyle = (0, react_3.css)(Object.assign({ borderRadius: theme.sizeClasses.radius[radius], boxShadow: !withShadow ? undefined : theme.defaults.shadow, zIndex: zIndex, animationName: "in", animationDuration: "0.1s", overflowY: "auto", "@keyframes in": {
             from: {
                 opacity: 0,
             },

@@ -10,14 +10,13 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import { jsx as _jsx } from "react/jsx-runtime";
-import { getReactiveProp } from "@valence-ui/utils";
 import { Flex } from "..";
 import { PrimitiveButton } from "../../buttons/PrimitiveButton";
 import { forwardRef } from "react";
 import { useValence } from "../../../ValenceProvider";
-import { useBreakpoint } from "../../../hooks";
 import { Image as ImageComponent } from "../../display";
 import { UnstyledButton } from "../../buttons";
+import { useResponsiveProps } from "../../../utilities/responsive";
 export const CARD_DEFAULTS = {
     width: {
         "xs": 150,
@@ -29,12 +28,11 @@ export const CARD_DEFAULTS = {
 };
 const Card = forwardRef(function Card(props, ref) {
     const theme = useValence();
-    const breakpoint = useBreakpoint();
     // Defaults
-    const { size = theme.defaultSize, radius = theme.defaultRadius, gap = 0, buttonProps, flexProps, height = "fit-content", width = CARD_DEFAULTS.width[getReactiveProp(size, breakpoint)], padding = 0, margin, color = "black", backgroundColor = color, children, style } = props, rest = __rest(props, ["size", "radius", "gap", "buttonProps", "flexProps", "height", "width", "padding", "margin", "color", "backgroundColor", "children", "style"]);
+    const _a = useResponsiveProps(props), { size = theme.defaults.size, radius = theme.defaults.radius, gap = 0, buttonProps, flexProps, height = "fit-content", width = CARD_DEFAULTS.width[size], padding = 0, margin, color = "black", backgroundColor = color, children, style } = _a, rest = __rest(_a, ["size", "radius", "gap", "buttonProps", "flexProps", "height", "width", "padding", "margin", "color", "backgroundColor", "children", "style"]);
     // Styles
-    const cardStyle = Object.assign({ overflow: "hidden", padding: getReactiveProp(padding, breakpoint), margin: getReactiveProp(margin, breakpoint), userSelect: "none" }, getReactiveProp(style, breakpoint));
-    return (_jsx(PrimitiveButton, Object.assign({ height: getReactiveProp(height, breakpoint), width: getReactiveProp(width, breakpoint), color: getReactiveProp(color, breakpoint), backgroundColor: getReactiveProp(backgroundColor, breakpoint), radius: getReactiveProp(radius, breakpoint), style: cardStyle, motion: {
+    const cardStyle = Object.assign({ overflow: "hidden", padding: padding, margin: margin, userSelect: "none" }, style);
+    return (_jsx(PrimitiveButton, Object.assign({ height: height, width: width, color: color, backgroundColor: backgroundColor, radius: radius, style: cardStyle, motion: {
             onHover: "raise",
             onTap: "bounce",
         }, ref: ref }, buttonProps, rest, { children: _jsx(Flex, Object.assign({ direction: "column", gap: gap }, flexProps, { children: children })) })));
@@ -42,25 +40,24 @@ const Card = forwardRef(function Card(props, ref) {
 const Image = forwardRef(function CardImage(props, ref) {
     const theme = useValence();
     // Defaults
-    const { radius = theme.defaultRadius, width = "100%", height = "fit-content" } = props, rest = __rest(props, ["radius", "width", "height"]);
+    const _a = useResponsiveProps(props), { radius = theme.defaults.radius, width = "100%", height = "fit-content" } = _a, rest = __rest(_a, ["radius", "width", "height"]);
     return (_jsx(ImageComponent, Object.assign({ radius: radius, width: width, height: height, ref: ref }, rest)));
 });
 const Section = forwardRef(function CardSection(props, ref) {
     const theme = useValence();
     // Defaults
-    const { width = "100%", height = "fit-content", padding = theme.sizeClasses.padding[theme.defaultSize], children } = props, rest = __rest(props, ["width", "height", "padding", "children"]);
+    const _a = useResponsiveProps(props), { width = "100%", height = "fit-content", padding = theme.sizeClasses.padding[theme.defaults.size], children } = _a, rest = __rest(_a, ["width", "height", "padding", "children"]);
     return (_jsx(Flex, Object.assign({ width: width, height: height, padding: padding, ref: ref }, rest, { children: children })));
 });
 const Buttons = forwardRef(function CardButtons(props, ref) {
     const theme = useValence();
-    const breakpoint = useBreakpoint();
     // Defaults
-    const { width = "100%", height = "fit-content", padding = theme.sizeClasses.padding[theme.defaultSize], direction = "row", align = "center", justify = "flex-start", children } = props, rest = __rest(props, ["width", "height", "padding", "direction", "align", "justify", "children"]);
+    const _a = useResponsiveProps(props), { width = "100%", height = "fit-content", padding = theme.sizeClasses.padding[theme.defaults.size], direction = "row", align = "center", justify = "flex-start", children } = _a, rest = __rest(_a, ["width", "height", "padding", "direction", "align", "justify", "children"]);
     // Styles
     const ButtonStyle = {
-        width: getReactiveProp(width, breakpoint),
-        height: getReactiveProp(height, breakpoint),
-        padding: getReactiveProp(padding, breakpoint),
+        width: width,
+        height: height,
+        padding: padding,
         boxSizing: "border-box",
     };
     return (_jsx(UnstyledButton, { onClick: (e) => e.stopPropagation(), component: "div", style: ButtonStyle, ref: ref, children: _jsx(Flex, Object.assign({ width: "100%", height: "100%", padding: 0, direction: direction, align: align, justify: justify }, rest, { children: children })) }));

@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { Button, Flex, ValenceProvider } from "../../..";
+import { Button, FlexCenter, ValenceProvider } from "../../..";
 
 import { TextInput as TI } from "./TextInput";
 import { IconSearch } from "@tabler/icons-react";
@@ -21,7 +21,7 @@ export const TextInput: Story = (args: any) => {
 
   return (
     <ValenceProvider>
-      <Flex>
+      <FlexCenter>
         <TI
           {...args}
           value={value}
@@ -36,7 +36,7 @@ export const TextInput: Story = (args: any) => {
         >
           Focus
         </Button>
-      </Flex>
+      </FlexCenter>
     </ValenceProvider>
   );
 }

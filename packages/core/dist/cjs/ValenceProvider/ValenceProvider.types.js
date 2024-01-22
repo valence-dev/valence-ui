@@ -1,17 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ValenceContextDefaults = void 0;
-const Color_1 = require("../Color");
+const color_1 = require("../utilities/color");
 exports.ValenceContextDefaults = {
-    colors: Color_1.DEFAULT_COLORS,
-    getColor: () => undefined,
-    getColorHex: () => undefined,
+    colors: color_1.DEFAULT_PALETTE,
     primaryColor: "pink",
-    defaultSize: "sm",
-    defaultRadius: "sm",
-    defaultTransitionDuration: "0.1s",
-    defaultShadow: "0px 10px 30px rgba(0, 0, 0, 0.2)",
-    defaultVariant: "light",
+    defaults: {
+        size: "sm",
+        radius: "sm",
+        variant: "light",
+        transitionDuration: "0.1s",
+        shadow: "0px 10px 30px rgba(0, 0, 0, 0.2)",
+    },
     fontFamily: {
         default: "Inter, sans-serif",
         heading: undefined,
@@ -35,8 +35,9 @@ exports.ValenceContextDefaults = {
         6: { fontSize: 12, bold: true },
     },
     breakpoints: {
-        desktopThinWidth: 1200,
-        mobileWidth: 800,
-        mobileTallHeight: 750,
+        mobileWidth: 480,
+        tabletWidth: 768,
+        desktopLargeWidth: 1024,
+        tvWidth: 1440,
     }
 };

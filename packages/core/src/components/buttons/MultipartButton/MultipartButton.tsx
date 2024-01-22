@@ -2,15 +2,16 @@
 import { CSSProperties, ReactNode, forwardRef } from "react";
 import { PrimitiveButton, PrimitiveButtonProps } from "../PrimitiveButton";
 import { IconChevronRight } from "@tabler/icons-react";
-import { getTextColor } from "../Helpers";
 import { Flex } from "../../layout";
-import { Icon, Text, TextProps } from "../../display";
+import { Icon, Loader, Text, TextProps } from "../../display";
 import { useValence } from "../../../ValenceProvider";
 import { SizeClasses } from "@valence-ui/utils";
 import { css } from "@emotion/react";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+import { useColors } from "../../../utilities/color";
 
 export type MultipartButtonProps =
-  PrimitiveButtonProps
+  Omit<PrimitiveButtonProps, "children">
   & {
     /** Title/main text content of this button  */
     title: string;
@@ -26,9 +27,6 @@ export type MultipartButtonProps =
     titleProps?: TextProps;
     /** Props to pass to the subtitle text component */
     subtitleProps?: TextProps;
-
-    /** This button does not accept children */
-    children?: never;
   }
 
 const SIZES: SizeClasses<{ height: number }> = {
@@ -41,15 +39,16 @@ const SIZES: SizeClasses<{ height: number }> = {
 
 
 export const MultipartButton = forwardRef(function MultipartButton(
-  props: MultipartButtonProps,
+  props: MakeResponsive<MultipartButtonProps>,
   ref: any,
 ) {
   const theme = useValence();
+  const colors = useColors();
 
   // Defaults
   const {
-    size = theme.defaultSize,
-    variant = theme.defaultVariant,
+    size = theme.defaults.size,
+    variant = theme.defaults.variant,
     color = theme.primaryColor,
     height = SIZES[size].height,
     width = "100%",
@@ -59,12 +58,14 @@ export const MultipartButton = forwardRef(function MultipartButton(
     leftIcon,
     rightIcon = <IconChevronRight opacity={0.5} />,
 
+    loading,
+
     titleProps,
     subtitleProps,
 
     style,
     ...rest
-  } = props;
+  } = useResponsiveProps<MultipartButtonProps>(props);
 
 
   // Styles
@@ -80,7 +81,7 @@ export const MultipartButton = forwardRef(function MultipartButton(
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    color: getTextColor(color, variant, theme),
+    color: colors.getFgHex(color, variant),
   });
 
 
@@ -97,12 +98,19 @@ export const MultipartButton = forwardRef(function MultipartButton(
       {...rest}
     >
       {leftIcon && <div css={ContainerStyle}>
-        <Icon
-          size={theme.getSize("iconSize", size) as number}
-          color={getTextColor(color, variant, theme)}
-        >
-          {leftIcon}
-        </Icon>
+        {loading ?
+          <Loader
+            size={size}
+            color={colors.getFgHex(color, variant)}
+          />
+          :
+          <Icon
+            size={theme.getSize("iconSize", size) as number}
+            color={colors.getFgHex(color, variant)}
+          >
+            {leftIcon}
+          </Icon>
+        }
       </div>}
 
       <Flex
@@ -114,7 +122,7 @@ export const MultipartButton = forwardRef(function MultipartButton(
       >
         <Text
           size={size}
-          color={getTextColor(color, variant, theme)}
+          color={colors.getFgHex(color, variant)}
           bold
           {...titleProps}
         >
@@ -122,7 +130,7 @@ export const MultipartButton = forwardRef(function MultipartButton(
         </Text>
         <Text
           fontSize={theme.sizeClasses.fontSize[size] as number - 2}
-          color={getTextColor(color, variant, theme)}
+          color={colors.getFgHex(color, variant)}
           {...subtitleProps}
         >
           {subtitle}
@@ -132,7 +140,7 @@ export const MultipartButton = forwardRef(function MultipartButton(
       <div css={ContainerStyle}>
         <Icon
           size={theme.getSize("iconSize", size) as number}
-          color={getTextColor(color, variant, theme)}
+          color={colors.getFgHex(color, variant)}
         >
           {rightIcon}
         </Icon>

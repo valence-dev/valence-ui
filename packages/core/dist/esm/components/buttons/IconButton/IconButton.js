@@ -11,13 +11,13 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useValence } from "../../../ValenceProvider";
+import { useResponsiveProps } from "../../../utilities/responsive";
 import { Icon } from "../../display";
 import { Tooltip } from "../../overlays";
 import { PrimitiveButton } from "../PrimitiveButton";
 import { forwardRef } from "react";
 export const IconButton = forwardRef(function IconButton(props, ref) {
-    const { tooltip, tooltipProps, tooltipContentProps, color = "primary", size, square = true, children } = props, rest = __rest(props, ["tooltip", "tooltipProps", "tooltipContentProps", "color", "size", "square", "children"]);
-    const theme = useValence();
+    const _a = useResponsiveProps(props), { tooltip, tooltipProps, tooltipContentProps, color = "primary", size, square = true, children } = _a, rest = __rest(_a, ["tooltip", "tooltipProps", "tooltipContentProps", "color", "size", "square", "children"]);
     return (tooltip ?
         _jsxs(Tooltip, Object.assign({ placement: "bottom" }, tooltipProps, { children: [_jsx(Tooltip.Trigger, { children: _jsx(Button, Object.assign({ color: color, size: size, square: square }, rest, { ref: ref, children: children })) }), _jsx(Tooltip.Content, Object.assign({ backgroundColor: color, zIndex: 999 }, tooltipContentProps, { children: tooltip }))] }))
         :

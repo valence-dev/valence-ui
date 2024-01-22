@@ -10,21 +10,19 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
-import { Flex, Icon, ValenceContext, useBreakpoint, useDisclosure } from "@valence-ui/core";
-import { getReactiveProp } from "@valence-ui/utils";
+import { Flex, Icon, ValenceContext, useBreakpoint, useDisclosure, useResponsiveProps } from "@valence-ui/core";
 import { forwardRef, useContext } from "react";
 import { FAB } from "../../../buttons";
 import { BottomSheet } from "../../../overlays";
 import { IconMenu } from "@tabler/icons-react";
 export const Sidebar = forwardRef(function Sidebar(props, ref) {
-    var _a, _b;
     const theme = useContext(ValenceContext);
     const breakpoint = useBreakpoint();
     // Defaults 
-    const { gap = theme.sizeClasses.padding[theme.defaultSize], mobileFabProps = {}, mobileFabIcon = _jsx(Icon, { color: "white", children: _jsx(IconMenu, {}) }), width = "100%", height = "100%", children, style } = props, rest = __rest(props, ["gap", "mobileFabProps", "mobileFabIcon", "width", "height", "children", "style"]);
+    const _a = useResponsiveProps(props), { gap = theme.sizeClasses.padding[theme.defaults.size], mobileFabProps = {}, mobileFabIcon = _jsx(Icon, { color: "white", children: _jsx(IconMenu, {}) }), width = "100%", height = "100%", children, style } = _a, rest = __rest(_a, ["gap", "mobileFabProps", "mobileFabIcon", "width", "height", "children", "style"]);
     // Styles
-    const DesktopStyle = Object.assign({ width: getReactiveProp(width, breakpoint), height: getReactiveProp(height, breakpoint), borderRight: `1px solid ${((_a = theme.getColor("black")) === null || _a === void 0 ? void 0 : _a.base)
-            + ((_b = theme.getColor("black")) === null || _b === void 0 ? void 0 : _b.opacity.weak)}`, paddingRight: 10, position: "sticky", top: 0, overflowX: "hidden", overflowY: "auto" }, getReactiveProp(style, breakpoint));
+    const DesktopStyle = Object.assign({ width: width, height: height, borderRight: `1px solid ${theme.getColorHex("black")
+            + theme.getColorHex("black", "weak")}`, paddingRight: 10, position: "sticky", top: 0, overflowX: "hidden", overflowY: "auto" }, style);
     // States
     const slideUp = useDisclosure();
     return (breakpoint.isMobile ?

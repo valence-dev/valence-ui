@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { ValenceProvider } from "../../..";
+import { FlexCenter, ValenceProvider } from "../../..";
 
 import { Textarea as TA } from "./Textarea";
 
@@ -18,11 +18,13 @@ export const Textarea: Story = (args: any) => {
 
   return (
     <ValenceProvider>
-      <TA
-        {...args}
-        value={value}
-        setValue={setValue}
-      />
+      <FlexCenter>
+        <TA
+          {...args}
+          value={value}
+          setValue={setValue}
+        />
+      </FlexCenter>
     </ValenceProvider>
   );
 }

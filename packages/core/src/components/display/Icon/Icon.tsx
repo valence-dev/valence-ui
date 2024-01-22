@@ -1,5 +1,7 @@
 import React, { ReactNode, forwardRef } from "react";
 import { useValence } from "../../../ValenceProvider";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+import { useColors } from "../../../utilities/color";
 
 export type IconProps = {
   /** Size of the icon. Defaults to theme default icon size. */
@@ -24,24 +26,25 @@ export type IconProps = {
  * ```
 */
 export const Icon = forwardRef(function Icon(
-  props: IconProps,
+  props: MakeResponsive<IconProps>,
   ref: any,
 ) {
   const theme = useValence();
+  const colors = useColors();
 
   const {
-    size = theme.getSize("iconSize", theme.defaultSize),
+    size = theme.getSize("iconSize", theme.defaults.size),
     stroke = 1.5,
     color,
     children,
-  } = props;
+  } = useResponsiveProps<IconProps>(props);
 
 
   if (children === undefined) return children;
   return React.cloneElement(children as any, {
     size: size,
     stroke: stroke,
-    color: color ? theme.getColorHex(color) : undefined,
+    color: color ? colors.getHex(color) : undefined,
     ref,
   })
 });

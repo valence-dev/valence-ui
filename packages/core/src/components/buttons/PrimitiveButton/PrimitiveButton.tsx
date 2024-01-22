@@ -1,12 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import { forwardRef } from "react";
 import { useReducedMotion } from "framer-motion";
-import { MotionBehaviourProps, getBackgroundColor, getMotionBehaviour, getTextColor } from "../Helpers";
+import { MotionBehaviourProps, getMotionBehaviour } from "../Helpers";
 import { Loader } from "../../display/Loader";
 import { PolymorphicButton } from "@valence-ui/utils";
 import { useValence } from "../../../ValenceProvider";
 import { css } from "@emotion/react";
 import { GenericButtonProps } from "../../../generics";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+import { useColors } from "../../../utilities/color";
 
 export type PrimitiveButtonProps =
   GenericButtonProps
@@ -15,13 +17,13 @@ export type PrimitiveButtonProps =
     motion?: MotionBehaviourProps;
   }
 
-
 export const PrimitiveButton = forwardRef(function PrimitiveButton(
-  props: PrimitiveButtonProps,
+  props: MakeResponsive<PrimitiveButtonProps>,
   ref: any
 ) {
 
   const theme = useValence();
+  const colors = useColors();
 
   // Hooks & states
   const reducedMotion = useReducedMotion();
@@ -29,9 +31,9 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
 
   // Defaults
   const {
-    variant = theme.defaultVariant,
-    size = theme.defaultSize,
-    radius = theme.defaultRadius,
+    size = theme.defaults.size,
+    radius = theme.defaults.radius,
+    variant = theme.defaults.variant,
 
     square = false,
     shadow = false,
@@ -46,13 +48,13 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
     backgroundColor = color,
     padding = square ? 0 : `0px ${theme.sizeClasses.padding[size]}px`,
     margin = 0,
-    height = `${theme.sizeClasses.height[size]}px`,
+    height = theme.sizeClasses.height[size],
     width = square ? height : "fit-content",
 
     style,
     children,
     ...rest
-  } = props;
+  } = useResponsiveProps<PrimitiveButtonProps>(props);
 
   const motionBehaviour = getMotionBehaviour(motion, reducedMotion);
 
@@ -78,21 +80,21 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
       : loading ? "wait"
         : "pointer"
     ,
-    boxShadow: shadow ? theme.defaultShadow : "none",
+    boxShadow: shadow ? theme.defaults.shadow : "none",
 
-    transition: `background-color ${theme.defaultTransitionDuration} linear 0s`,
-    backgroundColor: getBackgroundColor(backgroundColor, variant, false, theme),
-    color: getTextColor(color, variant, theme),
+    transition: `background-color ${theme.defaults.transitionDuration} linear 0s`,
+    backgroundColor: colors.getBgHex(backgroundColor, variant, false),
+    color: colors.getFgHex(color, variant),
 
     outline: "none",
     border: "none",
     textDecoration: "none",
 
     "&:hover": {
-      backgroundColor: `${getBackgroundColor(backgroundColor, variant, true, theme)}`,
+      backgroundColor: `${colors.getBgHex(backgroundColor, variant, true)}`,
     },
     "&:focus": {
-      outline: `1px solid ${getTextColor(color, "light", theme)}`,
+      outline: `1px solid ${colors.getFgHex(color, variant)}`,
     },
 
     ...style
@@ -110,7 +112,11 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
       ref={ref}
       {...rest}
     >
-      {loading ? <Loader color={getTextColor(color, variant, theme)} /> :
+      {loading ?
+        <Loader
+          color={colors.getFgHex(color, variant)}
+        />
+        :
         children
       }
     </PolymorphicButton>

@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { forwardRef } from "react";
-import { ModalBackground, Disclosure, useDetectKeyDown, useValence } from "../../..";
+import { ModalBackground, Disclosure, useDetectKeyDown, useValence, MakeResponsive, useResponsiveProps, useColors } from "../../..";
 import { Flex, FlexProps } from "../../layout";
 import { AnimatePresence, motion } from "framer-motion";
 import { Icon, Title } from "../../display";
@@ -23,10 +23,11 @@ export type ModalProps =
 
 
 export const Modal = forwardRef(function Modal(
-  props: ModalProps,
+  props: MakeResponsive<ModalProps>,
   ref: any
 ) {
   const theme = useValence();
+  const { getHex } = useColors();
 
 
   // Defaults
@@ -43,11 +44,11 @@ export const Modal = forwardRef(function Modal(
     lockScroll = true,
 
     withShadow = true,
-    radius = theme.defaultRadius,
+    radius = theme.defaults.radius,
 
     backgroundColor = "white",
     color = "black",
-    padding = theme.sizeClasses.padding[theme.defaultSize],
+    padding = theme.sizeClasses.padding[theme.defaults.size],
     margin,
     width = 500,
     height = "fit-content",
@@ -59,7 +60,7 @@ export const Modal = forwardRef(function Modal(
     style,
 
     ...rest
-  } = props;
+  } = useResponsiveProps<ModalProps>(props);
 
 
   // Hooks
@@ -84,14 +85,14 @@ export const Modal = forwardRef(function Modal(
 
   // Styles
   const ContainerStyle = css({
-    backgroundColor: theme.getColorHex(backgroundColor),
-    color: theme.getColorHex(color),
+    backgroundColor: getHex(backgroundColor),
+    color: getHex(color),
     padding: padding,
     margin: margin,
     width: width,
     height: height,
     borderRadius: theme.sizeClasses.radius[radius],
-    boxShadow: withShadow ? theme.defaultShadow : undefined,
+    boxShadow: withShadow ? theme.defaults.shadow : undefined,
     
     boxSizing: "border-box",
     maxWidth: "100%",
@@ -150,10 +151,10 @@ export type DefaultModalHeaderProps =
   }
 
 export const DefaultModalHeader = forwardRef(function DefaultModalHeader(
-  props: DefaultModalHeaderProps,
+  props: MakeResponsive<DefaultModalHeaderProps>,
   ref: any,
 ) {
-  const { title, disclosure } = props;
+  const { title, disclosure } = useResponsiveProps<DefaultModalHeaderProps>(props);
 
 
   const HeaderStyle = css({

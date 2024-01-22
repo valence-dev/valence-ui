@@ -1,33 +1,17 @@
-import { ReactNode } from "react";
+/// <reference types="react" />
 import { GenericSheetProps } from "../Generics";
-import { Disclosure } from "@valence-ui/core";
-import { GenericOverlayBackgroundProps, GenericOverlayHeaderProps, ReactiveProp } from "@valence-ui/utils";
-export type SideSheetType = "standard" | "overlay";
+import { MakeResponsive } from "@valence-ui/core";
+export type SideSheetDisplay = "inline" | "overlay";
 export type SideSheetProps = GenericSheetProps & {
-    type?: ReactiveProp<SideSheetType>;
+    /** The display option for the sidebar. Defaults to `inline` on desktop and
+     * bigger, and `overlay` on mobile and smaller.
+     */
+    display?: SideSheetDisplay;
+    /** The direction that this sidebar will appear from. Direction will only
+     * be adhered to if the display type is `overlay`. Otherwise, it will be
+     * `right` by default.
+     */
+    direction?: "left" | "right";
 };
-export declare const SideSheet: import("react").ForwardRefExoticComponent<import("@valence-ui/utils").GenericProps & {
-    color?: import("csstype").Property.Color | undefined;
-    backgroundColor?: import("csstype").Property.BackgroundColor | undefined;
-    padding?: import("csstype").Property.Padding<string | number> | undefined;
-    margin?: import("csstype").Property.Margin<string | number> | undefined;
-    width?: import("csstype").Property.Width<string | number> | undefined;
-    height?: import("csstype").Property.Height<string | number> | undefined;
-} & import("@valence-ui/utils").PolymorphicElementProps & {
-    css?: any;
-} & {
-    title: string;
-    header?: ((props: GenericOverlayHeaderProps) => ReactNode) | undefined;
-    closeOnOverlayClick?: boolean | undefined;
-    closeOnEscape?: boolean | undefined;
-    lockScroll?: boolean | undefined;
-    withShadow?: boolean | undefined;
-    radius?: import("@valence-ui/utils").ComponentSize | undefined;
-    overlayBackgroundProps?: GenericOverlayBackgroundProps | undefined;
-} & {
-    disclosure: Disclosure;
-    flexProps?: import("@valence-ui/core").FlexProps | undefined;
-} & {
-    type?: ReactiveProp<SideSheetType> | undefined;
-} & import("react").RefAttributes<unknown>>;
+export declare const SideSheet: import("react").ForwardRefExoticComponent<MakeResponsive<SideSheetProps> & import("react").RefAttributes<unknown>>;
 //# sourceMappingURL=SideSheet.d.ts.map

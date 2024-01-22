@@ -1,7 +1,7 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { Storybook } from "../../../../storybook";
-import { ValenceProvider } from "../../.."
+import { Flex, ValenceProvider } from "../../.."
 
 import { Pill as P } from "../../..";
 
@@ -20,9 +20,11 @@ type Story = StoryObj<typeof P>;
 
 export const Pill: Story = (args: any) => (
   <ValenceProvider>
-    <P {...args}>
-      Hi there
-    </P>
+    <Flex center height="100vh">
+      <P {...args}>
+        Hi there
+      </P>
+    </Flex>
   </ValenceProvider>
 );
 Pill.args = {

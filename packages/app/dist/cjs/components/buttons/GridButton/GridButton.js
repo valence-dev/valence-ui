@@ -19,8 +19,9 @@ const core_1 = require("@valence-ui/core");
 const react_2 = require("react");
 exports.GridButton = (0, react_2.forwardRef)(function GridButton(props, ref) {
     const theme = (0, react_2.useContext)(core_1.ValenceContext);
+    const { getFgHex } = (0, core_1.useColors)();
     // Defaults
-    const { icon, iconPosition = "top", size = theme.defaultSize, variant = theme.defaultVariant, color = theme.primaryColor, width = theme.sizeClasses.height[size] * 2.5, height = width, square = true, style, textProps } = props, rest = __rest(props, ["icon", "iconPosition", "size", "variant", "color", "width", "height", "square", "style", "textProps"]);
+    const _a = (0, core_1.useResponsiveProps)(props), { icon, iconPosition = "top", size = theme.defaults.size, variant = theme.defaults.variant, color = theme.primaryColor, width = theme.sizeClasses.height[size] * 2.5, height = width, square = true, style, textProps } = _a, rest = __rest(_a, ["icon", "iconPosition", "size", "variant", "color", "width", "height", "square", "style", "textProps"]);
     // Styles
     const styles = Object.assign({ flexDirection: iconPosition === "top" ? "column" : "column-reverse", justifyContent: "flex-start", padding: theme.sizeClasses.padding[size], gap: theme.sizeClasses.padding[size] / 2 }, style);
     const IconContainerStyle = (0, react_1.css)({
@@ -30,5 +31,5 @@ exports.GridButton = (0, react_2.forwardRef)(function GridButton(props, ref) {
         width: "100%",
         height: "100%",
     });
-    return ((0, jsx_runtime_1.jsxs)(core_1.PrimitiveButton, Object.assign({ size: size, variant: variant, color: color, height: height, width: width, square: square, style: styles, ref: ref }, rest, { children: [(0, jsx_runtime_1.jsx)("div", { css: IconContainerStyle, children: (0, jsx_runtime_1.jsx)(core_1.Icon, { size: theme.getSize("iconSize", size) * 1.5, children: icon }) }), (0, jsx_runtime_1.jsx)(core_1.Text, Object.assign({ fontSize: theme.sizeClasses.fontSize[size] * 0.8, color: (0, core_1.getTextColor)(color, variant, theme), align: "center" }, textProps, { children: props.children }))] })));
+    return ((0, jsx_runtime_1.jsxs)(core_1.PrimitiveButton, Object.assign({ size: size, variant: variant, color: color, height: height, width: width, square: square, style: styles, ref: ref }, rest, { children: [(0, jsx_runtime_1.jsx)("div", { css: IconContainerStyle, children: (0, jsx_runtime_1.jsx)(core_1.Icon, { size: theme.getSize("iconSize", size) * 1.5, children: icon }) }), (0, jsx_runtime_1.jsx)(core_1.Text, Object.assign({ fontSize: theme.sizeClasses.fontSize[size] * 0.8, color: getFgHex(color, variant), align: "center" }, textProps, { children: props.children }))] })));
 });

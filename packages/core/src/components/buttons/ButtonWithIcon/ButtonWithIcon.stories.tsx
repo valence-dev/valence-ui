@@ -5,7 +5,7 @@ import { IconUserCircle } from "@tabler/icons-react"
 
 import { ButtonWithIcon as BWI } from "./ButtonWithIcon";
 import { ValenceProvider } from "../../../ValenceProvider";
-import { Flex } from "../../../../dist/esm";
+import { Flex } from "../../layout";
 
 const meta: Meta<typeof BWI> = {
   component: BWI,
@@ -57,7 +57,11 @@ type Story = StoryObj<typeof BWI>;
 
 export const WithIcon: Story = (args: any) => (
   <ValenceProvider>
-    <Flex direction="column">
+    <Flex
+      center
+      height="100vh"
+      direction="column"
+    >
       <BWI {...args} size="xs" />
       <BWI {...args} size="sm" />
       <BWI {...args} size="md" />

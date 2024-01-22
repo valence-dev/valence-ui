@@ -22,11 +22,14 @@ const react_2 = require("@emotion/react");
 const layout_1 = require("../../layout");
 const icons_react_1 = require("@tabler/icons-react");
 const OptionContainer_1 = require("../OptionContainer");
+const responsive_1 = require("../../../utilities/responsive");
+const color_1 = require("../../../utilities/color");
 exports.PillInput = (0, react_1.forwardRef)(function PillInput(props, ref) {
     const theme = (0, ValenceProvider_1.useValence)();
+    const { getFgHex } = (0, color_1.useColors)();
     const inputRef = ref !== null && ref !== void 0 ? ref : (0, react_1.createRef)();
     // Defaults
-    const { value, setValue, autofillKeys = ["Tab"], selectKeys = [" ", "Enter"], options = [], filter = OptionContainer_1.DefaultOptionsFilter, nothingFound, allowDuplicates = false, allowClear = true, allowBackspaceRemove = true, grow, maxPills = Infinity, minLength = 0, maxLength = Infinity, clearButtonIcon = (0, jsx_runtime_1.jsx)(icons_react_1.IconX, {}), clearButtonProps, pillProps, pillContainerProps, icon, placeholder, size = theme.defaultSize, radius = theme.defaultRadius, variant = theme.defaultVariant, loading, autoFocus, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding, margin, width, height = theme.sizeClasses.height[size], onEnterPress, onKeyPress, onPillAdd, onPillRemove, inputStyle, dropdownStyle, style } = props, rest = __rest(props, ["value", "setValue", "autofillKeys", "selectKeys", "options", "filter", "nothingFound", "allowDuplicates", "allowClear", "allowBackspaceRemove", "grow", "maxPills", "minLength", "maxLength", "clearButtonIcon", "clearButtonProps", "pillProps", "pillContainerProps", "icon", "placeholder", "size", "radius", "variant", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "onEnterPress", "onKeyPress", "onPillAdd", "onPillRemove", "inputStyle", "dropdownStyle", "style"]);
+    const _a = (0, responsive_1.useResponsiveProps)(props), { value, setValue, autofillKeys = ["Tab"], selectKeys = [" ", "Enter"], options = [], filter = OptionContainer_1.DefaultOptionsFilter, nothingFound, allowDuplicates = false, allowClear = true, allowBackspaceRemove = true, grow, maxPills = Infinity, minLength = 0, maxLength = Infinity, clearButtonIcon = (0, jsx_runtime_1.jsx)(icons_react_1.IconX, {}), clearButtonProps, pillProps, pillContainerProps, icon, placeholder, size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, loading, autoFocus, disabled, readOnly = loading, required, color = "black", backgroundColor = color, padding, margin, width, height = theme.sizeClasses.height[size], onEnterPress, onKeyPress, onPillAdd, onPillRemove, inputStyle, dropdownStyle, style } = _a, rest = __rest(_a, ["value", "setValue", "autofillKeys", "selectKeys", "options", "filter", "nothingFound", "allowDuplicates", "allowClear", "allowBackspaceRemove", "grow", "maxPills", "minLength", "maxLength", "clearButtonIcon", "clearButtonProps", "pillProps", "pillContainerProps", "icon", "placeholder", "size", "radius", "variant", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "onEnterPress", "onKeyPress", "onPillAdd", "onPillRemove", "inputStyle", "dropdownStyle", "style"]);
     // States
     const [searchValue, setSearchValue] = (0, react_1.useState)("");
     const [visibleOptions, setVisibleOptions] = (0, react_1.useState)(filterOptions(options, searchValue, value));
@@ -96,8 +99,8 @@ exports.PillInput = (0, react_1.forwardRef)(function PillInput(props, ref) {
         setVisibleOptions(filterOptions(options, "", []));
     }
     // Styles
-    const InputStyle = (0, react_2.css)(Object.assign({ border: "none", outline: "none", background: "none", flexGrow: 1, margin: 0, padding: 0, cursor: disabled ? "not-allowed" : "text", fontSize: theme.sizeClasses.fontSize[size], fontFamily: theme.getFont("default"), color: (0, buttons_1.getTextColor)(color, variant, theme), "&::placeholder": {
-            color: `${(0, buttons_1.getTextColor)(color, variant, theme)}80`,
+    const InputStyle = (0, react_2.css)(Object.assign({ border: "none", outline: "none", background: "none", flexGrow: 1, margin: 0, padding: 0, cursor: disabled ? "not-allowed" : "text", fontSize: theme.sizeClasses.fontSize[size], fontFamily: theme.getFont("default"), color: getFgHex(color, variant), "&::placeholder": {
+            color: `${getFgHex(color, variant)}80`,
         }, 
         // Remove awful autofill color
         "&:-webkit-autofill": { transition: `background-color 5000s ease-in-out 0s` }, "&:-webkit-autofill:focus": { transition: `background-color 5000s ease-in-out 0s` }, "&:-webkit-autofill:hover": { transition: `background-color 5000s ease-in-out 0s` }, "&:-webkit-autofill:active": { transition: `background-color 5000s ease-in-out 0s` } }, inputStyle));

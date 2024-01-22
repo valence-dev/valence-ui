@@ -14,11 +14,12 @@ import { jsx as _jsx, jsxs as _jsxs } from "@emotion/react/jsx-runtime";
 import { forwardRef } from "react";
 import { PrimitiveButton } from "../PrimitiveButton";
 import { IconChevronRight } from "@tabler/icons-react";
-import { getTextColor } from "../Helpers";
 import { Flex } from "../../layout";
-import { Icon, Text } from "../../display";
+import { Icon, Loader, Text } from "../../display";
 import { useValence } from "../../../ValenceProvider";
 import { css } from "@emotion/react";
+import { useResponsiveProps } from "../../../utilities/responsive";
+import { useColors } from "../../../utilities/color";
 const SIZES = {
     xs: { height: 50 },
     sm: { height: 60 },
@@ -28,8 +29,9 @@ const SIZES = {
 };
 export const MultipartButton = forwardRef(function MultipartButton(props, ref) {
     const theme = useValence();
+    const colors = useColors();
     // Defaults
-    const { size = theme.defaultSize, variant = theme.defaultVariant, color = theme.primaryColor, height = SIZES[size].height, width = "100%", title, subtitle, leftIcon, rightIcon = _jsx(IconChevronRight, { opacity: 0.5 }), titleProps, subtitleProps, style } = props, rest = __rest(props, ["size", "variant", "color", "height", "width", "title", "subtitle", "leftIcon", "rightIcon", "titleProps", "subtitleProps", "style"]);
+    const _a = useResponsiveProps(props), { size = theme.defaults.size, variant = theme.defaults.variant, color = theme.primaryColor, height = SIZES[size].height, width = "100%", title, subtitle, leftIcon, rightIcon = _jsx(IconChevronRight, { opacity: 0.5 }), loading, titleProps, subtitleProps, style } = _a, rest = __rest(_a, ["size", "variant", "color", "height", "width", "title", "subtitle", "leftIcon", "rightIcon", "loading", "titleProps", "subtitleProps", "style"]);
     // Styles
     const buttonStyle = Object.assign({ justifyContent: "flex-start", padding: 0, paddingLeft: !leftIcon ? theme.sizeClasses.padding[size] : undefined }, style);
     const ContainerStyle = css({
@@ -38,7 +40,10 @@ export const MultipartButton = forwardRef(function MultipartButton(props, ref) {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        color: getTextColor(color, variant, theme),
+        color: colors.getFgHex(color, variant),
     });
-    return (_jsxs(PrimitiveButton, Object.assign({ size: size, variant: variant, color: color, style: buttonStyle, height: height, width: width, ref: ref }, rest, { children: [leftIcon && _jsx("div", { css: ContainerStyle, children: _jsx(Icon, { size: theme.getSize("iconSize", size), color: getTextColor(color, variant, theme), children: leftIcon }) }), _jsxs(Flex, { direction: "column", align: "flex-start", justify: "center", grow: true, gap: 2, children: [_jsx(Text, Object.assign({ size: size, color: getTextColor(color, variant, theme), bold: true }, titleProps, { children: title })), _jsx(Text, Object.assign({ fontSize: theme.sizeClasses.fontSize[size] - 2, color: getTextColor(color, variant, theme) }, subtitleProps, { children: subtitle }))] }), _jsx("div", { css: ContainerStyle, children: _jsx(Icon, { size: theme.getSize("iconSize", size), color: getTextColor(color, variant, theme), children: rightIcon }) })] })));
+    return (_jsxs(PrimitiveButton, Object.assign({ size: size, variant: variant, color: color, style: buttonStyle, height: height, width: width, ref: ref }, rest, { children: [leftIcon && _jsx("div", { css: ContainerStyle, children: loading ?
+                    _jsx(Loader, { size: size, color: colors.getFgHex(color, variant) })
+                    :
+                        _jsx(Icon, { size: theme.getSize("iconSize", size), color: colors.getFgHex(color, variant), children: leftIcon }) }), _jsxs(Flex, { direction: "column", align: "flex-start", justify: "center", grow: true, gap: 2, children: [_jsx(Text, Object.assign({ size: size, color: colors.getFgHex(color, variant), bold: true }, titleProps, { children: title })), _jsx(Text, Object.assign({ fontSize: theme.sizeClasses.fontSize[size] - 2, color: colors.getFgHex(color, variant) }, subtitleProps, { children: subtitle }))] }), _jsx("div", { css: ContainerStyle, children: _jsx(Icon, { size: theme.getSize("iconSize", size), color: colors.getFgHex(color, variant), children: rightIcon }) })] })));
 });

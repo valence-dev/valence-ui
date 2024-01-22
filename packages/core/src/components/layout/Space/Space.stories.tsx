@@ -2,7 +2,7 @@ import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { ValenceProvider } from "../../..";
 import { Space as S } from "./Space";
-import { Flex, StyledFlex } from "../Flex";
+import { FlexCenter, StyledFlex } from "../Flex";
 import { Text } from "../../display";
 
 const meta: Meta<typeof S> = {
@@ -19,7 +19,7 @@ type Story = StoryObj<typeof S>;
 
 export const Space: Story = (args: any) => (
   <ValenceProvider>
-    <Flex direction="column">
+    <FlexCenter innerProps={{ direction: "column", align: "stretch" }}>
       <StyledFlex
         grow
         align="center"
@@ -48,7 +48,7 @@ export const Space: Story = (args: any) => (
       >
         <Text>3</Text>
       </StyledFlex>
-    </Flex>
+    </FlexCenter>
 
   </ValenceProvider>
 );

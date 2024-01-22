@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { ValenceProvider } from "../../..";
+import { FlexCenter, ValenceProvider } from "../../..";
 
 import { InputContainer as IC } from "./InputContainer";
 import { IconSearch } from "@tabler/icons-react";
@@ -16,7 +16,9 @@ type Story = StoryObj<typeof IC>;
 
 export const InputContainer: Story = (args: any) => (
   <ValenceProvider>
-    <IC {...args} />
+    <FlexCenter>
+      <IC {...args} />
+    </FlexCenter>
   </ValenceProvider>
 );
 InputContainer.args = {

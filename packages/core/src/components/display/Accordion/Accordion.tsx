@@ -1,46 +1,51 @@
 import { CSSProperties, ReactNode, cloneElement, createContext, forwardRef, useContext } from "react";
 import { Flex, FlexProps } from "../../layout";
-import { useBreakpoint } from "../../../hooks";
 import { IconChevronLeft } from "@tabler/icons-react";
 import { Title, TitleProps } from "../Text";
 import { ControlledList } from "../../../hooks/UseControlledList";
 import { UnstyledButton } from "../../buttons";
 import { Spoiler } from "../Spoiler";
-import { getReactiveProp } from "@valence-ui/utils";
 import { Icon } from "../Icon";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
 
-export type AccordionProps = FlexProps & {
-  /** The list of items associated with this accordion */
-  itemList: ControlledList<string>;
+export type AccordionProps =
+  Omit<FlexProps, "children">
+  & {
+    /** The list of items associated with this accordion */
+    itemList: ControlledList<string>;
 
-  children: ReactNode[];
-}
-
-
-export type AccordionItemProps = FlexProps & {
-  /** The value of this accordion item */
-  value: string;
-
-  /** The control to display for this item */
-  control: ReactNode;
-
-  /** Props to apply to the Flex element surrounding the children */
-  flexProps?: FlexProps;
-}
+    children: ReactNode[];
+  }
 
 
-export type AccordionControlProps = FlexProps & {
-  /** The title to display in the control */
-  title: string;
-  /** The icon to display in the control */
-  chevronIcon?: ReactNode;
+export type AccordionItemProps =
+  FlexProps
+  & {
+    /** The value of this accordion item */
+    value: string;
 
-  /** Optional props to pass to the title */
-  titleProps?: TitleProps;
+    /** The control to display for this item */
+    control: ReactNode;
 
-  /** Whether the control is opened */
-  opened?: boolean;
-}
+    /** Props to apply to the Flex element surrounding the children */
+    flexProps?: FlexProps;
+  }
+
+
+export type AccordionControlProps =
+  FlexProps
+  & {
+    /** The title to display in the control */
+    title: string;
+    /** The icon to display in the control */
+    chevronIcon?: ReactNode;
+
+    /** Optional props to pass to the title */
+    titleProps?: TitleProps;
+
+    /** Whether the control is opened */
+    opened?: boolean;
+  }
 
 
 export type AccordionPanelProps = FlexProps & {
@@ -64,7 +69,7 @@ const useAccordionContext = () => {
 
 
 const Accordion = forwardRef(function Accordion(
-  props: AccordionProps,
+  props: MakeResponsive<AccordionProps>,
   ref: any
 ) {
 
@@ -78,7 +83,7 @@ const Accordion = forwardRef(function Accordion(
 
     children,
     ...rest
-  } = props;
+  } = useResponsiveProps<AccordionProps>(props);
 
 
   const newChildren = children.map((child: any) => cloneElement(
@@ -115,7 +120,7 @@ const Accordion = forwardRef(function Accordion(
 
 
 const Item = forwardRef(function AccordionItem(
-  props: AccordionItemProps,
+  props: MakeResponsive<AccordionItemProps>,
   ref: any
 ) {
 
@@ -132,11 +137,10 @@ const Item = forwardRef(function AccordionItem(
     flexProps,
     children,
     ...rest
-  } = props;
+  } = useResponsiveProps<AccordionItemProps>(props);
 
 
   const context = useAccordionContext();
-  const breakpoint = useBreakpoint();
 
   const handleOpen = () => {
     if (context.itemList.includes(value)) context.itemList.remove(value)
@@ -171,7 +175,7 @@ const Item = forwardRef(function AccordionItem(
         show={context.itemList.includes(value)}
       >
         <Flex
-          style={{ marginTop: getReactiveProp(gap, breakpoint) }}
+          style={{ marginTop: gap }}
           {...flexProps}
         >
           {children}
@@ -183,7 +187,7 @@ const Item = forwardRef(function AccordionItem(
 
 
 const Control = forwardRef(function AccordionControl(
-  props: AccordionControlProps,
+  props: MakeResponsive<AccordionControlProps>,
   ref: any
 ) {
   // Defaults
@@ -201,7 +205,7 @@ const Control = forwardRef(function AccordionControl(
 
     children,
     ...rest
-  } = props;
+  } = useResponsiveProps<AccordionControlProps>(props);
 
 
   // Styles
@@ -235,7 +239,7 @@ const Control = forwardRef(function AccordionControl(
 
 
 const Panel = forwardRef(function AccordionPanel(
-  props: AccordionPanelProps,
+  props: MakeResponsive<AccordionPanelProps>,
   ref: any
 ) {
 
@@ -247,7 +251,7 @@ const Panel = forwardRef(function AccordionPanel(
 
     children,
     ...rest
-  } = props;
+  } = useResponsiveProps<AccordionPanelProps>(props);
 
 
   return (

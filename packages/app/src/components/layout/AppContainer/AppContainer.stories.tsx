@@ -1,12 +1,11 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { Button, ButtonWithIcon, Flex, Header, Title, ValenceProvider, useDisclosure } from "@valence-ui/core";
+import { Button, Header, Title, ValenceProvider, useDisclosure } from "@valence-ui/core";
 
 import { AppContainer as AC } from "./AppContainer";
 import { Nav, Sidebar } from "../../navigation";
-import { IconAlertTriangle, IconBolt, IconCategory, IconLock, IconLogout, IconMenu, IconUserCircle } from "@tabler/icons-react";
+import { IconBolt, IconCategory, IconLogout, IconUserCircle } from "@tabler/icons-react";
 import { BrowserRouter } from "react-router-dom";
-import { GridButton } from "../../buttons";
 import { SideSheet } from "../../overlays";
 
 const meta: Meta<typeof AC> = {
@@ -32,13 +31,13 @@ export const AppContainer: Story = (args: any) => {
           >
             Hi there
           </SideSheet>
+
         </AC>
       </ValenceProvider>
     </BrowserRouter>
   )
 };
 AppContainer.args = {
-  sidebarWidth: 300,
   nav:
     <Nav
       buttons={[
@@ -47,6 +46,10 @@ AppContainer.args = {
           children: <IconCategory />,
           highlighted: true,
           to: "/dashboard",
+          show: {
+            default: true,
+            mobile: false,
+          }
         },
         {
           id: "account",
@@ -71,37 +74,10 @@ AppContainer.args = {
     <Header>
       <Title>Page title</Title>
     </Header>,
-  // sidebar:
-  //   <Sidebar>
-  //     <ButtonWithIcon
-  //       icon={<IconAlertTriangle />}
-  //       width="100%"
-  //     >Hi there</ButtonWithIcon>
-  //     <ButtonWithIcon
-  //       icon={<IconLock />}
-  //       width="100%"
-  //     >Security</ButtonWithIcon>
-
-  //     <Flex
-  //       direction="row"
-  //       justify="space-between"
-  //     >
-  //       <GridButton
-  //         icon={<IconAlertTriangle />}
-  //       >
-  //         Hi there
-  //       </GridButton>
-  //       <GridButton
-  //         icon={<IconAlertTriangle />}
-  //       >
-  //         Hi there
-  //       </GridButton>
-  //       <GridButton
-  //         icon={<IconAlertTriangle />}
-  //       >
-  //         Hi there
-  //       </GridButton>
-  //     </Flex>
-  //   </Sidebar>,
-  children: <div>Children</div>
+  sidebar:
+    <Sidebar>
+      <Button width="100%">
+        This is a sidebar!
+      </Button>
+    </Sidebar>,
 };

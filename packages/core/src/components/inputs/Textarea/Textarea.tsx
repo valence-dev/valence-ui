@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { useValence } from "../../../ValenceProvider";
 import { CSSProperties, createRef, forwardRef } from "react";
-import { getTextColor } from "../../buttons";
 import { css } from "@emotion/react";
 import { GenericTextInputEventProps, GenericTextInputProps } from "../../../generics";
 import { InputContainer } from "../InputContainer";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+import { useColors } from "../../../utilities/color";
 
 export type LineWrapBehaviour = "soft" | "hard" | "off";
 export type ResizeBehaviour = "none" | "both" | "horizontal" | "vertical";
@@ -41,10 +42,11 @@ export type TextareaProps =
 
 
 export const Textarea = forwardRef(function Textarea(
-  props: TextareaProps,
+  props: MakeResponsive<TextareaProps>,
   ref: any
 ) {
   const theme = useValence();
+  const { getFgHex } = useColors();
   const inputRef = ref ?? createRef<HTMLTextAreaElement>();
 
 
@@ -59,9 +61,9 @@ export const Textarea = forwardRef(function Textarea(
     autoComplete = false,
     spellCheck = true,
 
-    size = theme.defaultSize,
-    radius = theme.defaultRadius,
-    variant = theme.defaultVariant,
+    size = theme.defaults.size,
+    radius = theme.defaults.radius,
+    variant = theme.defaults.variant,
     grow,
 
     resize = "none",
@@ -89,7 +91,7 @@ export const Textarea = forwardRef(function Textarea(
     style,
     inputStyle,
     ...rest
-  } = props;
+  } = useResponsiveProps<TextareaProps>(props);
 
 
   // Styles
@@ -112,7 +114,7 @@ export const Textarea = forwardRef(function Textarea(
 
     overflowY: "auto",
     background: "none",
-    color: getTextColor(color, variant, theme),
+    color: getFgHex(color, variant),
 
     fontSize: theme.sizeClasses.fontSize[size],
     fontFamily: theme.getFont("default"),
@@ -125,14 +127,8 @@ export const Textarea = forwardRef(function Textarea(
       borderRadius: 5,
     },
     "&::placeholder": {
-      color: `${getTextColor(color, variant, theme)}80`,
+      color: `${getFgHex(color, variant)}80`,
     },
-
-    // Remove awful autofill color
-    "&:-webkit-autofill": { transition: `background-color 5000s ease-in-out 0s` },
-    "&:-webkit-autofill:focus": { transition: `background-color 5000s ease-in-out 0s` },
-    "&:-webkit-autofill:hover": { transition: `background-color 5000s ease-in-out 0s` },
-    "&:-webkit-autofill:active": { transition: `background-color 5000s ease-in-out 0s` },
 
     ...inputStyle
   });

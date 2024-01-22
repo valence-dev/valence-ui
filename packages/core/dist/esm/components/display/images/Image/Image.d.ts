@@ -1,47 +1,32 @@
 /** @jsxImportSource @emotion/react */
 import { CSSProperties, ReactNode } from "react";
-import { ComponentSize, GenericReactiveProps, ReactiveProp } from "@valence-ui/utils";
+import { ComponentSize, GenericProps } from "@valence-ui/utils";
+import { MakeResponsive } from "../../../../utilities/responsive";
 export type GenericImageProps = {
     /** Source URI of this image */
     src: string | ArrayBuffer | undefined;
     /** Alt text for this image */
     alt: string;
-    /** **[REACTIVE]** Sets `object-fit` css property */
-    fit?: ReactiveProp<CSSProperties["objectFit"]>;
-    /** **[REACTIVE]** Sets `object-position` css property */
-    position?: ReactiveProp<CSSProperties["objectPosition"]>;
+    /** Sets `object-fit` css property */
+    fit?: CSSProperties["objectFit"];
+    /** Sets `object-position` css property */
+    position?: CSSProperties["objectPosition"];
 };
-export type ImageProps = GenericImageProps & GenericReactiveProps & {
+export type ImageProps = GenericImageProps & Omit<GenericProps, "children"> & {
     /** Placeholder content for this image */
     placeholder?: ReactNode;
-    /** **[REACTIVE]** Defines the border radius size class of this image. Defaults to the theme default radius size class. */
-    radius?: ReactiveProp<ComponentSize>;
-    /** **[REACTIVE]** Sets `width` css property */
-    width?: ReactiveProp<CSSProperties["width"]>;
-    /** **[REACTIVE]** Sets `height` css property */
-    height?: ReactiveProp<CSSProperties["height"]>;
-    /** **[REACTIVE]** Shorthand for `aspect-ratio = "1/1"` */
-    square?: ReactiveProp<boolean>;
-    /** **[REACTIVE]** Specifies if a shadow will be shown */
-    shadow?: ReactiveProp<boolean>;
-    children?: never;
+    /** Defines the border radius size class of this image. Defaults to the theme default radius size class. */
+    radius?: ComponentSize;
+    /** Sets `width` css property */
+    width?: CSSProperties["width"];
+    /** Sets `height` css property */
+    height?: CSSProperties["height"];
+    /** Shorthand for `aspect-ratio = "1/1"` */
+    square?: boolean;
+    /** Sets `color` css property */
+    color?: CSSProperties["color"];
+    /** Specifies if a shadow will be shown */
+    shadow?: boolean;
 };
-export declare const Image: import("react").ForwardRefExoticComponent<GenericImageProps & import("@valence-ui/utils").GenericProps & {
-    style?: ReactiveProp<CSSProperties> | undefined; /** **[REACTIVE]** Specifies if a shadow will be shown */
-    tabIndex?: ReactiveProp<number> | undefined;
-} & {
-    /** Placeholder content for this image */
-    placeholder?: ReactNode;
-    /** **[REACTIVE]** Defines the border radius size class of this image. Defaults to the theme default radius size class. */
-    radius?: ReactiveProp<ComponentSize> | undefined;
-    /** **[REACTIVE]** Sets `width` css property */
-    width?: ReactiveProp<CSSProperties["width"]>;
-    /** **[REACTIVE]** Sets `height` css property */
-    height?: ReactiveProp<CSSProperties["height"]>;
-    /** **[REACTIVE]** Shorthand for `aspect-ratio = "1/1"` */
-    square?: ReactiveProp<boolean> | undefined;
-    /** **[REACTIVE]** Specifies if a shadow will be shown */
-    shadow?: ReactiveProp<boolean> | undefined;
-    children?: undefined;
-} & import("react").RefAttributes<unknown>>;
+export declare const Image: import("react").ForwardRefExoticComponent<MakeResponsive<ImageProps> & import("react").RefAttributes<unknown>>;
 //# sourceMappingURL=Image.d.ts.map

@@ -26,8 +26,9 @@ const react_3 = require("@floating-ui/react");
 const usehooks_ts_1 = require("usehooks-ts");
 exports.Modal = (0, react_1.forwardRef)(function Modal(props, ref) {
     const theme = (0, __1.useValence)();
+    const { getHex } = (0, __1.useColors)();
     // Defaults
-    const { disclosure, title, header = (props) => (0, jsx_runtime_1.jsx)(exports.DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), closeOnOverlayClick = true, closeOnEscape = true, lockScroll = true, withShadow = true, radius = theme.defaultRadius, backgroundColor = "white", color = "black", padding = theme.sizeClasses.padding[theme.defaultSize], margin, width = 500, height = "fit-content", flexProps, overlayBackgroundProps, children, style } = props, rest = __rest(props, ["disclosure", "title", "header", "closeOnOverlayClick", "closeOnEscape", "lockScroll", "withShadow", "radius", "backgroundColor", "color", "padding", "margin", "width", "height", "flexProps", "overlayBackgroundProps", "children", "style"]);
+    const _a = (0, __1.useResponsiveProps)(props), { disclosure, title, header = (props) => (0, jsx_runtime_1.jsx)(exports.DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), closeOnOverlayClick = true, closeOnEscape = true, lockScroll = true, withShadow = true, radius = theme.defaults.radius, backgroundColor = "white", color = "black", padding = theme.sizeClasses.padding[theme.defaults.size], margin, width = 500, height = "fit-content", flexProps, overlayBackgroundProps, children, style } = _a, rest = __rest(_a, ["disclosure", "title", "header", "closeOnOverlayClick", "closeOnEscape", "lockScroll", "withShadow", "radius", "backgroundColor", "color", "padding", "margin", "width", "height", "flexProps", "overlayBackgroundProps", "children", "style"]);
     // Hooks
     (0, usehooks_ts_1.useLockedBody)(disclosure.opened && lockScroll, "root");
     (0, __1.useDetectKeyDown)(() => disclosure.close(), "Escape", closeOnEscape && disclosure.opened);
@@ -43,12 +44,12 @@ exports.Modal = (0, react_1.forwardRef)(function Modal(props, ref) {
     const labelId = (0, react_3.useId)();
     const descriptionId = (0, react_3.useId)();
     // Styles
-    const ContainerStyle = (0, react_2.css)(Object.assign({ backgroundColor: theme.getColorHex(backgroundColor), color: theme.getColorHex(color), padding: padding, margin: margin, width: width, height: height, borderRadius: theme.sizeClasses.radius[radius], boxShadow: withShadow ? theme.defaultShadow : undefined, boxSizing: "border-box", maxWidth: "100%" }, style));
+    const ContainerStyle = (0, react_2.css)(Object.assign({ backgroundColor: getHex(backgroundColor), color: getHex(color), padding: padding, margin: margin, width: width, height: height, borderRadius: theme.sizeClasses.radius[radius], boxShadow: withShadow ? theme.defaults.shadow : undefined, boxSizing: "border-box", maxWidth: "100%" }, style));
     return ((0, jsx_runtime_1.jsx)(framer_motion_1.AnimatePresence, { children: disclosure.opened &&
             (0, jsx_runtime_1.jsx)(__1.ModalBackground, Object.assign({ disclosure: disclosure }, overlayBackgroundProps, { children: (0, jsx_runtime_1.jsx)(react_3.FloatingFocusManager, { context: context, children: (0, jsx_runtime_1.jsx)(framer_motion_1.motion.div, Object.assign({ css: ContainerStyle, onClick: e => e.stopPropagation(), initial: { opacity: 0, scale: 0.9 }, animate: { opacity: 1, scale: 1 }, exit: { opacity: 0, scale: 0.9 }, transition: { ease: "backOut" }, ref: refs.setFloating, "aria-labelledby": labelId, "aria-describedby": descriptionId }, getFloatingProps(), rest, { children: (0, jsx_runtime_1.jsxs)(layout_1.Flex, Object.assign({ direction: "column", gap: 15 }, flexProps, { children: [header({ title }), children] })) })) }) })) }));
 });
 exports.DefaultModalHeader = (0, react_1.forwardRef)(function DefaultModalHeader(props, ref) {
-    const { title, disclosure } = props;
+    const { title, disclosure } = (0, __1.useResponsiveProps)(props);
     const HeaderStyle = (0, react_2.css)({
         display: "flex",
         alignItems: "center",

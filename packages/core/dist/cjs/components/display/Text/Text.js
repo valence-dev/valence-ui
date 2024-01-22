@@ -22,6 +22,8 @@ const react_string_replace_1 = __importDefault(require("react-string-replace"));
 const utils_1 = require("@valence-ui/utils");
 const ValenceProvider_1 = require("../../../ValenceProvider");
 const react_2 = require("@emotion/react");
+const responsive_1 = require("../../../utilities/responsive");
+const color_1 = require("../../../utilities/color");
 const REGEX_PATTERNS = {
     newline: /(\n)/,
     boldItalic: /\*\*\*(.+?)\*\*\*(?!\*)/,
@@ -42,8 +44,9 @@ const REGEX_PATTERNS = {
  */
 exports.Text = (0, react_1.forwardRef)(function Text(props, ref) {
     const theme = (0, ValenceProvider_1.useValence)();
+    const colors = (0, color_1.useColors)();
     // Defaults
-    const { bold = false, italic = false, monospace = false, family = monospace ? theme.getFont("monospace") : theme.getFont("default"), weight = bold ? "bold" : "normal", align = "left", transform = "none", size = theme.defaultSize, fontSize = theme.sizeClasses.fontSize[size], color = "black", children, style } = props, rest = __rest(props, ["bold", "italic", "monospace", "family", "weight", "align", "transform", "size", "fontSize", "color", "children", "style"]);
+    const _a = (0, responsive_1.useResponsiveProps)(props), { bold = false, italic = false, monospace = false, family = monospace ? theme.getFont("monospace") : theme.getFont("default"), weight = bold ? "bold" : "normal", align = "left", transform = "none", size = theme.defaults.size, fontSize = theme.sizeClasses.fontSize[size], color = "black", children, style } = _a, rest = __rest(_a, ["bold", "italic", "monospace", "family", "weight", "align", "transform", "size", "fontSize", "color", "children", "style"]);
     // Run through formatters
     let replacements = children;
     replacements = (0, react_string_replace_1.default)(replacements, REGEX_PATTERNS.newline, (match, i) => ((0, jsx_runtime_1.jsx)("br", {}, match + i)));
@@ -61,6 +64,6 @@ exports.Text = (0, react_1.forwardRef)(function Text(props, ref) {
             fontFamily: theme.getFont("monospace"),
         }, children: match }, match + i)));
     // Styles
-    const TextStyle = (0, react_2.css)(Object.assign({ fontFamily: family, fontWeight: weight, fontStyle: italic ? "italic" : "normal", fontSize: fontSize, textTransform: transform, textAlign: align, color: theme.getColorHex(color), margin: 0 }, style));
+    const TextStyle = (0, react_2.css)(Object.assign({ fontFamily: family, fontWeight: weight, fontStyle: italic ? "italic" : "normal", fontSize: fontSize, textTransform: transform, textAlign: align, color: colors.getHex(color), margin: 0 }, style));
     return ((0, jsx_runtime_1.jsx)(utils_1.PolymorphicText, Object.assign({ css: TextStyle, ref: ref }, rest, { children: replacements })));
 });

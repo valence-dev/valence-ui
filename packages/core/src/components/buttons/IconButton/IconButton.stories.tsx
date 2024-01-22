@@ -54,7 +54,7 @@ type Story = StoryObj<typeof IB>;
 
 export const Icon: Story = (args: any) => (
   <ValenceProvider>
-    <Flex>
+    <Flex center height="100vh">
       <IB {...args} size="xs" />
       <IB {...args} size="sm" />
       <IB {...args} size="md" />

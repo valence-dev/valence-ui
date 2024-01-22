@@ -21,6 +21,7 @@ export const OutlineContainer: Story = (args: any) => {
       <ValenceProvider>
         <OC
           {...args}
+          sticky={false}
         >
           <TextInput
             value={inputValue}
@@ -29,12 +30,6 @@ export const OutlineContainer: Story = (args: any) => {
             variant="subtle"
           />
         </OC>
-
-        <TextInput
-          value={inputValue}
-          setValue={setInputValue}
-          placeholder="Type here..."
-        />
       </ValenceProvider>
     </div>
   );

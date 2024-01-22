@@ -6,25 +6,29 @@ import { ReactNode, forwardRef, useState } from "react";
 import { Button, IconButton, IconButtonProps, TextButtonProps } from "../../buttons";
 import { Flex, FlexProps } from "../../layout";
 import { useValence } from "../../../ValenceProvider";
-import { IconX } from "@tabler/icons-react";
+import { IconPlus, IconX } from "@tabler/icons-react";
 import { CSSProperties } from "styled-components";
-import { Icon } from "../../display";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+import { useColors } from "../../../utilities/color";
+import { TextInput, TextInputProps } from "../TextInput";
 
 export type PillSelectorEventProps =
   MouseClickEvents & MouseEvents & PointerEvents & FocusEvents & KeyboardEvents
   & {
-    /** Callback to be called when a pill is selected. */
+    /** Callback to be fired when a pill is selected. */
     onPillSelected?: (value: string) => void;
-    /** Callback to be called when a pill is deselected. */
+    /** Callback to be fired when a pill is deselected. */
     onPillDeselected?: (value: string) => void;
   }
 
 export type PillSelectorProps =
-  GenericInputProps<string[]>
+  Omit<GenericInputProps<string[]>, "childre">
   & PillSelectorEventProps
   & {
     /** A list of pills to display */
     pills: string[];
+    /** Optional callback to complete the state */
+    setPills?: (pills: string[]) => void;
 
     /** Whether to allow pills to be cleared. `true` by default. */
     allowClear?: boolean;
@@ -33,30 +37,44 @@ export type PillSelectorProps =
     /** Sets the gaps between everything. `5` by default */
     gap?: number;
 
+    /** How the pills should wrap within their container. Defaults to `"nowrap"`. */
+    wrap?: CSSProperties["flexWrap"];
+
     /** The maxmimum number of pills that can be selected. `Infinity` by default. */
     maxSelectable?: number;
 
     /** An icon to use for the clear button. Defaults to `IconX`. */
     clearButtonIcon?: ReactNode;
     /** Optional props to pass to the clear button */
-    clearButtonProps?: IconButtonProps & { children?: never };
+    clearButtonProps?: Omit<IconButtonProps, "children">;
 
     /** Optional props to pass to all pills */
-    pillProps?: TextButtonProps & { children?: never };
-    /** Optional props to pass to selected pills. Will override attributes from pillProps */
-    selectedPillProps?: TextButtonProps & { children?: never };
+    pillProps?: Omit<TextButtonProps, "children">;
+    /** Optional props to pass to selected pills. Will override attributes from `pillProps` */
+    selectedPillProps?: Omit<TextButtonProps, "children">;
     /** Optional props to pass to the pill container */
-    pillContainerProps?: FlexProps & { children?: never };
+    pillContainerProps?: Omit<FlexProps, "children">;
 
-    children?: never;
+
+    /** Whether to allow the creation of new pills. */
+    allowEditing?: boolean;
+    /** Placeholder text to display in the Text input. Will only show if `allowEditing = true`. */
+    placeholder?: string;
+    /** Optional styles to pass to the Text input. */
+    inputProps?: Omit<TextInputProps, "value" | "setValue">;
+    /** Optional props to pass to the add button */
+    addButtonProps?: Omit<IconButtonProps, "children">;
+    /** Optional icon to use for the add button */
+    addButtonIcon?: ReactNode;
   }
 
 
 export const PillSelector = forwardRef(function PillSelector(
-  props: PillSelectorProps,
+  props: MakeResponsive<PillSelectorProps>,
   ref: any,
 ) {
   const theme = useValence();
+  const { getHex } = useColors();
 
 
   // Defaults
@@ -64,7 +82,8 @@ export const PillSelector = forwardRef(function PillSelector(
     value,
     setValue,
 
-    pills,
+    pills: _pills,
+    setPills: _setPills,
     allowClear = true,
     gap = 5,
 
@@ -73,13 +92,23 @@ export const PillSelector = forwardRef(function PillSelector(
     clearButtonIcon = <IconX />,
     clearButtonProps,
 
+    wrap = "nowrap",
+
     pillProps,
     selectedPillProps = pillProps,
     pillContainerProps,
 
-    size = theme.defaultSize,
-    radius = theme.defaultRadius,
-    variant = theme.defaultVariant,
+
+    allowEditing = false,
+    placeholder = "Add a pill...",
+    inputProps,
+    addButtonProps,
+    addButtonIcon = <IconPlus />,
+
+
+    size = theme.defaults.size,
+    radius = theme.defaults.radius,
+    variant = theme.defaults.variant,
 
     loading,
     autoFocus,
@@ -91,7 +120,7 @@ export const PillSelector = forwardRef(function PillSelector(
     backgroundColor = color,
     padding,
     margin,
-    width,
+    width = "100%",
     height = "auto",
     grow = true,
 
@@ -100,7 +129,7 @@ export const PillSelector = forwardRef(function PillSelector(
 
     style,
     ...rest
-  } = props;
+  } = useResponsiveProps<PillSelectorProps>(props);
 
   const {
     style: pillContainerStyle,
@@ -114,7 +143,12 @@ export const PillSelector = forwardRef(function PillSelector(
 
 
   // States
-  const [pillList, setPillList] = useState<string[]>(sortPills(pills));
+  const [__pills, __setPills] = useState<string[]>([]);
+  const pills = sortPills(_pills ?? __pills);
+  const setPills = _setPills ?? __setPills;
+
+  const [inputValue, setInputValue] = useState("");
+  const [newPills, setNewPills] = useState<string[]>([]);
 
 
   // Functions
@@ -126,20 +160,54 @@ export const PillSelector = forwardRef(function PillSelector(
 
   function handlePillClick(pill: string) {
     let v = [...value];
+    let pillList = [...pills];
     if (value.includes(pill)) {
       onPillDeselected?.(pill);
       v = value.filter(v => v !== pill);
+      pillList = removePill(pill);
     } else {
       onPillSelected?.(pill);
       v = [...value, pill];
     }
 
-    setPillList(sortPills(pillList, v));
+    setPills(sortPills(pillList, v));
     setValue(v);
   }
   function handleClearPills() {
     setValue([]);
-    setPillList(sortPills(pillList, []));
+    setPills(sortPills(pills, []));
+  }
+
+
+  // Input functions
+  function addPill() {
+    if (inputValue === "") return;
+
+    if (value.length >= maxSelectable) return;
+    if (value.includes(inputValue)) return setInputValue("");
+    if (pills.includes(inputValue)) {
+      handlePillClick(inputValue);
+      setInputValue("");
+      return;
+    }
+
+    const newValue = [...value, inputValue];
+    const newPillList = sortPills([...pills, inputValue], newValue);
+    setPills(newPillList);
+    setValue(newValue);
+
+    setNewPills([...newPills, inputValue]);
+
+    setInputValue("");
+  }
+  function removePill(pill: string): string[] {
+    // If the pill has been removed and it is on the new pill list,
+    // delete it from the new pill list and the pill list
+    if (newPills.includes(pill)) {
+      setNewPills(newPills.filter(p => p !== pill));
+      return pills.filter(p => p !== pill);
+    }
+    return pills;
   }
 
 
@@ -151,6 +219,8 @@ export const PillSelector = forwardRef(function PillSelector(
     height: height,
     flexGrow: grow ? 1 : undefined,
 
+    alignItems: "center",
+
     ...style,
   };
   const PillContainerStyle = css({
@@ -158,15 +228,17 @@ export const PillSelector = forwardRef(function PillSelector(
     overflowX: "auto",
     width: "100%",
 
+    flexWrap: wrap,
+
     "&::-webkit-scrollbar": {
       height: 2,
     },
     "&::-webkit-scrollbar-thumb": {
-      backgroundColor: theme.getColorHex(color, "medium"),
+      backgroundColor: getHex(color, "medium"),
       borderRadius: 5,
     },
     "&::-webkit-scrollbar-thumb:hover": {
-      backgroundColor: theme.getColorHex(color, "strong"),
+      backgroundColor: getHex(color, "strong"),
       borderRadius: 5,
     },
 
@@ -181,53 +253,99 @@ export const PillSelector = forwardRef(function PillSelector(
 
   return (
     <Flex
-      style={ContainerStyle}
+      direction="column"
       gap={gap}
+      style={ContainerStyle}
       ref={ref}
       {...rest}
     >
+      {allowEditing &&
+        <Flex
+          width="100%"
+          gap={gap}
+        >
+          <TextInput
+            value={inputValue}
+            setValue={setInputValue}
+            onEnterPress={() => addPill()}
+
+            placeholder={placeholder}
+
+            variant={variant}
+            size={size}
+            radius={radius}
+            color={color}
+            backgroundColor={backgroundColor}
+
+            loading={loading}
+            disabled={disabled}
+            readOnly={readOnly}
+            required={required}
+
+            {...inputProps}
+          />
+
+          <IconButton
+            size={size}
+            radius={radius}
+            color={color}
+            variant="subtle"
+            onClick={() => addPill()}
+            {...addButtonProps}
+          >
+            {addButtonIcon}
+          </IconButton>
+        </Flex>
+      }
       <Flex
         gap={gap}
-        css={PillContainerStyle}
-        {...pillContainerPropsRest}
+        width="100%"
+        height="fit-content"
+        align="center"
       >
-        {pillList.map((pill, index) => {
-          const isSelected = value.includes(pill);
+        <Flex
+          gap={gap}
+          css={PillContainerStyle}
+          {...pillContainerPropsRest}
+        >
+          {pills.map((pill, index) => {
+            const isSelected = value.includes(pill);
 
-          return (
-            <Button
-              key={index}
+            return (
+              <Button
+                key={index}
 
-              size={size}
-              radius={radius}
-              variant={isSelected ?
-                variant === "filled" ? "light" : "filled"
-                : variant
-              }
-              color={color}
+                size={size}
+                radius={radius}
+                variant={isSelected ?
+                  variant === "filled" ? "light" : "filled"
+                  : variant
+                }
+                color={color}
 
-              onClick={() => handlePillClick(pill)}
+                onClick={() => handlePillClick(pill)}
 
-              {...pillProps}
-              {...(isSelected ? selectedPillProps : undefined)}
-            >
-              {pill}
-            </Button>
-          )
-        })}
+                {...pillProps}
+                {...(isSelected ? selectedPillProps : undefined)}
+              >
+                {pill}
+              </Button>
+            )
+          })}
+        </Flex>
+
+        <IconButton
+          size={size}
+          radius={radius}
+          color={color}
+          variant="subtle"
+          onClick={() => handleClearPills()}
+          style={ButtonStyle}
+          {...clearButtonPropsRest}
+        >
+          {clearButtonIcon}
+        </IconButton>
       </Flex>
-
-      <IconButton
-        size={size}
-        radius={radius}
-        color={color}
-        variant="subtle"
-        onClick={() => handleClearPills()}
-        style={ButtonStyle}
-        {...clearButtonPropsRest}
-      >
-        {clearButtonIcon}
-      </IconButton>
     </Flex>
   )
 });

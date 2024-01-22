@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { CSSProperties, ReactNode, createRef, forwardRef } from "react";
 import { InputContainer } from "../InputContainer";
-import { GenericInputProps, GenericTextInputEventProps, useValence } from "../../..";
-import { IconButton, getTextColor } from "../../buttons";
+import { GenericInputProps, GenericTextInputEventProps, MakeResponsive, useColors, useResponsiveProps, useValence } from "../../..";
+import { IconButton } from "../../buttons";
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 import { css } from "@emotion/react";
 
@@ -19,7 +19,7 @@ export type NumberInputProps =
     min?: number;
     /** The maximum value of this input */
     max?: number;
-    /** The step value of this input. Defaults to 1 */
+    /** The step value of this input. Defaults to `1` */
     step?: number;
 
     /** Whether the stepper controls are shown */
@@ -35,15 +35,15 @@ export type NumberInputProps =
 
     /** Optional styles to apply to the input component */
     inputStyle?: CSSProperties;
-    children?: never;
   }
 
 
 export const NumberInput = forwardRef(function NumberInput(
-  props: NumberInputProps,
+  props: MakeResponsive<NumberInputProps>,
   ref: any
 ) {
   const theme = useValence();
+  const { getFgHex } = useColors();
   const inputRef = ref ?? createRef<HTMLInputElement>();
 
 
@@ -63,9 +63,9 @@ export const NumberInput = forwardRef(function NumberInput(
     },
     showControls = true,
 
-    size = theme.defaultSize,
-    radius = theme.defaultRadius,
-    variant = theme.defaultVariant,
+    size = theme.defaults.size,
+    radius = theme.defaults.radius,
+    variant = theme.defaults.variant,
     grow,
 
     loading,
@@ -87,7 +87,7 @@ export const NumberInput = forwardRef(function NumberInput(
     inputStyle,
     style,
     ...rest
-  } = props;
+  } = useResponsiveProps<NumberInputProps>(props);
 
 
   // Styles
@@ -105,10 +105,10 @@ export const NumberInput = forwardRef(function NumberInput(
 
     fontSize: theme.sizeClasses.fontSize[size],
     fontFamily: theme.getFont("default"),
-    color: getTextColor(color, variant, theme),
+    color: getFgHex(color, variant),
 
     "&::placeholder": {
-      color: `${getTextColor(color, variant, theme)}80`,
+      color: `${getFgHex(color, variant)}80`,
     },
 
     // Remove awful autofill color
