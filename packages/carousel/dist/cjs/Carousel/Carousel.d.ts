@@ -1,6 +1,6 @@
 import { FlexProps, IconButtonProps, MakeResponsive } from "@valence-ui/core";
 import React, { ReactNode } from "react";
-export type CarouselProps = FlexProps & {
+export type CarouselProps = Omit<FlexProps, "children"> & {
     /** Whether to allow the carousel content to be dragged on desktop. `true` on desktop devices by default. */
     allowDrag?: boolean;
     /** Whether to show the horizontal scrollbar. `false` by default. */
