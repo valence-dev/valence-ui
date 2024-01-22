@@ -16,7 +16,7 @@ import { forwardRef, useState } from "react";
 import { Button, IconButton } from "../../buttons";
 import { Flex } from "../../layout";
 import { useValence } from "../../../ValenceProvider";
-import { IconX } from "@tabler/icons-react";
+import { IconPlus, IconX } from "@tabler/icons-react";
 import { useResponsiveProps } from "../../../utilities/responsive";
 import { useColors } from "../../../utilities/color";
 import { TextInput } from "../TextInput";
@@ -24,7 +24,7 @@ export const PillSelector = forwardRef(function PillSelector(props, ref) {
     const theme = useValence();
     const { getHex } = useColors();
     // Defaults
-    const _a = useResponsiveProps(props), { value, setValue, pills: _pills, setPills: _setPills, allowClear = true, gap = 5, maxSelectable = Infinity, clearButtonIcon = _jsx(IconX, {}), clearButtonProps, wrap = "nowrap", pillProps, selectedPillProps = pillProps, pillContainerProps, allowEditing = false, placeholder = "Add a pill...", inputProps, size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, loading, autoFocus, disabled, readOnly = disabled, required, color = "black", backgroundColor = color, padding, margin, width = "100%", height = "auto", grow = true, onPillSelected, onPillDeselected, style } = _a, rest = __rest(_a, ["value", "setValue", "pills", "setPills", "allowClear", "gap", "maxSelectable", "clearButtonIcon", "clearButtonProps", "wrap", "pillProps", "selectedPillProps", "pillContainerProps", "allowEditing", "placeholder", "inputProps", "size", "radius", "variant", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "grow", "onPillSelected", "onPillDeselected", "style"]);
+    const _a = useResponsiveProps(props), { value, setValue, pills: _pills, setPills: _setPills, allowClear = true, gap = 5, maxSelectable = Infinity, clearButtonIcon = _jsx(IconX, {}), clearButtonProps, wrap = "nowrap", pillProps, selectedPillProps = pillProps, pillContainerProps, allowEditing = false, placeholder = "Add a pill...", inputProps, addButtonProps, addButtonIcon = _jsx(IconPlus, {}), size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, loading, autoFocus, disabled, readOnly = disabled, required, color = "black", backgroundColor = color, padding, margin, width = "100%", height = "auto", grow = true, onPillSelected, onPillDeselected, style } = _a, rest = __rest(_a, ["value", "setValue", "pills", "setPills", "allowClear", "gap", "maxSelectable", "clearButtonIcon", "clearButtonProps", "wrap", "pillProps", "selectedPillProps", "pillContainerProps", "allowEditing", "placeholder", "inputProps", "addButtonProps", "addButtonIcon", "size", "radius", "variant", "loading", "autoFocus", "disabled", "readOnly", "required", "color", "backgroundColor", "padding", "margin", "width", "height", "grow", "onPillSelected", "onPillDeselected", "style"]);
     const _b = pillContainerProps !== null && pillContainerProps !== void 0 ? pillContainerProps : {}, { style: pillContainerStyle } = _b, pillContainerPropsRest = __rest(_b, ["style"]);
     const _c = clearButtonProps !== null && clearButtonProps !== void 0 ? clearButtonProps : {}, { style: clearButtonStyle } = _c, clearButtonPropsRest = __rest(_c, ["style"]);
     // States
@@ -79,7 +79,6 @@ export const PillSelector = forwardRef(function PillSelector(props, ref) {
         setInputValue("");
     }
     function removePill(pill) {
-        console.log(pill, newPills);
         // If the pill has been removed and it is on the new pill list,
         // delete it from the new pill list and the pill list
         if (newPills.includes(pill)) {
@@ -100,11 +99,11 @@ export const PillSelector = forwardRef(function PillSelector(props, ref) {
             borderRadius: 5,
         } }, pillContainerStyle));
     const ButtonStyle = Object.assign({ margin: `${gap}px 0px` }, clearButtonStyle);
-    return (_jsxs(Flex, Object.assign({ style: ContainerStyle, gap: gap, ref: ref }, rest, { children: [_jsxs(Flex, Object.assign({ gap: gap, css: PillContainerStyle }, pillContainerPropsRest, { children: [allowEditing && wrap === "wrap" &&
-                        _jsx(TextInput, Object.assign({ value: inputValue, setValue: setInputValue, onEnterPress: () => addPill(), placeholder: placeholder, variant: variant, size: size, radius: radius, color: color, backgroundColor: backgroundColor, loading: loading, disabled: disabled, readOnly: readOnly, required: required }, inputProps)), pills.map((pill, index) => {
-                        const isSelected = value.includes(pill);
-                        return (_jsx(Button, Object.assign({ size: size, radius: radius, variant: isSelected ?
-                                variant === "filled" ? "light" : "filled"
-                                : variant, color: color, onClick: () => handlePillClick(pill) }, pillProps, (isSelected ? selectedPillProps : undefined), { children: pill }), index));
-                    })] })), _jsx(IconButton, Object.assign({ size: size, radius: radius, color: color, variant: "subtle", onClick: () => handleClearPills(), style: ButtonStyle }, clearButtonPropsRest, { children: clearButtonIcon }))] })));
+    return (_jsxs(Flex, Object.assign({ direction: "column", gap: gap, style: ContainerStyle, ref: ref }, rest, { children: [allowEditing &&
+                _jsxs(Flex, { width: "100%", gap: gap, children: [_jsx(TextInput, Object.assign({ value: inputValue, setValue: setInputValue, onEnterPress: () => addPill(), placeholder: placeholder, variant: variant, size: size, radius: radius, color: color, backgroundColor: backgroundColor, loading: loading, disabled: disabled, readOnly: readOnly, required: required }, inputProps)), _jsx(IconButton, Object.assign({ size: size, radius: radius, color: color, variant: "subtle", onClick: () => addPill() }, addButtonProps, { children: addButtonIcon }))] }), _jsxs(Flex, { gap: gap, width: "100%", height: "fit-content", align: "center", children: [_jsx(Flex, Object.assign({ gap: gap, css: PillContainerStyle }, pillContainerPropsRest, { children: pills.map((pill, index) => {
+                            const isSelected = value.includes(pill);
+                            return (_jsx(Button, Object.assign({ size: size, radius: radius, variant: isSelected ?
+                                    variant === "filled" ? "light" : "filled"
+                                    : variant, color: color, onClick: () => handlePillClick(pill) }, pillProps, (isSelected ? selectedPillProps : undefined), { children: pill }), index));
+                        }) })), _jsx(IconButton, Object.assign({ size: size, radius: radius, color: color, variant: "subtle", onClick: () => handleClearPills(), style: ButtonStyle }, clearButtonPropsRest, { children: clearButtonIcon }))] })] })));
 });

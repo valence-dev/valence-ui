@@ -27,7 +27,7 @@ function interpolateHeight(max, min, scrollY) {
 exports.Header = (0, react_1.forwardRef)(function Header(props, ref) {
     const { getHex } = (0, __1.useColors)();
     // Defaults
-    const _a = (0, __1.useResponsiveProps)(props), { height: headerHeight = (0, __1.useResponsiveProp)({ default: 100, mobile: 150 }), compactHeight = 75, position = (0, __1.useResponsiveProp)({ default: "relative", mobile: "sticky" }), compact = (0, __1.useResponsiveProp)({ default: false, mobile: true }), backgroundColor = "white", children, style } = _a, rest = __rest(_a, ["height", "compactHeight", "position", "compact", "backgroundColor", "children", "style"]);
+    const _a = (0, __1.useResponsiveProps)(props), { height: headerHeight = (0, __1.useResponsiveProps)({ default: 100, mobile: 150 }), compactHeight = 75, position = (0, __1.useResponsiveProps)({ default: "relative", mobile: "sticky" }), compact = (0, __1.useResponsiveProps)({ default: false, mobile: true }), backgroundColor = "white", children, style } = _a, rest = __rest(_a, ["height", "compactHeight", "position", "compact", "backgroundColor", "children", "style"]);
     // Hooks & States
     const [height, setHeight] = (0, react_1.useState)(headerHeight);
     // Scroll listener

@@ -16,14 +16,14 @@ export declare const FlexCenter: import("react").ForwardRefExoticComponent<impor
 } & import("@valence-ui/utils").PolymorphicElementProps & {
     css?: any;
 } & {
-    center?: boolean | undefined;
     direction?: import("csstype").Property.FlexDirection | undefined;
     align?: import("csstype").Property.AlignItems | undefined;
     justify?: import("csstype").Property.JustifyContent | undefined;
     alignSelf?: import("csstype").Property.AlignSelf | undefined;
     gap?: import("csstype").Property.Gap<string | number> | undefined;
-    grow?: boolean | undefined;
     wrap?: import("csstype").Property.FlexWrap | undefined;
+    grow?: boolean | undefined;
+    center?: boolean | undefined;
 } & {
     /** Width of the inner Flex component. Defaults to `50%`. */
     innerWidth?: FlexProps["width"];

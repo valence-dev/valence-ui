@@ -31,7 +31,7 @@ export type TextProps =
     /** Sets `text-align` css property */
     align?: CSSProperties["textAlign"];
     /** Sets `text-transform` css property */
-    transform?: React.CSSProperties["textTransform"];
+    transform?: CSSProperties["textTransform"];
 
     /** Sets the size of the text */
     size?: ComponentSize;

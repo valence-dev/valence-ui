@@ -7,7 +7,7 @@ export type SelectInputEventProps = GenericTextInputEventProps & {
     /** Callback to be called when an option is selected. */
     onSelect?: (value: Option | null) => void;
 };
-export type SelectInputProps = GenericInputProps<Option | null> & SelectInputEventProps & {
+export type SelectInputProps = Omit<GenericInputProps<Option | null>, "children"> & SelectInputEventProps & {
     /** A list of options to supply for the content of this input */
     options: Option[];
     /** An icon to display at the left side of this input */
@@ -20,7 +20,6 @@ export type SelectInputProps = GenericInputProps<Option | null> & SelectInputEve
     grow?: boolean;
     /** Optional styles to apply to the dropdown container */
     dropdownStyle?: CSSProperties;
-    children?: never;
 };
 export type SelectDropdownProps = GenericLayoutProps & {
     /** Whether to include a shadow */

@@ -18,7 +18,10 @@ function CssOverride() {
             height: "100vh",
             overflowX: "hidden",
             backgroundColor: getHex("white"),
+            // Stop blue highlighting
+            "-webkit-tap-highlight-color": "transparent",
         },
+        // Autofill styling
         "input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active": {
             transition: "background-color 5000s ease-in-out 0s",
         },

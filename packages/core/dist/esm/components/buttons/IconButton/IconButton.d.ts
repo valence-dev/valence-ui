@@ -7,6 +7,7 @@ export type IconButtonProps = PrimitiveButtonProps & {
     tooltip?: string;
     /** Optional props to pass to the tooltip. */
     tooltipProps?: Omit<TooltipProps, "children">;
+    /** Additional props to pass to the content sub-component of the tooltip. */
     tooltipContentProps?: Omit<TooltipContentProps, "children">;
 };
 export declare const IconButton: import("react").ForwardRefExoticComponent<MakeResponsive<IconButtonProps> & import("react").RefAttributes<unknown>>;

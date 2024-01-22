@@ -2,7 +2,7 @@
 import { PrimitiveButtonProps } from "../PrimitiveButton";
 import { TextProps } from "../../display";
 import { MakeResponsive } from "../../../utilities/responsive";
-export type TextButtonProps = PrimitiveButtonProps & {
+export type TextButtonProps = Omit<PrimitiveButtonProps, "children"> & {
     /** Children of this component. */
     children?: string;
     /** Properties to apply to the `Text` component. */

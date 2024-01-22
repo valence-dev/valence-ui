@@ -23,7 +23,7 @@ exports.OutlineContainer = (0, react_1.forwardRef)(function OutlineContainer(pro
     const theme = (0, ValenceProvider_1.useValence)();
     const { getHex } = (0, color_1.useColors)();
     // Defaults
-    const _a = (0, responsive_1.useResponsiveProps)(props), { sticky = true, label, labelProps, spacing = 5, radius = theme.defaults.radius, position = sticky ? "sticky" : "relative", zIndex = sticky ? 151 : undefined, top = (0, responsive_1.useResponsiveProp)(sticky ? { default: spacing * 2, mobile: 75 } : undefined), left = sticky ? spacing * 2 : undefined, right = sticky ? spacing * 2 : undefined, bottom, width = "100%", height, color = "black", children, style } = _a, rest = __rest(_a, ["sticky", "label", "labelProps", "spacing", "radius", "position", "zIndex", "top", "left", "right", "bottom", "width", "height", "color", "children", "style"]);
+    const _a = (0, responsive_1.useResponsiveProps)(props), { sticky = true, label, labelProps, spacing = 5, radius = theme.defaults.radius, position = sticky ? "sticky" : "relative", zIndex = sticky ? 151 : undefined, top = (0, responsive_1.useResponsiveProps)(sticky ? { default: spacing * 2, mobile: 75 } : undefined), left = sticky ? spacing * 2 : undefined, right = sticky ? spacing * 2 : undefined, bottom, width = "100%", height, color = "black", children, style } = _a, rest = __rest(_a, ["sticky", "label", "labelProps", "spacing", "radius", "position", "zIndex", "top", "left", "right", "bottom", "width", "height", "color", "children", "style"]);
     const _b = labelProps || {}, { style: labelStyle } = _b, labelRest = __rest(_b, ["style"]);
     // Styles
     const OuterFlexStyle = {

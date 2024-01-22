@@ -1,5 +1,5 @@
 import { CSSProperties, forwardRef } from "react";
-import { Flex, IconButton, IconButtonProps, MakeResponsive, PrimitiveButton, PrimitiveButtonProps, Responsive, Space, useBreakpoint, useResponsiveProp, useResponsiveProps } from "@valence-ui/core";
+import { Flex, IconButton, IconButtonProps, MakeResponsive, PrimitiveButton, PrimitiveButtonProps, Responsive, Space, useBreakpoint,  useResponsiveProps } from "@valence-ui/core";
 import { GenericLayoutProps, PolymorphicLayoutProps } from "@valence-ui/utils";
 
 export type NavButtonProps = IconButtonProps & {
@@ -114,7 +114,7 @@ export const Nav = forwardRef(function Nav(
           ...rest
         } = b;
 
-        if (!useResponsiveProp(show)) return (<></>);
+        if (!useResponsiveProps(show)) return (<></>);
 
         return (
           <IconButton
@@ -144,7 +144,7 @@ export const Nav = forwardRef(function Nav(
           ...rest 
         } = b;
 
-        if (!useResponsiveProp(show)) return (<></>);
+        if (!useResponsiveProps(show)) return (<></>);
 
         return (
           <IconButton

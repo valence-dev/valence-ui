@@ -9,8 +9,6 @@ import { MakeResponsive, useResponsiveProps } from "../../../../utilities/respon
 import { useColors } from "../../../../utilities/color";
 
 export type AvatarProps = ImageProps & {
-  /** Placeholder icon for this avatar */
-  placeholderIcon?: ReactNode;
   /** Placeholder color for this avatar */
   placeholderColor?: CSSProperties["color"];
   /** Defines the fill variant for this avatar. Defaults to theme default fill variant */
@@ -28,7 +26,6 @@ export const Avatar = forwardRef(function Avatar(
 
   // Defaults
   const {
-    placeholderIcon,
     placeholderColor = theme.primaryColor,
     variant = theme.defaults.variant,
     placeholder = <IconUserCircle />,

@@ -8,38 +8,44 @@ import { Spoiler } from "../Spoiler";
 import { Icon } from "../Icon";
 import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
 
-export type AccordionProps = FlexProps & {
-  /** The list of items associated with this accordion */
-  itemList: ControlledList<string>;
+export type AccordionProps =
+  Omit<FlexProps, "children">
+  & {
+    /** The list of items associated with this accordion */
+    itemList: ControlledList<string>;
 
-  children: ReactNode[];
-}
-
-
-export type AccordionItemProps = FlexProps & {
-  /** The value of this accordion item */
-  value: string;
-
-  /** The control to display for this item */
-  control: ReactNode;
-
-  /** Props to apply to the Flex element surrounding the children */
-  flexProps?: FlexProps;
-}
+    children: ReactNode[];
+  }
 
 
-export type AccordionControlProps = FlexProps & {
-  /** The title to display in the control */
-  title: string;
-  /** The icon to display in the control */
-  chevronIcon?: ReactNode;
+export type AccordionItemProps =
+  FlexProps
+  & {
+    /** The value of this accordion item */
+    value: string;
 
-  /** Optional props to pass to the title */
-  titleProps?: TitleProps;
+    /** The control to display for this item */
+    control: ReactNode;
 
-  /** Whether the control is opened */
-  opened?: boolean;
-}
+    /** Props to apply to the Flex element surrounding the children */
+    flexProps?: FlexProps;
+  }
+
+
+export type AccordionControlProps =
+  FlexProps
+  & {
+    /** The title to display in the control */
+    title: string;
+    /** The icon to display in the control */
+    chevronIcon?: ReactNode;
+
+    /** Optional props to pass to the title */
+    titleProps?: TitleProps;
+
+    /** Whether the control is opened */
+    opened?: boolean;
+  }
 
 
 export type AccordionPanelProps = FlexProps & {

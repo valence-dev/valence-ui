@@ -12,7 +12,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { jsx as _jsx } from "react/jsx-runtime";
 import { forwardRef, useState } from "react";
 import { Flex } from "../Flex";
-import { useColors, useResponsiveProp, useResponsiveProps } from "../../..";
+import { useColors, useResponsiveProps } from "../../..";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 function interpolateHeight(max, min, scrollY) {
     return Math.max(max + scrollY, min);
@@ -24,7 +24,7 @@ function interpolateHeight(max, min, scrollY) {
 export const Header = forwardRef(function Header(props, ref) {
     const { getHex } = useColors();
     // Defaults
-    const _a = useResponsiveProps(props), { height: headerHeight = useResponsiveProp({ default: 100, mobile: 150 }), compactHeight = 75, position = useResponsiveProp({ default: "relative", mobile: "sticky" }), compact = useResponsiveProp({ default: false, mobile: true }), backgroundColor = "white", children, style } = _a, rest = __rest(_a, ["height", "compactHeight", "position", "compact", "backgroundColor", "children", "style"]);
+    const _a = useResponsiveProps(props), { height: headerHeight = useResponsiveProps({ default: 100, mobile: 150 }), compactHeight = 75, position = useResponsiveProps({ default: "relative", mobile: "sticky" }), compact = useResponsiveProps({ default: false, mobile: true }), backgroundColor = "white", children, style } = _a, rest = __rest(_a, ["height", "compactHeight", "position", "compact", "backgroundColor", "children", "style"]);
     // Hooks & States
     const [height, setHeight] = useState(headerHeight);
     // Scroll listener

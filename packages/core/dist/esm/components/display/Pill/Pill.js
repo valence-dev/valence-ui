@@ -15,7 +15,6 @@ import { forwardRef } from "react";
 import { useValence } from "../../../ValenceProvider";
 import { IconX } from "@tabler/icons-react";
 import { Text } from "../Text";
-import { Icon } from "../Icon";
 import { useResponsiveProps } from "../../../utilities/responsive";
 import { useColors } from "../../../utilities/color";
 const SIZES = {
@@ -29,7 +28,7 @@ export const Pill = forwardRef(function Pill(props, ref) {
     const theme = useValence();
     const colors = useColors();
     // Defaults
-    const _a = useResponsiveProps(props), { size = theme.defaults.size, radius = "xl", variant = theme.defaults.variant, withRemoveButton = false, removeButtonIcon = _jsx(Icon, { children: _jsx(IconX, {}) }), removeButtonProps, onRemove, textProps, color = "black", backgroundColor = color, padding = SIZES[size].paddingVertical + "px " + SIZES[size].paddingHorizontal + "px", margin, width = "fit-content", height, onClick, style, children } = _a, rest = __rest(_a, ["size", "radius", "variant", "withRemoveButton", "removeButtonIcon", "removeButtonProps", "onRemove", "textProps", "color", "backgroundColor", "padding", "margin", "width", "height", "onClick", "style", "children"]);
+    const _a = useResponsiveProps(props), { size = theme.defaults.size, radius = "xl", variant = theme.defaults.variant, withRemoveButton = false, removeButtonIcon = _jsx(IconX, {}), removeButtonProps, onRemove, textProps, color = "black", backgroundColor = color, padding = SIZES[size].paddingVertical + "px " + SIZES[size].paddingHorizontal + "px", margin, width = "fit-content", height, onClick, style, children } = _a, rest = __rest(_a, ["size", "radius", "variant", "withRemoveButton", "removeButtonIcon", "removeButtonProps", "onRemove", "textProps", "color", "backgroundColor", "padding", "margin", "width", "height", "onClick", "style", "children"]);
     // Styles
     const PillStyle = Object.assign({ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "stretch", backgroundColor: colors.getBgHex(backgroundColor, variant, false), color: colors.getFgHex(color, variant), borderRadius: theme.sizeClasses.radius[radius], outline: variant === "subtle" ?
             `1px solid ${colors.getHex(backgroundColor)}`

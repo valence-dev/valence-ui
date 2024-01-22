@@ -8,9 +8,6 @@ export type FlexProps =
   GenericLayoutProps
   & PolymorphicLayoutProps
   & {
-    /** A shorthand property that sets both `align` and `justify` to `center`. */
-    center?: boolean;
-
     /** Sets `flex-direction` css property */
     direction?: CSSProperties["flexDirection"];
     /** Sets `align-items` css property */
@@ -22,11 +19,13 @@ export type FlexProps =
     alignSelf?: CSSProperties["alignSelf"];
     /** Sets `gap` css property */
     gap?: CSSProperties["gap"];
+    /** Sets the `flex-wrap` property */
+    wrap?: CSSProperties["flexWrap"];
 
     /** Shorthand for `flex-grow = 1` */
     grow?: boolean;
-    /** Sets the `flex-wrap` property */
-    wrap?: CSSProperties["flexWrap"];
+    /** A shorthand property that sets both `align` and `justify` to `center`. */
+    center?: boolean;
   }
 
 

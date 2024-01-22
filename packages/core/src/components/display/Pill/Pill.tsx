@@ -4,13 +4,12 @@ import { CSSProperties, ReactNode, forwardRef } from "react";
 import { useValence } from "../../../ValenceProvider";
 import { IconX } from "@tabler/icons-react";
 import { Text, TextProps } from "../Text";
-import { Icon } from "../Icon";
 import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
 import { useColors } from "../../../utilities/color";
 
 export type PillProps =
-  GenericLayoutProps
-  & UnstyledButtonProps
+  Omit<GenericLayoutProps, "children">
+  & Omit<UnstyledButtonProps, "children">
   & {
     /** Fill variant of this pill. Defaults to theme default. */
     variant?: FillVariant;
@@ -24,12 +23,12 @@ export type PillProps =
     /** Icon to use for the remove button. Defaults to `IconX`. */
     removeButtonIcon?: ReactNode;
     /** Optional props to pass to the remove button. */
-    removeButtonProps?: IconButtonProps & { children?: never };
+    removeButtonProps?: Omit<IconButtonProps, "children">;
     /** Callback to be called when the remove button is clicked. */
     onRemove?: () => void;
 
     /** Optional props to pass to the `Text` component */
-    textProps?: TextProps & { children?: never };
+    textProps?: Omit<TextProps, "children">;
 
     children?: string;
   }
@@ -62,7 +61,7 @@ export const Pill = forwardRef(function Pill(
     variant = theme.defaults.variant,
 
     withRemoveButton = false,
-    removeButtonIcon = <Icon><IconX /></Icon>,
+    removeButtonIcon = <IconX />,
     removeButtonProps,
     onRemove,
 

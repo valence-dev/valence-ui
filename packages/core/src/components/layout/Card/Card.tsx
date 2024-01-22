@@ -106,16 +106,17 @@ const Card = forwardRef(function Card(
 });
 
 
-export type CardImageProps = GenericProps & GenericImageProps & {
-  /**  Defines the radius size class of this image. Defaults to the theme default radius size class. */
-  radius?: ComponentSize;
-  /**  Sets `width` css property */
-  width?: CSSProperties["width"];
-  /**  Sets `height` css property */
-  height?: CSSProperties["height"];
-
-  children?: never;
-}
+export type CardImageProps =
+  Omit<GenericProps, "children">
+  & GenericImageProps
+  & {
+    /**  Defines the radius size class of this image. Defaults to the theme default radius size class. */
+    radius?: ComponentSize;
+    /**  Sets `width` css property */
+    width?: CSSProperties["width"];
+    /**  Sets `height` css property */
+    height?: CSSProperties["height"];
+  }
 
 const Image = forwardRef(function CardImage(
   props: MakeResponsive<CardImageProps>,

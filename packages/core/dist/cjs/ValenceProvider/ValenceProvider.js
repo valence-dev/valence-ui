@@ -4,7 +4,6 @@ exports.ValenceProvider = exports.useValence = exports.ValenceContext = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
 const ValenceProvider_types_1 = require("./ValenceProvider.types");
-const hooks_1 = require("../hooks");
 const CssOverride_1 = require("./CssOverride");
 exports.ValenceContext = (0, react_1.createContext)(ValenceProvider_types_1.ValenceContextDefaults);
 const useValence = () => {
@@ -15,8 +14,6 @@ const useValence = () => {
 };
 exports.useValence = useValence;
 function ValenceProvider(props) {
-    // Hooks
-    const { isDarkMode } = (0, hooks_1.useColorScheme)();
     // Fallback properties
     const { colors = props.colors ? ValenceProvider_types_1.ValenceContextDefaults.colors.concat(props.colors) : ValenceProvider_types_1.ValenceContextDefaults.colors, primaryColor = ValenceProvider_types_1.ValenceContextDefaults.primaryColor, defaults = ValenceProvider_types_1.ValenceContextDefaults.defaults, fontFamily = ValenceProvider_types_1.ValenceContextDefaults.fontFamily, sizeClasses = ValenceProvider_types_1.ValenceContextDefaults.sizeClasses, titles = ValenceProvider_types_1.ValenceContextDefaults.titles, breakpoints = ValenceProvider_types_1.ValenceContextDefaults.breakpoints, } = props;
     // Methods

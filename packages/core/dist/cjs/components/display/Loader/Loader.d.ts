@@ -1,7 +1,7 @@
 import { CSSProperties } from "react";
 import { MakeResponsive } from "../../..";
 import { ComponentSize, GenericProps } from "@valence-ui/utils";
-export type LoaderProps = GenericProps & {
+export type LoaderProps = Omit<GenericProps, "children"> & {
     /** Sets element size class. Defaults to theme default */
     size?: ComponentSize;
     /** Color of the loader. Defaults to theme default */

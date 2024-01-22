@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { Flex, FlexProps, Icon, IconButton, IconButtonProps, MakeResponsive, ValenceContext, useBreakpoint, useColors, useResponsiveProps } from "@valence-ui/core";
+import { Flex, FlexProps, Icon, IconButton, IconButtonProps, MakeResponsive, ValenceContext, useColors, useResponsiveProps } from "@valence-ui/core";
 import React, { CSSProperties, ReactNode, forwardRef, useContext, useEffect, useRef, useState } from "react";
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 
 export type CarouselProps =
-  FlexProps
+  Omit<FlexProps, "children">
   & {
     /** Whether to allow the carousel content to be dragged on desktop. `true` on desktop devices by default. */
     allowDrag?: boolean;

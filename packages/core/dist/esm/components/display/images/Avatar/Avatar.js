@@ -22,7 +22,7 @@ export const Avatar = forwardRef(function Avatar(props, ref) {
     const theme = useValence();
     const colors = useColors();
     // Defaults
-    const _a = useResponsiveProps(props), { placeholderIcon, placeholderColor = theme.primaryColor, variant = theme.defaults.variant, placeholder = _jsx(IconUserCircle, {}), square = true, radius = "xl", style } = _a, rest = __rest(_a, ["placeholderIcon", "placeholderColor", "variant", "placeholder", "square", "radius", "style"]);
+    const _a = useResponsiveProps(props), { placeholderColor = theme.primaryColor, variant = theme.defaults.variant, placeholder = _jsx(IconUserCircle, {}), square = true, radius = "xl", style } = _a, rest = __rest(_a, ["placeholderColor", "variant", "placeholder", "square", "radius", "style"]);
     // Styles
     const imageStyle = Object.assign({ backgroundColor: colors.getBgHex(placeholderColor, variant, false), color: colors.getFgHex(placeholderColor, variant) }, style);
     return (_jsx(Image, Object.assign({ style: imageStyle, radius: radius, square: square, placeholder: _jsx(Flex, { align: "center", justify: "center", height: "100%", width: "100%", children: _jsx(Icon, { children: placeholder }) }), ref: ref }, rest)));

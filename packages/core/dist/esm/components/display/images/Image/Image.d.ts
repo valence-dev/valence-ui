@@ -12,7 +12,7 @@ export type GenericImageProps = {
     /** Sets `object-position` css property */
     position?: CSSProperties["objectPosition"];
 };
-export type ImageProps = GenericImageProps & GenericProps & {
+export type ImageProps = GenericImageProps & Omit<GenericProps, "children"> & {
     /** Placeholder content for this image */
     placeholder?: ReactNode;
     /** Defines the border radius size class of this image. Defaults to the theme default radius size class. */
@@ -27,7 +27,6 @@ export type ImageProps = GenericImageProps & GenericProps & {
     color?: CSSProperties["color"];
     /** Specifies if a shadow will be shown */
     shadow?: boolean;
-    children?: never;
 };
 export declare const Image: import("react").ForwardRefExoticComponent<MakeResponsive<ImageProps> & import("react").RefAttributes<unknown>>;
 //# sourceMappingURL=Image.d.ts.map

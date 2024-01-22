@@ -1,13 +1,13 @@
 import { useState } from "react";
 
 export type Disclosure = {
-  /** Whether this disclosure is open */
+  /** Whether the disclosure is open. */
   opened: boolean;
-  /** Open this disclosure */
+  /** Open the disclosure. */
   open: () => void;
-  /** Close this disclosure */
+  /** Close the disclosure. */
   close: () => void;
-  /** Update the state (openness) of this disclosure */
+  /** Manually update the disclosure. */
   update: (value: boolean) => void;
 }
 

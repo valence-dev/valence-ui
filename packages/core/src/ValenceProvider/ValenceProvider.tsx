@@ -1,6 +1,5 @@
 import { CSSProperties, createContext, useContext } from "react";
 import { IValenceContext, ValenceContextDefaults as VCD } from "./ValenceProvider.types";
-import { useColorScheme } from "../hooks";
 import { TextProps } from "../components";
 import { ComponentSize, FillVariant, SizeClasses } from "@valence-ui/utils";
 import { CssOverride } from "./CssOverride";
@@ -66,11 +65,6 @@ export type ValenceProviderProps = {
 }
 
 export function ValenceProvider(props: ValenceProviderProps) {
-
-  // Hooks
-  const { isDarkMode } = useColorScheme();
-
-
   // Fallback properties
   const {
     colors = props.colors ? VCD.colors.concat(props.colors) : VCD.colors,

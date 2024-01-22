@@ -1,15 +1,15 @@
 import { CSSProperties, forwardRef, useState } from "react";
 import { Flex, FlexProps } from "../Flex";
-import { MakeResponsive, useColors, useResponsiveProp, useResponsiveProps } from "../../..";
+import { MakeResponsive, useColors, useResponsiveProps } from "../../..";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 
 export type HeaderProps = Omit<FlexProps, "height"> & {
-  /** Defines the height of this header. Defaults to `100` for regular devices, and `150` for `mobileTall` devices. */
+  /** Defines the height of this header. Defaults to `100` for regular devices, and `150` for `mobile` devices. */
   height?: number;
   /** The height of this header when it has been compacted. Defaults to `75`. */
   compactHeight?: number;
 
-  /** Defines the position of this header`. */
+  /** Defines the position of this header. */
   position?: CSSProperties["position"];
   /** Defines the breakpoints in which the header is allowed to compact. By default this
    * is `true` for mobile devices, and `false` for all other devices.
@@ -35,11 +35,11 @@ export const Header = forwardRef(function Header(
 
   // Defaults
   const {
-    height: headerHeight = useResponsiveProp({ default: 100, mobile: 150 }),
+    height: headerHeight = useResponsiveProps({ default: 100, mobile: 150 }),
     compactHeight = 75,
 
-    position = useResponsiveProp({ default: "relative", mobile: "sticky" }),
-    compact = useResponsiveProp({ default: false, mobile: true }),
+    position = useResponsiveProps({ default: "relative", mobile: "sticky" }),
+    compact = useResponsiveProps({ default: false, mobile: true }),
 
     backgroundColor = "white",
 

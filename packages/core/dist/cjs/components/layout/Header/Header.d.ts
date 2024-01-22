@@ -2,11 +2,11 @@ import { CSSProperties } from "react";
 import { FlexProps } from "../Flex";
 import { MakeResponsive } from "../../..";
 export type HeaderProps = Omit<FlexProps, "height"> & {
-    /** Defines the height of this header. Defaults to `100` for regular devices, and `150` for `mobileTall` devices. */
+    /** Defines the height of this header. Defaults to `100` for regular devices, and `150` for `mobile` devices. */
     height?: number;
     /** The height of this header when it has been compacted. Defaults to `75`. */
     compactHeight?: number;
-    /** Defines the position of this header`. */
+    /** Defines the position of this header. */
     position?: CSSProperties["position"];
     /** Defines the breakpoints in which the header is allowed to compact. By default this
      * is `true` for mobile devices, and `false` for all other devices.

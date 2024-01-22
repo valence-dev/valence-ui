@@ -25,16 +25,9 @@ export type Responsive<T> = T | {
 export type MakeResponsive<T> = {
     [K in keyof T]: Responsive<T[K]>;
 };
-/** A method that retrieves an individual responsive prop based on the supplied
- * breakpoint.
- * @param prop The responsive prop to retrieve
- * @param breakpoint The breakpoint to use to retrieve the prop
+/** Returns the correct prop or props based on the supplied breakpoint.
+ * @param props - The responsive prop/s to retrieve
+ * @param breakpoint - The breakpoint to use to retrieve the prop
  */
-export declare function getResponsiveProp<T>(prop: Responsive<T>, breakpoint: Breakpoint): T;
-/** A method that retrieves a series of responsive props based on the supplied
- * breakpoint.
- * @param props - The responsive props to retrieve
- * @param breakpoint - The breakpoint to use to retrieve the props
- */
-export declare function getResponsiveProps<T>(props: MakeResponsive<T>, breakpoint: Breakpoint): T;
+export declare function getResponsive<T>(props: MakeResponsive<T> | Responsive<T>, breakpoint: Breakpoint): T;
 //# sourceMappingURL=ResponsiveProps.d.ts.map

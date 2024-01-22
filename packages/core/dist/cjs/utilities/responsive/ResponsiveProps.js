@@ -14,7 +14,7 @@
  * sizes, and thus will need to adapt.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getResponsiveProps = exports.getResponsiveProp = void 0;
+exports.getResponsive = void 0;
 /** A method that retrieves an individual responsive prop based on the supplied
  * breakpoint.
  * @param prop The responsive prop to retrieve
@@ -37,7 +37,6 @@ function getResponsiveProp(prop, breakpoint) {
     }
     return prop;
 }
-exports.getResponsiveProp = getResponsiveProp;
 /** A method that retrieves a series of responsive props based on the supplied
  * breakpoint.
  * @param props - The responsive props to retrieve
@@ -51,4 +50,16 @@ function getResponsiveProps(props, breakpoint) {
     }
     return responsiveProps;
 }
-exports.getResponsiveProps = getResponsiveProps;
+/** Returns the correct prop or props based on the supplied breakpoint.
+ * @param props - The responsive prop/s to retrieve
+ * @param breakpoint - The breakpoint to use to retrieve the prop
+ */
+function getResponsive(props, breakpoint) {
+    // @ts-ignore
+    if (props && props.hasOwnProperty("default"))
+        return getResponsiveProp(props, breakpoint);
+    // @ts-ignore
+    else
+        return getResponsiveProps(props, breakpoint);
+}
+exports.getResponsive = getResponsive;

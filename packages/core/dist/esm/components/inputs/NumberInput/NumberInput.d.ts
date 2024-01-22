@@ -10,7 +10,7 @@ export type NumberInputProps = GenericInputProps<number> & GenericTextInputEvent
     min?: number;
     /** The maximum value of this input */
     max?: number;
-    /** The step value of this input. Defaults to 1 */
+    /** The step value of this input. Defaults to `1` */
     step?: number;
     /** Whether the stepper controls are shown */
     showControls?: boolean;
@@ -23,7 +23,6 @@ export type NumberInputProps = GenericInputProps<number> & GenericTextInputEvent
     grow?: boolean;
     /** Optional styles to apply to the input component */
     inputStyle?: CSSProperties;
-    children?: never;
 };
 export declare const NumberInput: import("react").ForwardRefExoticComponent<MakeResponsive<NumberInputProps> & import("react").RefAttributes<unknown>>;
 //# sourceMappingURL=NumberInput.d.ts.map

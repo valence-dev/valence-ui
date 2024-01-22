@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { MakeResponsive, useColors, useResponsiveProps, useValence } from "../../..";
 import { ComponentSize, GenericProps, SizeClasses } from "@valence-ui/utils";
 
-export type LoaderProps = GenericProps & {
+export type LoaderProps = Omit<GenericProps, "children"> & {
   /** Sets element size class. Defaults to theme default */
   size?: ComponentSize;
   /** Color of the loader. Defaults to theme default */

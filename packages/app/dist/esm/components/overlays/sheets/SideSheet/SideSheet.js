@@ -11,7 +11,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { forwardRef, useContext, useEffect } from "react";
-import { DefaultModalHeader, Flex, ModalBackground, ValenceContext, useColors, useDetectKeyDown, useResponsiveProp, useResponsiveProps } from "@valence-ui/core";
+import { DefaultModalHeader, Flex, ModalBackground, ValenceContext, useColors, useDetectKeyDown, useResponsiveProps } from "@valence-ui/core";
 import { useLockedBody } from "usehooks-ts";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
@@ -19,7 +19,7 @@ export const SideSheet = forwardRef(function SideSheet(props, ref) {
     const theme = useContext(ValenceContext);
     const { getHex } = useColors();
     // Defaults
-    const _a = useResponsiveProps(props), { disclosure, title, header = (props) => _jsx(DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), display = useResponsiveProp({ default: "inline", tablet: "overlay", mobile: "overlay" }), direction = "right", closeOnOverlayClick = true, closeOnEscape = true, lockScroll = false, radius = "lg", withShadow = true, backgroundColor = getHex("white"), color = getHex("black"), padding = theme.sizeClasses.padding[theme.defaults.size], margin = 0, width = 350, height = "100vh", flexProps, overlayBackgroundProps = {
+    const _a = useResponsiveProps(props), { disclosure, title, header = (props) => _jsx(DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), display = useResponsiveProps({ default: "inline", tablet: "overlay", mobile: "overlay" }), direction = "right", closeOnOverlayClick = true, closeOnEscape = true, lockScroll = false, radius = "lg", withShadow = true, backgroundColor = getHex("white"), color = getHex("black"), padding = theme.sizeClasses.padding[theme.defaults.size], margin = 0, width = 350, height = "100vh", flexProps, overlayBackgroundProps = {
         padding: 0,
         style: {
             alignItems: "flex-end",

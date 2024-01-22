@@ -1,6 +1,6 @@
 import { CSSProperties, ReactNode, forwardRef, useContext, useEffect } from "react";
 import { GenericSheetProps } from "../Generics";
-import { DefaultModalHeader, Disclosure, Flex, MakeResponsive, ModalBackground, ValenceContext, useBreakpoint, useColors, useDetectKeyDown, useResponsiveProp, useResponsiveProps } from "@valence-ui/core";
+import { DefaultModalHeader, Disclosure, Flex, MakeResponsive, ModalBackground, ValenceContext, useBreakpoint, useColors, useDetectKeyDown, useResponsiveProps } from "@valence-ui/core";
 import { GenericOverlayBackgroundProps, GenericOverlayHeaderProps } from "@valence-ui/utils";
 import { useLockedBody } from "usehooks-ts";
 import { AnimatePresence } from "framer-motion";
@@ -39,7 +39,7 @@ export const SideSheet = forwardRef(function SideSheet(
       disclosure={disclosure}
       {...props}
     />,
-    display = useResponsiveProp({ default: "inline", tablet: "overlay", mobile: "overlay" }),
+    display = useResponsiveProps({ default: "inline", tablet: "overlay", mobile: "overlay" }),
     direction = "right",
 
     closeOnOverlayClick = true,

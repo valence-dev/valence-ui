@@ -2,7 +2,7 @@ import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { Alert as A } from "./Alert";
 import { IconAlertCircle } from "@tabler/icons-react";
-import { Flex, ValenceProvider } from "../../..";
+import { FlexCenter, ValenceProvider } from "../../..";
 
 const meta: Meta<typeof A> = {
   component: A,
@@ -19,13 +19,9 @@ type Story = StoryObj<typeof A>;
 
 export const Alert: Story = (args: any) => (
   <ValenceProvider>
-    <Flex
-      center
-      height="100vh"
-      padding={20}
-    >
+    <FlexCenter>
       <A {...args} />
-    </Flex>
+    </FlexCenter>
   </ValenceProvider>
 );
 Alert.args = {

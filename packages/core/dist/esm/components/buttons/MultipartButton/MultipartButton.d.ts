@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 import { PrimitiveButtonProps } from "../PrimitiveButton";
 import { TextProps } from "../../display";
 import { MakeResponsive } from "../../../utilities/responsive";
-export type MultipartButtonProps = PrimitiveButtonProps & {
+export type MultipartButtonProps = Omit<PrimitiveButtonProps, "children"> & {
     /** Title/main text content of this button  */
     title: string;
     /** Descriptive secondary text of this button */
@@ -16,8 +16,6 @@ export type MultipartButtonProps = PrimitiveButtonProps & {
     titleProps?: TextProps;
     /** Props to pass to the subtitle text component */
     subtitleProps?: TextProps;
-    /** This button does not accept children */
-    children?: never;
 };
 export declare const MultipartButton: import("react").ForwardRefExoticComponent<MakeResponsive<MultipartButtonProps> & import("react").RefAttributes<unknown>>;
 //# sourceMappingURL=MultipartButton.d.ts.map

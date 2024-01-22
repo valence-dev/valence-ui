@@ -14,13 +14,13 @@ import { forwardRef } from "react";
 import { Text } from "../../display";
 import { Flex } from "../Flex";
 import { useValence } from "../../../ValenceProvider";
-import { useResponsiveProp, useResponsiveProps } from "../../../utilities/responsive";
+import { useResponsiveProps } from "../../../utilities/responsive";
 import { useColors } from "../../../utilities/color";
 export const OutlineContainer = forwardRef(function OutlineContainer(props, ref) {
     const theme = useValence();
     const { getHex } = useColors();
     // Defaults
-    const _a = useResponsiveProps(props), { sticky = true, label, labelProps, spacing = 5, radius = theme.defaults.radius, position = sticky ? "sticky" : "relative", zIndex = sticky ? 151 : undefined, top = useResponsiveProp(sticky ? { default: spacing * 2, mobile: 75 } : undefined), left = sticky ? spacing * 2 : undefined, right = sticky ? spacing * 2 : undefined, bottom, width = "100%", height, color = "black", children, style } = _a, rest = __rest(_a, ["sticky", "label", "labelProps", "spacing", "radius", "position", "zIndex", "top", "left", "right", "bottom", "width", "height", "color", "children", "style"]);
+    const _a = useResponsiveProps(props), { sticky = true, label, labelProps, spacing = 5, radius = theme.defaults.radius, position = sticky ? "sticky" : "relative", zIndex = sticky ? 151 : undefined, top = useResponsiveProps(sticky ? { default: spacing * 2, mobile: 75 } : undefined), left = sticky ? spacing * 2 : undefined, right = sticky ? spacing * 2 : undefined, bottom, width = "100%", height, color = "black", children, style } = _a, rest = __rest(_a, ["sticky", "label", "labelProps", "spacing", "radius", "position", "zIndex", "top", "left", "right", "bottom", "width", "height", "color", "children", "style"]);
     const _b = labelProps || {}, { style: labelStyle } = _b, labelRest = __rest(_b, ["style"]);
     // Styles
     const OuterFlexStyle = {

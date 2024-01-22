@@ -9,9 +9,7 @@ export type OutlineContainerProps = GenericFloatingLayoutProps & FlexProps & {
     /** A label to display below the container */
     label?: string;
     /** Optional props to pass to the label component */
-    labelProps?: TextProps & {
-        children?: never;
-    };
+    labelProps?: Omit<TextProps, "children">;
     /** Spacing around the container. `5px` by default */
     spacing?: number;
     /** Size class of the component's radius. Defaults to theme default. */

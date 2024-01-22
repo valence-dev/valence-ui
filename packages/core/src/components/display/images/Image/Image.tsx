@@ -21,7 +21,7 @@ export type GenericImageProps = {
   position?: CSSProperties["objectPosition"];
 }
 
-export type ImageProps = GenericImageProps & GenericProps & {
+export type ImageProps = GenericImageProps & Omit<GenericProps, "children"> & {
   /** Placeholder content for this image */
   placeholder?: ReactNode;
 
@@ -39,8 +39,6 @@ export type ImageProps = GenericImageProps & GenericProps & {
 
   /** Specifies if a shadow will be shown */
   shadow?: boolean;
-
-  children?: never;
 }
 
 

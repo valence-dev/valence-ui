@@ -9,7 +9,7 @@ export type SizeClasses<C> = {
   md: C;
   lg: C;
   xl: C
-}
+};
 
 /** Defines standard variants for buttons and other components */
 export type FillVariant = "subtle" | "light" | "filled";

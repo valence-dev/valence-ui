@@ -36,7 +36,7 @@ export type MakeResponsive<T> = {
  * @param prop The responsive prop to retrieve
  * @param breakpoint The breakpoint to use to retrieve the prop
  */
-export function getResponsiveProp<T>(
+function getResponsiveProp<T>(
   prop: Responsive<T>,
   breakpoint: Breakpoint
 ): T {
@@ -59,7 +59,7 @@ export function getResponsiveProp<T>(
  * @param props - The responsive props to retrieve
  * @param breakpoint - The breakpoint to use to retrieve the props
  */
-export function getResponsiveProps<T>(
+function getResponsiveProps<T>(
   props: MakeResponsive<T>,
   breakpoint: Breakpoint
 ): T {
@@ -69,4 +69,19 @@ export function getResponsiveProps<T>(
     responsiveProps[key] = getResponsiveProp(props[key], breakpoint);
   }
   return responsiveProps as T;
+}
+
+
+/** Returns the correct prop or props based on the supplied breakpoint.
+ * @param props - The responsive prop/s to retrieve
+ * @param breakpoint - The breakpoint to use to retrieve the prop
+ */
+export function getResponsive<T>(
+  props: MakeResponsive<T> | Responsive<T>,
+  breakpoint: Breakpoint
+): T {
+  // @ts-ignore
+  if (props && props.hasOwnProperty("default")) return getResponsiveProp(props, breakpoint);
+  // @ts-ignore
+  else return getResponsiveProps(props, breakpoint);
 }

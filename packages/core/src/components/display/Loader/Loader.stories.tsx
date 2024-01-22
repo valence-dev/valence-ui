@@ -21,7 +21,7 @@ type Story = StoryObj<typeof L>;
 export const Loader: Story = (args: any) => (
   <ValenceProvider>
     <Flex center height="100vh">
-      <L data-testId="Loader-id" {...args} />
+      <L {...args} />
     </Flex>
   </ValenceProvider>
 );

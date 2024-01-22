@@ -17,7 +17,7 @@
  * @param prop The responsive prop to retrieve
  * @param breakpoint The breakpoint to use to retrieve the prop
  */
-export function getResponsiveProp(prop, breakpoint) {
+function getResponsiveProp(prop, breakpoint) {
     var _a, _b;
     if (prop && prop.hasOwnProperty("default")) {
         // @ts-ignore
@@ -39,11 +39,23 @@ export function getResponsiveProp(prop, breakpoint) {
  * @param props - The responsive props to retrieve
  * @param breakpoint - The breakpoint to use to retrieve the props
  */
-export function getResponsiveProps(props, breakpoint) {
+function getResponsiveProps(props, breakpoint) {
     const responsiveProps = {};
     for (const key in props) {
         // @ts-ignore
         responsiveProps[key] = getResponsiveProp(props[key], breakpoint);
     }
     return responsiveProps;
+}
+/** Returns the correct prop or props based on the supplied breakpoint.
+ * @param props - The responsive prop/s to retrieve
+ * @param breakpoint - The breakpoint to use to retrieve the prop
+ */
+export function getResponsive(props, breakpoint) {
+    // @ts-ignore
+    if (props && props.hasOwnProperty("default"))
+        return getResponsiveProp(props, breakpoint);
+    // @ts-ignore
+    else
+        return getResponsiveProps(props, breakpoint);
 }

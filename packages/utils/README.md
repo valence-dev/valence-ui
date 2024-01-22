@@ -1,4 +1,4 @@
-# Valence
-Valence is an opinionated React component library designed by [me (Isaac Shea)](https://isaacshea.com/), with the primary intention of using it in my projects. It is heavily inspired by [Mantine](https://mantine.dev/), featuring a similar design style and component library.
+# Welcome to Valence
+Valence is an opinionated design system and React component library designed by [Isaac Shea](https://isaacshea.com/). It is currently in use in [Threaditor](https://threaditor.net/), and is designed to be completely usable across all platforms.
 
-To read about Valence's documentation, [visit the official documentation repository](https://github.com/valence-dev/docs)
+[Visit the official Valence documentation](https://valence.isaacshea.com/)

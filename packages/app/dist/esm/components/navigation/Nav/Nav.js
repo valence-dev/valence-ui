@@ -11,7 +11,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { forwardRef } from "react";
-import { Flex, IconButton, PrimitiveButton, Space, useBreakpoint, useResponsiveProp, useResponsiveProps } from "@valence-ui/core";
+import { Flex, IconButton, PrimitiveButton, Space, useBreakpoint, useResponsiveProps } from "@valence-ui/core";
 /** The App Nav is designed to handle inter-page navigation and application-level actions, such as page navigation, signing out, etc. This particular navigator is presented as a vertical icon button strip down the left-hand side of the screen on desktop devices, and a horizontal icon button strip along the bottom of the screen on mobile devices. */
 export const Nav = forwardRef(function Nav(props, ref) {
     const breakpoint = useBreakpoint();
@@ -28,12 +28,12 @@ export const Nav = forwardRef(function Nav(props, ref) {
     return (_jsxs(Flex, Object.assign({ direction: { default: "column", mobile: "row" }, gap: gap, padding: padding, style: navStyle, justify: { default: "unset", mobile: "space-around" }, ref: ref }, rest, { children: [favicon && !breakpoint.isMobile &&
                 _jsx(Flex, { align: "center", justify: "center", height: 100, children: _jsx(PrimitiveButton, Object.assign({ motion: { onHover: "grow", onTap: "shrink" }, square: true }, faviconProps, { children: _jsx("img", { src: favicon, alt: "favicon", style: faviconStyle }) })) }), buttons.map(b => {
                 const { id, highlighted, show = true, children, to } = b, rest = __rest(b, ["id", "highlighted", "show", "children", "to"]);
-                if (!useResponsiveProp(show))
+                if (!useResponsiveProps(show))
                     return (_jsx(_Fragment, {}));
                 return (_jsx(IconButton, Object.assign({ color: "white", variant: highlighted ? "light" : "subtle", radius: breakpoint.isMobile ? "xl" : undefined, square: !breakpoint.isMobile, component: to ? "link" : undefined, to: to }, rest, { children: children }), id));
             }), !breakpoint.isMobile && _jsx(Space, { grow: true, height: "100%" }), bottomButtons && bottomButtons.map(b => {
                 const { id, highlighted, show = true, children, to } = b, rest = __rest(b, ["id", "highlighted", "show", "children", "to"]);
-                if (!useResponsiveProp(show))
+                if (!useResponsiveProps(show))
                     return (_jsx(_Fragment, {}));
                 return (_jsx(IconButton, Object.assign({ color: "white", variant: highlighted ? "light" : "subtle", radius: breakpoint.isMobile ? "xl" : undefined, square: !breakpoint.isMobile, component: to ? "link" : undefined, to: to }, rest, { children: children }), id));
             })] })));

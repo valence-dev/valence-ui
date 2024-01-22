@@ -1,7 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { createContext, useContext } from "react";
 import { ValenceContextDefaults as VCD } from "./ValenceProvider.types";
-import { useColorScheme } from "../hooks";
 import { CssOverride } from "./CssOverride";
 export const ValenceContext = createContext(VCD);
 export const useValence = () => {
@@ -11,8 +10,6 @@ export const useValence = () => {
     return context;
 };
 export function ValenceProvider(props) {
-    // Hooks
-    const { isDarkMode } = useColorScheme();
     // Fallback properties
     const { colors = props.colors ? VCD.colors.concat(props.colors) : VCD.colors, primaryColor = VCD.primaryColor, defaults = VCD.defaults, fontFamily = VCD.fontFamily, sizeClasses = VCD.sizeClasses, titles = VCD.titles, breakpoints = VCD.breakpoints, } = props;
     // Methods

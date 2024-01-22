@@ -3,7 +3,7 @@ import { Text, TextProps } from "../../display";
 import { Flex, FlexProps } from "../Flex";
 import { useValence } from "../../../ValenceProvider";
 import { ComponentSize, GenericFloatingLayoutProps } from "@valence-ui/utils";
-import { MakeResponsive, useResponsiveProp, useResponsiveProps } from "../../../utilities/responsive";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
 import { useColors } from "../../../utilities/color";
 
 export type OutlineContainerProps =
@@ -16,7 +16,7 @@ export type OutlineContainerProps =
     /** A label to display below the container */
     label?: string;
     /** Optional props to pass to the label component */
-    labelProps?: TextProps & { children?: never };
+    labelProps?: Omit<TextProps, "children">;
 
     /** Spacing around the container. `5px` by default */
     spacing?: number;
@@ -43,7 +43,7 @@ export const OutlineContainer = forwardRef(function OutlineContainer(
 
     position = sticky ? "sticky" : "relative",
     zIndex = sticky ? 151 : undefined,
-    top = useResponsiveProp(sticky ? { default: spacing * 2, mobile: 75 } : undefined),
+    top = useResponsiveProps(sticky ? { default: spacing * 2, mobile: 75 } : undefined),
     left = sticky ? spacing * 2 : undefined,
     right = sticky ? spacing * 2 : undefined,
     bottom,

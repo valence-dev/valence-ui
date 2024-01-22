@@ -3,7 +3,7 @@ import { FlexProps } from "../../layout";
 import { TitleProps } from "../Text";
 import { ControlledList } from "../../../hooks/UseControlledList";
 import { MakeResponsive } from "../../../utilities/responsive";
-export type AccordionProps = FlexProps & {
+export type AccordionProps = Omit<FlexProps, "children"> & {
     /** The list of items associated with this accordion */
     itemList: ControlledList<string>;
     children: ReactNode[];

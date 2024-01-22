@@ -25,7 +25,7 @@ exports.Avatar = (0, react_1.forwardRef)(function Avatar(props, ref) {
     const theme = (0, ValenceProvider_1.useValence)();
     const colors = (0, color_1.useColors)();
     // Defaults
-    const _a = (0, responsive_1.useResponsiveProps)(props), { placeholderIcon, placeholderColor = theme.primaryColor, variant = theme.defaults.variant, placeholder = (0, jsx_runtime_1.jsx)(icons_react_1.IconUserCircle, {}), square = true, radius = "xl", style } = _a, rest = __rest(_a, ["placeholderIcon", "placeholderColor", "variant", "placeholder", "square", "radius", "style"]);
+    const _a = (0, responsive_1.useResponsiveProps)(props), { placeholderColor = theme.primaryColor, variant = theme.defaults.variant, placeholder = (0, jsx_runtime_1.jsx)(icons_react_1.IconUserCircle, {}), square = true, radius = "xl", style } = _a, rest = __rest(_a, ["placeholderColor", "variant", "placeholder", "square", "radius", "style"]);
     // Styles
     const imageStyle = Object.assign({ backgroundColor: colors.getBgHex(placeholderColor, variant, false), color: colors.getFgHex(placeholderColor, variant) }, style);
     return ((0, jsx_runtime_1.jsx)(Image_1.Image, Object.assign({ style: imageStyle, radius: radius, square: square, placeholder: (0, jsx_runtime_1.jsx)(layout_1.Flex, { align: "center", justify: "center", height: "100%", width: "100%", children: (0, jsx_runtime_1.jsx)(Icon_1.Icon, { children: placeholder }) }), ref: ref }, rest)));

@@ -19,14 +19,13 @@ export type CardProps = GenericLayoutProps & PolymorphicButtonProps & {
 export declare const CARD_DEFAULTS: {
     width: SizeClasses<CSSProperties["width"]>;
 };
-export type CardImageProps = GenericProps & GenericImageProps & {
+export type CardImageProps = Omit<GenericProps, "children"> & GenericImageProps & {
     /**  Defines the radius size class of this image. Defaults to the theme default radius size class. */
     radius?: ComponentSize;
     /**  Sets `width` css property */
     width?: CSSProperties["width"];
     /**  Sets `height` css property */
     height?: CSSProperties["height"];
-    children?: never;
 };
 export type CardSectionProps = FlexProps;
 export type CardButtonsProps = FlexProps;

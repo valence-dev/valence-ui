@@ -20,7 +20,7 @@ export type AlertProps = GenericClickableProps & GenericClickableEventProps & Po
     variant?: FillVariant;
     /** The size of this alert. Defaults to the theme default size. */
     size?: ComponentSize;
-    /** The border size of this alert. Defaults to the theme default border size. */
+    /** The border size of this alert. Defaults to the theme default radius size. */
     radius?: ComponentSize;
     /** Specifies if a shadow will be shown */
     shadow?: boolean;

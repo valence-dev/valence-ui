@@ -27,7 +27,7 @@ export type GenericInputProps<T = string> = GenericLayoutProps & {
     /** The name of this input. Submitted with the form as part of a name/value pair */
     name?: string;
 };
-export type GenericTextInputProps = GenericInputProps<string> & {
+export type GenericTextInputProps = Omit<GenericInputProps<string>, "children"> & {
     /** An icon to display at the left side of this input */
     icon?: ReactNode;
     /** Text that appears in this input when it has no value */
@@ -40,7 +40,6 @@ export type GenericTextInputProps = GenericInputProps<string> & {
     pattern?: string;
     /** Optional styles to apply to the input component */
     inputStyle?: CSSProperties;
-    children?: never;
 };
 export type GenericTextInputEventProps = MouseClickEvents & MouseEvents & PointerEvents & FocusEvents & KeyboardEvents & {
     /** Fires when the value of this input has been changed */
