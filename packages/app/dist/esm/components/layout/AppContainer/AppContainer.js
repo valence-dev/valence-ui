@@ -23,6 +23,7 @@ export const AppContainer = forwardRef(function AppContainer(props, ref) {
     // Defaults
     const _a = useResponsiveProps(props), { nav, header, sidebar, pageProps, contentWidth = 700, showNav = true, children, style } = _a, rest = __rest(_a, ["nav", "header", "sidebar", "pageProps", "contentWidth", "showNav", "children", "style"]);
     const radius = theme.sizeClasses.radius[theme.defaults.radius] + 5;
+    console.log(radius);
     // Hooks
     const [leftRef, { width: leftWidth }] = useElementSize();
     // States
@@ -44,11 +45,13 @@ export const AppContainer = forwardRef(function AppContainer(props, ref) {
     const sidebarReplacementStyle = {
         default: {
             width: radius,
+            height: "100%",
             borderRadius: `${radius}px 0px 0px ${radius}px`,
             backgroundColor: getHex("white"),
         },
         mobile: {
             height: radius,
+            width: "100%",
             borderRadius: `0px 0px ${radius}px ${radius}px`,
             backgroundColor: getHex("white"),
         }
@@ -79,5 +82,5 @@ export const AppContainer = forwardRef(function AppContainer(props, ref) {
                                 disclosure: sidebarDisclosure,
                             }
                         }) :
-                            _jsx(Flex, { style: sidebarReplacementStyle })] })), _jsx(Flex, { id: "root-content", align: "center", justify: "center", grow: true, style: contentContainerStyle, children: _jsxs(Flex, Object.assign({ direction: "column", style: contentStyle }, pageProps, { children: [header, children] })) })] }) }));
+                            _jsx(Flex, { style: sidebarReplacementStyle }, "flex2")] })), _jsx(Flex, { id: "root-content", align: "center", justify: "center", grow: true, style: contentContainerStyle, children: _jsxs(Flex, Object.assign({ direction: "column", style: contentStyle }, pageProps, { children: [header, children] })) })] }) }));
 });

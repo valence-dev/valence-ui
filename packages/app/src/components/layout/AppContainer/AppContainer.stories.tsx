@@ -74,10 +74,10 @@ AppContainer.args = {
     <Header>
       <Title>Page title</Title>
     </Header>,
-  sidebar:
-    <Sidebar>
-      <Button width="100%">
-        This is a sidebar!
-      </Button>
-    </Sidebar>,
+  // sidebar:
+  //   <Sidebar>
+  //     <Button width="100%">
+  //       This is a sidebar!
+  //     </Button>
+  //   </Sidebar>,
 };

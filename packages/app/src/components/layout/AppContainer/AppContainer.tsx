@@ -34,7 +34,7 @@ export const AppContainer = forwardRef(function AppContainer(
   ref: any
 ) {
   const theme = useContext(ValenceContext);
-  const { getHex} = useColors();
+  const { getHex } = useColors();
 
 
   // Defaults
@@ -54,6 +54,7 @@ export const AppContainer = forwardRef(function AppContainer(
   } = useResponsiveProps<AppContainerProps>(props);
 
   const radius = theme.sizeClasses.radius[theme.defaults.radius] as number + 5;
+  console.log(radius);
 
 
   // Hooks
@@ -84,11 +85,13 @@ export const AppContainer = forwardRef(function AppContainer(
   const sidebarReplacementStyle: Responsive<CSSProperties> = {
     default: {
       width: radius,
+      height: "100%",
       borderRadius: `${radius}px 0px 0px ${radius}px`,
       backgroundColor: getHex("white"),
     },
     mobile: {
       height: radius,
+      width: "100%",
       borderRadius: `0px 0px ${radius}px ${radius}px`,
       backgroundColor: getHex("white"),
     }
@@ -144,7 +147,10 @@ export const AppContainer = forwardRef(function AppContainer(
               }
             }
           ) :
-            <Flex style={sidebarReplacementStyle} />
+            <Flex
+              key="flex2"
+              style={sidebarReplacementStyle}
+            />
           }
         </Flex>
 

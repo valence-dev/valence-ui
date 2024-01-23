@@ -19,7 +19,7 @@ export function CssOverride() {
       backgroundColor: getHex("white"),
 
       // Stop blue highlighting
-      "-webkit-tap-highlight-color": "transparent",
+      WebkitTapHighlightColor: "transparent",
     },
 
     // Autofill styling
