@@ -31,12 +31,12 @@ exports.Nav = (0, react_1.forwardRef)(function Nav(props, ref) {
     return ((0, jsx_runtime_1.jsxs)(core_1.Flex, Object.assign({ direction: { default: "column", mobile: "row" }, gap: gap, padding: padding, style: navStyle, justify: { default: "unset", mobile: "space-around" }, ref: ref }, rest, { children: [favicon && !breakpoint.isMobile &&
                 (0, jsx_runtime_1.jsx)(core_1.Flex, { align: "center", justify: "center", height: 100, children: (0, jsx_runtime_1.jsx)(core_1.PrimitiveButton, Object.assign({ motion: { onHover: "grow", onTap: "shrink" }, square: true }, faviconProps, { children: (0, jsx_runtime_1.jsx)("img", { src: favicon, alt: "favicon", style: faviconStyle }) })) }), buttons.map(b => {
                 const { id, highlighted, show = true, children, to } = b, rest = __rest(b, ["id", "highlighted", "show", "children", "to"]);
-                if (!(0, core_1.useResponsiveProp)(show))
+                if (!(0, core_1.useResponsiveProps)(show))
                     return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, {}));
                 return ((0, jsx_runtime_1.jsx)(core_1.IconButton, Object.assign({ color: "white", variant: highlighted ? "light" : "subtle", radius: breakpoint.isMobile ? "xl" : undefined, square: !breakpoint.isMobile, component: to ? "link" : undefined, to: to }, rest, { children: children }), id));
             }), !breakpoint.isMobile && (0, jsx_runtime_1.jsx)(core_1.Space, { grow: true, height: "100%" }), bottomButtons && bottomButtons.map(b => {
                 const { id, highlighted, show = true, children, to } = b, rest = __rest(b, ["id", "highlighted", "show", "children", "to"]);
-                if (!(0, core_1.useResponsiveProp)(show))
+                if (!(0, core_1.useResponsiveProps)(show))
                     return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, {}));
                 return ((0, jsx_runtime_1.jsx)(core_1.IconButton, Object.assign({ color: "white", variant: highlighted ? "light" : "subtle", radius: breakpoint.isMobile ? "xl" : undefined, square: !breakpoint.isMobile, component: to ? "link" : undefined, to: to }, rest, { children: children }), id));
             })] })));

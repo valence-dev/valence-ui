@@ -10,11 +10,11 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
-import { Flex, useColors, useResponsiveProp, useResponsiveProps, useValence } from "@valence-ui/core";
+import { Flex, useColors, useResponsiveProps, useValence } from "@valence-ui/core";
 import { forwardRef } from "react";
 import { SideSheet } from "../../overlays";
 export const Sidebar = forwardRef(function Sidebar(props, ref) {
-    const _a = useResponsiveProps(props), { display = useResponsiveProp({
+    const _a = useResponsiveProps(props), { display = useResponsiveProps({
         default: "inline",
         mobile: "overlay"
     }), width = 250, height = "100%", backgroundColor = "white", padding = 10, sideSheetProps, style, children } = _a, rest = __rest(_a, ["display", "width", "height", "backgroundColor", "padding", "sideSheetProps", "style", "children"]);

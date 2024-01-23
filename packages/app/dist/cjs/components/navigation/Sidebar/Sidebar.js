@@ -17,7 +17,7 @@ const core_1 = require("@valence-ui/core");
 const react_1 = require("react");
 const overlays_1 = require("../../overlays");
 exports.Sidebar = (0, react_1.forwardRef)(function Sidebar(props, ref) {
-    const _a = (0, core_1.useResponsiveProps)(props), { display = (0, core_1.useResponsiveProp)({
+    const _a = (0, core_1.useResponsiveProps)(props), { display = (0, core_1.useResponsiveProps)({
         default: "inline",
         mobile: "overlay"
     }), width = 250, height = "100%", backgroundColor = "white", padding = 10, sideSheetProps, style, children } = _a, rest = __rest(_a, ["display", "width", "height", "backgroundColor", "padding", "sideSheetProps", "style", "children"]);

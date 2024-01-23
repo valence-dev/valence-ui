@@ -1,4 +1,4 @@
-import { Flex, FlexProps, MakeResponsive, Responsive, useColors, useResponsiveProp, useResponsiveProps, useValence } from "@valence-ui/core";
+import { Flex, FlexProps, MakeResponsive, Responsive, useColors, useResponsiveProps, useValence } from "@valence-ui/core";
 import { CSSProperties, forwardRef } from "react";
 import { SideSheet, SideSheetProps } from "../../overlays";
 
@@ -21,7 +21,7 @@ export const Sidebar = forwardRef(function Sidebar(
   ref: any
 ) {
   const {
-    display = useResponsiveProp<SidebarDisplay>({
+    display = useResponsiveProps<SidebarDisplay>({
       default: "inline",
       mobile: "overlay"
     }),
