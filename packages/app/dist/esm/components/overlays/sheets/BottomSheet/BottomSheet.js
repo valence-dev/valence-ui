@@ -20,7 +20,7 @@ export const BottomSheet = forwardRef(function BottomSheet(props, ref) {
     const theme = useContext(ValenceContext);
     const { getHex } = useColors();
     // Defaults
-    const _a = useResponsiveProps(props), { disclosure, title, header = (props) => _jsx(DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), releaseOffset = Math.round(window.innerHeight / 2), releaseVelocity = 500, closeOnOverlayClick = true, closeOnEscape = true, lockScroll = false, radius = "lg", withShadow = true, backgroundColor = getHex("white"), color = getHex("black"), padding = theme.sizeClasses.padding[theme.defaults.size], margin = 0, width, height = "100%", flexProps, overlayBackgroundProps = {
+    const _a = useResponsiveProps(props), { disclosure, title, header = (props) => _jsx(DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), releaseOffset = Math.round(window.innerHeight / 2), releaseVelocity = 500, closeOnOverlayClick = true, closeOnEscape = true, lockScroll = true, radius = "lg", withShadow = true, backgroundColor = getHex("white"), color = getHex("black"), padding = theme.sizeClasses.padding[theme.defaults.size], margin = 0, width, height = "100%", flexProps, overlayBackgroundProps = {
         padding: 0,
         style: {
             alignItems: "flex-end",
@@ -44,6 +44,7 @@ export const BottomSheet = forwardRef(function BottomSheet(props, ref) {
         margin: margin,
         borderRadius: `${borderRadius}px ${borderRadius}px 0 0`,
         boxShadow: withShadow ? theme.defaults.shadow : undefined,
+        touchAction: "none",
         overflowX: "hidden",
         overflowY: "auto",
     };

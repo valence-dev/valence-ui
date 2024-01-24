@@ -36,7 +36,7 @@ export const BottomSheet = forwardRef(function BottomSheet(
 
     closeOnOverlayClick = true,
     closeOnEscape = true,
-    lockScroll = false,
+    lockScroll = true,
 
     radius = "lg",
     withShadow = true,
@@ -101,6 +101,7 @@ export const BottomSheet = forwardRef(function BottomSheet(
 
     borderRadius: `${borderRadius}px ${borderRadius}px 0 0`,
     boxShadow: withShadow ? theme.defaults.shadow : undefined,
+    touchAction: "none",
 
     overflowX: "hidden",
     overflowY: "auto",

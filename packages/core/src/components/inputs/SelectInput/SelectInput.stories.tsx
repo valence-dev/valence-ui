@@ -15,8 +15,14 @@ export default meta;
 type Story = StoryObj<typeof SI>;
 
 
+
+const OPTIONS = [
+  "hi", "there", "mate", "how", "are", "you", "doing", "today",
+  { value: "son", label: "Father", icon: <IconCloud /> }
+];
+
 export const SelectInput: Story = (args: any) => {
-  const [value, setValue] = React.useState<Option | null>("hi");
+  const [value, setValue] = React.useState<Option | null>(OPTIONS[OPTIONS.length - 1]);
 
   return (
     <ValenceProvider>
@@ -45,9 +51,7 @@ export const SelectInput: Story = (args: any) => {
 SelectInput.args = {
   placeholder: "Select something...",
   icon: <IconAward />,
-  options: ["hi", "there", "mate", "how", "are", "you", "doing", "today",
-    { value: "son", label: "Father", icon: <IconCloud /> }
-  ],
+  options: OPTIONS,
   grow: true,
   width: 20,
 }
