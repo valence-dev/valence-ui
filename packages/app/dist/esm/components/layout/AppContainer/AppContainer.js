@@ -23,7 +23,6 @@ export const AppContainer = forwardRef(function AppContainer(props, ref) {
     // Defaults
     const _a = useResponsiveProps(props), { nav, header, sidebar, pageProps, contentWidth = 700, showNav = true, children, style } = _a, rest = __rest(_a, ["nav", "header", "sidebar", "pageProps", "contentWidth", "showNav", "children", "style"]);
     const radius = theme.sizeClasses.radius[theme.defaults.radius] + 5;
-    console.log(radius);
     // Hooks
     const [leftRef, { width: leftWidth }] = useElementSize();
     // States

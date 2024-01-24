@@ -54,7 +54,6 @@ export const AppContainer = forwardRef(function AppContainer(
   } = useResponsiveProps<AppContainerProps>(props);
 
   const radius = theme.sizeClasses.radius[theme.defaults.radius] as number + 5;
-  console.log(radius);
 
 
   // Hooks

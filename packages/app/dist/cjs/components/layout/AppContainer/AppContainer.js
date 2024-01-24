@@ -49,7 +49,6 @@ exports.AppContainer = (0, react_1.forwardRef)(function AppContainer(props, ref)
     // Defaults
     const _a = (0, core_1.useResponsiveProps)(props), { nav, header, sidebar, pageProps, contentWidth = 700, showNav = true, children, style } = _a, rest = __rest(_a, ["nav", "header", "sidebar", "pageProps", "contentWidth", "showNav", "children", "style"]);
     const radius = theme.sizeClasses.radius[theme.defaults.radius] + 5;
-    console.log(radius);
     // Hooks
     const [leftRef, { width: leftWidth }] = (0, usehooks_ts_1.useElementSize)();
     // States
