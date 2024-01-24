@@ -2,6 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.defaultOptionFilter = exports.getOptionIcon = exports.getOptionLabel = exports.getOptionValue = void 0;
 function getOptionValue(option) {
+    if (!option)
+        return "";
     if (typeof option === "string")
         return option;
     return option.value;
@@ -9,12 +11,16 @@ function getOptionValue(option) {
 exports.getOptionValue = getOptionValue;
 function getOptionLabel(option) {
     var _a;
+    if (!option)
+        return "";
     if (typeof option === "string")
         return option;
     return (_a = option.label) !== null && _a !== void 0 ? _a : option.value;
 }
 exports.getOptionLabel = getOptionLabel;
 function getOptionIcon(option) {
+    if (!option)
+        return undefined;
     if (typeof option === "string")
         return undefined;
     return option.icon;
