@@ -1,18 +1,26 @@
 import { CSSProperties, ReactNode, forwardRef } from "react";
 import { Image, ImageProps } from "../Image";
-import { FillVariant } from "@valence-ui/utils";
+import { ComponentSize, FillVariant } from "@valence-ui/utils";
 import { useValence } from "../../../../ValenceProvider";
 import { IconUserCircle } from "@tabler/icons-react";
 import { Flex } from "../../../layout";
-import { Icon } from "../../Icon";
+import { Icon, IconProps } from "../../Icon";
 import { MakeResponsive, useResponsiveProps } from "../../../../utilities/responsive";
 import { useColors } from "../../../../utilities/color";
 
 export type AvatarProps = ImageProps & {
-  /** Placeholder color for this avatar */
-  placeholderColor?: CSSProperties["color"];
-  /** Defines the fill variant for this avatar. Defaults to theme default fill variant */
+  /** Defines the fill variant for this avatar. Defaults to theme default. */
   variant?: FillVariant;
+  /** Defines the size of this avatar. Defaults to theme default. */
+  size?: ComponentSize;
+
+  /** Whether to render an outline in the placeholder. */
+  outline?: boolean;
+
+  /** An optional secondary icon to display near the avatar. */
+  secondaryIcon?: ReactNode;
+  /** Props to apply to the secondary icon, if it exists. */
+  secondaryIconProps?: IconProps;
 }
 
 
@@ -26,12 +34,19 @@ export const Avatar = forwardRef(function Avatar(
 
   // Defaults
   const {
-    placeholderColor = theme.primaryColor,
+    color = theme.primaryColor,
     variant = theme.defaults.variant,
     placeholder = <IconUserCircle />,
 
     square = true,
-    radius = "xl",
+    size = theme.defaults.size,
+
+    outline,
+    secondaryIcon,
+    secondaryIconProps,
+
+    width = theme.sizeClasses.height[size],
+    height = theme.sizeClasses.height[size],
 
     style,
     ...rest
@@ -40,30 +55,73 @@ export const Avatar = forwardRef(function Avatar(
 
   // Styles
   const imageStyle: CSSProperties = {
-    backgroundColor: colors.getBgHex(placeholderColor, variant, false),
-    color: colors.getFgHex(placeholderColor, variant),
+    backgroundColor: colors.getBgHex(color, variant, false),
+    color: colors.getFgHex(color, variant),
+    borderRadius: "50%",
+
+    border: outline ? `1px solid ${colors.getFgHex(color, variant)}` : undefined,
     ...style
+  }
+  const secondaryIconContainerStyle: CSSProperties = {
+    backgroundColor: colors.getHex(color),
+
+    borderRadius: "50%",
+    aspectRatio: 1,
+
+    position: "absolute",
+    right: 0,
+    bottom: 0,
+    padding: theme.sizeClasses.padding[size] as number / 8,
   }
 
 
   return (
-    <Image
-      style={imageStyle}
-      radius={radius}
-      square={square}
-      placeholder={
+    <span
+      style={{ position: "relative" }}
+    >
+      <Image
+        placeholder={
+          <Flex
+            align="center"
+            justify="center"
+            height="100%"
+            width="100%"
+          >
+            <Icon
+              size={theme.sizeClasses.iconSize[size] as any}
+            >
+              {placeholder}
+            </Icon>
+          </Flex>
+        }
+
+        style={imageStyle}
+        square={square}
+        color={color}
+        width={width}
+        height={height}
+
+        ref={ref}
+        {...rest}
+      />
+
+      {/* Secondary Icon */}
+      {secondaryIcon && (
         <Flex
           align="center"
           justify="center"
-          height="100%"
-          width="100%"
-        >
-          <Icon>{placeholder}</Icon>
-        </Flex>
-      }
 
-      ref={ref}
-      {...rest}
-    />
+          style={secondaryIconContainerStyle}
+        >
+          <Icon
+            size={theme.sizeClasses.iconSize[size] as any * 0.65}
+            color={color === "white" ? "black" : "white"}
+            {...secondaryIconProps}
+          >
+            {secondaryIcon}
+          </Icon>
+        </Flex>
+      )}
+    </span>
   )
 });
