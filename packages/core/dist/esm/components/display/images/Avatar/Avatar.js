@@ -9,7 +9,7 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import { jsx as _jsx } from "react/jsx-runtime";
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { forwardRef } from "react";
 import { Image } from "../Image";
 import { useValence } from "../../../../ValenceProvider";
@@ -22,8 +22,17 @@ export const Avatar = forwardRef(function Avatar(props, ref) {
     const theme = useValence();
     const colors = useColors();
     // Defaults
-    const _a = useResponsiveProps(props), { placeholderColor = theme.primaryColor, variant = theme.defaults.variant, placeholder = _jsx(IconUserCircle, {}), square = true, radius = "xl", style } = _a, rest = __rest(_a, ["placeholderColor", "variant", "placeholder", "square", "radius", "style"]);
+    const _a = useResponsiveProps(props), { color = theme.primaryColor, variant = theme.defaults.variant, placeholder = _jsx(IconUserCircle, {}), square = true, size = theme.defaults.size, outline, secondaryIcon, secondaryIconProps, spanStyle, width = theme.sizeClasses.height[size], height = theme.sizeClasses.height[size], style } = _a, rest = __rest(_a, ["color", "variant", "placeholder", "square", "size", "outline", "secondaryIcon", "secondaryIconProps", "spanStyle", "width", "height", "style"]);
     // Styles
-    const imageStyle = Object.assign({ backgroundColor: colors.getBgHex(placeholderColor, variant, false), color: colors.getFgHex(placeholderColor, variant) }, style);
-    return (_jsx(Image, Object.assign({ style: imageStyle, radius: radius, square: square, placeholder: _jsx(Flex, { align: "center", justify: "center", height: "100%", width: "100%", children: _jsx(Icon, { children: placeholder }) }), ref: ref }, rest)));
+    const imageStyle = Object.assign({ backgroundColor: colors.getBgHex(color, variant, false), color: colors.getFgHex(color, variant), borderRadius: "50%", border: outline ? `1px solid ${colors.getFgHex(color, variant)}` : undefined }, style);
+    const secondaryIconContainerStyle = {
+        backgroundColor: colors.getHex(color),
+        borderRadius: "50%",
+        aspectRatio: 1,
+        position: "absolute",
+        right: 0,
+        bottom: 0,
+        padding: theme.sizeClasses.padding[size] / 8,
+    };
+    return (_jsxs("span", { style: Object.assign({ position: "relative" }, spanStyle), children: [_jsx(Image, Object.assign({ placeholder: _jsx(Flex, { align: "center", justify: "center", height: "100%", width: "100%", children: _jsx(Icon, { size: theme.sizeClasses.iconSize[size], children: placeholder }) }), style: imageStyle, square: square, color: color, width: width, height: height, ref: ref }, rest)), secondaryIcon && (_jsx(Flex, { align: "center", justify: "center", style: secondaryIconContainerStyle, children: _jsx(Icon, Object.assign({ size: theme.sizeClasses.iconSize[size] * 0.65, color: color === "white" ? "black" : "white" }, secondaryIconProps, { children: secondaryIcon })) }))] }));
 });

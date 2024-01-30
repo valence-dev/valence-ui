@@ -36,7 +36,8 @@ export const MultipartButton = forwardRef(function MultipartButton(props, ref) {
     const buttonStyle = Object.assign({ justifyContent: "flex-start", padding: 0, paddingLeft: !leftIcon ? theme.sizeClasses.padding[size] : undefined }, style);
     const ContainerStyle = css({
         height: "100%",
-        aspectRatio: "1 / 1",
+        width: "fit-content",
+        padding: theme.sizeClasses.padding[size],
         display: "flex",
         alignItems: "center",
         justifyContent: "center",

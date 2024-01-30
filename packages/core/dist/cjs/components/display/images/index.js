@@ -15,4 +15,5 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./Avatar"), exports);
+__exportStar(require("./AvatarGroup"), exports);
 __exportStar(require("./Image"), exports);

@@ -39,7 +39,8 @@ exports.MultipartButton = (0, react_1.forwardRef)(function MultipartButton(props
     const buttonStyle = Object.assign({ justifyContent: "flex-start", padding: 0, paddingLeft: !leftIcon ? theme.sizeClasses.padding[size] : undefined }, style);
     const ContainerStyle = (0, react_2.css)({
         height: "100%",
-        aspectRatio: "1 / 1",
+        width: "fit-content",
+        padding: theme.sizeClasses.padding[size],
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
