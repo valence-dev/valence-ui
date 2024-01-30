@@ -77,7 +77,8 @@ export const MultipartButton = forwardRef(function MultipartButton(
   }
   const ContainerStyle = css({
     height: "100%",
-    aspectRatio: "1 / 1",
+    width: "fit-content",
+    padding: theme.sizeClasses.padding[size],
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
