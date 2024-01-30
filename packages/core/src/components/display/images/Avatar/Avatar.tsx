@@ -21,6 +21,9 @@ export type AvatarProps = ImageProps & {
   secondaryIcon?: ReactNode;
   /** Props to apply to the secondary icon, if it exists. */
   secondaryIconProps?: IconProps;
+
+  /** Optional styles to pass to the containing span component. */
+  spanStyle?: CSSProperties;
 }
 
 
@@ -44,6 +47,8 @@ export const Avatar = forwardRef(function Avatar(
     outline,
     secondaryIcon,
     secondaryIconProps,
+
+    spanStyle,
 
     width = theme.sizeClasses.height[size],
     height = theme.sizeClasses.height[size],
@@ -77,7 +82,10 @@ export const Avatar = forwardRef(function Avatar(
 
   return (
     <span
-      style={{ position: "relative" }}
+      style={{
+        position: "relative",
+        ...spanStyle,
+      }}
     >
       <Image
         placeholder={
