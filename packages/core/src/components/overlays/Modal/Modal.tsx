@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { CSSProperties, forwardRef } from "react";
 import { ModalBackground, Disclosure, useDetectKeyDown, useValence, MakeResponsive, useResponsiveProps, useColors } from "../../..";
-import { Flex, FlexProps } from "../../layout";
+import { Flex, FlexProps, OverflowContainer } from "../../layout";
 import { AnimatePresence, motion } from "framer-motion";
 import { Icon, Title } from "../../display";
 import { IconX } from "@tabler/icons-react";
@@ -69,10 +69,6 @@ export const Modal = forwardRef(function Modal(
     style: flexStyle,
     ...flexPropsRest
   } = flexProps || {} as any;
-  const {
-    style: innerFlexStyle,
-    ...innerFlexPropsRest
-  } = innerFlexProps || {} as any;
 
 
   // Hooks
@@ -114,19 +110,7 @@ export const Modal = forwardRef(function Modal(
   const FlexStyle: CSSProperties = {
     width: "100%",
     height: "100%",
-
-    overflowY: "scroll",
     ...flexStyle
-  }
-  const OverflowContainerStyle = css({
-    width: "100%",
-    height: "100%",
-    overflowY: "auto",
-  });
-  const InnerFlexStyle: CSSProperties = {
-    width: "100%",
-    height: "fit-content",
-    ...innerFlexStyle
   }
 
 
@@ -162,15 +146,11 @@ export const Modal = forwardRef(function Modal(
               >
                 {header({ title })}
 
-                <div css={OverflowContainerStyle}>
-                  <Flex
-                    direction="column"
-                    style={InnerFlexStyle}
-                    {...innerFlexPropsRest}
-                  >
-                    {children}
-                  </Flex>
-                </div>
+                <OverflowContainer
+                  innerProps={innerFlexProps}
+                >
+                  {children}
+                </OverflowContainer>
               </Flex>
             </motion.div>
           </FloatingFocusManager>

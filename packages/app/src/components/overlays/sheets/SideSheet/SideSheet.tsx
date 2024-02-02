@@ -1,8 +1,6 @@
-/** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
 import { CSSProperties, ReactNode, forwardRef, useContext, useEffect } from "react";
 import { GenericSheetProps } from "../Generics";
-import { DefaultModalHeader, Disclosure, Flex, FlexProps, MakeResponsive, ModalBackground, ValenceContext, useBreakpoint, useColors, useDetectKeyDown, useResponsiveProps } from "@valence-ui/core";
+import { DefaultModalHeader, Disclosure, Flex, FlexProps, MakeResponsive, ModalBackground, OverflowContainer, ValenceContext, useColors, useDetectKeyDown, useResponsiveProps } from "@valence-ui/core";
 import { GenericOverlayBackgroundProps, GenericOverlayHeaderProps } from "@valence-ui/utils";
 import { useLockedBody } from "usehooks-ts";
 import { AnimatePresence } from "framer-motion";
@@ -76,10 +74,6 @@ export const SideSheet = forwardRef(function SideSheet(
     children,
     ...rest
   } = useResponsiveProps<SideSheetProps>(props);
-  const {
-    style: innerFlexStyle,
-    ...innerFlexPropsRest
-  } = innerFlexProps || {} as any;
 
   const fixedDirection = display === "overlay" ? direction : "right";
 
@@ -116,17 +110,6 @@ export const SideSheet = forwardRef(function SideSheet(
       `1px solid ${getHex("black", "weak")}`,
 
     ...style,
-  }
-  const OverflowContainerStyle = css({
-    width: "100%",
-    height: "100%",
-    overflowY: "auto",
-  })
-  const InnerFlexStyle: CSSProperties = {
-    width: "100%",
-    height: "fit-content",
-
-    ...innerFlexStyle,
   }
 
 
@@ -190,15 +173,11 @@ export const SideSheet = forwardRef(function SideSheet(
             >
               {header({ title })}
 
-              {/* Overflow container */}
-              <div css={OverflowContainerStyle}>
-                <Flex
-                  style={InnerFlexStyle}
-                  {...innerFlexPropsRest}
-                >
-                  {children}
-                </Flex>
-              </div>
+              <OverflowContainer
+                innerProps={innerFlexProps}
+              >
+                {children}
+              </OverflowContainer>
             </Flex>
           </motion.div>
         </OptionalBackground>

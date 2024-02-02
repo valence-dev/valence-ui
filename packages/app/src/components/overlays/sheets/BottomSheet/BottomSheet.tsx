@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { ValenceContext, ModalBackground, Flex, useDetectKeyDown, DefaultModalHeader, MakeResponsive, useResponsiveProps, useColors, FlexProps } from "@valence-ui/core";
+import { ValenceContext, ModalBackground, Flex, useDetectKeyDown, DefaultModalHeader, MakeResponsive, useResponsiveProps, useColors, FlexProps, OverflowContainer } from "@valence-ui/core";
 import { GenericOverlayHeaderProps, } from "@valence-ui/utils";
 import { useContext, forwardRef, CSSProperties } from "react";
 import { AnimatePresence, motion, useDragControls } from "framer-motion";
@@ -59,6 +59,7 @@ export const BottomSheet = forwardRef(function BottomSheet(
     height = "100%",
 
     flexProps,
+    innerFlexProps,
     overlayBackgroundProps = {
       padding: 0,
       style: {
@@ -74,10 +75,6 @@ export const BottomSheet = forwardRef(function BottomSheet(
     style: flexStyle,
     ...flexPropsRest
   } = flexProps || {} as any;
-  const {
-    style: innerFlexStyle,
-    ...innerFlexPropsRest
-  } = props.innerFlexProps || {} as any;
 
 
   // Functions
@@ -121,23 +118,6 @@ export const BottomSheet = forwardRef(function BottomSheet(
     touchAction: "none",
 
     ...flexStyle,
-  }
-  const OverflowContainerStyle = css({
-    width: "100%",
-    height: "100%",
-
-    ...(allowInnerScrolling ? {
-      overflowY: "auto",
-    } : {
-      overflow: "hidden",
-      touchAction: "none",
-    }),
-  })
-  const InnerFlexStyle: CSSProperties = {
-    width: "100%",
-    height: "fit-content",
-
-    ...innerFlexStyle,
   }
   const DragStyle: CSSProperties = {
     width: "100%",
@@ -211,17 +191,12 @@ export const BottomSheet = forwardRef(function BottomSheet(
                 {header({ title })}
               </div>
 
-              <div
-                css={OverflowContainerStyle}
+              <OverflowContainer
+                innerProps={innerFlexProps}
+                direction={allowInnerScrolling ? "vertical" : "none"}
               >
-                <Flex
-                  direction="column"
-                  style={InnerFlexStyle}
-                  {...innerFlexPropsRest}
-                >
-                  {children}
-                </Flex>
-              </div>
+                {children}
+              </OverflowContainer>
             </Flex>
           </motion.div>
         </ModalBackground>
