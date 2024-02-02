@@ -7,6 +7,8 @@ export type ModalProps = GenericOverlayProps & {
     disclosure: Disclosure;
     /** Optional props to pass to the flex component */
     flexProps?: FlexProps;
+    /** Optional props to pass to the inner flex component */
+    innerFlexProps?: FlexProps;
 };
 export declare const Modal: import("react").ForwardRefExoticComponent<MakeResponsive<ModalProps> & import("react").RefAttributes<unknown>>;
 export type DefaultModalHeaderProps = GenericOverlayHeaderProps & {

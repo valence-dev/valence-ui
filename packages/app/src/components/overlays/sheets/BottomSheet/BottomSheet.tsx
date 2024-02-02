@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { ValenceContext, ModalBackground, Flex, useDetectKeyDown, DefaultModalHeader, MakeResponsive, useResponsiveProps, useColors } from "@valence-ui/core";
+import { ValenceContext, ModalBackground, Flex, useDetectKeyDown, DefaultModalHeader, MakeResponsive, useResponsiveProps, useColors, FlexProps } from "@valence-ui/core";
 import { GenericOverlayHeaderProps, } from "@valence-ui/utils";
 import { useContext, forwardRef, CSSProperties } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useDragControls } from "framer-motion";
 import { useLockedBody } from "usehooks-ts";
 import { GenericSheetProps } from "../Generics";
 
@@ -12,6 +12,12 @@ export type BottomSheetProps = GenericSheetProps & {
   releaseOffset?: number;
   /** The velocity the sheet must be moving at before it will close. Defaults to `500` */
   releaseVelocity?: number;
+
+  /** Whether to allow the sheet to scroll its inner content. Defaults to `false`. */
+  allowInnerScrolling?: boolean;
+
+  /** Optional props to apply to the inner flex component. */
+  innerFlexProps?: FlexProps;
 };
 
 export const BottomSheet = forwardRef(function BottomSheet(
@@ -20,6 +26,7 @@ export const BottomSheet = forwardRef(function BottomSheet(
 ) {
   const theme = useContext(ValenceContext);
   const { getHex } = useColors();
+  const controls = useDragControls();
 
 
   // Defaults
@@ -33,6 +40,7 @@ export const BottomSheet = forwardRef(function BottomSheet(
 
     releaseOffset = Math.round(window.innerHeight / 2),
     releaseVelocity = 500,
+    allowInnerScrolling = false,
 
     closeOnOverlayClick = true,
     closeOnEscape = true,
@@ -62,6 +70,14 @@ export const BottomSheet = forwardRef(function BottomSheet(
     children,
     ...rest
   } = useResponsiveProps<BottomSheetProps>(props);
+  const {
+    style: flexStyle,
+    ...flexPropsRest
+  } = flexProps || {} as any;
+  const {
+    style: innerFlexStyle,
+    ...innerFlexPropsRest
+  } = props.innerFlexProps || {} as any;
 
 
   // Functions
@@ -90,7 +106,7 @@ export const BottomSheet = forwardRef(function BottomSheet(
     ...style,
   });
   const SheetStyle: CSSProperties = {
-    height: "100%",
+    height: "calc(100% - 25px)",
     width: "100%",
 
     backgroundColor: backgroundColor,
@@ -98,13 +114,30 @@ export const BottomSheet = forwardRef(function BottomSheet(
 
     padding: padding,
     margin: margin,
+    position: "relative",
 
     borderRadius: `${borderRadius}px ${borderRadius}px 0 0`,
     boxShadow: withShadow ? theme.defaults.shadow : undefined,
     touchAction: "none",
 
-    overflowX: "hidden",
-    overflowY: "auto",
+    ...flexStyle,
+  }
+  const OverflowContainerStyle = css({
+    width: "100%",
+    height: "100%",
+
+    ...(allowInnerScrolling ? {
+      overflowY: "auto",
+    } : {
+      overflow: "hidden",
+      touchAction: "none",
+    }),
+  })
+  const InnerFlexStyle: CSSProperties = {
+    width: "100%",
+    height: "fit-content",
+
+    ...innerFlexStyle,
   }
   const DragStyle: CSSProperties = {
     width: "100%",
@@ -114,7 +147,7 @@ export const BottomSheet = forwardRef(function BottomSheet(
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    
+
     cursor: "grab",
   }
   const PillStyle: CSSProperties = {
@@ -169,11 +202,26 @@ export const BottomSheet = forwardRef(function BottomSheet(
             <Flex
               direction="column"
               style={SheetStyle}
-              {...flexProps}
+              {...flexPropsRest}
             >
-              {header({ title })}
+              <div
+                onPointerDown={controls.start}
+                style={{ width: "100%", touchAction: "none" }}
+              >
+                {header({ title })}
+              </div>
 
-              {children}
+              <div
+                css={OverflowContainerStyle}
+              >
+                <Flex
+                  direction="column"
+                  style={InnerFlexStyle}
+                  {...innerFlexPropsRest}
+                >
+                  {children}
+                </Flex>
+              </div>
             </Flex>
           </motion.div>
         </ModalBackground>

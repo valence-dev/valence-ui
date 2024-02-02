@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { forwardRef } from "react";
+import { CSSProperties, forwardRef } from "react";
 import { ModalBackground, Disclosure, useDetectKeyDown, useValence, MakeResponsive, useResponsiveProps, useColors } from "../../..";
 import { Flex, FlexProps } from "../../layout";
 import { AnimatePresence, motion } from "framer-motion";
@@ -19,6 +19,9 @@ export type ModalProps =
 
     /** Optional props to pass to the flex component */
     flexProps?: FlexProps;
+
+    /** Optional props to pass to the inner flex component */
+    innerFlexProps?: FlexProps;
   }
 
 
@@ -54,6 +57,7 @@ export const Modal = forwardRef(function Modal(
     height = "fit-content",
 
     flexProps,
+    innerFlexProps,
     overlayBackgroundProps,
 
     children,
@@ -61,6 +65,14 @@ export const Modal = forwardRef(function Modal(
 
     ...rest
   } = useResponsiveProps<ModalProps>(props);
+  const {
+    style: flexStyle,
+    ...flexPropsRest
+  } = flexProps || {} as any;
+  const {
+    style: innerFlexStyle,
+    ...innerFlexPropsRest
+  } = innerFlexProps || {} as any;
 
 
   // Hooks
@@ -93,12 +105,29 @@ export const Modal = forwardRef(function Modal(
     height: height,
     borderRadius: theme.sizeClasses.radius[radius],
     boxShadow: withShadow ? theme.defaults.shadow : undefined,
-    
+
     boxSizing: "border-box",
     maxWidth: "100%",
 
     ...style
   });
+  const FlexStyle: CSSProperties = {
+    width: "100%",
+    height: "100%",
+
+    overflowY: "scroll",
+    ...flexStyle
+  }
+  const OverflowContainerStyle = css({
+    width: "100%",
+    height: "100%",
+    overflowY: "auto",
+  });
+  const InnerFlexStyle: CSSProperties = {
+    width: "100%",
+    height: "fit-content",
+    ...innerFlexStyle
+  }
 
 
   return (
@@ -128,11 +157,20 @@ export const Modal = forwardRef(function Modal(
               <Flex
                 direction="column"
                 gap={15}
-                {...flexProps}
+                style={FlexStyle}
+                {...flexPropsRest}
               >
                 {header({ title })}
 
-                {children}
+                <div css={OverflowContainerStyle}>
+                  <Flex
+                    direction="column"
+                    style={InnerFlexStyle}
+                    {...innerFlexPropsRest}
+                  >
+                    {children}
+                  </Flex>
+                </div>
               </Flex>
             </motion.div>
           </FloatingFocusManager>
@@ -155,6 +193,7 @@ export const DefaultModalHeader = forwardRef(function DefaultModalHeader(
   ref: any,
 ) {
   const { title, disclosure } = useResponsiveProps<DefaultModalHeaderProps>(props);
+  const { getHex } = useColors();
 
 
   const HeaderStyle = css({
@@ -162,6 +201,12 @@ export const DefaultModalHeader = forwardRef(function DefaultModalHeader(
     alignItems: "center",
     justifyContent: "space-between",
     width: "100%",
+
+    backgroundColor: getHex(
+      "white",
+      "strong"
+    ),
+    backdropFilter: "blur(10px)",
   });
 
 

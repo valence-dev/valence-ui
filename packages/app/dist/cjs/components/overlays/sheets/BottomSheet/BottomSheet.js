@@ -22,13 +22,16 @@ const usehooks_ts_1 = require("usehooks-ts");
 exports.BottomSheet = (0, react_2.forwardRef)(function BottomSheet(props, ref) {
     const theme = (0, react_2.useContext)(core_1.ValenceContext);
     const { getHex } = (0, core_1.useColors)();
+    const controls = (0, framer_motion_1.useDragControls)();
     // Defaults
-    const _a = (0, core_1.useResponsiveProps)(props), { disclosure, title, header = (props) => (0, jsx_runtime_1.jsx)(core_1.DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), releaseOffset = Math.round(window.innerHeight / 2), releaseVelocity = 500, closeOnOverlayClick = true, closeOnEscape = true, lockScroll = true, radius = "lg", withShadow = true, backgroundColor = getHex("white"), color = getHex("black"), padding = theme.sizeClasses.padding[theme.defaults.size], margin = 0, width, height = "100%", flexProps, overlayBackgroundProps = {
+    const _a = (0, core_1.useResponsiveProps)(props), { disclosure, title, header = (props) => (0, jsx_runtime_1.jsx)(core_1.DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), releaseOffset = Math.round(window.innerHeight / 2), releaseVelocity = 500, allowInnerScrolling = false, closeOnOverlayClick = true, closeOnEscape = true, lockScroll = true, radius = "lg", withShadow = true, backgroundColor = getHex("white"), color = getHex("black"), padding = theme.sizeClasses.padding[theme.defaults.size], margin = 0, width, height = "100%", flexProps, overlayBackgroundProps = {
         padding: 0,
         style: {
             alignItems: "flex-end",
         }
-    }, style, children } = _a, rest = __rest(_a, ["disclosure", "title", "header", "releaseOffset", "releaseVelocity", "closeOnOverlayClick", "closeOnEscape", "lockScroll", "radius", "withShadow", "backgroundColor", "color", "padding", "margin", "width", "height", "flexProps", "overlayBackgroundProps", "style", "children"]);
+    }, style, children } = _a, rest = __rest(_a, ["disclosure", "title", "header", "releaseOffset", "releaseVelocity", "allowInnerScrolling", "closeOnOverlayClick", "closeOnEscape", "lockScroll", "radius", "withShadow", "backgroundColor", "color", "padding", "margin", "width", "height", "flexProps", "overlayBackgroundProps", "style", "children"]);
+    const _b = flexProps || {}, { style: flexStyle } = _b, flexPropsRest = __rest(_b, ["style"]);
+    const _c = props.innerFlexProps || {}, { style: innerFlexStyle } = _c, innerFlexPropsRest = __rest(_c, ["style"]);
     // Functions
     function handleDragEnd(e, { offset, velocity }) {
         if (offset.y > releaseOffset
@@ -38,19 +41,13 @@ exports.BottomSheet = (0, react_2.forwardRef)(function BottomSheet(props, ref) {
     // Styles
     const borderRadius = theme.sizeClasses.radius[radius];
     const ContainerStyles = (0, react_1.css)(Object.assign({ position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 999, width: width, height: height }, style));
-    const SheetStyle = {
-        height: "100%",
-        width: "100%",
-        backgroundColor: backgroundColor,
-        color: color,
-        padding: padding,
-        margin: margin,
-        borderRadius: `${borderRadius}px ${borderRadius}px 0 0`,
-        boxShadow: withShadow ? theme.defaults.shadow : undefined,
-        touchAction: "none",
-        overflowX: "hidden",
+    const SheetStyle = Object.assign(Object.assign({ height: "calc(100% - 25px)", width: "100%", backgroundColor: backgroundColor, color: color, padding: padding, margin: margin, boxSizing: "border-box", borderRadius: `${borderRadius}px ${borderRadius}px 0 0`, boxShadow: withShadow ? theme.defaults.shadow : undefined }, (allowInnerScrolling ? {
         overflowY: "auto",
-    };
+    } : {
+        overflow: "hidden",
+        touchAction: "none",
+    })), flexStyle);
+    const InnerFlexStyle = Object.assign({ width: "100%", height: "fit-content" }, innerFlexStyle);
     const DragStyle = {
         width: "100%",
         height: 25,
@@ -78,5 +75,5 @@ exports.BottomSheet = (0, react_2.forwardRef)(function BottomSheet(props, ref) {
                             damping: 40,
                             delay: 0.1,
                         }
-                    }, exit: { y: "100%" }, ref: ref }, rest, { children: [(0, jsx_runtime_1.jsx)("div", { style: DragStyle, children: (0, jsx_runtime_1.jsx)("div", { style: PillStyle }) }), (0, jsx_runtime_1.jsxs)(core_1.Flex, Object.assign({ direction: "column", style: SheetStyle }, flexProps, { children: [header({ title }), children] }))] })) })) }));
+                    }, exit: { y: "100%" }, ref: ref }, rest, { children: [(0, jsx_runtime_1.jsx)("div", { style: DragStyle, children: (0, jsx_runtime_1.jsx)("div", { style: PillStyle }) }), (0, jsx_runtime_1.jsxs)(core_1.Flex, Object.assign({ direction: "column", style: SheetStyle }, flexPropsRest, { children: [(0, jsx_runtime_1.jsx)("div", { onPointerDown: controls.start, style: { width: "100%", touchAction: "none" }, children: header({ title }) }), (0, jsx_runtime_1.jsx)(core_1.Flex, Object.assign({ direction: "column", style: InnerFlexStyle }, innerFlexPropsRest, { children: children }))] }))] })) })) }));
 });

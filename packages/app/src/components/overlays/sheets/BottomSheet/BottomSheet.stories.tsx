@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { Button, ValenceProvider, useDisclosure } from "@valence-ui/core"
+import { Button, StyledFlex, ValenceProvider, useDisclosure } from "@valence-ui/core"
 import { BottomSheet as BS } from "./BottomSheet";
 
 const meta: Meta<typeof BS> = {
@@ -20,10 +20,18 @@ export const BottomSheet: Story = (args: any) => {
       <BS
         disclosure={disclosure}
         {...args}
-      />
+      >
+        <StyledFlex
+          width="100%"
+          height="200vh"
+        >
+          Hi
+        </StyledFlex>
+      </BS>
     </ValenceProvider>
   )
 };
 BottomSheet.args = {
   title: "Bottom Sheet title",
+  allowInnerScrolling: true,
 };

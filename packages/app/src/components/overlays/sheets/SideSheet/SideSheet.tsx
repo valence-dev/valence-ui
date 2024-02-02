@@ -1,6 +1,8 @@
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import { CSSProperties, ReactNode, forwardRef, useContext, useEffect } from "react";
 import { GenericSheetProps } from "../Generics";
-import { DefaultModalHeader, Disclosure, Flex, MakeResponsive, ModalBackground, ValenceContext, useBreakpoint, useColors, useDetectKeyDown, useResponsiveProps } from "@valence-ui/core";
+import { DefaultModalHeader, Disclosure, Flex, FlexProps, MakeResponsive, ModalBackground, ValenceContext, useBreakpoint, useColors, useDetectKeyDown, useResponsiveProps } from "@valence-ui/core";
 import { GenericOverlayBackgroundProps, GenericOverlayHeaderProps } from "@valence-ui/utils";
 import { useLockedBody } from "usehooks-ts";
 import { AnimatePresence } from "framer-motion";
@@ -21,6 +23,9 @@ export type SideSheetProps =
      * `right` by default. 
      */
     direction?: "left" | "right";
+
+    /** Optional props to pass to the inner flex component */
+    innerFlexProps?: FlexProps;
   };
 
 export const SideSheet = forwardRef(function SideSheet(
@@ -59,6 +64,7 @@ export const SideSheet = forwardRef(function SideSheet(
     height = "100vh",
 
     flexProps,
+    innerFlexProps,
     overlayBackgroundProps = {
       padding: 0,
       style: {
@@ -70,6 +76,10 @@ export const SideSheet = forwardRef(function SideSheet(
     children,
     ...rest
   } = useResponsiveProps<SideSheetProps>(props);
+  const {
+    style: innerFlexStyle,
+    ...innerFlexPropsRest
+  } = innerFlexProps || {} as any;
 
   const fixedDirection = display === "overlay" ? direction : "right";
 
@@ -105,10 +115,18 @@ export const SideSheet = forwardRef(function SideSheet(
     borderLeft: display === "overlay" ? undefined :
       `1px solid ${getHex("black", "weak")}`,
 
-    overflowX: "hidden",
-    overflowY: "auto",
-
     ...style,
+  }
+  const OverflowContainerStyle = css({
+    width: "100%",
+    height: "100%",
+    overflowY: "auto",
+  })
+  const InnerFlexStyle: CSSProperties = {
+    width: "100%",
+    height: "fit-content",
+
+    ...innerFlexStyle,
   }
 
 
@@ -164,13 +182,23 @@ export const SideSheet = forwardRef(function SideSheet(
             ref={ref}
             {...rest}
           >
+            {/* Sheet */}
             <Flex
               direction="column"
+              height="100%"
               {...flexProps}
             >
               {header({ title })}
 
-              {children}
+              {/* Overflow container */}
+              <div css={OverflowContainerStyle}>
+                <Flex
+                  style={InnerFlexStyle}
+                  {...innerFlexPropsRest}
+                >
+                  {children}
+                </Flex>
+              </div>
             </Flex>
           </motion.div>
         </OptionalBackground>

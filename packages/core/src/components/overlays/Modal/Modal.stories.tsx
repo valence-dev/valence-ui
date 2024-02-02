@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { Button, Flex, ValenceProvider, useDisclosure } from "../../..";
+import { Button, Flex, FlexCenter, StyledFlex, ValenceProvider, useDisclosure } from "../../..";
 import { Modal as M } from "../../..";
 
 const meta: Meta<typeof M> = {
@@ -25,22 +25,25 @@ export const Modal: Story = (args: any) => {
 
   return (
     <ValenceProvider>
-      <Flex
-      backgroundColor="white"
-      width="100%"
-      height="100vh"
-      >
-      <Button onClick={disclosure.open}>Open Modal</Button>
-      </Flex>
+      <FlexCenter>
+        <Button onClick={disclosure.open}>Open Modal</Button>
+      </FlexCenter>
 
       <M
         disclosure={disclosure}
         {...args}
-      />
+      >
+        <StyledFlex
+          width="100%"
+          height="200vh"  
+        >
+          Hi
+        </StyledFlex>
+      </M>
     </ValenceProvider>
   )
 }
 Modal.args = {
   title: "Modal Title",
-  children: "Hello there",
+  height: 200,
 };
