@@ -1,6 +1,7 @@
 import { Placement, autoUpdate, useFloating, offset as tooltipOffset, flip, shift, useHover, useFocus, useDismiss, useRole, useInteractions } from "@floating-ui/react";
 import { Disclosure, useDisclosure } from "./UseDisclosure";
 import { useMemo } from "react";
+import { useBreakpoint } from "../utilities";
 
 export type TooltipOptions = {
   /** The placement of the tooltip relative to the target */
@@ -18,8 +19,9 @@ export function useTooltip({
   disclosure
 }: TooltipOptions = {}) {
   const uncontrolled = useDisclosure();
+  const { isMobile } = useBreakpoint();
 
-  const opened = disclosure?.opened ?? uncontrolled.opened;
+  const opened = disclosure?.opened ?? isMobile ? false : uncontrolled.opened;
   const setUpdate = disclosure?.update ?? uncontrolled.update;
 
 
