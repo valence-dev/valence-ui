@@ -76,9 +76,10 @@ const Stepper = forwardRef(function Stepper(
         align="center"
       >
         {React.Children.toArray(children).map((_, index: number) => {
-          return (
+          return React.cloneElement((
             <>
               <StepperIndicator
+                key={index}
                 step={index}
                 state={
                   index === currentStep ? "active"
@@ -93,6 +94,7 @@ const Stepper = forwardRef(function Stepper(
               {/* Line */}
               {index < React.Children.count(children) - 1 &&
                 <Space
+                  key={index + "line"}
                   grow
                   style={{
                     borderTop: `1px solid ${colors.getHex(color)}`,
@@ -101,13 +103,13 @@ const Stepper = forwardRef(function Stepper(
                 />
               }
             </>
-          )
+          ), { key: index })
         })}
       </Flex>
 
       {/* Stepper children */}
       {React.Children.toArray(children).map((child: any, index: number) =>
-        index === currentStep && child
+        index === currentStep && React.cloneElement(child, { ...child.props, key: index })
       )}
     </Flex>
   )
