@@ -37,13 +37,18 @@ export type TextProps =
     size?: ComponentSize;
     /** Sets `color` css property */
     color?: CSSProperties["color"];
-
+    
     /** Shorthand for `font-style: italic` */
     italic?: boolean;
     /** Shorthand for `font-weight: 800` */
     bold?: boolean;
     /** Shorthand for `font-family: monospace` */
     monospace?: boolean;
+
+    /** Sets the color of highlighted sections. */
+    highlightColor?: CSSProperties["color"];
+    /** Optional styles to pass to highlighted sections */
+    highlightStyle?: CSSProperties;
   }
 
 
@@ -57,6 +62,7 @@ export type TextProps =
  * - `**{...}**` for bolded text
  * - `*{...}*` for italicized text
  * - `{...}` for monospace text
+ * - `<hl>{...}</hl>` for highlighted text
  */
 export const Text = forwardRef(function Text(
   props: MakeResponsive<TextProps>,
@@ -81,6 +87,9 @@ export const Text = forwardRef(function Text(
     fontSize = theme.sizeClasses.fontSize[size],
     color = "black",
 
+    highlightColor = "primary",
+    highlightStyle,
+
     children,
     style,
     ...rest
@@ -90,10 +99,10 @@ export const Text = forwardRef(function Text(
   // Run through formatters
   let replacements: any = children;
   replacements = reactStringReplace(replacements, REGEX_PATTERNS.newline, (match, i) => (
-    <br key={match + i} />
+    <br key={crypto.randomUUID()} />
   ));
   replacements = reactStringReplace(replacements, REGEX_PATTERNS.boldItalic, (match, i) => (
-    <b key={match + i}
+    <b key={crypto.randomUUID()}
       style={{
         fontWeight: 800,
         fontStyle: "italic",
@@ -105,7 +114,7 @@ export const Text = forwardRef(function Text(
     </b>
   ));
   replacements = reactStringReplace(replacements, REGEX_PATTERNS.bold, (match, i) => (
-    <b key={match + i}
+    <b key={crypto.randomUUID()}
       style={{
         fontWeight: 800,
       }}
@@ -114,7 +123,7 @@ export const Text = forwardRef(function Text(
     </b>
   ));
   replacements = reactStringReplace(replacements, REGEX_PATTERNS.italic, (match, i) => (
-    <i key={match + i}
+    <i key={crypto.randomUUID()}
       style={{
         fontStyle: "italic",
       }}
@@ -123,9 +132,22 @@ export const Text = forwardRef(function Text(
     </i>
   ));
   replacements = reactStringReplace(replacements, REGEX_PATTERNS.monospace, (match, i) => (
-    <span key={match + i}
+    <span key={crypto.randomUUID()}
       style={{
         fontFamily: theme.getFont("monospace"),
+      }}
+    >
+      {match}
+    </span>
+  ));
+  replacements = reactStringReplace(replacements, /<hl>(.+?)<\/hl>/, (match, i) => (
+    <span key={crypto.randomUUID()}
+      style={{
+        backgroundColor: colors.getHex(highlightColor, "weak"),
+        color: colors.getHex(highlightColor),
+        borderRadius: 5,
+        padding: 2,
+        ...highlightStyle,
       }}
     >
       {match}

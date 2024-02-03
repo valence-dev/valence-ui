@@ -35,28 +35,30 @@ const REGEX_PATTERNS = {
  * - `**{...}**` for bolded text
  * - `*{...}*` for italicized text
  * - `{...}` for monospace text
+ * - `<hl>{...}</hl>` for highlighted text
  */
 export const Text = forwardRef(function Text(props, ref) {
     const theme = useValence();
     const colors = useColors();
     // Defaults
-    const _a = useResponsiveProps(props), { bold = false, italic = false, monospace = false, family = monospace ? theme.getFont("monospace") : theme.getFont("default"), weight = bold ? "bold" : "normal", align = "left", transform = "none", size = theme.defaults.size, fontSize = theme.sizeClasses.fontSize[size], color = "black", children, style } = _a, rest = __rest(_a, ["bold", "italic", "monospace", "family", "weight", "align", "transform", "size", "fontSize", "color", "children", "style"]);
+    const _a = useResponsiveProps(props), { bold = false, italic = false, monospace = false, family = monospace ? theme.getFont("monospace") : theme.getFont("default"), weight = bold ? "bold" : "normal", align = "left", transform = "none", size = theme.defaults.size, fontSize = theme.sizeClasses.fontSize[size], color = "black", highlightColor = "primary", highlightStyle, children, style } = _a, rest = __rest(_a, ["bold", "italic", "monospace", "family", "weight", "align", "transform", "size", "fontSize", "color", "highlightColor", "highlightStyle", "children", "style"]);
     // Run through formatters
     let replacements = children;
-    replacements = reactStringReplace(replacements, REGEX_PATTERNS.newline, (match, i) => (_jsx("br", {}, match + i)));
+    replacements = reactStringReplace(replacements, REGEX_PATTERNS.newline, (match, i) => (_jsx("br", {}, crypto.randomUUID())));
     replacements = reactStringReplace(replacements, REGEX_PATTERNS.boldItalic, (match, i) => (_jsx("b", { style: {
             fontWeight: 800,
             fontStyle: "italic",
-        }, children: _jsx("i", { children: match }) }, match + i)));
+        }, children: _jsx("i", { children: match }) }, crypto.randomUUID())));
     replacements = reactStringReplace(replacements, REGEX_PATTERNS.bold, (match, i) => (_jsx("b", { style: {
             fontWeight: 800,
-        }, children: match }, match + i)));
+        }, children: match }, crypto.randomUUID())));
     replacements = reactStringReplace(replacements, REGEX_PATTERNS.italic, (match, i) => (_jsx("i", { style: {
             fontStyle: "italic",
-        }, children: match }, match + i)));
+        }, children: match }, crypto.randomUUID())));
     replacements = reactStringReplace(replacements, REGEX_PATTERNS.monospace, (match, i) => (_jsx("span", { style: {
             fontFamily: theme.getFont("monospace"),
-        }, children: match }, match + i)));
+        }, children: match }, crypto.randomUUID())));
+    replacements = reactStringReplace(replacements, /<hl>(.+?)<\/hl>/, (match, i) => (_jsx("span", { style: Object.assign({ backgroundColor: colors.getHex(highlightColor, "weak"), color: colors.getHex(highlightColor), borderRadius: 5, padding: 2 }, highlightStyle), children: match }, crypto.randomUUID())));
     // Styles
     const TextStyle = css(Object.assign({ fontFamily: family, fontWeight: weight, fontStyle: italic ? "italic" : "normal", fontSize: fontSize, textTransform: transform, textAlign: align, color: colors.getHex(color), margin: 0 }, style));
     return (_jsx(PolymorphicText, Object.assign({ css: TextStyle, ref: ref }, rest, { children: replacements })));

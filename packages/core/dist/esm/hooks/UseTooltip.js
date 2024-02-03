@@ -1,10 +1,12 @@
 import { autoUpdate, useFloating, offset as tooltipOffset, flip, shift, useHover, useFocus, useDismiss, useRole, useInteractions } from "@floating-ui/react";
 import { useDisclosure } from "./UseDisclosure";
 import { useMemo } from "react";
+import { useBreakpoint } from "../utilities";
 export function useTooltip({ placement = "top", offset = 5, disclosure } = {}) {
     var _a, _b;
     const uncontrolled = useDisclosure();
-    const opened = (_a = disclosure === null || disclosure === void 0 ? void 0 : disclosure.opened) !== null && _a !== void 0 ? _a : uncontrolled.opened;
+    const { isMobile } = useBreakpoint();
+    const opened = ((_a = disclosure === null || disclosure === void 0 ? void 0 : disclosure.opened) !== null && _a !== void 0 ? _a : isMobile) ? false : uncontrolled.opened;
     const setUpdate = (_b = disclosure === null || disclosure === void 0 ? void 0 : disclosure.update) !== null && _b !== void 0 ? _b : uncontrolled.update;
     // Floating UI
     const data = useFloating({

@@ -23,14 +23,14 @@ const Stepper = forwardRef(function Stepper(props, ref) {
     // Defaults
     const _a = useResponsiveProps(props), { variant = theme.defaults.variant, size = theme.defaults.size, color = "black", currentStep, children } = _a, rest = __rest(_a, ["variant", "size", "color", "currentStep", "children"]);
     return (_jsxs(Flex, Object.assign({ direction: "column", width: "100%", ref: ref }, rest, { children: [_jsx(Flex, { direction: "row", width: "100%", justify: "space-between", align: "center", children: React.Children.toArray(children).map((_, index) => {
-                    return (_jsxs(_Fragment, { children: [_jsx(StepperIndicator, { step: index, state: index === currentStep ? "active"
+                    return React.cloneElement((_jsxs(_Fragment, { children: [_jsx(StepperIndicator, { step: index, state: index === currentStep ? "active"
                                     : index < currentStep ? "complete"
-                                        : "default", variant: variant, color: color, size: size }), index < React.Children.count(children) - 1 &&
+                                        : "default", variant: variant, color: color, size: size }, index), index < React.Children.count(children) - 1 &&
                                 _jsx(Space, { grow: true, style: {
                                         borderTop: `1px solid ${colors.getHex(color)}`,
                                         opacity: index < currentStep ? 1 : 0.25,
-                                    } })] }));
-                }) }), React.Children.toArray(children).map((child, index) => index === currentStep && child)] })));
+                                    } }, index + "line")] })), { key: index });
+                }) }), React.Children.toArray(children).map((child, index) => index === currentStep && React.cloneElement(child, Object.assign(Object.assign({}, child.props), { key: index })))] })));
 });
 const StepperIndicator = forwardRef(function StepperIndicator(props, ref) {
     const theme = useValence();

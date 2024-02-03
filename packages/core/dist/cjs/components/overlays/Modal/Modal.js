@@ -28,7 +28,8 @@ exports.Modal = (0, react_1.forwardRef)(function Modal(props, ref) {
     const theme = (0, __1.useValence)();
     const { getHex } = (0, __1.useColors)();
     // Defaults
-    const _a = (0, __1.useResponsiveProps)(props), { disclosure, title, header = (props) => (0, jsx_runtime_1.jsx)(exports.DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), closeOnOverlayClick = true, closeOnEscape = true, lockScroll = true, withShadow = true, radius = theme.defaults.radius, backgroundColor = "white", color = "black", padding = theme.sizeClasses.padding[theme.defaults.size], margin, width = 500, height = "fit-content", flexProps, overlayBackgroundProps, children, style } = _a, rest = __rest(_a, ["disclosure", "title", "header", "closeOnOverlayClick", "closeOnEscape", "lockScroll", "withShadow", "radius", "backgroundColor", "color", "padding", "margin", "width", "height", "flexProps", "overlayBackgroundProps", "children", "style"]);
+    const _a = (0, __1.useResponsiveProps)(props), { disclosure, title, header = (props) => (0, jsx_runtime_1.jsx)(exports.DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), closeOnOverlayClick = true, closeOnEscape = true, lockScroll = true, withShadow = true, radius = theme.defaults.radius, backgroundColor = "white", color = "black", padding = theme.sizeClasses.padding[theme.defaults.size], margin, width = 500, height = "fit-content", flexProps, innerFlexProps, overlayBackgroundProps, children, style } = _a, rest = __rest(_a, ["disclosure", "title", "header", "closeOnOverlayClick", "closeOnEscape", "lockScroll", "withShadow", "radius", "backgroundColor", "color", "padding", "margin", "width", "height", "flexProps", "innerFlexProps", "overlayBackgroundProps", "children", "style"]);
+    const _b = flexProps || {}, { style: flexStyle } = _b, flexPropsRest = __rest(_b, ["style"]);
     // Hooks
     (0, usehooks_ts_1.useLockedBody)(disclosure.opened && lockScroll, "root");
     (0, __1.useDetectKeyDown)(() => disclosure.close(), "Escape", closeOnEscape && disclosure.opened);
@@ -45,16 +46,20 @@ exports.Modal = (0, react_1.forwardRef)(function Modal(props, ref) {
     const descriptionId = (0, react_3.useId)();
     // Styles
     const ContainerStyle = (0, react_2.css)(Object.assign({ backgroundColor: getHex(backgroundColor), color: getHex(color), padding: padding, margin: margin, width: width, height: height, borderRadius: theme.sizeClasses.radius[radius], boxShadow: withShadow ? theme.defaults.shadow : undefined, boxSizing: "border-box", maxWidth: "100%" }, style));
+    const FlexStyle = Object.assign({ width: "100%", height: "100%" }, flexStyle);
     return ((0, jsx_runtime_1.jsx)(framer_motion_1.AnimatePresence, { children: disclosure.opened &&
-            (0, jsx_runtime_1.jsx)(__1.ModalBackground, Object.assign({ disclosure: disclosure }, overlayBackgroundProps, { children: (0, jsx_runtime_1.jsx)(react_3.FloatingFocusManager, { context: context, children: (0, jsx_runtime_1.jsx)(framer_motion_1.motion.div, Object.assign({ css: ContainerStyle, onClick: e => e.stopPropagation(), initial: { opacity: 0, scale: 0.9 }, animate: { opacity: 1, scale: 1 }, exit: { opacity: 0, scale: 0.9 }, transition: { ease: "backOut" }, ref: refs.setFloating, "aria-labelledby": labelId, "aria-describedby": descriptionId }, getFloatingProps(), rest, { children: (0, jsx_runtime_1.jsxs)(layout_1.Flex, Object.assign({ direction: "column", gap: 15 }, flexProps, { children: [header({ title }), children] })) })) }) })) }));
+            (0, jsx_runtime_1.jsx)(__1.ModalBackground, Object.assign({ disclosure: disclosure }, overlayBackgroundProps, { children: (0, jsx_runtime_1.jsx)(react_3.FloatingFocusManager, { context: context, children: (0, jsx_runtime_1.jsx)(framer_motion_1.motion.div, Object.assign({ css: ContainerStyle, onClick: e => e.stopPropagation(), initial: { opacity: 0, scale: 0.9 }, animate: { opacity: 1, scale: 1 }, exit: { opacity: 0, scale: 0.9 }, transition: { ease: "backOut" }, ref: refs.setFloating, "aria-labelledby": labelId, "aria-describedby": descriptionId }, getFloatingProps(), rest, { children: (0, jsx_runtime_1.jsxs)(layout_1.Flex, Object.assign({ direction: "column", gap: 15, style: FlexStyle }, flexPropsRest, { children: [header({ title }), (0, jsx_runtime_1.jsx)(layout_1.OverflowContainer, { innerProps: innerFlexProps, children: children })] })) })) }) })) }));
 });
 exports.DefaultModalHeader = (0, react_1.forwardRef)(function DefaultModalHeader(props, ref) {
     const { title, disclosure } = (0, __1.useResponsiveProps)(props);
+    const { getHex } = (0, __1.useColors)();
     const HeaderStyle = (0, react_2.css)({
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
         width: "100%",
+        backgroundColor: getHex("white", "strong"),
+        backdropFilter: "blur(10px)",
     });
     return ((0, jsx_runtime_1.jsxs)("header", { css: HeaderStyle, ref: ref, children: [(0, jsx_runtime_1.jsx)(display_1.Title, { order: 2, children: title }), (0, jsx_runtime_1.jsx)(buttons_1.IconButton, { onClick: disclosure.close, color: "black", variant: "subtle", children: (0, jsx_runtime_1.jsx)(display_1.Icon, { children: (0, jsx_runtime_1.jsx)(icons_react_1.IconX, {}) }) })] }));
 });

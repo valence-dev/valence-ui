@@ -56,5 +56,5 @@ export const Title: Story = (args: any) => (
   </ValenceProvider>
 );
 Title.args = {
-  children: "This is a *markdown-supporting* `Title` component",
+  children: "<hl>This</hl> is a *markdown-supporting* `Title` component",
 }

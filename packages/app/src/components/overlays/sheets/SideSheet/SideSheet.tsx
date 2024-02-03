@@ -1,6 +1,6 @@
 import { CSSProperties, ReactNode, forwardRef, useContext, useEffect } from "react";
 import { GenericSheetProps } from "../Generics";
-import { DefaultModalHeader, Disclosure, Flex, MakeResponsive, ModalBackground, ValenceContext, useBreakpoint, useColors, useDetectKeyDown, useResponsiveProps } from "@valence-ui/core";
+import { DefaultModalHeader, Disclosure, Flex, FlexProps, MakeResponsive, ModalBackground, OverflowContainer, ValenceContext, useColors, useDetectKeyDown, useResponsiveProps } from "@valence-ui/core";
 import { GenericOverlayBackgroundProps, GenericOverlayHeaderProps } from "@valence-ui/utils";
 import { useLockedBody } from "usehooks-ts";
 import { AnimatePresence } from "framer-motion";
@@ -21,6 +21,9 @@ export type SideSheetProps =
      * `right` by default. 
      */
     direction?: "left" | "right";
+
+    /** Optional props to pass to the inner flex component */
+    innerFlexProps?: FlexProps;
   };
 
 export const SideSheet = forwardRef(function SideSheet(
@@ -59,6 +62,7 @@ export const SideSheet = forwardRef(function SideSheet(
     height = "100vh",
 
     flexProps,
+    innerFlexProps,
     overlayBackgroundProps = {
       padding: 0,
       style: {
@@ -104,9 +108,6 @@ export const SideSheet = forwardRef(function SideSheet(
 
     borderLeft: display === "overlay" ? undefined :
       `1px solid ${getHex("black", "weak")}`,
-
-    overflowX: "hidden",
-    overflowY: "auto",
 
     ...style,
   }
@@ -164,13 +165,19 @@ export const SideSheet = forwardRef(function SideSheet(
             ref={ref}
             {...rest}
           >
+            {/* Sheet */}
             <Flex
               direction="column"
+              height="100%"
               {...flexProps}
             >
               {header({ title })}
 
-              {children}
+              <OverflowContainer
+                innerProps={innerFlexProps}
+              >
+                {children}
+              </OverflowContainer>
             </Flex>
           </motion.div>
         </OptionalBackground>

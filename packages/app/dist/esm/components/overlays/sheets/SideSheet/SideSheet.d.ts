@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import { GenericSheetProps } from "../Generics";
-import { MakeResponsive } from "@valence-ui/core";
+import { FlexProps, MakeResponsive } from "@valence-ui/core";
 export type SideSheetDisplay = "inline" | "overlay";
 export type SideSheetProps = GenericSheetProps & {
     /** The display option for the sidebar. Defaults to `inline` on desktop and
@@ -12,6 +12,8 @@ export type SideSheetProps = GenericSheetProps & {
      * `right` by default.
      */
     direction?: "left" | "right";
+    /** Optional props to pass to the inner flex component */
+    innerFlexProps?: FlexProps;
 };
 export declare const SideSheet: import("react").ForwardRefExoticComponent<MakeResponsive<SideSheetProps> & import("react").RefAttributes<unknown>>;
 //# sourceMappingURL=SideSheet.d.ts.map

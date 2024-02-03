@@ -4,10 +4,12 @@ exports.useTooltip = void 0;
 const react_1 = require("@floating-ui/react");
 const UseDisclosure_1 = require("./UseDisclosure");
 const react_2 = require("react");
+const utilities_1 = require("../utilities");
 function useTooltip({ placement = "top", offset = 5, disclosure } = {}) {
     var _a, _b;
     const uncontrolled = (0, UseDisclosure_1.useDisclosure)();
-    const opened = (_a = disclosure === null || disclosure === void 0 ? void 0 : disclosure.opened) !== null && _a !== void 0 ? _a : uncontrolled.opened;
+    const { isMobile } = (0, utilities_1.useBreakpoint)();
+    const opened = ((_a = disclosure === null || disclosure === void 0 ? void 0 : disclosure.opened) !== null && _a !== void 0 ? _a : isMobile) ? false : uncontrolled.opened;
     const setUpdate = (_b = disclosure === null || disclosure === void 0 ? void 0 : disclosure.update) !== null && _b !== void 0 ? _b : uncontrolled.update;
     // Floating UI
     const data = (0, react_1.useFloating)({

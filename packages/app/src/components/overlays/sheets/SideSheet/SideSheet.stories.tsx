@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { Button, ValenceProvider, useDisclosure } from "@valence-ui/core"
+import { Button, StyledFlex, ValenceProvider, useDisclosure } from "@valence-ui/core"
 import { SideSheet as SS } from "./SideSheet";
 
 const meta: Meta<typeof SS> = {
@@ -20,7 +20,14 @@ export const SideSheet: Story = (args: any) => {
       <SS
         disclosure={disclosure}
         {...args}
-      />
+      >
+        <StyledFlex
+          width="100%"
+          height="200vh"
+        >
+          Hi
+        </StyledFlex>
+      </SS>
     </ValenceProvider>
   )
 };
