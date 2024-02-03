@@ -11,7 +11,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { forwardRef, useContext, useEffect } from "react";
-import { DefaultModalHeader, Flex, ModalBackground, ValenceContext, useColors, useDetectKeyDown, useResponsiveProps } from "@valence-ui/core";
+import { DefaultModalHeader, Flex, ModalBackground, OverflowContainer, ValenceContext, useColors, useDetectKeyDown, useResponsiveProps } from "@valence-ui/core";
 import { useLockedBody } from "usehooks-ts";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
@@ -19,12 +19,12 @@ export const SideSheet = forwardRef(function SideSheet(props, ref) {
     const theme = useContext(ValenceContext);
     const { getHex } = useColors();
     // Defaults
-    const _a = useResponsiveProps(props), { disclosure, title, header = (props) => _jsx(DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), display = useResponsiveProps({ default: "inline", tablet: "overlay", mobile: "overlay" }), direction = "right", closeOnOverlayClick = true, closeOnEscape = true, lockScroll = false, radius = "lg", withShadow = true, backgroundColor = getHex("white"), color = getHex("black"), padding = theme.sizeClasses.padding[theme.defaults.size], margin = 0, width = 350, height = "100vh", flexProps, overlayBackgroundProps = {
+    const _a = useResponsiveProps(props), { disclosure, title, header = (props) => _jsx(DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), display = useResponsiveProps({ default: "inline", tablet: "overlay", mobile: "overlay" }), direction = "right", closeOnOverlayClick = true, closeOnEscape = true, lockScroll = false, radius = "lg", withShadow = true, backgroundColor = getHex("white"), color = getHex("black"), padding = theme.sizeClasses.padding[theme.defaults.size], margin = 0, width = 350, height = "100vh", flexProps, innerFlexProps, overlayBackgroundProps = {
         padding: 0,
         style: {
             alignItems: "flex-end",
         }
-    }, style, children } = _a, rest = __rest(_a, ["disclosure", "title", "header", "display", "direction", "closeOnOverlayClick", "closeOnEscape", "lockScroll", "radius", "withShadow", "backgroundColor", "color", "padding", "margin", "width", "height", "flexProps", "overlayBackgroundProps", "style", "children"]);
+    }, style, children } = _a, rest = __rest(_a, ["disclosure", "title", "header", "display", "direction", "closeOnOverlayClick", "closeOnEscape", "lockScroll", "radius", "withShadow", "backgroundColor", "color", "padding", "margin", "width", "height", "flexProps", "innerFlexProps", "overlayBackgroundProps", "style", "children"]);
     const fixedDirection = display === "overlay" ? direction : "right";
     // Styles
     const borderRadius = theme.sizeClasses.radius[radius];
@@ -33,7 +33,7 @@ export const SideSheet = forwardRef(function SideSheet(props, ref) {
                 `${borderRadius}px 0 0 ${borderRadius}px` :
                 `0 ${borderRadius}px ${borderRadius}px 0`, boxShadow: withShadow && display === "overlay" ?
             theme.defaults.shadow : undefined, borderLeft: display === "overlay" ? undefined :
-            `1px solid ${getHex("black", "weak")}`, overflowX: "hidden", overflowY: "auto" }, style);
+            `1px solid ${getHex("black", "weak")}` }, style);
     // Hooks
     useLockedBody(disclosure.opened && lockScroll && display === "overlay", "root");
     useDetectKeyDown(disclosure.close, "Escape", closeOnEscape, [closeOnEscape, close]);
@@ -64,7 +64,7 @@ export const SideSheet = forwardRef(function SideSheet(props, ref) {
                         }
                     }, exit: {
                         x: fixedDirection === "right" ? "100%" : "-100%",
-                    }, ref: ref }, rest, { children: _jsxs(Flex, Object.assign({ direction: "column" }, flexProps, { children: [header({ title }), children] })) })) }) }));
+                    }, ref: ref }, rest, { children: _jsxs(Flex, Object.assign({ direction: "column", height: "100%" }, flexProps, { children: [header({ title }), _jsx(OverflowContainer, { innerProps: innerFlexProps, children: children })] })) })) }) }));
 });
 function OptionalBackground(props) {
     const { children, disclosure, showBackground, backgroundProps } = props;

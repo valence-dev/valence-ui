@@ -49,14 +49,14 @@ const Stepper = (0, react_1.forwardRef)(function Stepper(props, ref) {
     // Defaults
     const _a = (0, utilities_1.useResponsiveProps)(props), { variant = theme.defaults.variant, size = theme.defaults.size, color = "black", currentStep, children } = _a, rest = __rest(_a, ["variant", "size", "color", "currentStep", "children"]);
     return ((0, jsx_runtime_1.jsxs)(layout_1.Flex, Object.assign({ direction: "column", width: "100%", ref: ref }, rest, { children: [(0, jsx_runtime_1.jsx)(layout_1.Flex, { direction: "row", width: "100%", justify: "space-between", align: "center", children: react_1.default.Children.toArray(children).map((_, index) => {
-                    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(StepperIndicator, { step: index, state: index === currentStep ? "active"
+                    return react_1.default.cloneElement(((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(StepperIndicator, { step: index, state: index === currentStep ? "active"
                                     : index < currentStep ? "complete"
-                                        : "default", variant: variant, color: color, size: size }), index < react_1.default.Children.count(children) - 1 &&
+                                        : "default", variant: variant, color: color, size: size }, index), index < react_1.default.Children.count(children) - 1 &&
                                 (0, jsx_runtime_1.jsx)(layout_1.Space, { grow: true, style: {
                                         borderTop: `1px solid ${colors.getHex(color)}`,
                                         opacity: index < currentStep ? 1 : 0.25,
-                                    } })] }));
-                }) }), react_1.default.Children.toArray(children).map((child, index) => index === currentStep && child)] })));
+                                    } }, index + "line")] })), { key: index });
+                }) }), react_1.default.Children.toArray(children).map((child, index) => index === currentStep && react_1.default.cloneElement(child, Object.assign(Object.assign({}, child.props), { key: index })))] })));
 });
 const StepperIndicator = (0, react_1.forwardRef)(function StepperIndicator(props, ref) {
     const theme = (0, ValenceProvider_1.useValence)();

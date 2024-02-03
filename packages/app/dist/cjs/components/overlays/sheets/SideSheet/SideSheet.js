@@ -22,12 +22,12 @@ exports.SideSheet = (0, react_1.forwardRef)(function SideSheet(props, ref) {
     const theme = (0, react_1.useContext)(core_1.ValenceContext);
     const { getHex } = (0, core_1.useColors)();
     // Defaults
-    const _a = (0, core_1.useResponsiveProps)(props), { disclosure, title, header = (props) => (0, jsx_runtime_1.jsx)(core_1.DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), display = (0, core_1.useResponsiveProps)({ default: "inline", tablet: "overlay", mobile: "overlay" }), direction = "right", closeOnOverlayClick = true, closeOnEscape = true, lockScroll = false, radius = "lg", withShadow = true, backgroundColor = getHex("white"), color = getHex("black"), padding = theme.sizeClasses.padding[theme.defaults.size], margin = 0, width = 350, height = "100vh", flexProps, overlayBackgroundProps = {
+    const _a = (0, core_1.useResponsiveProps)(props), { disclosure, title, header = (props) => (0, jsx_runtime_1.jsx)(core_1.DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), display = (0, core_1.useResponsiveProps)({ default: "inline", tablet: "overlay", mobile: "overlay" }), direction = "right", closeOnOverlayClick = true, closeOnEscape = true, lockScroll = false, radius = "lg", withShadow = true, backgroundColor = getHex("white"), color = getHex("black"), padding = theme.sizeClasses.padding[theme.defaults.size], margin = 0, width = 350, height = "100vh", flexProps, innerFlexProps, overlayBackgroundProps = {
         padding: 0,
         style: {
             alignItems: "flex-end",
         }
-    }, style, children } = _a, rest = __rest(_a, ["disclosure", "title", "header", "display", "direction", "closeOnOverlayClick", "closeOnEscape", "lockScroll", "radius", "withShadow", "backgroundColor", "color", "padding", "margin", "width", "height", "flexProps", "overlayBackgroundProps", "style", "children"]);
+    }, style, children } = _a, rest = __rest(_a, ["disclosure", "title", "header", "display", "direction", "closeOnOverlayClick", "closeOnEscape", "lockScroll", "radius", "withShadow", "backgroundColor", "color", "padding", "margin", "width", "height", "flexProps", "innerFlexProps", "overlayBackgroundProps", "style", "children"]);
     const fixedDirection = display === "overlay" ? direction : "right";
     // Styles
     const borderRadius = theme.sizeClasses.radius[radius];
@@ -36,7 +36,7 @@ exports.SideSheet = (0, react_1.forwardRef)(function SideSheet(props, ref) {
                 `${borderRadius}px 0 0 ${borderRadius}px` :
                 `0 ${borderRadius}px ${borderRadius}px 0`, boxShadow: withShadow && display === "overlay" ?
             theme.defaults.shadow : undefined, borderLeft: display === "overlay" ? undefined :
-            `1px solid ${getHex("black", "weak")}`, overflowX: "hidden", overflowY: "auto" }, style);
+            `1px solid ${getHex("black", "weak")}` }, style);
     // Hooks
     (0, usehooks_ts_1.useLockedBody)(disclosure.opened && lockScroll && display === "overlay", "root");
     (0, core_1.useDetectKeyDown)(disclosure.close, "Escape", closeOnEscape, [closeOnEscape, close]);
@@ -67,7 +67,7 @@ exports.SideSheet = (0, react_1.forwardRef)(function SideSheet(props, ref) {
                         }
                     }, exit: {
                         x: fixedDirection === "right" ? "100%" : "-100%",
-                    }, ref: ref }, rest, { children: (0, jsx_runtime_1.jsxs)(core_1.Flex, Object.assign({ direction: "column" }, flexProps, { children: [header({ title }), children] })) })) }) }));
+                    }, ref: ref }, rest, { children: (0, jsx_runtime_1.jsxs)(core_1.Flex, Object.assign({ direction: "column", height: "100%" }, flexProps, { children: [header({ title }), (0, jsx_runtime_1.jsx)(core_1.OverflowContainer, { innerProps: innerFlexProps, children: children })] })) })) }) }));
 });
 function OptionalBackground(props) {
     const { children, disclosure, showBackground, backgroundProps } = props;

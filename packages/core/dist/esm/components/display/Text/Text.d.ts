@@ -23,6 +23,10 @@ export type TextProps = GenericProps & GenericClickableProps & PolymorphicTextPr
     bold?: boolean;
     /** Shorthand for `font-family: monospace` */
     monospace?: boolean;
+    /** Sets the color of highlighted sections. */
+    highlightColor?: CSSProperties["color"];
+    /** Optional styles to pass to highlighted sections */
+    highlightStyle?: CSSProperties;
 };
 /** A basic, formattable text object that is compatible with some markdown text injection.
  * Very handy when dealing with internationalization, particularly with the i18n module.
@@ -33,6 +37,7 @@ export type TextProps = GenericProps & GenericClickableProps & PolymorphicTextPr
  * - `**{...}**` for bolded text
  * - `*{...}*` for italicized text
  * - `{...}` for monospace text
+ * - `<hl>{...}</hl>` for highlighted text
  */
 export declare const Text: import("react").ForwardRefExoticComponent<MakeResponsive<TextProps> & import("react").RefAttributes<unknown>>;
 //# sourceMappingURL=Text.d.ts.map
