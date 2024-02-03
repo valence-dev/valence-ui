@@ -21,7 +21,9 @@ export function useTooltip({
   const uncontrolled = useDisclosure();
   const { isMobile } = useBreakpoint();
 
-  const opened = disclosure?.opened ?? isMobile ? false : uncontrolled.opened;
+  const opened = disclosure ? disclosure.opened
+    : isMobile ? false
+      : uncontrolled.opened;
   const setUpdate = disclosure?.update ?? uncontrolled.update;
 
 

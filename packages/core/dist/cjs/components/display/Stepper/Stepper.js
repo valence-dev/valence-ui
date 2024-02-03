@@ -68,8 +68,7 @@ const StepperIndicator = (0, react_1.forwardRef)(function StepperIndicator(props
         borderRadius: "50%",
         width: theme.sizeClasses.height[size],
         height: theme.sizeClasses.height[size],
-        border: "none",
-        outline: variant === "subtle"
+        border: variant === "subtle"
             ? `1px solid ${colors.getHex(color)}`
             : "none",
         backgroundColor: colors.getBgHex(color, variant, false),

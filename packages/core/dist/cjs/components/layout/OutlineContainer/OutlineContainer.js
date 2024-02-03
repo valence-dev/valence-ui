@@ -34,7 +34,7 @@ exports.OutlineContainer = (0, react_1.forwardRef)(function OutlineContainer(pro
         right: right,
         bottom: bottom,
     };
-    const OutlineContainerStyle = Object.assign({ backgroundColor: getHex("white", "strong"), backdropFilter: "blur(5px)", outlineColor: getHex(color, "medium"), outlineWidth: 1, outlineStyle: "solid", padding: spacing, borderRadius: theme.sizeClasses.radius[radius] + spacing }, style);
+    const OutlineContainerStyle = Object.assign({ backgroundColor: getHex("white", "strong"), backdropFilter: "blur(5px)", border: `1px solid ${getHex(color, "medium")}`, padding: spacing, borderRadius: theme.sizeClasses.radius[radius] + spacing }, style);
     const LabelStyle = Object.assign({ backgroundColor: getHex("white", "strong"), backdropFilter: "blur(5px)", padding: `${spacing / 2}px ${spacing * 2}px`, borderRadius: 20 }, labelStyle);
     return ((0, jsx_runtime_1.jsxs)(Flex_1.Flex, { direction: "column", width: width, height: height, style: OuterFlexStyle, gap: spacing / 2, ref: ref, children: [(0, jsx_runtime_1.jsx)(Flex_1.Flex, Object.assign({ direction: "row", width: "100%", height: "100%", style: OutlineContainerStyle, gap: spacing }, rest, { children: children })), label && ((0, jsx_runtime_1.jsx)(Flex_1.Flex, { alignSelf: "stretch", align: "center", justify: "center", children: (0, jsx_runtime_1.jsx)(display_1.Text, Object.assign({ size: "xs", color: getHex(color, "strong"), align: "center", style: LabelStyle }, labelRest, { children: label })) }))] }));
 });

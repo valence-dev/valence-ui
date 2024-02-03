@@ -3,11 +3,13 @@ import { useDisclosure } from "./UseDisclosure";
 import { useMemo } from "react";
 import { useBreakpoint } from "../utilities";
 export function useTooltip({ placement = "top", offset = 5, disclosure } = {}) {
-    var _a, _b;
+    var _a;
     const uncontrolled = useDisclosure();
     const { isMobile } = useBreakpoint();
-    const opened = ((_a = disclosure === null || disclosure === void 0 ? void 0 : disclosure.opened) !== null && _a !== void 0 ? _a : isMobile) ? false : uncontrolled.opened;
-    const setUpdate = (_b = disclosure === null || disclosure === void 0 ? void 0 : disclosure.update) !== null && _b !== void 0 ? _b : uncontrolled.update;
+    const opened = disclosure ? disclosure.opened
+        : isMobile ? false
+            : uncontrolled.opened;
+    const setUpdate = (_a = disclosure === null || disclosure === void 0 ? void 0 : disclosure.update) !== null && _a !== void 0 ? _a : uncontrolled.update;
     // Floating UI
     const data = useFloating({
         placement,

@@ -141,8 +141,7 @@ const StepperIndicator = forwardRef(function StepperIndicator(
     width: theme.sizeClasses.height[size],
     height: theme.sizeClasses.height[size],
 
-    border: "none",
-    outline: variant === "subtle"
+    border: variant === "subtle"
       ? `1px solid ${colors.getHex(color)}`
       : "none",
 

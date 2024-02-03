@@ -93,8 +93,7 @@ export const Alert = forwardRef(function Alert(
     padding: padding,
     borderRadius: theme.sizeClasses.radius[radius],
 
-    border: "none",
-    outline: variant === "subtle"
+    border: variant === "subtle"
       ? `1px solid ${colors.getHex(backgroundColor, "medium")}`
       : "none",
     textDecoration: "none",
@@ -127,11 +126,13 @@ export const Alert = forwardRef(function Alert(
           ref={ref}
           {...rest}
         >
-          <Icon
-            size={theme.getSize("iconSize", size) as number}
-          >
-            {alert.icon}
-          </Icon>
+          <div style={{ width: theme.getSize("iconSize", size) }}>
+            <Icon
+              size={theme.getSize("iconSize", size) as number}
+            >
+              {alert.icon}
+            </Icon>
+          </div>
 
           <Flex
             direction="column"

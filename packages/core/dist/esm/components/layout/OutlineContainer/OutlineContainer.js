@@ -31,7 +31,7 @@ export const OutlineContainer = forwardRef(function OutlineContainer(props, ref)
         right: right,
         bottom: bottom,
     };
-    const OutlineContainerStyle = Object.assign({ backgroundColor: getHex("white", "strong"), backdropFilter: "blur(5px)", outlineColor: getHex(color, "medium"), outlineWidth: 1, outlineStyle: "solid", padding: spacing, borderRadius: theme.sizeClasses.radius[radius] + spacing }, style);
+    const OutlineContainerStyle = Object.assign({ backgroundColor: getHex("white", "strong"), backdropFilter: "blur(5px)", border: `1px solid ${getHex(color, "medium")}`, padding: spacing, borderRadius: theme.sizeClasses.radius[radius] + spacing }, style);
     const LabelStyle = Object.assign({ backgroundColor: getHex("white", "strong"), backdropFilter: "blur(5px)", padding: `${spacing / 2}px ${spacing * 2}px`, borderRadius: 20 }, labelStyle);
     return (_jsxs(Flex, { direction: "column", width: width, height: height, style: OuterFlexStyle, gap: spacing / 2, ref: ref, children: [_jsx(Flex, Object.assign({ direction: "row", width: "100%", height: "100%", style: OutlineContainerStyle, gap: spacing }, rest, { children: children })), label && (_jsx(Flex, { alignSelf: "stretch", align: "center", justify: "center", children: _jsx(Text, Object.assign({ size: "xs", color: getHex(color, "strong"), align: "center", style: LabelStyle }, labelRest, { children: label })) }))] }));
 });

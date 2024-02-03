@@ -39,6 +39,7 @@ export const OverflowContainer = forwardRef(function OverflowContainer(
     style: innerStyle,
     width: innerWidth = "100%",
     height: innerHeight = "fit-content",
+    direction: innerDirection = "column",
     ...innerRest
   } = innerProps || {};
 
@@ -70,6 +71,7 @@ export const OverflowContainer = forwardRef(function OverflowContainer(
         style={innerStyle}
         width={innerWidth}
         height={innerHeight}
+        direction={innerDirection}
         {...innerRest}
       >
         {children}

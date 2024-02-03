@@ -72,9 +72,7 @@ export const OutlineContainer = forwardRef(function OutlineContainer(
   const OutlineContainerStyle: CSSProperties = {
     backgroundColor: getHex("white", "strong"),
     backdropFilter: "blur(5px)",
-    outlineColor: getHex(color, "medium"),
-    outlineWidth: 1,
-    outlineStyle: "solid",
+    border: `1px solid ${getHex(color, "medium")}`,
     padding: spacing,
     borderRadius: theme.sizeClasses.radius[radius] as number + spacing,
 
