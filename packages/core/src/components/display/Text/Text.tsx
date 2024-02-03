@@ -52,6 +52,12 @@ export type TextProps =
   }
 
 
+// CANNOT USE CRYTPO.RANDOMUUID() BECAUSE WEBKIT SUCKS
+function randomId(): string {
+  return Math.random().toString(36).substring(2);
+}
+
+
 // COMPONENTS
 /** A basic, formattable text object that is compatible with some markdown text injection.
  * Very handy when dealing with internationalization, particularly with the i18n module.
@@ -99,10 +105,10 @@ export const Text = forwardRef(function Text(
   // Run through formatters
   let replacements: any = children;
   replacements = reactStringReplace(replacements, REGEX_PATTERNS.newline, (match, i) => (
-    <br key={crypto.randomUUID()} />
+    <br key={randomId()} />
   ));
   replacements = reactStringReplace(replacements, REGEX_PATTERNS.boldItalic, (match, i) => (
-    <b key={crypto.randomUUID()}
+    <b key={randomId()}
       style={{
         fontWeight: 800,
         fontStyle: "italic",
@@ -114,7 +120,7 @@ export const Text = forwardRef(function Text(
     </b>
   ));
   replacements = reactStringReplace(replacements, REGEX_PATTERNS.bold, (match, i) => (
-    <b key={crypto.randomUUID()}
+    <b key={randomId()}
       style={{
         fontWeight: 800,
       }}
@@ -123,7 +129,7 @@ export const Text = forwardRef(function Text(
     </b>
   ));
   replacements = reactStringReplace(replacements, REGEX_PATTERNS.italic, (match, i) => (
-    <i key={crypto.randomUUID()}
+    <i key={randomId()}
       style={{
         fontStyle: "italic",
       }}
@@ -132,7 +138,7 @@ export const Text = forwardRef(function Text(
     </i>
   ));
   replacements = reactStringReplace(replacements, REGEX_PATTERNS.monospace, (match, i) => (
-    <span key={crypto.randomUUID()}
+    <span key={randomId()}
       style={{
         fontFamily: theme.getFont("monospace"),
       }}
@@ -141,7 +147,7 @@ export const Text = forwardRef(function Text(
     </span>
   ));
   replacements = reactStringReplace(replacements, /<hl>(.+?)<\/hl>/, (match, i) => (
-    <span key={crypto.randomUUID()}
+    <span key={randomId()}
       style={{
         backgroundColor: colors.getHex(highlightColor, "weak"),
         color: colors.getHex(highlightColor),
