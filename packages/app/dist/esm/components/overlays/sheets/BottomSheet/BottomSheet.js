@@ -16,6 +16,7 @@ import { ValenceContext, ModalBackground, Flex, useDetectKeyDown, DefaultModalHe
 import { useContext, forwardRef } from "react";
 import { AnimatePresence, motion, useDragControls } from "framer-motion";
 import { useLockedBody } from "usehooks-ts";
+import { FloatingFocusManager, useFloating, useId, useInteractions, useRole } from "@floating-ui/react";
 export const BottomSheet = forwardRef(function BottomSheet(props, ref) {
     const theme = useContext(ValenceContext);
     const { getHex } = useColors();
@@ -56,14 +57,25 @@ export const BottomSheet = forwardRef(function BottomSheet(props, ref) {
     // Hooks
     useLockedBody(disclosure.opened && lockScroll, "root");
     useDetectKeyDown(disclosure.close, "Escape", closeOnEscape, [closeOnEscape, close]);
+    // Floating UI
+    const { refs, context } = useFloating({
+        open: disclosure.opened,
+        onOpenChange: disclosure.update,
+    });
+    const role = useRole(context);
+    const { getFloatingProps } = useInteractions([
+        role,
+    ]);
+    const labelId = useId();
+    const descriptionId = useId();
     return (_jsx(AnimatePresence, { children: disclosure.opened &&
-            _jsx(ModalBackground, Object.assign({ disclosure: disclosure }, overlayBackgroundProps, { children: _jsxs(motion.div, Object.assign({ css: ContainerStyles, onClick: e => e.stopPropagation(), drag: "y", dragConstraints: { top: 0 }, dragSnapToOrigin: true, onDragEnd: handleDragEnd, initial: { y: "100%" }, animate: {
-                        y: 0,
-                        transition: {
-                            type: "spring",
-                            stiffness: 400,
-                            damping: 40,
-                            delay: 0.1,
-                        }
-                    }, exit: { y: "100%" }, ref: ref }, rest, { children: [_jsx("div", { style: DragStyle, children: _jsx("div", { style: PillStyle }) }), _jsxs(Flex, Object.assign({ direction: "column", style: SheetStyle }, flexPropsRest, { children: [_jsx("div", { onPointerDown: controls.start, style: { width: "100%", touchAction: "none" }, children: header({ title }) }), _jsx(OverflowContainer, { innerProps: innerFlexProps, direction: allowInnerScrolling ? "vertical" : "none", children: children })] }))] })) })) }));
+            _jsx(ModalBackground, Object.assign({ disclosure: disclosure }, overlayBackgroundProps, { children: _jsx(FloatingFocusManager, { context: context, children: _jsxs(motion.div, Object.assign({ css: ContainerStyles, onClick: e => e.stopPropagation(), drag: "y", dragConstraints: { top: 0 }, dragSnapToOrigin: true, onDragEnd: handleDragEnd, initial: { y: "100%" }, animate: {
+                            y: 0,
+                            transition: {
+                                type: "spring",
+                                stiffness: 400,
+                                damping: 40,
+                                delay: 0.1,
+                            }
+                        }, exit: { y: "100%" }, ref: refs.setFloating, "aria-labelledby": labelId, "aria-describedby": descriptionId }, getFloatingProps(), rest, { children: [_jsx("div", { style: DragStyle, children: _jsx("div", { style: PillStyle }) }), _jsxs(Flex, Object.assign({ direction: "column", style: SheetStyle }, flexPropsRest, { children: [_jsx("div", { onPointerDown: controls.start, style: { width: "100%", touchAction: "none" }, children: header({ title }) }), _jsx(OverflowContainer, { innerProps: innerFlexProps, direction: allowInnerScrolling ? "vertical" : "none", children: children })] }))] })) }) })) }));
 });

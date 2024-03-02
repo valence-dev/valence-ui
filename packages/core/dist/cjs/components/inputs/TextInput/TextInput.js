@@ -27,9 +27,7 @@ exports.TextInput = (0, react_1.forwardRef)(function TextInput(props, ref) {
     // Styles
     const InputStyle = (0, react_2.css)(Object.assign({ border: "none", outline: "none", background: "none", flexGrow: 1, width: "100%", height: "100%", margin: 0, padding: 0, cursor: disabled ? "not-allowed" : "text", fontSize: theme.sizeClasses.fontSize[size], fontFamily: theme.getFont("default"), color: getFgHex(color, variant), "&::placeholder": {
             color: `${getFgHex(color, variant)}80`,
-        }, 
-        // Remove awful autofill color
-        "&:-webkit-autofill": { transition: `background-color 5000s ease-in-out 0s` }, "&:-webkit-autofill:focus": { transition: `background-color 5000s ease-in-out 0s` }, "&:-webkit-autofill:hover": { transition: `background-color 5000s ease-in-out 0s` }, "&:-webkit-autofill:active": { transition: `background-color 5000s ease-in-out 0s` } }, inputStyle));
+        } }, inputStyle));
     // Functions
     const handleKeyDown = (e) => {
         // Blur on "Escape" key

@@ -31,6 +31,9 @@ export const Modal = forwardRef(function Modal(props, ref) {
     useLockedBody(disclosure.opened && lockScroll, "root");
     useDetectKeyDown(() => disclosure.close(), "Escape", closeOnEscape && disclosure.opened);
     // Floating UI
+    /** Moving this to the sheets should allow them to trap focus.
+     * Not sure if there's a way to conditionally trap focus.
+     */
     const { refs, context } = useFloating({
         open: disclosure.opened,
         onOpenChange: disclosure.update,

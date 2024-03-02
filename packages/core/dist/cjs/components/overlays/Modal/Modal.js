@@ -34,6 +34,9 @@ exports.Modal = (0, react_1.forwardRef)(function Modal(props, ref) {
     (0, usehooks_ts_1.useLockedBody)(disclosure.opened && lockScroll, "root");
     (0, __1.useDetectKeyDown)(() => disclosure.close(), "Escape", closeOnEscape && disclosure.opened);
     // Floating UI
+    /** Moving this to the sheets should allow them to trap focus.
+     * Not sure if there's a way to conditionally trap focus.
+     */
     const { refs, context } = (0, react_3.useFloating)({
         open: disclosure.opened,
         onOpenChange: disclosure.update,

@@ -86,7 +86,7 @@ function DropdownContainer(props) {
     }
     const selectedItemLabel = selected !== null ? (0, Options_1.getOptionLabel)(options[selected]) : undefined;
     // Styles
-    const DropdownStyle = (0, react_3.css)(Object.assign(Object.assign(Object.assign({}, floatingStyles), { overflowY: "auto", minWidth: 100, backgroundColor: getHex("backgroundColor", "strong"), color: getHex(color), outline: `1px solid ${getHex(color, "weak")}`, backdropFilter: "blur(5px)", borderRadius: theme.sizeClasses.radius[radius] + 5, padding: 5, boxSizing: "border-box", boxShadow: theme.defaults.shadow, animationName: "in", animationDuration: "0.1s", "@keyframes in": {
+    const DropdownStyle = (0, react_3.css)(Object.assign(Object.assign(Object.assign({}, floatingStyles), { overflowY: "auto", minWidth: 100, backgroundColor: getHex("white", "strong"), color: getHex(color), border: `1px solid ${getHex(color, "weak")}`, backdropFilter: "blur(5px)", borderRadius: theme.sizeClasses.radius[radius] + 5, padding: 5, boxSizing: "border-box", boxShadow: theme.defaults.shadow, animationName: "in", animationDuration: "0.1s", "@keyframes in": {
             from: {
                 opacity: 0,
             },
