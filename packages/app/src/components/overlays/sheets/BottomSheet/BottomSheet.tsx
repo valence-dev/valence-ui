@@ -6,6 +6,7 @@ import { useContext, forwardRef, CSSProperties } from "react";
 import { AnimatePresence, motion, useDragControls } from "framer-motion";
 import { useLockedBody } from "usehooks-ts";
 import { GenericSheetProps } from "../Generics";
+import { FloatingFocusManager, useFloating, useId, useInteractions, useRole } from "@floating-ui/react";
 
 export type BottomSheetProps = GenericSheetProps & {
   /** The offset the sheet must be from its original position before it will close. Defaults to 50% of the viewport height */
@@ -142,6 +143,21 @@ export const BottomSheet = forwardRef(function BottomSheet(
   useDetectKeyDown(disclosure.close, "Escape", closeOnEscape, [closeOnEscape, close]);
 
 
+  // Floating UI
+  const { refs, context } = useFloating({
+    open: disclosure.opened,
+    onOpenChange: disclosure.update,
+  });
+  const role = useRole(context);
+
+  const { getFloatingProps } = useInteractions([
+    role,
+  ])
+
+  const labelId = useId();
+  const descriptionId = useId();
+
+
   return (
     <AnimatePresence>
       {disclosure.opened &&
@@ -149,6 +165,7 @@ export const BottomSheet = forwardRef(function BottomSheet(
           disclosure={disclosure}
           {...overlayBackgroundProps}
         >
+          <FloatingFocusManager context={context}>
           <motion.div
             css={ContainerStyles}
             onClick={e => e.stopPropagation()}
@@ -170,7 +187,11 @@ export const BottomSheet = forwardRef(function BottomSheet(
             }}
             exit={{ y: "100%" }}
 
-            ref={ref}
+            ref={refs.setFloating}
+            aria-labelledby={labelId}
+            aria-describedby={descriptionId}
+
+            {...getFloatingProps()}
             {...rest}
           >
             <div
@@ -199,6 +220,7 @@ export const BottomSheet = forwardRef(function BottomSheet(
               </OverflowContainer>
             </Flex>
           </motion.div>
+          </FloatingFocusManager>
         </ModalBackground>
       }
     </AnimatePresence>

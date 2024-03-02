@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { Button, Flex, FlexCenter, StyledFlex, ValenceProvider, useDisclosure } from "../../..";
+import { Button, FlexCenter, StyledFlex, ValenceProvider, useDisclosure } from "../../..";
 import { Modal as M } from "../../..";
 
 const meta: Meta<typeof M> = {
@@ -33,6 +33,7 @@ export const Modal: Story = (args: any) => {
         disclosure={disclosure}
         {...args}
       >
+        <Button>Hi</Button>
         <StyledFlex
           width="100%"
           height="200vh"  
