@@ -152,7 +152,7 @@ export function DropdownContainer(props: DropdownContainerProps) {
     overflowY: "auto",
     minWidth: 100,
 
-    backgroundColor: getHex("backgroundColor", "strong"),
+    backgroundColor: getHex("white", "strong"),
     color: getHex(color),
     border: `1px solid ${getHex(color, "weak")}`,
     backdropFilter: "blur(5px)",

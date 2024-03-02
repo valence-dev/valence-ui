@@ -68,10 +68,7 @@ export const Header = forwardRef(function Header(
 
   // Styles
   const HeaderStyle: CSSProperties = {
-    backgroundColor: getHex(
-      backgroundColor,
-      "strong"
-    ),
+    backgroundColor: getHex(backgroundColor, "strong"),
     backdropFilter: "blur(10px)",
     position: position,
     top: 0,
