@@ -7,17 +7,17 @@ export type Option = {
 } | string;
 
 
-export function getOptionValue(option: Option): string {
+export function getOptionValue(option: Option | null): string {
   if (!option) return "";
   if (typeof option === "string") return option;
   return option.value;
 }
-export function getOptionLabel(option: Option): string {
+export function getOptionLabel(option: Option | null): string {
   if (!option) return "";
   if (typeof option === "string") return option;
   return option.label ?? option.value;
 }
-export function getOptionIcon(option: Option): ReactNode {
+export function getOptionIcon(option: Option | null): ReactNode {
   if (!option) return undefined;
   if (typeof option === "string") return undefined;
   return option.icon;
