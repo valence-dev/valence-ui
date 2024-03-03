@@ -1,9 +1,0 @@
-17 error Error: Command failed with exit code 1: git remote update
-17 error fatal: unable to access 'https://github.com/valence-dev/valence-ui.git/': Could not resolve host: github.com
-17 error     at makeError (C:\Files\Projects\Apps\_Packages\Valence\monorepo\node_modules\execa\lib\error.js:59:11)
-17 error     at module.exports.sync (C:\Files\Projects\Apps\_Packages\Valence\monorepo\node_modules\execa\index.js:186:17)
-17 error     at Object.execSync (C:\Files\Projects\Apps\_Packages\Valence\monorepo\node_modules\@lerna\child-process\index.js:39:16)
-17 error     at updateRemote (C:\Files\Projects\Apps\_Packages\Valence\monorepo\node_modules\lerna\dist\index.js:7601:18)
-17 error     at isBehindUpstream (C:\Files\Projects\Apps\_Packages\Valence\monorepo\node_modules\lerna\dist\index.js:7591:3)
-17 error     at VersionCommand.initialize (C:\Files\Projects\Apps\_Packages\Valence\monorepo\node_modules\lerna\dist\index.js:7898:57)
-17 error     at VersionCommand.runCommand (C:\Files\Projects\Apps\_Packages\Valence\monorepo\node_modules\lerna\dist\index.js:1755:36)

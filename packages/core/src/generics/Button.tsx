@@ -1,7 +1,4 @@
-import { ComponentSize, FillVariant } from "@valence-ui/utils/src/generics/Global"
-import { GenericClickableEventProps, GenericClickableProps } from "@valence-ui/utils/src/generics/Clickable";
-import { GenericLayoutProps } from "@valence-ui/utils/src/generics/Layout";
-import { PolymorphicButtonProps } from "@valence-ui/utils";
+import { ComponentSize, FillVariant, GenericClickableEventProps, GenericClickableProps, GenericLayoutProps, PolymorphicButtonProps } from "@valence-ui/utils";
 
 export type GenericButtonProps =
   GenericClickableProps

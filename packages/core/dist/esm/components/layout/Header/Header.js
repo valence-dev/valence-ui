@@ -24,7 +24,7 @@ function interpolateHeight(max, min, scrollY) {
 export const Header = forwardRef(function Header(props, ref) {
     const { getHex } = useColors();
     // Defaults
-    const _a = useResponsiveProps(props), { height: headerHeight = useResponsiveProps({ default: 100, mobile: 150 }), compactHeight = 75, position = useResponsiveProps({ default: "relative", mobile: "sticky" }), compact = useResponsiveProps({ default: false, mobile: true }), backgroundColor = "white", children, style } = _a, rest = __rest(_a, ["height", "compactHeight", "position", "compact", "backgroundColor", "children", "style"]);
+    const _a = useResponsiveProps(props), { height: headerHeight = useResponsiveProps({ default: 100, mobile: 150 }), compactHeight = 75, position = useResponsiveProps({ default: "relative", mobile: "sticky" }), compact = useResponsiveProps({ default: false, mobile: true }), direction = "row", align = "center", justify = "space-between", backgroundColor = "white", children, style } = _a, rest = __rest(_a, ["height", "compactHeight", "position", "compact", "direction", "align", "justify", "backgroundColor", "children", "style"]);
     // Hooks & States
     const [height, setHeight] = useState(headerHeight);
     // Scroll listener
@@ -35,5 +35,5 @@ export const Header = forwardRef(function Header(props, ref) {
     });
     // Styles
     const HeaderStyle = Object.assign({ backgroundColor: getHex(backgroundColor, "strong"), backdropFilter: "blur(10px)", position: position, top: 0, zIndex: 150, width: "100%" }, style);
-    return (_jsx(Flex, Object.assign({ style: HeaderStyle, direction: "column", justify: "center", height: height, ref: ref }, rest, { children: children })));
+    return (_jsx(Flex, Object.assign({ style: HeaderStyle, direction: direction, align: align, justify: justify, height: height, ref: ref }, rest, { children: children })));
 });

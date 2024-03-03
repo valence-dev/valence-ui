@@ -197,7 +197,6 @@ type OptionalBackgroundProps = {
 function OptionalBackground(props: OptionalBackgroundProps) {
   const { children, disclosure, showBackground, backgroundProps } = props;
 
-
   return (
     <>
       {

@@ -19,6 +19,7 @@ const core_1 = require("@valence-ui/core");
 const react_2 = require("react");
 const framer_motion_1 = require("framer-motion");
 const usehooks_ts_1 = require("usehooks-ts");
+const react_3 = require("@floating-ui/react");
 exports.BottomSheet = (0, react_2.forwardRef)(function BottomSheet(props, ref) {
     const theme = (0, react_2.useContext)(core_1.ValenceContext);
     const { getHex } = (0, core_1.useColors)();
@@ -59,14 +60,25 @@ exports.BottomSheet = (0, react_2.forwardRef)(function BottomSheet(props, ref) {
     // Hooks
     (0, usehooks_ts_1.useLockedBody)(disclosure.opened && lockScroll, "root");
     (0, core_1.useDetectKeyDown)(disclosure.close, "Escape", closeOnEscape, [closeOnEscape, close]);
+    // Floating UI
+    const { refs, context } = (0, react_3.useFloating)({
+        open: disclosure.opened,
+        onOpenChange: disclosure.update,
+    });
+    const role = (0, react_3.useRole)(context);
+    const { getFloatingProps } = (0, react_3.useInteractions)([
+        role,
+    ]);
+    const labelId = (0, react_3.useId)();
+    const descriptionId = (0, react_3.useId)();
     return ((0, jsx_runtime_1.jsx)(framer_motion_1.AnimatePresence, { children: disclosure.opened &&
-            (0, jsx_runtime_1.jsx)(core_1.ModalBackground, Object.assign({ disclosure: disclosure }, overlayBackgroundProps, { children: (0, jsx_runtime_1.jsxs)(framer_motion_1.motion.div, Object.assign({ css: ContainerStyles, onClick: e => e.stopPropagation(), drag: "y", dragConstraints: { top: 0 }, dragSnapToOrigin: true, onDragEnd: handleDragEnd, initial: { y: "100%" }, animate: {
-                        y: 0,
-                        transition: {
-                            type: "spring",
-                            stiffness: 400,
-                            damping: 40,
-                            delay: 0.1,
-                        }
-                    }, exit: { y: "100%" }, ref: ref }, rest, { children: [(0, jsx_runtime_1.jsx)("div", { style: DragStyle, children: (0, jsx_runtime_1.jsx)("div", { style: PillStyle }) }), (0, jsx_runtime_1.jsxs)(core_1.Flex, Object.assign({ direction: "column", style: SheetStyle }, flexPropsRest, { children: [(0, jsx_runtime_1.jsx)("div", { onPointerDown: controls.start, style: { width: "100%", touchAction: "none" }, children: header({ title }) }), (0, jsx_runtime_1.jsx)(core_1.OverflowContainer, { innerProps: innerFlexProps, direction: allowInnerScrolling ? "vertical" : "none", children: children })] }))] })) })) }));
+            (0, jsx_runtime_1.jsx)(core_1.ModalBackground, Object.assign({ disclosure: disclosure }, overlayBackgroundProps, { children: (0, jsx_runtime_1.jsx)(react_3.FloatingFocusManager, { context: context, children: (0, jsx_runtime_1.jsxs)(framer_motion_1.motion.div, Object.assign({ css: ContainerStyles, onClick: e => e.stopPropagation(), drag: "y", dragConstraints: { top: 0 }, dragSnapToOrigin: true, onDragEnd: handleDragEnd, initial: { y: "100%" }, animate: {
+                            y: 0,
+                            transition: {
+                                type: "spring",
+                                stiffness: 400,
+                                damping: 40,
+                                delay: 0.1,
+                            }
+                        }, exit: { y: "100%" }, ref: refs.setFloating, "aria-labelledby": labelId, "aria-describedby": descriptionId }, getFloatingProps(), rest, { children: [(0, jsx_runtime_1.jsx)("div", { style: DragStyle, children: (0, jsx_runtime_1.jsx)("div", { style: PillStyle }) }), (0, jsx_runtime_1.jsxs)(core_1.Flex, Object.assign({ direction: "column", style: SheetStyle }, flexPropsRest, { children: [(0, jsx_runtime_1.jsx)("div", { onPointerDown: controls.start, style: { width: "100%", touchAction: "none" }, children: header({ title }) }), (0, jsx_runtime_1.jsx)(core_1.OverflowContainer, { innerProps: innerFlexProps, direction: allowInnerScrolling ? "vertical" : "none", children: children })] }))] })) }) })) }));
 });

@@ -27,7 +27,7 @@ function interpolateHeight(max, min, scrollY) {
 exports.Header = (0, react_1.forwardRef)(function Header(props, ref) {
     const { getHex } = (0, __1.useColors)();
     // Defaults
-    const _a = (0, __1.useResponsiveProps)(props), { height: headerHeight = (0, __1.useResponsiveProps)({ default: 100, mobile: 150 }), compactHeight = 75, position = (0, __1.useResponsiveProps)({ default: "relative", mobile: "sticky" }), compact = (0, __1.useResponsiveProps)({ default: false, mobile: true }), backgroundColor = "white", children, style } = _a, rest = __rest(_a, ["height", "compactHeight", "position", "compact", "backgroundColor", "children", "style"]);
+    const _a = (0, __1.useResponsiveProps)(props), { height: headerHeight = (0, __1.useResponsiveProps)({ default: 100, mobile: 150 }), compactHeight = 75, position = (0, __1.useResponsiveProps)({ default: "relative", mobile: "sticky" }), compact = (0, __1.useResponsiveProps)({ default: false, mobile: true }), direction = "row", align = "center", justify = "space-between", backgroundColor = "white", children, style } = _a, rest = __rest(_a, ["height", "compactHeight", "position", "compact", "direction", "align", "justify", "backgroundColor", "children", "style"]);
     // Hooks & States
     const [height, setHeight] = (0, react_1.useState)(headerHeight);
     // Scroll listener
@@ -38,5 +38,5 @@ exports.Header = (0, react_1.forwardRef)(function Header(props, ref) {
     });
     // Styles
     const HeaderStyle = Object.assign({ backgroundColor: getHex(backgroundColor, "strong"), backdropFilter: "blur(10px)", position: position, top: 0, zIndex: 150, width: "100%" }, style);
-    return ((0, jsx_runtime_1.jsx)(Flex_1.Flex, Object.assign({ style: HeaderStyle, direction: "column", justify: "center", height: height, ref: ref }, rest, { children: children })));
+    return ((0, jsx_runtime_1.jsx)(Flex_1.Flex, Object.assign({ style: HeaderStyle, direction: direction, align: align, justify: justify, height: height, ref: ref }, rest, { children: children })));
 });

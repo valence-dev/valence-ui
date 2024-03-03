@@ -94,12 +94,6 @@ export const TextInput = forwardRef(function TextInput(
       color: `${getFgHex(color, variant)}80`,
     },
 
-    // Remove awful autofill color
-    "&:-webkit-autofill": { transition: `background-color 5000s ease-in-out 0s` },
-    "&:-webkit-autofill:focus": { transition: `background-color 5000s ease-in-out 0s` },
-    "&:-webkit-autofill:hover": { transition: `background-color 5000s ease-in-out 0s` },
-    "&:-webkit-autofill:active": { transition: `background-color 5000s ease-in-out 0s` },
-
     ...inputStyle
   });
 

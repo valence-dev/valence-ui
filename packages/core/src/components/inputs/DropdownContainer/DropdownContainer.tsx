@@ -152,9 +152,9 @@ export function DropdownContainer(props: DropdownContainerProps) {
     overflowY: "auto",
     minWidth: 100,
 
-    backgroundColor: getHex("backgroundColor", "strong"),
+    backgroundColor: getHex("white", "strong"),
     color: getHex(color),
-    outline: `1px solid ${getHex(color, "weak")}`,
+    border: `1px solid ${getHex(color, "weak")}`,
     backdropFilter: "blur(5px)",
 
     borderRadius: theme.sizeClasses.radius[radius] as number + 5,

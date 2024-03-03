@@ -27,6 +27,7 @@ export const TextInput: Story = (args: any) => {
           value={value}
           setValue={setValue}
           ref={ref}
+          autoComplete="username"
         />
 
         <Button

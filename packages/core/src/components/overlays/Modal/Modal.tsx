@@ -37,7 +37,7 @@ export const Modal = forwardRef(function Modal(
   const {
     disclosure,
     title,
-    header = (props: GenericOverlayHeaderProps) => <DefaultModalHeader
+    header = (props) => <DefaultModalHeader
       disclosure={disclosure}
       {...props}
     />,
@@ -77,6 +77,9 @@ export const Modal = forwardRef(function Modal(
 
 
   // Floating UI
+  /** Moving this to the sheets should allow them to trap focus.
+   * Not sure if there's a way to conditionally trap focus.
+   */
   const { refs, context } = useFloating({
     open: disclosure.opened,
     onOpenChange: disclosure.update,
