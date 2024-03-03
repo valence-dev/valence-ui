@@ -7,7 +7,7 @@ export type GenericInputProps<T = string> =
     /** The value of this input. Use this in conjunction with `onInput` or `onChange` to create controlled inputs. */
     value: T;
     /** Sets the value of this input. Use this in conjunction with `value` to create controlled inputs. */
-    setValue: Dispatch<SetStateAction<T>>;
+    setValue: (value: T) => void;
 
     /** This input's size class. Defaults to theme default */
     size?: ComponentSize;

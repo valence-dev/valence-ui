@@ -1,10 +1,10 @@
-import { CSSProperties, Dispatch, ReactNode, SetStateAction } from "react";
+import { CSSProperties, ReactNode } from "react";
 import { FocusEvents, KeyboardEvents, MouseClickEvents, MouseEvents, PointerEvents, ComponentSize, FillVariant, GenericLayoutProps } from "@valence-ui/utils";
 export type GenericInputProps<T = string> = GenericLayoutProps & {
     /** The value of this input. Use this in conjunction with `onInput` or `onChange` to create controlled inputs. */
     value: T;
     /** Sets the value of this input. Use this in conjunction with `value` to create controlled inputs. */
-    setValue: Dispatch<SetStateAction<T>>;
+    setValue: (value: T) => void;
     /** This input's size class. Defaults to theme default */
     size?: ComponentSize;
     /** This input's radius size class. Defaults to theme default */
