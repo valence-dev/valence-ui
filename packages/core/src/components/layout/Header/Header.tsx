@@ -56,6 +56,7 @@ export const Header = forwardRef(function Header(
     zIndex: 150,
     width: "100%",
     margin: margin,
+    paddingTop: "env(safe-area-inset-top)",
 
     ...style
   };
