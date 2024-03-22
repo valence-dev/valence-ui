@@ -23,7 +23,7 @@ exports.Nav = (0, react_1.forwardRef)(function Nav(props, ref) {
     // Styles
     const navStyle = {
         default: Object.assign({ height: "100%", boxSizing: "border-box" }, style),
-        mobile: Object.assign({ width: "100%", boxSizing: "border-box" }, style),
+        mobile: Object.assign({ width: "100%", boxSizing: "border-box", marginBottom: "env(safe-area-inset-bottom, 10px)", paddingBottom: 0 }, style),
     };
     const faviconStyle = {
         width: 25,

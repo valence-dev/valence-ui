@@ -57,7 +57,7 @@ export const BottomSheet = forwardRef(function BottomSheet(
     margin = 0,
 
     width,
-    height = "100%",
+    height = "calc(100% - env(safe-area-inset-top))",
 
     flexProps,
     innerFlexProps,

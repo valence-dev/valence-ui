@@ -22,7 +22,7 @@ export const BottomSheet = forwardRef(function BottomSheet(props, ref) {
     const { getHex } = useColors();
     const controls = useDragControls();
     // Defaults
-    const _a = useResponsiveProps(props), { disclosure, title, header = (props) => _jsx(DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), releaseOffset = Math.round(window.innerHeight / 2), releaseVelocity = 500, allowInnerScrolling = false, closeOnOverlayClick = true, closeOnEscape = true, lockScroll = true, radius = "lg", withShadow = true, backgroundColor = getHex("white"), color = getHex("black"), padding = theme.sizeClasses.padding[theme.defaults.size], margin = 0, width, height = "100%", flexProps, innerFlexProps, overlayBackgroundProps = {
+    const _a = useResponsiveProps(props), { disclosure, title, header = (props) => _jsx(DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), releaseOffset = Math.round(window.innerHeight / 2), releaseVelocity = 500, allowInnerScrolling = false, closeOnOverlayClick = true, closeOnEscape = true, lockScroll = true, radius = "lg", withShadow = true, backgroundColor = getHex("white"), color = getHex("black"), padding = theme.sizeClasses.padding[theme.defaults.size], margin = 0, width, height = "calc(100% - env(safe-area-inset-top))", flexProps, innerFlexProps, overlayBackgroundProps = {
         padding: 0,
         style: {
             alignItems: "flex-end",

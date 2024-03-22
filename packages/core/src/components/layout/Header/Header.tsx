@@ -1,24 +1,13 @@
 import { CSSProperties, forwardRef, useState } from "react";
 import { Flex, FlexProps } from "../Flex";
 import { MakeResponsive, useColors, useResponsiveProps } from "../../..";
-import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 
-export type HeaderProps = Omit<FlexProps, "height"> & {
-  /** Defines the height of this header. Defaults to `100` for regular devices, and `150` for `mobile` devices. */
-  height?: number;
-  /** The height of this header when it has been compacted. Defaults to `75`. */
-  compactHeight?: number;
-
+export type HeaderProps = FlexProps & {
   /** Defines the position of this header. */
   position?: CSSProperties["position"];
-  /** Defines the breakpoints in which the header is allowed to compact. By default this
-   * is `true` for mobile devices, and `false` for all other devices.
-   */
-  compact?: boolean;
-}
 
-function interpolateHeight(max: number, min: number, scrollY: number) {
-  return Math.max(max + scrollY, min);
+  /** Properties to pass to the inner flex component. */
+  innerProps?: FlexProps;
 }
 
 
@@ -35,39 +24,27 @@ export const Header = forwardRef(function Header(
 
   // Defaults
   const {
-    height: headerHeight = useResponsiveProps({ default: 100, mobile: 150 }),
-    compactHeight = 75,
-
-    position = useResponsiveProps({ default: "relative", mobile: "sticky" }),
-    compact = useResponsiveProps({ default: false, mobile: true }),
-
+    height = 75,
+    position = "sticky",
     direction = "row",
     align = "center",
     justify = "space-between",
-
+    
+    margin = "30px 0",
     backgroundColor = "white",
+
+    innerProps = { 
+      height: height,
+      width: "100%",
+      direction: direction,
+      align: align,
+      justify: justify,
+    },
 
     children,
     style,
     ...rest
   } = useResponsiveProps<HeaderProps>(props);
-
-
-  // Hooks & States
-  const [height, setHeight] = useState(headerHeight);
-
-
-  // Scroll listener
-  useScrollPosition(
-    ({ prevPos, currPos }) => {
-      if (!compact) return;
-      setHeight(interpolateHeight(
-        headerHeight,
-        compactHeight,
-        (prevPos.y + currPos.y) / 2,
-      ));
-    }
-  )
 
 
   // Styles
@@ -78,6 +55,7 @@ export const Header = forwardRef(function Header(
     top: 0,
     zIndex: 150,
     width: "100%",
+    margin: margin,
 
     ...style
   };
@@ -86,15 +64,16 @@ export const Header = forwardRef(function Header(
   return (
     <Flex
       style={HeaderStyle}
-      direction={direction}
-      align={align}
-      justify={justify}
-      height={height}
+      height="fit-content"
 
       ref={ref}
       {...rest}
     >
-      {children}
+      <Flex
+        {...innerProps}
+      >
+        {children}
+      </Flex>
     </Flex>
   )
 });

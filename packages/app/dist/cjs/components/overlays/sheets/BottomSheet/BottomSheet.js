@@ -25,7 +25,7 @@ exports.BottomSheet = (0, react_2.forwardRef)(function BottomSheet(props, ref) {
     const { getHex } = (0, core_1.useColors)();
     const controls = (0, framer_motion_1.useDragControls)();
     // Defaults
-    const _a = (0, core_1.useResponsiveProps)(props), { disclosure, title, header = (props) => (0, jsx_runtime_1.jsx)(core_1.DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), releaseOffset = Math.round(window.innerHeight / 2), releaseVelocity = 500, allowInnerScrolling = false, closeOnOverlayClick = true, closeOnEscape = true, lockScroll = true, radius = "lg", withShadow = true, backgroundColor = getHex("white"), color = getHex("black"), padding = theme.sizeClasses.padding[theme.defaults.size], margin = 0, width, height = "100%", flexProps, innerFlexProps, overlayBackgroundProps = {
+    const _a = (0, core_1.useResponsiveProps)(props), { disclosure, title, header = (props) => (0, jsx_runtime_1.jsx)(core_1.DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), releaseOffset = Math.round(window.innerHeight / 2), releaseVelocity = 500, allowInnerScrolling = false, closeOnOverlayClick = true, closeOnEscape = true, lockScroll = true, radius = "lg", withShadow = true, backgroundColor = getHex("white"), color = getHex("black"), padding = theme.sizeClasses.padding[theme.defaults.size], margin = 0, width, height = "calc(100% - env(safe-area-inset-top))", flexProps, innerFlexProps, overlayBackgroundProps = {
         padding: 0,
         style: {
             alignItems: "flex-end",

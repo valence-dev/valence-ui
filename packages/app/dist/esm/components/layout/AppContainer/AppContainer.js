@@ -51,7 +51,7 @@ export const AppContainer = forwardRef(function AppContainer(props, ref) {
         mobile: {
             height: radius,
             width: "100%",
-            borderRadius: `0px 0px ${radius}px ${radius}px`,
+            borderRadius: showNav ? `0px 0px ${radius}px ${radius}px` : 0,
             backgroundColor: getHex("white"),
         }
     };
