@@ -64,8 +64,7 @@ export const Nav = forwardRef(function Nav(
     mobile: {
       width: "100%",
       boxSizing: "border-box",
-      marginBottom: "env(safe-area-inset-bottom, 10px)",
-      paddingBottom: 0,
+      marginBottom: "env(safe-area-inset-bottom)",
 
       ...style
     },
