@@ -28,6 +28,6 @@ export const Header = forwardRef(function Header(props, ref) {
         justify: justify,
     }, children, style } = _a, rest = __rest(_a, ["height", "position", "direction", "align", "justify", "margin", "backgroundColor", "innerProps", "children", "style"]);
     // Styles
-    const HeaderStyle = Object.assign({ backgroundColor: getHex(backgroundColor, "strong"), backdropFilter: "blur(10px)", position: position, top: 0, zIndex: 150, width: "100%", margin: margin }, style);
+    const HeaderStyle = Object.assign({ backgroundColor: getHex(backgroundColor, "strong"), backdropFilter: "blur(10px)", position: position, top: 0, zIndex: 150, width: "100%", margin: margin, paddingTop: "env(safe-area-inset-top)" }, style);
     return (_jsx(Flex, Object.assign({ style: HeaderStyle, height: "fit-content", ref: ref }, rest, { children: _jsx(Flex, Object.assign({}, innerProps, { children: children })) })));
 });
