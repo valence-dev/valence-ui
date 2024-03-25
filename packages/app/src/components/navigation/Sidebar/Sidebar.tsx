@@ -51,7 +51,7 @@ export const Sidebar = forwardRef(function Sidebar(
     padding: padding,
 
     borderRadius: `${borderRadius}px 0px 0px ${borderRadius}px`,
-    backgroundColor: `${getHex(backgroundColor)}E8`,
+    backgroundColor: `${getHex(backgroundColor)}F5`,
 
     ...style
   }
