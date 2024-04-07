@@ -1,5 +1,7 @@
-import { Flex, FlexProps, MakeResponsive, Responsive, useColors, useResponsiveProps, useValence } from "@valence-ui/core";
+import { Flex, FlexProps, MakeResponsive, Responsive, useColors, useDisclosure, useResponsiveProps, useValence } from "@valence-ui/core";
 import { CSSProperties, ReactNode, forwardRef } from "react";
+import { AppContainerContext } from "../../../contexts";
+
 
 export type AppContainerProps = {
   /** The primary root navigation element. This element should be consistent across pages. */
@@ -62,6 +64,10 @@ export const AppContainer = forwardRef(function AppContainer(
   } = mainProps ?? {};
 
 
+  // App Container context
+  const drawerDisclosure = useDisclosure(true);
+
+
   // Styles
   const ContainerStyle: CSSProperties = {
     width: "100vw",
@@ -107,40 +113,46 @@ export const AppContainer = forwardRef(function AppContainer(
 
 
   return (
-    <Flex
-      direction={{ default: "row", mobile: "column-reverse" }}
-      style={ContainerStyle}
-      gap={0}
-      ref={ref}
-      {...rest}
+    <AppContainerContext.Provider
+      value={{
+        drawerDisclosure
+      }}
     >
-      {showNavRail && navRail}
-
-      {/* Inner container */}
       <Flex
-        direction="row"
+        direction={{ default: "row", mobile: "column-reverse" }}
+        style={ContainerStyle}
         gap={0}
-        style={InnerContainerStyle}
+        ref={ref}
+        {...rest}
       >
-        {drawer}
+        {showNavRail && navRail}
 
-        {/* Main page content */}
+        {/* Inner container */}
         <Flex
-          justify={mainJustify}
-          style={OuterMainStyle}
-          {...outerMainRest}
+          direction="row"
+          gap={0}
+          style={InnerContainerStyle}
         >
+          {drawer}
+
+          {/* Main page content */}
           <Flex
-            component={mainComponent}
-            width={mainWidth}
-            direction={mainDirection}
-            style={MainStyle}
-            {...mainRest}
+            justify={mainJustify}
+            style={OuterMainStyle}
+            {...outerMainRest}
           >
-            {children}
+            <Flex
+              component={mainComponent}
+              width={mainWidth}
+              direction={mainDirection}
+              style={MainStyle}
+              {...mainRest}
+            >
+              {children}
+            </Flex>
           </Flex>
         </Flex>
       </Flex>
-    </Flex>
+    </AppContainerContext.Provider>
   )
 });

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { Button, Space, Text, ValenceProvider } from "@valence-ui/core";
 
@@ -7,6 +7,7 @@ import { Drawer } from "../../layout";
 import { NavRail } from "../../navigation";
 import { IconBolt, IconCategory, IconLogout, IconUserCircle } from "@tabler/icons-react";
 import { BrowserRouter } from "react-router-dom";
+import { useAppContainerContext } from "../../../contexts";
 
 const meta: Meta<typeof AC> = {
   component: AC,
@@ -21,24 +22,39 @@ export const AppContainer2: Story = (args: any) => {
     <BrowserRouter>
       <ValenceProvider>
         <AC {...args}>
-          <Text>
-            Hi there!
-          </Text>
-
-          <Button>
-            Click me!
-          </Button>
-
-          <Space height="100vh" />
-
-          <Text>
-            More content
-          </Text>
+          <Children />
         </AC>
       </ValenceProvider>
     </BrowserRouter>
   )
 };
+function Children(): ReactNode {
+  const containerContext = useAppContainerContext();
+
+  return (
+    <>
+      <Text>
+        Hi there!
+      </Text>
+
+      <Button
+        onClick={() => containerContext.drawerDisclosure.opened ?
+          containerContext.drawerDisclosure.close()
+          : containerContext.drawerDisclosure.open()
+        }
+      >
+        Show/hide drawer
+      </Button>
+
+      <Space height="100vh" />
+
+      <Text>
+        More content
+      </Text>
+    </>
+  )
+}
+
 AppContainer2.args = {
   navRail: (
     <NavRail

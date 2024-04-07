@@ -5,8 +5,11 @@ import { ReactNode, forwardRef } from "react";
 import { DragSizing } from "react-drag-sizing";
 import { DragSizingProps } from "react-drag-sizing/dist/types";
 import { CSSProperties } from "styled-components";
+import { SideSheet, SideSheetProps } from "../../overlays";
+import { useAppContainerContext } from "../../../contexts";
 
 export type ResizeDirection = "left" | "right" | "top" | "bottom" | "none";
+export type DrawerType = "inline" | "overlay";
 
 export type DrawerProps = {
   /** The direction to resize the drawer. `"right"` by default. */
@@ -17,12 +20,15 @@ export type DrawerProps = {
   maxWidth?: CSSProperties["maxWidth"];
   /** The initial width of the drawer. Defaults to the minimum width. */
   initialWidth?: number;
+  /** The type of the drawer. By default, this is `"inline"` by on tablet and larger; `"overlay"` on mobile. */
+  type?: DrawerType;
 
   /** The background color of the drawer. */
   backgroundColor?: CSSProperties["backgroundColor"];
 
   dragResizeProps?: DragSizingProps;
   flexProps?: Omit<FlexProps, "children">;
+  sheetProps?: Omit<SideSheetProps, "children"|"disclosure">;
   children: ReactNode;
 }
 
@@ -32,17 +38,20 @@ export const Drawer = forwardRef(function Drawer(
 ) {
   const { getHex } = useColors();
   const theme = useValence();
+  const containerContext = useAppContainerContext();
 
   const {
     resizeDirection = "right",
     minWidth = 250,
     maxWidth = 400,
     initialWidth = minWidth,
+    type = useResponsiveProps({ default: "inline", mobile: "overlay" }),
 
     backgroundColor = getHex("primary") + "15",
 
     dragResizeProps,
     flexProps,
+    sheetProps,
     children,
   } = useResponsiveProps<DrawerProps>(props);
   const {
@@ -53,6 +62,11 @@ export const Drawer = forwardRef(function Drawer(
     style: flexStyle,
     ...flexRest
   } = flexProps ?? {};
+  const { 
+    title: sheetTitle = "",
+    direction: sheetDirection = "left",
+    ...sheetRest
+  } = sheetProps ?? {};
 
 
   // Styles
@@ -85,7 +99,18 @@ export const Drawer = forwardRef(function Drawer(
   )
 
   return (
-    resizeDirection !== "none" ? (
+    type === "overlay" ? (
+      <SideSheet
+      disclosure={containerContext.drawerDisclosure}
+        title={sheetTitle}
+        direction={sheetDirection}
+        {...sheetRest}
+      >
+        {children}
+      </SideSheet>
+    ) : !containerContext.drawerDisclosure.opened ? (
+      <></>
+    ) : resizeDirection !== "none" ? (
       <DragSizing
         border={resizeDirection}
         css={SizingCSS}

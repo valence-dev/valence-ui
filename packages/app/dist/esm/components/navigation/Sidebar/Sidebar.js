@@ -23,7 +23,7 @@ export const Sidebar = forwardRef(function Sidebar(props, ref) {
     const { getHex } = useColors();
     // Styles
     const borderRadius = theme.sizeClasses.radius[theme.defaults.radius] + 5;
-    const sidebarStyle = Object.assign({ width: width, height: height, padding: padding, borderRadius: `${borderRadius}px 0px 0px ${borderRadius}px`, backgroundColor: `${getHex(backgroundColor)}E8` }, style);
+    const sidebarStyle = Object.assign({ width: width, height: height, padding: padding, borderRadius: `${borderRadius}px 0px 0px ${borderRadius}px`, backgroundColor: `${getHex(backgroundColor)}F5` }, style);
     const sidebarReplacementStyle = {
         default: {
             width: borderRadius,
