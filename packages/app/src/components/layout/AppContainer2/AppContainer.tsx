@@ -90,7 +90,9 @@ export const AppContainer = forwardRef(function AppContainer(
   }
 
   const OuterMainStyle: CSSProperties = {
-    width: "100%",
+    width: 300,
+    flexGrow: 1,
+    // width: "100%",
     height: "100%",
     overflowY: "auto",
     ...outerMainStyle,
@@ -121,18 +123,6 @@ export const AppContainer = forwardRef(function AppContainer(
         style={InnerContainerStyle}
       >
         {drawer}
-
-        {/* Stand in drawer component - finish this */}
-        <Flex
-          height="100%"
-          backgroundColor="blue"
-          style={{
-            minWidth: 100,
-            maxWidth: 400,
-            resize: "horizontal",
-            overflow: "auto",
-          }}
-        ></Flex>
 
         {/* Main page content */}
         <Flex

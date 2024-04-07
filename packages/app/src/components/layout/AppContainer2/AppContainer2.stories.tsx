@@ -3,6 +3,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import { Button, Space, Text, ValenceProvider } from "@valence-ui/core";
 
 import { AppContainer as AC } from "./AppContainer";
+import { Drawer } from "../../layout";
 import { NavRail } from "../../navigation";
 import { IconBolt, IconCategory, IconLogout, IconUserCircle } from "@tabler/icons-react";
 import { BrowserRouter } from "react-router-dom";
@@ -71,5 +72,12 @@ AppContainer2.args = {
         }
       ]}
     />
+  ),
+  drawer: (
+    <Drawer>
+      <Text>
+        Hi there!
+      </Text>
+    </Drawer>
   )
 };
