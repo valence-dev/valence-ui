@@ -1,6 +1,9 @@
 import { Flex, FlexProps, MakeResponsive, Responsive, useColors, useDisclosure, useResponsiveProps, useValence } from "@valence-ui/core";
 import { CSSProperties, ReactNode, forwardRef } from "react";
 import { AppContainerContext } from "../../../contexts";
+import { DrawerReveal } from "../DrawerReveal";
+
+export type DrawerDisplayMode = "aside" | "underlay";
 
 
 export type AppContainerProps = {
@@ -11,6 +14,8 @@ export type AppContainerProps = {
 
   /** Whether to show the `navRail`, if it is provided. Defaults to `true`. */
   showNavRail?: boolean;
+  /** The display mode of the drawer. Defaults to `aside` on tablet and larger, and "underlay" on mobile. */
+  drawerDisplayMode?: DrawerDisplayMode;
 
   /** Properties to apply to the outer main page container element */
   mainOuterProps?: Omit<FlexProps, "children">;
@@ -39,6 +44,7 @@ export const AppContainer = forwardRef(function AppContainer(
     drawer,
 
     showNavRail = true,
+    drawerDisplayMode = useResponsiveProps({ default: "aside", mobile: "underlay" }),
 
     mainOuterProps,
     mainProps,
@@ -77,31 +83,44 @@ export const AppContainer = forwardRef(function AppContainer(
   }
 
   const radius = theme.sizeClasses.radius[theme.defaults.radius] as number + 5;
-  const InnerContainerStyle: Responsive<CSSProperties> = {
+  const OuterContentContainerStyle: Responsive<CSSProperties> = {
     default: {
-      backgroundColor: getHex(backgroundColor),
       borderRadius: `${radius}px 0px 0px ${radius}px`,
       overflow: "hidden",
       width: "100%",
       height: "100%",
     },
     mobile: {
-      backgroundColor: getHex(backgroundColor),
-      borderRadius: `0px 0px ${radius}px ${radius}px`,
-      overflow: "hidden",
+      borderRadius: 0,
+      overflowX: "auto",
       width: "100%",
       height: 200,
       flexGrow: 1,
+
+      // @ts-ignore
+      "&::-webkit-scrollbar": {
+        display: "none",
+      },
+      "-ms-overflow-style": "none",
+      scrollbarWidth: "none",
     }
   }
-
-  const OuterMainStyle: CSSProperties = {
-    width: 300,
-    flexGrow: 1,
-    // width: "100%",
-    height: "100%",
-    overflowY: "auto",
-    ...outerMainStyle,
+  const OuterMainStyle: Responsive<CSSProperties> = {
+    default: {
+      width: 300,
+      flexGrow: 1,
+      height: "100%",
+      overflowY: "auto",
+      backgroundColor: getHex(backgroundColor),
+      ...outerMainStyle,
+    },
+    mobile: {
+      width: "100vw",
+      height: "100%",
+      overflowY: "auto",
+      backgroundColor: getHex(backgroundColor),
+      borderRadius: `0px 0px ${radius}px ${radius}px`,
+    }
   }
   const MainStyle: CSSProperties = {
     padding: theme.getSize("padding"),
@@ -110,6 +129,45 @@ export const AppContainer = forwardRef(function AppContainer(
     paddingBottom: 200,
     ...mainStyle,
   }
+
+
+  // Subcomponents
+  const MainContent = () => (
+    <Flex
+      justify={mainJustify}
+      style={OuterMainStyle}
+      {...outerMainRest}
+    >
+      <Flex
+        component={mainComponent}
+        width={mainWidth}
+        direction={mainDirection}
+        style={MainStyle}
+        {...mainRest}
+      >
+        {children}
+      </Flex>
+    </Flex>
+  );
+  const AsideAndMainContent = () => (
+    drawerDisplayMode === "aside" ? (
+      <Flex
+        direction="row"
+        gap={0}
+        style={OuterContentContainerStyle}
+      >
+        {drawer}
+
+        <MainContent />
+      </Flex>
+    ) : (
+      <DrawerReveal
+        disclosure={drawerDisclosure}
+        front={<MainContent />}
+        behind={drawer}
+      />
+    )
+  )
 
 
   return (
@@ -127,31 +185,7 @@ export const AppContainer = forwardRef(function AppContainer(
       >
         {showNavRail && navRail}
 
-        {/* Inner container */}
-        <Flex
-          direction="row"
-          gap={0}
-          style={InnerContainerStyle}
-        >
-          {drawer}
-
-          {/* Main page content */}
-          <Flex
-            justify={mainJustify}
-            style={OuterMainStyle}
-            {...outerMainRest}
-          >
-            <Flex
-              component={mainComponent}
-              width={mainWidth}
-              direction={mainDirection}
-              style={MainStyle}
-              {...mainRest}
-            >
-              {children}
-            </Flex>
-          </Flex>
-        </Flex>
+        <AsideAndMainContent />
       </Flex>
     </AppContainerContext.Provider>
   )

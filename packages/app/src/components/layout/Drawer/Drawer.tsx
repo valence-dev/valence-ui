@@ -1,15 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { Flex, FlexProps, MakeResponsive, useColors, useResponsiveProps, useValence } from "@valence-ui/core";
+import { Flex, FlexProps, MakeResponsive, Responsive, useBreakpoint, useColors, useResponsiveProps, useValence } from "@valence-ui/core";
 import { ReactNode, forwardRef } from "react";
 import { DragSizing } from "react-drag-sizing";
 import { DragSizingProps } from "react-drag-sizing/dist/types";
 import { CSSProperties } from "styled-components";
-import { SideSheet, SideSheetProps } from "../../overlays";
-import { useAppContainerContext } from "../../../contexts";
 
 export type ResizeDirection = "left" | "right" | "top" | "bottom" | "none";
-export type DrawerType = "inline" | "overlay";
 
 export type DrawerProps = {
   /** The direction to resize the drawer. `"right"` by default. */
@@ -20,15 +17,12 @@ export type DrawerProps = {
   maxWidth?: CSSProperties["maxWidth"];
   /** The initial width of the drawer. Defaults to the minimum width. */
   initialWidth?: number;
-  /** The type of the drawer. By default, this is `"inline"` by on tablet and larger; `"overlay"` on mobile. */
-  type?: DrawerType;
 
   /** The background color of the drawer. */
   backgroundColor?: CSSProperties["backgroundColor"];
 
   dragResizeProps?: DragSizingProps;
   flexProps?: Omit<FlexProps, "children">;
-  sheetProps?: Omit<SideSheetProps, "children"|"disclosure">;
   children: ReactNode;
 }
 
@@ -38,20 +32,18 @@ export const Drawer = forwardRef(function Drawer(
 ) {
   const { getHex } = useColors();
   const theme = useValence();
-  const containerContext = useAppContainerContext();
+  const breakpoint = useBreakpoint();
 
   const {
     resizeDirection = "right",
     minWidth = 250,
     maxWidth = 400,
     initialWidth = minWidth,
-    type = useResponsiveProps({ default: "inline", mobile: "overlay" }),
 
-    backgroundColor = getHex("primary") + "15",
+    backgroundColor = getHex("white") + "EE",
 
     dragResizeProps,
     flexProps,
-    sheetProps,
     children,
   } = useResponsiveProps<DrawerProps>(props);
   const {
@@ -62,11 +54,6 @@ export const Drawer = forwardRef(function Drawer(
     style: flexStyle,
     ...flexRest
   } = flexProps ?? {};
-  const { 
-    title: sheetTitle = "",
-    direction: sheetDirection = "left",
-    ...sheetRest
-  } = sheetProps ?? {};
 
 
   // Styles
@@ -77,10 +64,21 @@ export const Drawer = forwardRef(function Drawer(
     width: initialWidth,
     overflowX: "hidden",
   });
-  const FlexStyle: CSSProperties = {
-    backgroundColor: backgroundColor,
-    overflowX: "hidden",
-    ...flexStyle,
+  const radius = theme.sizeClasses.radius[theme.defaults.radius] as number + 5;
+  const FlexStyle: Responsive<CSSProperties> = {
+    default: {
+      backgroundColor: backgroundColor,
+      overflowX: "hidden",
+      ...flexStyle,
+    },
+    mobile: { 
+      backgroundColor: backgroundColor,
+      overflowX: "hidden",
+      borderRadius: `0px 0px ${radius}px ${radius}px`,
+      userSelect: "none",
+      touchAction: "none",
+      ...flexStyle,
+    }
   }
 
 
@@ -98,19 +96,9 @@ export const Drawer = forwardRef(function Drawer(
     </Flex>
   )
 
+
   return (
-    type === "overlay" ? (
-      <SideSheet
-      disclosure={containerContext.drawerDisclosure}
-        title={sheetTitle}
-        direction={sheetDirection}
-        {...sheetRest}
-      >
-        {children}
-      </SideSheet>
-    ) : !containerContext.drawerDisclosure.opened ? (
-      <></>
-    ) : resizeDirection !== "none" ? (
+    resizeDirection !== "none" && !breakpoint.isMobile ? (
       <DragSizing
         border={resizeDirection}
         css={SizingCSS}
