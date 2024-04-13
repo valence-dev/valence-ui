@@ -20,20 +20,24 @@ export const DrawerReveal: Story = (args: any) => {
       <DR
         {...args}
         disclosure={disclosure}
+        front={(
+          <Flex
+            height="200vh"
+            backgroundColor="white"
+            direction="column"
+          >
+            <Text>Hi! </Text>
+            <Button
+              onClick={() => disclosure.update(!disclosure.opened)}
+            >Open/close</Button>
+          </Flex>
+        )}
       >
       </DR>
     </ValenceProvider>
   )
 };
 DrawerReveal.args = {
-  front: (
-    <Flex
-      height="200vh"
-      backgroundColor="white"
-    >
-      <Text>Hi! <Button> Nice</Button></Text>
-    </Flex>
-  ),
   behind: (
     <Flex
       width="100%"

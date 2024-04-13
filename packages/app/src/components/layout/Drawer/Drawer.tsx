@@ -75,8 +75,6 @@ export const Drawer = forwardRef(function Drawer(
       backgroundColor: backgroundColor,
       overflowX: "hidden",
       borderRadius: `0px 0px ${radius}px ${radius}px`,
-      userSelect: "none",
-      touchAction: "none",
       ...flexStyle,
     }
   }

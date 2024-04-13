@@ -1,7 +1,5 @@
-import { Disclosure, Flex, MakeResponsive, useColors, useResponsiveProps } from "@valence-ui/core";
-import { CSSProperties, ReactNode, forwardRef, useEffect, useState } from "react";
-import { PanInfo, motion, useDragControls } from "framer-motion";
-import { useWindowSize } from 'usehooks-ts';
+import { Disclosure, Flex, MakeResponsive, useResponsiveProps } from "@valence-ui/core";
+import { CSSProperties, ReactNode, forwardRef, useEffect, useRef} from "react";
 
 export type DrawerRevealProps = {
   /** The content to appear in front of the behind content */
@@ -28,56 +26,38 @@ export const DrawerReveal = forwardRef(function DrawerReveal(
     rightOffset = 20,
   } = useResponsiveProps<DrawerRevealProps>(props);
 
-  const { getHex } = useColors();
-  const windowSize = useWindowSize();
-  const dragControls = useDragControls();
-
-  const [randomState, setRandomState] = useState(Math.random());
-  const [targetPosition, setTargetPosition] = useState(0);
-
+  const outerRef = ref ?? useRef<HTMLDivElement>(null);
+  const behindRef = useRef<HTMLDivElement>(null);
 
   // Styles
   const FrontContainerStyle: CSSProperties = {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    touchAction: "none",
-    width: "100%",
+    width: "100vw",
     height: "100%",
   }
   const BehindContainerStyle: CSSProperties = {
-    userSelect: "none",
-    touchAction: "none",
-    width: `calc(100% - ${rightOffset + 5}px)`,
+    width: `calc(100vw - ${rightOffset + 5}px)`,
     height: "100%",
+  }
+  const OuterContainerStyle: CSSProperties = {
+    overflowX: "scroll",
+    scrollBehavior: "smooth",
+
+    scrollbarWidth: "none",
+    msOverflowStyle: "none",
+    // @ts-ignore
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
   }
 
 
   // Logic
-  function handleDrag(info: PanInfo) {
-    console.log(info);
-    if (Math.abs(info.offset.x) > windowSize.width / 3
-      || Math.abs(info.velocity.x) > 300
-    ) {
-      if (info.offset.x < 0) {
-        disclosure.close();
-        setRandomState(Math.random());
-      } else {
-        disclosure.open();
-        setRandomState(Math.random());
-      }
-    } else {
-      // Keep current state; change random position
-      setRandomState(Math.random());
-    }
-  }
-  useEffect(() => {
-    if (disclosure.opened) {
-      setTargetPosition(windowSize.width - rightOffset + (Math.random() / 100));
-    } else {
-      setTargetPosition(0 + (Math.random() / 100));
-    }
-  }, [randomState, disclosure.opened, windowSize.width, rightOffset])
+  useEffect(() => { 
+    if (disclosure.opened) 
+      outerRef.current?.scrollTo({ left: behindRef.current?.offsetWidth, behavior: "smooth" });
+    else
+      outerRef.current?.scrollTo({ left: 0, behavior: "smooth" });
+  })
 
 
 
@@ -85,30 +65,30 @@ export const DrawerReveal = forwardRef(function DrawerReveal(
     <>
       <Flex
         direction="row"
-        width="100%"
+        width="100vw"
         height="100%"
-        ref={ref}
+        style={OuterContainerStyle}
+        ref={outerRef}
       >
         <Flex
-          style={BehindContainerStyle}
-
-          // @ts-ignore
-          onPointerDown={(event) => { dragControls.start(event, { snapToCursor: false }) }}
+          direction="row"
+          width="fit-content"
+          height="100%"
+          gap={5}
         >
-          {behind}
+          <Flex
+            style={BehindContainerStyle}
+            ref={behindRef}
+          >
+            {behind}
+          </Flex>
+
+          <Flex
+            style={FrontContainerStyle}
+          >
+            {front}
+          </Flex>
         </Flex>
-
-        <motion.div
-          style={FrontContainerStyle}
-          drag="x"
-          dragConstraints={{ left: 0, right: windowSize.width - rightOffset }}
-          dragControls={dragControls}
-          onDragEnd={(_, info) => handleDrag(info)}
-          animate={{ x: targetPosition }}
-          dragElastic={0.2}
-        >
-          {front}
-        </motion.div>
       </Flex>
     </>
   )
