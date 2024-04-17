@@ -32,8 +32,7 @@ export const SideSheet = forwardRef(function SideSheet(props, ref) {
             fixedDirection === "right" ?
                 `${borderRadius}px 0 0 ${borderRadius}px` :
                 `0 ${borderRadius}px ${borderRadius}px 0`, boxShadow: withShadow && display === "overlay" ?
-            theme.defaults.shadow : undefined, borderLeft: display === "overlay" ? undefined :
-            `1px solid ${getHex("black", "weak")}` }, style);
+            theme.defaults.shadow : undefined, borderLeft: `1px solid ${getHex("black", "weak")}` }, style);
     // Hooks
     useLockedBody(disclosure.opened && lockScroll && display === "overlay", "root");
     useDetectKeyDown(disclosure.close, "Escape", closeOnEscape, [closeOnEscape, close]);
