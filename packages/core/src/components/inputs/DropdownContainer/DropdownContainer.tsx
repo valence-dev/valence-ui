@@ -2,7 +2,7 @@
 import { ReactNode, useRef, useState } from "react";
 import { Option, getOptionIcon, getOptionLabel, getOptionValue } from "./Options";
 import { useDisclosure } from "../../../hooks";
-import { FloatingFocusManager, FloatingPortal, autoUpdate, flip, offset, size, useClick, useDismiss, useFloating, useInteractions, useListNavigation, useRole, useTypeahead } from "@floating-ui/react";
+import { FloatingPortal, autoUpdate, flip, offset, size, useClick, useDismiss, useFloating, useInteractions, useListNavigation, useRole, useTypeahead } from "@floating-ui/react";
 import { css } from "@emotion/react";
 import { IconCheck, IconSelector } from "@tabler/icons-react";
 import { InputContainer, InputContainerProps } from "../InputContainer";
@@ -214,7 +214,6 @@ export function DropdownContainer(props: DropdownContainerProps) {
       </InputContainer>
       {disclosure.opened && (
         <FloatingPortal>
-          <FloatingFocusManager context={context} modal={false}>
             <div
               ref={refs.setFloating}
               css={DropdownStyle}
@@ -259,7 +258,6 @@ export function DropdownContainer(props: DropdownContainerProps) {
                 </ButtonWithIcon>
               ))}
             </div>
-          </FloatingFocusManager>
         </FloatingPortal>
       )}
     </>
