@@ -1,6 +1,6 @@
 {
   "name": "@valence-ui/carousel",
-  "version": "2.4.1",
+  "version": "2.4.3",
   "description": "A custom carousel component built for Valence UI",
   "author": "Isaac Shea <isaac_shea@icloud.com>",
   "license": "MIT",
