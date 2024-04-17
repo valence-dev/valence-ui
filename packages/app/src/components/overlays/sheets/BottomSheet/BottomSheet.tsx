@@ -48,7 +48,7 @@ export const BottomSheet = forwardRef(function BottomSheet(
     lockScroll = true,
 
     radius = "lg",
-    withShadow = true,
+    withShadow = false,
 
     backgroundColor = getHex("white"),
     color = getHex("black"),
@@ -115,6 +115,8 @@ export const BottomSheet = forwardRef(function BottomSheet(
     position: "relative",
 
     borderRadius: `${borderRadius}px ${borderRadius}px 0 0`,
+    border: "none",
+    borderTop: `1px solid ${getHex("black", "weak")}`,
     boxShadow: withShadow ? theme.defaults.shadow : undefined,
     touchAction: "none",
 
@@ -135,7 +137,13 @@ export const BottomSheet = forwardRef(function BottomSheet(
     width: 50,
     height: 5,
     borderRadius: 5,
-    backgroundColor: getHex("white", "strong"),
+    backgroundColor: getHex("permaWhite", "strong"),
+  }
+  const OverflowStyle: CSSProperties = { 
+    width: "100%",
+    height: "100vh",
+    backgroundColor: backgroundColor,
+    marginTop: -1,
   }
 
   // Hooks
@@ -219,6 +227,8 @@ export const BottomSheet = forwardRef(function BottomSheet(
                 {children}
               </OverflowContainer>
             </Flex>
+
+            <div style={OverflowStyle} />
           </motion.div>
           </FloatingFocusManager>
         </ModalBackground>

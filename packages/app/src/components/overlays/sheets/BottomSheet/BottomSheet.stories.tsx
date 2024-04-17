@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { Button, StyledFlex, ValenceProvider, useDisclosure } from "@valence-ui/core"
+import { Button, FlexCenter, StyledFlex, ValenceProvider, useDisclosure } from "@valence-ui/core"
 import { BottomSheet as BS } from "./BottomSheet";
 
 const meta: Meta<typeof BS> = {
@@ -15,7 +15,10 @@ export const BottomSheet: Story = (args: any) => {
 
   return (
     <ValenceProvider>
-      <Button onClick={() => disclosure.open()}>Open Bottom Sheet</Button>
+
+      <FlexCenter>
+        <Button onClick={() => disclosure.open()}>Open Bottom Sheet</Button>
+      </FlexCenter>
 
       <BS
         disclosure={disclosure}
