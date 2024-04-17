@@ -14,7 +14,7 @@ import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "@emotion/reac
 import { useRef, useState } from "react";
 import { getOptionIcon, getOptionLabel } from "./Options";
 import { useDisclosure } from "../../../hooks";
-import { FloatingFocusManager, FloatingPortal, autoUpdate, flip, offset, size, useClick, useDismiss, useFloating, useInteractions, useListNavigation, useRole, useTypeahead } from "@floating-ui/react";
+import { FloatingPortal, autoUpdate, flip, offset, size, useClick, useDismiss, useFloating, useInteractions, useListNavigation, useRole, useTypeahead } from "@floating-ui/react";
 import { css } from "@emotion/react";
 import { IconCheck, IconSelector } from "@tabler/icons-react";
 import { InputContainer } from "../InputContainer";
@@ -98,25 +98,25 @@ export function DropdownContainer(props) {
                         flex: 1,
                         color: getFgHex(color, variant),
                         opacity: selectedItemLabel ? 1 : 0.5,
-                    }, children: selectedItemLabel !== null && selectedItemLabel !== void 0 ? selectedItemLabel : placeholder }) })), disclosure.opened && (_jsx(FloatingPortal, { children: _jsx(FloatingFocusManager, { context: context, modal: false, children: _jsx("div", Object.assign({ ref: refs.setFloating, css: DropdownStyle }, getFloatingProps(), { children: options.map((value, i) => (_jsx(ButtonWithIcon, Object.assign({ ref: (node) => {
-                                listRef.current[i] = node;
-                            }, icon: i === selected ?
-                                _jsx(IconCheck, {}) :
-                                typeof value !== "string" ? value === null || value === void 0 ? void 0 : value.icon : undefined, variant: i === highlighted ? "light" : "subtle", width: "100%", color: color, style: ItemStyle }, getItemProps({
-                            // Handle pointer select.
-                            onClick() {
+                    }, children: selectedItemLabel !== null && selectedItemLabel !== void 0 ? selectedItemLabel : placeholder }) })), disclosure.opened && (_jsx(FloatingPortal, { children: _jsx("div", Object.assign({ ref: refs.setFloating, css: DropdownStyle }, getFloatingProps(), { children: options.map((value, i) => (_jsx(ButtonWithIcon, Object.assign({ ref: (node) => {
+                            listRef.current[i] = node;
+                        }, icon: i === selected ?
+                            _jsx(IconCheck, {}) :
+                            typeof value !== "string" ? value === null || value === void 0 ? void 0 : value.icon : undefined, variant: i === highlighted ? "light" : "subtle", width: "100%", color: color, style: ItemStyle }, getItemProps({
+                        // Handle pointer select.
+                        onClick() {
+                            handleSelect(i);
+                        },
+                        // Handle keyboard select.
+                        onKeyDown(event) {
+                            if (event.key === "Enter") {
+                                event.preventDefault();
                                 handleSelect(i);
-                            },
-                            // Handle keyboard select.
-                            onKeyDown(event) {
-                                if (event.key === "Enter") {
-                                    event.preventDefault();
-                                    handleSelect(i);
-                                }
-                                if (event.key === " " && !isTypingRef.current) {
-                                    event.preventDefault();
-                                    handleSelect(i);
-                                }
-                            },
-                        }), { children: getOptionLabel(value) }), i))) })) }) }))] }));
+                            }
+                            if (event.key === " " && !isTypingRef.current) {
+                                event.preventDefault();
+                                handleSelect(i);
+                            }
+                        },
+                    }), { children: getOptionLabel(value) }), i))) })) }))] }));
 }

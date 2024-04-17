@@ -101,26 +101,26 @@ function DropdownContainer(props) {
                         flex: 1,
                         color: getFgHex(color, variant),
                         opacity: selectedItemLabel ? 1 : 0.5,
-                    }, children: selectedItemLabel !== null && selectedItemLabel !== void 0 ? selectedItemLabel : placeholder }) })), disclosure.opened && ((0, jsx_runtime_1.jsx)(react_2.FloatingPortal, { children: (0, jsx_runtime_1.jsx)(react_2.FloatingFocusManager, { context: context, modal: false, children: (0, jsx_runtime_1.jsx)("div", Object.assign({ ref: refs.setFloating, css: DropdownStyle }, getFloatingProps(), { children: options.map((value, i) => ((0, jsx_runtime_1.jsx)(buttons_1.ButtonWithIcon, Object.assign({ ref: (node) => {
-                                listRef.current[i] = node;
-                            }, icon: i === selected ?
-                                (0, jsx_runtime_1.jsx)(icons_react_1.IconCheck, {}) :
-                                typeof value !== "string" ? value === null || value === void 0 ? void 0 : value.icon : undefined, variant: i === highlighted ? "light" : "subtle", width: "100%", color: color, style: ItemStyle }, getItemProps({
-                            // Handle pointer select.
-                            onClick() {
+                    }, children: selectedItemLabel !== null && selectedItemLabel !== void 0 ? selectedItemLabel : placeholder }) })), disclosure.opened && ((0, jsx_runtime_1.jsx)(react_2.FloatingPortal, { children: (0, jsx_runtime_1.jsx)("div", Object.assign({ ref: refs.setFloating, css: DropdownStyle }, getFloatingProps(), { children: options.map((value, i) => ((0, jsx_runtime_1.jsx)(buttons_1.ButtonWithIcon, Object.assign({ ref: (node) => {
+                            listRef.current[i] = node;
+                        }, icon: i === selected ?
+                            (0, jsx_runtime_1.jsx)(icons_react_1.IconCheck, {}) :
+                            typeof value !== "string" ? value === null || value === void 0 ? void 0 : value.icon : undefined, variant: i === highlighted ? "light" : "subtle", width: "100%", color: color, style: ItemStyle }, getItemProps({
+                        // Handle pointer select.
+                        onClick() {
+                            handleSelect(i);
+                        },
+                        // Handle keyboard select.
+                        onKeyDown(event) {
+                            if (event.key === "Enter") {
+                                event.preventDefault();
                                 handleSelect(i);
-                            },
-                            // Handle keyboard select.
-                            onKeyDown(event) {
-                                if (event.key === "Enter") {
-                                    event.preventDefault();
-                                    handleSelect(i);
-                                }
-                                if (event.key === " " && !isTypingRef.current) {
-                                    event.preventDefault();
-                                    handleSelect(i);
-                                }
-                            },
-                        }), { children: (0, Options_1.getOptionLabel)(value) }), i))) })) }) }))] }));
+                            }
+                            if (event.key === " " && !isTypingRef.current) {
+                                event.preventDefault();
+                                handleSelect(i);
+                            }
+                        },
+                    }), { children: (0, Options_1.getOptionLabel)(value) }), i))) })) }))] }));
 }
 exports.DropdownContainer = DropdownContainer;

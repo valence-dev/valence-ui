@@ -25,7 +25,7 @@ exports.BottomSheet = (0, react_2.forwardRef)(function BottomSheet(props, ref) {
     const { getHex } = (0, core_1.useColors)();
     const controls = (0, framer_motion_1.useDragControls)();
     // Defaults
-    const _a = (0, core_1.useResponsiveProps)(props), { disclosure, title, header = (props) => (0, jsx_runtime_1.jsx)(core_1.DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), releaseOffset = Math.round(window.innerHeight / 2), releaseVelocity = 500, allowInnerScrolling = false, closeOnOverlayClick = true, closeOnEscape = true, lockScroll = true, radius = "lg", withShadow = true, backgroundColor = getHex("white"), color = getHex("black"), padding = theme.sizeClasses.padding[theme.defaults.size], margin = 0, width, height = "calc(100% - env(safe-area-inset-top))", flexProps, innerFlexProps, overlayBackgroundProps = {
+    const _a = (0, core_1.useResponsiveProps)(props), { disclosure, title, header = (props) => (0, jsx_runtime_1.jsx)(core_1.DefaultModalHeader, Object.assign({ disclosure: disclosure }, props)), releaseOffset = Math.round(window.innerHeight / 2), releaseVelocity = 500, allowInnerScrolling = false, closeOnOverlayClick = true, closeOnEscape = true, lockScroll = true, radius = "lg", withShadow = false, backgroundColor = getHex("white"), color = getHex("black"), padding = theme.sizeClasses.padding[theme.defaults.size], margin = 0, width, height = "calc(100% - env(safe-area-inset-top))", flexProps, innerFlexProps, overlayBackgroundProps = {
         padding: 0,
         style: {
             alignItems: "flex-end",
@@ -41,7 +41,7 @@ exports.BottomSheet = (0, react_2.forwardRef)(function BottomSheet(props, ref) {
     // Styles
     const borderRadius = theme.sizeClasses.radius[radius];
     const ContainerStyles = (0, react_1.css)(Object.assign({ position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 999, width: width, height: height }, style));
-    const SheetStyle = Object.assign({ height: "calc(100% - 25px)", width: "100%", backgroundColor: backgroundColor, color: color, padding: padding, margin: margin, position: "relative", borderRadius: `${borderRadius}px ${borderRadius}px 0 0`, boxShadow: withShadow ? theme.defaults.shadow : undefined, touchAction: "none" }, flexStyle);
+    const SheetStyle = Object.assign({ height: "calc(100% - 25px)", width: "100%", backgroundColor: backgroundColor, color: color, padding: padding, margin: margin, position: "relative", borderRadius: `${borderRadius}px ${borderRadius}px 0 0`, border: "none", borderTop: `1px solid ${getHex("black", "weak")}`, boxShadow: withShadow ? theme.defaults.shadow : undefined, touchAction: "none" }, flexStyle);
     const DragStyle = {
         width: "100%",
         height: 25,
@@ -55,7 +55,13 @@ exports.BottomSheet = (0, react_2.forwardRef)(function BottomSheet(props, ref) {
         width: 50,
         height: 5,
         borderRadius: 5,
-        backgroundColor: getHex("white", "strong"),
+        backgroundColor: getHex("permaWhite", "strong"),
+    };
+    const OverflowStyle = {
+        width: "100%",
+        height: "100vh",
+        backgroundColor: backgroundColor,
+        marginTop: -1,
     };
     // Hooks
     (0, usehooks_ts_1.useLockedBody)(disclosure.opened && lockScroll, "root");
@@ -80,5 +86,5 @@ exports.BottomSheet = (0, react_2.forwardRef)(function BottomSheet(props, ref) {
                                 damping: 40,
                                 delay: 0.1,
                             }
-                        }, exit: { y: "100%" }, ref: refs.setFloating, "aria-labelledby": labelId, "aria-describedby": descriptionId }, getFloatingProps(), rest, { children: [(0, jsx_runtime_1.jsx)("div", { style: DragStyle, children: (0, jsx_runtime_1.jsx)("div", { style: PillStyle }) }), (0, jsx_runtime_1.jsxs)(core_1.Flex, Object.assign({ direction: "column", style: SheetStyle }, flexPropsRest, { children: [(0, jsx_runtime_1.jsx)("div", { onPointerDown: controls.start, style: { width: "100%", touchAction: "none" }, children: header({ title }) }), (0, jsx_runtime_1.jsx)(core_1.OverflowContainer, { innerProps: innerFlexProps, direction: allowInnerScrolling ? "vertical" : "none", children: children })] }))] })) }) })) }));
+                        }, exit: { y: "100%" }, ref: refs.setFloating, "aria-labelledby": labelId, "aria-describedby": descriptionId }, getFloatingProps(), rest, { children: [(0, jsx_runtime_1.jsx)("div", { style: DragStyle, children: (0, jsx_runtime_1.jsx)("div", { style: PillStyle }) }), (0, jsx_runtime_1.jsxs)(core_1.Flex, Object.assign({ direction: "column", style: SheetStyle }, flexPropsRest, { children: [(0, jsx_runtime_1.jsx)("div", { onPointerDown: controls.start, style: { width: "100%", touchAction: "none" }, children: header({ title }) }), (0, jsx_runtime_1.jsx)(core_1.OverflowContainer, { innerProps: innerFlexProps, direction: allowInnerScrolling ? "vertical" : "none", children: children })] })), (0, jsx_runtime_1.jsx)("div", { style: OverflowStyle })] })) }) })) }));
 });
