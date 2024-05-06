@@ -31,18 +31,9 @@ const useAccordionContext = () => {
 const Accordion = (0, react_1.forwardRef)(function Accordion(props, ref) {
     // Defaults
     const _a = (0, responsive_1.useResponsiveProps)(props), { itemList, direction = "column", justify = "flex-start", align = "stretch", children } = _a, rest = __rest(_a, ["itemList", "direction", "justify", "align", "children"]);
-    const newChildren = children.map((child) => (0, react_1.cloneElement)(child, {
-        opened: itemList.includes(child.props.value),
-        setOpened: (opened) => {
-            if (opened)
-                itemList.add(child.props.value);
-            else
-                itemList.remove(child.props.value);
-        }
-    }));
     return ((0, jsx_runtime_1.jsx)(AccordionContext.Provider, { value: {
             itemList: itemList,
-        }, children: (0, jsx_runtime_1.jsx)(layout_1.Flex, Object.assign({ direction: direction, justify: justify, align: align, ref: ref }, rest, { children: newChildren })) }));
+        }, children: (0, jsx_runtime_1.jsx)(layout_1.Flex, Object.assign({ direction: direction, justify: justify, align: align, ref: ref }, rest, { children: children })) }));
 });
 const Item = (0, react_1.forwardRef)(function AccordionItem(props, ref) {
     // Defaults
