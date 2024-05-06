@@ -86,18 +86,6 @@ const Accordion = forwardRef(function Accordion(
   } = useResponsiveProps<AccordionProps>(props);
 
 
-  const newChildren = children.map((child: any) => cloneElement(
-    child,
-    {
-      opened: itemList.includes(child.props.value),
-      setOpened: (opened: boolean) => {
-        if (opened) itemList.add(child.props.value);
-        else itemList.remove(child.props.value);
-      }
-    }
-  ));
-
-
   return (
     <AccordionContext.Provider
       value={{
@@ -112,7 +100,7 @@ const Accordion = forwardRef(function Accordion(
         ref={ref}
         {...rest}
       >
-        {newChildren}
+        {children}
       </Flex>
     </AccordionContext.Provider>
   )
