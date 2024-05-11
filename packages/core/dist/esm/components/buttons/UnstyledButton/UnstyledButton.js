@@ -15,10 +15,15 @@ import { PolymorphicButton } from "@valence-ui/utils";
 import { css } from "@emotion/react";
 import { forwardRef } from "react";
 import { useResponsiveProps } from "../../../utilities/responsive";
+import { getMotionBehaviour } from "../Helpers";
+import { useReducedMotion } from "framer-motion";
 export const UnstyledButton = forwardRef(function UnstyledButton(props, ref) {
+    // Hooks & states
+    const reducedMotion = useReducedMotion();
     // Defaults
-    const _a = useResponsiveProps(props), { style, children } = _a, rest = __rest(_a, ["style", "children"]);
+    const _a = useResponsiveProps(props), { style, children, motion } = _a, rest = __rest(_a, ["style", "children", "motion"]);
+    const motionBehaviour = getMotionBehaviour(motion, reducedMotion);
     // Styles
     const UnstyledButtonStyle = css(Object.assign({ outline: "none", border: "none", textDecoration: "none", background: "none", padding: 0, margin: 0 }, style));
-    return (_jsx(PolymorphicButton, Object.assign({ css: UnstyledButtonStyle, ref: ref }, rest, { children: children })));
+    return (_jsx(PolymorphicButton, Object.assign({ css: UnstyledButtonStyle, ref: ref, whileHover: motionBehaviour.whileHover, whileTap: motionBehaviour.whileTap }, rest, { children: children })));
 });

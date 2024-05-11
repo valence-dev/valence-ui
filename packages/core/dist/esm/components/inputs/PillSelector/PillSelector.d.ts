@@ -12,7 +12,7 @@ export type PillSelectorEventProps = MouseClickEvents & MouseEvents & PointerEve
     /** Callback to be fired when a pill is deselected. */
     onPillDeselected?: (value: string) => void;
 };
-export type PillSelectorProps = Omit<GenericInputProps<string[]>, "childre"> & PillSelectorEventProps & {
+export type PillSelectorProps = Omit<GenericInputProps<string[]>, "children"> & PillSelectorEventProps & {
     /** A list of pills to display */
     pills: string[];
     /** Optional callback to complete the state */

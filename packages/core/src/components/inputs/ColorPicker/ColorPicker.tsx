@@ -1,0 +1,105 @@
+import { Color, MakeResponsive, useColors, useResponsiveProps } from "../../../utilities"
+import { CSSProperties, forwardRef } from "react";
+import { useValence } from "../../../ValenceProvider";
+import { GenericInputProps } from "../../../generics";
+import { OverflowContainer } from "../../layout";
+import { MotionBehaviourProps, UnstyledButton } from "../../buttons";
+import { ColorSwatch } from "../../display";
+
+export type ColorPickerEventProps = {
+  onSelect?: (color: string) => void;
+}
+
+export type ColorPickerProps =
+  GenericInputProps<string>
+  & ColorPickerEventProps
+  & {
+    /** A list of colors to choose from. If left unset, will use the theme default color list. */
+    colors?: Color[];
+
+    /** Shorthand for `flex-grow = 1`. `true` by default. */
+    grow?: boolean;
+    /** Sets the gap between colors. `5` by default. */
+    gap?: number;
+    /** How the colors will wrap within the container. Defaults to `"nowrap". */
+    wrap?: CSSProperties["flexWrap"];
+
+    /** Motion props to apply to the swatch buttons. */
+    swatchMotion?: MotionBehaviourProps;
+  }
+
+export const ColorPicker = forwardRef(function ColorPicker(
+  props: MakeResponsive<ColorPickerProps>,
+  ref: any,
+) {
+  const theme = useValence();
+  const { getHex } = useColors();
+
+
+  // Defaults
+  const {
+    colors = theme.colors.filter(c => c.key !== "permaBlack" && c.key !== "permaWhite"),
+
+    value, setValue,
+    onSelect,
+
+    grow = true,
+    gap = 5,
+    wrap = "nowrap",
+
+    size = theme.defaults.size,
+    radius = "xl",
+
+    swatchMotion = { onHover: "grow", onTap: "shrink" },
+
+    style,
+    ...rest
+  } = useResponsiveProps<ColorPickerProps>(props);
+
+
+  // Styles
+  const ContainerStyle: CSSProperties = {
+    padding: 5,
+    ...style,
+  }
+  const ButtonStyle: CSSProperties = {
+    cursor: "pointer",
+    borderRadius: theme.sizeClasses.radius[radius],
+  }
+
+
+  return (
+    <OverflowContainer
+      ref={ref}
+      direction="horizontal"
+      innerProps={{
+        gap: gap,
+        direction: "row",
+        wrap: wrap,
+        style: ContainerStyle,
+      }}
+    >
+      {colors.map((color, i) => (
+        <UnstyledButton
+          key={i}
+          style={{
+            outline: value === color.key ?
+              `1px solid ${getHex("black")}` : undefined,
+            ...ButtonStyle,
+          }}
+          motion={swatchMotion}
+          onClick={() => {
+            setValue?.(color.key);
+            onSelect?.(color.key);
+          }}
+        >
+          <ColorSwatch
+            color={color.key}
+            size={size}
+            radius={radius}
+          />
+        </UnstyledButton>
+      ))}
+    </OverflowContainer>
+  )
+});

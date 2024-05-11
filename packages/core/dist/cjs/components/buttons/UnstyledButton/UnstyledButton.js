@@ -18,10 +18,15 @@ const utils_1 = require("@valence-ui/utils");
 const react_1 = require("@emotion/react");
 const react_2 = require("react");
 const responsive_1 = require("../../../utilities/responsive");
+const Helpers_1 = require("../Helpers");
+const framer_motion_1 = require("framer-motion");
 exports.UnstyledButton = (0, react_2.forwardRef)(function UnstyledButton(props, ref) {
+    // Hooks & states
+    const reducedMotion = (0, framer_motion_1.useReducedMotion)();
     // Defaults
-    const _a = (0, responsive_1.useResponsiveProps)(props), { style, children } = _a, rest = __rest(_a, ["style", "children"]);
+    const _a = (0, responsive_1.useResponsiveProps)(props), { style, children, motion } = _a, rest = __rest(_a, ["style", "children", "motion"]);
+    const motionBehaviour = (0, Helpers_1.getMotionBehaviour)(motion, reducedMotion);
     // Styles
     const UnstyledButtonStyle = (0, react_1.css)(Object.assign({ outline: "none", border: "none", textDecoration: "none", background: "none", padding: 0, margin: 0 }, style));
-    return ((0, jsx_runtime_1.jsx)(utils_1.PolymorphicButton, Object.assign({ css: UnstyledButtonStyle, ref: ref }, rest, { children: children })));
+    return ((0, jsx_runtime_1.jsx)(utils_1.PolymorphicButton, Object.assign({ css: UnstyledButtonStyle, ref: ref, whileHover: motionBehaviour.whileHover, whileTap: motionBehaviour.whileTap }, rest, { children: children })));
 });

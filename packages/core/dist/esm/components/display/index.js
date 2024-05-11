@@ -1,5 +1,6 @@
 export * from "./Accordion";
 export * from "./Alert";
+export * from "./ColorSwatch";
 export * from "./Icon";
 export * from "./Loader";
 export * from "./Pill";

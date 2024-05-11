@@ -1,3 +1,4 @@
+export * from "./ColorPicker";
 export * from "./DropdownContainer";
 export * from "./InputContainer";
 export * from "./NumberInput";

@@ -22,7 +22,7 @@ export type PillSelectorEventProps =
   }
 
 export type PillSelectorProps =
-  Omit<GenericInputProps<string[]>, "childre">
+  Omit<GenericInputProps<string[]>, "children">
   & PillSelectorEventProps
   & {
     /** A list of pills to display */
