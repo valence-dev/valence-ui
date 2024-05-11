@@ -27,7 +27,7 @@
     "@floating-ui/react": "^0.26.1",
     "@n8tb1t/use-scroll-position": "^2.0.3",
     "@tabler/icons-react": "^2.37.0",
-    "@valence-ui/utils": "file:../utils",
+    "@valence-ui/utils": "^2.0.0",
     "framer-motion": "^10.16.4",
     "react-router-dom": "^6.16.0",
     "react-slider": "^2.0.6",
@@ -37,5 +37,6 @@
   "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
-  }
+  },
+  "gitHead": "fc1aff18fa50c38d7baae6968fd8a95beb888a2f"
 }

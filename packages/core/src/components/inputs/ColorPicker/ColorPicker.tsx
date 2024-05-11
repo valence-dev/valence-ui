@@ -17,8 +17,6 @@ export type ColorPickerProps =
     /** A list of colors to choose from. If left unset, will use the theme default color list. */
     colors?: Color[];
 
-    /** Shorthand for `flex-grow = 1`. `true` by default. */
-    grow?: boolean;
     /** Sets the gap between colors. `5` by default. */
     gap?: number;
     /** How the colors will wrap within the container. Defaults to `"nowrap". */
@@ -43,10 +41,10 @@ export const ColorPicker = forwardRef(function ColorPicker(
     value, setValue,
     onSelect,
 
-    grow = true,
     gap = 5,
     wrap = "nowrap",
 
+    width, height, padding = 5, margin,
     size = theme.defaults.size,
     radius = "xl",
 
@@ -59,7 +57,8 @@ export const ColorPicker = forwardRef(function ColorPicker(
 
   // Styles
   const ContainerStyle: CSSProperties = {
-    padding: 5,
+    padding: padding,
+    margin: margin,
     ...style,
   }
   const ButtonStyle: CSSProperties = {
@@ -72,6 +71,8 @@ export const ColorPicker = forwardRef(function ColorPicker(
     <OverflowContainer
       ref={ref}
       direction="horizontal"
+      width={width}
+      height={height}
       innerProps={{
         gap: gap,
         direction: "row",

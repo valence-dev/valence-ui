@@ -8,8 +8,6 @@ export type ColorPickerEventProps = {
 export type ColorPickerProps = GenericInputProps<string> & ColorPickerEventProps & {
     /** A list of colors to choose from. If left unset, will use the theme default color list. */
     colors?: Color[];
-    /** Shorthand for `flex-grow = 1`. `true` by default. */
-    grow?: boolean;
     /** Sets the gap between colors. `5` by default. */
     gap?: number;
     /** How the colors will wrap within the container. Defaults to `"nowrap". */
