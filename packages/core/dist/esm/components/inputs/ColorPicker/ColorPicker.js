@@ -20,7 +20,8 @@ export const ColorPicker = forwardRef(function ColorPicker(props, ref) {
     const theme = useValence();
     const { getHex } = useColors();
     // Defaults
-    const _a = useResponsiveProps(props), { excludeColors = ["permaBlack", "permaWhite", "white"], colors = theme.colors.filter(c => !excludeColors.includes(c.key)), value, setValue, onSelect, gap = 5, wrap = "nowrap", width, height, padding = 5, margin, size = theme.defaults.size, radius = "xl", swatchMotion = { onHover: "grow", onTap: "shrink" }, style } = _a, rest = __rest(_a, ["excludeColors", "colors", "value", "setValue", "onSelect", "gap", "wrap", "width", "height", "padding", "margin", "size", "radius", "swatchMotion", "style"]);
+    const _a = useResponsiveProps(props), { excludeColors = ["permaBlack", "permaWhite", "white", "brighterWhite", "darkerBlack"], colors = theme.colors, value, setValue, onSelect, gap = 5, wrap = "nowrap", width, height, padding = 5, margin, size = theme.defaults.size, radius = "xl", swatchMotion = { onHover: "grow", onTap: "shrink" }, style } = _a, rest = __rest(_a, ["excludeColors", "colors", "value", "setValue", "onSelect", "gap", "wrap", "width", "height", "padding", "margin", "size", "radius", "swatchMotion", "style"]);
+    const usableColors = colors.filter(c => !excludeColors.includes(c.key));
     // Styles
     const ContainerStyle = Object.assign({ padding: padding, margin: margin }, style);
     const ButtonStyle = {
@@ -32,7 +33,7 @@ export const ColorPicker = forwardRef(function ColorPicker(props, ref) {
             direction: "row",
             wrap: wrap,
             style: ContainerStyle,
-        }, children: colors.map((color, i) => (_jsx(UnstyledButton, { style: Object.assign({ outline: value === color.key ?
+        }, children: usableColors.map((color, i) => (_jsx(UnstyledButton, { style: Object.assign({ outline: value === color.key ?
                     `1px solid ${getHex("black")}` : undefined }, ButtonStyle), motion: swatchMotion, onClick: () => {
                 setValue === null || setValue === void 0 ? void 0 : setValue(color.key);
                 onSelect === null || onSelect === void 0 ? void 0 : onSelect(color.key);

@@ -39,8 +39,8 @@ export const ColorPicker = forwardRef(function ColorPicker(
 
   // Defaults
   const {
-    excludeColors = ["permaBlack", "permaWhite", "white"],
-    colors = theme.colors.filter(c => !excludeColors.includes(c.key)),
+    excludeColors = ["permaBlack", "permaWhite", "white", "brighterWhite", "darkerBlack"],
+    colors = theme.colors,
 
     value, setValue,
     onSelect,
@@ -57,6 +57,7 @@ export const ColorPicker = forwardRef(function ColorPicker(
     style,
     ...rest
   } = useResponsiveProps<ColorPickerProps>(props);
+  const usableColors = colors.filter(c => !excludeColors.includes(c.key));
 
 
   // Styles
@@ -84,7 +85,7 @@ export const ColorPicker = forwardRef(function ColorPicker(
         style: ContainerStyle,
       }}
     >
-      {colors.map((color, i) => (
+      {usableColors.map((color, i) => (
         <UnstyledButton
           key={i}
           style={{
