@@ -2,6 +2,7 @@ import { DEFAULT_PALETTE } from "../utilities/color";
 export const ValenceContextDefaults = {
     colors: DEFAULT_PALETTE,
     primaryColor: "pink",
+    preferredColorScheme: "system",
     defaults: {
         size: "sm",
         radius: "sm",

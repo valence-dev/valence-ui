@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { useMediaQuery, useUpdateEffect } from 'usehooks-ts'
+import { useValence } from '../ValenceProvider';
 
 const COLOR_SCHEME_QUERY = '(prefers-color-scheme: dark)'
 
 export type ColorScheme = "light" | "dark";
+export type PreferrableColorScheme = ColorScheme | "system";
 export type UseColorSchemeOutput = {
   /** The color scheme. */
   colorScheme: ColorScheme;
@@ -11,12 +13,8 @@ export type UseColorSchemeOutput = {
   isDarkMode: boolean;
   /** Is the color scheme `"light"`? */
   isLightMode: boolean;
-  /** Toggle the color scheme. */
-  toggle: () => void;
-  /** Set the color scheme to `"dark"`. */
-  setDark: () => void;
-  /** Set the color scheme to `"light"`. */
-  setLight: () => void;
+  /** Is the color scheme following the system theme? */
+  isFollowingSystem: boolean;
 }
 
 /**
@@ -25,24 +23,24 @@ export type UseColorSchemeOutput = {
  */
 export function useColorScheme(): UseColorSchemeOutput {
   const isDarkOS = useMediaQuery(COLOR_SCHEME_QUERY);
+  const theme = useValence();
   const [colorScheme, setColorScheme] = useState<ColorScheme>(getColorScheme());
 
   function getColorScheme(): ColorScheme {
-    return isDarkOS ? "dark" : "light";
+    if (theme.preferredColorScheme === "system") return isDarkOS ? "dark" : "light";
+    return theme.preferredColorScheme;
   }
 
   // Update darkMode if os prefers changes
   useUpdateEffect(() => {
     setColorScheme(getColorScheme());
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDarkOS])
+  }, [isDarkOS, theme.preferredColorScheme])
 
   return {
     colorScheme: colorScheme,
     isDarkMode: colorScheme === "dark",
     isLightMode: colorScheme === "light",
-    toggle: () => setColorScheme(colorScheme === "dark" ? "light" : "dark"),
-    setDark: () => setColorScheme("dark"),
-    setLight: () => setColorScheme("light"),
+    isFollowingSystem: theme.preferredColorScheme === "system"
   }
 }

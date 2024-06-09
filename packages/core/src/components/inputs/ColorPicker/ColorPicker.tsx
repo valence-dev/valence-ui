@@ -17,6 +17,9 @@ export type ColorPickerProps =
     /** A list of colors to choose from. If left unset, will use the theme default color list. */
     colors?: Color[];
 
+    /** A list of colors to exclude from the picker. */
+    excludeColors?: string[];
+
     /** Sets the gap between colors. `5` by default. */
     gap?: number;
     /** How the colors will wrap within the container. Defaults to `"nowrap". */
@@ -36,7 +39,8 @@ export const ColorPicker = forwardRef(function ColorPicker(
 
   // Defaults
   const {
-    colors = theme.colors.filter(c => c.key !== "permaBlack" && c.key !== "permaWhite"),
+    excludeColors = ["permaBlack", "permaWhite", "white"],
+    colors = theme.colors.filter(c => !excludeColors.includes(c.key)),
 
     value, setValue,
     onSelect,

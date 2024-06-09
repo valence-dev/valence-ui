@@ -2,7 +2,9 @@ import { Color, Swatch } from "./Color";
 
 const
   BASE_WHITE: Swatch = { base: "#EFEEEE", opacity: { weak: "19", medium: "2A", strong: "A0" } },
-  BASE_BLACK: Swatch = { base: "#11181C", opacity: { weak: "19", medium: "30", strong: "5A" } };
+  BASE_BLACK: Swatch = { base: "#11181C", opacity: { weak: "19", medium: "30", strong: "5A" } },
+  BRIGHTER_WHITE: Swatch = { base: "#F5F5F5", opacity: { weak: "19", medium: "2A", strong: "A0" } },
+  DARKER_BLACK: Swatch = { base: "#0F1417", opacity: { weak: "19", medium: "30", strong: "5A" } };
 
 /** The default palette used by the `ValenceProvider`. */
 export const DEFAULT_PALETTE: Color[] = [
@@ -23,6 +25,16 @@ export const DEFAULT_PALETTE: Color[] = [
   {
     key: "permaBlack",
     default: BASE_BLACK,
+  },
+  {
+    key: "brighterWhite",
+    default: BRIGHTER_WHITE,
+    dark: DARKER_BLACK,
+  },
+  {
+    key: "darkerBlack",
+    default: DARKER_BLACK,
+    dark: BRIGHTER_WHITE,
   },
   {
     key: "pink",

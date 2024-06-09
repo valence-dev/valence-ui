@@ -4,6 +4,7 @@ import { TextProps } from "../components";
 import { ComponentSize, FillVariant, SizeClasses } from "@valence-ui/utils";
 import { CssOverride } from "./CssOverride";
 import { Color } from "../utilities/color";
+import { PreferrableColorScheme } from "../hooks";
 
 
 export const ValenceContext = createContext<IValenceContext>(VCD);
@@ -23,6 +24,7 @@ export type ValenceProviderProps = {
 
   colors?: Color[];
   primaryColor?: string;
+  preferredColorScheme?: PreferrableColorScheme;
 
   defaults?: { 
     size: ComponentSize;
@@ -69,6 +71,7 @@ export function ValenceProvider(props: ValenceProviderProps) {
   const {
     colors = props.colors ? VCD.colors.concat(props.colors) : VCD.colors,
     primaryColor = VCD.primaryColor,
+    preferredColorScheme = VCD.preferredColorScheme,
 
     defaults = VCD.defaults,
 
@@ -100,6 +103,7 @@ export function ValenceProvider(props: ValenceProviderProps) {
       value={{
         colors,
         primaryColor,
+        preferredColorScheme,
 
         defaults,
 

@@ -2,6 +2,7 @@ import { CSSProperties } from "react";
 import { ComponentSize, FillVariant, SizeClasses } from "@valence-ui/utils";
 import { TextProps } from "../components";
 import { DEFAULT_PALETTE, Color } from "../utilities/color";
+import { PreferrableColorScheme } from "../hooks";
 
 
 export type IValenceContext = {
@@ -9,6 +10,8 @@ export type IValenceContext = {
   colors: Color[];
   /** The primary color to default upon */
   primaryColor: string;
+  /** The user's preferred color scheme. `"system"` by default. */
+  preferredColorScheme: PreferrableColorScheme;
 
 
   /** Default sizes and parameters for common attributes */
@@ -83,6 +86,7 @@ export type IValenceContext = {
 export const ValenceContextDefaults: IValenceContext = {
   colors: DEFAULT_PALETTE,
   primaryColor: "pink",
+  preferredColorScheme: "system",
 
   defaults: { 
     size: "sm",

@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DEFAULT_PALETTE = void 0;
-const BASE_WHITE = { base: "#EFEEEE", opacity: { weak: "19", medium: "2A", strong: "A0" } }, BASE_BLACK = { base: "#11181C", opacity: { weak: "19", medium: "30", strong: "5A" } };
+const BASE_WHITE = { base: "#EFEEEE", opacity: { weak: "19", medium: "2A", strong: "A0" } }, BASE_BLACK = { base: "#11181C", opacity: { weak: "19", medium: "30", strong: "5A" } }, BRIGHTER_WHITE = { base: "#F5F5F5", opacity: { weak: "19", medium: "2A", strong: "A0" } }, DARKER_BLACK = { base: "#0F1417", opacity: { weak: "19", medium: "30", strong: "5A" } };
 /** The default palette used by the `ValenceProvider`. */
 exports.DEFAULT_PALETTE = [
     {
@@ -21,6 +21,16 @@ exports.DEFAULT_PALETTE = [
     {
         key: "permaBlack",
         default: BASE_BLACK,
+    },
+    {
+        key: "brighterWhite",
+        default: BRIGHTER_WHITE,
+        dark: DARKER_BLACK,
+    },
+    {
+        key: "darkerBlack",
+        default: DARKER_BLACK,
+        dark: BRIGHTER_WHITE,
     },
     {
         key: "pink",

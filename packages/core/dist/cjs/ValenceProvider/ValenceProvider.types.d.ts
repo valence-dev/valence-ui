@@ -2,11 +2,14 @@ import { CSSProperties } from "react";
 import { ComponentSize, FillVariant, SizeClasses } from "@valence-ui/utils";
 import { TextProps } from "../components";
 import { Color } from "../utilities/color";
+import { PreferrableColorScheme } from "../hooks";
 export type IValenceContext = {
     /** A list of all colors to use */
     colors: Color[];
     /** The primary color to default upon */
     primaryColor: string;
+    /** The user's preferred color scheme. `"system"` by default. */
+    preferredColorScheme: PreferrableColorScheme;
     /** Default sizes and parameters for common attributes */
     defaults: {
         /** The default component size */

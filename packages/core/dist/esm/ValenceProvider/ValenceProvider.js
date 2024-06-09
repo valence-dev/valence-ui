@@ -11,7 +11,7 @@ export const useValence = () => {
 };
 export function ValenceProvider(props) {
     // Fallback properties
-    const { colors = props.colors ? VCD.colors.concat(props.colors) : VCD.colors, primaryColor = VCD.primaryColor, defaults = VCD.defaults, fontFamily = VCD.fontFamily, sizeClasses = VCD.sizeClasses, titles = VCD.titles, breakpoints = VCD.breakpoints, } = props;
+    const { colors = props.colors ? VCD.colors.concat(props.colors) : VCD.colors, primaryColor = VCD.primaryColor, preferredColorScheme = VCD.preferredColorScheme, defaults = VCD.defaults, fontFamily = VCD.fontFamily, sizeClasses = VCD.sizeClasses, titles = VCD.titles, breakpoints = VCD.breakpoints, } = props;
     // Methods
     function getFont(context) {
         var _a, _b;
@@ -28,6 +28,7 @@ export function ValenceProvider(props) {
     return (_jsxs(ValenceContext.Provider, { value: {
             colors,
             primaryColor,
+            preferredColorScheme,
             defaults,
             fontFamily,
             getFont,

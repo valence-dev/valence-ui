@@ -15,7 +15,7 @@ const useValence = () => {
 exports.useValence = useValence;
 function ValenceProvider(props) {
     // Fallback properties
-    const { colors = props.colors ? ValenceProvider_types_1.ValenceContextDefaults.colors.concat(props.colors) : ValenceProvider_types_1.ValenceContextDefaults.colors, primaryColor = ValenceProvider_types_1.ValenceContextDefaults.primaryColor, defaults = ValenceProvider_types_1.ValenceContextDefaults.defaults, fontFamily = ValenceProvider_types_1.ValenceContextDefaults.fontFamily, sizeClasses = ValenceProvider_types_1.ValenceContextDefaults.sizeClasses, titles = ValenceProvider_types_1.ValenceContextDefaults.titles, breakpoints = ValenceProvider_types_1.ValenceContextDefaults.breakpoints, } = props;
+    const { colors = props.colors ? ValenceProvider_types_1.ValenceContextDefaults.colors.concat(props.colors) : ValenceProvider_types_1.ValenceContextDefaults.colors, primaryColor = ValenceProvider_types_1.ValenceContextDefaults.primaryColor, preferredColorScheme = ValenceProvider_types_1.ValenceContextDefaults.preferredColorScheme, defaults = ValenceProvider_types_1.ValenceContextDefaults.defaults, fontFamily = ValenceProvider_types_1.ValenceContextDefaults.fontFamily, sizeClasses = ValenceProvider_types_1.ValenceContextDefaults.sizeClasses, titles = ValenceProvider_types_1.ValenceContextDefaults.titles, breakpoints = ValenceProvider_types_1.ValenceContextDefaults.breakpoints, } = props;
     // Methods
     function getFont(context) {
         var _a, _b;
@@ -32,6 +32,7 @@ function ValenceProvider(props) {
     return ((0, jsx_runtime_1.jsxs)(exports.ValenceContext.Provider, { value: {
             colors,
             primaryColor,
+            preferredColorScheme,
             defaults,
             fontFamily,
             getFont,

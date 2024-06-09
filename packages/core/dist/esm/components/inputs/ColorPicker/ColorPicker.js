@@ -20,7 +20,7 @@ export const ColorPicker = forwardRef(function ColorPicker(props, ref) {
     const theme = useValence();
     const { getHex } = useColors();
     // Defaults
-    const _a = useResponsiveProps(props), { colors = theme.colors.filter(c => c.key !== "permaBlack" && c.key !== "permaWhite"), value, setValue, onSelect, gap = 5, wrap = "nowrap", width, height, padding = 5, margin, size = theme.defaults.size, radius = "xl", swatchMotion = { onHover: "grow", onTap: "shrink" }, style } = _a, rest = __rest(_a, ["colors", "value", "setValue", "onSelect", "gap", "wrap", "width", "height", "padding", "margin", "size", "radius", "swatchMotion", "style"]);
+    const _a = useResponsiveProps(props), { excludeColors = ["permaBlack", "permaWhite", "white"], colors = theme.colors.filter(c => !excludeColors.includes(c.key)), value, setValue, onSelect, gap = 5, wrap = "nowrap", width, height, padding = 5, margin, size = theme.defaults.size, radius = "xl", swatchMotion = { onHover: "grow", onTap: "shrink" }, style } = _a, rest = __rest(_a, ["excludeColors", "colors", "value", "setValue", "onSelect", "gap", "wrap", "width", "height", "padding", "margin", "size", "radius", "swatchMotion", "style"]);
     // Styles
     const ContainerStyle = Object.assign({ padding: padding, margin: margin }, style);
     const ButtonStyle = {

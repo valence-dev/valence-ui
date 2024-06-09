@@ -5,6 +5,7 @@ const color_1 = require("../utilities/color");
 exports.ValenceContextDefaults = {
     colors: color_1.DEFAULT_PALETTE,
     primaryColor: "pink",
+    preferredColorScheme: "system",
     defaults: {
         size: "sm",
         radius: "sm",

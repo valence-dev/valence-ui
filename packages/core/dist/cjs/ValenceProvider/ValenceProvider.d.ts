@@ -3,12 +3,14 @@ import { IValenceContext } from "./ValenceProvider.types";
 import { TextProps } from "../components";
 import { ComponentSize, FillVariant, SizeClasses } from "@valence-ui/utils";
 import { Color } from "../utilities/color";
+import { PreferrableColorScheme } from "../hooks";
 export declare const ValenceContext: import("react").Context<IValenceContext>;
 export declare const useValence: () => IValenceContext;
 export type ValenceProviderProps = {
     children?: React.ReactNode;
     colors?: Color[];
     primaryColor?: string;
+    preferredColorScheme?: PreferrableColorScheme;
     defaults?: {
         size: ComponentSize;
         radius: ComponentSize;

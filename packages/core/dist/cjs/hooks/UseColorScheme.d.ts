@@ -1,4 +1,5 @@
 export type ColorScheme = "light" | "dark";
+export type PreferrableColorScheme = ColorScheme | "system";
 export type UseColorSchemeOutput = {
     /** The color scheme. */
     colorScheme: ColorScheme;
@@ -6,12 +7,8 @@ export type UseColorSchemeOutput = {
     isDarkMode: boolean;
     /** Is the color scheme `"light"`? */
     isLightMode: boolean;
-    /** Toggle the color scheme. */
-    toggle: () => void;
-    /** Set the color scheme to `"dark"`. */
-    setDark: () => void;
-    /** Set the color scheme to `"light"`. */
-    setLight: () => void;
+    /** Is the color scheme following the system theme? */
+    isFollowingSystem: boolean;
 };
 /**
  * A hook that provides the current color scheme of the user's operating system and allows toggling between light and dark modes.
