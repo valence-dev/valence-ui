@@ -1,6 +1,6 @@
 {
   "name": "@valence-ui/app",
-  "version": "2.6.2",
+  "version": "2.6.3",
   "description": "App-specific components for the Valence UI library",
   "author": "Isaac Shea <isaac_shea@icloud.com>",
   "license": "MIT",
