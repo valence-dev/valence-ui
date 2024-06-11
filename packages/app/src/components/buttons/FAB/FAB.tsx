@@ -44,10 +44,14 @@ export const FAB = forwardRef(function FAB(
   const FABStyle: CSSProperties = {
     position: "fixed",
     zIndex: zIndex,
-    bottom: vPosition === "bottom" ? breakpoint.isMobile ? offset + 60 : offset : undefined,
-    top: vPosition === "top" ? offset : undefined,
-    left: hPosition === "left" ? offset : undefined,
-    right: hPosition === "right" ? offset : undefined,
+    bottom: vPosition !== "bottom" ? undefined :
+      `calc(env(safe-area-inset-bottom) + ${breakpoint.isMobile ? offset + 60 : offset}`,
+    top: vPosition !== "top" ? undefined :
+      `calc(env(safe-area-inset-top) + ${offset}`,
+    left: hPosition !== "left" ? undefined :
+      `calc(env(safe-area-inset-left) + ${offset}`,
+    right: hPosition !== "right" ? undefined :
+      `calc(env(safe-area-inset-right) + ${offset}`,
 
     ...style
   }
