@@ -45,13 +45,13 @@ export const FAB = forwardRef(function FAB(
     position: "fixed",
     zIndex: zIndex,
     bottom: vPosition !== "bottom" ? undefined :
-      `calc(env(safe-area-inset-bottom) + ${breakpoint.isMobile ? offset + 60 : offset})`,
+      `calc(env(safe-area-inset-bottom) + ${breakpoint.isMobile ? offset + 60 : offset}px)`,
     top: vPosition !== "top" ? undefined :
-      `calc(env(safe-area-inset-top) + ${offset})`,
+      `calc(env(safe-area-inset-top) + ${offset}px)`,
     left: hPosition !== "left" ? undefined :
-      `calc(env(safe-area-inset-left) + ${offset})`,
+      `calc(env(safe-area-inset-left) + ${offset}px)`,
     right: hPosition !== "right" ? undefined :
-      `calc(env(safe-area-inset-right) + ${offset})`,
+      `calc(env(safe-area-inset-right) + ${offset}px)`,
 
     ...style
   }
