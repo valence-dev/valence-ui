@@ -41,8 +41,19 @@ function useColors() {
         switch (variant) {
             case "filled": return getHex(key);
             case "light": return getHex(key, hovered ? "medium" : "weak");
+            case "paper": return getHex("brighterWhite");
+            case "outlined":
             case "subtle": return hovered ? getHex(key, "weak") : "#00000000";
             default: return getHex(key);
+        }
+    }
+    function getBorderColor(key, variant, focused) {
+        if (focused)
+            return `1px solid ${getHex(key, "strong")}`;
+        switch (variant) {
+            case "paper": return `1px solid ${getHex(key, "weak")}`;
+            case "outlined": return `1px solid ${getHex(key, "medium")}`;
+            default: return `1px solid #00000000`;
         }
     }
     function getForegroundColor(key, variant) {
@@ -57,6 +68,7 @@ function useColors() {
         getSwatch,
         getHex,
         getBgHex: getBackgroundColor,
+        getBorderHex: getBorderColor,
         getFgHex: getForegroundColor
     };
 }

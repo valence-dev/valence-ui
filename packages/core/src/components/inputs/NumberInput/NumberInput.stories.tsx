@@ -31,5 +31,5 @@ export const NumberInput: Story = (args: any) => {
 }
 NumberInput.args = {
   placeholder: "Type a number...",
-  icon: <IconNumber />
+  icon: <IconNumber />,
 }

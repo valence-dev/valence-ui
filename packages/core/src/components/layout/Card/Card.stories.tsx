@@ -43,5 +43,6 @@ Card.args = {
   component: "div",
   buttonProps: {
     onClick: () => alert("Clicked"),
-  }
+  },
+  variant: "paper",
 }

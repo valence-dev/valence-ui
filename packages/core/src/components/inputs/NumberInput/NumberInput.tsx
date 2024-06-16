@@ -163,7 +163,7 @@ export const NumberInput = forwardRef(function NumberInput(
         <>
           <IconButton
             color={color}
-            variant="subtle"
+            variant={variant === "filled" ? "filled" : "subtle"}
             size={size}
             radius={radius}
             onClick={() => setValue(value - step)}
@@ -174,7 +174,7 @@ export const NumberInput = forwardRef(function NumberInput(
           </IconButton>
           <IconButton
             color={color}
-            variant="subtle"
+            variant={variant === "filled" ? "filled" : "subtle"}
             size={size}
             radius={radius}
             onClick={() => setValue(value + step)}

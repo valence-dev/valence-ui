@@ -55,5 +55,5 @@ export const Stepper: Story = (args: any) => {
   )
 };
 Stepper.args = {
-  variant: "subtle",
+  variant: "outlined",
 }

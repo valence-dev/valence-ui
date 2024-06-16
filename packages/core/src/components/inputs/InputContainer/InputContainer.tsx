@@ -61,7 +61,7 @@ export const InputContainer = forwardRef(function InputContainer(
   ref: any,
 ) {
   const theme = useValence();
-  const { getBgHex, getFgHex } = useColors();
+  const { getBgHex, getBorderHex, getFgHex } = useColors();
 
 
   // Defaults
@@ -130,19 +130,22 @@ export const InputContainer = forwardRef(function InputContainer(
     opacity: disabled ? 0.5 : 1,
     cursor: disabled ? "not-allowed" : "text",
 
-    transition: `background-color ${theme.defaults.transitionDuration} linear 0s`,
+    transitionProperty: "background-color, border",
+    transitionDuration: theme.defaults.transitionDuration,
+    transitionTimingFunction: "linear",
     backgroundColor: getBgHex(backgroundColor, variant, false),
     color: getFgHex(color, variant),
 
     outline: "none",
-    border: "none",
+    border: getBorderHex(color, variant),
     textDecoration: "none",
 
     "&:hover": {
       backgroundColor: !disabled ? getBgHex(backgroundColor, variant, true) : undefined,
     },
     "&:focus-within": {
-      outline: `1px solid ${getFgHex(color, variant)}`,
+      outline: "none",
+      border: getBorderHex(color, variant, true),
     },
 
     ...style

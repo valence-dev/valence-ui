@@ -22,7 +22,7 @@ export const StyledFlex = forwardRef(function StyledFlex(
   ref: any
 ) {
   const theme = useValence();
-  const { getFgHex, getBgHex } = useColors();
+  const { getFgHex, getBorderHex, getBgHex } = useColors();
 
 
   // Defaults
@@ -43,19 +43,11 @@ export const StyledFlex = forwardRef(function StyledFlex(
 
   // Styles
   const styles: CSSProperties = {
-    backgroundColor: getBgHex(
-      backgroundColor,
-      variant,
-      false
-    ),
-    color: getFgHex(
-      color,
-      variant
-    ),
+    backgroundColor: getBgHex(backgroundColor, variant, false),
+    border: getBorderHex(color, variant),
+    color: getFgHex(color, variant),
     borderRadius: theme.sizeClasses.radius[radius],
-
-    boxShadow: props.shadow
-      ? theme.defaults.shadow : undefined,
+    boxShadow: props.shadow ? theme.defaults.shadow : undefined,
 
     ...style
   }

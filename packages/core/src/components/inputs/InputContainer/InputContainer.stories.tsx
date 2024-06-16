@@ -24,4 +24,5 @@ export const InputContainer: Story = (args: any) => (
 InputContainer.args = {
   icon: <IconSearch />,
   children: <input />,
+  color: "blue"
 }

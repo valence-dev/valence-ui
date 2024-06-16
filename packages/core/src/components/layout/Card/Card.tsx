@@ -1,4 +1,4 @@
-import { ComponentSize, GenericLayoutProps, GenericProps, PolymorphicButtonProps, SizeClasses } from "@valence-ui/utils";
+import { ComponentSize, FillVariant, GenericLayoutProps, GenericProps, PolymorphicButtonProps, SizeClasses } from "@valence-ui/utils";
 import { Flex, FlexProps } from "..";
 import { PrimitiveButton, PrimitiveButtonProps } from "../../buttons/PrimitiveButton";
 import { CSSProperties, forwardRef } from "react";
@@ -6,6 +6,7 @@ import { useValence } from "../../../ValenceProvider";
 import { GenericImageProps, Image as ImageComponent } from "../../display";
 import { UnstyledButton } from "../../buttons";
 import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+
 
 
 export type CardProps =
@@ -16,6 +17,8 @@ export type CardProps =
     size?: ComponentSize;
     /**  Defines the radius size class for this card */
     radius?: ComponentSize;
+    /** Defines the fill variant of this card. */
+    variant?: FillVariant;
     /**  Defines the gap size between this card's contents */
     gap?: CSSProperties["gap"];
 
@@ -46,6 +49,7 @@ const Card = forwardRef(function Card(
   const {
     size = theme.defaults.size,
     radius = theme.defaults.radius,
+    variant = theme.defaults.variant,
     gap = 0,
     buttonProps,
     flexProps,
@@ -81,6 +85,7 @@ const Card = forwardRef(function Card(
       width={width}
       color={color}
       backgroundColor={backgroundColor}
+      variant={variant}
 
       radius={radius}
       style={cardStyle}
@@ -208,7 +213,7 @@ const Buttons = forwardRef(function CardButtons(
 
 
   // Styles
-  const ButtonStyle: CSSProperties = {
+  const ContainerStyle: CSSProperties = {
     width: width,
     height: height,
     padding: padding,
@@ -221,7 +226,7 @@ const Buttons = forwardRef(function CardButtons(
     <UnstyledButton
       onClick={(e) => e.stopPropagation()}
       component="div"
-      style={ButtonStyle}
+      style={ContainerStyle}
       ref={ref}
     >
       <Flex

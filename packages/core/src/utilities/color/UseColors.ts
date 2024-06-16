@@ -23,6 +23,13 @@ export type UseColorsReturn = {
    */
   getBgHex(key: string, variant?: FillVariant, hovered?: boolean): string | undefined;
 
+  /** Gets the most suitable border color, based upon the supplied
+   * parameters.
+   * @param key The color key to use
+   * @param variant The variant of the component
+   */
+  getBorderHex(key: string, variant?: FillVariant, focused?: boolean): string | undefined;
+
   /** Gets the most suitable foreground color, based upon the supplied
    * parameters.
    * @param key The color key to use
@@ -74,14 +81,23 @@ export function useColors(): UseColorsReturn {
 
 
   function getBackgroundColor(key: string, variant?: FillVariant, hovered?: boolean): string | undefined {
-    switch (variant) { 
+    switch (variant) {
       case "filled": return getHex(key);
       case "light": return getHex(key, hovered ? "medium" : "weak");
-      case "subtle": return hovered ? getHex(key, "weak") : "#00000000";
+      case "paper": return getHex("brighterWhite");
+      case "outlined": case "subtle": return hovered ? getHex(key, "weak") : "#00000000";
       default: return getHex(key);
     }
   }
 
+  function getBorderColor(key: string, variant?: FillVariant, focused?: boolean): string | undefined {
+    if (focused) return `1px solid ${getHex(key, "strong")}`;
+    switch (variant) {
+      case "paper": return `1px solid ${getHex(key, "weak")}`;
+      case "outlined": return `1px solid ${getHex(key, "medium")}`;
+      default: return `1px solid #00000000`;
+    }
+  }
 
   function getForegroundColor(key: string, variant?: FillVariant): string | undefined {
     if (variant === "filled") {
@@ -97,6 +113,7 @@ export function useColors(): UseColorsReturn {
     getSwatch,
     getHex,
     getBgHex: getBackgroundColor,
+    getBorderHex: getBorderColor,
     getFgHex: getForegroundColor
   };
 }

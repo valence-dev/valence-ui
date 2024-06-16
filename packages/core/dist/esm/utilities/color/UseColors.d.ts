@@ -16,6 +16,12 @@ export type UseColorsReturn = {
      * @param hovered Whether the component is currently hovered
      */
     getBgHex(key: string, variant?: FillVariant, hovered?: boolean): string | undefined;
+    /** Gets the most suitable border color, based upon the supplied
+     * parameters.
+     * @param key The color key to use
+     * @param variant The variant of the component
+     */
+    getBorderHex(key: string, variant?: FillVariant, focused?: boolean): string | undefined;
     /** Gets the most suitable foreground color, based upon the supplied
      * parameters.
      * @param key The color key to use

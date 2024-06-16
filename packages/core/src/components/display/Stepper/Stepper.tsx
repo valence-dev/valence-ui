@@ -141,10 +141,7 @@ const StepperIndicator = forwardRef(function StepperIndicator(
     width: theme.sizeClasses.height[size],
     height: theme.sizeClasses.height[size],
 
-    border: variant === "subtle"
-      ? `1px solid ${colors.getHex(color)}`
-      : "none",
-
+    border: colors.getBorderHex(color, variant),
     backgroundColor: colors.getBgHex(color, variant, false),
     color: colors.getFgHex(color, variant),
     opacity: state === "default" ? 0.5 : 1,

@@ -10,7 +10,7 @@ export type SizeClasses<C> = {
     xl: C;
 };
 /** Defines standard variants for buttons and other components */
-export type FillVariant = "subtle" | "light" | "filled";
+export type FillVariant = "subtle" | "outlined" | "paper" | "light" | "filled";
 /** Basic props that should be exposed to every component */
 export type GenericProps = {
     /** Used to specify a unique identifier for an element */

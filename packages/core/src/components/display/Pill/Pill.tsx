@@ -92,9 +92,7 @@ export const Pill = forwardRef(function Pill(
     backgroundColor: colors.getBgHex(backgroundColor, variant, false),
     color: colors.getFgHex(color, variant),
     borderRadius: theme.sizeClasses.radius[radius],
-    outline: variant === "subtle" ?
-      `1px solid ${colors.getHex(backgroundColor)}`
-      : "none",
+    outline: colors.getBorderHex(backgroundColor, variant),
 
     padding: padding,
     paddingRight: withRemoveButton ? SIZES[size].paddingVertical :

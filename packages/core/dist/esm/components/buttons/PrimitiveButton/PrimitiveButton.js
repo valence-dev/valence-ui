@@ -30,10 +30,11 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(props, ref) {
     const motionBehaviour = getMotionBehaviour(motion, reducedMotion);
     const ButtonStyle = css(Object.assign({ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", flexGrow: grow ? 1 : 0, width: width, height: height, minHeight: height, padding: padding, margin: margin, aspectRatio: square ? 1 : undefined, borderRadius: theme.sizeClasses.radius[radius], opacity: disabled ? 0.5 : 1, cursor: disabled ? "not-allowed"
             : loading ? "wait"
-                : "pointer", boxShadow: shadow ? theme.defaults.shadow : "none", transition: `background-color ${theme.defaults.transitionDuration} linear 0s`, backgroundColor: colors.getBgHex(backgroundColor, variant, false), color: colors.getFgHex(color, variant), outline: "none", border: "none", textDecoration: "none", "&:hover": {
+                : "pointer", boxShadow: shadow ? theme.defaults.shadow : "none", transitionProperty: "background-color, border", transitionDuration: theme.defaults.transitionDuration, transitionTimingFunction: "linear", backgroundColor: colors.getBgHex(backgroundColor, variant, false), color: colors.getFgHex(color, variant), outline: "none", border: colors.getBorderHex(color, variant), textDecoration: "none", "&:hover": {
             backgroundColor: `${colors.getBgHex(backgroundColor, variant, true)}`,
         }, "&:focus": {
-            outline: `1px solid ${colors.getFgHex(color, variant)}`,
+            outline: "none",
+            border: colors.getBorderHex(color, variant, true),
         } }, style));
     return (_jsx(PolymorphicButton, Object.assign({ css: ButtonStyle, onMouseDown: (event) => event.preventDefault(), whileHover: motionBehaviour.whileHover, whileTap: motionBehaviour.whileTap, ref: ref }, rest, { children: loading ?
             _jsx(Loader, { color: colors.getFgHex(color, variant) })

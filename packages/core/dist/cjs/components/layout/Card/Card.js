@@ -32,10 +32,10 @@ exports.CARD_DEFAULTS = {
 const Card = (0, react_1.forwardRef)(function Card(props, ref) {
     const theme = (0, ValenceProvider_1.useValence)();
     // Defaults
-    const _a = (0, responsive_1.useResponsiveProps)(props), { size = theme.defaults.size, radius = theme.defaults.radius, gap = 0, buttonProps, flexProps, height = "fit-content", width = exports.CARD_DEFAULTS.width[size], padding = 0, margin, color = "black", backgroundColor = color, children, style } = _a, rest = __rest(_a, ["size", "radius", "gap", "buttonProps", "flexProps", "height", "width", "padding", "margin", "color", "backgroundColor", "children", "style"]);
+    const _a = (0, responsive_1.useResponsiveProps)(props), { size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, gap = 0, buttonProps, flexProps, height = "fit-content", width = exports.CARD_DEFAULTS.width[size], padding = 0, margin, color = "black", backgroundColor = color, children, style } = _a, rest = __rest(_a, ["size", "radius", "variant", "gap", "buttonProps", "flexProps", "height", "width", "padding", "margin", "color", "backgroundColor", "children", "style"]);
     // Styles
     const cardStyle = Object.assign({ overflow: "hidden", padding: padding, margin: margin, userSelect: "none" }, style);
-    return ((0, jsx_runtime_1.jsx)(PrimitiveButton_1.PrimitiveButton, Object.assign({ height: height, width: width, color: color, backgroundColor: backgroundColor, radius: radius, style: cardStyle, motion: {
+    return ((0, jsx_runtime_1.jsx)(PrimitiveButton_1.PrimitiveButton, Object.assign({ height: height, width: width, color: color, backgroundColor: backgroundColor, variant: variant, radius: radius, style: cardStyle, motion: {
             onHover: "raise",
             onTap: "bounce",
         }, ref: ref }, buttonProps, rest, { children: (0, jsx_runtime_1.jsx)(__1.Flex, Object.assign({ direction: "column", gap: gap }, flexProps, { children: children })) })));
@@ -57,13 +57,13 @@ const Buttons = (0, react_1.forwardRef)(function CardButtons(props, ref) {
     // Defaults
     const _a = (0, responsive_1.useResponsiveProps)(props), { width = "100%", height = "fit-content", padding = theme.sizeClasses.padding[theme.defaults.size], direction = "row", align = "center", justify = "flex-start", children } = _a, rest = __rest(_a, ["width", "height", "padding", "direction", "align", "justify", "children"]);
     // Styles
-    const ButtonStyle = {
+    const ContainerStyle = {
         width: width,
         height: height,
         padding: padding,
         boxSizing: "border-box",
     };
-    return ((0, jsx_runtime_1.jsx)(buttons_1.UnstyledButton, { onClick: (e) => e.stopPropagation(), component: "div", style: ButtonStyle, ref: ref, children: (0, jsx_runtime_1.jsx)(__1.Flex, Object.assign({ width: "100%", height: "100%", padding: 0, direction: direction, align: align, justify: justify }, rest, { children: children })) }));
+    return ((0, jsx_runtime_1.jsx)(buttons_1.UnstyledButton, { onClick: (e) => e.stopPropagation(), component: "div", style: ContainerStyle, ref: ref, children: (0, jsx_runtime_1.jsx)(__1.Flex, Object.assign({ width: "100%", height: "100%", padding: 0, direction: direction, align: align, justify: justify }, rest, { children: children })) }));
 });
 const CardNamesapce = Object.assign(Card, {
     Image,

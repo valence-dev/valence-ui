@@ -81,20 +81,23 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
         : "pointer"
     ,
     boxShadow: shadow ? theme.defaults.shadow : "none",
-
-    transition: `background-color ${theme.defaults.transitionDuration} linear 0s`,
+    
+    transitionProperty: "background-color, border",
+    transitionDuration: theme.defaults.transitionDuration,
+    transitionTimingFunction: "linear",
     backgroundColor: colors.getBgHex(backgroundColor, variant, false),
     color: colors.getFgHex(color, variant),
 
     outline: "none",
-    border: "none",
+    border: colors.getBorderHex(color, variant),
     textDecoration: "none",
 
     "&:hover": {
       backgroundColor: `${colors.getBgHex(backgroundColor, variant, true)}`,
     },
     "&:focus": {
-      outline: `1px solid ${colors.getFgHex(color, variant)}`,
+      outline: "none",
+      border: colors.getBorderHex(color, variant, true),
     },
 
     ...style

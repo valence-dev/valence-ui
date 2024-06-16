@@ -93,9 +93,7 @@ export const Alert = forwardRef(function Alert(
     padding: padding,
     borderRadius: theme.sizeClasses.radius[radius],
 
-    border: variant === "subtle"
-      ? `1px solid ${colors.getHex(backgroundColor, "medium")}`
-      : "none",
+    border: colors.getBorderHex(backgroundColor, variant),
     textDecoration: "none",
 
     backgroundColor: colors.getBgHex(backgroundColor, variant, false),

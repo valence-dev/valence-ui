@@ -1,4 +1,4 @@
-import { ComponentSize, GenericLayoutProps, GenericProps, PolymorphicButtonProps, SizeClasses } from "@valence-ui/utils";
+import { ComponentSize, FillVariant, GenericLayoutProps, GenericProps, PolymorphicButtonProps, SizeClasses } from "@valence-ui/utils";
 import { FlexProps } from "..";
 import { PrimitiveButtonProps } from "../../buttons/PrimitiveButton";
 import { CSSProperties } from "react";
@@ -9,6 +9,8 @@ export type CardProps = GenericLayoutProps & PolymorphicButtonProps & {
     size?: ComponentSize;
     /**  Defines the radius size class for this card */
     radius?: ComponentSize;
+    /** Defines the fill variant of this card. */
+    variant?: FillVariant;
     /**  Defines the gap size between this card's contents */
     gap?: CSSProperties["gap"];
     /** Optional props to pass to the button component of this card */

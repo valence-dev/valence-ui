@@ -24,7 +24,7 @@ export const INPUT_SIZES = {
 };
 export const InputContainer = forwardRef(function InputContainer(props, ref) {
     const theme = useValence();
-    const { getBgHex, getFgHex } = useColors();
+    const { getBgHex, getBorderHex, getFgHex } = useColors();
     // Defaults
     const _a = useResponsiveProps(props), { icon, button, size = theme.defaults.size, radius = theme.defaults.radius, variant = theme.defaults.variant, grow, disabled = false, required = false, loading = false, color = "black", backgroundColor = color, width = "100%", height = theme.sizeClasses.height[size], padding = INPUT_SIZES[size].padding, margin, inputRef, onClick, iconContainerStyle, requireIndicatorStyle, buttonContainerStyle, children, style } = _a, rest = __rest(_a, ["icon", "button", "size", "radius", "variant", "grow", "disabled", "required", "loading", "color", "backgroundColor", "width", "height", "padding", "margin", "inputRef", "onClick", "iconContainerStyle", "requireIndicatorStyle", "buttonContainerStyle", "children", "style"]);
     // Functions
@@ -38,10 +38,11 @@ export const InputContainer = forwardRef(function InputContainer(props, ref) {
         onClick === null || onClick === void 0 ? void 0 : onClick(e);
     };
     // Styles
-    const ContainerStyle = css(Object.assign({ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", boxSizing: "border-box", flexGrow: grow ? 1 : "unset", width: width, height: height, borderRadius: theme.sizeClasses.radius[radius], padding: padding, gap: padding, opacity: disabled ? 0.5 : 1, cursor: disabled ? "not-allowed" : "text", transition: `background-color ${theme.defaults.transitionDuration} linear 0s`, backgroundColor: getBgHex(backgroundColor, variant, false), color: getFgHex(color, variant), outline: "none", border: "none", textDecoration: "none", "&:hover": {
+    const ContainerStyle = css(Object.assign({ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", boxSizing: "border-box", flexGrow: grow ? 1 : "unset", width: width, height: height, borderRadius: theme.sizeClasses.radius[radius], padding: padding, gap: padding, opacity: disabled ? 0.5 : 1, cursor: disabled ? "not-allowed" : "text", transitionProperty: "background-color, border", transitionDuration: theme.defaults.transitionDuration, transitionTimingFunction: "linear", backgroundColor: getBgHex(backgroundColor, variant, false), color: getFgHex(color, variant), outline: "none", border: getBorderHex(color, variant), textDecoration: "none", "&:hover": {
             backgroundColor: !disabled ? getBgHex(backgroundColor, variant, true) : undefined,
         }, "&:focus-within": {
-            outline: `1px solid ${getFgHex(color, variant)}`,
+            outline: "none",
+            border: getBorderHex(color, variant, true),
         } }, style));
     const IconContainerStyle = css(Object.assign({ height: "100%", opacity: 0.5, boxSizing: "border-box", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "row" }, iconContainerStyle));
     const ButtonContainerStyle = css(Object.assign({ height: "100%", opacity: 0.5, boxSizing: "border-box", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "row" }, buttonContainerStyle));

@@ -42,10 +42,10 @@ export const OutlineContainer = forwardRef(function OutlineContainer(
     radius = theme.defaults.radius,
 
     position = sticky ? "sticky" : "relative",
-    zIndex = sticky ? 151 : undefined,
-    top = useResponsiveProps(sticky ? { default: spacing * 2, mobile: 75 } : undefined),
-    left = sticky ? spacing * 2 : undefined,
-    right = sticky ? spacing * 2 : undefined,
+    zIndex = sticky ? 151 : "unset",
+    top = useResponsiveProps<CSSProperties["top"]>(sticky ? { default: spacing * 2, mobile: 75 } : "unset"),
+    left = sticky ? spacing * 2 : "unset",
+    right = sticky ? spacing * 2 : "unset",
     bottom,
 
     width = "100%",
