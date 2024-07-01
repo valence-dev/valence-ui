@@ -7,6 +7,8 @@ export type Disclosure = {
   open: () => void;
   /** Close the disclosure. */
   close: () => void;
+  /** Toggle the disclosure. */
+  toggle: () => void;
   /** Manually update the disclosure. */
   update: (value: boolean) => void;
 }
@@ -17,12 +19,14 @@ export function useDisclosure(defaultValue: boolean = false): Disclosure {
 
   const open = () => setValue(true);
   const close = () => setValue(false);
+  const toggle = () => setValue(!value);
   const update = (value: boolean) => setValue(value);
 
   return {
     opened: value,
     open: open,
     close: close,
+    toggle: toggle,
     update: update,
   };
 }
