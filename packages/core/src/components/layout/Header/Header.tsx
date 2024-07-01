@@ -69,19 +69,5 @@ export const Header = forwardRef(function Header(
     >
       {children}
     </FlexCenter>
-
-    // <Flex
-    //   style={HeaderStyle}
-    //   height="fit-content"
-
-    //   ref={ref}
-    //   {...rest}
-    // >
-    //   <Flex
-    //     {...innerProps}
-    //   >
-    //     {children}
-    //   </Flex>
-    // </Flex>
   )
 });
