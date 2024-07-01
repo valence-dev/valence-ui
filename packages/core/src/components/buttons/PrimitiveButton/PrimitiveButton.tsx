@@ -9,12 +9,23 @@ import { css } from "@emotion/react";
 import { GenericButtonProps } from "../../../generics";
 import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
 import { useColors } from "../../../utilities/color";
+import { FloatingOffset, PositionHorizontal, PositionVertical, useFloating } from "../../../hooks";
 
 export type PrimitiveButtonProps =
   GenericButtonProps
   & {
     /** Defines motion behavior for this button. This will automatically be overridden if the user has reduced motion enabled on their device. */
     motion?: MotionBehaviourProps;
+
+    /** Defines floating behavior for this button. */
+    float?: {
+      /** Horizontal position of the button. */
+      positionHorizontal?: PositionHorizontal;
+      /** Vertical position of the button. */
+      positionVertical?: PositionVertical;
+      /** Offset from the edge of the screen. */
+      offset?: FloatingOffset;
+    }
   }
 
 export const PrimitiveButton = forwardRef(function PrimitiveButton(
@@ -43,6 +54,7 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
     loading = false,
 
     motion = { onHover: variant === "filled" ? "raise" : undefined, onTap: "bounce" },
+    float,
 
     color = theme.primaryColor,
     backgroundColor = color,
@@ -57,6 +69,11 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
   } = useResponsiveProps<PrimitiveButtonProps>(props);
 
   const motionBehaviour = getMotionBehaviour(motion, reducedMotion);
+  const floatBehaviour = useFloating({
+    positionHorizontal: float?.positionHorizontal,
+    positionVertical: float?.positionVertical,
+    offset: float?.offset
+  })
 
 
   const ButtonStyle = css({
@@ -81,7 +98,7 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
         : "pointer"
     ,
     boxShadow: shadow ? theme.defaults.shadow : "none",
-    
+
     transitionProperty: "background-color, border",
     transitionDuration: theme.defaults.transitionDuration,
     transitionTimingFunction: "linear",
@@ -91,6 +108,11 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
     outline: "none",
     border: colors.getBorderHex(color, variant),
     textDecoration: "none",
+
+    ...(float ? {
+      position: "fixed",
+      ...floatBehaviour.style
+    } : undefined),
 
     "&:hover": {
       backgroundColor: `${colors.getBgHex(backgroundColor, variant, true)}`,
