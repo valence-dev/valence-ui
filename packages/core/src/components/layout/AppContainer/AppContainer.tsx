@@ -103,23 +103,6 @@ export const AppContainer = forwardRef(function AppContainer(
       backgroundColor: getHex("white"),
     }
   }
-  const contentContainerStyle: Responsive<CSSProperties> = {
-    default: {
-      backgroundColor: getHex("white"),
-      paddingLeft: leftWidth + 10,
-      paddingRight: 0,
-      width: "100%",
-
-      transition: "padding-right 0.3s ease-in-out",
-    }, mobile: {
-      backgroundColor: getHex("white"),
-      padding: 20,
-    }
-  };
-  const contentStyle: CSSProperties = {
-    width: `min(${contentWidth}px, 100%)`,
-    minHeight: "100%",
-  }
 
 
   return (
