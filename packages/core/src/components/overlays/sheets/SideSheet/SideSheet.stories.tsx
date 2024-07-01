@@ -5,7 +5,7 @@ import { SideSheet as SS } from "./SideSheet";
 
 const meta: Meta<typeof SS> = {
   component: SS,
-  title: "Valence/App/Overlays/Sheets",
+  title: "Valence/Core/Overlays/Sheets",
 };
 export default meta;
 type Story = StoryObj<typeof SS>;

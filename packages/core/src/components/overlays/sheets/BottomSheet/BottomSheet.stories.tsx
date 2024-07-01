@@ -5,7 +5,7 @@ import { BottomSheet as BS } from "./BottomSheet";
 
 const meta: Meta<typeof BS> = {
   component: BS,
-  title: "Valence/App/Overlays/Sheets",
+  title: "Valence/Core/Overlays/Sheets",
 };
 export default meta;
 type Story = StoryObj<typeof BS>;

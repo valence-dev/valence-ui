@@ -5,7 +5,7 @@ import { DynamicSheet as DS } from "./DynamicSheet";
 
 const meta: Meta<typeof DS> = {
   component: DS,
-  title: "Valence/App/Overlays/Sheets",
+  title: "Valence/Core/Overlays/Sheets",
 };
 export default meta;
 type Story = StoryObj<typeof DS>;

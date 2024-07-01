@@ -1,8 +1,7 @@
 import React, { CSSProperties, ReactNode, forwardRef, useContext } from "react";
-import { ComponentSize, GenericLayoutProps, PolymorphicLayoutProps } from "@valence-ui/utils";
+import { GenericLayoutProps, PolymorphicLayoutProps } from "@valence-ui/utils";
 import { Flex, MakeResponsive, Responsive, ValenceContext, useColors, useDisclosure, useResponsiveProps } from "@valence-ui/core";
 import { useElementSize } from "usehooks-ts";
-import { AppContext } from "../../../contexts/AppContext";
 
 export type AppContainerProps =
   GenericLayoutProps
@@ -12,8 +11,6 @@ export type AppContainerProps =
     nav?: ReactNode;
     /** The  header containing the `<h1>` for this page. */
     header: ReactNode;
-    /** An optional sidebar element used for navigation or page-level actions. */
-    sidebar?: ReactNode;
 
     /** Properties to apply to the page container element */
     pageProps?: Omit<GenericLayoutProps, "children">;
@@ -41,7 +38,6 @@ export const AppContainer = forwardRef(function AppContainer(
   const {
     nav,
     header,
-    sidebar,
     pageProps,
 
     contentWidth = 700,
@@ -117,62 +113,39 @@ export const AppContainer = forwardRef(function AppContainer(
 
   return (
     <>
-      <AppContext.Provider
-        value={{
-          sidebarDisclosure,
-          contentWidth,
-          leftWidth,
-        }}
+      {/* Nav & sidebar */}
+      <Flex
+        direction={{ default: "row", mobile: "column-reverse" }}
+        backgroundColor="primary"
+        style={pageContainerStyle}
+        gap={0}
+
+        ref={leftRef}
+        {...rest}
       >
-        {/* Nav & sidebar */}
+        {/* Nav */}
+        {showNav && nav}
+      </Flex>
+
+
+      {/* Page content */}
+      <Flex
+        id="root-content"
+        align="center"
+        justify="center"
+        grow={true}
+        style={contentContainerStyle}
+      >
         <Flex
-          direction={{ default: "row", mobile: "column-reverse" }}
-          backgroundColor="primary"
-          style={pageContainerStyle}
-          gap={0}
-
-          ref={leftRef}
-          {...rest}
+          direction="column"
+          style={contentStyle}
+          {...pageProps}
         >
-          {/* Nav */}
-          {showNav && nav}
+          {header}
 
-          {/* Sidebar */}
-          {sidebar ? React.cloneElement(
-            sidebar as React.ReactElement,
-            {
-              sideSheetProps: {
-                disclosure: sidebarDisclosure,
-              }
-            }
-          ) :
-            <Flex
-              key="flex2"
-              style={sidebarReplacementStyle}
-            />
-          }
+          {children}
         </Flex>
-
-
-        {/* Page content */}
-        <Flex
-          id="root-content"
-          align="center"
-          justify="center"
-          grow={true}
-          style={contentContainerStyle}
-        >
-          <Flex
-            direction="column"
-            style={contentStyle}
-            {...pageProps}
-          >
-            {header}
-
-            {children}
-          </Flex>
-        </Flex>
-      </AppContext.Provider>
+      </Flex>
     </>
   )
 });

@@ -3,14 +3,14 @@ import { Meta, StoryObj } from "@storybook/react";
 import { Button, Header, Title, ValenceProvider, useDisclosure } from "@valence-ui/core";
 
 import { AppContainer as AC } from "./AppContainer";
-import { Nav, Sidebar } from "../../navigation";
+import { AppNav } from "../../navigation";
 import { IconBolt, IconCategory, IconLogout, IconUserCircle } from "@tabler/icons-react";
 import { BrowserRouter } from "react-router-dom";
 import { SideSheet } from "../../overlays";
 
 const meta: Meta<typeof AC> = {
   component: AC,
-  title: "Valence/App/Layout",
+  title: "Valence/Core/Layout",
   argTypes: {},
 };
 export default meta;
@@ -39,7 +39,7 @@ export const AppContainer: Story = (args: any) => {
 };
 AppContainer.args = {
   nav:
-    <Nav
+    <AppNav
       buttons={[
         {
           id: "apps",
@@ -74,10 +74,4 @@ AppContainer.args = {
     <Header>
       <Title>Page title</Title>
     </Header>,
-  sidebar:
-    <Sidebar>
-      <Button width="100%">
-        This is a sidebar!
-      </Button>
-    </Sidebar>,
 };
