@@ -1,1 +1,0 @@
-{"version":3,"file":"Spoiler.d.ts","sourceRoot":"","sources":["../../../../../src/components/display/Spoiler/Spoiler.tsx"],"names":[],"mappings":";AACA,OAAO,EAAE,YAAY,EAAE,MAAM,mBAAmB,CAAC;AAEjD,OAAO,EAAE,cAAc,EAAsB,MAAM,+BAA+B,CAAC;AAEnF,MAAM,MAAM,YAAY,GAAG,YAAY,GAAG;IACxC,uEAAuE;IACvE,IAAI,CAAC,EAAE,OAAO,CAAC;CAChB,CAAA;AAED,uEAAuE;AACvE,eAAO,MAAM,OAAO,kHAqClB,CAAC"}

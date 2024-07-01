@@ -1,5 +1,6 @@
-import { Disclosure, FlexProps } from "@valence-ui/core";
 import { GenericOverlayProps } from "@valence-ui/utils";
+import { Disclosure } from "../../../hooks";
+import { FlexProps } from "../../layout";
 
 export type GenericSheetProps = GenericOverlayProps & {
   /** A disclosure to handle the sheet's state */

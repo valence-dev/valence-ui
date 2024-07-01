@@ -1,1 +1,0 @@
-{"version":3,"file":"PolymorphicButton.d.ts","sourceRoot":"","sources":["../../../src/polymorphism/PolymorphicButton.tsx"],"names":[],"mappings":";AAGA,OAAO,EAA8B,qBAAqB,EAAE,YAAY,EAAE,uBAAuB,EAAE,MAAM,IAAI,CAAC;AAE9G,MAAM,MAAM,sBAAsB,GAChC,uBAAuB,GACrB;IACA,oDAAoD;IACpD,GAAG,CAAC,EAAE,GAAG,CAAC;CACX,CAAC;AAUJ,eAAO,MAAM,iBAAiB;IAZ1B,oDAAoD;UAC9C,GAAG;qMA8BZ,CAAA"}

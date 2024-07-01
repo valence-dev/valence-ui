@@ -1,12 +1,16 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { Button, Header, Title, ValenceProvider, useDisclosure } from "@valence-ui/core";
 
 import { AppContainer as AC } from "./AppContainer";
 import { AppNav } from "../../navigation";
 import { IconBolt, IconCategory, IconLogout, IconUserCircle } from "@tabler/icons-react";
 import { BrowserRouter } from "react-router-dom";
 import { SideSheet } from "../../overlays";
+import { FlexCenter, Header, StyledFlex } from "..";
+import { ValenceProvider } from "../../../ValenceProvider";
+import { Title } from "../../display";
+import { Button } from "../../buttons";
+import { useDisclosure } from "../../../hooks";
 
 const meta: Meta<typeof AC> = {
   component: AC,
@@ -23,15 +27,27 @@ export const AppContainer: Story = (args: any) => {
     <BrowserRouter>
       <ValenceProvider>
         <AC {...args}>
-          <Button onClick={() => sideSheet.open()}>Open Side Sheet</Button>
+          <Header innerWidth={700}>
+            <Title> Page Title </Title>
+          </Header>
 
-          <SideSheet
-            title="Side sheet"
-            disclosure={sideSheet}
+          <FlexCenter
+            innerWidth={700}
           >
-            Hi there
-          </SideSheet>
 
+            <Button onClick={() => { sideSheet.update(!sideSheet.opened) }}>Toggle Side Sheet</Button>
+
+            <SideSheet
+              title="Side sheet"
+              disclosure={sideSheet}
+            >
+              Hi there
+            </SideSheet>
+
+            <StyledFlex height="300vh" width="100%">
+              Hi there
+            </StyledFlex>
+          </FlexCenter>
         </AC>
       </ValenceProvider>
     </BrowserRouter>
@@ -70,8 +86,4 @@ AppContainer.args = {
         }
       ]}
     />,
-  header:
-    <Header>
-      <Title>Page title</Title>
-    </Header>,
 };

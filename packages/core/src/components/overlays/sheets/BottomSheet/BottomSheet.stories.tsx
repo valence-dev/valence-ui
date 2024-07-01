@@ -1,7 +1,10 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { Button, FlexCenter, StyledFlex, ValenceProvider, useDisclosure } from "@valence-ui/core"
 import { BottomSheet as BS } from "./BottomSheet";
+import { useDisclosure } from "../../../../hooks";
+import { ValenceProvider } from "../../../../ValenceProvider";
+import { FlexCenter, StyledFlex } from "../../../layout";
+import { Button } from "../../../buttons";
 
 const meta: Meta<typeof BS> = {
   component: BS,

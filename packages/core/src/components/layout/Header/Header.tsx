@@ -1,13 +1,10 @@
-import { CSSProperties, forwardRef, useState } from "react";
-import { Flex, FlexProps } from "../Flex";
+import { CSSProperties, forwardRef } from "react";
+import { FlexCenter, FlexCenterProps } from "../Flex";
 import { MakeResponsive, useColors, useResponsiveProps } from "../../..";
 
-export type HeaderProps = FlexProps & {
+export type HeaderProps = FlexCenterProps & {
   /** Defines the position of this header. */
   position?: CSSProperties["position"];
-
-  /** Properties to pass to the inner flex component. */
-  innerProps?: FlexProps;
 }
 
 
@@ -35,7 +32,6 @@ export const Header = forwardRef(function Header(
 
     innerProps = { 
       height: height,
-      width: "100%",
       direction: direction,
       align: align,
       justify: justify,
@@ -63,18 +59,29 @@ export const Header = forwardRef(function Header(
 
 
   return (
-    <Flex
-      style={HeaderStyle}
+    <FlexCenter
       height="fit-content"
-
+      style={HeaderStyle}
       ref={ref}
       {...rest}
+
+      innerProps={innerProps}
     >
-      <Flex
-        {...innerProps}
-      >
-        {children}
-      </Flex>
-    </Flex>
+      {children}
+    </FlexCenter>
+
+    // <Flex
+    //   style={HeaderStyle}
+    //   height="fit-content"
+
+    //   ref={ref}
+    //   {...rest}
+    // >
+    //   <Flex
+    //     {...innerProps}
+    //   >
+    //     {children}
+    //   </Flex>
+    // </Flex>
   )
 });

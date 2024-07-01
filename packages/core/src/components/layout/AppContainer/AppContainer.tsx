@@ -1,7 +1,9 @@
-import React, { CSSProperties, ReactNode, forwardRef, useContext } from "react";
+import { CSSProperties, ReactNode, forwardRef, useContext } from "react";
 import { GenericLayoutProps, PolymorphicLayoutProps } from "@valence-ui/utils";
-import { Flex, MakeResponsive, Responsive, ValenceContext, useColors, useDisclosure, useResponsiveProps } from "@valence-ui/core";
 import { useElementSize } from "usehooks-ts";
+import { Flex } from "../Flex";
+import { MakeResponsive, Responsive, useColors, useResponsiveProps } from "../../../utilities";
+import { ValenceContext } from "../../../ValenceProvider";
 
 export type AppContainerProps =
   GenericLayoutProps
@@ -56,12 +58,22 @@ export const AppContainer = forwardRef(function AppContainer(
   const [leftRef, { width: leftWidth }] = useElementSize();
 
 
-  // States
-  const sidebarDisclosure = useDisclosure();
-
-
   // Styles
   const pageContainerStyle: Responsive<CSSProperties> = {
+    default: { 
+      transition: `padding-right 0.3s ease-in-out`,
+      paddingBottom: 200,
+      paddingLeft: leftWidth + 10,
+      paddingRight: 10,
+    },
+    mobile: { 
+      paddingLeft: 10,
+      paddingRight: 10,
+      paddingBottom: 200,
+    }
+  }
+
+  const navContainerStyle: Responsive<CSSProperties> = {
     default: {
       position: "fixed",
       top: 0,
@@ -77,7 +89,7 @@ export const AppContainer = forwardRef(function AppContainer(
     },
     ...style,
   };
-  const sidebarReplacementStyle: Responsive<CSSProperties> = {
+  const cornerStyle: Responsive<CSSProperties> = {
     default: {
       width: radius,
       height: "100%",
@@ -96,7 +108,7 @@ export const AppContainer = forwardRef(function AppContainer(
       backgroundColor: getHex("white"),
       paddingLeft: leftWidth + 10,
       paddingRight: 0,
-      width: "100vw",
+      width: "100%",
 
       transition: "padding-right 0.3s ease-in-out",
     }, mobile: {
@@ -106,46 +118,35 @@ export const AppContainer = forwardRef(function AppContainer(
   };
   const contentStyle: CSSProperties = {
     width: `min(${contentWidth}px, 100%)`,
-    minHeight: "100vh",
-    paddingBottom: 200,
+    minHeight: "100%",
   }
 
 
   return (
     <>
-      {/* Nav & sidebar */}
-      <Flex
-        direction={{ default: "row", mobile: "column-reverse" }}
-        backgroundColor="primary"
-        style={pageContainerStyle}
-        gap={0}
-
-        ref={leftRef}
-        {...rest}
+      <div
+        id="root-content"
+        style={useResponsiveProps(pageContainerStyle)}
       >
         {/* Nav */}
-        {showNav && nav}
-      </Flex>
-
-
-      {/* Page content */}
-      <Flex
-        id="root-content"
-        align="center"
-        justify="center"
-        grow={true}
-        style={contentContainerStyle}
-      >
         <Flex
-          direction="column"
-          style={contentStyle}
-          {...pageProps}
-        >
-          {header}
+          direction={{ default: "row", mobile: "column-reverse" }}
+          backgroundColor="primary"
+          style={navContainerStyle}
+          gap={0}
 
-          {children}
+          ref={leftRef}
+          {...rest}
+        >
+          {/* Nav */}
+          {showNav && nav}
+
+          <Flex style={cornerStyle} />
         </Flex>
-      </Flex>
+
+        {/* Content */}
+        {children}
+      </div>
     </>
   )
 });

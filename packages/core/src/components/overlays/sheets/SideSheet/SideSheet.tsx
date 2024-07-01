@@ -1,10 +1,15 @@
 import { CSSProperties, ReactNode, forwardRef, useContext, useEffect } from "react";
 import { GenericSheetProps } from "../Generics";
-import { DefaultModalHeader, Disclosure, Flex, FlexProps, MakeResponsive, ModalBackground, OverflowContainer, ValenceContext, useColors, useDetectKeyDown, useResponsiveProps } from "@valence-ui/core";
 import { GenericOverlayBackgroundProps, GenericOverlayHeaderProps } from "@valence-ui/utils";
 import { useLockedBody } from "usehooks-ts";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
+import { Flex, FlexProps, OverflowContainer } from "../../../layout";
+import { MakeResponsive, useColors, useResponsiveProps } from "../../../../utilities";
+import { ValenceContext } from "../../../../ValenceProvider";
+import { DefaultModalHeader } from "../../Modal";
+import { Disclosure, useDetectKeyDown } from "../../../../hooks";
+import { ModalBackground } from "../../ModalBackground";
 
 export type SideSheetDisplay = "inline" | "overlay";
 
@@ -125,7 +130,7 @@ export const SideSheet = forwardRef(function SideSheet(
     if (!element) return;
 
     if (disclosure.opened && display === "inline") {
-      element.style.paddingRight = `calc(10px + ${width}px)`;
+      element.style.paddingRight = `calc(25px + ${width}px)`;
     } else {
       element.style.paddingRight = `10px`;
     }

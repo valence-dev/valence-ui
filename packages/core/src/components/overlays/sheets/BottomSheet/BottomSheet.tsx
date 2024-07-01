@@ -1,12 +1,17 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { ValenceContext, ModalBackground, Flex, useDetectKeyDown, DefaultModalHeader, MakeResponsive, useResponsiveProps, useColors, FlexProps, OverflowContainer } from "@valence-ui/core";
 import { GenericOverlayHeaderProps, } from "@valence-ui/utils";
 import { useContext, forwardRef, CSSProperties } from "react";
 import { AnimatePresence, motion, useDragControls } from "framer-motion";
 import { useLockedBody } from "usehooks-ts";
 import { GenericSheetProps } from "../Generics";
 import { FloatingFocusManager, useFloating, useId, useInteractions, useRole } from "@floating-ui/react";
+import { MakeResponsive, useColors, useResponsiveProps } from "../../../../utilities";
+import { Flex, FlexProps, OverflowContainer } from "../../../layout";
+import { ValenceContext } from "../../../../ValenceProvider";
+import { DefaultModalHeader } from "../../Modal";
+import { useDetectKeyDown } from "../../../../hooks";
+import { ModalBackground } from "../../ModalBackground";
 
 export type BottomSheetProps = GenericSheetProps & {
   /** The offset the sheet must be from its original position before it will close. Defaults to 50% of the viewport height */

@@ -1,7 +1,9 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { Button, ValenceProvider, useDisclosure } from "@valence-ui/core"
 import { DynamicSheet as DS } from "./DynamicSheet";
+import { ValenceProvider } from "../../../../ValenceProvider";
+import { useDisclosure } from "../../../../hooks";
+import { Button } from "../../../buttons";
 
 const meta: Meta<typeof DS> = {
   component: DS,
