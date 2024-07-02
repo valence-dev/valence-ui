@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useContext } from "react";
+import { ReactNode, createContext, useContext, useState } from "react";
 import { INotificationContext, Notification, NotificationsContextDefaults } from "./NotificationsProvider.types";
 
 export const NotificationsContext = createContext<INotificationContext>(NotificationsContextDefaults);
@@ -23,33 +23,40 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
     children 
   } = props;
 
-  const queue: Notification[] = [];
+  const [queue, setQueue] = useState<Notification[]>([]);
 
   function add(notification: Notification) {
-    queue.push(notification);
+    setQueue([...queue, notification]);
   }
   function update(id: string, notification: Notification) {
     const index = queue.findIndex(n => n.id === id);
     if (index === -1) return;
-    queue[index] = notification;
+    setQueue([
+      ...queue.slice(0, index),
+      notification,
+      ...queue.slice(index + 1),
+    ]);
   }
   function remove(id: string) {
     const index = queue.findIndex(n => n.id === id);
     if (index === -1) return;
-    queue.splice(index, 1);
+    console.log(queue);
+    setQueue([
+      ...queue.slice(0, index),
+      ...queue.slice(index + 1),
+    ]);
   }
   function clear() {
-    queue.splice(0, queue.length);
+    setQueue([]);
   }
-
 
   return ( 
     <NotificationsContext.Provider value={{
       queue,
-      add,
-      update,
-      remove,
-      clear,
+      addNotification: add,
+      updateNotification: update,
+      removeNotification: remove,
+      clearQueue: clear,
       notificationComponentProps,
     }}>
       {children}

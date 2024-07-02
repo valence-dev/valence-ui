@@ -41,7 +41,7 @@ export const FloatingToolbar = forwardRef(function FloatingToolbar(
   const {
     positionHorizontal = "left",
     positionVertical = "top",
-    offset = 5,
+    offset = 10,
 
     label, labelProps,
     variant = "outlined",
@@ -50,10 +50,8 @@ export const FloatingToolbar = forwardRef(function FloatingToolbar(
 
     position = "fixed",
     zIndex = 151,
-    top = useResponsiveProps<CSSProperties["top"]>({ default: offset * 2, mobile: 75 }),
-    left = offset * 2,
-    right = offset * 2,
-    bottom = offset * 2,
+    top = useResponsiveProps<CSSProperties["top"]>({ default: offset, mobile: 75 }),
+    left = offset, right = offset, bottom = offset,
 
     width = "fit-content", height,
     color = "black",
@@ -83,15 +81,15 @@ export const FloatingToolbar = forwardRef(function FloatingToolbar(
   const ToolbarStyle: CSSProperties = {
     backgroundColor: getHex("white", "strong"),
     backdropFilter: "blur(10px)",
-    padding: offset,
-    borderRadius: theme.getSize("radius", radius) as number + offset,
+    padding: offset / 2,
+    borderRadius: theme.getSize("radius", radius) as number + offset / 2,
     boxShadow: shadow ? theme.defaults.shadow : undefined,
     ...style
   }
   const LabelStyle: CSSProperties = {
     backgroundColor: getHex("white", "strong"),
     backdropFilter: "blur(10px)",
-    padding: `${offset / 2}px ${offset * 2}px`,
+    padding: `${offset / 4}px ${offset}px`,
     borderRadius: 20,
     ...labelStyle
   }
@@ -100,11 +98,11 @@ export const FloatingToolbar = forwardRef(function FloatingToolbar(
   return (
     <Flex
       direction="column"
-      width={width} height={height} gap={offset / 2}
+      width={width} height={height} gap={offset / 4}
       style={OuterFlexStyle} ref={ref}
     >
       <StyledFlex
-        direction="row" gap={offset}
+        direction="row" gap={offset / 2}
         width="100%" height="100%"
         variant={variant} color={color}
         style={ToolbarStyle}

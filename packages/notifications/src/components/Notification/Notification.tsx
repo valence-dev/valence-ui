@@ -1,4 +1,4 @@
-import { CSSProperties, forwardRef } from "react";
+import { CSSProperties, forwardRef, useEffect, useMemo, useRef, useState } from "react";
 import { Notification, useNotifications } from "../../NotificationsProvider"
 import { IconButton, MultipartButton, MultipartButtonProps } from "@valence-ui/core";
 import { IconX } from "@tabler/icons-react";
@@ -14,11 +14,14 @@ export const NotificationComponent = forwardRef(function Notification(
   ref: any
 ) {
   // Contexts
-  const { notificationComponentProps } = useNotifications();
+  const { notificationComponentProps, removeNotification } = useNotifications();
   const {
     variant, style,
     ...rest
   } = notificationComponentProps;
+
+  const closeTimeoutRef = useRef<number>();
+
 
 
   const { notification } = props;
@@ -26,14 +29,30 @@ export const NotificationComponent = forwardRef(function Notification(
     title, message, icon, loading,
     color = "primary",
     onClick, onClose, withCloseButton = true,
+    closeTimeout,
   } = notification;
 
 
   // Methods
   function handleClose(event: any) {
-    event.stopPropagation();
+    event?.stopPropagation();
+    removeNotification(notification.id);
     onClose?.();
   }
+
+  function cancelCloseTimeout() {
+    window.clearTimeout(closeTimeoutRef.current);
+  }
+  function handleCloseTimeout() { 
+    if (!closeTimeout) return;
+    closeTimeoutRef.current = window.setTimeout(handleClose, closeTimeout);
+  }
+  useEffect(() => {
+    handleCloseTimeout();
+    return cancelCloseTimeout;
+  }, [notification]);
+
+  
 
 
   // Styles
@@ -68,6 +87,7 @@ export const NotificationComponent = forwardRef(function Notification(
       style={ButtonStyles}
       variant={variant}
 
+      ref={ref}
       {...rest}
     />
   )

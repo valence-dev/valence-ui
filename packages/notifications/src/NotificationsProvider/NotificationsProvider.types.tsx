@@ -2,10 +2,10 @@ import { CSSProperties, ReactNode } from "react";
 import { NotificationComponentProps } from "../components";
 
 export type Notification = { 
+  /** The unique identifier for the notification */
+  id: string;
   /** The title of the notification */
   title: string;
-  /** The unique identifier for the notification */
-  id?: string;
   /** The message to display in the notification */
   message?: string;
 
@@ -32,14 +32,14 @@ export type INotificationContext = {
   queue: Notification[];
 
   /** Adds a notification to the queue */
-  add: (notification: Notification) => void;
+  addNotification: (notification: Notification) => void;
   /** Updates a notification in the queue */
-  update: (id: string, notification: Notification) => void;
+  updateNotification: (id: string, notification: Notification) => void;
   /** Removes a notification from the queue */
-  remove: (id: string) => void;
+  removeNotification: (id: string) => void;
 
   /** Clears all notifications from the queue */
-  clear: () => void;
+  clearQueue: () => void;
 
   /** Props to pass to the notification component */
   notificationComponentProps: Omit<NotificationComponentProps, "notification">;
@@ -47,10 +47,10 @@ export type INotificationContext = {
 
 export const NotificationsContextDefaults: INotificationContext = {
   queue: [],
-  add: () => {},
-  update: () => {},
-  remove: () => {},
-  clear: () => {},
+  addNotification: () => {},
+  updateNotification: () => {},
+  removeNotification: () => {},
+  clearQueue: () => {},
   notificationComponentProps: {
     variant: "filled",
     height: "fit-content",
