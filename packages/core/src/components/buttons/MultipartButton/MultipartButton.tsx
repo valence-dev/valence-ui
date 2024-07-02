@@ -22,11 +22,14 @@ export type MultipartButtonProps =
     leftIcon?: ReactNode;
     /** Icon to display on the right of the button */
     rightIcon?: ReactNode;
+    /** Styles to pass to the icon containers. */
+    iconContainerStyle?: CSSProperties;
 
     /** Props to pass to the title text component */
     titleProps?: TextProps;
     /** Props to pass to the subtitle text component */
     subtitleProps?: TextProps;
+
   }
 
 const SIZES: SizeClasses<{ height: number }> = {
@@ -52,11 +55,13 @@ export const MultipartButton = forwardRef(function MultipartButton(
     color = theme.primaryColor,
     height = SIZES[size].height,
     width = "100%",
+    padding = 0,
 
     title,
     subtitle,
     leftIcon,
     rightIcon = <IconChevronRight opacity={0.5} />,
+    iconContainerStyle,
 
     loading,
 
@@ -71,18 +76,20 @@ export const MultipartButton = forwardRef(function MultipartButton(
   // Styles
   const buttonStyle: CSSProperties = {
     justifyContent: "flex-start",
-    padding: 0,
+    padding: padding,
     paddingLeft: !leftIcon ? theme.sizeClasses.padding[size] : undefined,
     ...style
   }
   const ContainerStyle = css({
     height: "100%",
     width: "fit-content",
-    padding: theme.sizeClasses.padding[size],
+    padding: theme.getSize("padding", size),
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     color: colors.getFgHex(color, variant),
+
+    ...iconContainerStyle
   });
 
 
@@ -98,7 +105,7 @@ export const MultipartButton = forwardRef(function MultipartButton(
       ref={ref}
       {...rest}
     >
-      {leftIcon && <div css={ContainerStyle}>
+      {leftIcon && (<div css={ContainerStyle}>
         {loading ?
           <Loader
             size={size}
@@ -112,7 +119,7 @@ export const MultipartButton = forwardRef(function MultipartButton(
             {leftIcon}
           </Icon>
         }
-      </div>}
+      </div>)}
 
       <Flex
         direction="column"
@@ -129,23 +136,23 @@ export const MultipartButton = forwardRef(function MultipartButton(
         >
           {title}
         </Text>
-        <Text
+        {subtitle && (<Text
           fontSize={theme.sizeClasses.fontSize[size] as number - 2}
           color={colors.getFgHex(color, variant)}
           {...subtitleProps}
         >
           {subtitle}
-        </Text>
+        </Text>)}
       </Flex>
 
-      <div css={ContainerStyle}>
+      {rightIcon && (<div css={ContainerStyle}>
         <Icon
           size={theme.getSize("iconSize", size) as number}
           color={colors.getFgHex(color, variant)}
         >
           {rightIcon}
         </Icon>
-      </div>
+      </div>)}
     </PrimitiveButton>
   )
 });

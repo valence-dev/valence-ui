@@ -13,11 +13,15 @@ export const useNotifications = () => {
 }
 
 export type NotificationsProviderProps = {
+  notificationComponentProps?: INotificationContext["notificationComponentProps"];
   children: ReactNode;
 }
 
 export function NotificationsProvider(props: NotificationsProviderProps) {
-  const { children } = props;
+  const { 
+    notificationComponentProps = NotificationsContextDefaults.notificationComponentProps,
+    children 
+  } = props;
 
   const queue: Notification[] = [];
 
@@ -46,6 +50,7 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
       update,
       remove,
       clear,
+      notificationComponentProps,
     }}>
       {children}
     </NotificationsContext.Provider>

@@ -1,5 +1,5 @@
-import { ComponentSize } from "@valence-ui/utils";
 import { CSSProperties, ReactNode } from "react";
+import { NotificationComponentProps } from "../components";
 
 export type Notification = { 
   /** The title of the notification */
@@ -15,8 +15,6 @@ export type Notification = {
   color?: CSSProperties["color"];
   /** Whether the notification denotes a loading state */
   loading?: boolean;
-  /** The radius of the notification */
-  radius?: ComponentSize;
 
   /** Whether the notification contains a manual close button */
   withCloseButton?: boolean;
@@ -42,6 +40,9 @@ export type INotificationContext = {
 
   /** Clears all notifications from the queue */
   clear: () => void;
+
+  /** Props to pass to the notification component */
+  notificationComponentProps: Omit<NotificationComponentProps, "notification">;
 }
 
 export const NotificationsContextDefaults: INotificationContext = {
@@ -50,4 +51,13 @@ export const NotificationsContextDefaults: INotificationContext = {
   update: () => {},
   remove: () => {},
   clear: () => {},
+  notificationComponentProps: {
+    variant: "filled",
+    height: "fit-content",
+    radius: "lg",
+    style: { gap: 5 },
+    iconContainerStyle: { 
+      padding: 10,
+    }
+  },
 }
