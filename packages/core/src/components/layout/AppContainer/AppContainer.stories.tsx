@@ -47,6 +47,14 @@ export const AppContainer: Story = (args: any) => {
             <StyledFlex height="300vh" width="100%">
               Hi there
             </StyledFlex>
+
+            <Button
+              onClick={() => { sideSheet.update(!sideSheet.opened) }}
+              variant="paper"
+              float={{ positionHorizontal: "right", positionVertical: "bottom" }}
+            >
+              Toggle Side Sheet
+            </Button>
           </FlexCenter>
         </AC>
       </ValenceProvider>
