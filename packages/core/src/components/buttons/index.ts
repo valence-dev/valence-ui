@@ -1,4 +1,5 @@
 export * from "./ButtonWithIcon"
+export * from "./GridButton"
 export * from "./IconButton"
 export * from "./MultipartButton"
 export * from "./PrimitiveButton"
