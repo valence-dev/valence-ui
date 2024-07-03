@@ -9,10 +9,8 @@ export type AppContainerProps =
   GenericLayoutProps
   & PolymorphicLayoutProps
   & {
-    /** The primary root navigation element. This element should be consistent across pages; its recommended to be based off the `<Nav />` component. */
+    /** The primary root navigation element. This element should be consistent across pages; its recommended to be based off the `<AppNav />` component. */
     nav?: ReactNode;
-    /** The  header containing the `<h1>` for this page. */
-    header: ReactNode;
 
     /** Properties to apply to the page container element */
     pageProps?: Omit<GenericLayoutProps, "children">;
@@ -39,7 +37,6 @@ export const AppContainer = forwardRef(function AppContainer(
   // Defaults
   const {
     nav,
-    header,
     pageProps,
 
     contentWidth = 700,
