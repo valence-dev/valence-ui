@@ -24,6 +24,6 @@
   "scripts": {
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "build": "npm run build -w packages/utils && npm run build -w packages/core && npm run build -w packages/carousel && npm run build -w packages/notifications"
+    "build": "npm run build -w packages/utils && npm run build -w packages/core && npm run build -w packages/carousel"
   }
 }
