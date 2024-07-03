@@ -25,11 +25,12 @@ const Grid = forwardRef(function Grid(
 
   // Defaults
   const {
+    rows, columns,
     grid = "auto",
     gap = theme.sizeClasses.padding[theme.defaults.size],
     rowGap, columnGap,
 
-    template, templateRows, templateColumns, templateAreas,
+    template, templateAreas,
     autoRows, autoColumns, autoFlow,
     justifyItems, justifyContent, alignItems, alignContent,
 
@@ -45,6 +46,9 @@ const Grid = forwardRef(function Grid(
     ...rest
   } = useResponsiveProps<GridProps>(props);
 
+  // minmax(0, 1fr) stops bad behavior on webkit browsers
+  const templateRows = typeof rows === "number" ? `repeat(${rows}, 1fr)` : rows ?? "minmax(0, 1fr)";
+  const templateColumns = typeof columns === "number" ? `repeat(${columns}, 1fr)` : columns ?? "minmax(0, 1fr)";
 
   // Styles
   const GridStyle = css({
@@ -57,7 +61,7 @@ const Grid = forwardRef(function Grid(
     columnGap: columnGap,
 
     gridTemplate: template,
-    gridTemplateRows: templateRows,
+    gridTemplateRows: templateRows ,
     gridTemplateColumns: templateColumns,
     gridTemplateAreas: templateAreas,
 
