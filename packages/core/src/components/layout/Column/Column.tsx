@@ -73,10 +73,6 @@ const Container = forwardRef(function ColumnContainer(
     columns = 2,
     rows = 1,
 
-    
-    templateColumns = `repeat(${columns}, 1fr)`,
-    templateRows = `repeat(${rows}, 1fr)`,
-
     color = "black",
     backgroundColor,
     padding,
@@ -102,7 +98,8 @@ const Container = forwardRef(function ColumnContainer(
 
   return (
     <Grid
-      templateColumns={templateColumns}
+      columns={columns}
+      rows={rows}
       style={ContainerStyle}
 
       ref={ref}
