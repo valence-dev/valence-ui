@@ -27,12 +27,12 @@ export const AppContainer: Story = (args: any) => {
     <BrowserRouter>
       <ValenceProvider>
         <AC {...args}>
-          <Header innerWidth={700}>
+          <Header innerWidth="min(100%, 700px)">
             <Title> Page Title </Title>
           </Header>
 
           <FlexCenter
-            innerWidth={700}
+            innerWidth="min(100%, 700px)"
           >
 
             <Button onClick={() => { sideSheet.update(!sideSheet.opened) }}>Toggle Side Sheet</Button>

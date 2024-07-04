@@ -15,9 +15,13 @@ export type FloatingOffset = number | {
   left: CSSProperties["left"];
 }
 export type UseFloatingProps = {
+  /** The horizontal position of the element. */
   positionHorizontal?: PositionHorizontal;
+  /** The vertical position of the element. */
   positionVertical?: PositionVertical;
+  /** The offset of the element. */
   offset?: FloatingOffset;
+  /** Whether to calculate the offset based on the safe area. */
   calculateOffset?: boolean;
 }
 export type UseFloatingOutput = {
