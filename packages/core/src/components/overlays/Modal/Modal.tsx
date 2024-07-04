@@ -97,6 +97,7 @@ export const Modal = forwardRef(function Modal(
   // Styles
   const ContainerStyle = css({
     backgroundColor: getHex(backgroundColor),
+    border: `1px solid ${getHex(color, "weak")}`,
     color: getHex(color),
     padding: padding,
     margin: margin,

@@ -1,1 +1,0 @@
-{"version":3,"file":"PolymorphicText.d.ts","sourceRoot":"","sources":["../../../src/polymorphism/PolymorphicText.tsx"],"names":[],"mappings":";AACA,OAAO,EAA8B,qBAAqB,EAAE,YAAY,EAAE,uBAAuB,EAA0B,MAAM,IAAI,CAAC;AAGtI,MAAM,MAAM,oBAAoB,GAC9B,uBAAuB,GACrB;IACA,oDAAoD;IACpD,GAAG,CAAC,EAAE,GAAG,CAAC;CACX,CAAC;AAOJ,eAAO,MAAM,eAAe;IATxB,oDAAoD;UAC9C,GAAG;qMAsBX,CAAC"}

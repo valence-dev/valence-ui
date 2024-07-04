@@ -1,5 +1,6 @@
 import { forwardRef } from "react";
 import { Flex, FlexProps } from "./Flex";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities";
 
 export type FlexCenterProps =
   FlexProps & {
@@ -11,7 +12,7 @@ export type FlexCenterProps =
   }
 
 export const FlexCenter = forwardRef(function FlexCentre(
-  props: FlexCenterProps,
+  props: MakeResponsive<FlexCenterProps>,
   ref: any
 ) {
   const {
@@ -24,7 +25,7 @@ export const FlexCenter = forwardRef(function FlexCentre(
 
     children,
     ...rest
-  } = props;
+  } = useResponsiveProps<FlexCenterProps>(props);
 
   return (
     <Flex
@@ -38,6 +39,7 @@ export const FlexCenter = forwardRef(function FlexCentre(
       <Flex
         width={innerWidth}
         height="fit-content"
+        direction="column"
         {...innerProps}
       >
         {children}

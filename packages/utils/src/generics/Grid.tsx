@@ -7,6 +7,11 @@ import { GenericLayoutProps } from "./Layout";
 export type GenericGridProps =
   GenericLayoutProps
   & {
+    /** Defines the number of rows, or sets `grid-template-rows` css property */
+    rows?: number | CSSProperties["gridTemplateRows"];
+    /** Defines the number of columns, or sets `grid-template-columns` css property */
+    columns?: number | CSSProperties["gridTemplateColumns"];
+
     /** Sets `grid` css property */
     grid?: CSSProperties["grid"];
 
@@ -19,10 +24,6 @@ export type GenericGridProps =
 
     /** Sets `grid-template` css property */
     template?: CSSProperties["gridTemplate"];
-    /** Sets `grid-template-rows` css property */
-    templateRows?: CSSProperties["gridTemplateRows"];
-    /** Sets `grid-template-columns` css property */
-    templateColumns?: CSSProperties["gridTemplateColumns"];
     /** Sets `grid-template-areas` css property */
     templateAreas?: CSSProperties["gridTemplateAreas"];
 

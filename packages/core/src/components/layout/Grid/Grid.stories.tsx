@@ -33,14 +33,14 @@ const meta: Meta<typeof G> = {
         type: "text"
       }
     },
-    templateRows: {
+    rows: {
       control: {
-        type: "text"
+        type: "number"
       }
     },
-    templateColumns: {
+    columns: {
       control: {
-        type: "text"
+        type: "number"
       }
     },
 
@@ -138,5 +138,6 @@ export const Grid: Story = (args: any) => (
   </ValenceProvider>
 );
 Grid.args = {
-
+  rows: 2,
+  columns: 2,
 }
