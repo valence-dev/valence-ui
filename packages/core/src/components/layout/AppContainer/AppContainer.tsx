@@ -11,13 +11,6 @@ export type AppContainerProps =
   & {
     /** The primary root navigation element. This element should be consistent across pages; its recommended to be based off the `<AppNav />` component. */
     nav?: ReactNode;
-
-    /** Properties to apply to the page container element */
-    pageProps?: Omit<GenericLayoutProps, "children">;
-
-    /** The maximum width of this page's content */
-    contentWidth?: number;
-
     /** Whether to show the nav element. Defaults to `true`. */
     showNav?: boolean;
   }
@@ -37,10 +30,6 @@ export const AppContainer = forwardRef(function AppContainer(
   // Defaults
   const {
     nav,
-    pageProps,
-
-    contentWidth = 700,
-
     showNav = true,
 
     children,
