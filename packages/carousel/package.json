@@ -1,6 +1,6 @@
 {
   "name": "@valence-ui/carousel",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "A custom carousel component built for Valence UI",
   "author": "Isaac Shea <isaac_shea@icloud.com>",
   "license": "MIT",
@@ -25,7 +25,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@tabler/icons-react": "^2.37.0",
-    "@valence-ui/core": "^3.0.0",
+    "@valence-ui/core": "^3.0.1",
     "@valence-ui/utils": "^3.0.0"
   },
   "peerDependencies": {
