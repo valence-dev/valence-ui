@@ -5,6 +5,7 @@ import { useValence } from "../../../ValenceProvider";
 import { css } from "@emotion/react";
 import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
 import { useColors } from "../../../utilities/color";
+import { FlexProps } from "../Flex";
 
 export type GridProps =
   GenericGridProps
@@ -47,8 +48,8 @@ const Grid = forwardRef(function Grid(
   } = useResponsiveProps<GridProps>(props);
 
   // minmax(0, 1fr) stops bad behavior on webkit browsers
-  const templateRows = typeof rows === "number" ? `repeat(${rows}, 1fr)` : rows ?? "minmax(0, 1fr)";
-  const templateColumns = typeof columns === "number" ? `repeat(${columns}, 1fr)` : columns ?? "minmax(0, 1fr)";
+  const templateRows = typeof rows === "number" ? `repeat(${rows}, minmax(0, 1fr))` : rows ?? "minmax(0, 1fr)";
+  const templateColumns = typeof columns === "number" ? `repeat(${columns}, minmax(0, 1fr))` : columns ?? "minmax(0, 1fr)";
 
   // Styles
   const GridStyle = css({

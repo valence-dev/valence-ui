@@ -36,6 +36,7 @@ export const Header = forwardRef(function Header(
       align: align,
       justify: justify,
     },
+    innerWidth = "min(100%, 700px)",
 
     children,
     style,
@@ -61,6 +62,7 @@ export const Header = forwardRef(function Header(
   return (
     <FlexCenter
       height="fit-content"
+      innerWidth={innerWidth}
       style={HeaderStyle}
       ref={ref}
       {...rest}
