@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { forwardRef } from "react";
+import { CSSProperties, forwardRef } from "react";
 import { useReducedMotion } from "framer-motion";
 import { MotionBehaviourProps, getMotionBehaviour } from "../Helpers";
 import { Loader } from "../../display/Loader";
@@ -18,7 +18,9 @@ export type PrimitiveButtonProps =
     motion?: MotionBehaviourProps;
 
     /** Defines floating behavior for this button. */
-    float?: UseFloatingProps;
+    float?: UseFloatingProps & { 
+      position?: CSSProperties["position"];
+    };
   }
 
 export const PrimitiveButton = forwardRef(function PrimitiveButton(
@@ -46,7 +48,7 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
     disabled = false,
     loading = false,
 
-    motion = { onHover: variant === "filled" ? "raise" : undefined, onTap: "bounce" },
+    motion = { onHover: variant === "filled" || variant === "paper" ? "raise" : undefined, onTap: "bounce" },
     float,
 
     color = theme.primaryColor,
@@ -99,7 +101,7 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
     textDecoration: "none",
 
     ...(float ? {
-      position: "fixed",
+      position: float.position ?? "fixed",
       ...floatBehaviour.style
     } : undefined),
 

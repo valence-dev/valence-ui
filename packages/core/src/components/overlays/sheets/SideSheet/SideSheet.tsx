@@ -130,9 +130,9 @@ export const SideSheet = forwardRef(function SideSheet(
     if (!element) return;
 
     if (disclosure.opened && display === "inline") {
-      element.style.paddingRight = `calc(25px + ${width}px)`;
+      element.style.paddingRight = `${width}px`;
     } else {
-      element.style.paddingRight = `10px`;
+      element.style.paddingRight = `0px`;
     }
 
   }, [disclosure.opened])

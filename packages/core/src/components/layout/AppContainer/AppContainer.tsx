@@ -37,25 +37,24 @@ export const AppContainer = forwardRef(function AppContainer(
     ...rest
   } = useResponsiveProps<AppContainerProps>(props);
 
-  const radius = theme.sizeClasses.radius[theme.defaults.radius] as number + 5;
+  const radius = theme.getSize("radius") as number + 10;
 
 
   // Hooks
-  const [leftRef, { width: leftWidth }] = useElementSize();
+  const [leftRef, { width: leftWidth, height: leftHeight }] = useElementSize();
 
 
   // Styles
-  const pageContainerStyle: Responsive<CSSProperties> = {
-    default: { 
+  const rootContentStyle: Responsive<CSSProperties> = {
+    default: {
       transition: `padding-right 0.3s ease-in-out`,
-      paddingBottom: 200,
-      paddingLeft: leftWidth + 10,
-      paddingRight: 10,
+      paddingLeft: leftWidth ?? 0,
+      height: "100vh",
+      position: "relative",
     },
-    mobile: { 
-      paddingLeft: 10,
-      paddingRight: 10,
-      paddingBottom: 200,
+    mobile: {
+      height: `calc(100vh - ${leftHeight}px)`,
+      position: "relative",
     }
   }
 
@@ -74,19 +73,29 @@ export const AppContainer = forwardRef(function AppContainer(
       zIndex: 999,
     },
     ...style,
-  };
-  const cornerStyle: Responsive<CSSProperties> = {
+  }
+
+  const contentContainerContainerStyle: CSSProperties = {   // Lmao
+    height: "100%",
+    width: "100%",
+    backgroundColor: getHex("primary"),
+  }
+  const contentContainerStyle: Responsive<CSSProperties> = {
     default: {
-      width: radius,
       height: "100%",
+      width: "100%",
+      position: "relative",
       borderRadius: `${radius}px 0px 0px ${radius}px`,
       backgroundColor: getHex("white"),
+      overflow: "hidden",
     },
     mobile: {
-      height: radius,
+      height: "100%",
       width: "100%",
-      borderRadius: showNav ? `0px 0px ${radius}px ${radius}px` : 0,
+      position: "relative",
       backgroundColor: getHex("white"),
+      borderRadius: showNav ? `0px 0px ${radius}px ${radius}px` : 0,
+      overflow: "hidden",
     }
   }
 
@@ -95,26 +104,27 @@ export const AppContainer = forwardRef(function AppContainer(
     <>
       <div
         id="root-content"
-        style={useResponsiveProps(pageContainerStyle)}
+        style={useResponsiveProps(rootContentStyle)}
       >
         {/* Nav */}
         <Flex
           direction={{ default: "row", mobile: "column-reverse" }}
           backgroundColor="primary"
           style={navContainerStyle}
-          gap={0}
 
           ref={leftRef}
           {...rest}
         >
           {/* Nav */}
           {showNav && nav}
-
-          <Flex style={cornerStyle} />
         </Flex>
 
         {/* Content */}
-        {children}
+        <Flex style={contentContainerContainerStyle}>
+          <Flex direction="column" style={contentContainerStyle}>
+            {children}
+          </Flex>
+        </Flex>
       </div>
     </>
   )
