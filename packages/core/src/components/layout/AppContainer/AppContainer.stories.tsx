@@ -6,7 +6,7 @@ import { AppNav } from "../../navigation";
 import { IconBolt, IconCategory, IconLogout, IconUserCircle } from "@tabler/icons-react";
 import { BrowserRouter } from "react-router-dom";
 import { SideSheet } from "../../overlays";
-import { FlexCenter, Header, StyledFlex } from "..";
+import { Header, PageContainer, StyledFlex } from "..";
 import { ValenceProvider } from "../../../ValenceProvider";
 import { Title } from "../../display";
 import { Button } from "../../buttons";
@@ -27,14 +27,26 @@ export const AppContainer: Story = (args: any) => {
     <BrowserRouter>
       <ValenceProvider>
         <AC {...args}>
-          <Header innerWidth="min(100%, 700px)">
-            <Title> Page Title </Title>
-          </Header>
 
-          <FlexCenter
-            innerWidth="min(100%, 700px)"
+          <Button
+            onClick={() => { sideSheet.update(!sideSheet.opened) }}
+            variant="paper"
+            float={{
+              position: "absolute",
+              positionHorizontal: "right",
+              positionVertical: "bottom"
+            }}
           >
+            Toggle Side Sheet
+          </Button>
 
+          <PageContainer
+            exemptContent={
+              <Header innerWidth="min(100%, 700px)">
+                <Title> Page Title </Title>
+              </Header>
+            }
+          >
             <Button onClick={() => { sideSheet.update(!sideSheet.opened) }}>Toggle Side Sheet</Button>
 
             <SideSheet
@@ -47,15 +59,7 @@ export const AppContainer: Story = (args: any) => {
             <StyledFlex height="300vh" width="100%">
               Hi there
             </StyledFlex>
-
-            <Button
-              onClick={() => { sideSheet.update(!sideSheet.opened) }}
-              variant="paper"
-              float={{ positionHorizontal: "right", positionVertical: "bottom" }}
-            >
-              Toggle Side Sheet
-            </Button>
-          </FlexCenter>
+          </PageContainer>
         </AC>
       </ValenceProvider>
     </BrowserRouter>

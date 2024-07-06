@@ -41,21 +41,19 @@ export const AppContainer = forwardRef(function AppContainer(
 
 
   // Hooks
-  const [leftRef, { width: leftWidth }] = useElementSize();
+  const [leftRef, { width: leftWidth, height: leftHeight }] = useElementSize();
 
 
   // Styles
   const pageContainerStyle: Responsive<CSSProperties> = {
-    default: { 
+    default: {
       transition: `padding-right 0.3s ease-in-out`,
-      paddingBottom: 200,
-      paddingLeft: leftWidth + 10,
-      paddingRight: 10,
+      paddingLeft: leftWidth ?? 0,
+      height: "100vh",
+      position: "relative",
     },
-    mobile: { 
-      paddingLeft: 10,
-      paddingRight: 10,
-      paddingBottom: 200,
+    mobile: {
+      height: `calc(100vh - ${leftHeight}px)`,
     }
   }
 
@@ -90,6 +88,12 @@ export const AppContainer = forwardRef(function AppContainer(
     }
   }
 
+  const contentContainerStyle: Responsive<CSSProperties> = {
+    height: "100%",
+    width: "100%",
+    position: "relative",
+  }
+
 
   return (
     <>
@@ -114,7 +118,9 @@ export const AppContainer = forwardRef(function AppContainer(
         </Flex>
 
         {/* Content */}
-        {children}
+        <Flex style={contentContainerStyle}>
+          {children}
+        </Flex>
       </div>
     </>
   )

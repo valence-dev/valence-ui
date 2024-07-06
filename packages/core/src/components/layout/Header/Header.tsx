@@ -35,6 +35,7 @@ export const Header = forwardRef(function Header(
       direction: direction,
       align: align,
       justify: justify,
+      margin: "0 10px",
     },
     innerWidth = "min(100%, 700px)",
 
