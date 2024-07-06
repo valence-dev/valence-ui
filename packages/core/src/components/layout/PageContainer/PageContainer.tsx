@@ -24,15 +24,10 @@ export const PageContainer = forwardRef(function PageContainer(
     ...rest
   } = useResponsiveProps<PageContainerType>(props);
   const { 
-    style: innerStyle = useResponsiveProps<CSSProperties>({
-      default: { 
-        paddingRight: 10
-      },
-      mobile: {
-        paddingRight: 10,
-        paddingLeft: 10,
-      }
-    }),
+    style: innerStyle = {
+      paddingRight: 10,
+      paddingLeft: 10,
+    },
     ...innerRest
   } = innerProps || {};
   const {

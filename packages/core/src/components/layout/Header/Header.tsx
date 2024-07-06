@@ -1,6 +1,6 @@
 import { CSSProperties, forwardRef } from "react";
 import { FlexCenter, FlexCenterProps } from "../Flex";
-import { MakeResponsive, useColors, useResponsiveProps } from "../../..";
+import { MakeResponsive, useColors, useResponsiveProps, useValence } from "../../..";
 
 export type HeaderProps = FlexCenterProps & {
   /** Defines the position of this header. */
@@ -17,6 +17,7 @@ export const Header = forwardRef(function Header(
   ref: any
 ) {
   const { getHex } = useColors();
+  const theme = useValence();
 
 
   // Defaults
@@ -55,6 +56,8 @@ export const Header = forwardRef(function Header(
     width: "100%",
     margin: margin,
     paddingTop: "env(safe-area-inset-top)",
+
+    borderRadius: theme.getSize("radius") as number + 10,
 
     ...style
   };
