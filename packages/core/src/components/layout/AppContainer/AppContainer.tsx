@@ -121,7 +121,7 @@ export const AppContainer = forwardRef(function AppContainer(
 
         {/* Content */}
         <Flex style={contentContainerContainerStyle}>
-          <Flex style={contentContainerStyle}>
+          <Flex direction="column" style={contentContainerStyle}>
             {children}
           </Flex>
         </Flex>
