@@ -42,7 +42,7 @@ export const AppContainer: Story = (args: any) => {
 
           <PageContainer
             exemptContent={
-              <Header innerWidth="min(100%, 700px)">
+              <Header>
                 <Title> Page Title </Title>
               </Header>
             }

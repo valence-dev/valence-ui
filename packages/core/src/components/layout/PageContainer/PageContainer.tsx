@@ -23,17 +23,21 @@ export const PageContainer = forwardRef(function PageContainer(
     overflowContainerProps,
     ...rest
   } = useResponsiveProps<PageContainerType>(props);
-  const { 
+  const {
     style: innerStyle = {
-      paddingRight: 10,
-      paddingLeft: 10,
+      marginLeft: 10,
+      marginRight: 10,
     },
+    gap: innerGap = 10,
     ...innerRest
   } = innerProps || {};
   const {
     direction: ocDirection = "vertical",
     height: ocHeight = "100%",
-    innerProps: ocInnerProps = { style: { paddingBottom: 200 } },
+    innerProps: ocInnerProps = {
+      style: { paddingBottom: 200 },
+      gap: 10,
+    },
     ...overflowRest
   } = overflowContainerProps || {};
 
@@ -54,6 +58,7 @@ export const PageContainer = forwardRef(function PageContainer(
         innerWidth={innerWidth}
         innerProps={{
           style: innerStyle,
+          gap: innerGap,
           ...innerRest
         }}
         {...rest}
