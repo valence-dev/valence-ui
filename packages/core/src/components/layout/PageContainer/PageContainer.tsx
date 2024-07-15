@@ -1,4 +1,4 @@
-import { CSSProperties, forwardRef, ReactNode } from "react"
+import { forwardRef, ReactNode } from "react"
 import { OverflowContainer, OverflowContainerProps } from "../OverflowContainer";
 import { FlexCenter, FlexCenterProps } from "../Flex";
 import { MakeResponsive, useResponsiveProps } from "../../../utilities";
@@ -23,14 +23,6 @@ export const PageContainer = forwardRef(function PageContainer(
     overflowContainerProps,
     ...rest
   } = useResponsiveProps<PageContainerType>(props);
-  const {
-    style: innerStyle = {
-      marginLeft: 20,
-      marginRight: 20,
-    },
-    gap: innerGap = 10,
-    ...innerRest
-  } = innerProps || {};
   const {
     direction: ocDirection = "vertical",
     height: ocHeight = "100%",
@@ -57,9 +49,22 @@ export const PageContainer = forwardRef(function PageContainer(
         height="100%"
         innerWidth={innerWidth}
         innerProps={{
-          style: innerStyle,
-          gap: innerGap,
-          ...innerRest
+          default: {
+            style: {
+              marginLeft: 20,
+              marginRight: 20,
+            },
+            gap: 10,
+            ...innerProps
+          },
+          mobile: { 
+            style: {
+              paddingLeft: 20,
+              paddingRight: 20,
+            },
+            gap: 10,
+            ...innerProps
+          }
         }}
         {...rest}
       >
