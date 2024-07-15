@@ -25,8 +25,8 @@ export const PageContainer = forwardRef(function PageContainer(
   } = useResponsiveProps<PageContainerType>(props);
   const {
     style: innerStyle = {
-      marginLeft: 10,
-      marginRight: 10,
+      marginLeft: 20,
+      marginRight: 20,
     },
     gap: innerGap = 10,
     ...innerRest
