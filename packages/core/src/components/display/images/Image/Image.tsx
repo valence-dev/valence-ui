@@ -109,6 +109,7 @@ export const Image = forwardRef(function Image(
           css={ImageStyle}
           src={src as string}
           alt={alt}
+          draggable={false}
 
           ref={ref}
           {...rest}
