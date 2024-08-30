@@ -34,8 +34,7 @@ export function useColorScheme(): UseColorSchemeOutput {
   // Update darkMode if os prefers changes
   useUpdateEffect(() => {
     setColorScheme(getColorScheme());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDarkOS, theme.preferredColorScheme])
+  }, [isDarkOS, theme.preferredColorScheme, getColorScheme]);
 
   return {
     colorScheme: colorScheme,
