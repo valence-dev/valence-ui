@@ -27,8 +27,9 @@ export function useColorScheme(): UseColorSchemeOutput {
   const [colorScheme, setColorScheme] = useState<ColorScheme>(getColorScheme());
 
   function getColorScheme(): ColorScheme {
-    if (theme.preferredColorScheme === "system") return isDarkOS ? "dark" : "light";
-    return theme.preferredColorScheme;
+    // if (theme.preferredColorScheme === "system") return isDarkOS ? "dark" : "light";
+    // return theme.preferredColorScheme;
+    return isDarkOS ? "dark" : "light";
   }
 
   // Update darkMode if os prefers changes
