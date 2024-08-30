@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { useMediaQuery, useUpdateEffect } from 'usehooks-ts'
+import { useEffect, useState } from 'react'
+import { useMediaQuery } from 'usehooks-ts'
 import { useValence } from '../ValenceProvider';
 
 const COLOR_SCHEME_QUERY = '(prefers-color-scheme: dark)'
@@ -27,13 +27,12 @@ export function useColorScheme(): UseColorSchemeOutput {
   const [colorScheme, setColorScheme] = useState<ColorScheme>(getColorScheme());
 
   function getColorScheme(): ColorScheme {
-    // if (theme.preferredColorScheme === "system") return isDarkOS ? "dark" : "light";
-    // return theme.preferredColorScheme;
-    return isDarkOS ? "dark" : "light";
+    if (theme.preferredColorScheme === "system") return isDarkOS ? "dark" : "light";
+    return theme.preferredColorScheme;
   }
 
   // Update darkMode if os prefers changes
-  useUpdateEffect(() => {
+  useEffect(() => {
     setColorScheme(getColorScheme());
   }, [isDarkOS, theme.preferredColorScheme, getColorScheme]);
 
