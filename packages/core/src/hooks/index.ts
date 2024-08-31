@@ -7,3 +7,4 @@ export * from "./UseFloating";
 export * from "./UseLockScroll";
 export * from "./UseTooltip";
 export * from "./UseWindowSize";
+export * from "./UseWindowTitle";
