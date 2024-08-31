@@ -1,9 +1,9 @@
 import { CSSProperties, ReactNode, forwardRef, useContext } from "react";
 import { GenericLayoutProps, PolymorphicLayoutProps } from "@valence-ui/utils";
-import { useElementSize } from "usehooks-ts";
 import { Flex } from "../Flex";
 import { MakeResponsive, Responsive, useColors, useResponsiveProps } from "../../../utilities";
 import { ValenceContext } from "../../../ValenceProvider";
+import { useElementSize } from "../../../hooks";
 
 export type AppContainerProps =
   GenericLayoutProps
@@ -41,7 +41,7 @@ export const AppContainer = forwardRef(function AppContainer(
 
 
   // Hooks
-  const [leftRef, { width: leftWidth, height: leftHeight }] = useElementSize();
+  const { ref: leftRef, width: leftWidth, height: leftHeight } = useElementSize();
 
 
   // Styles

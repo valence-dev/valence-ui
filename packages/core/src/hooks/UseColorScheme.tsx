@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { useMediaQuery } from 'usehooks-ts'
 import { useValence } from '../ValenceProvider';
 
 const COLOR_SCHEME_QUERY = '(prefers-color-scheme: dark)'
@@ -22,19 +21,18 @@ export type UseColorSchemeOutput = {
  * @returns An object containing the current color scheme, whether it's dark or light mode, and functions to toggle between them.
  */
 export function useColorScheme(): UseColorSchemeOutput {
-  const isDarkOS = useMediaQuery(COLOR_SCHEME_QUERY);
   const theme = useValence();
-  const [colorScheme, setColorScheme] = useState<ColorScheme>(getColorScheme());
+  const getCurrentTheme = () => window.matchMedia(COLOR_SCHEME_QUERY).matches;
+  const [isDarkTheme, setIsDarkTheme] = useState(getCurrentTheme());
+  const mqListener = (e: MediaQueryListEvent) => setIsDarkTheme(e.matches);
 
-  function getColorScheme(): ColorScheme {
-    if (theme.preferredColorScheme === "system") return isDarkOS ? "dark" : "light";
-    return theme.preferredColorScheme;
-  }
-
-  // Update darkMode if os prefers changes
   useEffect(() => {
-    setColorScheme(getColorScheme());
-  }, [isDarkOS, theme.preferredColorScheme, getColorScheme]);
+    const mq = window.matchMedia(COLOR_SCHEME_QUERY);
+    mq.addEventListener("change", mqListener);
+    return () => mq.removeEventListener("change", mqListener);
+  }, []);
+
+  const colorScheme = theme.preferredColorScheme !== "system" ? theme.preferredColorScheme : isDarkTheme ? "dark" : "light";
 
   return {
     colorScheme: colorScheme,

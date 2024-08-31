@@ -3,7 +3,6 @@ import { css } from "@emotion/react";
 import { GenericOverlayHeaderProps, } from "@valence-ui/utils";
 import { useContext, forwardRef, CSSProperties } from "react";
 import { AnimatePresence, motion, useDragControls } from "framer-motion";
-import { useLockedBody } from "usehooks-ts";
 import { GenericSheetProps } from "../Generics";
 import { FloatingFocusManager, useFloating, useId, useInteractions, useRole } from "@floating-ui/react";
 import { MakeResponsive, useColors, useResponsiveProps } from "../../../../utilities";
@@ -12,6 +11,7 @@ import { ValenceContext } from "../../../../ValenceProvider";
 import { DefaultModalHeader } from "../../Modal";
 import { useDetectKeyDown } from "../../../../hooks";
 import { ModalBackground } from "../../ModalBackground";
+import { useLockScroll } from "../../../../hooks/UseLockScroll";
 
 export type BottomSheetProps = GenericSheetProps & {
   /** The offset the sheet must be from its original position before it will close. Defaults to 50% of the viewport height */
@@ -152,7 +152,7 @@ export const BottomSheet = forwardRef(function BottomSheet(
   }
 
   // Hooks
-  useLockedBody(disclosure.opened && lockScroll, "root");
+  useLockScroll(disclosure.opened && lockScroll);
   useDetectKeyDown(disclosure.close, "Escape", closeOnEscape, [closeOnEscape, close]);
 
 

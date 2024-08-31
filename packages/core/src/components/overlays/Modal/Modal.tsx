@@ -9,7 +9,7 @@ import { GenericOverlayHeaderProps, GenericOverlayProps } from "@valence-ui/util
 import { IconButton } from "../../buttons";
 import { css } from "@emotion/react";
 import { FloatingFocusManager, useFloating, useId, useInteractions, useRole } from "@floating-ui/react";
-import { useLockedBody } from "usehooks-ts";
+import { useLockScroll } from "../../../hooks/UseLockScroll";
 
 export type ModalProps =
   GenericOverlayProps
@@ -72,7 +72,7 @@ export const Modal = forwardRef(function Modal(
 
 
   // Hooks
-  useLockedBody(disclosure.opened && lockScroll, "root");
+  useLockScroll(disclosure.opened && lockScroll);
   useDetectKeyDown(() => disclosure.close(), "Escape", closeOnEscape && disclosure.opened);
 
 
