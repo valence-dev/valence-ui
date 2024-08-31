@@ -1,7 +1,6 @@
 import { CSSProperties, ReactNode, forwardRef, useContext, useEffect } from "react";
 import { GenericSheetProps } from "../Generics";
 import { GenericOverlayBackgroundProps, GenericOverlayHeaderProps } from "@valence-ui/utils";
-import { useLockedBody } from "usehooks-ts";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
 import { Flex, FlexProps, OverflowContainer } from "../../../layout";
@@ -10,6 +9,7 @@ import { ValenceContext } from "../../../../ValenceProvider";
 import { DefaultModalHeader } from "../../Modal";
 import { Disclosure, useDetectKeyDown } from "../../../../hooks";
 import { ModalBackground } from "../../ModalBackground";
+import { useLockScroll } from "../../../../hooks/UseLockScroll";
 
 export type SideSheetDisplay = "inline" | "overlay";
 
@@ -118,7 +118,7 @@ export const SideSheet = forwardRef(function SideSheet(
 
 
   // Hooks
-  useLockedBody(disclosure.opened && lockScroll && display === "overlay", "root");
+  useLockScroll(disclosure.opened && lockScroll && display === "overlay");
   useDetectKeyDown(disclosure.close, "Escape", closeOnEscape, [closeOnEscape, close]);
 
 

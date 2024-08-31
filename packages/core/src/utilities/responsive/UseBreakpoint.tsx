@@ -1,5 +1,5 @@
+import { useWindowSize } from "../../hooks";
 import { useValence } from "../../ValenceProvider";
-import { useWindowSize } from "usehooks-ts";
 
 export type Breakpoint = { 
   isMobile: boolean;

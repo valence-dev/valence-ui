@@ -83,6 +83,7 @@ export const NumberInput = forwardRef(function NumberInput(
 
     onEnterPress,
     onKeyPress,
+    onBlur,
 
     inputStyle,
     style,
@@ -133,6 +134,10 @@ export const NumberInput = forwardRef(function NumberInput(
     if (e.key === "Enter") onEnterPress?.(e);
     // Call onKeyPress on any key
     onKeyPress?.(e);
+  }
+  function handleBlur(e: any) {
+    setValue(Math.min(Math.max(parseFloat(e.target.value), min ?? -Infinity), max ?? Infinity));
+    onBlur?.(e);
   }
 
 
@@ -194,7 +199,7 @@ export const NumberInput = forwardRef(function NumberInput(
         css={InputStyle}
         value={value}
         onChange={e => setValue(parseFloat(e.target.value))}
-        onBlur={e => setValue(Math.min(Math.max(parseFloat(e.target.value), min ?? -Infinity), max ?? Infinity))}
+        onBlur={handleBlur}
 
         type="number"
         min={min}
