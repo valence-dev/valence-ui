@@ -16,6 +16,9 @@ export type OverflowContainerProps = GenericProps & {
   /** The height of the container. */
   height?: CSSProperties["height"];
 
+  /** Whether to show the scrollbar. Defaults to `true`. */
+  showScrollbar?: boolean;
+
   /** Optional props to pass to the inner flex component. */
   innerProps?: FlexProps;
 }
@@ -29,6 +32,7 @@ export const OverflowContainer = forwardRef(function OverflowContainer(
     direction = "vertical",
     width = "100%",
     height = "100%",
+    showScrollbar = true,
     innerProps,
 
     children,
@@ -55,6 +59,13 @@ export const OverflowContainer = forwardRef(function OverflowContainer(
     } : {
       overflow: "hidden",
       touchAction: "none",
+    }),
+
+    ...(showScrollbar ? {} : {
+      scrollbarWidth: "none",
+      "::-webkit-scrollbar": {
+        display: "none",
+      },
     }),
 
     ...style,

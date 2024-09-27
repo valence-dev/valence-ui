@@ -111,8 +111,7 @@ export const Pill = forwardRef(function Pill(
   // Events
   const handleClick = (e: any) => {
     e.stopPropagation();
-    if (!withRemoveButton) return;
-    onRemove?.();
+    if (withRemoveButton) onRemove?.();
     onClick?.(e);
   }
 

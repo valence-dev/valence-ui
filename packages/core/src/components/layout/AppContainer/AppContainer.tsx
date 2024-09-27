@@ -94,7 +94,7 @@ export const AppContainer = forwardRef(function AppContainer(
       width: "100%",
       position: "relative",
       backgroundColor: getHex("white"),
-      borderRadius: showNav ? `0px 0px ${radius}px ${radius}px` : 0,
+      borderRadius: showNav ? `0px 0px ${radius + 10}px ${radius + 10}px` : 0,
       overflow: "hidden",
     }
   }
@@ -107,17 +107,19 @@ export const AppContainer = forwardRef(function AppContainer(
         style={useResponsiveProps(rootContentStyle)}
       >
         {/* Nav */}
-        <Flex
-          direction={{ default: "row", mobile: "column-reverse" }}
-          backgroundColor="primary"
-          style={navContainerStyle}
+        {showNav && (
+          <Flex
+            direction={{ default: "row", mobile: "column-reverse" }}
+            backgroundColor="primary"
+            style={navContainerStyle}
 
-          ref={leftRef}
-          {...rest}
-        >
-          {/* Nav */}
-          {showNav && nav}
-        </Flex>
+            ref={leftRef}
+            {...rest}
+          >
+            {/* Nav */}
+            {nav}
+          </Flex>
+        )}
 
         {/* Content */}
         <Flex style={contentContainerContainerStyle}>
