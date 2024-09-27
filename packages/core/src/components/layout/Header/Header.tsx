@@ -27,16 +27,25 @@ export const Header = forwardRef(function Header(
     direction = "row",
     align = "center",
     justify = "space-between",
-    
+
     margin = "30px 0",
     backgroundColor = "white",
 
-    innerProps = { 
-      height: height,
-      direction: direction,
-      align: align,
-      justify: justify,
-      margin: "0 20px",
+    innerProps = {
+      default: {
+        height: height,
+        direction: direction,
+        align: align,
+        justify: justify,
+        margin: "0 20px",
+      },
+      mobile: { 
+        height: height,
+        direction: direction,
+        align: align,
+        justify: justify,
+        margin: "0 15px",
+      }
     },
     innerWidth = "min(100%, 700px)",
 

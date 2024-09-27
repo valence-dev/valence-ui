@@ -53,7 +53,7 @@ export const AppContainer = forwardRef(function AppContainer(
       position: "relative",
     },
     mobile: {
-      height: showNav ? `calc(100vh - ${leftHeight}px)` : "100vh",
+      height: showNav ? `calc(100vh - ${leftHeight}px - var(--safe-area-inset-bottom))` : "100vh",
       position: "relative",
     }
   }

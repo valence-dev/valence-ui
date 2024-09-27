@@ -59,8 +59,8 @@ export const PageContainer = forwardRef(function PageContainer(
           },
           mobile: { 
             style: {
-              paddingLeft: 20,
-              paddingRight: 20,
+              paddingLeft: 15,
+              paddingRight: 15,
             },
             gap: 10,
             ...innerProps

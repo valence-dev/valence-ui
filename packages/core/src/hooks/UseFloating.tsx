@@ -65,7 +65,7 @@ export function useFloating(props: MakeResponsive<UseFloatingProps>): UseFloatin
   const {
     positionHorizontal = "left",
     positionVertical = "top",
-    offset = 20,
+    offset = 15,
     calculateOffset = true,
   } = useResponsiveProps<UseFloatingProps>(props);
 
