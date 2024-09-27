@@ -11,6 +11,13 @@ export function CssOverride() {
   const { getHex } = useColors();
 
   const Style = css({
+    ":root": { 
+      "--safe-area-inset-top": "env(safe-area-inset-top)",
+      "--safe-area-inset-right": "env(safe-area-inset-right)",
+      "--safe-area-inset-bottom": "env(safe-area-inset-bottom)",
+      "--safe-area-inset-left": "env(safe-area-inset-left)",
+    },
+
     "body": {
       margin: 0,
       width: "100vw",

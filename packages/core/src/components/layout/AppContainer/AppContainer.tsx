@@ -71,6 +71,7 @@ export const AppContainer = forwardRef(function AppContainer(
       right: 0,
       width: "100vw",
       zIndex: 999,
+      paddingBottom: "var(--safe-area-inset-bottom)",
     },
     ...style,
   }

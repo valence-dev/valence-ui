@@ -55,7 +55,7 @@ export const Header = forwardRef(function Header(
     zIndex: 150,
     width: "100%",
     margin: margin,
-    paddingTop: "env(safe-area-inset-top)",
+    paddingTop: "var(--safe-area-inset-top)",
 
     borderRadius: theme.getSize("radius") as number + 10,
 

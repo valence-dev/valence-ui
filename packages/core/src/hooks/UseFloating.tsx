@@ -83,10 +83,10 @@ export function useFloating(props: MakeResponsive<UseFloatingProps>): UseFloatin
   offsetBottom = getOffset(offset, "bottom")
 
   if (calculateOffset) {
-    offsetTop = `calc(env(safe-area-inset-top) + ${offsetTop})`;
-    offsetRight = `calc(env(safe-area-inset-right) + ${offsetRight})`;
-    offsetBottom = `calc(env(safe-area-inset-bottom) + ${offsetBottom})`;
-    offsetLeft = `calc(env(safe-area-inset-left) + ${offsetLeft})`;
+    offsetTop = `calc(var(--safe-area-inset-top) + ${offsetTop})`;
+    offsetRight = `calc(var(--safe-area-inset-right) + ${offsetRight})`;
+    offsetBottom = `calc(var(--safe-area-inset-bottom) + ${offsetBottom})`;
+    offsetLeft = `calc(var(--safe-area-inset-left) + ${offsetLeft})`;
   }
 
   // Calculate transform
