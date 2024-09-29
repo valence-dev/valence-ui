@@ -41,20 +41,26 @@ export const AppContainer = forwardRef(function AppContainer(
 
 
   // Hooks
-  const { ref: leftRef, width: leftWidth, height: leftHeight } = useElementSize();
+  const { ref: navRef, width: navWidth, height: navHeight } = useElementSize();
 
 
   // Styles
   const rootContentStyle: Responsive<CSSProperties> = {
     default: {
+      position: "fixed",
+      top: 0,
+      left: navWidth ?? 0,
+      right: 0,
+      bottom: 0,
       transition: `padding-right 0.3s ease-in-out`,
-      paddingLeft: leftWidth ?? 0,
-      height: "100vh",
-      position: "relative",
     },
     mobile: {
-      height: showNav ? `calc(100vh - ${leftHeight}px - var(--safe-area-inset-bottom))` : "100vh",
-      position: "relative",
+      position: "fixed",
+      top: 0,
+      left: 0,
+      right: 0,
+      width: "100vw",
+      bottom: navHeight ?? 0,
     }
   }
 
@@ -114,7 +120,7 @@ export const AppContainer = forwardRef(function AppContainer(
             backgroundColor="primary"
             style={navContainerStyle}
 
-            ref={leftRef}
+            ref={navRef}
             {...rest}
           >
             {/* Nav */}

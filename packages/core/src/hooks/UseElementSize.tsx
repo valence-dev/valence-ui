@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useState } from "react";
+import { RefObject, useEffect, useState, useRef } from "react";
 
 export type UseElementSizeOutput = {
   /** A ref object that should be attached to the element you want to measure. */
@@ -14,7 +14,7 @@ export type UseElementSizeOutput = {
  * @returns An object containing the ref object and the current width and height of the element.
  */
 export function useElementSize(): UseElementSizeOutput {
-  const ref = { current: null as HTMLElement | null };
+  const ref = useRef<HTMLElement>(null);
   const [size, setSize] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
