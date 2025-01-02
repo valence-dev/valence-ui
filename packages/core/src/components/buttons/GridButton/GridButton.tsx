@@ -85,6 +85,7 @@ export const GridButton = forwardRef(function GridButton(
         fontSize={theme.sizeClasses.fontSize[size] as number * 0.8}
         color={getFgHex(color, variant)}
         align="center"
+        maxLines={1}
         {...textProps}
       >
         {children}
