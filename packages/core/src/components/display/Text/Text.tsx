@@ -37,7 +37,7 @@ export type TextProps =
     size?: ComponentSize;
     /** Sets `color` css property */
     color?: CSSProperties["color"];
-    
+
     /** Shorthand for `font-style: italic` */
     italic?: boolean;
     /** Shorthand for `font-weight: 800` */
@@ -49,6 +49,9 @@ export type TextProps =
     highlightColor?: CSSProperties["color"];
     /** Optional styles to pass to highlighted sections */
     highlightStyle?: CSSProperties;
+
+    /** Sets the number of lines to display before truncating with an ellipsis */
+    maxLines?: number;
   }
 
 
@@ -95,6 +98,8 @@ export const Text = forwardRef(function Text(
 
     highlightColor = "primary",
     highlightStyle,
+
+    maxLines,
 
     children,
     style,
@@ -173,6 +178,13 @@ export const Text = forwardRef(function Text(
 
     color: colors.getHex(color),
     margin: 0,
+
+    ...(maxLines ? {
+      display: "-webkit-box",
+      WebkitBoxOrient: "vertical",
+      overflow: "hidden",
+      WebkitLineClamp: maxLines,
+    } : {}),
 
     ...style,
   });

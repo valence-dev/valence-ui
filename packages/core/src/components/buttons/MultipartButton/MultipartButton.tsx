@@ -132,6 +132,7 @@ export const MultipartButton = forwardRef(function MultipartButton(
           size={size}
           color={colors.getFgHex(color, variant)}
           bold
+          maxLines={1}
           {...titleProps}
         >
           {title}
@@ -139,6 +140,7 @@ export const MultipartButton = forwardRef(function MultipartButton(
         {subtitle && (<Text
           fontSize={theme.sizeClasses.fontSize[size] as number - 2}
           color={colors.getFgHex(color, variant)}
+          maxLines={1}
           {...subtitleProps}
         >
           {subtitle}
