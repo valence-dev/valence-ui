@@ -13,23 +13,18 @@ const meta: Meta<typeof NI> = {
 export default meta;
 type Story = StoryObj<typeof NI>;
 
-
 export const NumberInput: Story = (args: any) => {
   const [value, setValue] = React.useState(0);
 
   return (
     <ValenceProvider>
       <FlexCenter>
-        <NI
-          {...args}
-          value={value}
-          setValue={setValue}
-        />
+        <NI {...args} value={value} setValue={setValue} />
       </FlexCenter>
     </ValenceProvider>
   );
-}
+};
 NumberInput.args = {
   placeholder: "Type a number...",
   icon: <IconNumber />,
-}
+};

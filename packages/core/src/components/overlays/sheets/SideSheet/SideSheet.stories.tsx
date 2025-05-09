@@ -20,19 +20,13 @@ export const SideSheet: Story = (args: any) => {
     <ValenceProvider>
       <Button onClick={() => disclosure.open()}>Open Side Sheet</Button>
 
-      <SS
-        disclosure={disclosure}
-        {...args}
-      >
-        <StyledFlex
-          width="100%"
-          height="200vh"
-        >
+      <SS disclosure={disclosure} {...args}>
+        <StyledFlex width="100%" height="200vh">
           Hi
         </StyledFlex>
       </SS>
     </ValenceProvider>
-  )
+  );
 };
 SideSheet.args = {
   title: "Side Sheet title",

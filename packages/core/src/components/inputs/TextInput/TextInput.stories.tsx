@@ -13,7 +13,6 @@ const meta: Meta<typeof TI> = {
 export default meta;
 type Story = StoryObj<typeof TI>;
 
-
 export const TextInput: Story = (args: any) => {
   const [value, setValue] = React.useState("");
 
@@ -40,8 +39,8 @@ export const TextInput: Story = (args: any) => {
       </FlexCenter>
     </ValenceProvider>
   );
-}
+};
 TextInput.args = {
   placeholder: "Placeholder...",
   icon: <IconSearch />,
-}
+};

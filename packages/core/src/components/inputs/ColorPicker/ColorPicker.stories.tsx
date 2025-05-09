@@ -6,8 +6,7 @@ import { FlexCenter, ValenceProvider } from "../../..";
 const meta: Meta<typeof CP> = {
   component: CP,
   title: "Valence/Core/Inputs",
-  argTypes: {
-  }
+  argTypes: {},
 };
 export default meta;
 type Story = StoryObj<typeof CP>;
@@ -18,14 +17,9 @@ export const ColorPicker: Story = (args: any) => {
   return (
     <ValenceProvider>
       <FlexCenter height="100vh">
-        <CP
-          {...args}
-          value={color}
-          setValue={setColor}
-        />
+        <CP {...args} value={color} setValue={setColor} />
       </FlexCenter>
     </ValenceProvider>
-  )
+  );
 };
-ColorPicker.args = {
-}
+ColorPicker.args = {};

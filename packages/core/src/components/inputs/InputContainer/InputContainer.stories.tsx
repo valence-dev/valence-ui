@@ -13,7 +13,6 @@ const meta: Meta<typeof IC> = {
 export default meta;
 type Story = StoryObj<typeof IC>;
 
-
 export const InputContainer: Story = (args: any) => (
   <ValenceProvider>
     <FlexCenter>
@@ -24,5 +23,5 @@ export const InputContainer: Story = (args: any) => (
 InputContainer.args = {
   icon: <IconSearch />,
   children: <input />,
-  color: "blue"
-}
+  color: "blue",
+};

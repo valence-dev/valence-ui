@@ -1,39 +1,49 @@
 /** @jsxImportSource @emotion/react */
-import { GenericGridItemProps, GenericGridProps, PolymorphicLayout, PolymorphicLayoutProps } from "@valence-ui/utils";
+import {
+  GenericGridItemProps,
+  GenericGridProps,
+  PolymorphicLayout,
+  PolymorphicLayoutProps,
+} from "@valence-ui/utils";
 import { forwardRef } from "react";
 import { useValence } from "../../../ValenceProvider";
 import { css } from "@emotion/react";
-import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+import {
+  MakeResponsive,
+  useResponsiveProps,
+} from "../../../utilities/responsive";
 import { useColors } from "../../../utilities/color";
 import { FlexProps } from "../Flex";
 
-export type GridProps =
-  GenericGridProps
-  & PolymorphicLayoutProps;
+export type GridProps = GenericGridProps & PolymorphicLayoutProps;
 
-export type GridItemProps =
-  GenericGridItemProps
-  & PolymorphicLayoutProps;
-
+export type GridItemProps = GenericGridItemProps & PolymorphicLayoutProps;
 
 const Grid = forwardRef(function Grid(
   props: MakeResponsive<GridProps>,
-  ref: any,
+  ref: any
 ) {
   const theme = useValence();
   const { getHex } = useColors();
 
-
   // Defaults
   const {
-    rows, columns,
+    rows,
+    columns,
     grid = "auto",
     gap = theme.sizeClasses.padding[theme.defaults.size],
-    rowGap, columnGap,
+    rowGap,
+    columnGap,
 
-    template, templateAreas,
-    autoRows, autoColumns, autoFlow,
-    justifyItems, justifyContent, alignItems, alignContent,
+    template,
+    templateAreas,
+    autoRows,
+    autoColumns,
+    autoFlow,
+    justifyItems,
+    justifyContent,
+    alignItems,
+    alignContent,
 
     backgroundColor,
     color,
@@ -48,8 +58,14 @@ const Grid = forwardRef(function Grid(
   } = useResponsiveProps<GridProps>(props);
 
   // minmax(0, 1fr) stops bad behavior on webkit browsers
-  const templateRows = typeof rows === "number" ? `repeat(${rows}, minmax(0, 1fr))` : rows ?? "minmax(0, 1fr)";
-  const templateColumns = typeof columns === "number" ? `repeat(${columns}, minmax(0, 1fr))` : columns ?? "minmax(0, 1fr)";
+  const templateRows =
+    typeof rows === "number"
+      ? `repeat(${rows}, minmax(0, 1fr))`
+      : rows ?? "minmax(0, 1fr)";
+  const templateColumns =
+    typeof columns === "number"
+      ? `repeat(${columns}, minmax(0, 1fr))`
+      : columns ?? "minmax(0, 1fr)";
 
   // Styles
   const GridStyle = css({
@@ -62,7 +78,7 @@ const Grid = forwardRef(function Grid(
     columnGap: columnGap,
 
     gridTemplate: template,
-    gridTemplateRows: templateRows ,
+    gridTemplateRows: templateRows,
     gridTemplateColumns: templateColumns,
     gridTemplateAreas: templateAreas,
 
@@ -82,38 +98,36 @@ const Grid = forwardRef(function Grid(
     width: width,
     height: height,
 
-    ...style
+    ...style,
   });
 
   return (
-    <PolymorphicLayout
-      css={GridStyle}
-      ref={ref}
-      {...rest}
-    >
+    <PolymorphicLayout css={GridStyle} ref={ref} {...rest}>
       {children}
     </PolymorphicLayout>
-  )
+  );
 });
 
 const Item = forwardRef(function GridItem(
   props: MakeResponsive<GridItemProps>,
-  ref: any,
+  ref: any
 ) {
   const { getHex } = useColors();
-
 
   // Defaults
   const {
     area,
     column = "auto",
-    columnStart, columnEnd,
+    columnStart,
+    columnEnd,
     row = "auto",
-    rowStart, rowEnd,
+    rowStart,
+    rowEnd,
 
     justify = "stretch",
     align = "stretch",
-    place, order,
+    place,
+    order,
 
     backgroundColor,
     color,
@@ -126,7 +140,6 @@ const Item = forwardRef(function GridItem(
     children,
     ...rest
   } = useResponsiveProps<GridItemProps>(props);
-
 
   // Styles
   const ItemStyle = css({
@@ -153,21 +166,15 @@ const Item = forwardRef(function GridItem(
     width: width,
     height: height,
 
-    ...style
+    ...style,
   });
 
-
   return (
-    <PolymorphicLayout
-      css={ItemStyle}
-      ref={ref}
-      {...rest}
-    >
+    <PolymorphicLayout css={ItemStyle} ref={ref} {...rest}>
       {children}
     </PolymorphicLayout>
-  )
+  );
 });
-
 
 const GridNamespace = Object.assign(Grid, { Item });
 export { GridNamespace as Grid };

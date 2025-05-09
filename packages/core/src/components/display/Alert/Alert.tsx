@@ -4,11 +4,23 @@ import { AnimatePresence, useReducedMotion } from "framer-motion";
 import { Flex } from "../../layout";
 import { Text } from "../Text";
 import { MotionBehaviourProps, getMotionBehaviour } from "../../buttons";
-import { CLICKABLE_ELEMENTS, ComponentSize, FillVariant, GenericClickableEventProps, GenericClickableProps, GenericLayoutProps, PolymorphicButton, PolymorphicButtonProps } from "@valence-ui/utils";
+import {
+  CLICKABLE_ELEMENTS,
+  ComponentSize,
+  FillVariant,
+  GenericClickableEventProps,
+  GenericClickableProps,
+  GenericLayoutProps,
+  PolymorphicButton,
+  PolymorphicButtonProps,
+} from "@valence-ui/utils";
 import { useValence } from "../../../ValenceProvider";
 import { css } from "@emotion/react";
 import { Icon } from "../Icon";
-import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+import {
+  MakeResponsive,
+  useResponsiveProps,
+} from "../../../utilities/responsive";
 import { useColors } from "../../../utilities/color";
 
 export type AlertContent = {
@@ -18,14 +30,12 @@ export type AlertContent = {
   message?: string;
   /** The icon of this alert */
   icon?: ReactNode;
-}
+};
 
-export type AlertProps =
-  GenericClickableProps
-  & GenericClickableEventProps
-  & PolymorphicButtonProps
-  & GenericLayoutProps
-  & {
+export type AlertProps = GenericClickableProps &
+  GenericClickableEventProps &
+  PolymorphicButtonProps &
+  GenericLayoutProps & {
     /** The content of this alert */
     alert: AlertContent;
     /** Whether to mount and show this alert */
@@ -42,7 +52,7 @@ export type AlertProps =
 
     /** Defines motion behavior for this button. This will automatically be overridden if the user has reduced motion enabled on their device. */
     motion?: MotionBehaviourProps;
-  }
+  };
 
 export const Alert = forwardRef(function Alert(
   props: MakeResponsive<AlertProps>,
@@ -53,7 +63,6 @@ export const Alert = forwardRef(function Alert(
 
   // Hooks & states
   const reducedMotion = useReducedMotion();
-
 
   // Defaults
   const {
@@ -79,7 +88,6 @@ export const Alert = forwardRef(function Alert(
 
   const motionBehaviour = getMotionBehaviour(motion, reducedMotion);
 
-
   const AlertStyle = css({
     display: "flex",
     flexDirection: "row",
@@ -99,35 +107,31 @@ export const Alert = forwardRef(function Alert(
     backgroundColor: colors.getBgHex(backgroundColor, variant, false),
     color: colors.getFgHex(color, variant),
     boxShadow: shadow ? theme.defaults.shadow : "none",
-    cursor: CLICKABLE_ELEMENTS.includes(component as string) ? "pointer" : "default",
+    cursor: CLICKABLE_ELEMENTS.includes(component as string)
+      ? "pointer"
+      : "default",
 
-    ...style
-  })
-
-
+    ...style,
+  });
 
   return (
     <AnimatePresence>
-      {show &&
+      {show && (
         <PolymorphicButton
           css={AlertStyle}
           onMouseDown={(e: any) => e.preventDefault()}
           component={component}
-
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.9 }}
           transition={{ ease: "backOut" }}
           whileHover={motionBehaviour.whileHover}
           whileTap={motionBehaviour.whileTap}
-
           ref={ref}
           {...rest}
         >
           <div style={{ width: theme.getSize("iconSize", size) }}>
-            <Icon
-              size={theme.getSize("iconSize", size) as number}
-            >
+            <Icon size={theme.getSize("iconSize", size) as number}>
               {alert.icon}
             </Icon>
           </div>
@@ -135,7 +139,7 @@ export const Alert = forwardRef(function Alert(
           <Flex
             direction="column"
             align="flex-start"
-            gap={padding as number / 2}
+            gap={(padding as number) / 2}
           >
             <Text
               bold
@@ -146,18 +150,17 @@ export const Alert = forwardRef(function Alert(
               {alert.title}
             </Text>
 
-            {alert.message &&
+            {alert.message && (
               <Text
-                fontSize={theme.sizeClasses.fontSize[size] as number - 2}
+                fontSize={(theme.sizeClasses.fontSize[size] as number) - 2}
                 color={colors.getFgHex(color, variant)}
               >
                 {alert.message}
               </Text>
-            }
+            )}
           </Flex>
-
         </PolymorphicButton>
-      }
+      )}
     </AnimatePresence>
-  )
+  );
 });

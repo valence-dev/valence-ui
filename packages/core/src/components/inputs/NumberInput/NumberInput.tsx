@@ -1,15 +1,20 @@
 /** @jsxImportSource @emotion/react */
 import { CSSProperties, ReactNode, createRef, forwardRef } from "react";
 import { InputContainer } from "../InputContainer";
-import { GenericInputProps, GenericTextInputEventProps, MakeResponsive, useColors, useResponsiveProps, useValence } from "../../..";
+import {
+  GenericInputProps,
+  GenericTextInputEventProps,
+  MakeResponsive,
+  useColors,
+  useResponsiveProps,
+  useValence,
+} from "../../..";
 import { IconButton } from "../../buttons";
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 import { css } from "@emotion/react";
 
-export type NumberInputProps =
-  GenericInputProps<number>
-  & GenericTextInputEventProps
-  & {
+export type NumberInputProps = GenericInputProps<number> &
+  GenericTextInputEventProps & {
     /** An icon to display at the left side of this input */
     icon?: ReactNode;
     /** Text that appears in this input when it has no value */
@@ -28,15 +33,14 @@ export type NumberInputProps =
     controlIcons?: {
       up?: React.ReactNode;
       down?: React.ReactNode;
-    }
+    };
 
     /** Shorthand for `flex-grow = 1` */
     grow?: boolean;
 
     /** Optional styles to apply to the input component */
     inputStyle?: CSSProperties;
-  }
-
+  };
 
 export const NumberInput = forwardRef(function NumberInput(
   props: MakeResponsive<NumberInputProps>,
@@ -45,7 +49,6 @@ export const NumberInput = forwardRef(function NumberInput(
   const theme = useValence();
   const { getFgHex } = useColors();
   const inputRef = ref ?? createRef<HTMLInputElement>();
-
 
   // Defaults
   const {
@@ -90,7 +93,6 @@ export const NumberInput = forwardRef(function NumberInput(
     ...rest
   } = useResponsiveProps<NumberInputProps>(props);
 
-
   // Styles
   const InputStyle = css({
     border: "none",
@@ -113,18 +115,25 @@ export const NumberInput = forwardRef(function NumberInput(
     },
 
     // Remove awful autofill color
-    "&:-webkit-autofill": { transition: `background-color 5000s ease-in-out 0s` },
-    "&:-webkit-autofill:focus": { transition: `background-color 5000s ease-in-out 0s` },
-    "&:-webkit-autofill:hover": { transition: `background-color 5000s ease-in-out 0s` },
-    "&:-webkit-autofill:active": { transition: `background-color 5000s ease-in-out 0s` },
+    "&:-webkit-autofill": {
+      transition: `background-color 5000s ease-in-out 0s`,
+    },
+    "&:-webkit-autofill:focus": {
+      transition: `background-color 5000s ease-in-out 0s`,
+    },
+    "&:-webkit-autofill:hover": {
+      transition: `background-color 5000s ease-in-out 0s`,
+    },
+    "&:-webkit-autofill:active": {
+      transition: `background-color 5000s ease-in-out 0s`,
+    },
 
     // Remove default arrows
     "&::-webkit-outer-spin-button": { appearance: "none", margin: 0 },
     "&::-webkit-inner-spin-button": { appearance: "none", margin: 0 },
 
-    ...inputStyle
+    ...inputStyle,
   });
-
 
   // Functions
   const handleKeyDown = (e: any) => {
@@ -134,61 +143,62 @@ export const NumberInput = forwardRef(function NumberInput(
     if (e.key === "Enter") onEnterPress?.(e);
     // Call onKeyPress on any key
     onKeyPress?.(e);
-  }
+  };
   function handleBlur(e: any) {
-    setValue(Math.min(Math.max(parseFloat(e.target.value), min ?? -Infinity), max ?? Infinity));
+    setValue(
+      Math.min(
+        Math.max(parseFloat(e.target.value), min ?? -Infinity),
+        max ?? Infinity
+      )
+    );
     onBlur?.(e);
   }
-
 
   return (
     <InputContainer
       icon={icon}
-
       size={size}
       radius={radius}
       variant={variant}
       grow={grow}
-
       disabled={disabled}
       required={required}
       loading={loading}
-
       color={color}
       backgroundColor={backgroundColor}
       padding={padding}
       margin={margin}
       width={width}
       height={height}
-
       style={style}
       inputRef={inputRef}
-
-      button={showControls &&
-        <>
-          <IconButton
-            color={color}
-            variant={variant === "filled" ? "filled" : "subtle"}
-            size={size}
-            radius={radius}
-            onClick={() => setValue(value - step)}
-            disabled={disabled || readOnly}
-            height={25}
-          >
-            {controlIcons.down}
-          </IconButton>
-          <IconButton
-            color={color}
-            variant={variant === "filled" ? "filled" : "subtle"}
-            size={size}
-            radius={radius}
-            onClick={() => setValue(value + step)}
-            disabled={disabled || readOnly}
-            height={25}
-          >
-            {controlIcons.up}
-          </IconButton>
-        </>
+      button={
+        showControls && (
+          <>
+            <IconButton
+              color={color}
+              variant={variant === "filled" ? "filled" : "subtle"}
+              size={size}
+              radius={radius}
+              onClick={() => setValue(value - step)}
+              disabled={disabled || readOnly}
+              height={25}
+            >
+              {controlIcons.down}
+            </IconButton>
+            <IconButton
+              color={color}
+              variant={variant === "filled" ? "filled" : "subtle"}
+              size={size}
+              radius={radius}
+              onClick={() => setValue(value + step)}
+              disabled={disabled || readOnly}
+              height={25}
+            >
+              {controlIcons.up}
+            </IconButton>
+          </>
+        )
       }
       buttonContainerStyle={{
         gap: 0,
@@ -198,23 +208,20 @@ export const NumberInput = forwardRef(function NumberInput(
       <input
         css={InputStyle}
         value={value}
-        onChange={e => setValue(parseFloat(e.target.value))}
+        onChange={(e) => setValue(parseFloat(e.target.value))}
         onBlur={handleBlur}
-
         type="number"
         min={min}
         max={max}
         step={step}
-
         autoFocus={autoFocus}
         disabled={disabled}
         readOnly={readOnly}
         required={required}
-
         onKeyDown={handleKeyDown}
         ref={inputRef}
         {...rest}
       />
     </InputContainer>
-  )
+  );
 });

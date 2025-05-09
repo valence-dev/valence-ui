@@ -1,8 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { CSSProperties, forwardRef } from "react"
+import { CSSProperties, forwardRef } from "react";
 import { GenericProps } from "@valence-ui/utils";
 import { css } from "@emotion/react";
-import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+import {
+  MakeResponsive,
+  useResponsiveProps,
+} from "../../../utilities/responsive";
 
 export type SpaceProps = GenericProps & {
   /** Sets the `width` css property. */
@@ -13,23 +16,16 @@ export type SpaceProps = GenericProps & {
   grow?: boolean;
 
   children?: never;
-}
+};
 
 /** A basic, unstyled layout assistant that creates blank space between any two objects. */
 export const Space = forwardRef(function Space(
   props: MakeResponsive<SpaceProps>,
   ref: any
 ) {
-
   // Defaults
-  const {
-    height,
-    width,
-    grow,
-    style,
-    ...rest
-  } = useResponsiveProps<SpaceProps>(props);
-
+  const { height, width, grow, style, ...rest } =
+    useResponsiveProps<SpaceProps>(props);
 
   // Styles
   const SpaceStyle = css({
@@ -39,13 +35,5 @@ export const Space = forwardRef(function Space(
     ...style,
   });
 
-
-  return (
-    <span
-      css={SpaceStyle}
-
-      ref={ref}
-      {...rest}
-    />
-  )
+  return <span css={SpaceStyle} ref={ref} {...rest} />;
 });

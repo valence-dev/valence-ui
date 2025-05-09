@@ -3,7 +3,7 @@ export type MouseClickEvents = {
   onClick?: (event: React.MouseEvent) => void;
   /** Fires on a mouse double-click event */
   onDoubleClick?: (event: React.MouseEvent) => void;
-}
+};
 
 export type MouseEvents = {
   /** Fires when a mouse button is pressed down on this element */
@@ -18,7 +18,7 @@ export type MouseEvents = {
   onMouseLeave?: (event: React.MouseEvent) => void;
   /** Fires when a mouse moves while over this element */
   onMouseMove?: (event: React.MouseEvent) => void;
-}
+};
 
 export type PointerEvents = {
   /** Fires when a pointer becomes active on this element. This is for triggering drag events as this event is only called once on touchscreen devices. */
@@ -35,14 +35,14 @@ export type PointerEvents = {
   onPointerMove?: (event: React.PointerEvent) => void;
   /** Fires when a pointer is moved onto this element */
   onPointerOver?: (event: React.PointerEvent) => void;
-}
+};
 
 export type FocusEvents = {
   /** Fires when this element receives focus */
   onFocus?: (event: React.FocusEvent) => void;
   /** Fires when this element loses focus */
   onBlur?: (event: React.FocusEvent) => void;
-}
+};
 
 export type KeyboardEvents = {
   /** Fires when a key is pressed down */
@@ -51,4 +51,4 @@ export type KeyboardEvents = {
   onKeyPress?: (event: React.KeyboardEvent) => void;
   /** Fires when a key is released */
   onKeyUp?: (event: React.KeyboardEvent) => void;
-}
+};

@@ -1,30 +1,44 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { FocusEvents, KeyboardEvents, MouseClickEvents, MouseEvents, PointerEvents } from "@valence-ui/utils";
+import {
+  FocusEvents,
+  KeyboardEvents,
+  MouseClickEvents,
+  MouseEvents,
+  PointerEvents,
+} from "@valence-ui/utils";
 import { GenericInputProps } from "../../../generics";
 import { ReactNode, forwardRef, useState } from "react";
-import { Button, IconButton, IconButtonProps, TextButtonProps } from "../../buttons";
+import {
+  Button,
+  IconButton,
+  IconButtonProps,
+  TextButtonProps,
+} from "../../buttons";
 import { Flex, FlexProps } from "../../layout";
 import { useValence } from "../../../ValenceProvider";
 import { IconPlus, IconX } from "@tabler/icons-react";
 import { CSSProperties } from "styled-components";
-import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+import {
+  MakeResponsive,
+  useResponsiveProps,
+} from "../../../utilities/responsive";
 import { useColors } from "../../../utilities/color";
 import { TextInput, TextInputProps } from "../TextInput";
 
-export type PillSelectorEventProps =
-  MouseClickEvents & MouseEvents & PointerEvents & FocusEvents & KeyboardEvents
-  & {
+export type PillSelectorEventProps = MouseClickEvents &
+  MouseEvents &
+  PointerEvents &
+  FocusEvents &
+  KeyboardEvents & {
     /** Callback to be fired when a pill is selected. */
     onPillSelected?: (value: string) => void;
     /** Callback to be fired when a pill is deselected. */
     onPillDeselected?: (value: string) => void;
-  }
+  };
 
-export type PillSelectorProps =
-  Omit<GenericInputProps<string[]>, "children">
-  & PillSelectorEventProps
-  & {
+export type PillSelectorProps = Omit<GenericInputProps<string[]>, "children"> &
+  PillSelectorEventProps & {
     /** A list of pills to display */
     pills: string[];
     /** Optional callback to complete the state */
@@ -55,7 +69,6 @@ export type PillSelectorProps =
     /** Optional props to pass to the pill container */
     pillContainerProps?: Omit<FlexProps, "children">;
 
-
     /** Whether to allow the creation of new pills. */
     allowEditing?: boolean;
     /** Placeholder text to display in the Text input. Will only show if `allowEditing = true`. */
@@ -66,16 +79,14 @@ export type PillSelectorProps =
     addButtonProps?: Omit<IconButtonProps, "children">;
     /** Optional icon to use for the add button */
     addButtonIcon?: ReactNode;
-  }
-
+  };
 
 export const PillSelector = forwardRef(function PillSelector(
   props: MakeResponsive<PillSelectorProps>,
-  ref: any,
+  ref: any
 ) {
   const theme = useValence();
   const { getHex } = useColors();
-
 
   // Defaults
   const {
@@ -98,13 +109,11 @@ export const PillSelector = forwardRef(function PillSelector(
     selectedPillProps = pillProps,
     pillContainerProps,
 
-
     allowEditing = false,
     placeholder = "Add a pill...",
     inputProps,
     addButtonProps,
     addButtonIcon = <IconPlus />,
-
 
     size = theme.defaults.size,
     radius = theme.defaults.radius,
@@ -131,16 +140,11 @@ export const PillSelector = forwardRef(function PillSelector(
     ...rest
   } = useResponsiveProps<PillSelectorProps>(props);
 
-  const {
-    style: pillContainerStyle,
-    ...pillContainerPropsRest
-  } = pillContainerProps ?? {};
+  const { style: pillContainerStyle, ...pillContainerPropsRest } =
+    pillContainerProps ?? {};
 
-  const {
-    style: clearButtonStyle,
-    ...clearButtonPropsRest
-  } = clearButtonProps ?? {};
-
+  const { style: clearButtonStyle, ...clearButtonPropsRest } =
+    clearButtonProps ?? {};
 
   // States
   const [__pills, __setPills] = useState<string[]>([]);
@@ -150,12 +154,11 @@ export const PillSelector = forwardRef(function PillSelector(
   const [inputValue, setInputValue] = useState("");
   const [newPills, setNewPills] = useState<string[]>([]);
 
-
   // Functions
   function sortPills(pills: string[], v = value) {
-    const selectedPills = pills.filter(pill => v.includes(pill));
-    const unselectedPills = pills.filter(pill => !v.includes(pill));
-    return [...selectedPills.sort(), ...unselectedPills.sort()]
+    const selectedPills = pills.filter((pill) => v.includes(pill));
+    const unselectedPills = pills.filter((pill) => !v.includes(pill));
+    return [...selectedPills.sort(), ...unselectedPills.sort()];
   }
 
   function handlePillClick(pill: string) {
@@ -163,7 +166,7 @@ export const PillSelector = forwardRef(function PillSelector(
     let pillList = [...pills];
     if (value.includes(pill)) {
       onPillDeselected?.(pill);
-      v = value.filter(v => v !== pill);
+      v = value.filter((v) => v !== pill);
       pillList = removePill(pill);
     } else {
       onPillSelected?.(pill);
@@ -177,7 +180,6 @@ export const PillSelector = forwardRef(function PillSelector(
     setValue([]);
     setPills(sortPills(pills, []));
   }
-
 
   // Input functions
   function addPill() {
@@ -204,12 +206,11 @@ export const PillSelector = forwardRef(function PillSelector(
     // If the pill has been removed and it is on the new pill list,
     // delete it from the new pill list and the pill list
     if (newPills.includes(pill)) {
-      setNewPills(newPills.filter(p => p !== pill));
-      return pills.filter(p => p !== pill);
+      setNewPills(newPills.filter((p) => p !== pill));
+      return pills.filter((p) => p !== pill);
     }
     return pills;
   }
-
 
   // Styles
   const ContainerStyle: CSSProperties = {
@@ -242,14 +243,12 @@ export const PillSelector = forwardRef(function PillSelector(
       borderRadius: 5,
     },
 
-
-    ...pillContainerStyle as any,
+    ...(pillContainerStyle as any),
   });
   const ButtonStyle: CSSProperties = {
     margin: `${gap}px 0px`,
-    ...clearButtonStyle
-  }
-
+    ...clearButtonStyle,
+  };
 
   return (
     <Flex
@@ -259,29 +258,22 @@ export const PillSelector = forwardRef(function PillSelector(
       ref={ref}
       {...rest}
     >
-      {allowEditing &&
-        <Flex
-          width="100%"
-          gap={gap}
-        >
+      {allowEditing && (
+        <Flex width="100%" gap={gap}>
           <TextInput
             value={inputValue}
             setValue={setInputValue}
             onEnterPress={() => addPill()}
-
             placeholder={placeholder}
-
             variant={variant}
             size={size}
             radius={radius}
             color={color}
             backgroundColor={backgroundColor}
-
             loading={loading}
             disabled={disabled}
             readOnly={readOnly}
             required={required}
-
             {...inputProps}
           />
 
@@ -296,41 +288,32 @@ export const PillSelector = forwardRef(function PillSelector(
             {addButtonIcon}
           </IconButton>
         </Flex>
-      }
-      <Flex
-        gap={gap}
-        width="100%"
-        height="fit-content"
-        align="center"
-      >
-        <Flex
-          gap={gap}
-          css={PillContainerStyle}
-          {...pillContainerPropsRest}
-        >
+      )}
+      <Flex gap={gap} width="100%" height="fit-content" align="center">
+        <Flex gap={gap} css={PillContainerStyle} {...pillContainerPropsRest}>
           {pills.map((pill, index) => {
             const isSelected = value.includes(pill);
 
             return (
               <Button
                 key={index}
-
                 size={size}
                 radius={radius}
-                variant={isSelected ?
-                  variant === "filled" ? "light" : "filled"
-                  : variant
+                variant={
+                  isSelected
+                    ? variant === "filled"
+                      ? "light"
+                      : "filled"
+                    : variant
                 }
                 color={color}
-
                 onClick={() => handlePillClick(pill)}
-
                 {...pillProps}
                 {...(isSelected ? selectedPillProps : undefined)}
               >
                 {pill}
               </Button>
-            )
+            );
           })}
         </Flex>
 
@@ -347,5 +330,5 @@ export const PillSelector = forwardRef(function PillSelector(
         </IconButton>
       </Flex>
     </Flex>
-  )
+  );
 });

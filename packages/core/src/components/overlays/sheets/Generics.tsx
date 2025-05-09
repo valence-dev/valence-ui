@@ -8,4 +8,4 @@ export type GenericSheetProps = GenericOverlayProps & {
 
   /** Props to apply to the flex component */
   flexProps?: FlexProps;
-}
+};

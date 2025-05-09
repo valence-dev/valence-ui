@@ -21,8 +21,7 @@ export type OverflowContainerProps = GenericProps & {
 
   /** Optional props to pass to the inner flex component. */
   innerProps?: FlexProps;
-}
-
+};
 
 export const OverflowContainer = forwardRef(function OverflowContainer(
   props: MakeResponsive<OverflowContainerProps>,
@@ -47,36 +46,41 @@ export const OverflowContainer = forwardRef(function OverflowContainer(
     ...innerRest
   } = innerProps || {};
 
-
   // Styles
   const OverflowContainerStyle = css({
     width: width,
     height: height,
 
-    ...(direction !== "none" ? {
-      overflowX: direction === "horizontal" || direction === "both" ? "auto" : "hidden",
-      overflowY: direction === "vertical" || direction === "both" ? "auto" : "hidden",
-    } : {
-      overflow: "hidden",
-      touchAction: "none",
-    }),
+    ...(direction !== "none"
+      ? {
+          overflowX:
+            direction === "horizontal" || direction === "both"
+              ? "auto"
+              : "hidden",
+          overflowY:
+            direction === "vertical" || direction === "both"
+              ? "auto"
+              : "hidden",
+        }
+      : {
+          overflow: "hidden",
+          touchAction: "none",
+        }),
 
-    ...(showScrollbar ? {} : {
-      scrollbarWidth: "none",
-      "::-webkit-scrollbar": {
-        display: "none",
-      },
-    }),
+    ...(showScrollbar
+      ? {}
+      : {
+          scrollbarWidth: "none",
+          "::-webkit-scrollbar": {
+            display: "none",
+          },
+        }),
 
     ...style,
-  })
-
+  });
 
   return (
-    <div
-      css={OverflowContainerStyle}
-      {...rest}
-    >
+    <div css={OverflowContainerStyle} {...rest}>
       <Flex
         ref={ref}
         style={innerStyle}
@@ -89,5 +93,4 @@ export const OverflowContainer = forwardRef(function OverflowContainer(
       </Flex>
     </div>
   );
-}
-)
+});

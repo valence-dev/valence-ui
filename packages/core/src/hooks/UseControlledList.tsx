@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export type ControlledList<T> = { 
+export type ControlledList<T> = {
   /** The list of items */
   items: T[];
   /** Add an item to the list */
@@ -14,13 +14,15 @@ export type ControlledList<T> = {
 
   /** Whether the list includes an item */
   includes: (item: T) => boolean;
-}
+};
 
-export function useControlledList<T = string>(defaultValue?: T[]): ControlledList<T> {
+export function useControlledList<T = string>(
+  defaultValue?: T[]
+): ControlledList<T> {
   const [items, setItems] = useState<T[]>(defaultValue ?? []);
 
   const add = (item: T) => setItems([...items, item]);
-  const remove = (item: T) => setItems(items.filter(i => i !== item));
+  const remove = (item: T) => setItems(items.filter((i) => i !== item));
   const update = (items: T[]) => setItems(items);
   const clear = () => setItems([]);
 

@@ -11,9 +11,9 @@ const meta: Meta<typeof A> = {
     variant: {
       options: ["filled", "light", "subtle"],
       control: { type: "radio" },
-    }
+    },
   },
-}
+};
 export default meta;
 type Story = StoryObj<typeof A>;
 

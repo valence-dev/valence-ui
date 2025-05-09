@@ -1,6 +1,12 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { Button, FlexCenter, StyledFlex, ValenceProvider, useDisclosure } from "../../..";
+import {
+  Button,
+  FlexCenter,
+  StyledFlex,
+  ValenceProvider,
+  useDisclosure,
+} from "../../..";
 import { Modal as M } from "../../..";
 
 const meta: Meta<typeof M> = {
@@ -29,21 +35,15 @@ export const Modal: Story = (args: any) => {
         <Button onClick={disclosure.open}>Open Modal</Button>
       </FlexCenter>
 
-      <M
-        disclosure={disclosure}
-        {...args}
-      >
+      <M disclosure={disclosure} {...args}>
         <Button>Hi</Button>
-        <StyledFlex
-          width="100%"
-          height="200vh"  
-        >
+        <StyledFlex width="100%" height="200vh">
           Hi
         </StyledFlex>
       </M>
     </ValenceProvider>
-  )
-}
+  );
+};
 Modal.args = {
   title: "Modal Title",
   height: 200,

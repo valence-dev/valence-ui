@@ -14,7 +14,6 @@ export default meta;
 type Story = StoryObj<typeof C>;
 
 export const Carousel: Story = (args: any) => {
-
   // Works as controlled and uncontrolled
   const [activeChild, setActiveChild] = React.useState(0);
 
@@ -28,24 +27,21 @@ export const Carousel: Story = (args: any) => {
             {...args}
           >
             {Array.from({ length: 10 }).map((_, i) => (
-              <DemoCarouselChild
-                key={i}
-                index={i}
-              />
+              <DemoCarouselChild key={i} index={i} />
             ))}
           </C>
         </Flex>
       </Flex>
-
     </ValenceProvider>
-  )
+  );
 };
 Carousel.args = {};
 
-
-function DemoCarouselChild(props: CarouselChildProps & {
-  index: number,
-}) {
+function DemoCarouselChild(
+  props: CarouselChildProps & {
+    index: number;
+  }
+) {
   const { isActive, isNearest, index, ...rest } = props;
 
   return (
@@ -58,10 +54,9 @@ function DemoCarouselChild(props: CarouselChildProps & {
       height={300}
       align="center"
       justify="center"
-
       {...rest}
     >
       <Text>{index}</Text>
     </StyledFlex>
-  )
+  );
 }

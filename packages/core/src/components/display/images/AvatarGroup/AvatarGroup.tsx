@@ -3,18 +3,16 @@ import { AvatarProps } from "../Avatar/Avatar";
 import { Flex } from "../../../layout";
 import { useValence } from "../../../../ValenceProvider";
 
-export type AvatarGroupProps =
-  Omit<AvatarProps, "src"|"alt">
-  & {
-    /** The space between the avatars */
-    gap?: number;
+export type AvatarGroupProps = Omit<AvatarProps, "src" | "alt"> & {
+  /** The space between the avatars */
+  gap?: number;
 
-    children: ReactNode;
-  }
+  children: ReactNode;
+};
 
 export const AvatarGroup = forwardRef(function AvatarGroup(
   props: AvatarGroupProps,
-  ref: any,
+  ref: any
 ) {
   const theme = useValence();
 
@@ -27,13 +25,9 @@ export const AvatarGroup = forwardRef(function AvatarGroup(
   } = props;
 
   return (
-    <Flex
-      gap={0}
-      ref={ref}
-    >
-      {React.Children.toArray(children).map((child, i) => React.cloneElement(
-        child as any,
-        {
+    <Flex gap={0} ref={ref}>
+      {React.Children.toArray(children).map((child, i) =>
+        React.cloneElement(child as any, {
           spanStyle: {
             zIndex: React.Children.count(children) - i,
           },
@@ -42,8 +36,8 @@ export const AvatarGroup = forwardRef(function AvatarGroup(
           },
           size: size,
           ...rest,
-        }
-      ))}
+        })
+      )}
     </Flex>
-  )
+  );
 });

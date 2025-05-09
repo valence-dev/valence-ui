@@ -1,15 +1,14 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
-import { Stepper as St } from "./Stepper"
+import { Stepper as St } from "./Stepper";
 import { Flex, FlexCenter, IconButton, Text, ValenceProvider } from "../../..";
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 
 const meta: Meta<typeof St> = {
   component: St,
   title: "Valence/Core/Display",
-  argTypes: {
-  },
+  argTypes: {},
 };
 export default meta;
 type Story = StoryObj<typeof St>;
@@ -19,12 +18,8 @@ export const Stepper: Story = (args: any) => {
 
   return (
     <ValenceProvider>
-      <FlexCenter
-        innerProps={{ direction: "column" }}>
-        <St
-          currentStep={currentStep}
-          {...args}
-        >
+      <FlexCenter innerProps={{ direction: "column" }}>
+        <St currentStep={currentStep} {...args}>
           <St.Step>
             <Text size="xl">Step 1</Text>
           </St.Step>
@@ -52,8 +47,8 @@ export const Stepper: Story = (args: any) => {
         </Flex>
       </FlexCenter>
     </ValenceProvider>
-  )
+  );
 };
 Stepper.args = {
   variant: "outlined",
-}
+};

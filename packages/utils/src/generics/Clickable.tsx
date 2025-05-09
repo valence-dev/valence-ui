@@ -1,4 +1,9 @@
-import { FocusEvents, MouseClickEvents, MouseEvents, PointerEvents } from "./Events";
+import {
+  FocusEvents,
+  MouseClickEvents,
+  MouseEvents,
+  PointerEvents,
+} from "./Events";
 
 export type GenericClickableProps = {
   /** Sets `to` property on `Link` polymorphic elements */
@@ -9,12 +14,11 @@ export type GenericClickableProps = {
   target?: string;
   /** Sets html `type` property on valid elements */
   type?: "submit" | "reset" | "button";
-}
+};
 
-export type GenericClickableEventProps =
-  MouseClickEvents
-  & MouseEvents
-  & PointerEvents
-  & FocusEvents;
+export type GenericClickableEventProps = MouseClickEvents &
+  MouseEvents &
+  PointerEvents &
+  FocusEvents;
 
 export const CLICKABLE_ELEMENTS = ["button", "link", "a"];

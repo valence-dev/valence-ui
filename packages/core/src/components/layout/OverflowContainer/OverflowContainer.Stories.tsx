@@ -15,12 +15,8 @@ type Story = StoryObj<typeof OC>;
 export const OverflowContainer: Story = (args: any) => (
   <ValenceProvider>
     <OC {...args}>
-      <Flex height="200vh">
-        Hello world
-      </Flex>
+      <Flex height="200vh">Hello world</Flex>
     </OC>
   </ValenceProvider>
 );
-OverflowContainer.args = {
-  
-};
+OverflowContainer.args = {};

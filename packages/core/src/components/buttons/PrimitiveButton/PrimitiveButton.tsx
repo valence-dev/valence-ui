@@ -7,33 +7,32 @@ import { PolymorphicButton } from "@valence-ui/utils";
 import { useValence } from "../../../ValenceProvider";
 import { css } from "@emotion/react";
 import { GenericButtonProps } from "../../../generics";
-import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+import {
+  MakeResponsive,
+  useResponsiveProps,
+} from "../../../utilities/responsive";
 import { useColors } from "../../../utilities/color";
 import { UseFloatingProps, useFloating } from "../../../hooks";
 
-export type PrimitiveButtonProps =
-  GenericButtonProps
-  & {
-    /** Defines motion behavior for this button. This will automatically be overridden if the user has reduced motion enabled on their device. */
-    motion?: MotionBehaviourProps;
+export type PrimitiveButtonProps = GenericButtonProps & {
+  /** Defines motion behavior for this button. This will automatically be overridden if the user has reduced motion enabled on their device. */
+  motion?: MotionBehaviourProps;
 
-    /** Defines floating behavior for this button. */
-    float?: UseFloatingProps & { 
-      position?: CSSProperties["position"];
-    };
-  }
+  /** Defines floating behavior for this button. */
+  float?: UseFloatingProps & {
+    position?: CSSProperties["position"];
+  };
+};
 
 export const PrimitiveButton = forwardRef(function PrimitiveButton(
   props: MakeResponsive<PrimitiveButtonProps>,
   ref: any
 ) {
-
   const theme = useValence();
   const colors = useColors();
 
   // Hooks & states
   const reducedMotion = useReducedMotion();
-
 
   // Defaults
   const {
@@ -48,7 +47,11 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
     disabled = false,
     loading = false,
 
-    motion = { onHover: variant === "filled" || variant === "paper" ? "raise" : undefined, onTap: "bounce" },
+    motion = {
+      onHover:
+        variant === "filled" || variant === "paper" ? "raise" : undefined,
+      onTap: "bounce",
+    },
     float,
 
     color = theme.primaryColor,
@@ -65,7 +68,6 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
 
   const motionBehaviour = getMotionBehaviour(motion, reducedMotion);
   const floatBehaviour = useFloating({ ...float });
-
 
   const ButtonStyle = css({
     display: "flex",
@@ -84,10 +86,7 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
 
     borderRadius: theme.sizeClasses.radius[radius],
     opacity: disabled ? 0.5 : 1,
-    cursor: disabled ? "not-allowed"
-      : loading ? "wait"
-        : "pointer"
-    ,
+    cursor: disabled ? "not-allowed" : loading ? "wait" : "pointer",
     boxShadow: shadow ? theme.defaults.shadow : "none",
 
     transitionProperty: "background-color, border",
@@ -100,10 +99,12 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
     border: colors.getBorderHex(color, variant),
     textDecoration: "none",
 
-    ...(float ? {
-      position: float.position ?? "fixed",
-      ...floatBehaviour.style
-    } : undefined),
+    ...(float
+      ? {
+          position: float.position ?? "fixed",
+          ...floatBehaviour.style,
+        }
+      : undefined),
 
     "&:hover": {
       backgroundColor: `${colors.getBgHex(backgroundColor, variant, true)}`,
@@ -113,28 +114,19 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
       border: colors.getBorderHex(color, variant, true),
     },
 
-    ...style
+    ...style,
   });
-
 
   return (
     <PolymorphicButton
       css={ButtonStyle}
       onMouseDown={(event: any) => event.preventDefault()}
-
       whileHover={motionBehaviour.whileHover}
       whileTap={motionBehaviour.whileTap}
-
       ref={ref}
       {...rest}
     >
-      {loading ?
-        <Loader
-          color={colors.getFgHex(color, variant)}
-        />
-        :
-        children
-      }
+      {loading ? <Loader color={colors.getFgHex(color, variant)} /> : children}
     </PolymorphicButton>
-  )
+  );
 });

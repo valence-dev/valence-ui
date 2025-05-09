@@ -1,18 +1,24 @@
 /** @jsxImportSource @emotion/react */
 import { forwardRef } from "react";
 import { GenericInputProps } from "../../../generics";
-import { Slider, SliderEventProps, SliderThumbProps, SliderTrackProps } from "../Slider";
+import {
+  Slider,
+  SliderEventProps,
+  SliderThumbProps,
+  SliderTrackProps,
+} from "../Slider";
 import { useValence } from "../../../ValenceProvider";
 import { Flex } from "../../layout";
 import ReactSlider from "react-slider";
 import { css } from "@emotion/react";
 import { NumberInput } from "../NumberInput";
-import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+import {
+  MakeResponsive,
+  useResponsiveProps,
+} from "../../../utilities/responsive";
 
-export type RangeSliderProps =
-  GenericInputProps<number[]>
-  & SliderEventProps<number[]>
-  & {
+export type RangeSliderProps = GenericInputProps<number[]> &
+  SliderEventProps<number[]> & {
     /** The minimum value of this input. `0` by default. */
     min?: number;
     /** The maximum value of this input. `100` by default. */
@@ -39,7 +45,7 @@ export type RangeSliderProps =
     trackProps?: Omit<SliderTrackProps, "state">;
     /** Optional props to pass to thumb components. */
     thumbProps?: Omit<SliderThumbProps, "state">;
-  }
+  };
 
 export const RangeSlider = forwardRef(function RangeSlider(
   props: MakeResponsive<RangeSliderProps>,
@@ -84,7 +90,6 @@ export const RangeSlider = forwardRef(function RangeSlider(
     ...rest
   } = useResponsiveProps<RangeSliderProps>(props);
 
-
   // Styles
   const SliderStyle = css({
     display: "flex",
@@ -95,7 +100,6 @@ export const RangeSlider = forwardRef(function RangeSlider(
     width: width,
     height: height,
   });
-
 
   return (
     <Flex
@@ -109,21 +113,20 @@ export const RangeSlider = forwardRef(function RangeSlider(
         min={min}
         max={max}
         step={step}
-
         minDistance={minDistance}
         pearling={pearling}
         invert={invert}
-
         value={value}
-        onChange={(value, index) => { setValue(value); onChange?.(value, index) }}
+        onChange={(value, index) => {
+          setValue(value);
+          onChange?.(value, index);
+        }}
         onAfterChange={onAfterChange}
         onBeforeChange={onBeforeChange}
         onSliderClick={onSliderClick}
-
         css={SliderStyle}
         ref={ref}
-
-        renderThumb={(props, state) =>
+        renderThumb={(props, state) => (
           <Slider.Thumb
             state={state}
             showValue={showValue}
@@ -132,8 +135,8 @@ export const RangeSlider = forwardRef(function RangeSlider(
             {...props}
             {...thumbProps}
           />
-        }
-        renderTrack={(props, state) =>
+        )}
+        renderTrack={(props, state) => (
           <Slider.Track
             state={state}
             color={color}
@@ -142,10 +145,10 @@ export const RangeSlider = forwardRef(function RangeSlider(
             {...props}
             {...trackProps}
           />
-        }
+        )}
       />
 
-      {includeManualInput &&
+      {includeManualInput && (
         <Flex gap={5}>
           {value.map((v, i) => (
             <NumberInput
@@ -157,25 +160,20 @@ export const RangeSlider = forwardRef(function RangeSlider(
                 newValue[i] = v;
                 setValue(newValue);
               }}
-
               min={i === 0 ? min : value[i - 1] + step}
               max={i === value.length - 1 ? max : value[i + 1] - step}
               step={step}
-
               size={size}
               radius={radius}
               variant={variant}
               color={color}
-
               showControls={false}
               width="fit-content"
-
               grow={false}
             />
-          )
-          )}
+          ))}
         </Flex>
-      }
+      )}
     </Flex>
-  )
+  );
 });

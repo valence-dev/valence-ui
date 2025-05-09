@@ -1,15 +1,16 @@
-import { forwardRef, ReactNode } from "react"
-import { OverflowContainer, OverflowContainerProps } from "../OverflowContainer";
+import { forwardRef, ReactNode } from "react";
+import {
+  OverflowContainer,
+  OverflowContainerProps,
+} from "../OverflowContainer";
 import { FlexCenter, FlexCenterProps } from "../Flex";
 import { MakeResponsive, useResponsiveProps } from "../../../utilities";
 
-export type PageContainerType =
-  FlexCenterProps &
-  {
-    exemptContent?: ReactNode;
+export type PageContainerType = FlexCenterProps & {
+  exemptContent?: ReactNode;
 
-    overflowContainerProps?: OverflowContainerProps;
-  }
+  overflowContainerProps?: OverflowContainerProps;
+};
 
 export const PageContainer = forwardRef(function PageContainer(
   props: MakeResponsive<PageContainerType>,
@@ -33,7 +34,6 @@ export const PageContainer = forwardRef(function PageContainer(
     ...overflowRest
   } = overflowContainerProps || {};
 
-
   return (
     <OverflowContainer
       direction={ocDirection}
@@ -55,21 +55,21 @@ export const PageContainer = forwardRef(function PageContainer(
               marginRight: 20,
             },
             gap: 10,
-            ...innerProps
+            ...innerProps,
           },
-          mobile: { 
+          mobile: {
             style: {
               paddingLeft: 15,
               paddingRight: 15,
             },
             gap: 10,
-            ...innerProps
-          }
+            ...innerProps,
+          },
         }}
         {...rest}
       >
         {children}
       </FlexCenter>
     </OverflowContainer>
-  )
+  );
 });

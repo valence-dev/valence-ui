@@ -1,5 +1,10 @@
 import { CSSProperties, forwardRef } from "react";
-import { MakeResponsive, useColors, useResponsiveProps, useValence } from "../../..";
+import {
+  MakeResponsive,
+  useColors,
+  useResponsiveProps,
+  useValence,
+} from "../../..";
 import { Flex, FlexProps } from "./Flex";
 import { ComponentSize, FillVariant } from "@valence-ui/utils";
 
@@ -13,8 +18,7 @@ export type StyledFlexProps = FlexProps & {
 
   /** Whether to include a shadow underneath this component. Will display the theme default shadow. */
   shadow?: boolean;
-}
-
+};
 
 /** A styled version of the `Flex` component that offers many props in line with the button styling system */
 export const StyledFlex = forwardRef(function StyledFlex(
@@ -23,7 +27,6 @@ export const StyledFlex = forwardRef(function StyledFlex(
 ) {
   const theme = useValence();
   const { getFgHex, getBorderHex, getBgHex } = useColors();
-
 
   // Defaults
   const {
@@ -40,7 +43,6 @@ export const StyledFlex = forwardRef(function StyledFlex(
     ...rest
   } = useResponsiveProps<StyledFlexProps>(props);
 
-
   // Styles
   const styles: CSSProperties = {
     backgroundColor: getBgHex(backgroundColor, variant, false),
@@ -49,19 +51,12 @@ export const StyledFlex = forwardRef(function StyledFlex(
     borderRadius: theme.sizeClasses.radius[radius],
     boxShadow: props.shadow ? theme.defaults.shadow : undefined,
 
-    ...style
-  }
-
+    ...style,
+  };
 
   return (
-    <Flex
-      padding={padding}
-      style={styles}
-
-      ref={ref}
-      {...rest}
-    >
+    <Flex padding={padding} style={styles} ref={ref} {...rest}>
       {children}
     </Flex>
-  )
+  );
 });

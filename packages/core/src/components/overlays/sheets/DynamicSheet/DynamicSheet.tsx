@@ -16,11 +16,13 @@ export type DyanmicSheetProps = {
   type?: DynamicSheetType;
 
   /** Optional props to apply to the Side Sheet component, when displayed. */
-  sideSheetProps?: Omit<SideSheetProps, "children"|"disclosure"|"title">;
+  sideSheetProps?: Omit<SideSheetProps, "children" | "disclosure" | "title">;
   /** Optional props to apply to the Bottom Sheet component, when displayed. */
-  bottomSheetProps?: Omit<BottomSheetProps, "children"|"disclosure"|"title">;
-}
-
+  bottomSheetProps?: Omit<
+    BottomSheetProps,
+    "children" | "disclosure" | "title"
+  >;
+};
 
 export const DynamicSheet = forwardRef(function DynamicSheet(
   props: MakeResponsive<DyanmicSheetProps>,
@@ -28,15 +30,18 @@ export const DynamicSheet = forwardRef(function DynamicSheet(
 ) {
   // Defaults
   const {
-    type = useResponsiveProps({ default: "inline", tablet: "overlay", mobile: "bottom" }),
+    type = useResponsiveProps({
+      default: "inline",
+      tablet: "overlay",
+      mobile: "bottom",
+    }),
     disclosure,
     title,
 
     sideSheetProps,
     bottomSheetProps,
-    children
+    children,
   } = useResponsiveProps<DyanmicSheetProps>(props);
-
 
   return (
     <>
@@ -44,7 +49,6 @@ export const DynamicSheet = forwardRef(function DynamicSheet(
         <BottomSheet
           disclosure={disclosure}
           title={title}
-
           ref={ref}
           {...bottomSheetProps}
         >
@@ -55,7 +59,6 @@ export const DynamicSheet = forwardRef(function DynamicSheet(
           display={type as SideSheetDisplay}
           disclosure={disclosure}
           title={title}
-
           ref={ref}
           {...sideSheetProps}
         >
@@ -63,5 +66,5 @@ export const DynamicSheet = forwardRef(function DynamicSheet(
         </SideSheet>
       )}
     </>
-  )
+  );
 });

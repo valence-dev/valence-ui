@@ -1,7 +1,7 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { PrimitiveButton } from "./PrimitiveButton";
-import { Storybook } from "../../../../storybook"
+import { Storybook } from "../../../../storybook";
 import { Flex, ValenceProvider } from "../../..";
 
 const meta: Meta<typeof PrimitiveButton> = {
@@ -18,7 +18,7 @@ const meta: Meta<typeof PrimitiveButton> = {
     },
     radius: {
       options: Storybook.componentSizes,
-      control: { type: "select" }
+      control: { type: "select" },
     },
 
     square: {
@@ -39,15 +39,15 @@ const meta: Meta<typeof PrimitiveButton> = {
     },
 
     width: {
-      control: { type: "number" }
+      control: { type: "number" },
     },
     height: {
-      control: { type: "number" }
+      control: { type: "number" },
     },
 
     color: {
-      control: { type: "text" }
-    }
+      control: { type: "text" },
+    },
   },
 };
 export default meta;
@@ -71,6 +71,6 @@ Primitive.args = {
     mobile: "blue",
     tablet: "green",
     desktopLarge: "yellow",
-    tv: "violet"
-  }
-}
+    tv: "violet",
+  },
+};

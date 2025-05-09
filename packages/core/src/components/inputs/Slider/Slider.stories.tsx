@@ -22,11 +22,7 @@ export const Slider: Story = (args: any) => {
           direction: "column",
         }}
       >
-        <S
-          {...args}
-          value={value}
-          setValue={setValue}
-        />
+        <S {...args} value={value} setValue={setValue} />
 
         <S
           {...args}
@@ -46,6 +42,5 @@ export const Slider: Story = (args: any) => {
       </FlexCenter>
     </ValenceProvider>
   );
-}
-Slider.args = {
-}
+};
+Slider.args = {};

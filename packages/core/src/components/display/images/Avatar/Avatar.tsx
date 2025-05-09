@@ -5,7 +5,10 @@ import { useValence } from "../../../../ValenceProvider";
 import { IconUserCircle } from "@tabler/icons-react";
 import { Flex } from "../../../layout";
 import { Icon, IconProps } from "../../Icon";
-import { MakeResponsive, useResponsiveProps } from "../../../../utilities/responsive";
+import {
+  MakeResponsive,
+  useResponsiveProps,
+} from "../../../../utilities/responsive";
 import { useColors } from "../../../../utilities/color";
 
 export type AvatarProps = ImageProps & {
@@ -24,8 +27,7 @@ export type AvatarProps = ImageProps & {
 
   /** Optional styles to pass to the containing span component. */
   spanStyle?: CSSProperties;
-}
-
+};
 
 export const Avatar = forwardRef(function Avatar(
   props: MakeResponsive<AvatarProps>,
@@ -33,7 +35,6 @@ export const Avatar = forwardRef(function Avatar(
 ) {
   const theme = useValence();
   const colors = useColors();
-
 
   // Defaults
   const {
@@ -57,16 +58,17 @@ export const Avatar = forwardRef(function Avatar(
     ...rest
   } = useResponsiveProps<AvatarProps>(props);
 
-
   // Styles
   const imageStyle: CSSProperties = {
     backgroundColor: colors.getBgHex(color, variant, false),
     color: colors.getFgHex(color, variant),
     borderRadius: "50%",
 
-    border: outline ? `1px solid ${colors.getFgHex(color, variant)}` : undefined,
-    ...style
-  }
+    border: outline
+      ? `1px solid ${colors.getFgHex(color, variant)}`
+      : undefined,
+    ...style,
+  };
   const secondaryIconContainerStyle: CSSProperties = {
     backgroundColor: colors.getHex(color),
 
@@ -76,9 +78,8 @@ export const Avatar = forwardRef(function Avatar(
     position: "absolute",
     right: 0,
     bottom: 0,
-    padding: theme.sizeClasses.padding[size] as number / 8,
-  }
-
+    padding: (theme.sizeClasses.padding[size] as number) / 8,
+  };
 
   return (
     <span
@@ -89,26 +90,17 @@ export const Avatar = forwardRef(function Avatar(
     >
       <Image
         placeholder={
-          <Flex
-            align="center"
-            justify="center"
-            height="100%"
-            width="100%"
-          >
-            <Icon
-              size={theme.sizeClasses.iconSize[size] as any}
-            >
+          <Flex align="center" justify="center" height="100%" width="100%">
+            <Icon size={theme.sizeClasses.iconSize[size] as any}>
               {placeholder}
             </Icon>
           </Flex>
         }
-
         style={imageStyle}
         square={square}
         color={color}
         width={width}
         height={height}
-
         ref={ref}
         {...rest}
       />
@@ -118,11 +110,10 @@ export const Avatar = forwardRef(function Avatar(
         <Flex
           align="center"
           justify="center"
-
           style={secondaryIconContainerStyle}
         >
           <Icon
-            size={theme.sizeClasses.iconSize[size] as any * 0.65}
+            size={(theme.sizeClasses.iconSize[size] as any) * 0.65}
             color={color === "white" ? "black" : "white"}
             {...secondaryIconProps}
           >
@@ -131,5 +122,5 @@ export const Avatar = forwardRef(function Avatar(
         </Flex>
       )}
     </span>
-  )
+  );
 });

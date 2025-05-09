@@ -9,128 +9,108 @@ const meta: Meta<typeof G> = {
   argTypes: {
     grid: {
       control: {
-        type: "text"
-      }
+        type: "text",
+      },
     },
     gap: {
       control: {
-        type: "number"
-      }
+        type: "number",
+      },
     },
     rowGap: {
       control: {
-        type: "number"
-      }
+        type: "number",
+      },
     },
     columnGap: {
       control: {
-        type: "number"
-      }
+        type: "number",
+      },
     },
 
     template: {
       control: {
-        type: "text"
-      }
+        type: "text",
+      },
     },
     rows: {
       control: {
-        type: "number"
-      }
+        type: "number",
+      },
     },
     columns: {
       control: {
-        type: "number"
-      }
+        type: "number",
+      },
     },
 
     templateAreas: {
       control: {
-        type: "text"
-      }
+        type: "text",
+      },
     },
     autoRows: {
       control: {
-        type: "text"
-      }
+        type: "text",
+      },
     },
     autoColumns: {
       control: {
-        type: "text"
-      }
+        type: "text",
+      },
     },
 
     autoFlow: {
       control: {
-        type: "text"
-      }
+        type: "text",
+      },
     },
     justifyItems: {
       control: {
-        type: "text"
-      }
+        type: "text",
+      },
     },
     justifyContent: {
       control: {
-        type: "text"
-      }
+        type: "text",
+      },
     },
 
     alignItems: {
       control: {
-        type: "text"
-      }
+        type: "text",
+      },
     },
     alignContent: {
       control: {
-        type: "text"
-      }
+        type: "text",
+      },
     },
-  }
-}
+  },
+};
 export default meta;
 type Story = StoryObj<typeof G>;
 
 export const Grid: Story = (args: any) => (
   <ValenceProvider>
     <G {...args} padding={20}>
-      <G.Item
-        backgroundColor="black"
-      >
-        <Text
-          align="center"
-          color="white"
-        >
+      <G.Item backgroundColor="black">
+        <Text align="center" color="white">
           GridItem
         </Text>
       </G.Item>
-      <G.Item
-        backgroundColor="black"
-      >
-        <Text
-          align="center"
-          color="white"
-        >
+      <G.Item backgroundColor="black">
+        <Text align="center" color="white">
           GridItem
         </Text>
       </G.Item>
-      <G.Item
-        backgroundColor="black"
-      >
-        <Text
-          align="center"
-          color="white"
-        >
+      <G.Item backgroundColor="black">
+        <Text align="center" color="white">
           GridItem
         </Text>
       </G.Item>
-      <G.Item
-        backgroundColor="black"
-      >
-        <Text
-          align="center"
-          color="white"
-        >
+      <G.Item backgroundColor="black">
+        <Text align="center" color="white">
           GridItem
         </Text>
       </G.Item>
@@ -140,4 +120,4 @@ export const Grid: Story = (args: any) => (
 Grid.args = {
   rows: 2,
   columns: 2,
-}
+};

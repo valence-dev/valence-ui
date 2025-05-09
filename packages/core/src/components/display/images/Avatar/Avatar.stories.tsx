@@ -16,26 +16,11 @@ type Story = StoryObj<typeof A>;
 export const Avatar: Story = (args: any) => (
   <ValenceProvider>
     <Flex center height="100vh">
-      <A
-        {...args}
-        size="xs"
-      />
-      <A
-        {...args}
-        size="sm"
-      />
-      <A
-        {...args}
-        size="md"
-      />
-      <A
-        {...args}
-        size="lg"
-      />
-      <A
-        {...args}
-        size="xl"
-      />
+      <A {...args} size="xs" />
+      <A {...args} size="sm" />
+      <A {...args} size="md" />
+      <A {...args} size="lg" />
+      <A {...args} size="xl" />
     </Flex>
   </ValenceProvider>
 );
@@ -47,4 +32,4 @@ Avatar.args = {
 
   secondaryIcon: <IconBrandThreads />,
   outline: true,
-}
+};

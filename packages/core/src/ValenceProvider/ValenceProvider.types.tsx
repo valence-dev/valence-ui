@@ -4,7 +4,6 @@ import { TextProps } from "../components";
 import { DEFAULT_PALETTE, Color } from "../utilities/color";
 import { PreferrableColorScheme } from "../hooks";
 
-
 export type IValenceContext = {
   /** A list of all colors to use */
   colors: Color[];
@@ -13,9 +12,8 @@ export type IValenceContext = {
   /** The user's preferred color scheme. `"system"` by default. */
   preferredColorScheme: PreferrableColorScheme;
 
-
   /** Default sizes and parameters for common attributes */
-  defaults: { 
+  defaults: {
     /** The default component size */
     size: ComponentSize;
     /** The default component radius size */
@@ -26,8 +24,7 @@ export type IValenceContext = {
     transitionDuration: CSSProperties["transitionDuration"];
     /** The default shadow style to apply */
     shadow: CSSProperties["boxShadow"];
-  }
-
+  };
 
   /** The default font families to use in specific contexts */
   fontFamily: {
@@ -37,12 +34,11 @@ export type IValenceContext = {
     heading?: string;
     /** The font family to use for monospace text. If not provided, the default will be used */
     monospace?: string;
-  }
+  };
   /** Finds a font family within the theme context
    * @param property the property to find the font family for
    */
   getFont: (property: "default" | "heading" | "monospace") => string;
-
 
   /** Standardised sizing guide to use for components */
   sizeClasses: {
@@ -56,11 +52,14 @@ export type IValenceContext = {
     fontSize: SizeClasses<CSSProperties["fontSize"]>;
     /** The icon size to use for components */
     iconSize: SizeClasses<CSSProperties["fontSize"]>;
-  }
-  /** Finds a size within the theme context 
+  };
+  /** Finds a size within the theme context
    * @param property the property to find the size for
    **/
-  getSize: (property: "padding" | "height" | "radius" | "fontSize" | "iconSize", size?: ComponentSize) => any;
+  getSize: (
+    property: "padding" | "height" | "radius" | "fontSize" | "iconSize",
+    size?: ComponentSize
+  ) => any;
 
   /** Props to refer to for titles */
   titles: {
@@ -70,25 +69,23 @@ export type IValenceContext = {
     4: TextProps;
     5: TextProps;
     6: TextProps;
-  }
-
+  };
 
   /** Breakpoints to use for determining breakpoint-sensitive props */
-  breakpoints: { 
+  breakpoints: {
     mobileWidth: number;
     tabletWidth: number;
     desktopLargeWidth: number;
     tvWidth: number;
-  }
-}
-
+  };
+};
 
 export const ValenceContextDefaults: IValenceContext = {
   colors: DEFAULT_PALETTE,
   primaryColor: "pink",
   preferredColorScheme: "system",
 
-  defaults: { 
+  defaults: {
     size: "sm",
     radius: "sm",
     variant: "light",
@@ -121,11 +118,10 @@ export const ValenceContextDefaults: IValenceContext = {
     6: { fontSize: 12, bold: true },
   },
 
-
   breakpoints: {
     mobileWidth: 480,
     tabletWidth: 768,
     desktopLargeWidth: 1024,
     tvWidth: 1440,
-  }
-}
+  },
+};

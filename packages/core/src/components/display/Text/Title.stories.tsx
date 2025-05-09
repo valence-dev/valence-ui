@@ -1,7 +1,7 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { Flex, ValenceProvider } from "../../..";
-import { Storybook } from "../../../../storybook"
+import { Storybook } from "../../../../storybook";
 
 import { Title as Ti } from "./Title";
 
@@ -18,7 +18,7 @@ const meta: Meta<typeof Ti> = {
       control: { type: "select" },
     },
     weight: {
-      control: { type: "number" }
+      control: { type: "number" },
     },
     align: {
       options: Storybook.textAligns,
@@ -57,4 +57,4 @@ export const Title: Story = (args: any) => (
 );
 Title.args = {
   children: "<hl>This</hl> is a *markdown-supporting* `Title` component",
-}
+};

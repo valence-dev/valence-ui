@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
-import { useValence } from '../ValenceProvider';
+import { useEffect, useState } from "react";
+import { useValence } from "../ValenceProvider";
 
-const COLOR_SCHEME_QUERY = '(prefers-color-scheme: dark)'
+const COLOR_SCHEME_QUERY = "(prefers-color-scheme: dark)";
 
 export type ColorScheme = "light" | "dark";
 export type PreferrableColorScheme = ColorScheme | "system";
@@ -14,7 +14,7 @@ export type UseColorSchemeOutput = {
   isLightMode: boolean;
   /** Is the color scheme following the system theme? */
   isFollowingSystem: boolean;
-}
+};
 
 /**
  * A hook that provides the current color scheme of the user's operating system and allows toggling between light and dark modes.
@@ -32,12 +32,17 @@ export function useColorScheme(): UseColorSchemeOutput {
     return () => mq.removeEventListener("change", mqListener);
   }, []);
 
-  const colorScheme = theme.preferredColorScheme !== "system" ? theme.preferredColorScheme : isDarkTheme ? "dark" : "light";
+  const colorScheme =
+    theme.preferredColorScheme !== "system"
+      ? theme.preferredColorScheme
+      : isDarkTheme
+      ? "dark"
+      : "light";
 
   return {
     colorScheme: colorScheme,
     isDarkMode: colorScheme === "dark",
     isLightMode: colorScheme === "light",
-    isFollowingSystem: theme.preferredColorScheme === "system"
-  }
+    isFollowingSystem: theme.preferredColorScheme === "system",
+  };
 }

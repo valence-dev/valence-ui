@@ -1,4 +1,16 @@
-import { Placement, autoUpdate, useFloating, offset as tooltipOffset, flip, shift, useHover, useFocus, useDismiss, useRole, useInteractions } from "@floating-ui/react";
+import {
+  Placement,
+  autoUpdate,
+  useFloating,
+  offset as tooltipOffset,
+  flip,
+  shift,
+  useHover,
+  useFocus,
+  useDismiss,
+  useRole,
+  useInteractions,
+} from "@floating-ui/react";
 import { Disclosure, useDisclosure } from "./UseDisclosure";
 import { useMemo } from "react";
 import { useBreakpoint } from "../utilities";
@@ -10,22 +22,22 @@ export type TooltipOptions = {
   offset?: number;
   /** An optional disclosure to handle the state of this tooltip */
   disclosure?: Disclosure;
-}
-
+};
 
 export function useTooltip({
   placement = "top",
   offset = 5,
-  disclosure
+  disclosure,
 }: TooltipOptions = {}) {
   const uncontrolled = useDisclosure();
   const { isMobile } = useBreakpoint();
 
-  const opened = disclosure ? disclosure.opened
-    : isMobile ? false
-      : uncontrolled.opened;
+  const opened = disclosure
+    ? disclosure.opened
+    : isMobile
+    ? false
+    : uncontrolled.opened;
   const setUpdate = disclosure?.update ?? uncontrolled.update;
-
 
   // Floating UI
   const data = useFloating({
@@ -41,7 +53,7 @@ export function useTooltip({
         padding: 5,
       }),
       shift({ padding: 5 }),
-    ]
+    ],
   });
   const context = data.context;
 
@@ -56,7 +68,6 @@ export function useTooltip({
   const role = useRole(context, { role: "tooltip" });
   const interactions = useInteractions([hover, focus, dismiss, role]);
 
-
   return useMemo(
     () => ({
       opened,
@@ -65,5 +76,5 @@ export function useTooltip({
       ...data,
     }),
     [opened, setUpdate, interactions, data]
-  )
+  );
 }

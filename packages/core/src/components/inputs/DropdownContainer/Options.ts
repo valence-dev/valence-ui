@@ -1,11 +1,12 @@
 import { ReactNode } from "react";
 
-export type Option = { 
-  value: string;
-  label?: string;
-  icon?: ReactNode;
-} | string;
-
+export type Option =
+  | {
+      value: string;
+      label?: string;
+      icon?: ReactNode;
+    }
+  | string;
 
 export function getOptionValue(option: Option | null): string {
   if (!option) return "";
@@ -23,13 +24,11 @@ export function getOptionIcon(option: Option | null): ReactNode {
   return option.icon;
 }
 
-
-
 // Search filters
 export type OptionFilter = (options: Option[], search: string) => Option[];
 
 export const defaultOptionFilter: OptionFilter = (options, search) => {
-  return options.filter(option => {
+  return options.filter((option) => {
     const label = getOptionLabel(option);
     return label.toLowerCase().includes(search.toLowerCase());
   });

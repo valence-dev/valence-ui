@@ -1,24 +1,28 @@
 import { CSSProperties, ReactNode, forwardRef } from "react";
-import { GenericInputProps, GenericTextInputEventProps } from "../../../generics";
+import {
+  GenericInputProps,
+  GenericTextInputEventProps,
+} from "../../../generics";
 import { useValence } from "../../../ValenceProvider";
 import { IconSelector } from "@tabler/icons-react";
 import { GenericLayoutProps } from "@valence-ui/utils";
-import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+import {
+  MakeResponsive,
+  useResponsiveProps,
+} from "../../../utilities/responsive";
 import { DropdownContainer } from "../DropdownContainer";
 import { Option } from "../DropdownContainer/Options";
 
+export type SelectInputEventProps = GenericTextInputEventProps & {
+  /** Callback to be called when an option is selected. */
+  onSelect?: (value: Option | null) => void;
+};
 
-export type SelectInputEventProps =
-  GenericTextInputEventProps
-  & {
-    /** Callback to be called when an option is selected. */
-    onSelect?: (value: Option | null) => void;
-  }
-
-export type SelectInputProps =
-  Omit<GenericInputProps<Option | null>, "children">
-  & SelectInputEventProps
-  & {
+export type SelectInputProps = Omit<
+  GenericInputProps<Option | null>,
+  "children"
+> &
+  SelectInputEventProps & {
     /** A list of options to supply for the content of this input */
     options: Option[];
 
@@ -34,25 +38,20 @@ export type SelectInputProps =
 
     /** Optional styles to apply to the dropdown container */
     dropdownStyle?: CSSProperties;
-  }
+  };
 
+export type SelectDropdownProps = GenericLayoutProps & {
+  /** Whether to include a shadow */
+  shadow?: boolean;
 
-export type SelectDropdownProps =
-  GenericLayoutProps
-  & {
-    /** Whether to include a shadow */
-    shadow?: boolean;
-
-    children?: never;
-  }
-
+  children?: never;
+};
 
 export const SelectInput = forwardRef(function SelectInput(
   props: MakeResponsive<SelectInputProps>,
-  ref: any,
+  ref: any
 ) {
   const theme = useValence();
-
 
   // Defaults
   const {
@@ -68,22 +67,18 @@ export const SelectInput = forwardRef(function SelectInput(
     ...rest
   } = useResponsiveProps<SelectInputProps>(props);
 
-
-
   return (
     <>
       <DropdownContainer
         options={options}
-        selected={value ? options.findIndex(o => o === value) : null}
-        setSelected={i => setValue(i !== null ? options[i] : null)}
-
+        selected={value ? options.findIndex((o) => o === value) : null}
+        setSelected={(i) => setValue(i !== null ? options[i] : null)}
         onSelect={onSelect}
         icon={icon}
         secondaryIcon={actionIcon}
         placeholder={placeholder}
-
         {...rest}
       />
     </>
-  )
+  );
 });

@@ -1,7 +1,7 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { MultipartButton as MPB } from "./MultipartButton";
-import { Storybook } from "../../../../storybook"
+import { Storybook } from "../../../../storybook";
 import { IconApps } from "@tabler/icons-react";
 import { Flex, ValenceProvider } from "../../..";
 
@@ -19,7 +19,7 @@ const meta: Meta<typeof MPB> = {
     },
     radius: {
       options: Storybook.componentSizes,
-      control: { type: "select" }
+      control: { type: "select" },
     },
     square: {
       control: { type: "boolean" },
@@ -39,15 +39,15 @@ const meta: Meta<typeof MPB> = {
     },
 
     width: {
-      control: { type: "number" }
+      control: { type: "number" },
     },
     height: {
-      control: { type: "number" }
+      control: { type: "number" },
     },
 
     color: {
-      control: { type: "text" }
-    }
+      control: { type: "text" },
+    },
   },
 };
 export default meta;
@@ -55,12 +55,7 @@ type Story = StoryObj<typeof MPB>;
 
 export const Multipart: Story = (args: any) => (
   <ValenceProvider>
-    <Flex
-      direction="column"
-      height="100vh"
-      center
-      padding={20}
-    >
+    <Flex direction="column" height="100vh" center padding={20}>
       <MPB {...args} size="xs" />
       <MPB {...args} size="sm" />
       <MPB {...args} size="md" />
@@ -79,4 +74,4 @@ Multipart.args = {
       <IconApps />
     </Flex>
   ),
-}
+};
