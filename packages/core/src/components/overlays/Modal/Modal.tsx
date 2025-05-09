@@ -1,29 +1,43 @@
 /** @jsxImportSource @emotion/react */
 import { CSSProperties, forwardRef } from "react";
-import { ModalBackground, Disclosure, useDetectKeyDown, useValence, MakeResponsive, useResponsiveProps, useColors } from "../../..";
+import {
+  ModalBackground,
+  Disclosure,
+  useDetectKeyDown,
+  useValence,
+  MakeResponsive,
+  useResponsiveProps,
+  useColors,
+} from "../../..";
 import { Flex, FlexProps, OverflowContainer } from "../../layout";
 import { AnimatePresence, motion } from "framer-motion";
 import { Icon, Title } from "../../display";
 import { IconX } from "@tabler/icons-react";
-import { GenericOverlayHeaderProps, GenericOverlayProps } from "@valence-ui/utils";
+import {
+  GenericOverlayHeaderProps,
+  GenericOverlayProps,
+} from "@valence-ui/utils";
 import { IconButton } from "../../buttons";
 import { css } from "@emotion/react";
-import { FloatingFocusManager, useFloating, useId, useInteractions, useRole } from "@floating-ui/react";
+import {
+  FloatingFocusManager,
+  useFloating,
+  useId,
+  useInteractions,
+  useRole,
+} from "@floating-ui/react";
 import { useLockScroll } from "../../../hooks/UseLockScroll";
 
-export type ModalProps =
-  GenericOverlayProps
-  & {
-    /** A disclosure to handle state information about this modal */
-    disclosure: Disclosure;
+export type ModalProps = GenericOverlayProps & {
+  /** A disclosure to handle state information about this modal */
+  disclosure: Disclosure;
 
-    /** Optional props to pass to the flex component */
-    flexProps?: FlexProps;
+  /** Optional props to pass to the flex component */
+  flexProps?: FlexProps;
 
-    /** Optional props to pass to the inner flex component */
-    innerFlexProps?: FlexProps;
-  }
-
+  /** Optional props to pass to the inner flex component */
+  innerFlexProps?: FlexProps;
+};
 
 export const Modal = forwardRef(function Modal(
   props: MakeResponsive<ModalProps>,
@@ -32,15 +46,13 @@ export const Modal = forwardRef(function Modal(
   const theme = useValence();
   const { getHex } = useColors();
 
-
   // Defaults
   const {
     disclosure,
     title,
-    header = (props) => <DefaultModalHeader
-      disclosure={disclosure}
-      {...props}
-    />,
+    header = (props) => (
+      <DefaultModalHeader disclosure={disclosure} {...props} />
+    ),
 
     closeOnOverlayClick = true,
     closeOnEscape = true,
@@ -65,16 +77,15 @@ export const Modal = forwardRef(function Modal(
 
     ...rest
   } = useResponsiveProps<ModalProps>(props);
-  const {
-    style: flexStyle,
-    ...flexPropsRest
-  } = flexProps || {} as any;
-
+  const { style: flexStyle, ...flexPropsRest } = flexProps || ({} as any);
 
   // Hooks
   useLockScroll(disclosure.opened && lockScroll);
-  useDetectKeyDown(() => disclosure.close(), "Escape", closeOnEscape && disclosure.opened);
-
+  useDetectKeyDown(
+    () => disclosure.close(),
+    "Escape",
+    closeOnEscape && disclosure.opened
+  );
 
   // Floating UI
   /** Moving this to the sheets should allow them to trap focus.
@@ -86,13 +97,10 @@ export const Modal = forwardRef(function Modal(
   });
   const role = useRole(context);
 
-  const { getFloatingProps } = useInteractions([
-    role,
-  ])
+  const { getFloatingProps } = useInteractions([role]);
 
   const labelId = useId();
   const descriptionId = useId();
-
 
   // Styles
   const ContainerStyle = css({
@@ -109,36 +117,30 @@ export const Modal = forwardRef(function Modal(
     boxSizing: "border-box",
     maxWidth: "100%",
 
-    ...style
+    ...style,
   });
   const FlexStyle: CSSProperties = {
     width: "100%",
     height: "100%",
-    ...flexStyle
-  }
-
+    ...flexStyle,
+  };
 
   return (
     <AnimatePresence>
-      {disclosure.opened &&
-        <ModalBackground
-          disclosure={disclosure}
-          {...overlayBackgroundProps}
-        >
+      {disclosure.opened && (
+        <ModalBackground disclosure={disclosure} {...overlayBackgroundProps}>
           <FloatingFocusManager context={context}>
             <motion.div
               css={ContainerStyle}
-              onClick={e => e.stopPropagation()}
-
+              // @ts-ignore
+              onClick={(e) => e.stopPropagation()}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ ease: "backOut" }}
-
               ref={refs.setFloating}
               aria-labelledby={labelId}
               aria-describedby={descriptionId}
-
               {...getFloatingProps()}
               {...rest}
             >
@@ -150,35 +152,30 @@ export const Modal = forwardRef(function Modal(
               >
                 {header({ title })}
 
-                <OverflowContainer
-                  innerProps={innerFlexProps}
-                >
+                <OverflowContainer innerProps={innerFlexProps}>
                   {children}
                 </OverflowContainer>
               </Flex>
             </motion.div>
           </FloatingFocusManager>
         </ModalBackground>
-      }
+      )}
     </AnimatePresence>
-  )
+  );
 });
 
-
-export type DefaultModalHeaderProps =
-  GenericOverlayHeaderProps
-  & {
-    /** A disclosure to handle state information about this modal */
-    disclosure: Disclosure;
-  }
+export type DefaultModalHeaderProps = GenericOverlayHeaderProps & {
+  /** A disclosure to handle state information about this modal */
+  disclosure: Disclosure;
+};
 
 export const DefaultModalHeader = forwardRef(function DefaultModalHeader(
   props: MakeResponsive<DefaultModalHeaderProps>,
-  ref: any,
+  ref: any
 ) {
-  const { title, disclosure } = useResponsiveProps<DefaultModalHeaderProps>(props);
+  const { title, disclosure } =
+    useResponsiveProps<DefaultModalHeaderProps>(props);
   const { getHex } = useColors();
-
 
   const HeaderStyle = css({
     display: "flex",
@@ -186,32 +183,19 @@ export const DefaultModalHeader = forwardRef(function DefaultModalHeader(
     justifyContent: "space-between",
     width: "100%",
 
-    backgroundColor: getHex(
-      "white",
-      "strong"
-    ),
+    backgroundColor: getHex("white", "strong"),
     backdropFilter: "blur(10px)",
   });
 
-
   return (
-    <header
-      css={HeaderStyle}
-      ref={ref}
-    >
-      <Title
-        order={2}
-      >
-        {title}
-      </Title>
+    <header css={HeaderStyle} ref={ref}>
+      <Title order={2}>{title}</Title>
 
-      <IconButton
-        onClick={disclosure.close}
-        color="black"
-        variant="subtle"
-      >
-        <Icon><IconX /></Icon>
+      <IconButton onClick={disclosure.close} color="black" variant="subtle">
+        <Icon>
+          <IconX />
+        </Icon>
       </IconButton>
     </header>
-  )
+  );
 });

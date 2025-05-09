@@ -14,7 +14,7 @@ export type UseElementSizeOutput = {
  * @returns An object containing the ref object and the current width and height of the element.
  */
 export function useElementSize(): UseElementSizeOutput {
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLElement>(null as any);
   const [size, setSize] = useState({ width: 0, height: 0 });
 
   useEffect(() => {

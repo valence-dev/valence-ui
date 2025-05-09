@@ -1,11 +1,21 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { GenericOverlayHeaderProps, } from "@valence-ui/utils";
+import { GenericOverlayHeaderProps } from "@valence-ui/utils";
 import { useContext, forwardRef, CSSProperties } from "react";
 import { AnimatePresence, motion, useDragControls } from "framer-motion";
 import { GenericSheetProps } from "../Generics";
-import { FloatingFocusManager, useFloating, useId, useInteractions, useRole } from "@floating-ui/react";
-import { MakeResponsive, useColors, useResponsiveProps } from "../../../../utilities";
+import {
+  FloatingFocusManager,
+  useFloating,
+  useId,
+  useInteractions,
+  useRole,
+} from "@floating-ui/react";
+import {
+  MakeResponsive,
+  useColors,
+  useResponsiveProps,
+} from "../../../../utilities";
 import { Flex, FlexProps, OverflowContainer } from "../../../layout";
 import { ValenceContext } from "../../../../ValenceProvider";
 import { DefaultModalHeader } from "../../Modal";
@@ -34,15 +44,13 @@ export const BottomSheet = forwardRef(function BottomSheet(
   const { getHex } = useColors();
   const controls = useDragControls();
 
-
   // Defaults
   const {
     disclosure,
     title,
-    header = (props: GenericOverlayHeaderProps) => <DefaultModalHeader
-      disclosure={disclosure}
-      {...props}
-    />,
+    header = (props: GenericOverlayHeaderProps) => (
+      <DefaultModalHeader disclosure={disclosure} {...props} />
+    ),
 
     releaseOffset = Math.round(window.innerHeight / 2),
     releaseVelocity = 500,
@@ -70,29 +78,20 @@ export const BottomSheet = forwardRef(function BottomSheet(
       padding: 0,
       style: {
         alignItems: "flex-end",
-      }
+      },
     },
 
     style,
     children,
     ...rest
   } = useResponsiveProps<BottomSheetProps>(props);
-  const {
-    style: flexStyle,
-    ...flexPropsRest
-  } = flexProps || {} as any;
-
+  const { style: flexStyle, ...flexPropsRest } = flexProps || ({} as any);
 
   // Functions
   function handleDragEnd(e: any, { offset, velocity }: any) {
-
-    if (
-      offset.y > releaseOffset
-      || velocity.y > releaseVelocity
-    )
+    if (offset.y > releaseOffset || velocity.y > releaseVelocity)
       disclosure.close();
   }
-
 
   // Styles
   const borderRadius = theme.sizeClasses.radius[radius];
@@ -126,7 +125,7 @@ export const BottomSheet = forwardRef(function BottomSheet(
     touchAction: "none",
 
     ...flexStyle,
-  }
+  };
   const DragStyle: CSSProperties = {
     width: "100%",
     height: 25,
@@ -137,24 +136,26 @@ export const BottomSheet = forwardRef(function BottomSheet(
     justifyContent: "center",
 
     cursor: "grab",
-  }
+  };
   const PillStyle: CSSProperties = {
     width: 50,
     height: 5,
     borderRadius: 5,
     backgroundColor: getHex("permaWhite", "strong"),
-  }
-  const OverflowStyle: CSSProperties = { 
+  };
+  const OverflowStyle: CSSProperties = {
     width: "100%",
     height: "100vh",
     backgroundColor: backgroundColor,
     marginTop: -1,
-  }
+  };
 
   // Hooks
   useLockScroll(disclosure.opened && lockScroll);
-  useDetectKeyDown(disclosure.close, "Escape", closeOnEscape, [closeOnEscape, close]);
-
+  useDetectKeyDown(disclosure.close, "Escape", closeOnEscape, [
+    closeOnEscape,
+    close,
+  ]);
 
   // Floating UI
   const { refs, context } = useFloating({
@@ -163,81 +164,66 @@ export const BottomSheet = forwardRef(function BottomSheet(
   });
   const role = useRole(context);
 
-  const { getFloatingProps } = useInteractions([
-    role,
-  ])
+  const { getFloatingProps } = useInteractions([role]);
 
   const labelId = useId();
   const descriptionId = useId();
 
-
   return (
     <AnimatePresence>
-      {disclosure.opened &&
-        <ModalBackground
-          disclosure={disclosure}
-          {...overlayBackgroundProps}
-        >
+      {disclosure.opened && (
+        <ModalBackground disclosure={disclosure} {...overlayBackgroundProps}>
           <FloatingFocusManager context={context}>
-          <motion.div
-            css={ContainerStyles}
-            onClick={e => e.stopPropagation()}
-
-            drag="y"
-            dragConstraints={{ top: 0 }}
-            dragSnapToOrigin
-            onDragEnd={handleDragEnd}
-
-            initial={{ y: "100%" }}
-            animate={{
-              y: 0,
-              transition: {
-                type: "spring",
-                stiffness: 400,
-                damping: 40,
-                delay: 0.1,
-              }
-            }}
-            exit={{ y: "100%" }}
-
-            ref={refs.setFloating}
-            aria-labelledby={labelId}
-            aria-describedby={descriptionId}
-
-            {...getFloatingProps()}
-            {...rest}
-          >
-            <div
-              style={DragStyle}
+            <motion.div
+              css={ContainerStyles}
+              // @ts-ignore
+              onClick={(e) => e.stopPropagation()}
+              drag="y"
+              dragConstraints={{ top: 0 }}
+              dragSnapToOrigin
+              onDragEnd={handleDragEnd}
+              initial={{ y: "100%" }}
+              animate={{
+                y: 0,
+                transition: {
+                  type: "spring",
+                  stiffness: 400,
+                  damping: 40,
+                  delay: 0.1,
+                },
+              }}
+              exit={{ y: "100%" }}
+              ref={refs.setFloating}
+              aria-labelledby={labelId}
+              aria-describedby={descriptionId}
+              {...getFloatingProps()}
+              {...rest}
             >
-              <div style={PillStyle} />
-            </div>
-
-            <Flex
-              direction="column"
-              style={SheetStyle}
-              {...flexPropsRest}
-            >
-              <div
-                onPointerDown={controls.start}
-                style={{ width: "100%", touchAction: "none" }}
-              >
-                {header({ title })}
+              <div style={DragStyle}>
+                <div style={PillStyle} />
               </div>
 
-              <OverflowContainer
-                innerProps={innerFlexProps}
-                direction={allowInnerScrolling ? "vertical" : "none"}
-              >
-                {children}
-              </OverflowContainer>
-            </Flex>
+              <Flex direction="column" style={SheetStyle} {...flexPropsRest}>
+                <div
+                  onPointerDown={controls.start}
+                  style={{ width: "100%", touchAction: "none" }}
+                >
+                  {header({ title })}
+                </div>
 
-            <div style={OverflowStyle} />
-          </motion.div>
+                <OverflowContainer
+                  innerProps={innerFlexProps}
+                  direction={allowInnerScrolling ? "vertical" : "none"}
+                >
+                  {children}
+                </OverflowContainer>
+              </Flex>
+
+              <div style={OverflowStyle} />
+            </motion.div>
           </FloatingFocusManager>
         </ModalBackground>
-      }
+      )}
     </AnimatePresence>
-  )
+  );
 });

@@ -14,22 +14,26 @@ const config: StorybookConfig = {
     "../packages/**/src/**/*.mdx",
     "../packages/**/src/**/*.stories.@(js|jsx|mjs|ts|tsx)",
   ],
+
   addons: [
-    '@storybook/addon-links',
-    // '@storybook/addon-actions',
-    '@storybook/addon-viewport',
-    '@storybook/addon-controls',
-    '@storybook/addon-backgrounds',
-    '@storybook/addon-toolbars',
-    '@storybook/addon-measure',
-    '@storybook/addon-outline',
+    getAbsolutePath("@storybook/addon-links"),
+    getAbsolutePath("@storybook/addon-viewport"),
+    getAbsolutePath("@storybook/addon-controls"),
+    getAbsolutePath("@storybook/addon-backgrounds"),
+    getAbsolutePath("@storybook/addon-toolbars"),
+    getAbsolutePath("@storybook/addon-measure"),
+    getAbsolutePath("@storybook/addon-outline"),
   ],
+
   framework: {
     name: getAbsolutePath("@storybook/react-vite"),
     options: {},
   },
-  docs: {
-    autodocs: "tag",
-  },
+
+  docs: {},
+
+  typescript: {
+    reactDocgen: "react-docgen-typescript"
+  }
 };
 export default config;
