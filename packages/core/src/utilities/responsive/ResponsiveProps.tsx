@@ -77,7 +77,7 @@ export function getResponsive<T>(
 ): T {
   // @ts-ignore
   if (props && props.hasOwnProperty("default"))
-    return getResponsiveProp(props, breakpoint);
+    return getResponsiveProp(props, breakpoint) as T;
   // @ts-ignore
   else return getResponsiveProps(props, breakpoint);
 }
