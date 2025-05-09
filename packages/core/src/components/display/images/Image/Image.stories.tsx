@@ -13,7 +13,6 @@ const meta: Meta<typeof I> = {
 export default meta;
 type Story = StoryObj<typeof I>;
 
-
 export const Image: Story = (args: any) => (
   <ValenceProvider>
     <Flex center height="100vh">
@@ -27,4 +26,4 @@ Image.args = {
 
   width: { default: 200, mobile: "unset" },
   height: 300,
-}
+};

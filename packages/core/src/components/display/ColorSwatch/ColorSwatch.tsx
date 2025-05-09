@@ -1,11 +1,16 @@
 /** @jsxImportSource @emotion/react */
 import { CSSProperties, forwardRef } from "react";
-import { MakeResponsive, SwatchOpacity, useColors, useResponsiveProps } from "../../../utilities";
+import {
+  MakeResponsive,
+  SwatchOpacity,
+  useColors,
+  useResponsiveProps,
+} from "../../../utilities";
 import { ComponentSize } from "@valence-ui/utils";
 import { useValence } from "../../../ValenceProvider";
 import { css } from "@emotion/react";
 
-export type ColorSwatchProps = { 
+export type ColorSwatchProps = {
   /** The color to display. Will default to the theme default color. */
   color: CSSProperties["color"];
   /** The opacity of the color to display. Will default to completely filled. */
@@ -18,18 +23,17 @@ export type ColorSwatchProps = {
 
   /** Whether to display the swatch with an outline. Defaults to `true`. */
   withOutline?: boolean;
-}
+};
 
 export const ColorSwatch = forwardRef(function ColorSwatch(
   props: MakeResponsive<ColorSwatchProps>,
-  ref: any,
-) { 
+  ref: any
+) {
   const theme = useValence();
   const { getHex } = useColors();
 
-
   // Defaults
-  const { 
+  const {
     color = theme.primaryColor,
     opacity,
     size = theme.defaults.size,
@@ -37,7 +41,6 @@ export const ColorSwatch = forwardRef(function ColorSwatch(
     withOutline = true,
     ...rest
   } = useResponsiveProps<ColorSwatchProps>(props);
-  
 
   // Styles
   const SwatchStyle = css({
@@ -47,14 +50,7 @@ export const ColorSwatch = forwardRef(function ColorSwatch(
 
     backgroundColor: getHex(color, opacity),
     border: withOutline ? `1px solid ${getHex("black", "medium")}` : "none",
-  })
+  });
 
-
-  return ( 
-    <div
-      ref={ref}
-      css={SwatchStyle}
-      {...rest}
-    />
-  )
+  return <div ref={ref} css={SwatchStyle} {...rest} />;
 });

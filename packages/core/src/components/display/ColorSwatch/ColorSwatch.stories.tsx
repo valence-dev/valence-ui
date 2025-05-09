@@ -10,24 +10,24 @@ const meta: Meta<typeof CS> = {
   title: "Valence/Core/Display",
   argTypes: {
     color: {
-      control: { type: "text" }
+      control: { type: "text" },
     },
     opacity: {
       options: ["weak", "medium", "strong"],
-      control: { type: "select" }
+      control: { type: "select" },
     },
     size: {
       options: Storybook.componentSizes,
-      control: { type: "select" }
+      control: { type: "select" },
     },
     radius: {
       options: Storybook.componentSizes,
-      control: { type: "select" }
+      control: { type: "select" },
     },
     withOutline: {
-      control: { type: "boolean" }
-    }
-  }
+      control: { type: "boolean" },
+    },
+  },
 };
 export default meta;
 type Story = StoryObj<typeof CS>;
@@ -39,6 +39,4 @@ export const ColorSwatch: Story = (args: any) => (
     </FlexCenter>
   </ValenceProvider>
 );
-ColorSwatch.args = {
-
-}
+ColorSwatch.args = {};

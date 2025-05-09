@@ -1,42 +1,57 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { Flex, FlexProps, Icon, IconButton, IconButtonProps, MakeResponsive, ValenceContext, useColors, useResponsiveProps } from "@valence-ui/core";
-import React, { CSSProperties, ReactNode, forwardRef, useContext, useEffect, useRef, useState } from "react";
+import {
+  Flex,
+  FlexProps,
+  Icon,
+  IconButton,
+  IconButtonProps,
+  MakeResponsive,
+  ValenceContext,
+  useColors,
+  useResponsiveProps,
+} from "@valence-ui/core";
+import React, {
+  CSSProperties,
+  ReactNode,
+  forwardRef,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 
-export type CarouselProps =
-  Omit<FlexProps, "children">
-  & {
-    /** Whether to allow the carousel content to be dragged on desktop. `true` on desktop devices by default. */
-    allowDrag?: boolean;
-    /** Whether to show the horizontal scrollbar. `false` by default. */
-    showScrollbar?: boolean;
-    /** Whether to snap to the nearest child when no longer scrolling. `true` by default. */
-    snapToChildren?: boolean;
-    /** Whether the active child should be changed during scroll. `true` by default. */
-    changeActiveOnScroll?: boolean;
+export type CarouselProps = Omit<FlexProps, "children"> & {
+  /** Whether to allow the carousel content to be dragged on desktop. `true` on desktop devices by default. */
+  allowDrag?: boolean;
+  /** Whether to show the horizontal scrollbar. `false` by default. */
+  showScrollbar?: boolean;
+  /** Whether to snap to the nearest child when no longer scrolling. `true` by default. */
+  snapToChildren?: boolean;
+  /** Whether the active child should be changed during scroll. `true` by default. */
+  changeActiveOnScroll?: boolean;
 
-    /** Optional props to pass to the content flex component */
-    contentProps?: FlexProps;
+  /** Optional props to pass to the content flex component */
+  contentProps?: FlexProps;
 
-    /** The active child of this carousel. For use when controlled. */
-    activeChild?: number;
-    /** Sets the active child of this carousel. For use when controlled. */
-    setActiveChild?: (index: number) => void;
+  /** The active child of this carousel. For use when controlled. */
+  activeChild?: number;
+  /** Sets the active child of this carousel. For use when controlled. */
+  setActiveChild?: (index: number) => void;
 
+  /** Whether to the carousel controls. `true` by default. */
+  showControls?: boolean;
+  /** Optional overrides for the icons to use for the controls */
+  controlIcons?: {
+    prev: ReactNode;
+    next: ReactNode;
+  };
+  /** Optional props to pass to the control buttons */
+  controlButtonProps?: IconButtonProps;
 
-    /** Whether to the carousel controls. `true` by default. */
-    showControls?: boolean;
-    /** Optional overrides for the icons to use for the controls */
-    controlIcons?: {
-      prev: ReactNode;
-      next: ReactNode;
-    }
-    /** Optional props to pass to the control buttons */
-    controlButtonProps?: IconButtonProps;
-
-    children: ReactNode[];
-  }
+  children: ReactNode[];
+};
 
 const Carousel = forwardRef(function Card(
   props: MakeResponsive<CarouselProps>,
@@ -54,15 +69,22 @@ const Carousel = forwardRef(function Card(
 
     showControls = { default: true, mobile: false },
     controlIcons = {
-      prev: <Icon><IconArrowLeft /></Icon>,
-      next: <Icon><IconArrowRight /></Icon>,
+      prev: (
+        <Icon>
+          <IconArrowLeft />
+        </Icon>
+      ),
+      next: (
+        <Icon>
+          <IconArrowRight />
+        </Icon>
+      ),
     },
     controlButtonProps,
 
     width = "100%",
     height = "fit-content",
     gap = 10,
-
 
     style,
     children,
@@ -79,7 +101,6 @@ const Carousel = forwardRef(function Card(
   const contentRef = useRef(null);
   const parentRef = ref ?? useRef(null);
 
-
   // Drag handling
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
@@ -90,7 +111,7 @@ const Carousel = forwardRef(function Card(
     setIsMouseDown(true);
     setMouseCoords({
       //@ts-ignore
-      startX: (e.pageX - contentRef.current.offsetLeft),
+      startX: e.pageX - contentRef.current.offsetLeft,
       scrollX: parentRef.current?.scrollLeft,
     });
     e.stopPropagation();
@@ -100,10 +121,8 @@ const Carousel = forwardRef(function Card(
     e.stopPropagation();
     if (!isDragging) return;
 
-    if (snapToChildren)
-      scrollToChild(nearestChild);
-    if (changeActiveOnScroll)
-      setActiveChild(nearestChild);
+    if (snapToChildren) scrollToChild(nearestChild);
+    if (changeActiveOnScroll) setActiveChild(nearestChild);
 
     setTimeout(() => {
       setIsDragging(false);
@@ -115,7 +134,7 @@ const Carousel = forwardRef(function Card(
     //@ts-ignore
     const x = e.pageX - contentRef.current?.offsetLeft;
 
-    const walkX = (x - mouseCoords.startX);
+    const walkX = x - mouseCoords.startX;
 
     if (Math.abs(walkX) > 5) setIsDragging(true);
 
@@ -138,9 +157,8 @@ const Carousel = forwardRef(function Card(
 
       window.removeEventListener("touchend", handleDragEnd, false);
       window.removeEventListener("touchcancel", handleDragEnd, false);
-    }
-  })
-
+    };
+  });
 
   // Scroll handling
   const [nearestChild, setNearestChild] = useState(0);
@@ -179,15 +197,16 @@ const Carousel = forwardRef(function Card(
       let nearestChildDistance = Infinity;
       for (let i = 0; i < children.length; i++) {
         const child = children[i];
-        const distance = Math.abs(child.offsetLeft - (child.offsetWidth / 2) - scrollLeft);
+        const distance = Math.abs(
+          child.offsetLeft - child.offsetWidth / 2 - scrollLeft
+        );
         if (distance < nearestChildDistance) {
           nearestChild = i;
           nearestChildDistance = distance;
         }
       }
       setNearestChild(nearestChild);
-      if (!isAutoScrolling
-        && changeActiveOnScroll)
+      if (!isAutoScrolling && changeActiveOnScroll)
         setActiveChild(nearestChild);
     }
   }
@@ -196,9 +215,8 @@ const Carousel = forwardRef(function Card(
     parentRef.current?.addEventListener("scroll", handleScroll, false);
     return () => {
       parentRef.current?.removeEventListener("scroll", handleScroll, false);
-    }
+    };
   });
-
 
   // Input handling
   function nextChild() {
@@ -212,31 +230,29 @@ const Carousel = forwardRef(function Card(
     scrollToChild(ac);
   }
 
-
   // Styles
-  const buttonWidth = theme.sizeClasses.height[buttonPropsRest.size ?? theme.defaults.size] ?? 35;
+  const buttonWidth =
+    theme.sizeClasses.height[buttonPropsRest.size ?? theme.defaults.size] ?? 35;
   const gapWidth = gap;
   const ContainerStyle: CSSProperties = {
-    marginLeft: showControls ?
-      `calc(${-buttonWidth}px - ${gapWidth}px)`
+    marginLeft: showControls
+      ? `calc(${-buttonWidth}px - ${gapWidth}px)`
       : undefined,
-    marginRight: showControls ?
-      `calc(${-buttonWidth}px - ${gapWidth}px)`
+    marginRight: showControls
+      ? `calc(${-buttonWidth}px - ${gapWidth}px)`
       : undefined,
 
-    width: showControls ?
-      // @ts-ignore
-      `calc(${width} + ${(2 * (buttonWidth + gapWidth))}px)`
+    width: showControls
+      ? // @ts-ignore
+        `calc(${width} + ${2 * (buttonWidth + gapWidth)}px)`
       : width,
 
     boxSizing: "border-box",
-  }
+  };
   const ParentStyle = css({
     overflowX: "scroll",
     paddingBottom: showScrollbar ? gap : undefined,
-    cursor: allowDrag ?
-      isMouseDown ? "grabbing" : "grab"
-      : "unset",
+    cursor: allowDrag ? (isMouseDown ? "grabbing" : "grab") : "unset",
     boxSizing: "border-box",
 
     // Scrollbar
@@ -261,26 +277,20 @@ const Carousel = forwardRef(function Card(
     ...style,
   });
 
-
   return (
     <>
-      <Flex
-        height={height}
-        align="center"
-        style={ContainerStyle}
-      >
-        {showControls &&
+      <Flex height={height} align="center" style={ContainerStyle}>
+        {showControls && (
           <IconButton
             color={buttonColor}
             radius={buttonRadius}
             onClick={prevChild}
             disabled={activeChild === 0}
-
             {...buttonPropsRest}
           >
             {controlIcons.prev}
           </IconButton>
-        }
+        )}
 
         {/* Parent */}
         <Flex
@@ -289,7 +299,6 @@ const Carousel = forwardRef(function Card(
           height={height}
           //@ts-ignore
           style={ParentStyle}
-
           {...rest}
         >
           {/* Content */}
@@ -297,10 +306,8 @@ const Carousel = forwardRef(function Card(
             width="fit-content"
             height="100%"
             gap={gap}
-
             // @ts-ignore
             onMouseDown={handleDragStart}
-
             ref={contentRef}
             {...contentProps}
           >
@@ -319,24 +326,21 @@ const Carousel = forwardRef(function Card(
           </Flex>
         </Flex>
 
-        {showControls &&
+        {showControls && (
           <IconButton
             color={buttonColor}
             radius={buttonRadius}
             onClick={nextChild}
             disabled={activeChild === children.length - 1}
-
             {...buttonPropsRest}
           >
             {controlIcons.next}
           </IconButton>
-        }
+        )}
       </Flex>
     </>
-  )
-})
-
-
-const CarouselNamespace = Object.assign(Carousel, {
+  );
 });
-export { CarouselNamespace as Carousel }
+
+const CarouselNamespace = Object.assign(Carousel, {});
+export { CarouselNamespace as Carousel };

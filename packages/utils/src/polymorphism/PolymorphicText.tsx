@@ -1,18 +1,22 @@
 import { forwardRef } from "react";
-import { GenericClickableEventProps, GenericClickableProps, GenericProps, PolymorphicElementProps, PolymorphicElementType } from "..";
+import {
+  GenericClickableEventProps,
+  GenericClickableProps,
+  GenericProps,
+  PolymorphicElementProps,
+  PolymorphicElementType,
+} from "..";
 import { Link } from "react-router-dom";
 
-export type PolymorphicTextProps =
-  PolymorphicElementProps
-  & {
-    /** Sets Emotion styling content on the component */
-    css?: any;
-  };
+export type PolymorphicTextProps = PolymorphicElementProps & {
+  /** Sets Emotion styling content on the component */
+  css?: any;
+};
 
-type Props = PolymorphicTextProps
-  & GenericProps
-  & GenericClickableEventProps
-  & GenericClickableProps;
+type Props = PolymorphicTextProps &
+  GenericProps &
+  GenericClickableEventProps &
+  GenericClickableProps;
 
 export const PolymorphicText = forwardRef(function Input(
   props: Props,
@@ -27,5 +31,5 @@ export const PolymorphicText = forwardRef(function Input(
     <Component ref={ref} {...rest}>
       {children}
     </Component>
-  )
+  );
 });

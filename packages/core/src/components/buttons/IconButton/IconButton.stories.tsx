@@ -1,7 +1,7 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { Storybook } from "../../../../storybook"
-import { IconUserCircle } from "@tabler/icons-react"
+import { Storybook } from "../../../../storybook";
+import { IconUserCircle } from "@tabler/icons-react";
 
 import { IconButton as IB } from "./IconButton";
 import { ValenceProvider } from "../../../ValenceProvider";
@@ -21,7 +21,7 @@ const meta: Meta<typeof IB> = {
     },
     radius: {
       options: Storybook.componentSizes,
-      control: { type: "select" }
+      control: { type: "select" },
     },
 
     square: {
@@ -42,11 +42,11 @@ const meta: Meta<typeof IB> = {
     },
 
     width: {
-      control: { type: "number" }
+      control: { type: "number" },
     },
     height: {
-      control: { type: "number" }
-    }
+      control: { type: "number" },
+    },
   },
 };
 export default meta;
@@ -65,4 +65,4 @@ export const Icon: Story = (args: any) => (
 );
 Icon.args = {
   children: <IconUserCircle />,
-}
+};

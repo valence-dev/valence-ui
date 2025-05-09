@@ -1,6 +1,9 @@
 import React, { ReactNode, forwardRef } from "react";
 import { useValence } from "../../../ValenceProvider";
-import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+import {
+  MakeResponsive,
+  useResponsiveProps,
+} from "../../../utilities/responsive";
 import { useColors } from "../../../utilities/color";
 
 export type IconProps = {
@@ -12,22 +15,21 @@ export type IconProps = {
   color?: string;
 
   children?: ReactNode;
-}
-
+};
 
 /** This is the new wrapper component for Tabler Icons, designed to pass them
- * the necessary props to conform with the theme standards. This component 
+ * the necessary props to conform with the theme standards. This component
  * replaces the `useDefaultIconProps` hook.
- * 
+ *
  * ```tsx
  * <Icon color="black">
  *  <Icon123 />
  * </Icon>
  * ```
-*/
+ */
 export const Icon = forwardRef(function Icon(
   props: MakeResponsive<IconProps>,
-  ref: any,
+  ref: any
 ) {
   const theme = useValence();
   const colors = useColors();
@@ -39,12 +41,11 @@ export const Icon = forwardRef(function Icon(
     children,
   } = useResponsiveProps<IconProps>(props);
 
-
   if (children === undefined) return children;
   return React.cloneElement(children as any, {
     size: size,
     stroke: stroke,
     color: color ? colors.getHex(color) : undefined,
     ref,
-  })
+  });
 });

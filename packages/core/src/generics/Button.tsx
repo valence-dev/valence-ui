@@ -1,11 +1,16 @@
-import { ComponentSize, FillVariant, GenericClickableEventProps, GenericClickableProps, GenericLayoutProps, PolymorphicButtonProps } from "@valence-ui/utils";
+import {
+  ComponentSize,
+  FillVariant,
+  GenericClickableEventProps,
+  GenericClickableProps,
+  GenericLayoutProps,
+  PolymorphicButtonProps,
+} from "@valence-ui/utils";
 
-export type GenericButtonProps =
-  GenericClickableProps
-  & GenericClickableEventProps
-  & PolymorphicButtonProps
-  & GenericLayoutProps
-  & {
+export type GenericButtonProps = GenericClickableProps &
+  GenericClickableEventProps &
+  PolymorphicButtonProps &
+  GenericLayoutProps & {
     /** This button's styling variant. Defaults to theme default */
     variant?: FillVariant;
     /** This button's size class. Defaults to theme default */
@@ -24,4 +29,4 @@ export type GenericButtonProps =
     disabled?: boolean;
     /** Whether this button is loading */
     loading?: boolean;
-  }
+  };

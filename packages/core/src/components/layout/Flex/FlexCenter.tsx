@@ -2,14 +2,13 @@ import { forwardRef } from "react";
 import { Flex, FlexProps } from "./Flex";
 import { MakeResponsive, useResponsiveProps } from "../../../utilities";
 
-export type FlexCenterProps =
-  FlexProps & {
-    /** Width of the inner Flex component. Defaults to `50%`. */
-    innerWidth?: FlexProps["width"];
+export type FlexCenterProps = FlexProps & {
+  /** Width of the inner Flex component. Defaults to `50%`. */
+  innerWidth?: FlexProps["width"];
 
-    /** Optional props to pass to the inner Flex component. */
-    innerProps?: Omit<FlexProps, "children">;
-  }
+  /** Optional props to pass to the inner Flex component. */
+  innerProps?: Omit<FlexProps, "children">;
+};
 
 export const FlexCenter = forwardRef(function FlexCentre(
   props: MakeResponsive<FlexCenterProps>,
@@ -28,14 +27,7 @@ export const FlexCenter = forwardRef(function FlexCentre(
   } = useResponsiveProps<FlexCenterProps>(props);
 
   return (
-    <Flex
-      center={center}
-      width={width}
-      height={height}
-
-      ref={ref}
-      {...rest}
-    >
+    <Flex center={center} width={width} height={height} ref={ref} {...rest}>
       <Flex
         width={innerWidth}
         height="fit-content"

@@ -1,7 +1,7 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { Storybook } from "../../../../storybook";
-import { IconUserCircle } from "@tabler/icons-react"
+import { IconUserCircle } from "@tabler/icons-react";
 
 import { ButtonWithIcon as BWI } from "./ButtonWithIcon";
 import { ValenceProvider } from "../../../ValenceProvider";
@@ -21,7 +21,7 @@ const meta: Meta<typeof BWI> = {
     },
     radius: {
       options: Storybook.componentSizes,
-      control: { type: "select" }
+      control: { type: "select" },
     },
     color: {
       options: Storybook.colors,
@@ -45,11 +45,11 @@ const meta: Meta<typeof BWI> = {
     },
 
     width: {
-      control: { type: "number" }
+      control: { type: "number" },
     },
     height: {
-      control: { type: "number" }
-    }
+      control: { type: "number" },
+    },
   },
 };
 export default meta;
@@ -57,11 +57,7 @@ type Story = StoryObj<typeof BWI>;
 
 export const WithIcon: Story = (args: any) => (
   <ValenceProvider>
-    <Flex
-      center
-      height="100vh"
-      direction="column"
-    >
+    <Flex center height="100vh" direction="column">
       <BWI {...args} size="xs" />
       <BWI {...args} size="sm" />
       <BWI {...args} size="md" />
@@ -74,4 +70,4 @@ WithIcon.args = {
   icon: <IconUserCircle />,
   children: "Button",
   iconPosition: "left",
-}
+};

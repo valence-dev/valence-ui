@@ -1,3 +1,3 @@
-export * from "./PolymorphicButton"
-export * from "./PolymorphicLayout"
-export * from "./PolymorphicText"
+export * from "./PolymorphicButton";
+export * from "./PolymorphicLayout";
+export * from "./PolymorphicText";

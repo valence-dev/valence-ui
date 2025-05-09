@@ -6,7 +6,7 @@ import { Tooltip as T } from "./Tooltip";
 const meta: Meta<typeof T> = {
   component: T,
   title: "Valence/Core/Overlays",
-}
+};
 export default meta;
 type Story = StoryObj<typeof T>;
 
@@ -15,39 +15,33 @@ export const Tooltip: Story = (args: any) => {
 
   return (
     <ValenceProvider>
-      
       {/* Controlled */}
-      <T
-        disclosure={tooltipDisclosure}
-        {...args}
-      >
+      <T disclosure={tooltipDisclosure} {...args}>
         <T.Trigger>
-
           <Button
             onClick={() => tooltipDisclosure.update(!tooltipDisclosure.opened)}
-          >Tooltip (controlled)</Button>
+          >
+            Tooltip (controlled)
+          </Button>
         </T.Trigger>
 
         <T.Content backgroundColor="primary">
-          <Text align="center" color="white">Tooltip Content</Text>
+          <Text align="center" color="white">
+            Tooltip Content
+          </Text>
         </T.Content>
       </T>
 
       {/* Uncontrolled */}
-      <T
-        {...args}
-      >
+      <T {...args}>
         <T.Trigger>
           <Text align="center">Tooltip (uncontrolled)</Text>
         </T.Trigger>
 
-        <T.Content>
-          Tooltip content
-        </T.Content>
+        <T.Content>Tooltip content</T.Content>
       </T>
     </ValenceProvider>
-  )
-}
+  );
+};
 
-Tooltip.args = {
-}
+Tooltip.args = {};

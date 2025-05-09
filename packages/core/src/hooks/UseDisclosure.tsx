@@ -11,10 +11,10 @@ export type Disclosure = {
   toggle: () => void;
   /** Manually update the disclosure. */
   update: (value: boolean) => void;
-}
+};
 
 /** Returns a boolean value and functions to open and close the value */
-export function useDisclosure(defaultValue: boolean = false): Disclosure { 
+export function useDisclosure(defaultValue: boolean = false): Disclosure {
   const [value, setValue] = useState(defaultValue ?? false);
 
   const open = () => setValue(true);

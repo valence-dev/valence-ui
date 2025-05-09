@@ -1,1 +1,1 @@
-export * from "./SideSheet"
+export * from "./SideSheet";

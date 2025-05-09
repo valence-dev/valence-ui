@@ -1,5 +1,9 @@
 import React, { CSSProperties, forwardRef } from "react";
-import { MakeResponsive, useColors, useResponsiveProps } from "../../../utilities";
+import {
+  MakeResponsive,
+  useColors,
+  useResponsiveProps,
+} from "../../../utilities";
 import { ComponentSize, FillVariant, GenericProps } from "@valence-ui/utils";
 import { Flex, FlexProps, Space } from "../../layout";
 import { useValence } from "../../../ValenceProvider";
@@ -7,19 +11,17 @@ import { Text } from "../Text";
 import { Icon } from "../Icon";
 import { IconCheck } from "@tabler/icons-react";
 
-export type StepperProps =
-  GenericProps
-  & {
-    /** The current step to display. */
-    currentStep: number;
+export type StepperProps = GenericProps & {
+  /** The current step to display. */
+  currentStep: number;
 
-    /** The fill variant to use for this stepper. */
-    variant?: FillVariant;
-    /** The size of this stepper. */
-    size?: ComponentSize;
-    /** The color of this stepper. */
-    color?: CSSProperties["color"];
-  }
+  /** The fill variant to use for this stepper. */
+  variant?: FillVariant;
+  /** The size of this stepper. */
+  size?: ComponentSize;
+  /** The color of this stepper. */
+  color?: CSSProperties["color"];
+};
 
 export type StepperIndicatorState = "default" | "active" | "complete";
 export type StepperIndicatorProps = {
@@ -34,20 +36,16 @@ export type StepperIndicatorProps = {
   size?: ComponentSize;
   /** The color of this indicator. */
   color?: CSSProperties["color"];
-}
+};
 
-export type StepperStepProps =
-  FlexProps;
-
-
+export type StepperStepProps = FlexProps;
 
 const Stepper = forwardRef(function Stepper(
   props: MakeResponsive<StepperProps>,
-  ref: any,
+  ref: any
 ) {
   const theme = useValence();
   const colors = useColors();
-
 
   // Defaults
   const {
@@ -60,31 +58,22 @@ const Stepper = forwardRef(function Stepper(
     ...rest
   } = useResponsiveProps<StepperProps>(props);
 
-
   return (
-    <Flex
-      direction="column"
-      width="100%"
-      ref={ref}
-      {...rest}
-    >
+    <Flex direction="column" width="100%" ref={ref} {...rest}>
       {/* Stepper header */}
-      <Flex
-        direction="row"
-        width="100%"
-        justify="space-between"
-        align="center"
-      >
+      <Flex direction="row" width="100%" justify="space-between" align="center">
         {React.Children.toArray(children).map((_, index: number) => {
-          return React.cloneElement((
+          return React.cloneElement(
             <>
               <StepperIndicator
                 key={index}
                 step={index}
                 state={
-                  index === currentStep ? "active"
-                    : index < currentStep ? "complete"
-                      : "default"
+                  index === currentStep
+                    ? "active"
+                    : index < currentStep
+                    ? "complete"
+                    : "default"
                 }
                 variant={variant}
                 color={color}
@@ -92,7 +81,7 @@ const Stepper = forwardRef(function Stepper(
               />
 
               {/* Line */}
-              {index < React.Children.count(children) - 1 &&
+              {index < React.Children.count(children) - 1 && (
                 <Space
                   key={index + "line"}
                   grow
@@ -101,28 +90,29 @@ const Stepper = forwardRef(function Stepper(
                     opacity: index < currentStep ? 1 : 0.25,
                   }}
                 />
-              }
-            </>
-          ), { key: index })
+              )}
+            </>,
+            { key: index }
+          );
         })}
       </Flex>
 
       {/* Stepper children */}
-      {React.Children.toArray(children).map((child: any, index: number) =>
-        index === currentStep && React.cloneElement(child, { ...child.props, key: index })
+      {React.Children.toArray(children).map(
+        (child: any, index: number) =>
+          index === currentStep &&
+          React.cloneElement(child, { ...child.props, key: index })
       )}
     </Flex>
-  )
+  );
 });
-
 
 const StepperIndicator = forwardRef(function StepperIndicator(
   props: MakeResponsive<StepperIndicatorProps>,
-  ref: any,
+  ref: any
 ) {
   const theme = useValence();
   const colors = useColors();
-
 
   // Defaults
   const {
@@ -132,7 +122,6 @@ const StepperIndicator = forwardRef(function StepperIndicator(
     size = theme.defaults.size,
     color = "primary",
   } = useResponsiveProps<StepperIndicatorProps>(props);
-
 
   // Styles
   const indicatorContainerStyle: CSSProperties = {
@@ -147,23 +136,21 @@ const StepperIndicator = forwardRef(function StepperIndicator(
     opacity: state === "default" ? 0.5 : 1,
   };
 
-
   return (
     <Flex
       ref={ref}
       style={indicatorContainerStyle}
-
       align="center"
       justify="center"
     >
-      {state === "complete" ?
+      {state === "complete" ? (
         <Icon
           color={colors.getFgHex(color, variant)}
           size={theme.sizeClasses.iconSize[size] as any}
         >
           <IconCheck />
         </Icon>
-        :
+      ) : (
         <Text
           align="center"
           color={colors.getFgHex(color, variant)}
@@ -171,40 +158,27 @@ const StepperIndicator = forwardRef(function StepperIndicator(
         >
           {step + 1}
         </Text>
-      }
+      )}
     </Flex>
-  )
+  );
 });
-
 
 const StepperStep = forwardRef(function StepperStep(
   props: MakeResponsive<StepperStepProps>,
-  ref: any,
+  ref: any
 ) {
-
-
   // Defaults
-  const {
-    children,
-    ...rest
-  } = useResponsiveProps<StepperStepProps>(props);
-
+  const { children, ...rest } = useResponsiveProps<StepperStepProps>(props);
 
   return (
-    <Flex
-      direction="column"
-      width="100%"
-      ref={ref}
-      {...rest}
-    >
+    <Flex direction="column" width="100%" ref={ref} {...rest}>
       {children}
     </Flex>
-  )
+  );
 });
-
 
 const StepperNamespace = Object.assign(Stepper, {
   Indicator: StepperIndicator,
-  Step: StepperStep
+  Step: StepperStep,
 });
 export { StepperNamespace as Stepper };

@@ -1,15 +1,19 @@
 import { CSSProperties, forwardRef } from "react";
 import { FlexCenter, FlexCenterProps } from "../Flex";
-import { MakeResponsive, useColors, useResponsiveProps, useValence } from "../../..";
+import {
+  MakeResponsive,
+  useColors,
+  useResponsiveProps,
+  useValence,
+} from "../../..";
 
 export type HeaderProps = FlexCenterProps & {
   /** Defines the position of this header. */
   position?: CSSProperties["position"];
-}
-
+};
 
 /** A layout component that helps position `Title` and similar components.
- * 
+ *
  * On desktop devices, the `Header` will act as a static container that can be placed anywhere and will scroll with the content. On mobile devices, however, the `Header` will become fixed tot he top of the screen and can shrink as the user scrolls.
  */
 export const Header = forwardRef(function Header(
@@ -18,7 +22,6 @@ export const Header = forwardRef(function Header(
 ) {
   const { getHex } = useColors();
   const theme = useValence();
-
 
   // Defaults
   const {
@@ -39,13 +42,13 @@ export const Header = forwardRef(function Header(
         justify: justify,
         margin: "0 20px",
       },
-      mobile: { 
+      mobile: {
         height: height,
         direction: direction,
         align: align,
         justify: justify,
         margin: "0 15px",
-      }
+      },
     },
     innerWidth = "min(100%, 700px)",
 
@@ -53,7 +56,6 @@ export const Header = forwardRef(function Header(
     style,
     ...rest
   } = useResponsiveProps<HeaderProps>(props);
-
 
   // Styles
   const HeaderStyle: CSSProperties = {
@@ -66,11 +68,10 @@ export const Header = forwardRef(function Header(
     margin: margin,
     paddingTop: "var(--safe-area-inset-top)",
 
-    borderRadius: theme.getSize("radius") as number + 10,
+    borderRadius: (theme.getSize("radius") as number) + 10,
 
-    ...style
+    ...style,
   };
-
 
   return (
     <FlexCenter
@@ -79,10 +80,9 @@ export const Header = forwardRef(function Header(
       style={HeaderStyle}
       ref={ref}
       {...rest}
-
       innerProps={innerProps}
     >
       {children}
     </FlexCenter>
-  )
+  );
 });

@@ -49,7 +49,6 @@ export const Space: Story = (args: any) => (
         <Text>3</Text>
       </StyledFlex>
     </FlexCenter>
-
   </ValenceProvider>
 );
 Space.args = {

@@ -2,18 +2,22 @@
 import { useValence } from "../../../ValenceProvider";
 import { CSSProperties, createRef, forwardRef } from "react";
 import { css } from "@emotion/react";
-import { GenericTextInputEventProps, GenericTextInputProps } from "../../../generics";
+import {
+  GenericTextInputEventProps,
+  GenericTextInputProps,
+} from "../../../generics";
 import { InputContainer } from "../InputContainer";
-import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+import {
+  MakeResponsive,
+  useResponsiveProps,
+} from "../../../utilities/responsive";
 import { useColors } from "../../../utilities/color";
 
 export type LineWrapBehaviour = "soft" | "hard" | "off";
 export type ResizeBehaviour = "none" | "both" | "horizontal" | "vertical";
 
-export type TextareaProps =
-  GenericTextInputProps
-  & GenericTextInputEventProps
-  & {
+export type TextareaProps = GenericTextInputProps &
+  GenericTextInputEventProps & {
     /** Whether the value of the input can be automatically completed by the browser/OS. Defaults to `false`. */
     autoComplete?: boolean;
     /** Whether the input is subject to spell checking by the browser/OS. Defaults to `true`. */
@@ -38,8 +42,7 @@ export type TextareaProps =
     maxWidth?: CSSProperties["maxWidth"];
     /** Shorthand for `flex-grow = 1` */
     grow?: boolean;
-  }
-
+  };
 
 export const Textarea = forwardRef(function Textarea(
   props: MakeResponsive<TextareaProps>,
@@ -48,7 +51,6 @@ export const Textarea = forwardRef(function Textarea(
   const theme = useValence();
   const { getFgHex } = useColors();
   const inputRef = ref ?? createRef<HTMLTextAreaElement>();
-
 
   // Defaults
   const {
@@ -93,7 +95,6 @@ export const Textarea = forwardRef(function Textarea(
     ...rest
   } = useResponsiveProps<TextareaProps>(props);
 
-
   // Styles
   const TextareaStyle = css({
     outline: "none",
@@ -130,15 +131,13 @@ export const Textarea = forwardRef(function Textarea(
       color: `${getFgHex(color, variant)}80`,
     },
 
-    ...inputStyle
+    ...inputStyle,
   });
   const ContainerStyle: CSSProperties = {
     minHeight: height,
     height: "fit-content",
-    ...style
-  }
-
-
+    ...style,
+  };
 
   // Handlers
   const handleKeyDown = (e: any) => {
@@ -148,50 +147,42 @@ export const Textarea = forwardRef(function Textarea(
     if (e.key === "Enter") onEnterPress?.(e);
     // Call onKeyPress on any key
     onKeyPress?.(e);
-  }
-
+  };
 
   return (
     <InputContainer
       icon={icon}
-
       size={size}
       radius={radius}
       variant={variant}
       grow={grow}
-
       disabled={disabled}
       required={required}
       loading={loading}
-
       color={color}
       backgroundColor={backgroundColor}
       padding={padding}
       margin={margin}
       width={width}
       height={height}
-
       style={ContainerStyle}
       inputRef={inputRef}
     >
       <textarea
         css={TextareaStyle}
         value={value ?? ""}
-        onChange={e => setValue(e.currentTarget.value)}
-
+        onChange={(e) => setValue(e.currentTarget.value)}
         placeholder={placeholder}
         autoComplete={autoComplete ? "on" : "off"}
         spellCheck={spellCheck}
-
         autoFocus={autoFocus}
         disabled={disabled}
         readOnly={readOnly}
         required={required}
-
         onKeyDown={handleKeyDown}
         ref={inputRef}
         {...rest}
       />
     </InputContainer>
-  )
+  );
 });

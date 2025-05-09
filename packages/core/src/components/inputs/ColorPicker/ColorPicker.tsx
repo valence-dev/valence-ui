@@ -1,4 +1,9 @@
-import { Color, MakeResponsive, useColors, useResponsiveProps } from "../../../utilities"
+import {
+  Color,
+  MakeResponsive,
+  useColors,
+  useResponsiveProps,
+} from "../../../utilities";
 import { CSSProperties, forwardRef } from "react";
 import { useValence } from "../../../ValenceProvider";
 import { GenericInputProps } from "../../../generics";
@@ -8,12 +13,10 @@ import { ColorSwatch } from "../../display";
 
 export type ColorPickerEventProps = {
   onSelect?: (color: string) => void;
-}
+};
 
-export type ColorPickerProps =
-  GenericInputProps<string>
-  & ColorPickerEventProps
-  & {
+export type ColorPickerProps = GenericInputProps<string> &
+  ColorPickerEventProps & {
     /** A list of colors to choose from. If left unset, will use the theme default color list. */
     colors?: Color[];
 
@@ -27,28 +30,37 @@ export type ColorPickerProps =
 
     /** Motion props to apply to the swatch buttons. */
     swatchMotion?: MotionBehaviourProps;
-  }
+  };
 
 export const ColorPicker = forwardRef(function ColorPicker(
   props: MakeResponsive<ColorPickerProps>,
-  ref: any,
+  ref: any
 ) {
   const theme = useValence();
   const { getHex } = useColors();
 
-
   // Defaults
   const {
-    excludeColors = ["permaBlack", "permaWhite", "white", "brighterWhite", "darkerBlack"],
+    excludeColors = [
+      "permaBlack",
+      "permaWhite",
+      "white",
+      "brighterWhite",
+      "darkerBlack",
+    ],
     colors = theme.colors,
 
-    value, setValue,
+    value,
+    setValue,
     onSelect,
 
     gap = 5,
     wrap = "nowrap",
 
-    width, height, padding = 5, margin,
+    width,
+    height,
+    padding = 5,
+    margin,
     size = theme.defaults.size,
     radius = "xl",
 
@@ -57,20 +69,18 @@ export const ColorPicker = forwardRef(function ColorPicker(
     style,
     ...rest
   } = useResponsiveProps<ColorPickerProps>(props);
-  const usableColors = colors.filter(c => !excludeColors.includes(c.key));
-
+  const usableColors = colors.filter((c) => !excludeColors.includes(c.key));
 
   // Styles
   const ContainerStyle: CSSProperties = {
     padding: padding,
     margin: margin,
     ...style,
-  }
+  };
   const ButtonStyle: CSSProperties = {
     cursor: "pointer",
     borderRadius: theme.sizeClasses.radius[radius],
-  }
-
+  };
 
   return (
     <OverflowContainer
@@ -89,8 +99,8 @@ export const ColorPicker = forwardRef(function ColorPicker(
         <UnstyledButton
           key={i}
           style={{
-            outline: value === color.key ?
-              `1px solid ${getHex("black")}` : undefined,
+            outline:
+              value === color.key ? `1px solid ${getHex("black")}` : undefined,
             ...ButtonStyle,
           }}
           motion={swatchMotion}
@@ -99,13 +109,9 @@ export const ColorPicker = forwardRef(function ColorPicker(
             onSelect?.(color.key);
           }}
         >
-          <ColorSwatch
-            color={color.key}
-            size={size}
-            radius={radius}
-          />
+          <ColorSwatch color={color.key} size={size} radius={radius} />
         </UnstyledButton>
       ))}
     </OverflowContainer>
-  )
+  );
 });

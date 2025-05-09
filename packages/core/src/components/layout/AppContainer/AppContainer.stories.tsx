@@ -3,7 +3,12 @@ import { Meta, StoryObj } from "@storybook/react";
 
 import { AppContainer as AC } from "./AppContainer";
 import { AppNav } from "../../navigation";
-import { IconBolt, IconCategory, IconLogout, IconUserCircle } from "@tabler/icons-react";
+import {
+  IconBolt,
+  IconCategory,
+  IconLogout,
+  IconUserCircle,
+} from "@tabler/icons-react";
 import { BrowserRouter } from "react-router-dom";
 import { SideSheet } from "../../overlays";
 import { Header, PageContainer, StyledFlex } from "..";
@@ -27,14 +32,15 @@ export const AppContainer: Story = (args: any) => {
     <BrowserRouter>
       <ValenceProvider>
         <AC {...args}>
-
           <Button
-            onClick={() => { sideSheet.update(!sideSheet.opened) }}
+            onClick={() => {
+              sideSheet.update(!sideSheet.opened);
+            }}
             variant="paper"
             float={{
               position: "absolute",
               positionHorizontal: "right",
-              positionVertical: "bottom"
+              positionVertical: "bottom",
             }}
           >
             Toggle Side Sheet
@@ -47,12 +53,15 @@ export const AppContainer: Story = (args: any) => {
               </Header>
             }
           >
-            <Button onClick={() => { sideSheet.update(!sideSheet.opened) }}>Toggle Side Sheet</Button>
-
-            <SideSheet
-              title="Side sheet"
-              disclosure={sideSheet}
+            <Button
+              onClick={() => {
+                sideSheet.update(!sideSheet.opened);
+              }}
             >
+              Toggle Side Sheet
+            </Button>
+
+            <SideSheet title="Side sheet" disclosure={sideSheet}>
               Hi there
             </SideSheet>
 
@@ -63,10 +72,10 @@ export const AppContainer: Story = (args: any) => {
         </AC>
       </ValenceProvider>
     </BrowserRouter>
-  )
+  );
 };
 AppContainer.args = {
-  nav:
+  nav: (
     <AppNav
       buttons={[
         {
@@ -77,7 +86,7 @@ AppContainer.args = {
           show: {
             default: true,
             mobile: false,
-          }
+          },
         },
         {
           id: "account",
@@ -88,14 +97,15 @@ AppContainer.args = {
           id: "power",
           children: <IconBolt />,
           to: "/power",
-        }
+        },
       ]}
       bottomButtons={[
         {
           id: "signOut",
           children: <IconLogout />,
           onClick: () => alert("Sign out"),
-        }
+        },
       ]}
-    />,
+    />
+  ),
 };

@@ -5,10 +5,8 @@ import { GenericLayoutProps } from "./Layout";
 
 export type BackdropFilter = "blur" | "dot-blur" | "none";
 
-export type GenericOverlayBackgroundProps =
-  GenericProps
-  & PolymorphicLayoutProps
-  & {
+export type GenericOverlayBackgroundProps = GenericProps &
+  PolymorphicLayoutProps & {
     /** Whether to close this overlay when it is clicked */
     closeOnClick?: boolean;
     /** A filter to apply to the page contents behind the overlay */
@@ -20,19 +18,15 @@ export type GenericOverlayBackgroundProps =
     padding?: CSSProperties["padding"];
     /** Sets `z-index` css property */
     zIndex?: CSSProperties["zIndex"];
-  }
-
+  };
 
 export type GenericOverlayHeaderProps = {
   /** The title of this overlay */
   title: string;
-}
+};
 
-
-export type GenericOverlayProps =
-  GenericLayoutProps
-  & PolymorphicLayoutProps
-  & {
+export type GenericOverlayProps = GenericLayoutProps &
+  PolymorphicLayoutProps & {
     /** The title of this overlay */
     title: string;
     /** Optionally replace the default header with a custom component */
@@ -52,4 +46,4 @@ export type GenericOverlayProps =
 
     /** Optional props to pass to the overlay background component */
     overlayBackgroundProps?: GenericOverlayBackgroundProps;
-  }
+  };

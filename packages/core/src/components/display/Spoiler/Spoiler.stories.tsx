@@ -15,11 +15,7 @@ const meta: Meta<typeof S> = {
 export default meta;
 type Story = StoryObj<typeof S>;
 
-export const Spoiler: Story = (args: any) => (
-  <S {...args}>
-    {args.children}
-  </S>
-);
+export const Spoiler: Story = (args: any) => <S {...args}>{args.children}</S>;
 Spoiler.args = {
   children: "Spoiler content",
   show: true,

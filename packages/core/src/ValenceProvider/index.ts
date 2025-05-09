@@ -1,2 +1,2 @@
-export * from "./ValenceProvider"
-export * from "./ValenceProvider.types"
+export * from "./ValenceProvider";
+export * from "./ValenceProvider.types";

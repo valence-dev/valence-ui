@@ -1,1 +1,1 @@
-export * from "./PrimitiveButton"
+export * from "./PrimitiveButton";

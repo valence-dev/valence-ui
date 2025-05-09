@@ -5,7 +5,7 @@ import { MakeResponsive, useResponsiveProps, useValence } from "../../..";
 export type TitleProps = TextProps & {
   /** Sets the order of the title */
   order?: 1 | 2 | 3 | 4 | 5 | 6;
-}
+};
 
 export const Title = forwardRef(function Title(
   props: MakeResponsive<TitleProps>,
@@ -20,17 +20,15 @@ export const Title = forwardRef(function Title(
     ...rest
   } = useResponsiveProps<TitleProps>(props);
 
-
   return (
     <Text
       component={component}
       family={family}
-
       ref={ref}
       {...theme.titles[order]}
       {...rest}
     >
       {props.children}
     </Text>
-  )
+  );
 });

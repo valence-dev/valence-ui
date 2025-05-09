@@ -1,7 +1,7 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { Button } from "./TextButton";
-import { Storybook } from "../../../../storybook"
+import { Storybook } from "../../../../storybook";
 import { Flex, ValenceProvider } from "../../..";
 
 const meta: Meta<typeof Button> = {
@@ -18,7 +18,7 @@ const meta: Meta<typeof Button> = {
     },
     radius: {
       options: Storybook.componentSizes,
-      control: { type: "select" }
+      control: { type: "select" },
     },
 
     square: {
@@ -39,11 +39,11 @@ const meta: Meta<typeof Button> = {
     },
 
     width: {
-      control: { type: "number" }
+      control: { type: "number" },
     },
     height: {
-      control: { type: "number" }
-    }
+      control: { type: "number" },
+    },
   },
 };
 export default meta;
@@ -51,11 +51,7 @@ type Story = StoryObj<typeof Button>;
 
 export const Text: Story = (args: any) => (
   <ValenceProvider>
-    <Flex
-      direction="column"
-      height="100vh"
-      center
-    >
+    <Flex direction="column" height="100vh" center>
       <Button {...args} size="xs" />
       <Button {...args} size="sm" />
       <Button {...args} size="md" />
@@ -66,4 +62,4 @@ export const Text: Story = (args: any) => (
 );
 Text.args = {
   children: "Button",
-}
+};

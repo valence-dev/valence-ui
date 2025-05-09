@@ -20,7 +20,13 @@ const meta: Meta<typeof Fl> = {
       control: { type: "select" },
     },
     justify: {
-      options: ["flex-start", "center", "flex-end", "space-between", "space-around"],
+      options: [
+        "flex-start",
+        "center",
+        "flex-end",
+        "space-between",
+        "space-around",
+      ],
       control: { type: "select" },
     },
     alignSelf: {
@@ -57,38 +63,21 @@ export const Flex: Story = (args: any) => (
   </ValenceProvider>
 );
 Flex.args = {
-  children: <>
-    <SF
-      grow
-      align="center"
-      justify="center"
-      height={100}
-      color="black"
-    >
-      <Text>1</Text>
-    </SF>
-    <SF
-      grow
-      align="center"
-      justify="center"
-      height={100}
-      color="black"
-    >
-      <Text>2</Text>
-    </SF>
-    <SF
-      grow
-      align="center"
-      justify="center"
-      height={100}
-      color="black"
-    >
-      <Text>3</Text>
-    </SF>
-  </>,
+  children: (
+    <>
+      <SF grow align="center" justify="center" height={100} color="black">
+        <Text>1</Text>
+      </SF>
+      <SF grow align="center" justify="center" height={100} color="black">
+        <Text>2</Text>
+      </SF>
+      <SF grow align="center" justify="center" height={100} color="black">
+        <Text>3</Text>
+      </SF>
+    </>
+  ),
   width: "100%",
-}
-
+};
 
 export const StyledFlex = (args: any) => (
   <ValenceProvider>
@@ -96,7 +85,9 @@ export const StyledFlex = (args: any) => (
   </ValenceProvider>
 );
 StyledFlex.args = {
-  children: <>
-    <Text>`StyledFlex` component</Text>
-  </>
-}
+  children: (
+    <>
+      <Text>`StyledFlex` component</Text>
+    </>
+  ),
+};

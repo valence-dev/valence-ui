@@ -18,24 +18,17 @@ export const BottomSheet: Story = (args: any) => {
 
   return (
     <ValenceProvider>
-
       <FlexCenter>
         <Button onClick={() => disclosure.open()}>Open Bottom Sheet</Button>
       </FlexCenter>
 
-      <BS
-        disclosure={disclosure}
-        {...args}
-      >
-        <StyledFlex
-          width="100%"
-          height="200vh"
-        >
+      <BS disclosure={disclosure} {...args}>
+        <StyledFlex width="100%" height="200vh">
           Hi
         </StyledFlex>
       </BS>
     </ValenceProvider>
-  )
+  );
 };
 BottomSheet.args = {
   title: "Bottom Sheet title",

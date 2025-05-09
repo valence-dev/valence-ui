@@ -7,7 +7,10 @@ import { useValence } from "../../../ValenceProvider";
 import { Flex, StyledFlex, StyledFlexProps } from "../../layout";
 import { Text } from "../../display";
 import { NumberInput } from "../NumberInput";
-import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+import {
+  MakeResponsive,
+  useResponsiveProps,
+} from "../../../utilities/responsive";
 import { useColors } from "../../../utilities/color";
 
 export type SliderEventProps<T = number> = {
@@ -19,12 +22,10 @@ export type SliderEventProps<T = number> = {
   onChange?: (value: T, thumbIndex: number) => void;
   /** Callback fired when any part of the slider is clicked. */
   onSliderClick?: (value: number) => void;
-}
+};
 
-export type SliderProps =
-  GenericInputProps<number>
-  & SliderEventProps
-  & {
+export type SliderProps = GenericInputProps<number> &
+  SliderEventProps & {
     /** The minimum value of this input. `0` by default. */
     min?: number;
     /** The maximum value of this input. `100` by default. */
@@ -46,26 +47,21 @@ export type SliderProps =
     trackProps?: Omit<SliderTrackProps, "state">;
     /** Optional props to pass to the thumb component. */
     thumbProps?: Omit<SliderThumbProps, "state">;
-  }
+  };
 
-export type SliderTrackProps =
-  StyledFlexProps
-  & {
-    state: { index: number, value: number }
+export type SliderTrackProps = StyledFlexProps & {
+  state: { index: number; value: number };
 
-    /** Whether to highlight this track. `false` by default. */
-    highlight?: boolean
-  }
+  /** Whether to highlight this track. `false` by default. */
+  highlight?: boolean;
+};
 
-export type SliderThumbProps =
-  StyledFlexProps
-  & {
-    state: { index: number, valueNow: number, value: number }
+export type SliderThumbProps = StyledFlexProps & {
+  state: { index: number; valueNow: number; value: number };
 
-    /** Whether to show the value of this slider. `false` by default. */
-    showValue?: boolean;
-  }
-
+  /** Whether to show the value of this slider. `false` by default. */
+  showValue?: boolean;
+};
 
 const Slider = forwardRef(function Slider(
   props: MakeResponsive<SliderProps>,
@@ -107,7 +103,6 @@ const Slider = forwardRef(function Slider(
     ...rest
   } = useResponsiveProps<SliderProps>(props);
 
-
   // Styles
   const SliderStyle = css({
     display: "flex",
@@ -118,7 +113,6 @@ const Slider = forwardRef(function Slider(
     width: width,
     height: height,
   });
-
 
   return (
     <Flex
@@ -133,17 +127,17 @@ const Slider = forwardRef(function Slider(
         max={max}
         step={step}
         invert={invert}
-
         value={value}
-        onChange={(value, index) => { setValue(value); onChange?.(value, index) }}
+        onChange={(value, index) => {
+          setValue(value);
+          onChange?.(value, index);
+        }}
         onAfterChange={onAfterChange}
         onBeforeChange={onBeforeChange}
         onSliderClick={onSliderClick}
-
         css={SliderStyle}
         ref={ref}
-
-        renderThumb={(props, state) =>
+        renderThumb={(props, state) => (
           <SliderThumb
             state={state}
             showValue={showValue}
@@ -152,8 +146,8 @@ const Slider = forwardRef(function Slider(
             {...props}
             {...thumbProps}
           />
-        }
-        renderTrack={(props, state) =>
+        )}
+        renderTrack={(props, state) => (
           <SliderTrack
             state={state}
             color={color}
@@ -162,43 +156,37 @@ const Slider = forwardRef(function Slider(
             {...props}
             {...trackProps}
           />
-        }
+        )}
       />
 
-      {includeManualInput &&
+      {includeManualInput && (
         <NumberInput
           value={value}
           setValue={setValue}
-
           min={min}
           max={max}
           step={step}
-
           size={size}
           radius={radius}
           variant={variant}
           color={color}
-
           showControls={false}
           width="fit-content"
-
           grow={false}
         />
-      }
+      )}
     </Flex>
   );
 });
 
-
 const SliderTrack = forwardRef(function SliderTrack(
   //@ts-ignore
   props: SliderTrackProps & HTMLPropsWithRefCallback<HTMLDivElement>,
-  ref: any,
+  ref: any
 ) {
-  // Hooks 
+  // Hooks
   const theme = useValence();
   const { getBgHex } = useColors();
-
 
   const {
     state,
@@ -219,41 +207,33 @@ const SliderTrack = forwardRef(function SliderTrack(
     ...rest
   } = props;
 
-
   // Styles
   const TrackStyle: CSSProperties = {
-    backgroundColor: getBgHex(
-      highlight ? color : "black",
-      variant, false
-    ),
+    backgroundColor: getBgHex(highlight ? color : "black", variant, false),
     borderRadius: theme.getSize("radius", radius),
 
     ...style,
-  }
-
+  };
 
   return (
     <Flex
       width={width}
       height={height}
       padding={padding}
-
       style={TrackStyle}
       ref={ref}
       {...rest}
     />
-  )
+  );
 });
-
 
 const SliderThumb = forwardRef(function SliderThumb(
   //@ts-ignore
   props: SliderThumbProps & HTMLPropsWithRefCallback<HTMLDivElement>,
-  ref: any,
+  ref: any
 ) {
   // Hooks
   const theme = useValence();
-
 
   const {
     state,
@@ -261,13 +241,14 @@ const SliderThumb = forwardRef(function SliderThumb(
 
     variant = "filled",
     size = theme.defaults.size,
-    width = showValue ? theme.getSize("height", size) : theme.getSize("height", size) / 2,
+    width = showValue
+      ? theme.getSize("height", size)
+      : theme.getSize("height", size) / 2,
     height = theme.getSize("height", size) / 2,
     radius = "xl",
 
     color = "black",
     padding = showValue ? "1px 5px" : 0,
-
 
     align = "center",
     justify = "center",
@@ -276,47 +257,36 @@ const SliderThumb = forwardRef(function SliderThumb(
     ...rest
   } = props;
 
-
   // Styles
   const ThumbStyle: CSSProperties = {
     cursor: "grab",
     top: theme.getSize("height", size) / 2 - height / 2,
 
-    ...style
-  }
-
+    ...style,
+  };
 
   return (
     <StyledFlex
       width={width}
       height={height}
       radius={radius}
-
       color={color}
       padding={padding}
       variant={variant}
-
       align={align}
       justify={justify}
-
       style={ThumbStyle}
-
-
       ref={ref}
       {...rest}
     >
-      {showValue &&
-        <Text
-          monospace
-          color={"white"}
-        >
+      {showValue && (
+        <Text monospace color={"white"}>
           {state.valueNow}
         </Text>
-      }
+      )}
     </StyledFlex>
-  )
+  );
 });
-
 
 const SliderNamespace = Object.assign(Slider, {
   Track: SliderTrack,

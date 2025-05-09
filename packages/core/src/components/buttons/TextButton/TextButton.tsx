@@ -3,18 +3,18 @@ import { PrimitiveButtonProps } from "../PrimitiveButton";
 import { PrimitiveButton } from "../PrimitiveButton/PrimitiveButton";
 import { Text, TextProps } from "../../display";
 import { useValence } from "../../../ValenceProvider";
-import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+import {
+  MakeResponsive,
+  useResponsiveProps,
+} from "../../../utilities/responsive";
 import { useColors } from "../../../utilities/color";
 
-export type TextButtonProps =
-  Omit<PrimitiveButtonProps, "children">
-  & {
-    /** Children of this component. */
-    children?: string;
-    /** Properties to apply to the `Text` component. */
-    textProps?: TextProps;
-  }
-
+export type TextButtonProps = Omit<PrimitiveButtonProps, "children"> & {
+  /** Children of this component. */
+  children?: string;
+  /** Properties to apply to the `Text` component. */
+  textProps?: TextProps;
+};
 
 export const Button = forwardRef(function Button(
   props: MakeResponsive<TextButtonProps>,
@@ -34,23 +34,17 @@ export const Button = forwardRef(function Button(
     ...rest
   } = useResponsiveProps<TextButtonProps>(props);
 
-
   return (
     <PrimitiveButton
       size={size}
       variant={variant}
       color={color}
-
       ref={ref}
       {...rest}
     >
-      <Text
-        size={size}
-        color={colors.getFgHex(color, variant)}
-        {...textProps}
-      >
+      <Text size={size} color={colors.getFgHex(color, variant)} {...textProps}>
         {children}
       </Text>
     </PrimitiveButton>
-  )
+  );
 });

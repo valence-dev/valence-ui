@@ -16,7 +16,7 @@ type Story = StoryObj<typeof GB>;
 
 export const GridButton: Story = (args: any) => (
   <ValenceProvider>
-    <FlexCenter innerProps={{ width: "fit-content", direction: "row", }}>
+    <FlexCenter innerProps={{ width: "fit-content", direction: "row" }}>
       <GB {...args} size="xs" />
       <GB {...args} size="sm" />
       <GB {...args} size="md" />

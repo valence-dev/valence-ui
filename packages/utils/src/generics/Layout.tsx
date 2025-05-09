@@ -17,8 +17,7 @@ export type GenericLayoutProps = GenericProps & {
   width?: CSSProperties["width"];
   /** Sets `height` css property */
   height?: CSSProperties["height"];
-}
-
+};
 
 /** Additional props for components that can "float" on the screen */
 export type GenericFloatingLayoutProps = GenericLayoutProps & {
@@ -35,4 +34,4 @@ export type GenericFloatingLayoutProps = GenericLayoutProps & {
   bottom?: CSSProperties["bottom"];
   /** Sets `left` css property */
   left?: CSSProperties["left"];
-}
+};

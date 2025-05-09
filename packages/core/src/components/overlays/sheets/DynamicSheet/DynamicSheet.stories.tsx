@@ -19,12 +19,9 @@ export const DynamicSheet: Story = (args: any) => {
     <ValenceProvider>
       <Button onClick={() => disclosure.open()}>Open Dynamic Sheet</Button>
 
-      <DS
-        disclosure={disclosure}
-        {...args}
-      />
+      <DS disclosure={disclosure} {...args} />
     </ValenceProvider>
-  )
+  );
 };
 DynamicSheet.args = {
   title: "Dynamic Sheet title",

@@ -1,8 +1,6 @@
 import { useEffect } from "react";
 
-
 export function useLockScroll(lock: boolean, elementId: string = "root") {
-
   useEffect(() => {
     const element = document.getElementById(elementId);
 
@@ -24,4 +22,4 @@ export function useLockScroll(lock: boolean, elementId: string = "root") {
       element.style.overflow = "";
     };
   }, [elementId, lock]);
-};
+}

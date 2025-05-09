@@ -12,22 +12,17 @@ const meta: Meta<typeof SI> = {
 export default meta;
 type Story = StoryObj<typeof SI>;
 
-
 export const Switch: Story = (args: any) => {
   const [checked, setChecked] = useState(args.checked);
 
   return (
     <ValenceProvider>
       <FlexCenter innerProps={{ justify: "center" }}>
-        <SI
-          {...args}
-          value={checked}
-          setValue={setChecked}
-        />
+        <SI {...args} value={checked} setValue={setChecked} />
       </FlexCenter>
     </ValenceProvider>
   );
-}
+};
 Switch.args = {
   label: "Switch",
-}
+};

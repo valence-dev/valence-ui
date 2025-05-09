@@ -1,17 +1,27 @@
 /** @jsxImportSource @emotion/react */
 import { CSSProperties, ReactNode, forwardRef } from "react";
-import { MakeResponsive, useColors, useResponsiveProps, useValence } from "../../..";
+import {
+  MakeResponsive,
+  useColors,
+  useResponsiveProps,
+  useValence,
+} from "../../..";
 import { Icon, Loader } from "../../display";
-import { ComponentSize, FillVariant, GenericLayoutProps, MouseClickEvents, MouseEvents, PointerEvents, SizeClasses } from "@valence-ui/utils";
+import {
+  ComponentSize,
+  FillVariant,
+  GenericLayoutProps,
+  MouseClickEvents,
+  MouseEvents,
+  PointerEvents,
+  SizeClasses,
+} from "@valence-ui/utils";
 import { css } from "@emotion/react";
 
-
-export type InputContainerProps =
-  GenericLayoutProps
-  & MouseClickEvents
-  & MouseEvents
-  & PointerEvents
-  & {
+export type InputContainerProps = GenericLayoutProps &
+  MouseClickEvents &
+  MouseEvents &
+  PointerEvents & {
     /** An icon to display at the left side of this input */
     icon?: ReactNode;
     /** A button to display to the right of this input */
@@ -44,25 +54,22 @@ export type InputContainerProps =
     buttonContainerStyle?: CSSProperties;
   };
 
-
 export const INPUT_SIZES: SizeClasses<{
-  padding: CSSProperties["padding"],
+  padding: CSSProperties["padding"];
 }> = {
   xs: { padding: 4 },
   sm: { padding: 6 },
   md: { padding: 8 },
   lg: { padding: 10 },
   xl: { padding: 12 },
-}
-
+};
 
 export const InputContainer = forwardRef(function InputContainer(
   props: MakeResponsive<InputContainerProps>,
-  ref: any,
+  ref: any
 ) {
   const theme = useValence();
   const { getBgHex, getBorderHex, getFgHex } = useColors();
-
 
   // Defaults
   const {
@@ -96,7 +103,6 @@ export const InputContainer = forwardRef(function InputContainer(
     ...rest
   } = useResponsiveProps<InputContainerProps>(props);
 
-
   // Functions
   const handleClick = (e: MouseEvent) => {
     if (disabled) {
@@ -104,11 +110,9 @@ export const InputContainer = forwardRef(function InputContainer(
       e.stopPropagation();
     }
 
-    if (inputRef && inputRef.current)
-      inputRef.current.focus();
+    if (inputRef && inputRef.current) inputRef.current.focus();
     onClick?.(e as any);
-  }
-
+  };
 
   // Styles
   const ContainerStyle = css({
@@ -141,14 +145,16 @@ export const InputContainer = forwardRef(function InputContainer(
     textDecoration: "none",
 
     "&:hover": {
-      backgroundColor: !disabled ? getBgHex(backgroundColor, variant, true) : undefined,
+      backgroundColor: !disabled
+        ? getBgHex(backgroundColor, variant, true)
+        : undefined,
     },
     "&:focus-within": {
       outline: "none",
       border: getBorderHex(color, variant, true),
     },
 
-    ...style
+    ...style,
   });
   const IconContainerStyle = css({
     height: "100%",
@@ -183,33 +189,32 @@ export const InputContainer = forwardRef(function InputContainer(
     ...requireIndicatorStyle,
   });
 
-
   return (
     <div
       css={ContainerStyle}
       ref={ref}
-
       onClick={(event) => handleClick(event as any)}
       {...rest}
     >
       {required && <div css={RequireIndicatorStyle} />}
 
-      {(icon || loading) &&
+      {(icon || loading) && (
         <div css={IconContainerStyle}>
-          {loading ?
-            <Loader color={variant === "filled" ? "white" : color} /> :
+          {loading ? (
+            <Loader color={variant === "filled" ? "white" : color} />
+          ) : (
             <Icon>{icon}</Icon>
-          }
+          )}
         </div>
-      }
+      )}
 
       {children}
 
-      {button &&
+      {button && (
         <div css={ButtonContainerStyle}>
           <Icon>{button}</Icon>
         </div>
-      }
+      )}
     </div>
-  )
+  );
 });

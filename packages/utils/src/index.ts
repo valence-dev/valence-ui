@@ -1,2 +1,2 @@
-export * from "./generics"
-export * from "./polymorphism"
+export * from "./generics";
+export * from "./polymorphism";

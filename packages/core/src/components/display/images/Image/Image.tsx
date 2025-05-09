@@ -3,7 +3,10 @@ import { CSSProperties, ReactNode, forwardRef } from "react";
 import { ComponentSize, GenericProps } from "@valence-ui/utils";
 import { useValence } from "../../../../ValenceProvider";
 import { css } from "@emotion/react";
-import { MakeResponsive, useResponsiveProps } from "../../../../utilities/responsive";
+import {
+  MakeResponsive,
+  useResponsiveProps,
+} from "../../../../utilities/responsive";
 import { Flex } from "../../../layout";
 import { Icon } from "../../Icon";
 import { IconPhoto } from "@tabler/icons-react";
@@ -19,28 +22,28 @@ export type GenericImageProps = {
   fit?: CSSProperties["objectFit"];
   /** Sets `object-position` css property */
   position?: CSSProperties["objectPosition"];
-}
+};
 
-export type ImageProps = GenericImageProps & Omit<GenericProps, "children"> & {
-  /** Placeholder content for this image */
-  placeholder?: ReactNode;
+export type ImageProps = GenericImageProps &
+  Omit<GenericProps, "children"> & {
+    /** Placeholder content for this image */
+    placeholder?: ReactNode;
 
-  /** Defines the border radius size class of this image. Defaults to the theme default radius size class. */
-  radius?: ComponentSize;
-  /** Sets `width` css property */
-  width?: CSSProperties["width"];
-  /** Sets `height` css property */
-  height?: CSSProperties["height"];
-  /** Shorthand for `aspect-ratio = "1/1"` */
-  square?: boolean;
+    /** Defines the border radius size class of this image. Defaults to the theme default radius size class. */
+    radius?: ComponentSize;
+    /** Sets `width` css property */
+    width?: CSSProperties["width"];
+    /** Sets `height` css property */
+    height?: CSSProperties["height"];
+    /** Shorthand for `aspect-ratio = "1/1"` */
+    square?: boolean;
 
-  /** Sets `color` css property */
-  color?: CSSProperties["color"];
+    /** Sets `color` css property */
+    color?: CSSProperties["color"];
 
-  /** Specifies if a shadow will be shown */
-  shadow?: boolean;
-}
-
+    /** Specifies if a shadow will be shown */
+    shadow?: boolean;
+  };
 
 export const Image = forwardRef(function Image(
   props: MakeResponsive<ImageProps>,
@@ -49,20 +52,16 @@ export const Image = forwardRef(function Image(
   const theme = useValence();
   const { getHex } = useColors();
 
-
   // Defaults
   const {
     src,
     alt,
     color = "black",
     placeholder = (
-      <Flex
-        align="center"
-        justify="center"
-        height="100%"
-        width="100%"
-      >
-        <Icon color={color}><IconPhoto /></Icon>
+      <Flex align="center" justify="center" height="100%" width="100%">
+        <Icon color={color}>
+          <IconPhoto />
+        </Icon>
       </Flex>
     ),
 
@@ -78,7 +77,6 @@ export const Image = forwardRef(function Image(
     ...rest
   } = useResponsiveProps<ImageProps>(props);
 
-
   // Styles
   const ContainerStyle = css({
     height: height,
@@ -91,32 +89,30 @@ export const Image = forwardRef(function Image(
     boxShadow: shadow ? theme.defaults.shadow : "none",
     backgroundColor: getHex(color, "weak"),
 
-    ...style
+    ...style,
   });
   const ImageStyle = css({
     width: "100%",
     height: "100%",
 
     objectFit: fit,
-    objectPosition: position
+    objectPosition: position,
   });
-
 
   return (
     <div css={ContainerStyle}>
-      {props.src ?
+      {props.src ? (
         <img
           css={ImageStyle}
           src={src as string}
           alt={alt}
           draggable={false}
-
           ref={ref}
           {...rest}
         />
-        :
+      ) : (
         placeholder
-      }
+      )}
     </div>
-  )
+  );
 });

@@ -13,17 +13,12 @@ const meta: Meta<typeof I> = {
 export default meta;
 type Story = StoryObj<typeof I>;
 
-
 export const Icon: Story = (args: any) => {
-
   return (
     <div style={{ height: "200vh" }}>
       <ValenceProvider>
         <Flex center height="100vh">
-          <I
-            {...args}
-            color="black"
-          >
+          <I {...args} color="black">
             <Icon123 />
           </I>
 
@@ -32,5 +27,5 @@ export const Icon: Story = (args: any) => {
       </ValenceProvider>
     </div>
   );
-}
-Icon.args = {}
+};
+Icon.args = {};

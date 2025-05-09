@@ -12,15 +12,12 @@ const meta: Meta<typeof FT> = {
 export default meta;
 type Story = StoryObj<typeof FT>;
 
-
 export const FloatingToolbar: Story = (args: any) => {
   const [inputValue, setInputValue] = React.useState("");
 
   return (
     <ValenceProvider>
-      <FT
-        {...args}
-      >
+      <FT {...args}>
         <Button variant="filled">Hi</Button>
 
         <TextInput
@@ -32,8 +29,8 @@ export const FloatingToolbar: Story = (args: any) => {
       </FT>
     </ValenceProvider>
   );
-}
+};
 FloatingToolbar.args = {
   label: "Yes",
   // positionHorizontal: "right",
-}
+};

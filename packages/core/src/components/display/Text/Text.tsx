@@ -1,10 +1,19 @@
 /** @jsxImportSource @emotion/react */
 import { CSSProperties, forwardRef } from "react";
 import reactStringReplace from "react-string-replace";
-import { ComponentSize, GenericClickableProps, GenericProps, PolymorphicText, PolymorphicTextProps } from "@valence-ui/utils";
+import {
+  ComponentSize,
+  GenericClickableProps,
+  GenericProps,
+  PolymorphicText,
+  PolymorphicTextProps,
+} from "@valence-ui/utils";
 import { useValence } from "../../../ValenceProvider";
 import { css } from "@emotion/react";
-import { MakeResponsive, useResponsiveProps } from "../../../utilities/responsive";
+import {
+  MakeResponsive,
+  useResponsiveProps,
+} from "../../../utilities/responsive";
 import { useColors } from "../../../utilities/color";
 
 const REGEX_PATTERNS = {
@@ -13,15 +22,12 @@ const REGEX_PATTERNS = {
   bold: /\*\*(.+?)\*\*(?!\*)/,
   italic: /\*([^*><]+)\*/,
   monospace: /`([^`><]+)`/,
-}
-
+};
 
 // TYPES
-export type TextProps =
-  GenericProps
-  & GenericClickableProps
-  & PolymorphicTextProps
-  & {
+export type TextProps = GenericProps &
+  GenericClickableProps &
+  PolymorphicTextProps & {
     /** Sets `font-family` css property */
     family?: CSSProperties["fontFamily"];
     /** Sets `font-weight` css property */
@@ -52,19 +58,17 @@ export type TextProps =
 
     /** Sets the number of lines to display before truncating with an ellipsis */
     maxLines?: number;
-  }
-
+  };
 
 // CANNOT USE CRYTPO.RANDOMUUID() BECAUSE WEBKIT SUCKS
 function randomId(): string {
   return Math.random().toString(36).substring(2);
 }
 
-
 // COMPONENTS
 /** A basic, formattable text object that is compatible with some markdown text injection.
  * Very handy when dealing with internationalization, particularly with the i18n module.
- * 
+ *
  * **Automatically replaces the following values:**
  * - `\n` line break/newline
  * - `***{...}***` for bolded, italicized text
@@ -79,7 +83,6 @@ export const Text = forwardRef(function Text(
 ) {
   const theme = useValence();
   const colors = useColors();
-
 
   // Defaults
   const {
@@ -106,65 +109,88 @@ export const Text = forwardRef(function Text(
     ...rest
   } = useResponsiveProps<TextProps>(props);
 
-
   // Run through formatters
   let replacements: any = children;
-  replacements = reactStringReplace(replacements, REGEX_PATTERNS.newline, (match, i) => (
-    <br key={randomId()} />
-  ));
-  replacements = reactStringReplace(replacements, REGEX_PATTERNS.boldItalic, (match, i) => (
-    <b key={randomId()}
-      style={{
-        fontWeight: 800,
-        fontStyle: "italic",
-      }}
-    >
-      <i>
+  replacements = reactStringReplace(
+    replacements,
+    REGEX_PATTERNS.newline,
+    (match, i) => <br key={randomId()} />
+  );
+  replacements = reactStringReplace(
+    replacements,
+    REGEX_PATTERNS.boldItalic,
+    (match, i) => (
+      <b
+        key={randomId()}
+        style={{
+          fontWeight: 800,
+          fontStyle: "italic",
+        }}
+      >
+        <i>{match}</i>
+      </b>
+    )
+  );
+  replacements = reactStringReplace(
+    replacements,
+    REGEX_PATTERNS.bold,
+    (match, i) => (
+      <b
+        key={randomId()}
+        style={{
+          fontWeight: 800,
+        }}
+      >
+        {match}
+      </b>
+    )
+  );
+  replacements = reactStringReplace(
+    replacements,
+    REGEX_PATTERNS.italic,
+    (match, i) => (
+      <i
+        key={randomId()}
+        style={{
+          fontStyle: "italic",
+        }}
+      >
         {match}
       </i>
-    </b>
-  ));
-  replacements = reactStringReplace(replacements, REGEX_PATTERNS.bold, (match, i) => (
-    <b key={randomId()}
-      style={{
-        fontWeight: 800,
-      }}
-    >
-      {match}
-    </b>
-  ));
-  replacements = reactStringReplace(replacements, REGEX_PATTERNS.italic, (match, i) => (
-    <i key={randomId()}
-      style={{
-        fontStyle: "italic",
-      }}
-    >
-      {match}
-    </i>
-  ));
-  replacements = reactStringReplace(replacements, REGEX_PATTERNS.monospace, (match, i) => (
-    <span key={randomId()}
-      style={{
-        fontFamily: theme.getFont("monospace"),
-      }}
-    >
-      {match}
-    </span>
-  ));
-  replacements = reactStringReplace(replacements, /<hl>(.+?)<\/hl>/, (match, i) => (
-    <span key={randomId()}
-      style={{
-        backgroundColor: colors.getHex(highlightColor, "weak"),
-        color: colors.getHex(highlightColor),
-        borderRadius: 5,
-        padding: 2,
-        ...highlightStyle,
-      }}
-    >
-      {match}
-    </span>
-  ));
-
+    )
+  );
+  replacements = reactStringReplace(
+    replacements,
+    REGEX_PATTERNS.monospace,
+    (match, i) => (
+      <span
+        key={randomId()}
+        style={{
+          fontFamily: theme.getFont("monospace"),
+        }}
+      >
+        {match}
+      </span>
+    )
+  );
+  replacements = reactStringReplace(
+    replacements,
+    /<hl>(.+?)<\/hl>/,
+    (match, i) => (
+      <span
+        key={randomId()}
+        style={{
+          backgroundColor: colors.getHex(highlightColor, "weak"),
+          color: colors.getHex(highlightColor),
+          borderRadius: 5,
+          padding: 2,
+          ...highlightStyle,
+        }}
+      >
+        {match}
+      </span>
+    )
+  );
 
   // Styles
   const TextStyle = css({
@@ -179,24 +205,21 @@ export const Text = forwardRef(function Text(
     color: colors.getHex(color),
     margin: 0,
 
-    ...(maxLines ? {
-      display: "-webkit-box",
-      WebkitBoxOrient: "vertical",
-      overflow: "hidden",
-      WebkitLineClamp: maxLines,
-    } : {}),
+    ...(maxLines
+      ? {
+          display: "-webkit-box",
+          WebkitBoxOrient: "vertical",
+          overflow: "hidden",
+          WebkitLineClamp: maxLines,
+        }
+      : {}),
 
     ...style,
   });
 
-
   return (
-    <PolymorphicText
-      css={TextStyle}
-      ref={ref}
-      {...rest}
-    >
+    <PolymorphicText css={TextStyle} ref={ref} {...rest}>
       {replacements}
     </PolymorphicText>
-  )
+  );
 });

@@ -22,11 +22,7 @@ export const RangeSlider: Story = (args: any) => {
           direction: "column",
         }}
       >
-        <S
-          {...args}
-          value={value}
-          setValue={setValue}
-        />
+        <S {...args} value={value} setValue={setValue} />
 
         <S
           {...args}
@@ -46,6 +42,5 @@ export const RangeSlider: Story = (args: any) => {
       </FlexCenter>
     </ValenceProvider>
   );
-}
-RangeSlider.args = {
-}
+};
+RangeSlider.args = {};

@@ -14,8 +14,8 @@ const meta: Meta<typeof C> = {
       options: Storybook.componentSizes,
       control: { type: "select" },
     },
-  }
-}
+  },
+};
 export default meta;
 type Story = StoryObj<typeof C>;
 
@@ -45,4 +45,4 @@ Card.args = {
     onClick: () => alert("Clicked"),
   },
   variant: "paper",
-}
+};

@@ -1,1 +1,1 @@
-export * from "./PillSelector"
+export * from "./PillSelector";
