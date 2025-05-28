@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { CSSProperties, forwardRef } from "react";
 import { useReducedMotion } from "motion/react";
-import { MotionBehaviourProps, getMotionBehaviour } from "../Helpers";
 import { Loader } from "../../display/Loader";
 import { PolymorphicButton } from "@valence-ui/utils";
 import { useValence } from "../../../ValenceProvider";
@@ -12,11 +11,16 @@ import {
   useResponsiveProps,
 } from "../../../utilities/responsive";
 import { useColors } from "../../../utilities/color";
-import { UseFloatingProps, useFloating } from "../../../hooks";
+import {
+  AnimationProps,
+  UseFloatingProps,
+  useAnimation,
+  useFloating,
+} from "../../../hooks";
 
 export type PrimitiveButtonProps = GenericButtonProps & {
-  /** Defines motion behavior for this button. This will automatically be overridden if the user has reduced motion enabled on their device. */
-  motion?: MotionBehaviourProps;
+  /** Optional animation properties for this button. */
+  animation?: AnimationProps;
 
   /** Defines floating behavior for this button. */
   float?: UseFloatingProps & {
@@ -26,7 +30,7 @@ export type PrimitiveButtonProps = GenericButtonProps & {
 
 export const PrimitiveButton = forwardRef(function PrimitiveButton(
   props: MakeResponsive<PrimitiveButtonProps>,
-  ref: any,
+  ref: any
 ) {
   const theme = useValence();
   const colors = useColors();
@@ -47,11 +51,7 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
     disabled = false,
     loading = false,
 
-    motion = {
-      onHover:
-        variant === "filled" || variant === "paper" ? "raise" : undefined,
-      onTap: "bounce",
-    },
+    animation,
     float,
 
     color = theme.primaryColor,
@@ -66,7 +66,12 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
     ...rest
   } = useResponsiveProps<PrimitiveButtonProps>(props);
 
-  const motionBehaviour = getMotionBehaviour(motion, reducedMotion);
+  const animations = useAnimation({
+    hoverAnimation:
+      variant === "filled" || variant === "paper" ? "raise" : undefined,
+    tapAnimation: "bounce",
+    ...animation,
+  });
   const floatBehaviour = useFloating({ ...float });
 
   const ButtonStyle = css({
@@ -121,8 +126,12 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
     <PolymorphicButton
       css={ButtonStyle}
       onMouseDown={(event: any) => event.preventDefault()}
-      whileHover={motionBehaviour.whileHover}
-      whileTap={motionBehaviour.whileTap}
+      variants={animations}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      whileHover="whileHover"
+      whileTap="whileTap"
       ref={ref}
       {...rest}
     >

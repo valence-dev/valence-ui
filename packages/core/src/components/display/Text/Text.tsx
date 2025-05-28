@@ -15,6 +15,7 @@ import {
   useResponsiveProps,
 } from "../../../utilities/responsive";
 import { useColors } from "../../../utilities/color";
+import { TransitionAnimation, useAnimation } from "../../../hooks";
 
 const REGEX_PATTERNS = {
   newline: /(\n)/,
@@ -55,9 +56,21 @@ export type TextProps = GenericProps &
     highlightColor?: CSSProperties["color"];
     /** Optional styles to pass to highlighted sections */
     highlightStyle?: CSSProperties;
+    /** Allow the user to select this text. */
+    userSelect?: boolean;
 
     /** Sets the number of lines to display before truncating with an ellipsis */
     maxLines?: number;
+
+    /** Optionally animate the text whenever its contents change.
+     * - `fade` - Fades the component in and out
+     * - `blur` - Blurs the component in and out
+     * - `slide-left` - Slides the component to the left
+     * - `slide-right` - Slides the component to the right
+     * - `slide-down` - Slides the component to the top
+     * - `slide-up` - Slides the component to the bottom
+     */
+    animation?: TransitionAnimation | TransitionAnimation[];
   };
 
 // CANNOT USE CRYTPO.RANDOMUUID() BECAUSE WEBKIT SUCKS
@@ -101,13 +114,17 @@ export const Text = forwardRef(function Text(
 
     highlightColor = "primary",
     highlightStyle,
+    userSelect = true,
 
     maxLines,
+
+    animation,
 
     children,
     style,
     ...rest
   } = useResponsiveProps<TextProps>(props);
+  const animations = useAnimation({ transitionAnimation: animation });
 
   // Run through formatters
   let replacements: any = children;
@@ -205,6 +222,8 @@ export const Text = forwardRef(function Text(
     color: colors.getHex(color),
     margin: 0,
 
+    userSelect: userSelect ? "text" : "none",
+
     ...(maxLines
       ? {
           display: "-webkit-box",
@@ -218,7 +237,16 @@ export const Text = forwardRef(function Text(
   });
 
   return (
-    <PolymorphicText css={TextStyle} ref={ref} {...rest}>
+    <PolymorphicText
+      css={TextStyle}
+      ref={ref}
+      key={animation ? replacements : undefined}
+      variants={animations}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      {...rest}
+    >
       {replacements}
     </PolymorphicText>
   );

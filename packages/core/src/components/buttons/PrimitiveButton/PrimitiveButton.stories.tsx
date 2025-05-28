@@ -103,3 +103,21 @@ export const AnimateLayout: Story = (args: any) => {
   );
 };
 AnimateLayout.args = {};
+
+export const CustomAnimated: Story = (args: any) => (
+  <ValenceProvider>
+    <Flex center height="100vh">
+      <PrimitiveButton {...args} />
+    </Flex>
+  </ValenceProvider>
+);
+
+CustomAnimated.args = {
+  children: "Filled Button",
+  variant: "filled",
+  animation: {
+    transitionAnimation: ["fade", "blur", "grow"],
+    hoverAnimation: "grow",
+    tapAnimation: "bounce",
+  },
+};

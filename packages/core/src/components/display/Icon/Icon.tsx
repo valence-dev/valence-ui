@@ -1,10 +1,18 @@
-import React, { ReactNode, forwardRef } from "react";
+import {
+  ReactNode,
+  cloneElement,
+  forwardRef,
+  isValidElement,
+  memo,
+} from "react";
 import { useValence } from "../../../ValenceProvider";
 import {
   MakeResponsive,
   useResponsiveProps,
 } from "../../../utilities/responsive";
 import { useColors } from "../../../utilities/color";
+import { TransitionAnimation, useAnimation } from "../../../hooks";
+import { motion } from "motion/react";
 
 export type IconProps = {
   /** Size of the icon. Defaults to theme default icon size. */
@@ -13,6 +21,9 @@ export type IconProps = {
   stroke?: number;
   /** Color of the icon. Inherits by default. */
   color?: string;
+
+  /** Optional animation properties for this icon. */
+  animation?: TransitionAnimation | TransitionAnimation[];
 
   children?: ReactNode;
 };
@@ -27,7 +38,7 @@ export type IconProps = {
  * </Icon>
  * ```
  */
-export const Icon = forwardRef(function Icon(
+const IconComponent = forwardRef(function Icon(
   props: MakeResponsive<IconProps>,
   ref: any,
 ) {
@@ -38,14 +49,43 @@ export const Icon = forwardRef(function Icon(
     size = theme.getSize("iconSize", theme.defaults.size),
     stroke = 1.5,
     color,
+    animation,
     children,
   } = useResponsiveProps<IconProps>(props);
+  const animations = useAnimation({ transitionAnimation: animation });
 
-  if (children === undefined) return children;
-  return React.cloneElement(children as any, {
-    size: size,
-    stroke: stroke,
+  if (!children) return null;
+
+  // Prepare icon props
+  const iconProps = {
+    size,
+    stroke,
     color: color ? colors.getHex(color) : undefined,
     ref,
-  });
+  };
+
+  // If animation is provided and children is a valid React element
+  if (animation && isValidElement(children)) {
+    // Create a motion-enhanced version of the icon component
+    const MotionIcon = motion(children.type as any);
+    return (
+      <MotionIcon
+        {...iconProps}
+        key={children}
+        variants={animations}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+      />
+    );
+  }
+
+  // No animation, just clone the icon with props
+  return cloneElement(children as any, iconProps);
 });
+
+// Only re-render if children change
+export const Icon = memo(
+  IconComponent,
+  (prev, next) => prev.children === next.children,
+);

@@ -6,7 +6,7 @@ import {
   useResponsiveProps,
   useValence,
 } from "../../..";
-import { Icon, Loader } from "../../display";
+import { Icon, IconProps, Loader } from "../../display";
 import {
   ComponentSize,
   FillVariant,
@@ -52,6 +52,9 @@ export type InputContainerProps = GenericLayoutProps &
     requireIndicatorStyle?: CSSProperties;
     /** Optional styles for the button container component */
     buttonContainerStyle?: CSSProperties;
+
+    /** Optional props to apply to the icon component, if it is rendered */
+    iconProps?: IconProps;
   };
 
 export const INPUT_SIZES: SizeClasses<{
@@ -97,6 +100,8 @@ export const InputContainer = forwardRef(function InputContainer(
     iconContainerStyle,
     requireIndicatorStyle,
     buttonContainerStyle,
+
+    iconProps,
 
     children,
     style,
@@ -203,7 +208,7 @@ export const InputContainer = forwardRef(function InputContainer(
           {loading ? (
             <Loader color={variant === "filled" ? "white" : color} />
           ) : (
-            <Icon>{icon}</Icon>
+            <Icon {...iconProps}>{icon}</Icon>
           )}
         </div>
       )}

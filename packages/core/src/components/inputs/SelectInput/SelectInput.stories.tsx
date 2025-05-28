@@ -14,20 +14,20 @@ const meta: Meta<typeof SI> = {
 export default meta;
 type Story = StoryObj<typeof SI>;
 
-const OPTIONS = [
-  "hi",
-  "there",
-  "mate",
-  "how",
-  "are",
-  "you",
-  "doing",
-  "today",
+const OPTIONS: Option<string>[] = [
+  { value: "hi", label: "Hi" },
+  { value: "there", label: "There" },
+  { value: "mate", label: "Mate" },
+  { value: "how", label: "How" },
+  { value: "are", label: "Are" },
+  { value: "you", label: "You" },
+  { value: "doing", label: "Doing" },
+  { value: "today", label: "Today" },
   { value: "son", label: "Father", icon: <IconCloud /> },
 ];
 
 export const SelectInput: Story = (args: any) => {
-  const [value, setValue] = React.useState<Option | null>(
+  const [value, setValue] = React.useState<Option<string> | null>(
     OPTIONS[OPTIONS.length - 1],
   );
 
@@ -36,7 +36,9 @@ export const SelectInput: Story = (args: any) => {
       <FlexCenter>
         <SI {...args} value={value} setValue={setValue} />
 
-        <Button onClick={() => setValue("hi")}>Reset</Button>
+        <Button onClick={() => setValue({ value: "hi", label: "Hi" })}>
+          Reset
+        </Button>
 
         <Button onClick={() => setValue(null)}>Clear</Button>
       </FlexCenter>
@@ -47,6 +49,4 @@ SelectInput.args = {
   placeholder: "Select something...",
   icon: <IconAward />,
   options: OPTIONS,
-  grow: true,
-  width: 20,
 };

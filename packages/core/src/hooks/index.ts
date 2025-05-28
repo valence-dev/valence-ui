@@ -1,3 +1,4 @@
+export * from "./UseAnimation";
 export * from "./UseColorScheme";
 export * from "./UseControlledList";
 export * from "./UseDetectKeyDown";

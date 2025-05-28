@@ -13,18 +13,18 @@ import {
 import { DropdownContainer } from "../DropdownContainer";
 import { Option } from "../DropdownContainer/Options";
 
-export type SelectInputEventProps = GenericTextInputEventProps & {
+export type SelectInputEventProps<OptionType> = GenericTextInputEventProps & {
   /** Callback to be called when an option is selected. */
-  onSelect?: (value: Option | null) => void;
+  onSelect?: (value: Option<OptionType> | null) => void;
 };
 
-export type SelectInputProps = Omit<
-  GenericInputProps<Option | null>,
+export type SelectInputProps<OptionType> = Omit<
+  GenericInputProps<Option<OptionType> | null>,
   "children"
 > &
-  SelectInputEventProps & {
+  SelectInputEventProps<OptionType> & {
     /** A list of options to supply for the content of this input */
-    options: Option[];
+    options: Option<OptionType>[];
 
     /** An icon to display at the left side of this input */
     icon?: ReactNode;
@@ -48,8 +48,8 @@ export type SelectDropdownProps = GenericLayoutProps & {
 };
 
 export const SelectInput = forwardRef(function SelectInput(
-  props: MakeResponsive<SelectInputProps>,
-  ref: any,
+  props: MakeResponsive<SelectInputProps<any>>,
+  ref: any
 ) {
   const theme = useValence();
 
@@ -65,7 +65,7 @@ export const SelectInput = forwardRef(function SelectInput(
     actionIcon = <IconSelector />,
 
     ...rest
-  } = useResponsiveProps<SelectInputProps>(props);
+  } = useResponsiveProps<SelectInputProps<any>>(props);
 
   return (
     <>

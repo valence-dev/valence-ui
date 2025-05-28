@@ -26,14 +26,14 @@ export const DropdownContainer: Story = (args: any) => {
 };
 DropdownContainer.args = {
   options: [
-    "hi",
-    "there",
-    "mate",
-    "how",
-    "are",
-    "you",
-    "doing",
-    "today",
+    { value: "hi", label: "Hi" },
+    { value: "there", label: "There" },
+    { value: "mate", label: "Mate" },
+    { value: "how", label: "How" },
+    { value: "are", label: "Are" },
+    { value: "you", label: "You" },
+    { value: "doing", label: "Doing" },
+    { value: "today", label: "Today" },
     { value: "son", label: "Father", icon: <IconCloud /> },
   ],
   icon: <IconHash />,

@@ -1,11 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { ReactNode, useRef, useState } from "react";
-import {
-  Option,
-  getOptionIcon,
-  getOptionLabel,
-  getOptionValue,
-} from "./Options";
+import { Option } from "./Options";
 import { useDisclosure } from "../../../hooks";
 import {
   FloatingPortal,
@@ -27,18 +22,19 @@ import { InputContainer, InputContainerProps } from "../InputContainer";
 import { useValence } from "../../../ValenceProvider";
 import { useColors } from "../../../utilities";
 import { ButtonWithIcon } from "../../buttons";
-import { Text } from "../../display";
+import { Text, TextProps } from "../../display";
 import { CSSProperties } from "styled-components";
+import { AnimatePresence, motion } from "motion/react";
 
-export type DropdownContainerEventProps = {
+export type DropdownContainerEventProps<OptionType> = {
   /** A callback fired when an item is selected. */
-  onSelect?: (option: Option) => void;
+  onSelect?: (option: Option<OptionType>) => void;
 };
 
-export type DropdownContainerProps = InputContainerProps &
-  DropdownContainerEventProps & {
+export type DropdownContainerProps<OptionType> = InputContainerProps &
+  DropdownContainerEventProps<OptionType> & {
     /** A list of options to display. */
-    options: Option[];
+    options: Option<OptionType>[];
     /** The placeholder text to display when no option is selected. */
     placeholder?: string;
 
@@ -56,11 +52,15 @@ export type DropdownContainerProps = InputContainerProps &
     /** A secondary icon to display in the input container. */
     secondaryIcon?: ReactNode;
 
+    /** Optionally pass props to the label */
+    labelProps?: TextProps;
     /** Optional styles to pass to the dropdown. */
     dropdownStyle?: CSSProperties;
   };
 
-export function DropdownContainer(props: DropdownContainerProps) {
+export function DropdownContainer<OptionType>(
+  props: DropdownContainerProps<OptionType>,
+) {
   const theme = useValence();
   const { getHex, getFgHex } = useColors();
 
@@ -95,6 +95,7 @@ export function DropdownContainer(props: DropdownContainerProps) {
     disabled,
     required,
 
+    labelProps,
     dropdownStyle,
     children,
     ...rest
@@ -122,7 +123,7 @@ export function DropdownContainer(props: DropdownContainerProps) {
   });
 
   const listRef = useRef<Array<HTMLElement | null>>([]);
-  const listContentRef = useRef(options.map((o) => getOptionLabel(o)));
+  const listContentRef = useRef(options.map((o) => o.label));
   const isTypingRef = useRef(false);
 
   const click = useClick(context, { event: "mousedown" });
@@ -156,7 +157,7 @@ export function DropdownContainer(props: DropdownContainerProps) {
   }
 
   const selectedItemLabel =
-    selected !== null ? getOptionLabel(options[selected]) : undefined;
+    selected !== null ? options[selected].label : undefined;
 
   // Styles
   const DropdownStyle = css({
@@ -168,22 +169,12 @@ export function DropdownContainer(props: DropdownContainerProps) {
     color: getHex(color),
     border: `1px solid ${getHex(color, "weak")}`,
     backdropFilter: "blur(5px)",
+    outline: "none !important",
 
     borderRadius: (theme.sizeClasses.radius[radius] as number) + 5,
     padding: 5,
     boxSizing: "border-box",
     boxShadow: theme.defaults.shadow,
-
-    animationName: "in",
-    animationDuration: "0.1s",
-    "@keyframes in": {
-      from: {
-        opacity: 0,
-      },
-      to: {
-        opacity: 1,
-      },
-    },
 
     ...dropdownStyle,
   });
@@ -195,7 +186,7 @@ export function DropdownContainer(props: DropdownContainerProps) {
     <>
       <InputContainer
         tabIndex={0}
-        icon={selected ? (getOptionIcon(options[selected]) ?? icon) : icon}
+        icon={selected ? (options[selected].icon ?? icon) : icon}
         button={secondaryIcon}
         size={inputSize}
         radius={radius}
@@ -206,70 +197,93 @@ export function DropdownContainer(props: DropdownContainerProps) {
         disabled={disabled}
         required={required}
         ref={refs.setReference}
+        iconProps={{
+          animation: ["grow", "blur", "fade"],
+        }}
         {...getReferenceProps()}
         {...rest}
       >
-        {children ?? (
-          <Text
-            style={{
-              flex: 1,
-              color: getFgHex(color, variant),
-              opacity: selectedItemLabel ? 1 : 0.5,
-            }}
-          >
-            {selectedItemLabel ?? placeholder}
-          </Text>
-        )}
+        <AnimatePresence>
+          {children ?? (
+            <Text
+              style={{
+                flex: 1,
+                color: getFgHex(color, variant),
+                opacity: selectedItemLabel ? 1 : 0.5,
+              }}
+              userSelect={false}
+              animation={["slide-right", "fade", "blur"]}
+              {...labelProps}
+            >
+              {selectedItemLabel ?? placeholder}
+            </Text>
+          )}
+        </AnimatePresence>
       </InputContainer>
-      {disclosure.opened && (
-        <FloatingPortal>
-          <div
-            ref={refs.setFloating}
-            css={DropdownStyle}
-            {...getFloatingProps()}
-          >
-            {options.map((value, i) => (
-              <ButtonWithIcon
-                key={i}
-                ref={(node: any) => {
-                  listRef.current[i] = node;
-                }}
-                icon={
-                  i === selected ? (
-                    <IconCheck />
-                  ) : typeof value !== "string" ? (
-                    value?.icon
-                  ) : undefined
-                }
-                variant={i === highlighted ? "light" : "subtle"}
-                width="100%"
-                color={color}
-                style={ItemStyle}
-                {...getItemProps({
-                  // Handle pointer select.
-                  onClick() {
-                    handleSelect(i);
-                  },
-                  // Handle keyboard select.
-                  onKeyDown(event) {
-                    if (event.key === "Enter") {
-                      event.preventDefault();
+      <AnimatePresence>
+        {disclosure.opened && (
+          <FloatingPortal>
+            <motion.div
+              initial={{
+                opacity: 0,
+                filter: "blur(2px)",
+              }}
+              animate={{
+                opacity: 1,
+                filter: "blur(0px)",
+                transition: { duration: 0.1 },
+              }}
+              exit={{
+                opacity: 0,
+                filter: "blur(2px)",
+                transition: { duration: 0.1 },
+              }}
+              ref={refs.setFloating}
+              css={DropdownStyle}
+              {...getFloatingProps()}
+            >
+              {options.map((value, i) => (
+                <ButtonWithIcon
+                  key={i}
+                  ref={(node: any) => {
+                    listRef.current[i] = node;
+                  }}
+                  icon={
+                    i === selected ? <IconCheck /> : (value.icon ?? undefined)
+                  }
+                  variant={i === highlighted ? "light" : "subtle"}
+                  width="100%"
+                  color={color}
+                  style={ItemStyle}
+                  {...getItemProps({
+                    // Handle pointer select.
+                    onClick() {
                       handleSelect(i);
-                    }
+                    },
+                    // Handle keyboard select.
+                    onKeyDown(event) {
+                      if (event.key === "Enter") {
+                        event.preventDefault();
+                        handleSelect(i);
+                      }
 
-                    if (event.key === " " && !isTypingRef.current) {
-                      event.preventDefault();
-                      handleSelect(i);
-                    }
-                  },
-                })}
-              >
-                {getOptionLabel(value)}
-              </ButtonWithIcon>
-            ))}
-          </div>
-        </FloatingPortal>
-      )}
+                      if (event.key === " " && !isTypingRef.current) {
+                        event.preventDefault();
+                        handleSelect(i);
+                      }
+                    },
+                  })}
+                  animation={{
+                    transitionAnimation: ["slide-down", "fade", "blur"],
+                  }}
+                >
+                  {value.label}
+                </ButtonWithIcon>
+              ))}
+            </motion.div>
+          </FloatingPortal>
+        )}
+      </AnimatePresence>
     </>
   );
 }
