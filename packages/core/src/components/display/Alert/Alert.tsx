@@ -1,9 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { ReactNode, forwardRef } from "react";
-import { AnimatePresence, useReducedMotion } from "motion/react";
+import { AnimatePresence } from "motion/react";
 import { Flex } from "../../layout";
 import { Text } from "../Text";
-import { MotionBehaviourProps, getMotionBehaviour } from "../../buttons";
 import {
   CLICKABLE_ELEMENTS,
   ComponentSize,
@@ -22,6 +21,7 @@ import {
   useResponsiveProps,
 } from "../../../utilities/responsive";
 import { useColors } from "../../../utilities/color";
+import { AnimationProps, useAnimation } from "../../../hooks";
 
 export type AlertContent = {
   /** The title of this alert */
@@ -50,19 +50,16 @@ export type AlertProps = GenericClickableProps &
     /** Specifies if a shadow will be shown */
     shadow?: boolean;
 
-    /** Defines motion behavior for this button. This will automatically be overridden if the user has reduced motion enabled on their device. */
-    motion?: MotionBehaviourProps;
+    /** Optional animation props to apply to this alert. */
+    animation?: AnimationProps;
   };
 
 export const Alert = forwardRef(function Alert(
   props: MakeResponsive<AlertProps>,
-  ref: any,
+  ref: any
 ) {
   const theme = useValence();
   const colors = useColors();
-
-  // Hooks & states
-  const reducedMotion = useReducedMotion();
 
   // Defaults
   const {
@@ -72,7 +69,7 @@ export const Alert = forwardRef(function Alert(
     size = theme.defaults.size,
     radius = theme.defaults.radius,
     shadow = false,
-    motion,
+    animation,
 
     color = theme.primaryColor,
     backgroundColor = color,
@@ -86,7 +83,11 @@ export const Alert = forwardRef(function Alert(
     ...rest
   } = useResponsiveProps<AlertProps>(props);
 
-  const motionBehaviour = getMotionBehaviour(motion, reducedMotion);
+  // Hooks & states
+  const animations = useAnimation({
+    transitionAnimation: ["blur", "fade", "grow"],
+    ...animation,
+  });
 
   const AlertStyle = css({
     display: "flex",
@@ -121,12 +122,13 @@ export const Alert = forwardRef(function Alert(
           css={AlertStyle}
           onMouseDown={(e: any) => e.preventDefault()}
           component={component}
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.9 }}
+          variants={animations}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          whileHover="whileHover"
+          whileTap="whileTap"
           transition={{ ease: "backOut" }}
-          whileHover={motionBehaviour.whileHover}
-          whileTap={motionBehaviour.whileTap}
           ref={ref}
           {...rest}
         >
