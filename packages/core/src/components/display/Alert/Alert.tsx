@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { ReactNode, forwardRef } from "react";
-import { AnimatePresence } from "motion/react";
 import { Flex } from "../../layout";
 import { Text } from "../Text";
 import {
@@ -116,53 +115,52 @@ export const Alert = forwardRef(function Alert(
   });
 
   return (
-    <AnimatePresence>
-      {show && (
-        <PolymorphicButton
-          css={AlertStyle}
-          onMouseDown={(e: any) => e.preventDefault()}
-          component={component}
-          variants={animations}
-          initial="initial"
-          animate="animate"
-          exit="exit"
-          whileHover="whileHover"
-          whileTap="whileTap"
-          transition={{ ease: "backOut" }}
-          ref={ref}
-          {...rest}
+    show && (
+      <PolymorphicButton
+        css={AlertStyle}
+        onMouseDown={(e: any) => e.preventDefault()}
+        component={component}
+        key={alert.title + alert.message}
+        variants={animations}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        whileHover="whileHover"
+        whileTap="whileTap"
+        transition={{ ease: "backOut" }}
+        ref={ref}
+        {...rest}
+      >
+        <div style={{ width: theme.getSize("iconSize", size) }}>
+          <Icon size={theme.getSize("iconSize", size) as number}>
+            {alert.icon}
+          </Icon>
+        </div>
+
+        <Flex
+          direction="column"
+          align="flex-start"
+          gap={(padding as number) / 2}
         >
-          <div style={{ width: theme.getSize("iconSize", size) }}>
-            <Icon size={theme.getSize("iconSize", size) as number}>
-              {alert.icon}
-            </Icon>
-          </div>
-
-          <Flex
-            direction="column"
-            align="flex-start"
-            gap={(padding as number) / 2}
+          <Text
+            bold
+            style={{ flexGrow: 1 }}
+            color={colors.getFgHex(color, variant)}
+            size={size}
           >
-            <Text
-              bold
-              style={{ flexGrow: 1 }}
-              color={colors.getFgHex(color, variant)}
-              size={size}
-            >
-              {alert.title}
-            </Text>
+            {alert.title}
+          </Text>
 
-            {alert.message && (
-              <Text
-                fontSize={(theme.sizeClasses.fontSize[size] as number) - 2}
-                color={colors.getFgHex(color, variant)}
-              >
-                {alert.message}
-              </Text>
-            )}
-          </Flex>
-        </PolymorphicButton>
-      )}
-    </AnimatePresence>
+          {alert.message && (
+            <Text
+              fontSize={(theme.sizeClasses.fontSize[size] as number) - 2}
+              color={colors.getFgHex(color, variant)}
+            >
+              {alert.message}
+            </Text>
+          )}
+        </Flex>
+      </PolymorphicButton>
+    )
   );
 });
