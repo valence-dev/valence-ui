@@ -66,7 +66,7 @@ export const INPUT_SIZES: SizeClasses<{
 
 export const InputContainer = forwardRef(function InputContainer(
   props: MakeResponsive<InputContainerProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
   const { getBgHex, getBorderHex, getFgHex } = useColors();

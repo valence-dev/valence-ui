@@ -20,7 +20,7 @@ export type IconButtonProps = PrimitiveButtonProps & {
 
 export const IconButton = forwardRef(function IconButton(
   props: MakeResponsive<IconButtonProps>,
-  ref: any
+  ref: any,
 ) {
   const {
     tooltip,
@@ -61,7 +61,7 @@ const Button = forwardRef(function Button(
     IconButtonProps,
     "tooltip" | "tooltipProps" | "tooltipContentProps"
   >,
-  ref: any
+  ref: any,
 ) {
   const { size, children, ...rest } = props;
 

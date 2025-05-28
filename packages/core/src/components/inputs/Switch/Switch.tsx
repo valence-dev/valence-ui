@@ -30,7 +30,7 @@ export type SwitchProps = GenericInputProps<boolean> &
 
 export const Switch = forwardRef(function Switch(
   props: MakeResponsive<SwitchProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
   const { getBgHex, getHex } = useColors();

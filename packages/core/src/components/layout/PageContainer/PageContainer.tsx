@@ -14,7 +14,7 @@ export type PageContainerType = FlexCenterProps & {
 
 export const PageContainer = forwardRef(function PageContainer(
   props: MakeResponsive<PageContainerType>,
-  ref: any
+  ref: any,
 ) {
   const {
     exemptContent,

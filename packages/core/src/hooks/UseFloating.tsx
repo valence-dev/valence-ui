@@ -32,7 +32,7 @@ export type UseFloatingOutput = {
 
 function getOffset(
   offset: FloatingOffset,
-  position: PositionHorizontal | PositionVertical
+  position: PositionHorizontal | PositionVertical,
 ): any {
   let offsetValue: any = offset;
 
@@ -68,7 +68,7 @@ function getOffset(
 }
 
 export function useFloating(
-  props: MakeResponsive<UseFloatingProps>
+  props: MakeResponsive<UseFloatingProps>,
 ): UseFloatingOutput {
   const {
     positionHorizontal = "left",

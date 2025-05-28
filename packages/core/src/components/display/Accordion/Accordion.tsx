@@ -67,7 +67,7 @@ const useAccordionContext = () => {
 
 const Accordion = forwardRef(function Accordion(
   props: MakeResponsive<AccordionProps>,
-  ref: any
+  ref: any,
 ) {
   // Defaults
   const {
@@ -102,7 +102,7 @@ const Accordion = forwardRef(function Accordion(
 
 const Item = forwardRef(function AccordionItem(
   props: MakeResponsive<AccordionItemProps>,
-  ref: any
+  ref: any,
 ) {
   // Defaults
   const {
@@ -157,7 +157,7 @@ const Item = forwardRef(function AccordionItem(
 
 const Control = forwardRef(function AccordionControl(
   props: MakeResponsive<AccordionControlProps>,
-  ref: any
+  ref: any,
 ) {
   // Defaults
   const {
@@ -204,7 +204,7 @@ const Control = forwardRef(function AccordionControl(
 
 const Panel = forwardRef(function AccordionPanel(
   props: MakeResponsive<AccordionPanelProps>,
-  ref: any
+  ref: any,
 ) {
   // Defaults
   const {

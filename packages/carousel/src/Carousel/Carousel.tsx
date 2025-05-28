@@ -55,7 +55,7 @@ export type CarouselProps = Omit<FlexProps, "children"> & {
 
 const Carousel = forwardRef(function Card(
   props: MakeResponsive<CarouselProps>,
-  ref: any
+  ref: any,
 ) {
   const {
     allowDrag = { default: true, mobile: false },
@@ -198,7 +198,7 @@ const Carousel = forwardRef(function Card(
       for (let i = 0; i < children.length; i++) {
         const child = children[i];
         const distance = Math.abs(
-          child.offsetLeft - child.offsetWidth / 2 - scrollLeft
+          child.offsetLeft - child.offsetWidth / 2 - scrollLeft,
         );
         if (distance < nearestChildDistance) {
           nearestChild = i;
@@ -321,7 +321,7 @@ const Carousel = forwardRef(function Card(
                   !isDragging && setActiveChild(i);
                   !isDragging && scrollToChild(i);
                 },
-              })
+              }),
             )}
           </Flex>
         </Flex>

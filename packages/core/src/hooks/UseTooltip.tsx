@@ -35,8 +35,8 @@ export function useTooltip({
   const opened = disclosure
     ? disclosure.opened
     : isMobile
-    ? false
-    : uncontrolled.opened;
+      ? false
+      : uncontrolled.opened;
   const setUpdate = disclosure?.update ?? uncontrolled.update;
 
   // Floating UI
@@ -75,6 +75,6 @@ export function useTooltip({
       ...interactions,
       ...data,
     }),
-    [opened, setUpdate, interactions, data]
+    [opened, setUpdate, interactions, data],
   );
 }

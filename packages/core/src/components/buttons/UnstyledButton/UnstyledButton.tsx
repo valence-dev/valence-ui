@@ -25,7 +25,7 @@ export type UnstyledButtonProps = PolymorphicButtonProps &
 
 export const UnstyledButton = forwardRef(function UnstyledButton(
   props: MakeResponsive<UnstyledButtonProps>,
-  ref: any
+  ref: any,
 ) {
   // Hooks & states
   const reducedMotion = useReducedMotion();

@@ -30,5 +30,5 @@ export const PolymorphicText = motion.create(
         {children}
       </Component>
     );
-  })
+  }),
 );

@@ -97,7 +97,7 @@ export type TextInputProps = GenericTextInputProps &
 
 export const TextInput = forwardRef(function TextInput(
   props: MakeResponsive<TextInputProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
   const { getFgHex } = useColors();

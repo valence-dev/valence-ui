@@ -42,7 +42,7 @@ export type FloatingToolbarProps = GenericFloatingLayoutProps &
 
 export const FloatingToolbar = forwardRef(function FloatingToolbar(
   props: MakeResponsive<FloatingToolbarProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
   const { getHex } = useColors();

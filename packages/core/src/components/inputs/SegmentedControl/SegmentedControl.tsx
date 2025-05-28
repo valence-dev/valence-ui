@@ -21,7 +21,7 @@ function getOptionValue(option: SegmentedControlOption) {
   return typeof option === "string" ? option : option.value;
 }
 function getOptionLabel(option: SegmentedControlOption) {
-  return typeof option === "string" ? option : option.label ?? option.value;
+  return typeof option === "string" ? option : (option.label ?? option.value);
 }
 
 export type SegmentedControlEventProps = {
@@ -47,7 +47,7 @@ export type SegmentedControlProps = GenericInputProps<string> &
 
 export const SegmentedControl = forwardRef(function SegmentedControl(
   props: MakeResponsive<SegmentedControlProps>,
-  ref: any
+  ref: any,
 ) {
   // Hooks
   const theme = useValence();

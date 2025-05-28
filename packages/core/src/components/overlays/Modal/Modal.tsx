@@ -41,7 +41,7 @@ export type ModalProps = GenericOverlayProps & {
 
 export const Modal = forwardRef(function Modal(
   props: MakeResponsive<ModalProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
   const { getHex } = useColors();
@@ -84,7 +84,7 @@ export const Modal = forwardRef(function Modal(
   useDetectKeyDown(
     () => disclosure.close(),
     "Escape",
-    closeOnEscape && disclosure.opened
+    closeOnEscape && disclosure.opened,
   );
 
   // Floating UI
@@ -171,7 +171,7 @@ export type DefaultModalHeaderProps = GenericOverlayHeaderProps & {
 
 export const DefaultModalHeader = forwardRef(function DefaultModalHeader(
   props: MakeResponsive<DefaultModalHeaderProps>,
-  ref: any
+  ref: any,
 ) {
   const { title, disclosure } =
     useResponsiveProps<DefaultModalHeaderProps>(props);

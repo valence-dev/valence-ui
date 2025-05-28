@@ -27,7 +27,7 @@ export type ColorSwatchProps = {
 
 export const ColorSwatch = forwardRef(function ColorSwatch(
   props: MakeResponsive<ColorSwatchProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
   const { getHex } = useColors();

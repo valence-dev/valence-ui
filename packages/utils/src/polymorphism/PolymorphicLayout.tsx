@@ -30,5 +30,5 @@ export const PolymorphicLayout = motion.create(
         {children}
       </Component>
     );
-  })
+  }),
 );

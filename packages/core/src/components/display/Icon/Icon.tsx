@@ -29,7 +29,7 @@ export type IconProps = {
  */
 export const Icon = forwardRef(function Icon(
   props: MakeResponsive<IconProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
   const colors = useColors();

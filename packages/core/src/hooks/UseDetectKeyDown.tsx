@@ -10,7 +10,7 @@ export function useDetectKeyDown(
   callback: (e: KeyboardEvent) => void,
   keys: string | string[],
   runCheck?: boolean,
-  deps?: any[]
+  deps?: any[],
 ) {
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {

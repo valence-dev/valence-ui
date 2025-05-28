@@ -17,7 +17,7 @@ export type ControlledList<T> = {
 };
 
 export function useControlledList<T = string>(
-  defaultValue?: T[]
+  defaultValue?: T[],
 ): ControlledList<T> {
   const [items, setItems] = useState<T[]>(defaultValue ?? []);
 

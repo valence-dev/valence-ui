@@ -23,7 +23,7 @@ export type UseColorsReturn = {
   getBgHex(
     key: string,
     variant?: FillVariant,
-    hovered?: boolean
+    hovered?: boolean,
   ): string | undefined;
 
   /** Gets the most suitable border color, based upon the supplied
@@ -34,7 +34,7 @@ export type UseColorsReturn = {
   getBorderHex(
     key: string,
     variant?: FillVariant,
-    focused?: boolean
+    focused?: boolean,
   ): string | undefined;
 
   /** Gets the most suitable foreground color, based upon the supplied
@@ -77,7 +77,7 @@ export function useColors(): UseColorsReturn {
 
   function getHex(
     key: string | undefined,
-    opacity?: SwatchOpacity
+    opacity?: SwatchOpacity,
   ): string | undefined {
     const swatch = getSwatch(key);
     if (!swatch) return key;
@@ -88,7 +88,7 @@ export function useColors(): UseColorsReturn {
   function getBackgroundColor(
     key: string,
     variant?: FillVariant,
-    hovered?: boolean
+    hovered?: boolean,
   ): string | undefined {
     switch (variant) {
       case "filled":
@@ -108,7 +108,7 @@ export function useColors(): UseColorsReturn {
   function getBorderColor(
     key: string,
     variant?: FillVariant,
-    focused?: boolean
+    focused?: boolean,
   ): string | undefined {
     if (focused) return `1px solid ${getHex(key, "strong")}`;
     switch (variant) {
@@ -123,7 +123,7 @@ export function useColors(): UseColorsReturn {
 
   function getForegroundColor(
     key: string,
-    variant?: FillVariant
+    variant?: FillVariant,
   ): string | undefined {
     if (variant === "filled") {
       if (key === "white") return getHex("black");

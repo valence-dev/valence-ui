@@ -40,7 +40,7 @@ Carousel.args = {};
 function DemoCarouselChild(
   props: CarouselChildProps & {
     index: number;
-  }
+  },
 ) {
   const { isActive, isNearest, index, ...rest } = props;
 

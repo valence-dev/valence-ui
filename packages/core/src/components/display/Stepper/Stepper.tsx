@@ -42,7 +42,7 @@ export type StepperStepProps = FlexProps;
 
 const Stepper = forwardRef(function Stepper(
   props: MakeResponsive<StepperProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
   const colors = useColors();
@@ -72,8 +72,8 @@ const Stepper = forwardRef(function Stepper(
                   index === currentStep
                     ? "active"
                     : index < currentStep
-                    ? "complete"
-                    : "default"
+                      ? "complete"
+                      : "default"
                 }
                 variant={variant}
                 color={color}
@@ -92,7 +92,7 @@ const Stepper = forwardRef(function Stepper(
                 />
               )}
             </>,
-            { key: index }
+            { key: index },
           );
         })}
       </Flex>
@@ -101,7 +101,7 @@ const Stepper = forwardRef(function Stepper(
       {React.Children.toArray(children).map(
         (child: any, index: number) =>
           index === currentStep &&
-          React.cloneElement(child, { ...child.props, key: index })
+          React.cloneElement(child, { ...child.props, key: index }),
       )}
     </Flex>
   );
@@ -109,7 +109,7 @@ const Stepper = forwardRef(function Stepper(
 
 const StepperIndicator = forwardRef(function StepperIndicator(
   props: MakeResponsive<StepperIndicatorProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
   const colors = useColors();
@@ -165,7 +165,7 @@ const StepperIndicator = forwardRef(function StepperIndicator(
 
 const StepperStep = forwardRef(function StepperStep(
   props: MakeResponsive<StepperStepProps>,
-  ref: any
+  ref: any,
 ) {
   // Defaults
   const { children, ...rest } = useResponsiveProps<StepperStepProps>(props);

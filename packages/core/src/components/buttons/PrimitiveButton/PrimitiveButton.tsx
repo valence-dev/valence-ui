@@ -26,7 +26,7 @@ export type PrimitiveButtonProps = GenericButtonProps & {
 
 export const PrimitiveButton = forwardRef(function PrimitiveButton(
   props: MakeResponsive<PrimitiveButtonProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
   const colors = useColors();

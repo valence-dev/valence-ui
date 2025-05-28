@@ -16,7 +16,7 @@ export const useValence = () => {
 
   if (context === null)
     throw new Error(
-      "Valence components must be wrapped in <ValenceProvider />"
+      "Valence components must be wrapped in <ValenceProvider />",
     );
 
   return context;
@@ -99,7 +99,7 @@ export function ValenceProvider(props: ValenceProviderProps) {
 
   function getSize(
     context: "padding" | "height" | "radius" | "fontSize" | "iconSize",
-    size?: ComponentSize
+    size?: ComponentSize,
   ) {
     size = size ?? defaults.size;
     return sizeClasses[context][size];

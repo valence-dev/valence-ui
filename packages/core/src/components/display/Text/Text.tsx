@@ -79,7 +79,7 @@ function randomId(): string {
  */
 export const Text = forwardRef(function Text(
   props: MakeResponsive<TextProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
   const colors = useColors();
@@ -114,7 +114,7 @@ export const Text = forwardRef(function Text(
   replacements = reactStringReplace(
     replacements,
     REGEX_PATTERNS.newline,
-    (match, i) => <br key={randomId()} />
+    (match, i) => <br key={randomId()} />,
   );
   replacements = reactStringReplace(
     replacements,
@@ -129,7 +129,7 @@ export const Text = forwardRef(function Text(
       >
         <i>{match}</i>
       </b>
-    )
+    ),
   );
   replacements = reactStringReplace(
     replacements,
@@ -143,7 +143,7 @@ export const Text = forwardRef(function Text(
       >
         {match}
       </b>
-    )
+    ),
   );
   replacements = reactStringReplace(
     replacements,
@@ -157,7 +157,7 @@ export const Text = forwardRef(function Text(
       >
         {match}
       </i>
-    )
+    ),
   );
   replacements = reactStringReplace(
     replacements,
@@ -171,7 +171,7 @@ export const Text = forwardRef(function Text(
       >
         {match}
       </span>
-    )
+    ),
   );
   replacements = reactStringReplace(
     replacements,
@@ -189,7 +189,7 @@ export const Text = forwardRef(function Text(
       >
         {match}
       </span>
-    )
+    ),
   );
 
   // Styles

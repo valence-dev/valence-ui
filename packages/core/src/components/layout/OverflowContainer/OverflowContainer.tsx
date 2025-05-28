@@ -25,7 +25,7 @@ export type OverflowContainerProps = GenericProps & {
 
 export const OverflowContainer = forwardRef(function OverflowContainer(
   props: MakeResponsive<OverflowContainerProps>,
-  ref: any
+  ref: any,
 ) {
   const {
     direction = "vertical",

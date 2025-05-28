@@ -25,7 +25,7 @@ const SIZES: SizeClasses<{ height: number; thickness: number }> = {
 
 export const Loader = forwardRef(function Loader(
   props: MakeResponsive<LoaderProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
   const colors = useColors();

@@ -31,7 +31,7 @@ export type AvatarProps = ImageProps & {
 
 export const Avatar = forwardRef(function Avatar(
   props: MakeResponsive<AvatarProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
   const colors = useColors();

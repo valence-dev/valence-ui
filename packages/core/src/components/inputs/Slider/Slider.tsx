@@ -65,7 +65,7 @@ export type SliderThumbProps = StyledFlexProps & {
 
 const Slider = forwardRef(function Slider(
   props: MakeResponsive<SliderProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
 
@@ -182,7 +182,7 @@ const Slider = forwardRef(function Slider(
 const SliderTrack = forwardRef(function SliderTrack(
   //@ts-ignore
   props: SliderTrackProps & HTMLPropsWithRefCallback<HTMLDivElement>,
-  ref: any
+  ref: any,
 ) {
   // Hooks
   const theme = useValence();
@@ -230,7 +230,7 @@ const SliderTrack = forwardRef(function SliderTrack(
 const SliderThumb = forwardRef(function SliderThumb(
   //@ts-ignore
   props: SliderThumbProps & HTMLPropsWithRefCallback<HTMLDivElement>,
-  ref: any
+  ref: any,
 ) {
   // Hooks
   const theme = useValence();

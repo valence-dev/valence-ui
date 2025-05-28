@@ -28,7 +28,7 @@ const OPTIONS = [
 
 export const SelectInput: Story = (args: any) => {
   const [value, setValue] = React.useState<Option | null>(
-    OPTIONS[OPTIONS.length - 1]
+    OPTIONS[OPTIONS.length - 1],
   );
 
   return (

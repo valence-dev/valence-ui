@@ -34,7 +34,7 @@ export type ColorPickerProps = GenericInputProps<string> &
 
 export const ColorPicker = forwardRef(function ColorPicker(
   props: MakeResponsive<ColorPickerProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
   const { getHex } = useColors();

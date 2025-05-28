@@ -23,7 +23,7 @@ export type StyledFlexProps = FlexProps & {
 /** A styled version of the `Flex` component that offers many props in line with the button styling system */
 export const StyledFlex = forwardRef(function StyledFlex(
   props: MakeResponsive<StyledFlexProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
   const { getFgHex, getBorderHex, getBgHex } = useColors();

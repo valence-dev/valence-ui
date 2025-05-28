@@ -23,7 +23,7 @@ export type AppContainerProps = GenericLayoutProps &
  */
 export const AppContainer = forwardRef(function AppContainer(
   props: MakeResponsive<AppContainerProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useContext(ValenceContext);
   const { getHex } = useColors();

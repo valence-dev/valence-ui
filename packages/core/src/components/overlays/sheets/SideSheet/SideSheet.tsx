@@ -43,7 +43,7 @@ export type SideSheetProps = GenericSheetProps & {
 
 export const SideSheet = forwardRef(function SideSheet(
   props: MakeResponsive<SideSheetProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useContext(ValenceContext);
   const { getHex } = useColors();
@@ -119,8 +119,8 @@ export const SideSheet = forwardRef(function SideSheet(
       display !== "overlay"
         ? undefined
         : fixedDirection === "right"
-        ? `${borderRadius}px 0 0 ${borderRadius}px`
-        : `0 ${borderRadius}px ${borderRadius}px 0`,
+          ? `${borderRadius}px 0 0 ${borderRadius}px`
+          : `0 ${borderRadius}px ${borderRadius}px 0`,
     boxShadow:
       withShadow && display === "overlay" ? theme.defaults.shadow : undefined,
 

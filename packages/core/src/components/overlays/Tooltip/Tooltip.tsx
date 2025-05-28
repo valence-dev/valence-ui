@@ -52,7 +52,7 @@ export type TooltipTriggerProps = {
 
 const Trigger = forwardRef(function Trigger(
   props: TooltipTriggerProps,
-  propRef: any
+  propRef: any,
 ) {
   const { children } = props;
 
@@ -66,7 +66,7 @@ const Trigger = forwardRef(function Trigger(
       ref,
       ...children.props,
       "data-state": context.opened ? "open" : "closed",
-    })
+    }),
   );
 });
 
@@ -81,7 +81,7 @@ export type TooltipContentProps = StyledFlexProps & {
 
 const Content = forwardRef(function Content(
   props: MakeResponsive<TooltipContentProps>,
-  propRef: any
+  propRef: any,
 ) {
   const {
     color = "white",

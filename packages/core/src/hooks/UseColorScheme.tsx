@@ -36,8 +36,8 @@ export function useColorScheme(): UseColorSchemeOutput {
     theme.preferredColorScheme !== "system"
       ? theme.preferredColorScheme
       : isDarkTheme
-      ? "dark"
-      : "light";
+        ? "dark"
+        : "light";
 
   return {
     colorScheme: colorScheme,

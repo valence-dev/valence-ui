@@ -21,7 +21,7 @@ export type GridItemProps = GenericGridItemProps & PolymorphicLayoutProps;
 
 const Grid = forwardRef(function Grid(
   props: MakeResponsive<GridProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
   const { getHex } = useColors();
@@ -61,11 +61,11 @@ const Grid = forwardRef(function Grid(
   const templateRows =
     typeof rows === "number"
       ? `repeat(${rows}, minmax(0, 1fr))`
-      : rows ?? "minmax(0, 1fr)";
+      : (rows ?? "minmax(0, 1fr)");
   const templateColumns =
     typeof columns === "number"
       ? `repeat(${columns}, minmax(0, 1fr))`
-      : columns ?? "minmax(0, 1fr)";
+      : (columns ?? "minmax(0, 1fr)");
 
   // Styles
   const GridStyle = css({
@@ -110,7 +110,7 @@ const Grid = forwardRef(function Grid(
 
 const Item = forwardRef(function GridItem(
   props: MakeResponsive<GridItemProps>,
-  ref: any
+  ref: any,
 ) {
   const { getHex } = useColors();
 

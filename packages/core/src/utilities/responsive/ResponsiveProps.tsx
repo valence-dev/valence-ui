@@ -57,7 +57,7 @@ function getResponsiveProp<T>(prop: Responsive<T>, breakpoint: Breakpoint): T {
  */
 function getResponsiveProps<T>(
   props: MakeResponsive<T>,
-  breakpoint: Breakpoint
+  breakpoint: Breakpoint,
 ): T {
   const responsiveProps: Partial<T> = {};
   for (const key in props) {
@@ -73,7 +73,7 @@ function getResponsiveProps<T>(
  */
 export function getResponsive<T>(
   props: MakeResponsive<T> | Responsive<T>,
-  breakpoint: Breakpoint
+  breakpoint: Breakpoint,
 ): T {
   // @ts-ignore
   if (props && props.hasOwnProperty("default"))

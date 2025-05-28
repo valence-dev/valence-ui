@@ -30,5 +30,5 @@ export const PolymorphicButton = motion.create(
         {children}
       </Component>
     );
-  })
+  }),
 );

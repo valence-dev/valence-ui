@@ -18,7 +18,7 @@ export type TextButtonProps = Omit<PrimitiveButtonProps, "children"> & {
 
 export const Button = forwardRef(function Button(
   props: MakeResponsive<TextButtonProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
   const colors = useColors();

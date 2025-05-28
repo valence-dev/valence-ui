@@ -47,7 +47,7 @@ export type ImageProps = GenericImageProps &
 
 export const Image = forwardRef(function Image(
   props: MakeResponsive<ImageProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
   const { getHex } = useColors();

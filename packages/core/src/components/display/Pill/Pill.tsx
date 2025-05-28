@@ -56,7 +56,7 @@ const SIZES: SizeClasses<{
 
 export const Pill = forwardRef(function Pill(
   props: MakeResponsive<PillProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
   const colors = useColors();

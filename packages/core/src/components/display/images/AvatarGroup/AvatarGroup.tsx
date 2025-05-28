@@ -12,7 +12,7 @@ export type AvatarGroupProps = Omit<AvatarProps, "src" | "alt"> & {
 
 export const AvatarGroup = forwardRef(function AvatarGroup(
   props: AvatarGroupProps,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
 
@@ -36,7 +36,7 @@ export const AvatarGroup = forwardRef(function AvatarGroup(
           },
           size: size,
           ...rest,
-        })
+        }),
       )}
     </Flex>
   );

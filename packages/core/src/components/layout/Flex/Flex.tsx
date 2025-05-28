@@ -38,7 +38,7 @@ export type FlexProps = GenericLayoutProps &
 /** A basic formattable flexbox component that accepts many common flexbox properties. This component is also reactive, thus it will accept both a single value and an object of values that will be applied at different breakpoints. */
 export const Flex = forwardRef(function Flex(
   props: MakeResponsive<FlexProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
   const { getHex } = useColors();

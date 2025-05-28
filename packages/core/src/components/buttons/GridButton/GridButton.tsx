@@ -20,7 +20,7 @@ export type GridButtonProps = TextButtonProps & {
 
 export const GridButton = forwardRef(function GridButton(
   props: MakeResponsive<GridButtonProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
   const { getFgHex } = useColors();

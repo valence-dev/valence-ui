@@ -38,7 +38,7 @@ export type BottomSheetProps = GenericSheetProps & {
 
 export const BottomSheet = forwardRef(function BottomSheet(
   props: MakeResponsive<BottomSheetProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useContext(ValenceContext);
   const { getHex } = useColors();

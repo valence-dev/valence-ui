@@ -56,7 +56,7 @@ export type AlertProps = GenericClickableProps &
 
 export const Alert = forwardRef(function Alert(
   props: MakeResponsive<AlertProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
   const colors = useColors();

@@ -12,7 +12,7 @@ export type FlexCenterProps = FlexProps & {
 
 export const FlexCenter = forwardRef(function FlexCentre(
   props: MakeResponsive<FlexCenterProps>,
-  ref: any
+  ref: any,
 ) {
   const {
     center = true,

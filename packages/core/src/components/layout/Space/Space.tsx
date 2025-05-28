@@ -21,7 +21,7 @@ export type SpaceProps = GenericProps & {
 /** A basic, unstyled layout assistant that creates blank space between any two objects. */
 export const Space = forwardRef(function Space(
   props: MakeResponsive<SpaceProps>,
-  ref: any
+  ref: any,
 ) {
   // Defaults
   const { height, width, grow, style, ...rest } =

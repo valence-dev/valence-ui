@@ -44,7 +44,7 @@ export type NumberInputProps = GenericInputProps<number> &
 
 export const NumberInput = forwardRef(function NumberInput(
   props: MakeResponsive<NumberInputProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
   const { getFgHex } = useColors();
@@ -148,8 +148,8 @@ export const NumberInput = forwardRef(function NumberInput(
     setValue(
       Math.min(
         Math.max(parseFloat(e.target.value), min ?? -Infinity),
-        max ?? Infinity
-      )
+        max ?? Infinity,
+      ),
     );
     onBlur?.(e);
   }

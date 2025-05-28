@@ -146,7 +146,7 @@ export function DropdownContainer(props: DropdownContainerProps) {
   });
 
   const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions(
-    [click, dismiss, role, listNav, typeahead]
+    [click, dismiss, role, listNav, typeahead],
   );
 
   function handleSelect(index: number) {
@@ -195,7 +195,7 @@ export function DropdownContainer(props: DropdownContainerProps) {
     <>
       <InputContainer
         tabIndex={0}
-        icon={selected ? getOptionIcon(options[selected]) ?? icon : icon}
+        icon={selected ? (getOptionIcon(options[selected]) ?? icon) : icon}
         button={secondaryIcon}
         size={inputSize}
         radius={radius}

@@ -18,7 +18,7 @@ export type HeaderProps = FlexCenterProps & {
  */
 export const Header = forwardRef(function Header(
   props: MakeResponsive<HeaderProps>,
-  ref: any
+  ref: any,
 ) {
   const { getHex } = useColors();
   const theme = useValence();

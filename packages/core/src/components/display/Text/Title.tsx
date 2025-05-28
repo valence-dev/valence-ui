@@ -9,7 +9,7 @@ export type TitleProps = TextProps & {
 
 export const Title = forwardRef(function Title(
   props: MakeResponsive<TitleProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
 

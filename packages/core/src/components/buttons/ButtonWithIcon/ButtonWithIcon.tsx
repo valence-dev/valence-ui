@@ -18,7 +18,7 @@ export type ButtonWithIconProps = TextButtonProps & {
 
 export const ButtonWithIcon = forwardRef(function ButtonWithIcon(
   props: MakeResponsive<ButtonWithIconProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
   const colors = useColors();

@@ -43,7 +43,7 @@ export type AppNavProps = GenericNavProps & {
 
 export const AppNav = forwardRef(function Nav(
   props: MakeResponsive<AppNavProps>,
-  ref: any
+  ref: any,
 ) {
   const breakpoint = useBreakpoint();
 

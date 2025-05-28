@@ -19,7 +19,7 @@ export type ModalBackgroundProps = GenericOverlayBackgroundProps & {
 
 export const ModalBackground = forwardRef(function ModalBackground(
   props: MakeResponsive<ModalBackgroundProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
   const { getHex } = useColors();
@@ -68,8 +68,8 @@ export const ModalBackground = forwardRef(function ModalBackground(
       backdropFilter === "dot-blur"
         ? "blur(3px)"
         : backdropFilter === "blur"
-        ? "blur(10px)"
-        : undefined,
+          ? "blur(10px)"
+          : undefined,
 
     ...style,
   });

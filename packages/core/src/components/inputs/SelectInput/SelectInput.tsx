@@ -49,7 +49,7 @@ export type SelectDropdownProps = GenericLayoutProps & {
 
 export const SelectInput = forwardRef(function SelectInput(
   props: MakeResponsive<SelectInputProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
 

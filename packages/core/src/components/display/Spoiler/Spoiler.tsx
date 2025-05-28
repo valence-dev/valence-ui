@@ -14,7 +14,7 @@ export type SpoilerProps = GenericProps & {
 /** A simple wrapper component used to show or hide content at will. */
 export const Spoiler = forwardRef(function Spoiler(
   props: MakeResponsive<SpoilerProps>,
-  ref: any
+  ref: any,
 ) {
   // Defaults
   const {

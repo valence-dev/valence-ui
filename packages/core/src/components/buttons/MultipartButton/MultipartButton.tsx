@@ -42,7 +42,7 @@ const SIZES: SizeClasses<{ height: number }> = {
 
 export const MultipartButton = forwardRef(function MultipartButton(
   props: MakeResponsive<MultipartButtonProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
   const colors = useColors();

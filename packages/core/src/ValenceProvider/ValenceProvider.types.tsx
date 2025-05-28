@@ -58,7 +58,7 @@ export type IValenceContext = {
    **/
   getSize: (
     property: "padding" | "height" | "radius" | "fontSize" | "iconSize",
-    size?: ComponentSize
+    size?: ComponentSize,
   ) => any;
 
   /** Props to refer to for titles */

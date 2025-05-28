@@ -26,7 +26,7 @@ export type DyanmicSheetProps = {
 
 export const DynamicSheet = forwardRef(function DynamicSheet(
   props: MakeResponsive<DyanmicSheetProps>,
-  ref: any
+  ref: any,
 ) {
   // Defaults
   const {

@@ -49,7 +49,7 @@ export type RangeSliderProps = GenericInputProps<number[]> &
 
 export const RangeSlider = forwardRef(function RangeSlider(
   props: MakeResponsive<RangeSliderProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
 

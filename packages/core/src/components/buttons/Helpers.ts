@@ -32,7 +32,7 @@ export type MotionBehaviour = {
  */
 export function getMotionBehaviour(
   props: MotionBehaviourProps | undefined,
-  reducedMotion: boolean | null
+  reducedMotion: boolean | null,
 ): MotionBehaviour {
   if (reducedMotion || !props) return {};
 

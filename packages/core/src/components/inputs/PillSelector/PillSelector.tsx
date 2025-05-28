@@ -83,7 +83,7 @@ export type PillSelectorProps = Omit<GenericInputProps<string[]>, "children"> &
 
 export const PillSelector = forwardRef(function PillSelector(
   props: MakeResponsive<PillSelectorProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
   const { getHex } = useColors();

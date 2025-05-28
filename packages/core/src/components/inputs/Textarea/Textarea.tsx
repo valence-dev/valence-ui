@@ -46,7 +46,7 @@ export type TextareaProps = GenericTextInputProps &
 
 export const Textarea = forwardRef(function Textarea(
   props: MakeResponsive<TextareaProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
   const { getFgHex } = useColors();

@@ -7,7 +7,7 @@ import { useBreakpoint } from "./UseBreakpoint";
  * breakpoint.
  */
 export function useResponsiveProps<T>(
-  props: MakeResponsive<T> | Responsive<T>
+  props: MakeResponsive<T> | Responsive<T>,
 ): T {
   const breakpoint = useBreakpoint();
   const calculatedProps = getResponsive(props, breakpoint);

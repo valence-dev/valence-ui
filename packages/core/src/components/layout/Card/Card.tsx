@@ -48,7 +48,7 @@ export const CARD_DEFAULTS: { width: SizeClasses<CSSProperties["width"]> } = {
 
 const Card = forwardRef(function Card(
   props: MakeResponsive<CardProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
 
@@ -120,7 +120,7 @@ export type CardImageProps = Omit<GenericProps, "children"> &
 
 const Image = forwardRef(function CardImage(
   props: MakeResponsive<CardImageProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
 
@@ -148,7 +148,7 @@ export type CardSectionProps = FlexProps;
 
 const Section = forwardRef(function CardSection(
   props: MakeResponsive<CardSectionProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
 
@@ -173,7 +173,7 @@ export type CardButtonsProps = FlexProps;
 
 const Buttons = forwardRef(function CardButtons(
   props: MakeResponsive<CardButtonsProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
 
