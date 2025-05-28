@@ -10,8 +10,7 @@ import {
   GenericOverlayBackgroundProps,
   GenericOverlayHeaderProps,
 } from "@valence-ui/utils";
-import { AnimatePresence } from "framer-motion";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import { Flex, FlexProps, OverflowContainer } from "../../../layout";
 import {
   MakeResponsive,

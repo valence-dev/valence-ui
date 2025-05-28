@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { ReactNode, forwardRef } from "react";
-import { AnimatePresence, useReducedMotion } from "framer-motion";
+import { AnimatePresence, useReducedMotion } from "motion/react";
 import { Flex } from "../../layout";
 import { Text } from "../Text";
 import { MotionBehaviourProps, getMotionBehaviour } from "../../buttons";

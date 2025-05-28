@@ -3,11 +3,10 @@ import {
   GenericClickableEventProps,
   GenericClickableProps,
   GenericProps,
-  MouseEvents,
   PolymorphicElementProps,
-  PolymorphicElementType,
 } from "..";
 import { Link } from "react-router-dom";
+import { motion } from "motion/react";
 
 export type PolymorphicLayoutProps = PolymorphicElementProps & {
   /** Sets Emotion styling content on the component */
@@ -19,18 +18,17 @@ type Props = PolymorphicLayoutProps &
   GenericClickableEventProps &
   GenericClickableProps;
 
-export const PolymorphicLayout = forwardRef(function Input(
-  props: Props,
-  ref: any
-) {
-  const { component = "div", children, ...rest } = props;
+export const PolymorphicLayout = motion.create(
+  forwardRef(function Element(props: Props, ref: any) {
+    const { component = "div", children, ...rest } = props;
 
-  let Component: any = component;
-  if (component === "link") Component = Link;
+    let Component: any = component;
+    if (component === "link") Component = Link;
 
-  return (
-    <Component ref={ref} {...rest}>
-      {children}
-    </Component>
-  );
-});
+    return (
+      <Component ref={ref} {...rest}>
+        {children}
+      </Component>
+    );
+  })
+);

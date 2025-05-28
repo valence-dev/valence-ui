@@ -7,7 +7,7 @@ import {
   useResponsiveProps,
   useValence,
 } from "../../..";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { GenericOverlayBackgroundProps } from "@valence-ui/utils";
 import { css } from "@emotion/react";
 import { FloatingPortal } from "@floating-ui/react";

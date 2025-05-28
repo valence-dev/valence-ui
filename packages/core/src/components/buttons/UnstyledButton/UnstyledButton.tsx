@@ -13,7 +13,7 @@ import {
   useResponsiveProps,
 } from "../../../utilities/responsive";
 import { MotionBehaviourProps, getMotionBehaviour } from "../Helpers";
-import { useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "motion/react";
 
 export type UnstyledButtonProps = PolymorphicButtonProps &
   GenericClickableEventProps &

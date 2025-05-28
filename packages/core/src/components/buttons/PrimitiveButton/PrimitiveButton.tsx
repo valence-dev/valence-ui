@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { CSSProperties, forwardRef } from "react";
-import { useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "motion/react";
 import { MotionBehaviourProps, getMotionBehaviour } from "../Helpers";
 import { Loader } from "../../display/Loader";
 import { PolymorphicButton } from "@valence-ui/utils";

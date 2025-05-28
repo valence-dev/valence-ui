@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import { GenericProps } from "@valence-ui/utils";
 import { CSSProperties, forwardRef } from "react";
 import {

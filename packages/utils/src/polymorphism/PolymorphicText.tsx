@@ -4,9 +4,9 @@ import {
   GenericClickableProps,
   GenericProps,
   PolymorphicElementProps,
-  PolymorphicElementType,
 } from "..";
 import { Link } from "react-router-dom";
+import { motion } from "motion/react";
 
 export type PolymorphicTextProps = PolymorphicElementProps & {
   /** Sets Emotion styling content on the component */
@@ -18,18 +18,17 @@ type Props = PolymorphicTextProps &
   GenericClickableEventProps &
   GenericClickableProps;
 
-export const PolymorphicText = forwardRef(function Input(
-  props: Props,
-  ref: any
-) {
-  const { component = "p", children, ...rest } = props;
+export const PolymorphicText = motion.create(
+  forwardRef(function Element(props: Props, ref: any) {
+    const { component = "p", children, ...rest } = props;
 
-  let Component: any = component;
-  if (component === "link") Component = Link;
+    let Component: any = component;
+    if (component === "link") Component = Link;
 
-  return (
-    <Component ref={ref} {...rest}>
-      {children}
-    </Component>
-  );
-});
+    return (
+      <Component ref={ref} {...rest}>
+        {children}
+      </Component>
+    );
+  })
+);

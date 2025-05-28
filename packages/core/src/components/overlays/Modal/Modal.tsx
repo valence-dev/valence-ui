@@ -10,7 +10,7 @@ import {
   useColors,
 } from "../../..";
 import { Flex, FlexProps, OverflowContainer } from "../../layout";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import { Icon, Title } from "../../display";
 import { IconX } from "@tabler/icons-react";
 import {

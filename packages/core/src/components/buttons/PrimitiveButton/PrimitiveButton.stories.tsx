@@ -1,8 +1,9 @@
-import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { PrimitiveButton } from "./PrimitiveButton";
 import { Storybook } from "../../../../storybook";
 import { Flex, ValenceProvider } from "../../..";
+import { useState } from "react";
+import { motion } from "motion/react";
 
 const meta: Meta<typeof PrimitiveButton> = {
   component: PrimitiveButton,
@@ -74,3 +75,31 @@ Primitive.args = {
     tv: "violet",
   },
 };
+
+export const AnimateLayout: Story = (args: any) => {
+  const labels = [
+    "Button",
+    "Click Me",
+    "Press Here",
+    "Submit",
+    "Action",
+    "Do Something",
+  ];
+
+  const [label, setLabel] = useState(0);
+
+  function switchLabel() {
+    setLabel((prev) => (prev + 1) % labels.length);
+  }
+
+  return (
+    <ValenceProvider>
+      <Flex center height="100vh">
+        <PrimitiveButton {...args} onClick={switchLabel} layout>
+          <motion.div layout>{labels[label]}</motion.div>
+        </PrimitiveButton>
+      </Flex>
+    </ValenceProvider>
+  );
+};
+AnimateLayout.args = {};

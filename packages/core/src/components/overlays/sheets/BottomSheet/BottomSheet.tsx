@@ -2,7 +2,7 @@
 import { css } from "@emotion/react";
 import { GenericOverlayHeaderProps } from "@valence-ui/utils";
 import { useContext, forwardRef, CSSProperties } from "react";
-import { AnimatePresence, motion, useDragControls } from "framer-motion";
+import { AnimatePresence, motion, useDragControls } from "motion/react";
 import { GenericSheetProps } from "../Generics";
 import {
   FloatingFocusManager,

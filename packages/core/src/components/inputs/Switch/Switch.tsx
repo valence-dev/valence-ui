@@ -4,7 +4,7 @@ import { forwardRef } from "react";
 import { useValence } from "../../../ValenceProvider";
 import { PrimitiveButton, PrimitiveButtonProps } from "../../buttons";
 import { Loader, Text, TextProps } from "../../display";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { Flex } from "../../layout";
 import { css } from "@emotion/react";
 import { GenericInputProps } from "../../../generics";

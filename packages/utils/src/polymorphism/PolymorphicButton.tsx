@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { Link } from "react-router-dom";
 import {
   GenericClickableEventProps,
@@ -18,8 +18,8 @@ type Props = PolymorphicButtonProps &
   GenericClickableEventProps &
   GenericClickableProps;
 
-export const PolymorphicButton = motion(
-  forwardRef(function Input(props: Props, ref: any) {
+export const PolymorphicButton = motion.create(
+  forwardRef(function Element(props: Props, ref: any) {
     const { component = "button", children, ...rest } = props;
 
     let Component: any = component;
