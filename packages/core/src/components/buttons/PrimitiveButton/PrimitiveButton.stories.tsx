@@ -114,7 +114,7 @@ export const CustomAnimated: Story = (args: any) => (
 
 CustomAnimated.args = {
   children: "Filled Button",
-  variant: "filled",
+  variant: "paper",
   animation: {
     transitionAnimation: ["fade", "blur", "grow"],
     hoverAnimation: "grow",

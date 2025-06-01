@@ -2,6 +2,7 @@
 import { CSSProperties, forwardRef } from "react";
 import {
   MakeResponsive,
+  Material,
   useColors,
   useResponsiveProps,
   useValence,
@@ -15,6 +16,8 @@ import { css } from "@emotion/react";
 
 export type FlexProps = GenericLayoutProps &
   PolymorphicLayoutProps & {
+    material?: Material;
+
     /** Sets `flex-direction` css property */
     direction?: CSSProperties["flexDirection"];
     /** Sets `align-items` css property */
@@ -41,10 +44,11 @@ export const Flex = forwardRef(function Flex(
   ref: any,
 ) {
   const theme = useValence();
-  const { getHex } = useColors();
+  const colors = useColors();
 
   // Defaults
   const {
+    material,
     center = false,
     direction = "row",
     align = center ? "center" : "flex-start",
@@ -56,8 +60,6 @@ export const Flex = forwardRef(function Flex(
     grow = false,
     wrap = "nowrap",
 
-    backgroundColor,
-    color,
     padding,
     margin,
     width,
@@ -70,6 +72,8 @@ export const Flex = forwardRef(function Flex(
 
   // Styles
   const FlexStyle = css({
+    ...material?.getStyles(theme, colors),
+
     display: "flex",
     flexDirection: direction,
     alignItems: align,
@@ -82,8 +86,6 @@ export const Flex = forwardRef(function Flex(
     flexGrow: grow ? 1 : undefined,
     flexWrap: wrap,
 
-    backgroundColor: getHex(backgroundColor),
-    color: getHex(color),
     padding: padding,
     margin: margin,
     width: width,

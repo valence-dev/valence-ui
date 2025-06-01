@@ -36,9 +36,7 @@ export const SelectInput: Story = (args: any) => {
       <FlexCenter>
         <SI {...args} value={value} setValue={setValue} />
 
-        <Button onClick={() => setValue({ value: "hi", label: "Hi" })}>
-          Reset
-        </Button>
+        <Button onClick={() => setValue(OPTIONS[0])}>Reset</Button>
 
         <Button onClick={() => setValue(null)}>Clear</Button>
       </FlexCenter>

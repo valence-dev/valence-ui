@@ -1,0 +1,116 @@
+import { CSSObject } from "@emotion/react";
+import { Material, MaterialProps } from "./Material";
+import { IValenceContext } from "../../ValenceProvider";
+import { UseColorsReturn } from "..";
+
+export type PaperMaterialElevation = 1 | 2 | 3 | 4 | 5;
+export type PaperMaterialProps = MaterialProps & {
+  color?: string;
+  backgroundColor?: string;
+  elevation?: PaperMaterialElevation;
+};
+
+export class PaperMaterial extends Material {
+  color?: string;
+  backgroundColor?: string;
+  elevation?: PaperMaterialElevation;
+
+  constructor(props?: PaperMaterialProps) {
+    super(props ?? {});
+    this.color = props?.color;
+    this.backgroundColor = props?.backgroundColor;
+    this.elevation = props?.elevation;
+  }
+
+  copy(): PaperMaterial {
+    return new PaperMaterial({
+      overrides: this.overrides,
+      childrenOverrides: this.childrenOverrides,
+      color: this.color,
+      backgroundColor: this.backgroundColor,
+      elevation: this.elevation,
+    });
+  }
+
+  private getElevationShadow(
+    elevation: PaperMaterialElevation | undefined,
+  ): string {
+    switch (elevation) {
+      case 1:
+        return "0px 3px 5px rgba(0, 0, 0, 0.05)";
+      case 2:
+        return "0px 6px 7px rgba(0, 0, 0, 0.075)";
+      case 3:
+        return "0px 8px 10px rgba(0, 0, 0, 0.1)";
+      case 4:
+        return "0px 8px 15px rgba(0, 0, 0, 0.15)";
+      case 5:
+        return "0px 10px 30px rgba(0, 0, 0, 0.2)";
+      default:
+        return "none";
+    }
+  }
+
+  getStyles(valence: IValenceContext, colors: UseColorsReturn): CSSObject {
+    const color = this.color ?? "black";
+    const backgroundColor = this.backgroundColor ?? "brighterWhite";
+
+    return {
+      backgroundColor: colors.getHex(backgroundColor),
+      outline: "none",
+      border: `1px solid ${colors.getHex(color, (this.elevation ?? 0) >= 3 ? "medium" : "weak")}`,
+      boxShadow: this.getElevationShadow(this.elevation),
+
+      ...(this.interactive && {
+        transitionDuration: valence.defaults.transitionDuration,
+        transitionProperty: "border, box-shadow",
+
+        "&:hover": {
+          boxShadow: this.getElevationShadow(
+            Math.min((this.elevation ?? 0) + 1, 5) as PaperMaterialElevation,
+          ),
+          border: `1px solid ${colors.getHex(color, "strong")}`,
+        },
+        "&:focus": {
+          outline: "none",
+          border: `1px solid ${colors.getHex(color)}`,
+        },
+      }),
+
+      "& > *": {
+        ...this.getChildrenStyles(valence, colors),
+      },
+
+      ...this.overrides,
+    };
+  }
+
+  getChildrenStyles(
+    valence: IValenceContext,
+    colors: UseColorsReturn,
+  ): CSSObject {
+    const color = this.color ?? "black";
+
+    return {
+      color: colors.getHex(color),
+      ...this.childrenOverrides,
+    };
+  }
+
+  // SETTERS
+  setColor(color: string): PaperMaterial {
+    const copy = this.copy();
+    copy.color = color;
+    return copy;
+  }
+  setBackgroundColor(backgroundColor: string): PaperMaterial {
+    const copy = this.copy();
+    copy.backgroundColor = backgroundColor;
+    return copy;
+  }
+  setElevation(elevation: PaperMaterialElevation): PaperMaterial {
+    const copy = this.copy();
+    copy.elevation = elevation;
+    return copy;
+  }
+}
