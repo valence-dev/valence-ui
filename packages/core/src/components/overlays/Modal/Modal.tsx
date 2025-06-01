@@ -27,11 +27,14 @@ import {
   useRole,
 } from "@floating-ui/react";
 import { useLockScroll } from "../../../hooks/UseLockScroll";
+import { AirMaterial } from "../../../utilities/materials/AirMaterial";
 
 export type ModalProps = GenericOverlayProps & {
   /** A disclosure to handle state information about this modal */
   disclosure: Disclosure;
 
+  /** The background color */
+  backgroundColor?: string;
   /** Optional props to pass to the flex component */
   flexProps?: FlexProps;
 
@@ -62,7 +65,6 @@ export const Modal = forwardRef(function Modal(
     radius = theme.defaults.radius,
 
     backgroundColor = "white",
-    color = "black",
     padding = theme.sizeClasses.padding[theme.defaults.size],
     margin,
     width = 500,
@@ -105,8 +107,7 @@ export const Modal = forwardRef(function Modal(
   // Styles
   const ContainerStyle = css({
     backgroundColor: getHex(backgroundColor),
-    border: `1px solid ${getHex(color, "weak")}`,
-    color: getHex(color),
+    border: `1px solid ${getHex("black", "strong")}`,
     padding: padding,
     margin: margin,
     width: width,
@@ -189,9 +190,14 @@ export const DefaultModalHeader = forwardRef(function DefaultModalHeader(
 
   return (
     <header css={HeaderStyle} ref={ref}>
-      <Title order={2}>{title}</Title>
+      <Title order={2} color="black">
+        {title}
+      </Title>
 
-      <IconButton onClick={disclosure.close} color="black" variant="subtle">
+      <IconButton
+        onClick={disclosure.close}
+        material={new AirMaterial({ color: "black" })}
+      >
         <Icon>
           <IconX />
         </Icon>

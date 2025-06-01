@@ -114,7 +114,6 @@ export const TextInput = forwardRef(function TextInput(
 
     size = theme.defaults.size,
     radius = theme.defaults.radius,
-    variant = theme.defaults.variant,
     grow,
 
     loading,
@@ -123,8 +122,6 @@ export const TextInput = forwardRef(function TextInput(
     readOnly = loading,
     required,
 
-    color = "black",
-    backgroundColor = color,
     padding,
     margin,
     width,
@@ -133,6 +130,7 @@ export const TextInput = forwardRef(function TextInput(
     onEnterPress,
     onKeyPress,
 
+    material,
     inputStyle,
     style,
     ...rest
@@ -153,10 +151,9 @@ export const TextInput = forwardRef(function TextInput(
 
     fontSize: theme.sizeClasses.fontSize[size],
     fontFamily: theme.getFont("default"),
-    color: getFgHex(color, variant),
 
     "&::placeholder": {
-      color: `${getFgHex(color, variant)}80`,
+      fontStyle: "italic",
     },
 
     ...inputStyle,
@@ -177,17 +174,15 @@ export const TextInput = forwardRef(function TextInput(
       icon={icon}
       size={size}
       radius={radius}
-      variant={variant}
       grow={grow}
       disabled={disabled}
       required={required}
       loading={loading}
-      color={color}
-      backgroundColor={backgroundColor}
       padding={padding}
       margin={margin}
       width={width}
       height={height}
+      material={material}
       style={style}
       inputRef={inputRef}
     >

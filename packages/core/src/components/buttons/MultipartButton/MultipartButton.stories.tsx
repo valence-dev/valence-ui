@@ -1,4 +1,3 @@
-import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { MultipartButton as MPB } from "./MultipartButton";
 import { Storybook } from "../../../../storybook";
@@ -9,10 +8,6 @@ const meta: Meta<typeof MPB> = {
   component: MPB,
   title: "Valence/Core/Buttons",
   argTypes: {
-    variant: {
-      options: Storybook.buttonVariants,
-      control: { type: "select" },
-    },
     size: {
       options: Storybook.componentSizes,
       control: { type: "select" },
@@ -43,10 +38,6 @@ const meta: Meta<typeof MPB> = {
     },
     height: {
       control: { type: "number" },
-    },
-
-    color: {
-      control: { type: "text" },
     },
   },
 };

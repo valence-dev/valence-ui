@@ -30,8 +30,6 @@ export const GridButton = forwardRef(function GridButton(
     icon,
     iconPosition = "top",
     size = theme.defaults.size,
-    variant = theme.defaults.variant,
-    color = theme.primaryColor,
 
     width = (theme.getSize("height", size) as number) * 2.5,
     height = width,
@@ -46,10 +44,8 @@ export const GridButton = forwardRef(function GridButton(
   // Styles
   const styles: React.CSSProperties = {
     flexDirection: iconPosition === "top" ? "column" : "column-reverse",
-    justifyContent: "flex-start",
-
+    justifyContent: "space-between",
     padding: theme.getSize("padding", size),
-    gap: (theme.getSize("padding", size) as number) / 2,
 
     ...style,
   };
@@ -64,8 +60,6 @@ export const GridButton = forwardRef(function GridButton(
   return (
     <PrimitiveButton
       size={size}
-      variant={variant}
-      color={color}
       height={height}
       width={width}
       square={square}
@@ -81,7 +75,6 @@ export const GridButton = forwardRef(function GridButton(
 
       <Text
         fontSize={(theme.sizeClasses.fontSize[size] as number) * 0.8}
-        color={getFgHex(color, variant)}
         align="center"
         maxLines={1}
         {...textProps}

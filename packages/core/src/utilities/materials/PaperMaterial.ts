@@ -4,22 +4,26 @@ import { IValenceContext } from "../../ValenceProvider";
 import { UseColorsReturn } from "..";
 
 export type PaperMaterialElevation = 1 | 2 | 3 | 4 | 5;
+export type PaperMaterialBlur = "weak" | "strong" | number;
 export type PaperMaterialProps = MaterialProps & {
   color?: string;
   backgroundColor?: string;
   elevation?: PaperMaterialElevation;
+  blur?: PaperMaterialBlur;
 };
 
 export class PaperMaterial extends Material {
   color?: string;
   backgroundColor?: string;
   elevation?: PaperMaterialElevation;
+  blur?: PaperMaterialBlur;
 
   constructor(props?: PaperMaterialProps) {
     super(props ?? {});
     this.color = props?.color;
     this.backgroundColor = props?.backgroundColor;
     this.elevation = props?.elevation;
+    this.blur = props?.blur;
   }
 
   copy(): PaperMaterial {
@@ -29,6 +33,7 @@ export class PaperMaterial extends Material {
       color: this.color,
       backgroundColor: this.backgroundColor,
       elevation: this.elevation,
+      blur: this.blur,
     });
   }
 
@@ -51,15 +56,26 @@ export class PaperMaterial extends Material {
     }
   }
 
+  private getBlurValue(): string {
+    if (typeof this.blur === "number") return `blur(${this.blur}px)`;
+    if (this.blur === "weak") return "blur(5px)";
+    if (this.blur === "strong") return "blur(15px)";
+    return "none";
+  }
+
   getStyles(valence: IValenceContext, colors: UseColorsReturn): CSSObject {
     const color = this.color ?? "black";
     const backgroundColor = this.backgroundColor ?? "brighterWhite";
 
     return {
-      backgroundColor: colors.getHex(backgroundColor),
+      backgroundColor: !this.blur
+        ? colors.getHex(backgroundColor)
+        : `${colors.getHex(backgroundColor)}A0`,
       outline: "none",
       border: `1px solid ${colors.getHex(color, (this.elevation ?? 0) >= 3 ? "medium" : "weak")}`,
       boxShadow: this.getElevationShadow(this.elevation),
+
+      backdropFilter: this.getBlurValue(),
 
       ...(this.interactive && {
         transitionDuration: valence.defaults.transitionDuration,
@@ -71,7 +87,7 @@ export class PaperMaterial extends Material {
           ),
           border: `1px solid ${colors.getHex(color, "strong")}`,
         },
-        "&:focus": {
+        "&:focus, &:focus-within": {
           outline: "none",
           border: `1px solid ${colors.getHex(color)}`,
         },
@@ -81,10 +97,10 @@ export class PaperMaterial extends Material {
         ...this.getChildrenStyles(valence, colors),
       },
 
+      ...this.getScrollbarStyles(valence, colors),
       ...this.overrides,
     };
   }
-
   getChildrenStyles(
     valence: IValenceContext,
     colors: UseColorsReturn,
@@ -93,7 +109,28 @@ export class PaperMaterial extends Material {
 
     return {
       color: colors.getHex(color),
+
+      "&::placeholder": {
+        color: colors.getHex(color, "strong"),
+      },
+      ...this.getScrollbarStyles(valence, colors),
       ...this.childrenOverrides,
+    };
+  }
+  getScrollbarStyles(
+    valence: IValenceContext,
+    colors: UseColorsReturn,
+  ): CSSObject {
+    const color = this.color ?? valence.primaryColor;
+    return {
+      "&::-webkit-scrollbar-thumb": {
+        backgroundColor: colors.getHex(color, "medium"),
+        cursor: "pointer",
+
+        "&:hover": {
+          backgroundColor: colors.getHex(color, "strong"),
+        },
+      },
     };
   }
 

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { GenericOverlayHeaderProps } from "@valence-ui/utils";
-import { useContext, forwardRef, CSSProperties } from "react";
+import { forwardRef, CSSProperties } from "react";
 import { AnimatePresence, motion, useDragControls } from "motion/react";
 import { GenericSheetProps } from "../Generics";
 import {
@@ -17,7 +17,7 @@ import {
   useResponsiveProps,
 } from "../../../../utilities";
 import { Flex, FlexProps, OverflowContainer } from "../../../layout";
-import { ValenceContext } from "../../../../ValenceProvider";
+import { useValence } from "../../../../ValenceProvider";
 import { DefaultModalHeader } from "../../Modal";
 import { useDetectKeyDown } from "../../../../hooks";
 import { ModalBackground } from "../../ModalBackground";
@@ -32,6 +32,8 @@ export type BottomSheetProps = GenericSheetProps & {
   /** Whether to allow the sheet to scroll its inner content. Defaults to `false`. */
   allowInnerScrolling?: boolean;
 
+  /** The background color */
+  backgroundColor?: string;
   /** Optional props to apply to the inner flex component. */
   innerFlexProps?: FlexProps;
 };
@@ -40,7 +42,7 @@ export const BottomSheet = forwardRef(function BottomSheet(
   props: MakeResponsive<BottomSheetProps>,
   ref: any,
 ) {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
   const { getHex } = useColors();
   const controls = useDragControls();
 
@@ -64,9 +66,8 @@ export const BottomSheet = forwardRef(function BottomSheet(
     withShadow = false,
 
     backgroundColor = getHex("white"),
-    color = getHex("black"),
 
-    padding = theme.sizeClasses.padding[theme.defaults.size],
+    padding = theme.getSize("padding"),
     margin = 0,
 
     width,
@@ -112,7 +113,6 @@ export const BottomSheet = forwardRef(function BottomSheet(
     width: "100%",
 
     backgroundColor: backgroundColor,
-    color: color,
 
     padding: padding,
     margin: margin,

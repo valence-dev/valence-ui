@@ -1,4 +1,3 @@
-import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
 import { AppContainer as AC } from "./AppContainer";
@@ -11,11 +10,12 @@ import {
 } from "@tabler/icons-react";
 import { BrowserRouter } from "react-router-dom";
 import { SideSheet } from "../../overlays";
-import { Header, PageContainer, StyledFlex } from "..";
+import { Flex, Header, PageContainer } from "..";
 import { ValenceProvider } from "../../../ValenceProvider";
 import { Title } from "../../display";
 import { Button } from "../../buttons";
 import { useDisclosure } from "../../../hooks";
+import { GlassMaterial } from "../../../utilities";
 
 const meta: Meta<typeof AC> = {
   component: AC,
@@ -36,7 +36,6 @@ export const AppContainer: Story = (args: any) => {
             onClick={() => {
               sideSheet.update(!sideSheet.opened);
             }}
-            variant="paper"
             float={{
               position: "absolute",
               positionHorizontal: "right",
@@ -65,9 +64,9 @@ export const AppContainer: Story = (args: any) => {
               Hi there
             </SideSheet>
 
-            <StyledFlex height="300vh" width="100%">
+            <Flex height="300vh" width="100%" material={new GlassMaterial()}>
               Hi there
-            </StyledFlex>
+            </Flex>
           </PageContainer>
         </AC>
       </ValenceProvider>

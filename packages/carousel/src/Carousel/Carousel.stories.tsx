@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/react";
 
 import { Carousel as C } from "./Carousel";
 import { CarouselChildProps } from "./CarouselChild";
-import { Flex, StyledFlex, Text, ValenceProvider } from "@valence-ui/core";
+import { Flex, Text, ValenceProvider } from "@valence-ui/core";
 
 const meta: Meta<typeof C> = {
   component: C,
@@ -45,8 +45,7 @@ function DemoCarouselChild(
   const { isActive, isNearest, index, ...rest } = props;
 
   return (
-    <StyledFlex
-      color={isActive ? "primary" : "black"}
+    <Flex
       style={{
         border: isNearest ? "1px solid red" : "none",
       }}
@@ -57,6 +56,6 @@ function DemoCarouselChild(
       {...rest}
     >
       <Text>{index}</Text>
-    </StyledFlex>
+    </Flex>
   );
 }

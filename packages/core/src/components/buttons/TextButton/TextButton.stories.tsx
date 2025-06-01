@@ -1,17 +1,18 @@
-import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { Button } from "./TextButton";
 import { Storybook } from "../../../../storybook";
-import { Flex, ValenceProvider } from "../../..";
+import {
+  Flex,
+  GlassMaterial,
+  PaperMaterial,
+  SolidMaterial,
+  ValenceProvider,
+} from "../../..";
 
 const meta: Meta<typeof Button> = {
   component: Button,
   title: "Valence/Core/Buttons",
   argTypes: {
-    variant: {
-      options: Storybook.buttonVariants,
-      control: { type: "select" },
-    },
     size: {
       options: Storybook.componentSizes,
       control: { type: "select" },
@@ -51,12 +52,17 @@ type Story = StoryObj<typeof Button>;
 
 export const Text: Story = (args: any) => (
   <ValenceProvider>
-    <Flex direction="column" height="100vh" center>
+    <Flex center padding={40}>
       <Button {...args} size="xs" />
       <Button {...args} size="sm" />
       <Button {...args} size="md" />
       <Button {...args} size="lg" />
       <Button {...args} size="xl" />
+    </Flex>
+    <Flex center padding={40}>
+      <Button {...args} material={new GlassMaterial()} />
+      <Button {...args} material={new PaperMaterial()} />
+      <Button {...args} material={new SolidMaterial()} />
     </Flex>
   </ValenceProvider>
 );

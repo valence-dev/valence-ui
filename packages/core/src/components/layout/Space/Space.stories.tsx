@@ -1,8 +1,7 @@
-import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { ValenceProvider } from "../../..";
+import { GlassMaterial, ValenceProvider } from "../../..";
 import { Space as S } from "./Space";
-import { FlexCenter, StyledFlex } from "../Flex";
+import { Flex, FlexCenter, FlexProps } from "../Flex";
 import { Text } from "../../display";
 
 const meta: Meta<typeof S> = {
@@ -17,37 +16,27 @@ const meta: Meta<typeof S> = {
 export default meta;
 type Story = StoryObj<typeof S>;
 
+const flexProps: FlexProps = {
+  align: "center",
+  justify: "center",
+  height: 100,
+  grow: true,
+  material: new GlassMaterial(),
+};
+
 export const Space: Story = (args: any) => (
   <ValenceProvider>
     <FlexCenter innerProps={{ direction: "column", align: "stretch" }}>
-      <StyledFlex
-        grow
-        align="center"
-        justify="center"
-        height={100}
-        color="black"
-      >
+      <Flex {...flexProps}>
         <Text>1</Text>
-      </StyledFlex>
-      <S data-testId="InputField-id" {...args} />
-      <StyledFlex
-        grow
-        align="center"
-        justify="center"
-        height={100}
-        color="black"
-      >
+      </Flex>
+      <S {...args} />
+      <Flex {...flexProps}>
         <Text>2</Text>
-      </StyledFlex>
-      <StyledFlex
-        grow
-        align="center"
-        justify="center"
-        height={100}
-        color="black"
-      >
+      </Flex>
+      <Flex {...flexProps}>
         <Text>3</Text>
-      </StyledFlex>
+      </Flex>
     </FlexCenter>
   </ValenceProvider>
 );

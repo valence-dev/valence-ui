@@ -50,8 +50,6 @@ export const MultipartButton = forwardRef(function MultipartButton(
   // Defaults
   const {
     size = theme.defaults.size,
-    variant = theme.defaults.variant,
-    color = theme.primaryColor,
     height = SIZES[size].height,
     width = "100%",
     padding = 0,
@@ -85,7 +83,6 @@ export const MultipartButton = forwardRef(function MultipartButton(
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    color: colors.getFgHex(color, variant),
 
     ...iconContainerStyle,
   });
@@ -93,8 +90,6 @@ export const MultipartButton = forwardRef(function MultipartButton(
   return (
     <PrimitiveButton
       size={size}
-      variant={variant}
-      color={color}
       style={buttonStyle}
       height={height}
       width={width}
@@ -104,12 +99,9 @@ export const MultipartButton = forwardRef(function MultipartButton(
       {leftIcon && (
         <div css={ContainerStyle}>
           {loading ? (
-            <Loader size={size} color={colors.getFgHex(color, variant)} />
+            <Loader size={size} />
           ) : (
-            <Icon
-              size={theme.getSize("iconSize", size) as number}
-              color={colors.getFgHex(color, variant)}
-            >
+            <Icon size={theme.getSize("iconSize", size) as number}>
               {leftIcon}
             </Icon>
           )}
@@ -117,19 +109,12 @@ export const MultipartButton = forwardRef(function MultipartButton(
       )}
 
       <Flex direction="column" align="flex-start" justify="center" grow gap={2}>
-        <Text
-          size={size}
-          color={colors.getFgHex(color, variant)}
-          bold
-          maxLines={1}
-          {...titleProps}
-        >
+        <Text size={size} bold maxLines={1} {...titleProps}>
           {title}
         </Text>
         {subtitle && (
           <Text
             fontSize={(theme.sizeClasses.fontSize[size] as number) - 2}
-            color={colors.getFgHex(color, variant)}
             maxLines={1}
             {...subtitleProps}
           >
@@ -140,10 +125,7 @@ export const MultipartButton = forwardRef(function MultipartButton(
 
       {rightIcon && (
         <div css={ContainerStyle}>
-          <Icon
-            size={theme.getSize("iconSize", size) as number}
-            color={colors.getFgHex(color, variant)}
-          >
+          <Icon size={theme.getSize("iconSize", size) as number}>
             {rightIcon}
           </Icon>
         </div>

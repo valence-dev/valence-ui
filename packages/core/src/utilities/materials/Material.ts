@@ -60,6 +60,17 @@ export abstract class Material {
     colors: UseColorsReturn,
   ): CSSObject;
 
+  /**
+   * Returns the styles for the scrollbar of the material.
+   * @param valence The valence context.
+   * @param colors The colors context.
+   * @returns The styles for the scrollbar of the material.
+   */
+  abstract getScrollbarStyles(
+    valence: IValenceContext,
+    colors: UseColorsReturn,
+  ): CSSObject;
+
   // SETTERS
   setInteractive(interactive: boolean): Material {
     const copy = this.copy();

@@ -110,7 +110,7 @@ export const Text = forwardRef(function Text(
 
     size = theme.defaults.size,
     fontSize = theme.sizeClasses.fontSize[size],
-    color = "black",
+    color,
 
     highlightColor = "primary",
     highlightStyle,

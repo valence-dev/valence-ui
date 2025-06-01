@@ -9,7 +9,6 @@ import React, {
 } from "react";
 import { TooltipOptions, useTooltip } from "../../../hooks";
 import { FloatingPortal, useMergeRefs } from "@floating-ui/react";
-import { StyledFlex, StyledFlexProps } from "../../layout";
 import { css } from "@emotion/react";
 import { useValence } from "../../../ValenceProvider";
 import { Text } from "../../display";
@@ -17,6 +16,8 @@ import {
   MakeResponsive,
   useResponsiveProps,
 } from "../../../utilities/responsive";
+import { Material, SolidMaterial, useColors } from "../../../utilities";
+import { ComponentSize } from "@valence-ui/utils";
 
 // Tooltip context
 type ContextType = ReturnType<typeof useTooltip> | null;
@@ -70,13 +71,17 @@ const Trigger = forwardRef(function Trigger(
   );
 });
 
-export type TooltipContentProps = StyledFlexProps & {
+export type TooltipContentProps = {
   children: string | ReactNode;
 
-  /** Whether to display a shadow underneath the tooltip */
-  withShadow?: boolean;
+  /** The material of the tooltip */
+  material?: Material;
+  /** The border radius of the tooltip */
+  radius?: ComponentSize;
   /** The z-index of the tooltip */
   zIndex?: CSSProperties["zIndex"];
+  /** The padding of the tooltip */
+  padding?: CSSProperties["padding"];
 };
 
 const Content = forwardRef(function Content(
@@ -84,27 +89,24 @@ const Content = forwardRef(function Content(
   propRef: any,
 ) {
   const {
-    color = "white",
-    backgroundColor = "black",
+    material = new SolidMaterial({ elevation: 3 }),
     radius = "xl",
-    variant = "filled",
     padding = "5px 10px",
-
-    withShadow = true,
     zIndex = 2,
 
     children,
-    ...rest
   } = useResponsiveProps<TooltipContentProps>(props);
 
   const context = useTooltipContext();
   const ref = useMergeRefs([context.refs.setFloating, propRef]);
   const theme = useValence();
+  const colors = useColors();
 
   // Styles
   const FloatingStyle = css({
-    borderRadius: theme.sizeClasses.radius[radius],
-    boxShadow: !withShadow ? undefined : theme.defaults.shadow,
+    ...material.getStyles(theme, colors),
+    padding: padding,
+    borderRadius: theme.getSize("radius", radius),
     zIndex: zIndex,
 
     animationName: "in",
@@ -128,22 +130,11 @@ const Content = forwardRef(function Content(
   return (
     <FloatingPortal>
       <div ref={ref} css={FloatingStyle} {...context.getFloatingProps()}>
-        <StyledFlex
-          color={color}
-          backgroundColor={backgroundColor}
-          radius={radius}
-          variant={variant}
-          padding={padding}
-          {...rest}
-        >
-          {typeof children !== "string" ? (
-            children
-          ) : (
-            <Text align="center" color="white">
-              {children}
-            </Text>
-          )}
-        </StyledFlex>
+        {typeof children !== "string" ? (
+          children
+        ) : (
+          <Text align="center">{children}</Text>
+        )}
       </div>
     </FloatingPortal>
   );

@@ -1,4 +1,4 @@
-import { CSSProperties, Dispatch, ReactNode, SetStateAction } from "react";
+import { CSSProperties, ReactNode } from "react";
 import {
   FocusEvents,
   KeyboardEvents,
@@ -9,6 +9,7 @@ import {
   FillVariant,
   GenericLayoutProps,
 } from "@valence-ui/utils";
+import { Material } from "../utilities";
 
 export type GenericInputProps<T = string> = GenericLayoutProps & {
   /** The value of this input. Use this in conjunction with `onInput` or `onChange` to create controlled inputs. */
@@ -57,6 +58,8 @@ export type GenericTextInputProps = Omit<
   /** A regex pattern to use for validation */
   pattern?: string;
 
+  /** The material of the input */
+  material?: Material;
   /** Optional styles to apply to the input component */
   inputStyle?: CSSProperties;
 };

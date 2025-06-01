@@ -10,6 +10,8 @@ import {
 export type HeaderProps = FlexCenterProps & {
   /** Defines the position of this header. */
   position?: CSSProperties["position"];
+  /** The background color of this header */
+  backgroundColor?: string;
 };
 
 /** A layout component that helps position `Title` and similar components.

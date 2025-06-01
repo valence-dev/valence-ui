@@ -1,13 +1,11 @@
-import {
-  ComponentSize,
-  FillVariant,
-  GenericFloatingLayoutProps,
-} from "@valence-ui/utils";
-import { Flex, FlexProps, StyledFlex } from "../Flex";
+import { ComponentSize, GenericFloatingLayoutProps } from "@valence-ui/utils";
+import { Flex, FlexProps } from "../Flex";
 import { Text, TextProps } from "../../display";
 import { CSSProperties, forwardRef } from "react";
 import {
   MakeResponsive,
+  Material,
+  PaperMaterial,
   useColors,
   useResponsiveProps,
 } from "../../../utilities";
@@ -32,8 +30,8 @@ export type FloatingToolbarProps = GenericFloatingLayoutProps &
     /** Optional props to pass to the label component */
     labelProps?: Omit<TextProps, "children">;
 
-    /** The fill variant of the component. Defaults to `"outlined"`. */
-    variant?: FillVariant;
+    /** The material of the toolbar. "Paper" by default */
+    material?: Material;
     /** Size class of the component's radius. Defaults to theme default. */
     radius?: ComponentSize;
     /** Whether to render a shadow underneath the component. Defaults to `false`. */
@@ -55,7 +53,7 @@ export const FloatingToolbar = forwardRef(function FloatingToolbar(
 
     label,
     labelProps,
-    variant = "outlined",
+    material = new PaperMaterial({ elevation: 2, blur: "strong" }),
     radius = theme.defaults.radius,
     shadow = false,
 
@@ -71,7 +69,6 @@ export const FloatingToolbar = forwardRef(function FloatingToolbar(
 
     width = "fit-content",
     height,
-    color = "black",
 
     children,
     style,
@@ -98,11 +95,8 @@ export const FloatingToolbar = forwardRef(function FloatingToolbar(
     ...floating.style,
   };
   const ToolbarStyle: CSSProperties = {
-    backgroundColor: getHex("white", "strong"),
-    backdropFilter: "blur(10px)",
     padding: offset / 2,
     borderRadius: (theme.getSize("radius", radius) as number) + offset / 2,
-    boxShadow: shadow ? theme.defaults.shadow : undefined,
     ...style,
   };
   const LabelStyle: CSSProperties = {
@@ -116,37 +110,29 @@ export const FloatingToolbar = forwardRef(function FloatingToolbar(
   return (
     <Flex
       direction="column"
+      align="center"
       width={width}
       height={height}
       gap={offset / 4}
       style={OuterFlexStyle}
       ref={ref}
     >
-      <StyledFlex
+      <Flex
         direction="row"
         gap={offset / 2}
         width="100%"
         height="100%"
-        variant={variant}
-        color={color}
         style={ToolbarStyle}
+        material={material}
         {...rest}
       >
         {children}
-      </StyledFlex>
+      </Flex>
 
       {label && (
-        <Flex alignSelf="stretch" align="center" justify="center">
-          <Text
-            size="xs"
-            color={getHex(color, "strong")}
-            align="center"
-            style={LabelStyle}
-            {...labelRest}
-          >
-            {label}
-          </Text>
-        </Flex>
+        <Text size="xs" align="center" style={LabelStyle} {...labelRest}>
+          {label}
+        </Text>
       )}
     </Flex>
   );

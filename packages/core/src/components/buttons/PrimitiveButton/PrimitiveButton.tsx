@@ -40,9 +40,9 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
 
   // Defaults
   const {
+    material = theme.materials.button,
     size = theme.defaults.size,
     radius = theme.defaults.radius,
-    variant = theme.defaults.variant,
 
     square = false,
     shadow = false,
@@ -53,9 +53,6 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
 
     animation,
     float,
-
-    color = theme.primaryColor,
-    backgroundColor = color,
     padding = square ? 0 : `0px ${theme.sizeClasses.padding[size]}px`,
     margin = 0,
     height = theme.sizeClasses.height[size],
@@ -67,8 +64,7 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
   } = useResponsiveProps<PrimitiveButtonProps>(props);
 
   const animations = useAnimation({
-    hoverAnimation:
-      variant === "filled" || variant === "paper" ? "raise" : undefined,
+    hoverAnimation: "raise",
     tapAnimation: "bounce",
     ...animation,
   });
@@ -97,12 +93,11 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
     transitionProperty: "background-color, border",
     transitionDuration: theme.defaults.transitionDuration,
     transitionTimingFunction: "linear",
-    backgroundColor: colors.getBgHex(backgroundColor, variant, false),
-    color: colors.getFgHex(color, variant),
 
     outline: "none",
-    border: colors.getBorderHex(color, variant),
     textDecoration: "none",
+
+    ...material.setInteractive(true).getStyles(theme, colors),
 
     ...(float
       ? {
@@ -110,14 +105,6 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
           ...floatBehaviour.style,
         }
       : undefined),
-
-    "&:hover": {
-      backgroundColor: `${colors.getBgHex(backgroundColor, variant, true)}`,
-    },
-    "&:focus": {
-      outline: "none",
-      border: colors.getBorderHex(color, variant, true),
-    },
 
     ...style,
   });
@@ -135,7 +122,7 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
       ref={ref}
       {...rest}
     >
-      {loading ? <Loader color={colors.getFgHex(color, variant)} /> : children}
+      {loading ? <Loader /> : children}
     </PolymorphicButton>
   );
 });

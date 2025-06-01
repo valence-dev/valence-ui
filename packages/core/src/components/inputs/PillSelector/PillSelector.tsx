@@ -25,6 +25,7 @@ import {
 } from "../../../utilities/responsive";
 import { useColors } from "../../../utilities/color";
 import { TextInput, TextInputProps } from "../TextInput";
+import { Material } from "../../../utilities";
 
 export type PillSelectorEventProps = MouseClickEvents &
   MouseEvents &
@@ -53,6 +54,8 @@ export type PillSelectorProps = Omit<GenericInputProps<string[]>, "children"> &
 
     /** How the pills should wrap within their container. Defaults to `"nowrap"`. */
     wrap?: CSSProperties["flexWrap"];
+
+    material?: Material;
 
     /** The maxmimum number of pills that can be selected. `Infinity` by default. */
     maxSelectable?: number;
@@ -86,7 +89,7 @@ export const PillSelector = forwardRef(function PillSelector(
   ref: any,
 ) {
   const theme = useValence();
-  const { getHex } = useColors();
+  const colors = useColors();
 
   // Defaults
   const {
@@ -117,7 +120,6 @@ export const PillSelector = forwardRef(function PillSelector(
 
     size = theme.defaults.size,
     radius = theme.defaults.radius,
-    variant = theme.defaults.variant,
 
     loading,
     autoFocus,
@@ -125,8 +127,7 @@ export const PillSelector = forwardRef(function PillSelector(
     readOnly = disabled,
     required,
 
-    color = "black",
-    backgroundColor = color,
+    material = theme.materials.input,
     padding,
     margin,
     width = "100%",
@@ -231,15 +232,12 @@ export const PillSelector = forwardRef(function PillSelector(
 
     flexWrap: wrap,
 
+    ...material.getScrollbarStyles(theme, colors),
+
     "&::-webkit-scrollbar": {
       height: 2,
     },
     "&::-webkit-scrollbar-thumb": {
-      backgroundColor: getHex(color, "medium"),
-      borderRadius: 5,
-    },
-    "&::-webkit-scrollbar-thumb:hover": {
-      backgroundColor: getHex(color, "strong"),
       borderRadius: 5,
     },
 
@@ -265,11 +263,9 @@ export const PillSelector = forwardRef(function PillSelector(
             setValue={setInputValue}
             onEnterPress={() => addPill()}
             placeholder={placeholder}
-            variant={variant}
+            material={material}
             size={size}
             radius={radius}
-            color={color}
-            backgroundColor={backgroundColor}
             loading={loading}
             disabled={disabled}
             readOnly={readOnly}
@@ -280,8 +276,6 @@ export const PillSelector = forwardRef(function PillSelector(
           <IconButton
             size={size}
             radius={radius}
-            color={color}
-            variant="subtle"
             onClick={() => addPill()}
             {...addButtonProps}
           >
@@ -299,14 +293,7 @@ export const PillSelector = forwardRef(function PillSelector(
                 key={index}
                 size={size}
                 radius={radius}
-                variant={
-                  isSelected
-                    ? variant === "filled"
-                      ? "light"
-                      : "filled"
-                    : variant
-                }
-                color={color}
+                material={material}
                 onClick={() => handlePillClick(pill)}
                 {...pillProps}
                 {...(isSelected ? selectedPillProps : undefined)}
@@ -320,8 +307,6 @@ export const PillSelector = forwardRef(function PillSelector(
         <IconButton
           size={size}
           radius={radius}
-          color={color}
-          variant="subtle"
           onClick={() => handleClearPills()}
           style={ButtonStyle}
           {...clearButtonPropsRest}

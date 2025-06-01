@@ -16,6 +16,7 @@ import {
   MakeResponsive,
   useResponsiveProps,
 } from "../../../utilities/responsive";
+import { Material, SolidMaterial } from "../../../utilities";
 
 export type RangeSliderProps = GenericInputProps<number[]> &
   SliderEventProps<number[]> & {
@@ -30,6 +31,9 @@ export type RangeSliderProps = GenericInputProps<number[]> &
     minDistance?: number;
     /** Whether the active thumb will push other thumbs. `true` by default. */
     pearling?: boolean;
+
+    color?: string;
+    material?: Material;
 
     /** Whether to show this slider's value on the thumb. `false` by default */
     showValue?: boolean;
@@ -68,9 +72,9 @@ export const RangeSlider = forwardRef(function RangeSlider(
     invert = false,
 
     color = "black",
+    material = theme.materials.input,
     size = theme.defaults.size,
     radius = theme.defaults.radius,
-    variant = theme.defaults.variant,
 
     height = theme.getSize("height", size),
     width = "100%",
@@ -130,7 +134,7 @@ export const RangeSlider = forwardRef(function RangeSlider(
           <Slider.Thumb
             state={state}
             showValue={showValue}
-            color={color}
+            material={new SolidMaterial({ color })}
             size={size}
             {...props}
             {...thumbProps}
@@ -139,8 +143,8 @@ export const RangeSlider = forwardRef(function RangeSlider(
         renderTrack={(props, state) => (
           <Slider.Track
             state={state}
-            color={color}
             margin={(height - 2) / 2}
+            color={color}
             highlight={state.index !== 0 && state.index !== state.value.length}
             {...props}
             {...trackProps}
@@ -165,8 +169,7 @@ export const RangeSlider = forwardRef(function RangeSlider(
               step={step}
               size={size}
               radius={radius}
-              variant={variant}
-              color={color}
+              material={material}
               showControls={false}
               width="fit-content"
               grow={false}

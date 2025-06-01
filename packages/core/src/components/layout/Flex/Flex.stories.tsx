@@ -1,16 +1,12 @@
-import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { ValenceProvider } from "../../..";
-import { Flex as Fl } from "./Flex";
-import { StyledFlex as SF } from "./StyledFlex";
+import { GlassMaterial, ValenceProvider } from "../../..";
+import { Flex as Fl, FlexProps } from "./Flex";
 import { Text } from "../../display";
 
 const meta: Meta<typeof Fl> = {
   component: Fl,
   title: "Valence/Core/Layout",
   argTypes: {
-    backgroundColor: { control: { type: "text" } },
-    color: { control: { type: "text" } },
     direction: {
       options: ["row", "column", "row-reverse", "column-reverse"],
       control: { type: "select" },
@@ -57,6 +53,14 @@ const meta: Meta<typeof Fl> = {
 export default meta;
 type Story = StoryObj<typeof Fl>;
 
+const ChildFlexProps: FlexProps = {
+  align: "center",
+  justify: "center",
+  height: 100,
+  material: new GlassMaterial(),
+  grow: true,
+};
+
 export const Flex: Story = (args: any) => (
   <ValenceProvider>
     <Fl data-testId="InputField-id" {...args} />
@@ -65,29 +69,16 @@ export const Flex: Story = (args: any) => (
 Flex.args = {
   children: (
     <>
-      <SF grow align="center" justify="center" height={100} color="black">
+      <Fl {...ChildFlexProps}>
         <Text>1</Text>
-      </SF>
-      <SF grow align="center" justify="center" height={100} color="black">
+      </Fl>
+      <Fl {...ChildFlexProps}>
         <Text>2</Text>
-      </SF>
-      <SF grow align="center" justify="center" height={100} color="black">
+      </Fl>
+      <Fl {...ChildFlexProps}>
         <Text>3</Text>
-      </SF>
+      </Fl>
     </>
   ),
   width: "100%",
-};
-
-export const StyledFlex = (args: any) => (
-  <ValenceProvider>
-    <SF data-testId="InputField-id" {...args} />
-  </ValenceProvider>
-);
-StyledFlex.args = {
-  children: (
-    <>
-      <Text>`StyledFlex` component</Text>
-    </>
-  ),
 };

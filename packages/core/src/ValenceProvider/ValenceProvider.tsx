@@ -1,15 +1,18 @@
 import { CSSProperties, createContext, useContext } from "react";
-import {
-  IValenceContext,
-  ValenceContextDefaults as VCD,
-} from "./ValenceProvider.types";
+import { IValenceContext } from "./ValenceProvider.types";
 import { TextProps } from "../components";
 import { ComponentSize, FillVariant, SizeClasses } from "@valence-ui/utils";
 import { CssOverride } from "./CssOverride";
 import { Color } from "../utilities/color";
 import { PreferrableColorScheme } from "../hooks";
+import {
+  DEFAULT_PALETTE,
+  GlassMaterial,
+  Material,
+  PaperMaterial,
+} from "../utilities";
 
-export const ValenceContext = createContext<IValenceContext>(VCD);
+export const ValenceContext = createContext<IValenceContext | null>(null);
 
 export const useValence = () => {
   const context = useContext(ValenceContext);
@@ -35,6 +38,11 @@ export type ValenceProviderProps = {
     variant: FillVariant;
     transitionDuration: CSSProperties["transitionDuration"];
     shadow: CSSProperties["boxShadow"];
+  };
+  materials?: {
+    button: Material;
+    input: Material;
+    card: Material;
   };
 
   fontFamily?: {
@@ -69,6 +77,56 @@ export type ValenceProviderProps = {
 };
 
 export function ValenceProvider(props: ValenceProviderProps) {
+  const VCD: IValenceContext = {
+    colors: DEFAULT_PALETTE,
+    primaryColor: "pink",
+    preferredColorScheme: "system",
+
+    defaults: {
+      size: "sm",
+      radius: "sm",
+      transitionDuration: "0.1s",
+      shadow: "0px 10px 30px rgba(0, 0, 0, 0.2)",
+    },
+    materials: {
+      button: new GlassMaterial(),
+      input: new GlassMaterial({ color: "black" }),
+      card: new PaperMaterial(),
+    },
+
+    fontFamily: {
+      default: "Inter, sans-serif",
+      heading: undefined,
+      monospace: "monospace",
+    },
+    getFont: () => "",
+
+    sizeClasses: {
+      padding: { xs: 10, sm: 15, md: 20, lg: 25, xl: 30 },
+      height: { xs: 30, sm: 35, md: 40, lg: 50, xl: 60 },
+      radius: { xs: 2, sm: 5, md: 10, lg: 15, xl: 25 },
+      fontSize: { xs: 12, sm: 14, md: 16, lg: 18, xl: 20 },
+      iconSize: { xs: 18, sm: 20, md: 24, lg: 26, xl: 30 },
+    },
+    getSize: () => undefined,
+
+    titles: {
+      1: { fontSize: 28, bold: true },
+      2: { fontSize: 22, bold: true },
+      3: { fontSize: 18, bold: true },
+      4: { fontSize: 16, bold: true },
+      5: { fontSize: 14, bold: true },
+      6: { fontSize: 12, bold: true },
+    },
+
+    breakpoints: {
+      mobileWidth: 480,
+      tabletWidth: 768,
+      desktopLargeWidth: 1024,
+      tvWidth: 1440,
+    },
+  };
+
   // Fallback properties
   const {
     colors = props.colors ? VCD.colors.concat(props.colors) : VCD.colors,
@@ -76,6 +134,7 @@ export function ValenceProvider(props: ValenceProviderProps) {
     preferredColorScheme = VCD.preferredColorScheme,
 
     defaults = VCD.defaults,
+    materials = VCD.materials,
 
     fontFamily = VCD.fontFamily,
     sizeClasses = VCD.sizeClasses,
@@ -113,6 +172,7 @@ export function ValenceProvider(props: ValenceProviderProps) {
         preferredColorScheme,
 
         defaults,
+        materials,
 
         fontFamily,
         getFont,

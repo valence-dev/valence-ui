@@ -5,6 +5,7 @@ import {
   GenericInputProps,
   GenericTextInputEventProps,
   MakeResponsive,
+  Material,
   useColors,
   useResponsiveProps,
   useValence,
@@ -26,6 +27,8 @@ export type NumberInputProps = GenericInputProps<number> &
     max?: number;
     /** The step value of this input. Defaults to `1` */
     step?: number;
+
+    material?: Material;
 
     /** Whether the stepper controls are shown */
     showControls?: boolean;
@@ -68,7 +71,6 @@ export const NumberInput = forwardRef(function NumberInput(
 
     size = theme.defaults.size,
     radius = theme.defaults.radius,
-    variant = theme.defaults.variant,
     grow,
 
     loading,
@@ -77,8 +79,7 @@ export const NumberInput = forwardRef(function NumberInput(
     readOnly = loading,
     required,
 
-    color = "black",
-    backgroundColor = color,
+    material = theme.materials.input,
     padding,
     margin,
     width,
@@ -108,11 +109,6 @@ export const NumberInput = forwardRef(function NumberInput(
 
     fontSize: theme.sizeClasses.fontSize[size],
     fontFamily: theme.getFont("default"),
-    color: getFgHex(color, variant),
-
-    "&::placeholder": {
-      color: `${getFgHex(color, variant)}80`,
-    },
 
     // Remove awful autofill color
     "&:-webkit-autofill": {
@@ -159,13 +155,11 @@ export const NumberInput = forwardRef(function NumberInput(
       icon={icon}
       size={size}
       radius={radius}
-      variant={variant}
+      material={material}
       grow={grow}
       disabled={disabled}
       required={required}
       loading={loading}
-      color={color}
-      backgroundColor={backgroundColor}
       padding={padding}
       margin={margin}
       width={width}
@@ -176,8 +170,7 @@ export const NumberInput = forwardRef(function NumberInput(
         showControls && (
           <>
             <IconButton
-              color={color}
-              variant={variant === "filled" ? "filled" : "subtle"}
+              material={material}
               size={size}
               radius={radius}
               onClick={() => setValue(value - step)}
@@ -187,8 +180,7 @@ export const NumberInput = forwardRef(function NumberInput(
               {controlIcons.down}
             </IconButton>
             <IconButton
-              color={color}
-              variant={variant === "filled" ? "filled" : "subtle"}
+              material={material}
               size={size}
               radius={radius}
               onClick={() => setValue(value + step)}

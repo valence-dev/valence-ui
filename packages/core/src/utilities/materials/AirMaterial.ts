@@ -1,43 +1,30 @@
-/** @jsxImportSource @emotion/react */
 import { CSSObject } from "@emotion/react";
+import { UseColorsReturn } from "..";
 import { IValenceContext } from "../../ValenceProvider";
 import { Material, MaterialProps } from "./Material";
-import { UseColorsReturn } from "..";
 
-export type GlassMaterialBlur = "weak" | "strong" | number;
-export type GlassMaterialProps = MaterialProps & {
+export type AirMaterialProps = MaterialProps & {
   color?: string;
   backgroundColor?: string;
-  blur?: GlassMaterialBlur;
 };
 
-export class GlassMaterial extends Material {
+export class AirMaterial extends Material {
   color?: string;
   backgroundColor?: string;
-  blur?: GlassMaterialBlur;
 
-  constructor(props?: GlassMaterialProps) {
+  constructor(props?: AirMaterialProps) {
     super(props ?? {});
     this.color = props?.color;
     this.backgroundColor = props?.backgroundColor;
-    this.blur = props?.blur;
   }
 
-  copy(): GlassMaterial {
-    return new GlassMaterial({
+  copy(): AirMaterial {
+    return new AirMaterial({
       overrides: this.overrides,
       childrenOverrides: this.childrenOverrides,
       color: this.color,
       backgroundColor: this.backgroundColor,
-      blur: this.blur,
     });
-  }
-
-  private getBlurValue(): string {
-    if (typeof this.blur === "number") return `blur(${this.blur}px)`;
-    if (this.blur === "weak") return "blur(5px)";
-    if (this.blur === "strong") return "blur(15px)";
-    return "none";
   }
 
   getStyles(valence: IValenceContext, colors: UseColorsReturn): CSSObject {
@@ -45,30 +32,29 @@ export class GlassMaterial extends Material {
     const backgroundColor = this.backgroundColor ?? color;
 
     return {
-      backgroundColor: colors.getHex(backgroundColor, "weak"),
-      backdropFilter: this.getBlurValue(),
+      backgroundColor: "transparent",
       outline: "none",
-      border: "1px solid transparent",
+      border: "none",
 
       ...(this.interactive && {
         transitionDuration: valence.defaults.transitionDuration,
         transitionProperty: "background-color, border",
 
         "&:hover": {
-          backgroundColor: colors.getHex(backgroundColor, "medium"),
+          backgroundColor: colors.getHex(backgroundColor, "weak"),
         },
         "&:focus, &:focus-within": {
           outline: "none",
+          backgroundColor: colors.getHex(backgroundColor, "weak"),
           border: `1px solid ${colors.getHex(color)}`,
         },
       }),
-
-      ...this.getScrollbarStyles(valence, colors),
 
       "& > *": {
         ...this.getChildrenStyles(valence, colors),
       },
 
+      ...this.getScrollbarStyles(valence, colors),
       ...this.overrides,
     };
   }
@@ -83,6 +69,7 @@ export class GlassMaterial extends Material {
       "&::placeholder": {
         color: colors.getHex(color, "strong"),
       },
+
       ...this.getScrollbarStyles(valence, colors),
       ...this.childrenOverrides,
     };
@@ -105,19 +92,14 @@ export class GlassMaterial extends Material {
   }
 
   // SETTERS
-  setColor(color: string): GlassMaterial {
+  setColor(color: string): AirMaterial {
     const copy = this.copy();
     copy.color = color;
     return copy;
   }
-  setBackgroundColor(backgroundColor: string): GlassMaterial {
+  setBackgroundColor(backgroundColor: string): AirMaterial {
     const copy = this.copy();
     copy.backgroundColor = backgroundColor;
-    return copy;
-  }
-  setBlur(blur: GlassMaterialBlur): GlassMaterial {
-    const copy = this.copy();
-    copy.blur = blur;
     return copy;
   }
 }

@@ -13,6 +13,7 @@ import {
   useResponsiveProps,
 } from "../../../utilities";
 import { Flex, Space } from "../../layout";
+import { AirMaterial } from "../../../utilities/materials/AirMaterial";
 
 export type AppNavButtonProps = IconButtonProps & {
   /** Whether this button is highlighted. `false` by default. */
@@ -91,7 +92,7 @@ export const AppNav = forwardRef(function Nav(
       {favicon && !breakpoint.isMobile && (
         <Flex align="center" justify="center" height={100}>
           <PrimitiveButton
-            motion={{ onHover: "grow", onTap: "shrink" }}
+            animation={{ hoverAnimation: "grow", tapAnimation: "shrink" }}
             square
             {...faviconProps}
           >
@@ -108,8 +109,7 @@ export const AppNav = forwardRef(function Nav(
         return (
           <IconButton
             key={id}
-            color="white"
-            variant={highlighted ? "light" : "subtle"}
+            material={new AirMaterial({ color: "white" })}
             radius={breakpoint.isMobile ? "xl" : undefined}
             square={!breakpoint.isMobile}
             component={to ? "link" : undefined}
@@ -132,8 +132,7 @@ export const AppNav = forwardRef(function Nav(
           return (
             <IconButton
               key={id}
-              color="white"
-              variant={highlighted ? "light" : "subtle"}
+              material={new AirMaterial({ color: "white" })}
               radius={breakpoint.isMobile ? "xl" : undefined}
               square={!breakpoint.isMobile}
               component={to ? "link" : undefined}

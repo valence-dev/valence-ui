@@ -4,7 +4,7 @@ import { GenericInputProps } from "../../../generics";
 import ReactSlider from "react-slider";
 import { css } from "@emotion/react";
 import { useValence } from "../../../ValenceProvider";
-import { Flex, StyledFlex, StyledFlexProps } from "../../layout";
+import { Flex, FlexProps } from "../../layout";
 import { Text } from "../../display";
 import { NumberInput } from "../NumberInput";
 import {
@@ -12,6 +12,7 @@ import {
   useResponsiveProps,
 } from "../../../utilities/responsive";
 import { useColors } from "../../../utilities/color";
+import { Material, SolidMaterial } from "../../../utilities";
 
 export type SliderEventProps<T = number> = {
   /** Callback fired after a thumb has been moved. */
@@ -33,6 +34,9 @@ export type SliderProps = GenericInputProps<number> &
     /** The step value of this input. `1` by default. */
     step?: number;
 
+    color?: string;
+    material?: Material;
+
     /** Whether to show this slider's value on the thumb. `false` by default */
     showValue?: boolean;
     /** Whether to invert the direction of the slider. `false` by default. */
@@ -49,14 +53,14 @@ export type SliderProps = GenericInputProps<number> &
     thumbProps?: Omit<SliderThumbProps, "state">;
   };
 
-export type SliderTrackProps = StyledFlexProps & {
+export type SliderTrackProps = FlexProps & {
   state: { index: number; value: number };
 
   /** Whether to highlight this track. `false` by default. */
   highlight?: boolean;
 };
 
-export type SliderThumbProps = StyledFlexProps & {
+export type SliderThumbProps = FlexProps & {
   state: { index: number; valueNow: number; value: number };
 
   /** Whether to show the value of this slider. `false` by default. */
@@ -81,9 +85,9 @@ const Slider = forwardRef(function Slider(
     invert = false,
 
     color = "black",
+    material = theme.materials.input,
     size = theme.defaults.size,
     radius = theme.defaults.radius,
-    variant = theme.defaults.variant,
 
     height = theme.getSize("height", size),
     width = "100%",
@@ -141,7 +145,7 @@ const Slider = forwardRef(function Slider(
           <SliderThumb
             state={state}
             showValue={showValue}
-            color={color}
+            material={new SolidMaterial({ color: color })}
             size={size}
             {...props}
             {...thumbProps}
@@ -150,7 +154,6 @@ const Slider = forwardRef(function Slider(
         renderTrack={(props, state) => (
           <SliderTrack
             state={state}
-            color={color}
             margin={(height - 2) / 2}
             highlight={state.index === 0}
             {...props}
@@ -168,8 +171,7 @@ const Slider = forwardRef(function Slider(
           step={step}
           size={size}
           radius={radius}
-          variant={variant}
-          color={color}
+          material={material}
           showControls={false}
           width="fit-content"
           grow={false}
@@ -239,7 +241,7 @@ const SliderThumb = forwardRef(function SliderThumb(
     state,
     showValue = false,
 
-    variant = "filled",
+    material = new SolidMaterial(),
     size = theme.defaults.size,
     width = showValue
       ? theme.getSize("height", size)
@@ -266,13 +268,13 @@ const SliderThumb = forwardRef(function SliderThumb(
   };
 
   return (
-    <StyledFlex
+    <Flex
       width={width}
       height={height}
       radius={radius}
       color={color}
       padding={padding}
-      variant={variant}
+      material={material}
       align={align}
       justify={justify}
       style={ThumbStyle}
@@ -284,7 +286,7 @@ const SliderThumb = forwardRef(function SliderThumb(
           {state.valueNow}
         </Text>
       )}
-    </StyledFlex>
+    </Flex>
   );
 });
 

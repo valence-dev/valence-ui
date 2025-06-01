@@ -1,4 +1,3 @@
-import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { Button, Text, ValenceProvider, useDisclosure } from "../../..";
 import { Tooltip as T } from "./Tooltip";
@@ -25,10 +24,8 @@ export const Tooltip: Story = (args: any) => {
           </Button>
         </T.Trigger>
 
-        <T.Content backgroundColor="primary">
-          <Text align="center" color="white">
-            Tooltip Content
-          </Text>
+        <T.Content>
+          <Text align="center">Tooltip Content</Text>
         </T.Content>
       </T>
 

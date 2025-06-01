@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { PrimitiveButton } from "./PrimitiveButton";
 import { Storybook } from "../../../../storybook";
-import { Flex, ValenceProvider } from "../../..";
+import { Flex, GlassMaterial, PaperMaterial, ValenceProvider } from "../../..";
 import { useState } from "react";
 import { motion } from "motion/react";
 
@@ -9,10 +9,6 @@ const meta: Meta<typeof PrimitiveButton> = {
   component: PrimitiveButton,
   title: "Valence/Core/Buttons",
   argTypes: {
-    variant: {
-      options: Storybook.buttonVariants,
-      control: { type: "select" },
-    },
     size: {
       options: Storybook.componentSizes,
       control: { type: "select" },
@@ -45,10 +41,6 @@ const meta: Meta<typeof PrimitiveButton> = {
     height: {
       control: { type: "number" },
     },
-
-    color: {
-      control: { type: "text" },
-    },
   },
 };
 export default meta;
@@ -67,12 +59,12 @@ export const Primitive: Story = (args: any) => (
 );
 Primitive.args = {
   children: "Button",
-  color: {
-    default: "red",
-    mobile: "blue",
-    tablet: "green",
-    desktopLarge: "yellow",
-    tv: "violet",
+  material: {
+    default: new GlassMaterial({ color: "red" }),
+    mobile: new GlassMaterial({ color: "blue" }),
+    tablet: new GlassMaterial({ color: "green" }),
+    desktopLarge: new GlassMaterial({ color: "yellow" }),
+    tv: new GlassMaterial({ color: "violet" }),
   },
 };
 
@@ -114,7 +106,7 @@ export const CustomAnimated: Story = (args: any) => (
 
 CustomAnimated.args = {
   children: "Filled Button",
-  variant: "paper",
+  material: new PaperMaterial(),
   animation: {
     transitionAnimation: ["fade", "blur", "grow"],
     hoverAnimation: "grow",

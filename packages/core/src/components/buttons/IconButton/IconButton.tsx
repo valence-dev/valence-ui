@@ -27,7 +27,6 @@ export const IconButton = forwardRef(function IconButton(
     tooltipProps,
     tooltipContentProps,
 
-    color = "primary",
     size,
     square = true,
     children,
@@ -37,20 +36,16 @@ export const IconButton = forwardRef(function IconButton(
   return tooltip ? (
     <Tooltip placement="bottom" {...tooltipProps}>
       <Tooltip.Trigger>
-        <Button color={color} size={size} square={square} {...rest} ref={ref}>
+        <Button size={size} square={square} {...rest} ref={ref}>
           {children}
         </Button>
       </Tooltip.Trigger>
-      <Tooltip.Content
-        backgroundColor={color}
-        zIndex={999}
-        {...tooltipContentProps}
-      >
+      <Tooltip.Content zIndex={999} {...tooltipContentProps}>
         {tooltip}
       </Tooltip.Content>
     </Tooltip>
   ) : (
-    <Button color={color} size={size} square={square} {...rest} ref={ref}>
+    <Button size={size} square={square} {...rest} ref={ref}>
       {children}
     </Button>
   );

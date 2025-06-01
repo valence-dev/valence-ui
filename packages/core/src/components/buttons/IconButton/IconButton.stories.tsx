@@ -1,4 +1,3 @@
-import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { Storybook } from "../../../../storybook";
 import { IconUserCircle } from "@tabler/icons-react";
@@ -11,10 +10,6 @@ const meta: Meta<typeof IB> = {
   component: IB,
   title: "Valence/Core/Buttons",
   argTypes: {
-    variant: {
-      options: Storybook.buttonVariants,
-      control: { type: "select" },
-    },
     size: {
       options: Storybook.componentSizes,
       control: { type: "select" },
@@ -54,12 +49,15 @@ type Story = StoryObj<typeof IB>;
 
 export const Icon: Story = (args: any) => (
   <ValenceProvider>
-    <Flex center height="100vh">
+    <Flex center padding={40}>
       <IB {...args} size="xs" />
       <IB {...args} size="sm" />
       <IB {...args} size="md" />
       <IB {...args} size="lg" />
       <IB {...args} size="xl" />
+    </Flex>
+    <Flex center padding={40}>
+      <IB {...args} tooltip="hello!" />
     </Flex>
   </ValenceProvider>
 );

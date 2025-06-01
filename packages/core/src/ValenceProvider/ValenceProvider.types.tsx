@@ -1,8 +1,9 @@
 import { CSSProperties } from "react";
-import { ComponentSize, FillVariant, SizeClasses } from "@valence-ui/utils";
+import { ComponentSize, SizeClasses } from "@valence-ui/utils";
 import { TextProps } from "../components";
-import { DEFAULT_PALETTE, Color } from "../utilities/color";
+import { Color } from "../utilities/color";
 import { PreferrableColorScheme } from "../hooks";
+import { Material } from "../utilities";
 
 export type IValenceContext = {
   /** A list of all colors to use */
@@ -18,12 +19,20 @@ export type IValenceContext = {
     size: ComponentSize;
     /** The default component radius size */
     radius: ComponentSize;
-    /** The default component fill variant */
-    variant: FillVariant;
     /** The default transition duration for animated properties */
     transitionDuration: CSSProperties["transitionDuration"];
     /** The default shadow style to apply */
     shadow: CSSProperties["boxShadow"];
+  };
+
+  /** Default materials applied to objects of different types */
+  materials: {
+    /** The default material to use for buttons */
+    button: Material;
+    /** The default material to use for inputs */
+    input: Material;
+    /** The default material to use for cards */
+    card: Material;
   };
 
   /** The default font families to use in specific contexts */
@@ -78,50 +87,4 @@ export type IValenceContext = {
     desktopLargeWidth: number;
     tvWidth: number;
   };
-};
-
-export const ValenceContextDefaults: IValenceContext = {
-  colors: DEFAULT_PALETTE,
-  primaryColor: "pink",
-  preferredColorScheme: "system",
-
-  defaults: {
-    size: "sm",
-    radius: "sm",
-    variant: "light",
-    transitionDuration: "0.1s",
-    shadow: "0px 10px 30px rgba(0, 0, 0, 0.2)",
-  },
-
-  fontFamily: {
-    default: "Inter, sans-serif",
-    heading: undefined,
-    monospace: "monospace",
-  },
-  getFont: () => "",
-
-  sizeClasses: {
-    padding: { xs: 10, sm: 15, md: 20, lg: 25, xl: 30 },
-    height: { xs: 30, sm: 35, md: 40, lg: 50, xl: 60 },
-    radius: { xs: 2, sm: 5, md: 10, lg: 15, xl: 25 },
-    fontSize: { xs: 12, sm: 14, md: 16, lg: 18, xl: 20 },
-    iconSize: { xs: 18, sm: 20, md: 24, lg: 26, xl: 30 },
-  },
-  getSize: () => undefined,
-
-  titles: {
-    1: { fontSize: 28, bold: true },
-    2: { fontSize: 22, bold: true },
-    3: { fontSize: 18, bold: true },
-    4: { fontSize: 16, bold: true },
-    5: { fontSize: 14, bold: true },
-    6: { fontSize: 12, bold: true },
-  },
-
-  breakpoints: {
-    mobileWidth: 480,
-    tabletWidth: 768,
-    desktopLargeWidth: 1024,
-    tvWidth: 1440,
-  },
 };

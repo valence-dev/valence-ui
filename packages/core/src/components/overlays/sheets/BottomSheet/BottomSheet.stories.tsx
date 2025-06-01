@@ -1,10 +1,10 @@
-import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { BottomSheet as BS } from "./BottomSheet";
 import { useDisclosure } from "../../../../hooks";
 import { ValenceProvider } from "../../../../ValenceProvider";
-import { FlexCenter, StyledFlex } from "../../../layout";
+import { Flex, FlexCenter } from "../../../layout";
 import { Button } from "../../../buttons";
+import { GlassMaterial } from "../../../../utilities";
 
 const meta: Meta<typeof BS> = {
   component: BS,
@@ -23,9 +23,9 @@ export const BottomSheet: Story = (args: any) => {
       </FlexCenter>
 
       <BS disclosure={disclosure} {...args}>
-        <StyledFlex width="100%" height="200vh">
+        <Flex width="100%" height="200vh" material={new GlassMaterial()}>
           Hi
-        </StyledFlex>
+        </Flex>
       </BS>
     </ValenceProvider>
   );

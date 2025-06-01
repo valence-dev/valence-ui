@@ -1,6 +1,5 @@
 import {
   ComponentSize,
-  FillVariant,
   GenericLayoutProps,
   GenericProps,
   PolymorphicButtonProps,
@@ -19,15 +18,16 @@ import {
   MakeResponsive,
   useResponsiveProps,
 } from "../../../utilities/responsive";
+import { Material } from "../../../utilities";
 
 export type CardProps = GenericLayoutProps &
   PolymorphicButtonProps & {
+    /** The material of this card */
+    material?: Material;
     /**  Defines the size class for this card */
     size?: ComponentSize;
     /**  Defines the radius size class for this card */
     radius?: ComponentSize;
-    /** Defines the fill variant of this card. */
-    variant?: FillVariant;
     /**  Defines the gap size between this card's contents */
     gap?: CSSProperties["gap"];
 
@@ -54,9 +54,9 @@ const Card = forwardRef(function Card(
 
   // Defaults
   const {
+    material = theme.materials.card,
     size = theme.defaults.size,
     radius = theme.defaults.radius,
-    variant = theme.defaults.variant,
     gap = 0,
     buttonProps,
     flexProps,
@@ -65,9 +65,6 @@ const Card = forwardRef(function Card(
     width = CARD_DEFAULTS.width[size],
     padding = 0,
     margin,
-
-    color = "black",
-    backgroundColor = color,
 
     children,
     style,
@@ -88,15 +85,9 @@ const Card = forwardRef(function Card(
     <PrimitiveButton
       height={height}
       width={width}
-      color={color}
-      backgroundColor={backgroundColor}
-      variant={variant}
+      material={material}
       radius={radius}
       style={cardStyle}
-      motion={{
-        onHover: "raise",
-        onTap: "bounce",
-      }}
       ref={ref}
       {...buttonProps}
       {...rest}

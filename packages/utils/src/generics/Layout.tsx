@@ -3,11 +3,6 @@ import { GenericProps } from "./Global";
 
 /** Basic props for components that can handle layout changes */
 export type GenericLayoutProps = GenericProps & {
-  /** Sets `color` css property */
-  color?: CSSProperties["color"];
-  /** Sets `background-color` css property */
-  backgroundColor?: CSSProperties["backgroundColor"];
-
   /** Sets `padding` css property */
   padding?: CSSProperties["padding"];
   /** Sets `margin` css property */

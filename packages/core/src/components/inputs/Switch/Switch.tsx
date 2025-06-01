@@ -13,6 +13,7 @@ import {
   useResponsiveProps,
 } from "../../../utilities/responsive";
 import { useColors } from "../../../utilities/color";
+import { Material } from "../../../utilities";
 
 export type SwitchProps = GenericInputProps<boolean> &
   FocusEvents & {
@@ -21,6 +22,9 @@ export type SwitchProps = GenericInputProps<boolean> &
 
     /** Shorthand for `flex-grow = 1` */
     grow?: boolean;
+
+    /** The material of this input */
+    material?: Material;
 
     /** Optional props to pass to the `Button` container component */
     buttonProps?: PrimitiveButtonProps;
@@ -33,7 +37,7 @@ export const Switch = forwardRef(function Switch(
   ref: any,
 ) {
   const theme = useValence();
-  const { getBgHex, getHex } = useColors();
+  const colors = useColors();
 
   // Defaults
   const {
@@ -41,9 +45,9 @@ export const Switch = forwardRef(function Switch(
     setValue,
     label,
 
+    material = theme.materials.input,
     size = theme.defaults.size,
     radius = "xl",
-    variant = theme.defaults.variant,
     grow = false,
 
     disabled = false,
@@ -56,8 +60,6 @@ export const Switch = forwardRef(function Switch(
     buttonProps,
     labelProps,
 
-    color = theme.primaryColor,
-    backgroundColor = color,
     padding = 4,
     margin = 0,
     width,
@@ -92,23 +94,8 @@ export const Switch = forwardRef(function Switch(
     cursor: disabled ? "not-allowed" : "pointer",
 
     transition: `background-color ${theme.defaults.transitionDuration} linear 0s`,
-    backgroundColor: value
-      ? getBgHex(backgroundColor, variant, false)
-      : getBgHex("black", variant, false),
 
-    outline:
-      variant === "subtle"
-        ? value
-          ? `1px solid ${getHex(backgroundColor, "medium")}`
-          : `1px solid ${getHex("black", "medium")}`
-        : "none",
-    border: "none",
-
-    "&:hover": {
-      backgroundColor: value
-        ? getBgHex(backgroundColor, variant, true)
-        : getBgHex("black", variant, true),
-    },
+    ...material.getStyles(theme, colors),
 
     ...style,
   });
@@ -117,9 +104,7 @@ export const Switch = forwardRef(function Switch(
     height: "100%",
 
     borderRadius: `${theme.sizeClasses.radius[radius]}px`,
-    backgroundColor: value
-      ? getBgHex(variant === "filled" ? "white" : color, "filled", false)
-      : getBgHex(variant === "filled" ? "white" : "black", "filled", false),
+    ...material.getChildrenStyles(theme, colors),
 
     outline: "none",
     border: "none",
@@ -131,14 +116,12 @@ export const Switch = forwardRef(function Switch(
       onClick={handleClick}
       padding={0}
       height="fit-content"
-      color={color}
-      backgroundColor="#00000000"
-      variant="subtle"
-      size={size}
-      grow={grow}
       style={{
+        backgroundColor: "transparent !important",
         gap: (theme.sizeClasses.padding[size] as number) / 2,
       }}
+      size={size}
+      grow={grow}
       onFocus={onFocus}
       onBlur={onBlur}
       ref={ref}

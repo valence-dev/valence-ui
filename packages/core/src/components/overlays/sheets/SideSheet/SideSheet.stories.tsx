@@ -1,10 +1,10 @@
-import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { SideSheet as SS } from "./SideSheet";
 import { useDisclosure } from "../../../../hooks";
 import { ValenceProvider } from "../../../../ValenceProvider";
 import { Button } from "../../../buttons";
-import { StyledFlex } from "../../../layout";
+import { Flex } from "../../../layout";
+import { GlassMaterial } from "../../../../utilities";
 
 const meta: Meta<typeof SS> = {
   component: SS,
@@ -21,9 +21,9 @@ export const SideSheet: Story = (args: any) => {
       <Button onClick={() => disclosure.open()}>Open Side Sheet</Button>
 
       <SS disclosure={disclosure} {...args}>
-        <StyledFlex width="100%" height="200vh">
+        <Flex width="100%" height="200vh" material={new GlassMaterial()}>
           Hi
-        </StyledFlex>
+        </Flex>
       </SS>
     </ValenceProvider>
   );

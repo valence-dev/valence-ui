@@ -8,6 +8,7 @@ import {
   useValence,
 } from "../../..";
 import {
+  ComponentSize,
   GenericLayoutProps,
   PolymorphicLayout,
   PolymorphicLayoutProps,
@@ -16,8 +17,6 @@ import { css } from "@emotion/react";
 
 export type FlexProps = GenericLayoutProps &
   PolymorphicLayoutProps & {
-    material?: Material;
-
     /** Sets `flex-direction` css property */
     direction?: CSSProperties["flexDirection"];
     /** Sets `align-items` css property */
@@ -36,6 +35,11 @@ export type FlexProps = GenericLayoutProps &
     grow?: boolean;
     /** A shorthand property that sets both `align` and `justify` to `center`. */
     center?: boolean;
+
+    /** Optionally apply a material to this object */
+    material?: Material;
+    /** Optionally apply a border radius to this object */
+    radius?: ComponentSize;
   };
 
 /** A basic formattable flexbox component that accepts many common flexbox properties. This component is also reactive, thus it will accept both a single value and an object of values that will be applied at different breakpoints. */
@@ -48,7 +52,6 @@ export const Flex = forwardRef(function Flex(
 
   // Defaults
   const {
-    material,
     center = false,
     direction = "row",
     align = center ? "center" : "flex-start",
@@ -59,6 +62,9 @@ export const Flex = forwardRef(function Flex(
 
     grow = false,
     wrap = "nowrap",
+
+    material,
+    radius,
 
     padding,
     margin,
@@ -72,8 +78,6 @@ export const Flex = forwardRef(function Flex(
 
   // Styles
   const FlexStyle = css({
-    ...material?.getStyles(theme, colors),
-
     display: "flex",
     flexDirection: direction,
     alignItems: align,
@@ -90,6 +94,9 @@ export const Flex = forwardRef(function Flex(
     margin: margin,
     width: width,
     height: height,
+
+    ...material?.getStyles(theme, colors),
+    borderRadius: radius ? theme.getSize("radius", radius) : undefined,
 
     ...style,
   });

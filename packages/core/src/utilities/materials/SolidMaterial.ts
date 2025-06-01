@@ -48,6 +48,14 @@ export class SolidMaterial extends Material {
     }
   }
 
+  private getForegroundColor(): string {
+    if (this.color === "brighterWhite" || this.color === "white")
+      return "black";
+    if (this.color === "permaWhite") return "permaBlack";
+    if (this.color === "permaBlack") return "permaWhite";
+    return "white";
+  }
+
   getStyles(valence: IValenceContext, colors: UseColorsReturn): CSSObject {
     const color = this.color ?? valence.primaryColor;
 
@@ -56,10 +64,6 @@ export class SolidMaterial extends Material {
       outline: "none",
       border: "1px solid transparent",
       boxShadow: this.getElevationShadow(this.elevation),
-
-      "& > *": {
-        ...this.getChildrenStyles(valence, colors),
-      },
 
       ...(this.interactive && {
         transitionDuration: valence.defaults.transitionDuration,
@@ -73,13 +77,17 @@ export class SolidMaterial extends Material {
             Math.min((this.elevation ?? 0) + 1, 5) as SolidMaterialElevation,
           ),
         },
-        "&:focus": {
+        "&:focus, &:focus-within": {
           outline: "none",
           border: `1px solid ${tinycolor(colors.getHex(color))
             .darken(12)
             .toHexString()}`,
         },
       }),
+
+      "& > *": {
+        ...this.getChildrenStyles(valence, colors),
+      },
 
       ...this.overrides,
     };
@@ -88,17 +96,33 @@ export class SolidMaterial extends Material {
     valence: IValenceContext,
     colors: UseColorsReturn,
   ): CSSObject {
-    const color = this.color ?? valence.primaryColor;
-
-    let foregroundColor = "white";
-    if (color === "brighterWhite" || color === "white")
-      foregroundColor = "black";
-    if (color === "permaWhite") foregroundColor = "permaBlack";
-    if (color === "permaBlack") foregroundColor = "permaWhite";
+    const foregroundColor = this.getForegroundColor();
 
     return {
       color: colors.getHex(foregroundColor),
+
+      "&::placeholder": {
+        color: colors.getHex(foregroundColor, "strong"),
+      },
+
       ...this.childrenOverrides,
+    };
+  }
+  getScrollbarStyles(
+    valence: IValenceContext,
+    colors: UseColorsReturn,
+  ): CSSObject {
+    const foregroundColor = this.getForegroundColor();
+
+    return {
+      "&::-webkit-scrollbar-thumb": {
+        backgroundColor: colors.getHex(foregroundColor, "medium"),
+        cursor: "pointer",
+
+        "&:hover": {
+          backgroundColor: colors.getHex(foregroundColor, "strong"),
+        },
+      },
     };
   }
 

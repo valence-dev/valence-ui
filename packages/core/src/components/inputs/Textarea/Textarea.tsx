@@ -63,9 +63,9 @@ export const Textarea = forwardRef(function Textarea(
     autoComplete = false,
     spellCheck = true,
 
+    material,
     size = theme.defaults.size,
     radius = theme.defaults.radius,
-    variant = theme.defaults.variant,
     grow,
 
     resize = "none",
@@ -80,8 +80,6 @@ export const Textarea = forwardRef(function Textarea(
     readOnly = loading,
     required,
 
-    color = "black",
-    backgroundColor = color,
     padding = 10,
     margin,
     width = "100%",
@@ -115,20 +113,15 @@ export const Textarea = forwardRef(function Textarea(
 
     overflowY: "auto",
     background: "none",
-    color: getFgHex(color, variant),
 
     fontSize: theme.sizeClasses.fontSize[size],
     fontFamily: theme.getFont("default"),
 
     "&::-webkit-scrollbar": {
-      width: 10,
+      width: 5,
     },
     "&::-webkit-scrollbar-thumb": {
-      backgroundColor: "#11181C20",
       borderRadius: 5,
-    },
-    "&::placeholder": {
-      color: `${getFgHex(color, variant)}80`,
     },
 
     ...inputStyle,
@@ -152,15 +145,13 @@ export const Textarea = forwardRef(function Textarea(
   return (
     <InputContainer
       icon={icon}
+      material={material}
       size={size}
       radius={radius}
-      variant={variant}
       grow={grow}
       disabled={disabled}
       required={required}
       loading={loading}
-      color={color}
-      backgroundColor={backgroundColor}
       padding={padding}
       margin={margin}
       width={width}

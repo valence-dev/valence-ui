@@ -28,8 +28,6 @@ export const ButtonWithIcon = forwardRef(function ButtonWithIcon(
     icon,
     iconPosition = "left",
     size = theme.defaults.size,
-    variant = theme.defaults.variant,
-    color = theme.primaryColor,
 
     loading,
 
@@ -52,26 +50,14 @@ export const ButtonWithIcon = forwardRef(function ButtonWithIcon(
   };
 
   return (
-    <PrimitiveButton
-      size={size}
-      variant={variant}
-      color={color}
-      style={styles}
-      ref={ref}
-      {...rest}
-    >
+    <PrimitiveButton size={size} style={styles} ref={ref} {...rest}>
       {loading ? (
-        <Loader size={size} color={colors.getFgHex(color, variant)} />
+        <Loader size={size} />
       ) : (
-        <Icon
-          size={theme.getSize("iconSize", size) as number}
-          color={colors.getFgHex(color, variant)}
-        >
-          {icon}
-        </Icon>
+        <Icon size={theme.getSize("iconSize", size) as number}>{icon}</Icon>
       )}
 
-      <Text size={size} color={colors.getFgHex(color, variant)} {...textProps}>
+      <Text size={size} {...textProps}>
         {children}
       </Text>
     </PrimitiveButton>

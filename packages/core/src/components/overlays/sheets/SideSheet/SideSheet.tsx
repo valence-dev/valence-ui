@@ -1,10 +1,4 @@
-import {
-  CSSProperties,
-  ReactNode,
-  forwardRef,
-  useContext,
-  useEffect,
-} from "react";
+import { CSSProperties, ReactNode, forwardRef, useEffect } from "react";
 import { GenericSheetProps } from "../Generics";
 import {
   GenericOverlayBackgroundProps,
@@ -17,7 +11,7 @@ import {
   useColors,
   useResponsiveProps,
 } from "../../../../utilities";
-import { ValenceContext } from "../../../../ValenceProvider";
+import { useValence } from "../../../../ValenceProvider";
 import { DefaultModalHeader } from "../../Modal";
 import { Disclosure, useDetectKeyDown } from "../../../../hooks";
 import { ModalBackground } from "../../ModalBackground";
@@ -37,6 +31,8 @@ export type SideSheetProps = GenericSheetProps & {
    */
   direction?: "left" | "right";
 
+  /** The background color */
+  backgroundColor?: string;
   /** Optional props to pass to the inner flex component */
   innerFlexProps?: FlexProps;
 };
@@ -45,7 +41,7 @@ export const SideSheet = forwardRef(function SideSheet(
   props: MakeResponsive<SideSheetProps>,
   ref: any,
 ) {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
   const { getHex } = useColors();
 
   // Defaults
@@ -70,9 +66,8 @@ export const SideSheet = forwardRef(function SideSheet(
     withShadow = true,
 
     backgroundColor = getHex("white"),
-    color = getHex("black"),
 
-    padding = theme.sizeClasses.padding[theme.defaults.size],
+    padding = theme.getSize("padding"),
     margin = 0,
 
     width = 350,
@@ -109,7 +104,6 @@ export const SideSheet = forwardRef(function SideSheet(
     height: height,
 
     backgroundColor: backgroundColor,
-    color: color,
 
     padding: padding,
     margin: margin,

@@ -1,4 +1,4 @@
-import { CSSProperties, ReactNode, forwardRef, useContext } from "react";
+import { CSSProperties, ReactNode, forwardRef } from "react";
 import { GenericLayoutProps, PolymorphicLayoutProps } from "@valence-ui/utils";
 import { Flex } from "../Flex";
 import {
@@ -7,7 +7,7 @@ import {
   useColors,
   useResponsiveProps,
 } from "../../../utilities";
-import { ValenceContext } from "../../../ValenceProvider";
+import { useValence } from "../../../ValenceProvider";
 import { useElementSize } from "../../../hooks";
 
 export type AppContainerProps = GenericLayoutProps &
@@ -25,7 +25,7 @@ export const AppContainer = forwardRef(function AppContainer(
   props: MakeResponsive<AppContainerProps>,
   ref: any,
 ) {
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
   const { getHex } = useColors();
 
   // Defaults
@@ -65,12 +65,14 @@ export const AppContainer = forwardRef(function AppContainer(
 
   const navContainerStyle: Responsive<CSSProperties> = {
     default: {
+      backgroundColor: getHex("primary"),
       position: "fixed",
       top: 0,
       left: 0,
       height: "100vh",
     },
     mobile: {
+      backgroundColor: getHex("primary"),
       position: "fixed",
       bottom: 0,
       left: 0,
@@ -114,7 +116,6 @@ export const AppContainer = forwardRef(function AppContainer(
         {showNav && (
           <Flex
             direction={{ default: "row", mobile: "column-reverse" }}
-            backgroundColor="primary"
             style={navContainerStyle}
             ref={navRef}
             {...rest}

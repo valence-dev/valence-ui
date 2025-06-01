@@ -18,7 +18,7 @@ export const FloatingToolbar: Story = (args: any) => {
   return (
     <ValenceProvider>
       <FT {...args}>
-        <Button variant="filled">Hi</Button>
+        <Button>Hi</Button>
 
         <TextInput
           value={inputValue}

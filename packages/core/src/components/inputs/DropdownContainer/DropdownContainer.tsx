@@ -20,11 +20,12 @@ import { css } from "@emotion/react";
 import { IconCheck, IconSelector } from "@tabler/icons-react";
 import { InputContainer, InputContainerProps } from "../InputContainer";
 import { useValence } from "../../../ValenceProvider";
-import { useColors } from "../../../utilities";
+import { GlassMaterial, PaperMaterial, useColors } from "../../../utilities";
 import { ButtonWithIcon } from "../../buttons";
 import { Text, TextProps } from "../../display";
 import { CSSProperties } from "styled-components";
 import { AnimatePresence, motion } from "motion/react";
+import { AirMaterial } from "../../../utilities/materials/AirMaterial";
 
 export type DropdownContainerEventProps<OptionType> = {
   /** A callback fired when an item is selected. */
@@ -62,7 +63,7 @@ export function DropdownContainer<OptionType>(
   props: DropdownContainerProps<OptionType>,
 ) {
   const theme = useValence();
-  const { getHex, getFgHex } = useColors();
+  const colors = useColors();
 
   // Fallback states
   const [_selected, _setSelected] = useState<number | null>(null);
@@ -88,9 +89,7 @@ export function DropdownContainer<OptionType>(
     // Input container props
     size: inputSize = theme.defaults.size,
     radius = theme.defaults.radius,
-    variant = theme.defaults.variant,
-    color = "black",
-    backgroundColor = color,
+    material = theme.materials.input,
     loading,
     disabled,
     required,
@@ -165,16 +164,15 @@ export function DropdownContainer<OptionType>(
     overflowY: "auto",
     minWidth: 100,
 
-    backgroundColor: getHex("white", "strong"),
-    color: getHex(color),
-    border: `1px solid ${getHex(color, "weak")}`,
-    backdropFilter: "blur(5px)",
+    ...new PaperMaterial({ blur: "strong", elevation: 4 }).getStyles(
+      theme,
+      colors,
+    ),
     outline: "none !important",
 
     borderRadius: (theme.sizeClasses.radius[radius] as number) + 5,
     padding: 5,
     boxSizing: "border-box",
-    boxShadow: theme.defaults.shadow,
 
     ...dropdownStyle,
   });
@@ -190,9 +188,7 @@ export function DropdownContainer<OptionType>(
         button={secondaryIcon}
         size={inputSize}
         radius={radius}
-        variant={variant}
-        color={color}
-        backgroundColor={backgroundColor}
+        material={material}
         loading={loading}
         disabled={disabled}
         required={required}
@@ -208,7 +204,6 @@ export function DropdownContainer<OptionType>(
             <Text
               style={{
                 flex: 1,
-                color: getFgHex(color, variant),
                 opacity: selectedItemLabel ? 1 : 0.5,
               }}
               userSelect={false}
@@ -251,9 +246,12 @@ export function DropdownContainer<OptionType>(
                   icon={
                     i === selected ? <IconCheck /> : (value.icon ?? undefined)
                   }
-                  variant={i === highlighted ? "light" : "subtle"}
+                  material={
+                    i === selected
+                      ? new GlassMaterial({ color: "black" })
+                      : new AirMaterial({ color: "black" })
+                  }
                   width="100%"
-                  color={color}
                   style={ItemStyle}
                   {...getItemProps({
                     // Handle pointer select.

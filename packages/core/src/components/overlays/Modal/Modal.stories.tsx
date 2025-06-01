@@ -1,9 +1,9 @@
-import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import {
   Button,
+  Flex,
   FlexCenter,
-  StyledFlex,
+  GlassMaterial,
   ValenceProvider,
   useDisclosure,
 } from "../../..";
@@ -19,8 +19,6 @@ const meta: Meta<typeof M> = {
     lockScroll: { control: { type: "boolean" } },
     withShadow: { control: { type: "boolean" } },
     radius: { control: { type: "text" } },
-    backgroundColor: { control: { type: "text" } },
-    color: { control: { type: "text" } },
   },
 };
 export default meta;
@@ -37,9 +35,9 @@ export const Modal: Story = (args: any) => {
 
       <M disclosure={disclosure} {...args}>
         <Button>Hi</Button>
-        <StyledFlex width="100%" height="200vh">
+        <Flex width="100%" height="200vh" material={new GlassMaterial()}>
           Hi
-        </StyledFlex>
+        </Flex>
       </M>
     </ValenceProvider>
   );

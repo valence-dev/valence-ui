@@ -1,18 +1,18 @@
 import {
   ComponentSize,
-  FillVariant,
   GenericClickableEventProps,
   GenericClickableProps,
   GenericLayoutProps,
   PolymorphicButtonProps,
 } from "@valence-ui/utils";
+import { Material } from "../utilities";
 
 export type GenericButtonProps = GenericClickableProps &
   GenericClickableEventProps &
   PolymorphicButtonProps &
   GenericLayoutProps & {
-    /** This button's styling variant. Defaults to theme default */
-    variant?: FillVariant;
+    /** The button's material */
+    material?: Material;
     /** This button's size class. Defaults to theme default */
     size?: ComponentSize;
     /** This button's radius size class. Defaults to theme default */

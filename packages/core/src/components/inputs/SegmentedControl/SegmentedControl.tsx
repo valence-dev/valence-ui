@@ -1,6 +1,6 @@
-import { CSSProperties, ReactNode, forwardRef, lazy } from "react";
+import { CSSProperties, ReactNode, forwardRef } from "react";
 import { GenericInputProps } from "../../../generics";
-import { Flex, StyledFlex, StyledFlexProps } from "../../layout";
+import { Flex, FlexProps } from "../../layout";
 import { PrimitiveButton, PrimitiveButtonProps } from "../../buttons";
 import { Loader, Text } from "../../display";
 import { useValence } from "../../../ValenceProvider";
@@ -8,6 +8,8 @@ import {
   MakeResponsive,
   useResponsiveProps,
 } from "../../../utilities/responsive";
+import { GlassMaterial } from "../../../utilities";
+import { AirMaterial } from "../../../utilities/materials/AirMaterial";
 
 export type SegmentedControlOption =
   | {
@@ -30,7 +32,7 @@ export type SegmentedControlEventProps = {
 };
 
 export type SegmentedControlProps = GenericInputProps<string> &
-  StyledFlexProps &
+  FlexProps &
   SegmentedControlEventProps & {
     /** A list of options to supply for the content of this input */
     options: SegmentedControlOption[];
@@ -65,8 +67,7 @@ export const SegmentedControl = forwardRef(function SegmentedControl(
     size = theme.defaults.size,
     radius = theme.defaults.radius,
 
-    color = "black",
-    backgroundColor = color,
+    material = new GlassMaterial(),
     margin,
     padding = 5,
     gap = padding,
@@ -80,14 +81,8 @@ export const SegmentedControl = forwardRef(function SegmentedControl(
     style,
     ...rest
   } = useResponsiveProps<SegmentedControlProps>(props);
-  const {
-    color: buttonColor = variant === "filled" ? "white" : color,
-    backgroundColor: buttonBackgroundColor = variant === "filled"
-      ? "white"
-      : backgroundColor,
-    size: buttonSize = size,
-    radius: buttonRadius = radius,
-  } = buttonProps ?? {};
+  const { size: buttonSize = size, radius: buttonRadius = radius } =
+    buttonProps ?? {};
 
   // Styles
   const containerStyle: CSSProperties = {
@@ -104,12 +99,9 @@ export const SegmentedControl = forwardRef(function SegmentedControl(
   }
 
   return (
-    <StyledFlex
+    <Flex
       ref={ref}
-      variant={variant}
-      size={size}
-      color={color}
-      backgroundColor={backgroundColor}
+      material={material}
       margin={margin}
       padding={padding}
       gap={gap}
@@ -124,7 +116,7 @@ export const SegmentedControl = forwardRef(function SegmentedControl(
           align="center"
           height={theme.getSize("height", buttonSize)}
         >
-          <Loader color={variant === "filled" ? "white" : color} />
+          <Loader color={variant === "filled" ? "white" : "black"} />
         </Flex>
       ) : (
         options.map((option, index) => {
@@ -135,10 +127,8 @@ export const SegmentedControl = forwardRef(function SegmentedControl(
             <PrimitiveButton
               key={index}
               onClick={() => handleSetOptionValue(option)}
-              variant={selected ? "light" : "subtle"}
+              material={selected ? new GlassMaterial() : new AirMaterial()}
               grow={equalWidth}
-              color={buttonColor}
-              backgroundColor={buttonBackgroundColor}
               size={buttonSize}
               radius={buttonRadius}
               disabled={disabled || readOnly || loading}
@@ -153,6 +143,6 @@ export const SegmentedControl = forwardRef(function SegmentedControl(
           );
         })
       )}
-    </StyledFlex>
+    </Flex>
   );
 });

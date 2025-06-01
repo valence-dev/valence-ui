@@ -2,6 +2,7 @@
 import { CSSProperties, ReactNode, forwardRef } from "react";
 import {
   MakeResponsive,
+  Material,
   useColors,
   useResponsiveProps,
   useValence,
@@ -9,7 +10,6 @@ import {
 import { Icon, IconProps, Loader } from "../../display";
 import {
   ComponentSize,
-  FillVariant,
   GenericLayoutProps,
   MouseClickEvents,
   MouseEvents,
@@ -27,12 +27,12 @@ export type InputContainerProps = GenericLayoutProps &
     /** A button to display to the right of this input */
     button?: ReactNode;
 
+    /** The material of this input */
+    material?: Material;
     /** Sets the size class. Defaults to theme default */
     size?: ComponentSize;
     /** Sets the radius size class. Defaults to theme default */
     radius?: ComponentSize;
-    /** Sets the styling variant. Defaults to theme default */
-    variant?: FillVariant;
     /** Shorthand for `flex-grow = 1` */
     grow?: boolean;
 
@@ -72,23 +72,21 @@ export const InputContainer = forwardRef(function InputContainer(
   ref: any,
 ) {
   const theme = useValence();
-  const { getBgHex, getBorderHex, getFgHex } = useColors();
+  const colors = useColors();
 
   // Defaults
   const {
     icon,
     button,
+    material = theme.materials.input,
     size = theme.defaults.size,
     radius = theme.defaults.radius,
-    variant = theme.defaults.variant,
     grow,
 
     disabled = false,
     required = false,
     loading = false,
 
-    color = "black",
-    backgroundColor = color,
     width = "100%",
     height = theme.sizeClasses.height[size],
     padding = INPUT_SIZES[size].padding,
@@ -142,23 +140,9 @@ export const InputContainer = forwardRef(function InputContainer(
     transitionProperty: "background-color, border",
     transitionDuration: theme.defaults.transitionDuration,
     transitionTimingFunction: "linear",
-    backgroundColor: getBgHex(backgroundColor, variant, false),
-    color: getFgHex(color, variant),
-
-    outline: "none",
-    border: getBorderHex(color, variant),
     textDecoration: "none",
 
-    "&:hover": {
-      backgroundColor: !disabled
-        ? getBgHex(backgroundColor, variant, true)
-        : undefined,
-    },
-    "&:focus-within": {
-      outline: "none",
-      border: getBorderHex(color, variant, true),
-    },
-
+    ...material.setInteractive(true).getStyles(theme, colors),
     ...style,
   });
   const IconContainerStyle = css({
@@ -184,12 +168,12 @@ export const InputContainer = forwardRef(function InputContainer(
     ...buttonContainerStyle,
   });
   const RequireIndicatorStyle = css({
-    width: 3,
+    width: 2,
     height: "calc(100% - 10px)",
     minHeight: 20,
     borderRadius: 3,
-    backgroundColor: getFgHex(color === "black" ? "red" : color, "light"),
     cursor: disabled ? "not-allowed" : "text",
+    backgroundColor: material.getChildrenStyles(theme, colors).color,
 
     ...requireIndicatorStyle,
   });
@@ -205,11 +189,7 @@ export const InputContainer = forwardRef(function InputContainer(
 
       {(icon || loading) && (
         <div css={IconContainerStyle}>
-          {loading ? (
-            <Loader color={variant === "filled" ? "white" : color} />
-          ) : (
-            <Icon {...iconProps}>{icon}</Icon>
-          )}
+          {loading ? <Loader /> : <Icon {...iconProps}>{icon}</Icon>}
         </div>
       )}
 
