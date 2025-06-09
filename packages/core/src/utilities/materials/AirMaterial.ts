@@ -31,6 +31,7 @@ export class AirMaterial extends Material {
 
     return {
       backgroundColor: "transparent",
+      color: colors.getHex(color),
       outline: "none",
       border: "none",
 
@@ -52,7 +53,7 @@ export class AirMaterial extends Material {
         },
       }),
 
-      "& > *": {
+      "& *": {
         ...this.getChildrenStyles(valence, colors),
       },
 

@@ -65,7 +65,7 @@ export const Switch = forwardRef(function Switch(
     containerProps,
     labelProps,
 
-    padding = 2,
+    padding = 4,
     margin = 0,
     width,
     height,

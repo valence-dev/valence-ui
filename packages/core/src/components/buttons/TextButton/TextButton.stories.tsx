@@ -26,9 +26,6 @@ const meta: Meta<typeof Button> = {
     square: {
       control: { type: "boolean" },
     },
-    shadow: {
-      control: { type: "boolean" },
-    },
     grow: {
       control: { type: "boolean" },
     },

@@ -12,7 +12,7 @@ import {
   SolidMaterial,
 } from "../../..";
 import { useState } from "react";
-import { AirMaterial } from "../../../utilities/materials/AirMaterial";
+import { AirMaterial } from "../../../utilities";
 
 const meta: Meta<typeof IB> = {
   component: IB,
@@ -28,9 +28,6 @@ const meta: Meta<typeof IB> = {
     },
 
     square: {
-      control: { type: "boolean" },
-    },
-    shadow: {
       control: { type: "boolean" },
     },
     grow: {

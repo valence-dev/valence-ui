@@ -95,10 +95,6 @@ export const Flex = forwardRef(function Flex(
     width: width,
     height: height,
 
-    "> * ": {
-      color: colors.getHex("black"),
-    },
-
     ...material?.getStyles(theme, colors),
     borderRadius: radius ? theme.getSize("radius", radius) : undefined,
 

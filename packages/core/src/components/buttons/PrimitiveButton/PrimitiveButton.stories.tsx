@@ -21,9 +21,6 @@ const meta: Meta<typeof PrimitiveButton> = {
     square: {
       control: { type: "boolean" },
     },
-    shadow: {
-      control: { type: "boolean" },
-    },
     grow: {
       control: { type: "boolean" },
     },

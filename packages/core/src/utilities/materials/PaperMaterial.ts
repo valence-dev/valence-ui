@@ -69,6 +69,7 @@ export class PaperMaterial extends Material {
       backgroundColor: !this.blur
         ? colors.getHex(backgroundColor)
         : `${colors.getHex(backgroundColor)}A0`,
+      color: colors.getHex(color),
       outline: "none",
       border: `1px solid ${colors.getHex(color, (this.elevation ?? 0) >= 3 ? "medium" : "weak")}`,
       boxShadow: this.getElevationShadow(this.elevation),
@@ -95,7 +96,7 @@ export class PaperMaterial extends Material {
         },
       }),
 
-      "& > *": {
+      "& *": {
         ...this.getChildrenStyles(valence, colors),
       },
 

@@ -44,6 +44,7 @@ export class GlassMaterial extends Material {
 
     return {
       backgroundColor: colors.getHex(backgroundColor, "weak"),
+      color: colors.getHex(color),
       backdropFilter: this.getBlurValue(),
       outline: "none",
       border: "1px solid transparent",
@@ -67,7 +68,7 @@ export class GlassMaterial extends Material {
 
       ...this.getScrollbarStyles(valence, colors),
 
-      "& > *": {
+      "& *": {
         ...this.getChildrenStyles(valence, colors),
       },
 

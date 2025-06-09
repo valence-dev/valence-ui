@@ -164,11 +164,9 @@ export const Alert = forwardRef(function Alert(
         ref={ref}
         {...rest}
       >
-        <div style={{ width: theme.getSize("iconSize", size) }}>
-          <Icon size={theme.getSize("iconSize", size) as number}>
-            {alertIcon}
-          </Icon>
-        </div>
+        <Icon size={theme.getSize("iconSize", size) as number}>
+          {alertIcon}
+        </Icon>
 
         <Flex
           direction="column"

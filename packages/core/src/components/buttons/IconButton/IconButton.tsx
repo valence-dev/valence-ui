@@ -1,8 +1,5 @@
 import { useValence } from "../../../ValenceProvider";
-import {
-  MakeResponsive,
-  useResponsiveProps,
-} from "../../../utilities/responsive";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities";
 import { Icon } from "../../display";
 import { Tooltip, TooltipContentProps, TooltipProps } from "../../overlays";
 import { PrimitiveButton, PrimitiveButtonProps } from "../PrimitiveButton";
@@ -13,7 +10,7 @@ export type IconButtonProps = PrimitiveButtonProps & {
   tooltip?: string;
 
   /** Optional props to pass to the tooltip. */
-  tooltipProps?: Omit<TooltipProps, "children">;
+  tooltipProps?: Omit<TooltipProps, "children" | "disclosure">;
   /** Additional props to pass to the content sub-component of the tooltip. */
   tooltipContentProps?: Omit<TooltipContentProps, "children">;
 };
@@ -33,7 +30,7 @@ export const IconButton = forwardRef(function IconButton(
     ...rest
   } = useResponsiveProps<IconButtonProps>(props);
 
-  return tooltip ? (
+  return !!tooltip ? (
     <Tooltip placement="bottom" {...tooltipProps}>
       <Tooltip.Trigger>
         <Button size={size} square={square} {...rest} ref={ref}>

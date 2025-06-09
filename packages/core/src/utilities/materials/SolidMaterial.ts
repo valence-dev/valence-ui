@@ -56,9 +56,11 @@ export class SolidMaterial extends Material {
 
   getStyles(valence: IValenceContext, colors: UseColorsReturn): CSSObject {
     const color = this.color ?? valence.primaryColor;
+    const foregroundColor = this.getForegroundColor();
 
     return {
       backgroundColor: colors.getHex(color),
+      color: colors.getHex(foregroundColor),
       outline: "none",
       border: "1px solid transparent",
       boxShadow: this.getElevationShadow(this.elevation),
@@ -87,7 +89,7 @@ export class SolidMaterial extends Material {
         },
       }),
 
-      "& > *": {
+      "& *": {
         ...this.getChildrenStyles(valence, colors),
       },
 
