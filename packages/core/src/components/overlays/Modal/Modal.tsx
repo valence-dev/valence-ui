@@ -107,7 +107,7 @@ export const Modal = forwardRef(function Modal(
   // Styles
   const ContainerStyle = css({
     backgroundColor: getHex(backgroundColor),
-    border: `1px solid ${getHex("black", "strong")}`,
+    border: `1px solid ${getHex("black", "medium")}`,
     padding: padding,
     margin: margin,
     width: width,
@@ -130,7 +130,7 @@ export const Modal = forwardRef(function Modal(
     <AnimatePresence>
       {disclosure.opened && (
         <ModalBackground disclosure={disclosure} {...overlayBackgroundProps}>
-          <FloatingFocusManager context={context}>
+          <FloatingFocusManager context={context} initialFocus={-1}>
             <motion.div
               css={ContainerStyle}
               // @ts-ignore

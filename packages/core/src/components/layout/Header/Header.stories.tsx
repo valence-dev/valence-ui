@@ -1,4 +1,3 @@
-import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { ValenceProvider } from "../../..";
 import { Header as H } from "./Header";
@@ -20,5 +19,5 @@ export const Header: Story = (args: any) => (
   </ValenceProvider>
 );
 Header.args = {
-  children: <Title>Hello world</Title>,
+  children: <Title color="black">Hello world</Title>,
 };

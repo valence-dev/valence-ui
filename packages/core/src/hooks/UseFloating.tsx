@@ -1,5 +1,6 @@
 import { CSSProperties } from "react";
 import { MakeResponsive, useResponsiveProps } from "../utilities";
+import { CSSObject } from "@emotion/react";
 
 export type PositionHorizontal = "left" | "right" | "center";
 export type PositionVertical = "top" | "bottom" | "center";
@@ -27,7 +28,7 @@ export type UseFloatingProps = {
   calculateOffset?: boolean;
 };
 export type UseFloatingOutput = {
-  style: CSSProperties;
+  style: CSSObject;
 };
 
 function getOffset(
@@ -102,7 +103,7 @@ export function useFloating(
   if (positionHorizontal === "center") transformFunction += "translateX(-50%) ";
   if (positionVertical === "center") transformFunction += "translateY(-50%)";
 
-  const style: CSSProperties = {
+  const style: CSSObject = {
     top:
       positionVertical === "top" || positionVertical === "center"
         ? offsetTop

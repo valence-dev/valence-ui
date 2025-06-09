@@ -15,6 +15,7 @@ import {
   PositionVertical,
   useFloating,
 } from "../../../hooks/";
+import { CSSObject } from "@emotion/react";
 
 export type FloatingToolbarProps = GenericFloatingLayoutProps &
   FlexProps & {
@@ -89,17 +90,17 @@ export const FloatingToolbar = forwardRef(function FloatingToolbar(
   });
 
   // Styles
-  const OuterFlexStyle: CSSProperties = {
+  const OuterFlexStyle: CSSObject = {
     position: position,
     zIndex: zIndex,
     ...floating.style,
   };
-  const ToolbarStyle: CSSProperties = {
+  const ToolbarStyle: CSSObject = {
     padding: offset / 2,
     borderRadius: (theme.getSize("radius", radius) as number) + offset / 2,
     ...style,
   };
-  const LabelStyle: CSSProperties = {
+  const LabelStyle: CSSObject = {
     backgroundColor: getHex("white", "strong"),
     backdropFilter: "blur(10px)",
     padding: `${offset / 4}px ${offset}px`,
@@ -130,7 +131,13 @@ export const FloatingToolbar = forwardRef(function FloatingToolbar(
       </Flex>
 
       {label && (
-        <Text size="xs" align="center" style={LabelStyle} {...labelRest}>
+        <Text
+          size="xs"
+          align="center"
+          style={LabelStyle}
+          color="black"
+          {...labelRest}
+        >
           {label}
         </Text>
       )}

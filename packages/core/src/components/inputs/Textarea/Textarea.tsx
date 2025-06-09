@@ -121,6 +121,9 @@ export const Textarea = forwardRef(function Textarea(
     "&::-webkit-scrollbar-thumb": {
       borderRadius: 5,
     },
+    "&::placeholder": {
+      fontStyle: "italic",
+    },
 
     ...inputStyle,
   });
