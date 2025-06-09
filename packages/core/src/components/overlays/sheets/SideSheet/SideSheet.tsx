@@ -1,4 +1,5 @@
-import { CSSProperties, ReactNode, forwardRef, useEffect } from "react";
+/** @jsxImportSource @emotion/react */
+import { ReactNode, forwardRef, useEffect } from "react";
 import { GenericSheetProps } from "../Generics";
 import {
   GenericOverlayBackgroundProps,
@@ -16,6 +17,7 @@ import { DefaultModalHeader } from "../../Modal";
 import { Disclosure, useDetectKeyDown } from "../../../../hooks";
 import { ModalBackground } from "../../ModalBackground";
 import { useLockScroll } from "../../../../hooks/UseLockScroll";
+import { css } from "@emotion/react";
 
 export type SideSheetDisplay = "inline" | "overlay";
 
@@ -91,7 +93,7 @@ export const SideSheet = forwardRef(function SideSheet(
 
   // Styles
   const borderRadius = theme.sizeClasses.radius[radius];
-  const SheetStyle: CSSProperties = {
+  const SheetStyle = css({
     position: "fixed",
     top: 0,
     right: fixedDirection === "right" ? 0 : undefined,
@@ -121,7 +123,7 @@ export const SideSheet = forwardRef(function SideSheet(
     borderLeft: `1px solid ${getHex("black", "weak")}`,
 
     ...style,
-  };
+  });
 
   // Hooks
   useLockScroll(disclosure.opened && lockScroll && display === "overlay");
@@ -153,8 +155,7 @@ export const SideSheet = forwardRef(function SideSheet(
           backgroundProps={overlayBackgroundProps}
         >
           <motion.div
-            style={SheetStyle}
-            // @ts-ignore
+            css={SheetStyle}
             onClick={(e) => e.stopPropagation()}
             initial={{
               x: fixedDirection === "right" ? "100%" : "-100%",

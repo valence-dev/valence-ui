@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { FlexCenter, Space, Text, ValenceProvider } from "../../..";
+import { Button, FlexCenter, Space, Text, ValenceProvider } from "../../..";
 
 import { PillSelector as PS } from "../../..";
 
@@ -15,9 +15,12 @@ type Story = StoryObj<typeof PS>;
 export const PillSelector: Story = (args: any) => {
   const [value, setValue] = React.useState(["hello", "world", "amet"]);
   const [pills, setPills] = React.useState(args.pills);
+  const [loading, setLoading] = React.useState(false);
 
   return (
     <ValenceProvider>
+      <Button onClick={() => setLoading(!loading)}>Toggle Loading State</Button>
+
       <FlexCenter innerProps={{ direction: "column" }}>
         <Text>Wrapped pill container</Text>
 
@@ -28,6 +31,7 @@ export const PillSelector: Story = (args: any) => {
           pills={pills}
           setPills={setPills}
           wrap="wrap"
+          loading={loading}
           allowEditing
         />
 
@@ -35,7 +39,7 @@ export const PillSelector: Story = (args: any) => {
 
         <Text>Regular pill container</Text>
 
-        <PS value={value} setValue={setValue} pills={pills} />
+        <PS value={value} setValue={setValue} pills={pills} loading={loading} />
 
         <Space height={20} />
       </FlexCenter>

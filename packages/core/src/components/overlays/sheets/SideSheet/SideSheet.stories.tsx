@@ -18,7 +18,7 @@ export const SideSheet: Story = (args: any) => {
 
   return (
     <ValenceProvider>
-      <Button onClick={() => disclosure.open()}>Open Side Sheet</Button>
+      <Button onClick={() => disclosure.toggle()}>Toggle Side Sheet</Button>
 
       <SS disclosure={disclosure} {...args}>
         <Flex width="100%" height="200vh" material={new GlassMaterial()}>

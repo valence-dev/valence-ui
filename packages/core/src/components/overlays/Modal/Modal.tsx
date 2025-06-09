@@ -11,7 +11,7 @@ import {
 } from "../../..";
 import { Flex, FlexProps, OverflowContainer } from "../../layout";
 import { AnimatePresence, motion } from "motion/react";
-import { Icon, Title } from "../../display";
+import { Title } from "../../display";
 import { IconX } from "@tabler/icons-react";
 import {
   GenericOverlayHeaderProps,
@@ -198,9 +198,7 @@ export const DefaultModalHeader = forwardRef(function DefaultModalHeader(
         onClick={disclosure.close}
         material={new AirMaterial({ color: "black" })}
       >
-        <Icon>
-          <IconX />
-        </Icon>
+        <IconX />
       </IconButton>
     </header>
   );

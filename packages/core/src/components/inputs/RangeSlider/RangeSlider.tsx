@@ -11,7 +11,7 @@ import { useValence } from "../../../ValenceProvider";
 import { Flex } from "../../layout";
 import ReactSlider from "react-slider";
 import { css } from "@emotion/react";
-import { NumberInput } from "../NumberInput";
+import { NumberInput, NumberInputProps } from "../NumberInput";
 import {
   MakeResponsive,
   useResponsiveProps,
@@ -49,6 +49,8 @@ export type RangeSliderProps = GenericInputProps<number[]> &
     trackProps?: Omit<SliderTrackProps, "state">;
     /** Optional props to pass to thumb components. */
     thumbProps?: Omit<SliderThumbProps, "state">;
+    /** Optional props to pass to the number inputs */
+    numberInputProps?: Omit<NumberInputProps, "value" | "setValue">;
   };
 
 export const RangeSlider = forwardRef(function RangeSlider(
@@ -84,6 +86,7 @@ export const RangeSlider = forwardRef(function RangeSlider(
 
     trackProps,
     thumbProps,
+    numberInputProps,
 
     onAfterChange,
     onBeforeChange,
@@ -173,6 +176,8 @@ export const RangeSlider = forwardRef(function RangeSlider(
               showControls={false}
               width="fit-content"
               grow={false}
+              style={{ minWidth: 40 }}
+              {...numberInputProps}
             />
           ))}
         </Flex>

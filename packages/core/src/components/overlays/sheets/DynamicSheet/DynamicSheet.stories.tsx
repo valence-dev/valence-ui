@@ -1,4 +1,3 @@
-import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { DynamicSheet as DS } from "./DynamicSheet";
 import { ValenceProvider } from "../../../../ValenceProvider";
@@ -17,7 +16,7 @@ export const DynamicSheet: Story = (args: any) => {
 
   return (
     <ValenceProvider>
-      <Button onClick={() => disclosure.open()}>Open Dynamic Sheet</Button>
+      <Button onClick={() => disclosure.toggle()}>Toggle Dynamic Sheet</Button>
 
       <DS disclosure={disclosure} {...args} />
     </ValenceProvider>

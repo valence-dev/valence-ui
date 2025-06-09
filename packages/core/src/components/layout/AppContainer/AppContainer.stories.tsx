@@ -5,6 +5,8 @@ import { AppNav } from "../../navigation";
 import {
   IconBolt,
   IconCategory,
+  IconLayoutSidebarRightCollapse,
+  IconLayoutSidebarRightExpand,
   IconLogout,
   IconUserCircle,
 } from "@tabler/icons-react";
@@ -13,9 +15,9 @@ import { SideSheet } from "../../overlays";
 import { Flex, Header, PageContainer } from "..";
 import { ValenceProvider } from "../../../ValenceProvider";
 import { Title } from "../../display";
-import { Button } from "../../buttons";
+import { Button, ButtonWithIcon } from "../../buttons";
 import { useDisclosure } from "../../../hooks";
-import { GlassMaterial } from "../../../utilities";
+import { GlassMaterial, SolidMaterial } from "../../../utilities";
 
 const meta: Meta<typeof AC> = {
   component: AC,
@@ -32,7 +34,7 @@ export const AppContainer: Story = (args: any) => {
     <BrowserRouter>
       <ValenceProvider>
         <AC {...args}>
-          <Button
+          <ButtonWithIcon
             onClick={() => {
               sideSheet.update(!sideSheet.opened);
             }}
@@ -41,9 +43,19 @@ export const AppContainer: Story = (args: any) => {
               positionHorizontal: "right",
               positionVertical: "bottom",
             }}
+            material={new SolidMaterial().setElevation(2)}
+            radius="xl"
+            icon={
+              sideSheet.opened ? (
+                <IconLayoutSidebarRightCollapse />
+              ) : (
+                <IconLayoutSidebarRightExpand />
+              )
+            }
+            iconPosition="right"
           >
-            Toggle Side Sheet
-          </Button>
+            {sideSheet.opened ? "Collapse" : "Expand"}
+          </ButtonWithIcon>
 
           <PageContainer
             exemptContent={

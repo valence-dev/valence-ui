@@ -1,4 +1,5 @@
-import { CSSProperties, ReactNode, forwardRef } from "react";
+/** @jsxImportSource @emotion/react */
+import { ReactNode, forwardRef } from "react";
 import { GenericLayoutProps, PolymorphicLayoutProps } from "@valence-ui/utils";
 import { Flex } from "../Flex";
 import {
@@ -9,6 +10,7 @@ import {
 } from "../../../utilities";
 import { useValence } from "../../../ValenceProvider";
 import { useElementSize } from "../../../hooks";
+import { CSSObject } from "@emotion/react";
 
 export type AppContainerProps = GenericLayoutProps &
   PolymorphicLayoutProps & {
@@ -44,7 +46,7 @@ export const AppContainer = forwardRef(function AppContainer(
   const { ref: navRef, width: navWidth, height: navHeight } = useElementSize();
 
   // Styles
-  const rootContentStyle: Responsive<CSSProperties> = {
+  const rootContentStyle: Responsive<CSSObject> = {
     default: {
       position: "fixed",
       top: 0,
@@ -63,7 +65,7 @@ export const AppContainer = forwardRef(function AppContainer(
     },
   };
 
-  const navContainerStyle: Responsive<CSSProperties> = {
+  const navContainerStyle: Responsive<CSSObject> = {
     default: {
       backgroundColor: getHex("primary"),
       position: "fixed",
@@ -84,13 +86,12 @@ export const AppContainer = forwardRef(function AppContainer(
     ...style,
   };
 
-  const contentContainerContainerStyle: CSSProperties = {
-    // Lmao
+  const contentContainerContainerStyle: CSSObject = {
     height: "100%",
     width: "100%",
     backgroundColor: getHex("primary"),
   };
-  const contentContainerStyle: Responsive<CSSProperties> = {
+  const contentContainerStyle: Responsive<CSSObject> = {
     default: {
       height: "100%",
       width: "100%",
@@ -111,7 +112,7 @@ export const AppContainer = forwardRef(function AppContainer(
 
   return (
     <>
-      <div id="root-content" style={useResponsiveProps(rootContentStyle)}>
+      <div id="root-content" css={useResponsiveProps(rootContentStyle)}>
         {/* Nav */}
         {showNav && (
           <Flex

@@ -6,6 +6,7 @@ import {
   useResponsiveProps,
   useValence,
 } from "../../..";
+import { CSSObject } from "@emotion/react";
 
 export type HeaderProps = FlexCenterProps & {
   /** Defines the position of this header. */
@@ -60,7 +61,7 @@ export const Header = forwardRef(function Header(
   } = useResponsiveProps<HeaderProps>(props);
 
   // Styles
-  const HeaderStyle: CSSProperties = {
+  const HeaderStyle: CSSObject = {
     backgroundColor: getHex(backgroundColor, "strong"),
     backdropFilter: "blur(10px)",
     position: position,

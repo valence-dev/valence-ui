@@ -3,6 +3,7 @@ import { CSSProperties, ReactNode, forwardRef } from "react";
 import {
   MakeResponsive,
   Material,
+  TransitionAnimation,
   useColors,
   useResponsiveProps,
   useValence,
@@ -178,6 +179,8 @@ export const InputContainer = forwardRef(function InputContainer(
     ...requireIndicatorStyle,
   });
 
+  const iconAnimations: TransitionAnimation[] = ["blur", "fade", "slide-left"];
+
   return (
     <div
       css={ContainerStyle}
@@ -189,7 +192,13 @@ export const InputContainer = forwardRef(function InputContainer(
 
       {(icon || loading) && (
         <div css={IconContainerStyle}>
-          {loading ? <Loader /> : <Icon {...iconProps}>{icon}</Icon>}
+          {loading ? (
+            <Loader animation={iconAnimations} />
+          ) : (
+            <Icon animation={iconAnimations} {...iconProps}>
+              {icon}
+            </Icon>
+          )}
         </div>
       )}
 

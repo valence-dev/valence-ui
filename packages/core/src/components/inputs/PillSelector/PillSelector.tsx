@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
+import { css, CSSObject } from "@emotion/react";
 import {
   FocusEvents,
   KeyboardEvents,
@@ -25,7 +25,8 @@ import {
 } from "../../../utilities/responsive";
 import { useColors } from "../../../utilities/color";
 import { TextInput, TextInputProps } from "../TextInput";
-import { Material } from "../../../utilities";
+import { GlassMaterial, Material, SolidMaterial } from "../../../utilities";
+import { Loader } from "../../display";
 
 export type PillSelectorEventProps = MouseClickEvents &
   MouseEvents &
@@ -55,7 +56,13 @@ export type PillSelectorProps = Omit<GenericInputProps<string[]>, "children"> &
     /** How the pills should wrap within their container. Defaults to `"nowrap"`. */
     wrap?: CSSProperties["flexWrap"];
 
-    material?: Material;
+    /** Materials to apply to the pill selector's components */
+    materials?: {
+      regular: Material;
+      selected: Material;
+      input: Material;
+      button?: Material;
+    };
 
     /** The maxmimum number of pills that can be selected. `Infinity` by default. */
     maxSelectable?: number;
@@ -127,7 +134,12 @@ export const PillSelector = forwardRef(function PillSelector(
     readOnly = disabled,
     required,
 
-    material = theme.materials.input,
+    materials = {
+      regular: new GlassMaterial({ color: "black" }),
+      selected: new SolidMaterial({ color: "black" }),
+      input: theme.materials.input,
+      button: theme.materials.button,
+    },
     padding,
     margin,
     width = "100%",
@@ -163,6 +175,7 @@ export const PillSelector = forwardRef(function PillSelector(
   }
 
   function handlePillClick(pill: string) {
+    if (disabled || loading || readOnly) return;
     let v = [...value];
     let pillList = [...pills];
     if (value.includes(pill)) {
@@ -214,7 +227,7 @@ export const PillSelector = forwardRef(function PillSelector(
   }
 
   // Styles
-  const ContainerStyle: CSSProperties = {
+  const ContainerStyle: CSSObject = {
     padding: padding,
     margin: margin,
     width: width,
@@ -231,8 +244,9 @@ export const PillSelector = forwardRef(function PillSelector(
     width: "100%",
 
     flexWrap: wrap,
+    alignItems: "center",
 
-    ...material.getScrollbarStyles(theme, colors),
+    ...materials.regular.getScrollbarStyles(theme, colors),
 
     "&::-webkit-scrollbar": {
       height: 2,
@@ -243,7 +257,7 @@ export const PillSelector = forwardRef(function PillSelector(
 
     ...(pillContainerStyle as any),
   });
-  const ButtonStyle: CSSProperties = {
+  const ButtonStyle: CSSObject = {
     margin: `${gap}px 0px`,
     ...clearButtonStyle,
   };
@@ -263,7 +277,7 @@ export const PillSelector = forwardRef(function PillSelector(
             setValue={setInputValue}
             onEnterPress={() => addPill()}
             placeholder={placeholder}
-            material={material}
+            material={materials.input}
             size={size}
             radius={radius}
             loading={loading}
@@ -277,6 +291,14 @@ export const PillSelector = forwardRef(function PillSelector(
             size={size}
             radius={radius}
             onClick={() => addPill()}
+            disabled={
+              !allowEditing ||
+              disabled ||
+              loading ||
+              readOnly ||
+              !inputValue.trim()
+            }
+            material={materials.button}
             {...addButtonProps}
           >
             {addButtonIcon}
@@ -285,15 +307,20 @@ export const PillSelector = forwardRef(function PillSelector(
       )}
       <Flex gap={gap} width="100%" height="fit-content" align="center">
         <Flex gap={gap} css={PillContainerStyle} {...pillContainerPropsRest}>
-          {pills.map((pill, index) => {
+          {loading && !allowEditing && (
+            <Loader size={size} animation={["fade", "blur", "slide-right"]} />
+          )}
+
+          {pills.map((pill) => {
             const isSelected = value.includes(pill);
 
             return (
               <Button
-                key={index}
+                key={pill}
                 size={size}
                 radius={radius}
-                material={material}
+                material={isSelected ? materials.selected : materials.regular}
+                disabled={disabled || loading || readOnly}
                 onClick={() => handlePillClick(pill)}
                 {...pillProps}
                 {...(isSelected ? selectedPillProps : undefined)}
@@ -308,6 +335,8 @@ export const PillSelector = forwardRef(function PillSelector(
           size={size}
           radius={radius}
           onClick={() => handleClearPills()}
+          disabled={!allowClear || disabled || loading}
+          material={materials.button}
           style={ButtonStyle}
           {...clearButtonPropsRest}
         >
