@@ -8,6 +8,7 @@ import {
   SolidMaterial,
   ValenceProvider,
 } from "../../..";
+import { useState } from "react";
 
 const meta: Meta<typeof Button> = {
   component: Button,
@@ -50,22 +51,28 @@ const meta: Meta<typeof Button> = {
 export default meta;
 type Story = StoryObj<typeof Button>;
 
-export const Text: Story = (args: any) => (
-  <ValenceProvider>
-    <Flex center padding={40}>
-      <Button {...args} size="xs" />
-      <Button {...args} size="sm" />
-      <Button {...args} size="md" />
-      <Button {...args} size="lg" />
-      <Button {...args} size="xl" />
-    </Flex>
-    <Flex center padding={40}>
-      <Button {...args} material={new GlassMaterial()} />
-      <Button {...args} material={new PaperMaterial()} />
-      <Button {...args} material={new SolidMaterial()} />
-    </Flex>
-  </ValenceProvider>
-);
+export const Text: Story = (args: any) => {
+  const [loading, setLoading] = useState(false);
+
+  return (
+    <ValenceProvider>
+      <Button onClick={() => setLoading(!loading)}>Toggle Loading State</Button>
+
+      <Flex center padding={40}>
+        <Button {...args} size="xs" loading={loading} />
+        <Button {...args} size="sm" loading={loading} />
+        <Button {...args} size="md" loading={loading} />
+        <Button {...args} size="lg" loading={loading} />
+        <Button {...args} size="xl" loading={loading} />
+      </Flex>
+      <Flex center padding={40}>
+        <Button {...args} material={new GlassMaterial()} loading={loading} />
+        <Button {...args} material={new PaperMaterial()} loading={loading} />
+        <Button {...args} material={new SolidMaterial()} loading={loading} />
+      </Flex>
+    </ValenceProvider>
+  );
+};
 Text.args = {
   children: "Button",
 };

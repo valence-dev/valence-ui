@@ -1,4 +1,3 @@
-import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { FlexCenter, ValenceProvider } from "../../..";
 
@@ -23,5 +22,4 @@ export const InputContainer: Story = (args: any) => (
 InputContainer.args = {
   icon: <IconSearch />,
   children: <input />,
-  color: "blue",
 };

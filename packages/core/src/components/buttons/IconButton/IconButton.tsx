@@ -64,7 +64,12 @@ const Button = forwardRef(function Button(
 
   return (
     <PrimitiveButton size={size} ref={ref} {...rest}>
-      <Icon size={theme.getSize("iconSize", size) as number}>{children}</Icon>
+      <Icon
+        size={theme.getSize("iconSize", size) as number}
+        animation={["blur", "fade", "grow"]}
+      >
+        {children}
+      </Icon>
     </PrimitiveButton>
   );
 });

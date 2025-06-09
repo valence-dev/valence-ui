@@ -1,7 +1,11 @@
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import { CSSProperties, forwardRef } from "react";
 import { motion } from "motion/react";
 import {
   MakeResponsive,
+  TransitionAnimation,
+  useAnimation,
   useColors,
   useResponsiveProps,
   useValence,
@@ -13,6 +17,8 @@ export type LoaderProps = Omit<GenericProps, "children"> & {
   size?: ComponentSize;
   /** Color of the loader. Defaults to theme default */
   color?: CSSProperties["color"];
+  /** Optional animation properties for this icon. */
+  animation?: TransitionAnimation | TransitionAnimation[];
 };
 
 const SIZES: SizeClasses<{ height: number; thickness: number }> = {
@@ -33,13 +39,22 @@ export const Loader = forwardRef(function Loader(
   // Defaults
   const {
     size = theme.defaults.size,
-    color = theme.primaryColor,
+    color = "inherit",
+    animation,
     style,
     ...rest
   } = useResponsiveProps<LoaderProps>(props);
+  const animations = useAnimation({ transitionAnimation: animation });
 
   // Styles
-  const loaderStyle: CSSProperties = {
+  const containerStyle = css({
+    width: theme.getSize("iconSize", size),
+    height: theme.getSize("iconSize", size),
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  });
+  const loaderStyle = css({
     width: SIZES[size].height,
     height: SIZES[size].height,
     border: `${SIZES[size].thickness}px solid #11181C00`,
@@ -48,20 +63,28 @@ export const Loader = forwardRef(function Loader(
     display: "inline-block",
     boxSizing: "border-box",
     ...style,
-  };
+  });
 
   return (
     <motion.div
-      style={loaderStyle}
-      animate={{ rotate: 360 }}
-      transition={{
-        repeat: Infinity,
-        type: "tween",
-        duration: 0.8,
-        ease: "linear",
-      }}
-      ref={ref}
-      {...rest}
-    />
+      css={containerStyle}
+      variants={animations}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+    >
+      <motion.div
+        css={loaderStyle}
+        animate={{ rotate: 360 }}
+        transition={{
+          repeat: Infinity,
+          type: "tween",
+          duration: 0.8,
+          ease: "linear",
+        }}
+        ref={ref}
+        {...rest}
+      />
+    </motion.div>
   );
 });

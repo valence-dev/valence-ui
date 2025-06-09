@@ -122,7 +122,7 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
       ref={ref}
       {...rest}
     >
-      {loading ? <Loader /> : children}
+      {loading ? <Loader animation={["blur", "fade", "grow"]} /> : children}
     </PolymorphicButton>
   );
 });

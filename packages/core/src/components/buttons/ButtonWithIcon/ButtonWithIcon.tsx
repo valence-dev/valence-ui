@@ -1,13 +1,15 @@
-import { CSSProperties, ReactNode, forwardRef } from "react";
+import { ReactNode, forwardRef } from "react";
 import { TextButtonProps } from "../TextButton";
 import {
   MakeResponsive,
+  TransitionAnimation,
   useColors,
   useResponsiveProps,
   useValence,
 } from "../../..";
 import { PrimitiveButton } from "../PrimitiveButton";
 import { Icon, Loader, Text } from "../../display";
+import { CSSObject } from "@emotion/react";
 
 export type ButtonWithIconProps = TextButtonProps & {
   /** The icon to include with this button. */
@@ -39,7 +41,7 @@ export const ButtonWithIcon = forwardRef(function ButtonWithIcon(
 
   // Styles
   const padding = theme.getSize("padding", size) as number;
-  const styles: CSSProperties = {
+  const styles: CSSObject = {
     flexDirection: iconPosition === "left" ? "row" : "row-reverse",
     justifyContent: "flex-start",
     paddingLeft: iconPosition === "left" ? padding / 1.5 : undefined,
@@ -48,13 +50,23 @@ export const ButtonWithIcon = forwardRef(function ButtonWithIcon(
 
     ...style,
   };
+  const iconAnimations: TransitionAnimation[] = [
+    "blur",
+    "fade",
+    iconPosition === "left" ? "slide-left" : "slide-right",
+  ];
 
   return (
     <PrimitiveButton size={size} style={styles} ref={ref} {...rest}>
       {loading ? (
-        <Loader size={size} />
+        <Loader size={size} animation={iconAnimations} />
       ) : (
-        <Icon size={theme.getSize("iconSize", size) as number}>{icon}</Icon>
+        <Icon
+          size={theme.getSize("iconSize", size) as number}
+          animation={iconAnimations}
+        >
+          {icon}
+        </Icon>
       )}
 
       <Text size={size} {...textProps}>

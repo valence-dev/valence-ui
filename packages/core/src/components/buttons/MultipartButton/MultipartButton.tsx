@@ -6,12 +6,13 @@ import { Flex } from "../../layout";
 import { Icon, Loader, Text, TextProps } from "../../display";
 import { useValence } from "../../../ValenceProvider";
 import { SizeClasses } from "@valence-ui/utils";
-import { css } from "@emotion/react";
+import { css, CSSObject } from "@emotion/react";
 import {
   MakeResponsive,
   useResponsiveProps,
 } from "../../../utilities/responsive";
 import { useColors } from "../../../utilities/color";
+import { TransitionAnimation } from "../../../hooks";
 
 export type MultipartButtonProps = Omit<PrimitiveButtonProps, "children"> & {
   /** Title/main text content of this button  */
@@ -20,7 +21,7 @@ export type MultipartButtonProps = Omit<PrimitiveButtonProps, "children"> & {
   subtitle?: string;
 
   /** Icon to display on the left of the button */
-  leftIcon?: ReactNode;
+  leftIcon?: ReactNode | ReactNode[];
   /** Icon to display on the right of the button */
   rightIcon?: ReactNode;
   /** Styles to pass to the icon containers. */
@@ -70,7 +71,7 @@ export const MultipartButton = forwardRef(function MultipartButton(
   } = useResponsiveProps<MultipartButtonProps>(props);
 
   // Styles
-  const buttonStyle: CSSProperties = {
+  const buttonStyle: CSSObject = {
     justifyContent: "flex-start",
     padding: padding,
     paddingLeft: !leftIcon ? theme.sizeClasses.padding[size] : undefined,
@@ -86,6 +87,11 @@ export const MultipartButton = forwardRef(function MultipartButton(
 
     ...iconContainerStyle,
   });
+  const leftIconAnimations: TransitionAnimation[] = [
+    "blur",
+    "fade",
+    "slide-left",
+  ];
 
   return (
     <PrimitiveButton
@@ -99,9 +105,24 @@ export const MultipartButton = forwardRef(function MultipartButton(
       {leftIcon && (
         <div css={ContainerStyle}>
           {loading ? (
-            <Loader size={size} />
+            <Loader size={size} animation={leftIconAnimations} />
+          ) : leftIcon instanceof Array ? (
+            <Flex gap={5}>
+              {leftIcon.map((icon, index) => (
+                <Icon
+                  key={index}
+                  size={theme.getSize("iconSize", size) as number}
+                  animation={leftIconAnimations}
+                >
+                  {icon}
+                </Icon>
+              ))}
+            </Flex>
           ) : (
-            <Icon size={theme.getSize("iconSize", size) as number}>
+            <Icon
+              size={theme.getSize("iconSize", size) as number}
+              animation={leftIconAnimations}
+            >
               {leftIcon}
             </Icon>
           )}

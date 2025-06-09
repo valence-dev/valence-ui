@@ -5,7 +5,8 @@ import { useValence } from "../../../ValenceProvider";
 import { TextButtonProps } from "../TextButton";
 import { MakeResponsive, useResponsiveProps } from "../../../utilities";
 import { PrimitiveButton } from "../PrimitiveButton";
-import { Icon, Text } from "../../display";
+import { Icon, Loader, Text } from "../../display";
+import { TransitionAnimation } from "../../../hooks";
 
 export type GridButtonProps = TextButtonProps & {
   /** The icon to include with this button. */
@@ -29,6 +30,7 @@ export const GridButton = forwardRef(function GridButton(
     width = (theme.getSize("height", size) as number) * 2.5,
     height = width,
     square = true,
+    loading,
 
     style,
     textProps,
@@ -51,6 +53,11 @@ export const GridButton = forwardRef(function GridButton(
     width: "100%",
     height: "100%",
   });
+  const iconAnimations: TransitionAnimation[] = [
+    "blur",
+    "fade",
+    iconPosition === "top" ? "slide-up" : "slide-down",
+  ];
 
   return (
     <PrimitiveButton
@@ -63,9 +70,16 @@ export const GridButton = forwardRef(function GridButton(
       {...rest}
     >
       <div css={IconContainerStyle}>
-        <Icon size={(theme.getSize("iconSize", size) as number) * 1.5}>
-          {icon}
-        </Icon>
+        {loading ? (
+          <Loader size={size} animation={iconAnimations} />
+        ) : (
+          <Icon
+            size={(theme.getSize("iconSize", size) as number) * 1.5}
+            animation={iconAnimations}
+          >
+            {icon}
+          </Icon>
+        )}
       </div>
 
       <Text
