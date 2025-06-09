@@ -64,13 +64,15 @@ export const Icon = forwardRef(function Icon(
     ref,
   };
 
-  // If animation is provided and children is a valid React element
-  if (animation && isValidElement(children)) {
-    // Create a motion-enhanced version of the icon component
-    const MotionIcon = useMemo(
-      () => motion(children.type as any),
-      [children.type],
-    );
+  // Always call useMemo to avoid conditional hooks
+  const MotionIcon = useMemo(
+    () =>
+      isValidElement(children) ? motion((children as any).type) : undefined,
+    // Only depend on children.type if children is a valid element
+    [isValidElement(children) ? (children as any).type : null],
+  );
+
+  if (animation && isValidElement(children) && MotionIcon) {
     return (
       <MotionIcon
         {...iconProps}
