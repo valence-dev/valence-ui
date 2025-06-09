@@ -139,7 +139,7 @@ export const InputContainer = forwardRef(function InputContainer(
     cursor: disabled ? "not-allowed" : "text",
 
     transitionProperty: "background-color, border",
-    transitionDuration: theme.defaults.transitionDuration,
+    transitionDuration: "0.1s",
     transitionTimingFunction: "linear",
     textDecoration: "none",
 

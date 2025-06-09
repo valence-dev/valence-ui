@@ -20,8 +20,6 @@ export type GenericButtonProps = GenericClickableProps &
 
     /** Whether this button is square. */
     square?: boolean;
-    /** Whether a shadow will be shown under this button */
-    shadow?: boolean;
     /** Shorthand for `flex-grow = 1` */
     grow?: boolean;
 

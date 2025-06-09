@@ -40,9 +40,6 @@ export type ImageProps = GenericImageProps &
     height?: CSSProperties["height"];
     /** Shorthand for `aspect-ratio = "1/1"` */
     square?: boolean;
-
-    /** Specifies if a shadow will be shown */
-    shadow?: boolean;
   };
 
 export const Image = forwardRef(function Image(
@@ -71,7 +68,6 @@ export const Image = forwardRef(function Image(
     square = false,
     height = "fit-content",
     width = square ? height : "auto",
-    shadow = false,
 
     style,
     ...rest
@@ -85,8 +81,6 @@ export const Image = forwardRef(function Image(
     borderRadius: theme.sizeClasses.radius[radius],
     aspectRatio: square ? "1/1" : undefined,
     overflow: "hidden",
-
-    boxShadow: shadow ? theme.defaults.shadow : "none",
 
     ...material.getStyles(theme, colors),
     ...style,

@@ -121,7 +121,7 @@ export const BottomSheet = forwardRef(function BottomSheet(
     borderRadius: `${borderRadius}px ${borderRadius}px 0 0`,
     border: "none",
     borderTop: `1px solid ${getHex("black", "weak")}`,
-    boxShadow: withShadow ? theme.defaults.shadow : undefined,
+    boxShadow: withShadow ? "0px 10px 30px rgba(0, 0, 0, 0.2)" : undefined,
     touchAction: "none",
 
     ...flexStyle,

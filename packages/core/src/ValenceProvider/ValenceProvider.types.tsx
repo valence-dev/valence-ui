@@ -19,10 +19,6 @@ export type IValenceContext = {
     size: ComponentSize;
     /** The default component radius size */
     radius: ComponentSize;
-    /** The default transition duration for animated properties */
-    transitionDuration: CSSProperties["transitionDuration"];
-    /** The default shadow style to apply */
-    shadow: CSSProperties["boxShadow"];
   };
 
   /** Default materials applied to objects of different types */

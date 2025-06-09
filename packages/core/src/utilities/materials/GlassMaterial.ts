@@ -49,7 +49,7 @@ export class GlassMaterial extends Material {
       border: "1px solid transparent",
 
       ...(this.interactive && {
-        transitionDuration: valence.defaults.transitionDuration,
+        transitionDuration: "0.1s",
         transitionProperty: "background-color, border",
 
         "&:hover": {

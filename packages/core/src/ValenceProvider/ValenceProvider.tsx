@@ -35,8 +35,6 @@ export type ValenceProviderProps = {
   defaults?: {
     size: ComponentSize;
     radius: ComponentSize;
-    transitionDuration: CSSProperties["transitionDuration"];
-    shadow: CSSProperties["boxShadow"];
   };
   materials?: {
     button: Material;
@@ -84,8 +82,6 @@ export function ValenceProvider(props: ValenceProviderProps) {
     defaults: {
       size: "sm",
       radius: "sm",
-      transitionDuration: "0.1s",
-      shadow: "0px 10px 30px rgba(0, 0, 0, 0.2)",
     },
     materials: {
       button: new GlassMaterial(),

@@ -76,7 +76,7 @@ export class PaperMaterial extends Material {
       backdropFilter: this.getBlurValue(),
 
       ...(this.interactive && {
-        transitionDuration: valence.defaults.transitionDuration,
+        transitionDuration: "0.1s",
         transitionProperty: "border, box-shadow",
 
         "&:hover": {

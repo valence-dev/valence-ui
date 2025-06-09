@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { CSSProperties, forwardRef } from "react";
-import { useReducedMotion } from "motion/react";
 import { Loader } from "../../display/Loader";
 import { PolymorphicButton } from "@valence-ui/utils";
 import { useValence } from "../../../ValenceProvider";
@@ -35,9 +34,6 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
   const theme = useValence();
   const colors = useColors();
 
-  // Hooks & states
-  const reducedMotion = useReducedMotion();
-
   // Defaults
   const {
     material = theme.materials.button,
@@ -45,7 +41,6 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
     radius = theme.defaults.radius,
 
     square = false,
-    shadow = false,
     grow = false,
 
     disabled = false,
@@ -88,13 +83,7 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
     borderRadius: theme.sizeClasses.radius[radius],
     opacity: disabled ? 0.5 : 1,
     cursor: disabled ? "not-allowed" : loading ? "wait" : "pointer",
-    boxShadow: shadow ? theme.defaults.shadow : "none",
 
-    transitionProperty: "background-color, border",
-    transitionDuration: theme.defaults.transitionDuration,
-    transitionTimingFunction: "linear",
-
-    outline: "none",
     textDecoration: "none",
 
     ...material.setInteractive(true).getStyles(theme, colors),

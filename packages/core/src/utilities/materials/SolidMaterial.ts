@@ -64,7 +64,7 @@ export class SolidMaterial extends Material {
       boxShadow: this.getElevationShadow(this.elevation),
 
       ...(this.interactive && {
-        transitionDuration: valence.defaults.transitionDuration,
+        transitionDuration: "0.1s",
         transitionProperty: "background-color, border, box-shadow",
 
         "&:hover": {

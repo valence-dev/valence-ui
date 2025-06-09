@@ -118,7 +118,9 @@ export const SideSheet = forwardRef(function SideSheet(
           ? `${borderRadius}px 0 0 ${borderRadius}px`
           : `0 ${borderRadius}px ${borderRadius}px 0`,
     boxShadow:
-      withShadow && display === "overlay" ? theme.defaults.shadow : undefined,
+      withShadow && display === "overlay"
+        ? "0px 10px 30px rgba(0, 0, 0, 0.2)"
+        : undefined,
 
     borderLeft: `1px solid ${getHex("black", "weak")}`,
 

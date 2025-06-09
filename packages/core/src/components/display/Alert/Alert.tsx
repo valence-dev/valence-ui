@@ -56,8 +56,6 @@ export type AlertProps = GenericClickableProps &
     size?: ComponentSize;
     /** The border size of this alert. Defaults to the theme default radius size. */
     radius?: ComponentSize;
-    /** Specifies if a shadow will be shown */
-    shadow?: boolean;
 
     /** Optional animation props to apply to this alert. */
     animation?: AnimationProps;
@@ -96,7 +94,6 @@ export const Alert = forwardRef(function Alert(
     material = theme.materials.card,
     size = theme.defaults.size,
     radius = theme.defaults.radius,
-    shadow = false,
     animation,
 
     padding = theme.sizeClasses.padding[size],
@@ -142,7 +139,6 @@ export const Alert = forwardRef(function Alert(
 
     textDecoration: "none",
 
-    boxShadow: shadow ? theme.defaults.shadow : "none",
     cursor: CLICKABLE_ELEMENTS.includes(component as string)
       ? "pointer"
       : "default",

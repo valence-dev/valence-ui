@@ -113,7 +113,7 @@ export const Modal = forwardRef(function Modal(
     width: width,
     height: height,
     borderRadius: theme.sizeClasses.radius[radius],
-    boxShadow: withShadow ? theme.defaults.shadow : undefined,
+    boxShadow: withShadow ? "0px 10px 30px rgba(0, 0, 0, 0.2)" : undefined,
 
     boxSizing: "border-box",
     maxWidth: "100%",

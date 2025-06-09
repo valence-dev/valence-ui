@@ -35,7 +35,7 @@ export class AirMaterial extends Material {
       border: "none",
 
       ...(this.interactive && {
-        transitionDuration: valence.defaults.transitionDuration,
+        transitionDuration: "0.1s",
         transitionProperty: "background-color, border",
 
         "&:hover": {
