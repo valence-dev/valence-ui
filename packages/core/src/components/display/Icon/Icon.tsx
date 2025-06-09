@@ -54,8 +54,6 @@ export const Icon = forwardRef(function Icon(
   } = useResponsiveProps<IconProps>(props);
   const animations = useAnimation({ transitionAnimation: animation });
 
-  if (!children) return null;
-
   // Prepare icon props
   const iconProps = {
     size,
@@ -72,6 +70,7 @@ export const Icon = forwardRef(function Icon(
     [isValidElement(children) ? (children as any).type : null],
   );
 
+  if (!children) return null;
   if (animation && isValidElement(children) && MotionIcon) {
     return (
       <MotionIcon

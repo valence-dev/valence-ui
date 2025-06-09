@@ -46,6 +46,10 @@ export class AirMaterial extends Material {
           backgroundColor: colors.getHex(backgroundColor, "weak"),
           border: `1px solid ${colors.getHex(color)}`,
         },
+        "&:disabled": {
+          cursor: "not-allowed",
+          opacity: 0.75,
+        },
       }),
 
       "& > *": {

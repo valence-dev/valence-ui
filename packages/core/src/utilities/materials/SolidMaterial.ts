@@ -81,6 +81,10 @@ export class SolidMaterial extends Material {
             .darken(12)
             .toHexString()}`,
         },
+        "&:disabled": {
+          cursor: "not-allowed",
+          opacity: 0.75,
+        },
       }),
 
       "& > *": {

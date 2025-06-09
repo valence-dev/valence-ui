@@ -89,6 +89,10 @@ export class PaperMaterial extends Material {
           outline: "none",
           border: `1px solid ${colors.getHex(color)}`,
         },
+        "&:disabled": {
+          cursor: "not-allowed",
+          opacity: 0.75,
+        },
       }),
 
       "& > *": {

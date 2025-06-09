@@ -1,35 +1,36 @@
 /** @jsxImportSource @emotion/react */
 import { FocusEvents } from "@valence-ui/utils";
-import { forwardRef } from "react";
+import { CSSProperties, forwardRef } from "react";
 import { useValence } from "../../../ValenceProvider";
-import { PrimitiveButton, PrimitiveButtonProps } from "../../buttons";
-import { Loader, Text, TextProps } from "../../display";
-import { motion } from "motion/react";
-import { Flex } from "../../layout";
-import { css } from "@emotion/react";
+import { Text, TextProps } from "../../display";
 import { GenericInputProps } from "../../../generics";
 import {
   MakeResponsive,
   useResponsiveProps,
 } from "../../../utilities/responsive";
 import { useColors } from "../../../utilities/color";
-import { Material } from "../../../utilities";
+import { Material, SolidMaterial } from "../../../utilities";
+import { motion } from "motion/react";
+import { css } from "@emotion/react";
+import { Flex, FlexProps } from "../../layout";
 
 export type SwitchProps = GenericInputProps<boolean> &
   FocusEvents & {
     /** The label associated with this input */
     label?: string;
 
-    /** Shorthand for `flex-grow = 1` */
-    grow?: boolean;
-
     /** The material of this input */
-    material?: Material;
+    materials?: {
+      buttonNormal: Material;
+      buttonActive: Material;
+      handleNormal: Material;
+      handleActive: Material;
+    };
 
-    /** Optional props to pass to the `Button` container component */
-    buttonProps?: PrimitiveButtonProps;
+    /** Optional props to pass to the container `Flex` component */
+    containerProps?: Omit<FlexProps, "children">;
     /** Optional props to pass to the `Text` label component */
-    labelProps?: TextProps;
+    labelProps?: Omit<TextProps, "children">;
   };
 
 export const Switch = forwardRef(function Switch(
@@ -45,27 +46,32 @@ export const Switch = forwardRef(function Switch(
     setValue,
     label,
 
-    material = theme.materials.input,
+    materials = {
+      buttonNormal: theme.materials.button.setColor("black"),
+      buttonActive: new SolidMaterial(),
+      handleNormal: new SolidMaterial({ color: "black" }),
+      handleActive: new SolidMaterial({ color: "white" }),
+    },
     size = theme.defaults.size,
     radius = "xl",
-    grow = false,
 
-    disabled = false,
-    readOnly = false,
-    loading = false,
+    disabled,
+    readOnly,
+    loading,
 
     onFocus,
     onBlur,
 
-    buttonProps,
+    containerProps,
     labelProps,
 
-    padding = 4,
+    padding = 2,
     margin = 0,
     width,
     height,
 
     style,
+    id,
     ...rest
   } = useResponsiveProps<SwitchProps>(props);
 
@@ -77,77 +83,64 @@ export const Switch = forwardRef(function Switch(
   }
 
   // Styles
-  const SwitchStyle = css({
-    display: "flex",
-    flexDirection: "row",
-
-    boxSizing: "border-box",
-    flexGrow: grow ? 1 : "unset",
-
-    width: width ?? (theme.sizeClasses.height[size] as number) * 1.75,
-    height: height ?? (theme.sizeClasses.height[size] as number) * 0.75,
-    borderRadius: `${theme.sizeClasses.radius[radius]}px`,
+  const buttonCSS = css({
+    height: theme.getSize("height", size),
+    width: (theme.getSize("height", size) as number) * 2.5,
     padding: padding,
     margin: margin,
 
-    opacity: disabled ? 0.5 : 1,
-    cursor: disabled ? "not-allowed" : "pointer",
+    borderRadius: theme.getSize("radius", radius),
+    alignItems: "center",
 
-    transition: `background-color ${theme.defaults.transitionDuration} linear 0s`,
+    display: "inline-flex",
 
-    ...material.getStyles(theme, colors),
-
-    ...style,
+    ...(value
+      ? materials.buttonActive.setInteractive(true).getStyles(theme, colors)
+      : materials.buttonNormal.setInteractive(true).getStyles(theme, colors)),
   });
-  const HandleStyle = css({
-    width: "50%",
+  const buttonStyle: CSSProperties = {
+    justifyContent: value ? "flex-end" : "flex-start",
+  };
+
+  const handleCSS = css({
     height: "100%",
+    aspectRatio: "1.5 / 1",
+    borderRadius:
+      (theme.getSize("radius", radius) as number) - (padding as number),
 
-    borderRadius: `${theme.sizeClasses.radius[radius]}px`,
-    ...material.getChildrenStyles(theme, colors),
-
-    outline: "none",
-    border: "none",
+    ...(value
+      ? materials.handleActive.getStyles(theme, colors)
+      : materials.handleNormal.getStyles(theme, colors)),
   });
 
   return (
-    <PrimitiveButton
-      id={rest.id}
-      onClick={handleClick}
-      padding={0}
-      height="fit-content"
-      style={{
-        backgroundColor: "transparent !important",
-        gap: (theme.sizeClasses.padding[size] as number) / 2,
-      }}
-      size={size}
-      grow={grow}
-      onFocus={onFocus}
-      onBlur={onBlur}
-      ref={ref}
-      {...buttonProps}
-    >
+    <Flex align="center" {...containerProps}>
       {label && (
-        <Text size={size} {...labelProps} tabIndex={-1}>
+        <Text color="black" size={size} {...labelProps}>
           {label}
         </Text>
       )}
 
-      <div tabIndex={0} css={SwitchStyle} {...rest}>
-        {loading ? (
-          <Flex width="100%" height="100%" align="center" justify="center">
-            <Loader size={size} color={value ? "white" : "black"} />
-          </Flex>
-        ) : (
-          <motion.div
-            // @ts-ignore
-            css={HandleStyle}
-            initial={{ x: value ? "0%" : "100%" }}
-            animate={{ x: value ? "100%" : "0%" }}
-            transition={{ ease: "backOut" }}
-          />
-        )}
-      </div>
-    </PrimitiveButton>
+      <motion.button
+        id={id}
+        ref={ref}
+        onClick={handleClick}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        disabled={disabled || readOnly || loading}
+        css={buttonCSS}
+        style={buttonStyle}
+      >
+        <motion.div
+          css={handleCSS}
+          layout
+          transition={{
+            type: "spring",
+            visualDuration: 0.2,
+            bounce: 0.2,
+          }}
+        ></motion.div>
+      </motion.button>
+    </Flex>
   );
 });

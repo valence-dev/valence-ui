@@ -1,6 +1,7 @@
 import {
   Color,
   MakeResponsive,
+  Material,
   useColors,
   useResponsiveProps,
 } from "../../../utilities";
@@ -8,8 +9,9 @@ import { CSSProperties, forwardRef } from "react";
 import { useValence } from "../../../ValenceProvider";
 import { GenericInputProps } from "../../../generics";
 import { OverflowContainer } from "../../layout";
-import { MotionBehaviourProps, UnstyledButton } from "../../buttons";
-import { ColorSwatch } from "../../display";
+import { IconButton, IconButtonProps } from "../../buttons";
+import { CSSObject } from "@emotion/react";
+import { IconCheck } from "@tabler/icons-react";
 
 export type ColorPickerEventProps = {
   onSelect?: (color: string) => void;
@@ -19,6 +21,8 @@ export type ColorPickerProps = GenericInputProps<string> &
   ColorPickerEventProps & {
     /** A list of colors to choose from. If left unset, will use the theme default color list. */
     colors?: Color[];
+    /** The material to use for the color picker. Defaults to theme default for buttons. */
+    material?: Material;
 
     /** A list of colors to exclude from the picker. */
     excludeColors?: string[];
@@ -28,8 +32,11 @@ export type ColorPickerProps = GenericInputProps<string> &
     /** How the colors will wrap within the container. Defaults to `"nowrap". */
     wrap?: CSSProperties["flexWrap"];
 
-    /** Motion props to apply to the swatch buttons. */
-    swatchMotion?: MotionBehaviourProps;
+    /** Optional props to pass to the child buttons */
+    buttonProps?: Omit<
+      IconButtonProps,
+      "children" | "onClick" | "material" | "style" | "loading" | "disabled"
+    >;
   };
 
 export const ColorPicker = forwardRef(function ColorPicker(
@@ -49,10 +56,14 @@ export const ColorPicker = forwardRef(function ColorPicker(
       "darkerBlack",
     ],
     colors = theme.colors,
+    material = theme.materials.button,
 
     value,
     setValue,
     onSelect,
+    loading,
+    disabled,
+    readOnly,
 
     gap = 5,
     wrap = "nowrap",
@@ -64,7 +75,7 @@ export const ColorPicker = forwardRef(function ColorPicker(
     size = theme.defaults.size,
     radius = "xl",
 
-    swatchMotion = { onHover: "grow", onTap: "shrink" },
+    buttonProps,
 
     style,
     ...rest
@@ -72,14 +83,14 @@ export const ColorPicker = forwardRef(function ColorPicker(
   const usableColors = colors.filter((c) => !excludeColors.includes(c.key));
 
   // Styles
-  const ContainerStyle: CSSProperties = {
+  const ContainerStyle: CSSObject = {
     padding: padding,
     margin: margin,
     ...style,
   };
-  const ButtonStyle: CSSProperties = {
+  const ButtonStyle: CSSObject = {
     cursor: "pointer",
-    borderRadius: theme.sizeClasses.radius[radius],
+    borderRadius: theme.getSize("radius", radius),
   };
 
   return (
@@ -96,21 +107,30 @@ export const ColorPicker = forwardRef(function ColorPicker(
       }}
     >
       {usableColors.map((color, i) => (
-        <UnstyledButton
+        <IconButton
           key={i}
           style={{
             outline:
-              value === color.key ? `1px solid ${getHex("black")}` : undefined,
+              value === color.key
+                ? `1px solid ${getHex(color.key)}`
+                : `1px solid transparent`,
+            transition: "outline 0.2s ease-in-out",
             ...ButtonStyle,
           }}
-          motion={swatchMotion}
           onClick={() => {
+            if (loading || disabled || readOnly) return;
             setValue?.(color.key);
             onSelect?.(color.key);
           }}
+          material={material.setColor(color.key)}
+          size={size}
+          radius={radius}
+          loading={loading}
+          disabled={disabled || readOnly}
+          {...buttonProps}
         >
-          <ColorSwatch color={color.key} size={size} radius={radius} />
-        </UnstyledButton>
+          {value === color.key && <IconCheck />}
+        </IconButton>
       ))}
     </OverflowContainer>
   );

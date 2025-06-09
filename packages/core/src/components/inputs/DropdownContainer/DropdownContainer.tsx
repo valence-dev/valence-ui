@@ -204,10 +204,15 @@ export function DropdownContainer<OptionType>(
             <Text
               style={{
                 flex: 1,
-                opacity: selectedItemLabel ? 1 : 0.5,
+                ...(!selectedItemLabel
+                  ? {
+                      opacity: 0.5,
+                      fontStyle: "italic",
+                    }
+                  : {}),
               }}
               userSelect={false}
-              animation={["slide-right", "fade", "blur"]}
+              animation={["slide-right", "blur"]}
               {...labelProps}
             >
               {selectedItemLabel ?? placeholder}

@@ -59,6 +59,10 @@ export class GlassMaterial extends Material {
           outline: "none",
           border: `1px solid ${colors.getHex(color)}`,
         },
+        "&:disabled": {
+          cursor: "not-allowed",
+          opacity: 0.75,
+        },
       }),
 
       ...this.getScrollbarStyles(valence, colors),
