@@ -16,7 +16,7 @@ import {
   useRole,
   useTypeahead,
 } from "@floating-ui/react";
-import { css } from "@emotion/react";
+import { css, CSSObject } from "@emotion/react";
 import { IconCheck, IconSelector } from "@tabler/icons-react";
 import { InputContainer, InputContainerProps } from "../InputContainer";
 import { useValence } from "../../../ValenceProvider";
@@ -176,7 +176,7 @@ export function DropdownContainer<OptionType>(
 
     ...dropdownStyle,
   });
-  const ItemStyle: CSSProperties = {
+  const ItemStyle: CSSObject = {
     outline: "none !important",
   };
 

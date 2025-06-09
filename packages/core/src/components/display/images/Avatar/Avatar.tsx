@@ -1,6 +1,6 @@
 import { CSSProperties, ReactNode, forwardRef } from "react";
 import { Image, ImageProps } from "../Image";
-import { ComponentSize, FillVariant } from "@valence-ui/utils";
+import { ComponentSize } from "@valence-ui/utils";
 import { useValence } from "../../../../ValenceProvider";
 import { IconUserCircle } from "@tabler/icons-react";
 import { Flex } from "../../../layout";
@@ -10,15 +10,11 @@ import {
   useResponsiveProps,
 } from "../../../../utilities/responsive";
 import { useColors } from "../../../../utilities/color";
+import { CSSObject } from "@emotion/react";
 
 export type AvatarProps = ImageProps & {
-  /** Defines the fill variant for this avatar. Defaults to theme default. */
-  variant?: FillVariant;
   /** Defines the size of this avatar. Defaults to theme default. */
   size?: ComponentSize;
-
-  /** Whether to render an outline in the placeholder. */
-  outline?: boolean;
 
   /** An optional secondary icon to display near the avatar. */
   secondaryIcon?: ReactNode;
@@ -38,14 +34,12 @@ export const Avatar = forwardRef(function Avatar(
 
   // Defaults
   const {
-    color = theme.primaryColor,
-    variant = theme.defaults.variant,
+    material = theme.materials.input,
     placeholder = <IconUserCircle />,
 
     square = true,
     size = theme.defaults.size,
 
-    outline,
     secondaryIcon,
     secondaryIconProps,
 
@@ -59,19 +53,12 @@ export const Avatar = forwardRef(function Avatar(
   } = useResponsiveProps<AvatarProps>(props);
 
   // Styles
-  const imageStyle: CSSProperties = {
-    backgroundColor: colors.getBgHex(color, variant, false),
-    color: colors.getFgHex(color, variant),
+  const imageStyle: CSSObject = {
     borderRadius: "50%",
-
-    border: outline
-      ? `1px solid ${colors.getFgHex(color, variant)}`
-      : undefined,
+    ...material.getStyles(theme, colors),
     ...style,
   };
-  const secondaryIconContainerStyle: CSSProperties = {
-    backgroundColor: colors.getHex(color),
-
+  const secondaryIconContainerStyle: CSSObject = {
     borderRadius: "50%",
     aspectRatio: 1,
 
@@ -98,7 +85,6 @@ export const Avatar = forwardRef(function Avatar(
         }
         style={imageStyle}
         square={square}
-        color={color}
         width={width}
         height={height}
         ref={ref}
@@ -111,10 +97,10 @@ export const Avatar = forwardRef(function Avatar(
           align="center"
           justify="center"
           style={secondaryIconContainerStyle}
+          material={material}
         >
           <Icon
             size={(theme.sizeClasses.iconSize[size] as any) * 0.65}
-            color={color === "white" ? "black" : "white"}
             {...secondaryIconProps}
           >
             {secondaryIcon}

@@ -1,4 +1,5 @@
-import { CSSProperties, ReactNode } from "react";
+import { CSSObject } from "@emotion/react";
+import { ReactNode } from "react";
 
 /** Defines standard sizes for components */
 export type ComponentSize = "xs" | "sm" | "md" | "lg" | "xl";
@@ -11,15 +12,12 @@ export type SizeClasses<C> = {
   xl: C;
 };
 
-/** Defines standard variants for buttons and other components */
-export type FillVariant = "subtle" | "outlined" | "paper" | "light" | "filled";
-
 /** Basic props that should be exposed to every component */
 export type GenericProps = {
   /** Used to specify a unique identifier for an element */
   id?: string;
   /** Used to specify custom styling for an element. Unlike the native HTML `style` attribute, this will be passed into an Emotion `css` constructor before being added to the DOM. */
-  style?: CSSProperties;
+  style?: CSSObject;
   /** Used to allow or prevent elements from being sequentially focusable. [See more](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex) */
   tabIndex?: number;
 

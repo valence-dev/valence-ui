@@ -6,7 +6,6 @@ import {
   MouseEvents,
   PointerEvents,
   ComponentSize,
-  FillVariant,
   GenericLayoutProps,
 } from "@valence-ui/utils";
 import { Material } from "../utilities";
@@ -21,8 +20,6 @@ export type GenericInputProps<T = string> = GenericLayoutProps & {
   size?: ComponentSize;
   /** This input's radius size class. Defaults to theme default */
   radius?: ComponentSize;
-  /** This input's styling variant. Defaults to theme default */
-  variant?: FillVariant;
 
   /** Whether this input is disabled */
   disabled?: boolean;

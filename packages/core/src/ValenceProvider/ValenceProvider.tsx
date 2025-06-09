@@ -1,7 +1,7 @@
 import { CSSProperties, createContext, useContext } from "react";
 import { IValenceContext } from "./ValenceProvider.types";
 import { TextProps } from "../components";
-import { ComponentSize, FillVariant, SizeClasses } from "@valence-ui/utils";
+import { ComponentSize, SizeClasses } from "@valence-ui/utils";
 import { CssOverride } from "./CssOverride";
 import { Color } from "../utilities/color";
 import { PreferrableColorScheme } from "../hooks";
@@ -35,7 +35,6 @@ export type ValenceProviderProps = {
   defaults?: {
     size: ComponentSize;
     radius: ComponentSize;
-    variant: FillVariant;
     transitionDuration: CSSProperties["transitionDuration"];
     shadow: CSSProperties["boxShadow"];
   };

@@ -1,4 +1,3 @@
-import { FillVariant } from "@valence-ui/utils";
 import { useValence } from "../../ValenceProvider";
 import { useColorScheme } from "../../hooks";
 import { Swatch, SwatchOpacity, getDefaultSwatch } from "./Color";
@@ -13,36 +12,6 @@ export type UseColorsReturn = {
    * not exist, this will return the key as-is.
    */
   getHex(key: string | undefined, opacity?: SwatchOpacity): string | undefined;
-
-  /** Gets the most suitable background color, based upon the supplied
-   * parameters.
-   * @param key The color key to use
-   * @param variant The variant of the component
-   * @param hovered Whether the component is currently hovered
-   */
-  getBgHex(
-    key: string,
-    variant?: FillVariant,
-    hovered?: boolean,
-  ): string | undefined;
-
-  /** Gets the most suitable border color, based upon the supplied
-   * parameters.
-   * @param key The color key to use
-   * @param variant The variant of the component
-   */
-  getBorderHex(
-    key: string,
-    variant?: FillVariant,
-    focused?: boolean,
-  ): string | undefined;
-
-  /** Gets the most suitable foreground color, based upon the supplied
-   * parameters.
-   * @param key The color key to use
-   * @param variant The variant of the component
-   */
-  getFgHex(key: string, variant?: FillVariant): string | undefined;
 };
 
 /** `useColors` is a hook to allow the usage of Valence colors.
@@ -85,59 +54,8 @@ export function useColors(): UseColorsReturn {
     return swatch.base + (opacity ? swatch.opacity[opacity] : "");
   }
 
-  function getBackgroundColor(
-    key: string,
-    variant?: FillVariant,
-    hovered?: boolean,
-  ): string | undefined {
-    switch (variant) {
-      case "filled":
-        return getHex(key);
-      case "light":
-        return getHex(key, hovered ? "medium" : "weak");
-      case "paper":
-        return getHex("brighterWhite");
-      case "outlined":
-      case "subtle":
-        return hovered ? getHex(key, "weak") : "#00000000";
-      default:
-        return getHex(key);
-    }
-  }
-
-  function getBorderColor(
-    key: string,
-    variant?: FillVariant,
-    focused?: boolean,
-  ): string | undefined {
-    if (focused) return `1px solid ${getHex(key, "strong")}`;
-    switch (variant) {
-      case "paper":
-        return `1px solid ${getHex(key, "weak")}`;
-      case "outlined":
-        return `1px solid ${getHex(key, "medium")}`;
-      default:
-        return `1px solid #00000000`;
-    }
-  }
-
-  function getForegroundColor(
-    key: string,
-    variant?: FillVariant,
-  ): string | undefined {
-    if (variant === "filled") {
-      if (key === "white") return getHex("black");
-      return getHex("white");
-    }
-
-    return getHex(key);
-  }
-
   return {
     getSwatch,
     getHex,
-    getBgHex: getBackgroundColor,
-    getBorderHex: getBorderColor,
-    getFgHex: getForegroundColor,
   };
 }

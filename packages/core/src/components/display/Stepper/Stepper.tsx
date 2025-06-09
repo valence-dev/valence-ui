@@ -1,22 +1,24 @@
 import React, { CSSProperties, forwardRef } from "react";
 import {
   MakeResponsive,
+  Material,
   useColors,
   useResponsiveProps,
 } from "../../../utilities";
-import { ComponentSize, FillVariant, GenericProps } from "@valence-ui/utils";
+import { ComponentSize, GenericProps } from "@valence-ui/utils";
 import { Flex, FlexProps, Space } from "../../layout";
 import { useValence } from "../../../ValenceProvider";
 import { Text } from "../Text";
 import { Icon } from "../Icon";
 import { IconCheck } from "@tabler/icons-react";
+import { CSSObject } from "@emotion/react";
 
 export type StepperProps = GenericProps & {
   /** The current step to display. */
   currentStep: number;
 
-  /** The fill variant to use for this stepper. */
-  variant?: FillVariant;
+  /** The material to apply to this stepper. */
+  material?: Material;
   /** The size of this stepper. */
   size?: ComponentSize;
   /** The color of this stepper. */
@@ -30,12 +32,10 @@ export type StepperIndicatorProps = {
   /** The current state of this indicator. */
   state: StepperIndicatorState;
 
-  /** The fill variant to use for this indicator. */
-  variant?: FillVariant;
+  /** The material to apply to this indicator. */
+  material?: Material;
   /** The size of this indicator. */
   size?: ComponentSize;
-  /** The color of this indicator. */
-  color?: CSSProperties["color"];
 };
 
 export type StepperStepProps = FlexProps;
@@ -49,7 +49,7 @@ const Stepper = forwardRef(function Stepper(
 
   // Defaults
   const {
-    variant = theme.defaults.variant,
+    material = theme.materials.input,
     size = theme.defaults.size,
     color = "black",
     currentStep,
@@ -62,39 +62,34 @@ const Stepper = forwardRef(function Stepper(
     <Flex direction="column" width="100%" ref={ref} {...rest}>
       {/* Stepper header */}
       <Flex direction="row" width="100%" justify="space-between" align="center">
-        {React.Children.toArray(children).map((_, index: number) => {
-          return React.cloneElement(
-            <>
-              <StepperIndicator
-                key={index}
-                step={index}
-                state={
-                  index === currentStep
-                    ? "active"
-                    : index < currentStep
-                      ? "complete"
-                      : "default"
-                }
-                variant={variant}
-                color={color}
-                size={size}
-              />
+        {React.Children.toArray(children).map((_, index) => (
+          <React.Fragment key={index}>
+            <StepperIndicator
+              step={index}
+              state={
+                index === currentStep
+                  ? "active"
+                  : index < currentStep
+                    ? "complete"
+                    : "default"
+              }
+              material={material}
+              size={size}
+            />
 
-              {/* Line */}
-              {index < React.Children.count(children) - 1 && (
-                <Space
-                  key={index + "line"}
-                  grow
-                  style={{
-                    borderTop: `1px solid ${colors.getHex(color)}`,
-                    opacity: index < currentStep ? 1 : 0.25,
-                  }}
-                />
-              )}
-            </>,
-            { key: index },
-          );
-        })}
+            {/* Line */}
+            {index < React.Children.count(children) - 1 && (
+              <Space
+                grow
+                style={{
+                  borderTop: `1px solid ${colors.getHex(color)}`,
+                  opacity: index < currentStep ? 1 : 0.25,
+                  transition: "opacity 0.2s ease-in-out",
+                }}
+              />
+            )}
+          </React.Fragment>
+        ))}
       </Flex>
 
       {/* Stepper children */}
@@ -118,22 +113,17 @@ const StepperIndicator = forwardRef(function StepperIndicator(
   const {
     step,
     state = "default",
-    variant = theme.defaults.variant,
+    material = theme.materials.input,
     size = theme.defaults.size,
-    color = "primary",
   } = useResponsiveProps<StepperIndicatorProps>(props);
 
   // Styles
-  const indicatorContainerStyle: CSSProperties = {
+  const indicatorContainerStyle: CSSObject = {
     borderRadius: "50%",
-
     width: theme.sizeClasses.height[size],
     height: theme.sizeClasses.height[size],
-
-    border: colors.getBorderHex(color, variant),
-    backgroundColor: colors.getBgHex(color, variant, false),
-    color: colors.getFgHex(color, variant),
     opacity: state === "default" ? 0.5 : 1,
+    transition: "opacity 0.2s ease-in-out",
   };
 
   return (
@@ -142,20 +132,18 @@ const StepperIndicator = forwardRef(function StepperIndicator(
       style={indicatorContainerStyle}
       align="center"
       justify="center"
+      material={material}
     >
       {state === "complete" ? (
         <Icon
-          color={colors.getFgHex(color, variant)}
           size={theme.sizeClasses.iconSize[size] as any}
+          animation={["grow", "blur", "fade"]}
+          key={step}
         >
           <IconCheck />
         </Icon>
       ) : (
-        <Text
-          align="center"
-          color={colors.getFgHex(color, variant)}
-          size={size}
-        >
+        <Text align="center" size={size} animation={["grow", "blur", "fade"]}>
           {step + 1}
         </Text>
       )}

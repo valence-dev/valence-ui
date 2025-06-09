@@ -10,7 +10,7 @@ import {
 import { Flex } from "../../../layout";
 import { Icon } from "../../Icon";
 import { IconPhoto } from "@tabler/icons-react";
-import { useColors } from "../../../../utilities";
+import { Material, useColors } from "../../../../utilities";
 
 export type GenericImageProps = {
   /** Source URI of this image */
@@ -29,6 +29,9 @@ export type ImageProps = GenericImageProps &
     /** Placeholder content for this image */
     placeholder?: ReactNode;
 
+    /** The material of this image. Determines how it is displayed when empty. */
+    material?: Material;
+
     /** Defines the border radius size class of this image. Defaults to the theme default radius size class. */
     radius?: ComponentSize;
     /** Sets `width` css property */
@@ -37,9 +40,6 @@ export type ImageProps = GenericImageProps &
     height?: CSSProperties["height"];
     /** Shorthand for `aspect-ratio = "1/1"` */
     square?: boolean;
-
-    /** Sets `color` css property */
-    color?: CSSProperties["color"];
 
     /** Specifies if a shadow will be shown */
     shadow?: boolean;
@@ -50,16 +50,16 @@ export const Image = forwardRef(function Image(
   ref: any,
 ) {
   const theme = useValence();
-  const { getHex } = useColors();
+  const colors = useColors();
 
   // Defaults
   const {
     src,
     alt,
-    color = "black",
+    material = theme.materials.input,
     placeholder = (
       <Flex align="center" justify="center" height="100%" width="100%">
-        <Icon color={color}>
+        <Icon>
           <IconPhoto />
         </Icon>
       </Flex>
@@ -87,8 +87,8 @@ export const Image = forwardRef(function Image(
     overflow: "hidden",
 
     boxShadow: shadow ? theme.defaults.shadow : "none",
-    backgroundColor: getHex(color, "weak"),
 
+    ...material.getStyles(theme, colors),
     ...style,
   });
   const ImageStyle = css({

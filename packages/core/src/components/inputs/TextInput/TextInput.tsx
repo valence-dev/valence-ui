@@ -4,7 +4,6 @@ import {
   GenericTextInputEventProps,
   GenericTextInputProps,
   MakeResponsive,
-  useColors,
   useResponsiveProps,
   useValence,
 } from "../../..";
@@ -100,7 +99,6 @@ export const TextInput = forwardRef(function TextInput(
   ref: any,
 ) {
   const theme = useValence();
-  const { getFgHex } = useColors();
   const inputRef = ref ?? createRef<HTMLInputElement>();
 
   // Defaults

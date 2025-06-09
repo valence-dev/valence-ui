@@ -2,8 +2,18 @@ import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
 import { Stepper as St } from "./Stepper";
-import { Flex, FlexCenter, IconButton, Text, ValenceProvider } from "../../..";
+import {
+  Flex,
+  FlexCenter,
+  GlassMaterial,
+  IconButton,
+  PaperMaterial,
+  SolidMaterial,
+  Text,
+  ValenceProvider,
+} from "../../..";
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
+import { AirMaterial } from "../../../utilities/materials/AirMaterial";
 
 const meta: Meta<typeof St> = {
   component: St,
@@ -20,6 +30,50 @@ export const Stepper: Story = (args: any) => {
     <ValenceProvider>
       <FlexCenter innerProps={{ direction: "column" }}>
         <St currentStep={currentStep} {...args}>
+          <St.Step>
+            <Text size="xl">Step 1</Text>
+          </St.Step>
+          <St.Step>
+            <Text size="xl">Step 2</Text>
+          </St.Step>
+          <St.Step>
+            <Text size="xl">Step 3</Text>
+          </St.Step>
+        </St>
+        <St currentStep={currentStep} {...args} material={new GlassMaterial()}>
+          <St.Step>
+            <Text size="xl">Step 1</Text>
+          </St.Step>
+          <St.Step>
+            <Text size="xl">Step 2</Text>
+          </St.Step>
+          <St.Step>
+            <Text size="xl">Step 3</Text>
+          </St.Step>
+        </St>
+        <St currentStep={currentStep} {...args} material={new AirMaterial()}>
+          <St.Step>
+            <Text size="xl">Step 1</Text>
+          </St.Step>
+          <St.Step>
+            <Text size="xl">Step 2</Text>
+          </St.Step>
+          <St.Step>
+            <Text size="xl">Step 3</Text>
+          </St.Step>
+        </St>
+        <St currentStep={currentStep} {...args} material={new PaperMaterial()}>
+          <St.Step>
+            <Text size="xl">Step 1</Text>
+          </St.Step>
+          <St.Step>
+            <Text size="xl">Step 2</Text>
+          </St.Step>
+          <St.Step>
+            <Text size="xl">Step 3</Text>
+          </St.Step>
+        </St>
+        <St currentStep={currentStep} {...args} material={new SolidMaterial()}>
           <St.Step>
             <Text size="xl">Step 1</Text>
           </St.Step>
@@ -49,6 +103,4 @@ export const Stepper: Story = (args: any) => {
     </ValenceProvider>
   );
 };
-Stepper.args = {
-  variant: "outlined",
-};
+Stepper.args = {};

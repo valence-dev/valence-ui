@@ -3,7 +3,6 @@ import { ColorSwatch as CS } from "./ColorSwatch";
 import { Storybook } from "../../../../storybook";
 import { ValenceProvider } from "../../../ValenceProvider";
 import { FlexCenter } from "../../layout";
-import React from "react";
 
 const meta: Meta<typeof CS> = {
   component: CS,

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { useValence } from "../../../ValenceProvider";
 import { CSSProperties, createRef, forwardRef } from "react";
-import { css } from "@emotion/react";
+import { css, CSSObject } from "@emotion/react";
 import {
   GenericTextInputEventProps,
   GenericTextInputProps,
@@ -11,7 +11,6 @@ import {
   MakeResponsive,
   useResponsiveProps,
 } from "../../../utilities/responsive";
-import { useColors } from "../../../utilities/color";
 
 export type LineWrapBehaviour = "soft" | "hard" | "off";
 export type ResizeBehaviour = "none" | "both" | "horizontal" | "vertical";
@@ -49,7 +48,6 @@ export const Textarea = forwardRef(function Textarea(
   ref: any,
 ) {
   const theme = useValence();
-  const { getFgHex } = useColors();
   const inputRef = ref ?? createRef<HTMLTextAreaElement>();
 
   // Defaults
@@ -126,7 +124,7 @@ export const Textarea = forwardRef(function Textarea(
 
     ...inputStyle,
   });
-  const ContainerStyle: CSSProperties = {
+  const ContainerStyle: CSSObject = {
     minHeight: height,
     height: "fit-content",
     ...style,

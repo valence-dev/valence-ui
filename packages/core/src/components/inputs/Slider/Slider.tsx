@@ -155,6 +155,7 @@ const Slider = forwardRef(function Slider(
           <SliderTrack
             state={state}
             margin={(height - 2) / 2}
+            color={color}
             highlight={state.index === 0}
             {...props}
             {...trackProps}
@@ -188,7 +189,7 @@ const SliderTrack = forwardRef(function SliderTrack(
 ) {
   // Hooks
   const theme = useValence();
-  const { getBgHex } = useColors();
+  const { getHex } = useColors();
 
   const {
     state,
@@ -203,15 +204,14 @@ const SliderTrack = forwardRef(function SliderTrack(
 
     color = "black",
 
-    variant = highlight ? "filled" : "light",
-
     style,
     ...rest
   } = props;
 
   // Styles
   const TrackStyle: CSSProperties = {
-    backgroundColor: getBgHex(highlight ? color : "black", variant, false),
+    backgroundColor: getHex(highlight ? color : "black"),
+    opacity: highlight ? 1 : 0.25,
     borderRadius: theme.getSize("radius", radius),
 
     ...style,

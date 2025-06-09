@@ -1,6 +1,7 @@
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import {
   ComponentSize,
-  FillVariant,
   GenericLayoutProps,
   SizeClasses,
 } from "@valence-ui/utils";
@@ -18,11 +19,12 @@ import {
   useResponsiveProps,
 } from "../../../utilities/responsive";
 import { useColors } from "../../../utilities/color";
+import { Material } from "../../../utilities";
 
 export type PillProps = Omit<GenericLayoutProps, "children"> &
   Omit<UnstyledButtonProps, "children"> & {
-    /** Fill variant of this pill. Defaults to theme default. */
-    variant?: FillVariant;
+    /** The material of this pill. Defaults to the theme default for buttons. */
+    material?: Material;
     /** Size class of this pill. Defaults to theme default.  */
     size?: ComponentSize;
     /** Border radius of this pill. Defaults to theme default. */
@@ -63,9 +65,9 @@ export const Pill = forwardRef(function Pill(
 
   // Defaults
   const {
+    material = theme.materials.button,
     size = theme.defaults.size,
     radius = "xl",
-    variant = theme.defaults.variant,
 
     withRemoveButton = false,
     removeButtonIcon = <IconX />,
@@ -74,8 +76,6 @@ export const Pill = forwardRef(function Pill(
 
     textProps,
 
-    color = "black",
-    backgroundColor = color,
     padding = SIZES[size].paddingVertical +
       "px " +
       SIZES[size].paddingHorizontal +
@@ -92,16 +92,13 @@ export const Pill = forwardRef(function Pill(
   } = useResponsiveProps<PillProps>(props);
 
   // Styles
-  const PillStyle: CSSProperties = {
+  const PillStyle = css({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "stretch",
 
-    backgroundColor: colors.getBgHex(backgroundColor, variant, false),
-    color: colors.getFgHex(color, variant),
     borderRadius: theme.sizeClasses.radius[radius],
-    outline: colors.getBorderHex(backgroundColor, variant),
 
     padding: padding,
     paddingRight: withRemoveButton
@@ -114,8 +111,9 @@ export const Pill = forwardRef(function Pill(
 
     cursor: withRemoveButton ? "pointer" : undefined,
 
+    ...material.getStyles(theme, colors),
     ...style,
-  };
+  });
 
   // Events
   const handleClick = (e: any) => {
@@ -125,17 +123,14 @@ export const Pill = forwardRef(function Pill(
   };
 
   return (
-    <div onClick={handleClick} style={PillStyle} ref={ref} {...rest}>
-      <Text size={size} color={colors.getFgHex(color, variant)}>
-        {children}
-      </Text>
+    <div onClick={handleClick} css={PillStyle} ref={ref} {...rest}>
+      <Text size={size}>{children}</Text>
 
       {withRemoveButton && (
         <IconButton
+          material={material}
           size={size}
           radius={radius}
-          color={colors.getFgHex(color, variant)}
-          variant="subtle"
           onClick={handleClick}
           height={16}
           {...removeButtonProps}

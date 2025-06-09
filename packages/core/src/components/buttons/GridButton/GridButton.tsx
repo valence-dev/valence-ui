@@ -1,13 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
+import { css, CSSObject } from "@emotion/react";
 import { ReactNode, forwardRef } from "react";
 import { useValence } from "../../../ValenceProvider";
 import { TextButtonProps } from "../TextButton";
-import {
-  MakeResponsive,
-  useColors,
-  useResponsiveProps,
-} from "../../../utilities";
+import { MakeResponsive, useResponsiveProps } from "../../../utilities";
 import { PrimitiveButton } from "../PrimitiveButton";
 import { Icon, Text } from "../../display";
 
@@ -23,7 +19,6 @@ export const GridButton = forwardRef(function GridButton(
   ref: any,
 ) {
   const theme = useValence();
-  const { getFgHex } = useColors();
 
   // Defaults
   const {
@@ -42,7 +37,7 @@ export const GridButton = forwardRef(function GridButton(
   } = useResponsiveProps<GridButtonProps>(props);
 
   // Styles
-  const styles: React.CSSProperties = {
+  const styles: CSSObject = {
     flexDirection: iconPosition === "top" ? "column" : "column-reverse",
     justifyContent: "space-between",
     padding: theme.getSize("padding", size),

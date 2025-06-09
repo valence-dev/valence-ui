@@ -3,7 +3,7 @@ import {
   cloneElement,
   forwardRef,
   isValidElement,
-  memo,
+  useMemo,
 } from "react";
 import { useValence } from "../../../ValenceProvider";
 import {
@@ -38,7 +38,7 @@ export type IconProps = {
  * </Icon>
  * ```
  */
-const IconComponent = forwardRef(function Icon(
+export const Icon = forwardRef(function Icon(
   props: MakeResponsive<IconProps>,
   ref: any,
 ) {
@@ -67,11 +67,13 @@ const IconComponent = forwardRef(function Icon(
   // If animation is provided and children is a valid React element
   if (animation && isValidElement(children)) {
     // Create a motion-enhanced version of the icon component
-    const MotionIcon = motion(children.type as any);
+    const MotionIcon = useMemo(
+      () => motion(children.type as any),
+      [children.type],
+    );
     return (
       <MotionIcon
         {...iconProps}
-        key={children}
         variants={animations}
         initial="initial"
         animate="animate"
@@ -83,9 +85,3 @@ const IconComponent = forwardRef(function Icon(
   // No animation, just clone the icon with props
   return cloneElement(children as any, iconProps);
 });
-
-// Only re-render if children change
-export const Icon = memo(
-  IconComponent,
-  (prev, next) => prev.children === next.children,
-);
