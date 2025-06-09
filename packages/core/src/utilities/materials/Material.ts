@@ -7,7 +7,12 @@ export type MaterialProps = {
    * to hover or focus states, while others may not.
    * Defaults to `false`.
    */
-  interacive?: boolean;
+  interactive?: boolean;
+  /** The color of the material. Different materials may use this color
+   * in different ways, such as for the background or foreground.
+   * If not provided, the material will use the primary color of the valence context.
+   */
+  color?: string;
   /** Overrides provided to the material after all other styles are applied. */
   overrides?: CSSObject;
   /** Overrides provided to the children of the material after all other styles are applied. */
@@ -16,6 +21,13 @@ export type MaterialProps = {
 
 export abstract class Material {
   interactive: boolean;
+
+  /**
+   * The color of the material. Different materials may use this color
+   * in different ways, such as for the background or foreground.
+   * If not provided, the material will use the primary color of the valence context.
+   */
+  color?: string;
 
   /**
    * Overrides provided to the material after all other styles are applied.
@@ -31,7 +43,8 @@ export abstract class Material {
   childrenOverrides?: CSSObject;
 
   constructor(props: MaterialProps) {
-    this.interactive = props.interacive ?? false;
+    this.interactive = props.interactive ?? false;
+    this.color = props.color;
     this.overrides = props.overrides ?? {};
     this.childrenOverrides = props.childrenOverrides ?? {};
   }
@@ -75,6 +88,11 @@ export abstract class Material {
   setInteractive(interactive: boolean): Material {
     const copy = this.copy();
     copy.interactive = interactive;
+    return copy;
+  }
+  setColor(color: string): Material {
+    const copy = this.copy();
+    copy.color = color;
     return copy;
   }
   setOverrides(overrides: CSSObject): Material {

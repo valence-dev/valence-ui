@@ -4,25 +4,23 @@ import { IValenceContext } from "../../ValenceProvider";
 import { Material, MaterialProps } from "./Material";
 
 export type AirMaterialProps = MaterialProps & {
-  color?: string;
   backgroundColor?: string;
 };
 
 export class AirMaterial extends Material {
-  color?: string;
   backgroundColor?: string;
 
   constructor(props?: AirMaterialProps) {
     super(props ?? {});
-    this.color = props?.color;
     this.backgroundColor = props?.backgroundColor;
   }
 
   copy(): AirMaterial {
     return new AirMaterial({
+      interactive: this.interactive,
+      color: this.color,
       overrides: this.overrides,
       childrenOverrides: this.childrenOverrides,
-      color: this.color,
       backgroundColor: this.backgroundColor,
     });
   }

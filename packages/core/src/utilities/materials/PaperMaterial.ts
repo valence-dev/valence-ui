@@ -6,21 +6,18 @@ import { UseColorsReturn } from "..";
 export type PaperMaterialElevation = 1 | 2 | 3 | 4 | 5;
 export type PaperMaterialBlur = "weak" | "strong" | number;
 export type PaperMaterialProps = MaterialProps & {
-  color?: string;
   backgroundColor?: string;
   elevation?: PaperMaterialElevation;
   blur?: PaperMaterialBlur;
 };
 
 export class PaperMaterial extends Material {
-  color?: string;
   backgroundColor?: string;
   elevation?: PaperMaterialElevation;
   blur?: PaperMaterialBlur;
 
   constructor(props?: PaperMaterialProps) {
     super(props ?? {});
-    this.color = props?.color;
     this.backgroundColor = props?.backgroundColor;
     this.elevation = props?.elevation;
     this.blur = props?.blur;
@@ -28,9 +25,10 @@ export class PaperMaterial extends Material {
 
   copy(): PaperMaterial {
     return new PaperMaterial({
+      interactive: this.interactive,
+      color: this.color,
       overrides: this.overrides,
       childrenOverrides: this.childrenOverrides,
-      color: this.color,
       backgroundColor: this.backgroundColor,
       elevation: this.elevation,
       blur: this.blur,

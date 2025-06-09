@@ -6,25 +6,23 @@ import tinycolor from "tinycolor2";
 
 export type SolidMaterialElevation = 1 | 2 | 3 | 4 | 5;
 export type SolidMaterialProps = MaterialProps & {
-  color?: string;
   elevation?: SolidMaterialElevation;
 };
 
 export class SolidMaterial extends Material {
-  color?: string;
   elevation?: SolidMaterialElevation;
 
   constructor(props?: SolidMaterialProps) {
     super(props ?? {});
-    this.color = props?.color;
     this.elevation = props?.elevation;
   }
 
   copy(): SolidMaterial {
     return new SolidMaterial({
+      interactive: this.interactive,
+      color: this.color,
       overrides: this.overrides,
       childrenOverrides: this.childrenOverrides,
-      color: this.color,
       elevation: this.elevation,
     });
   }
@@ -127,11 +125,6 @@ export class SolidMaterial extends Material {
   }
 
   // SETTERS
-  setColor(color: string): SolidMaterial {
-    const copy = this.copy();
-    copy.color = color;
-    return copy;
-  }
   setElevation(elevation: SolidMaterialElevation): SolidMaterial {
     const copy = this.copy();
     copy.elevation = elevation;

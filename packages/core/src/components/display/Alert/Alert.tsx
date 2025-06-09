@@ -1,11 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import { ReactNode, forwardRef } from "react";
+import { ReactNode, forwardRef, useMemo } from "react";
 import { Flex } from "../../layout";
 import { Text } from "../Text";
 import {
   CLICKABLE_ELEMENTS,
   ComponentSize,
-  FillVariant,
   GenericClickableEventProps,
   GenericClickableProps,
   GenericLayoutProps,
@@ -21,10 +20,20 @@ import {
 } from "../../../utilities/responsive";
 import { useColors } from "../../../utilities/color";
 import { AnimationProps, useAnimation } from "../../../hooks";
+import { Material } from "../../../utilities";
+import {
+  IconAlertTriangle,
+  IconCircleCheck,
+  IconInfoCircle,
+} from "@tabler/icons-react";
+
+export type AlertType = "info" | "warning" | "error" | "success";
 
 export type AlertContent = {
   /** The title of this alert */
   title: string;
+  /** The type of this alert */
+  type?: AlertType;
   /** The message of this alert */
   message?: string;
   /** The icon of this alert */
@@ -40,8 +49,9 @@ export type AlertProps = GenericClickableProps &
     /** Whether to mount and show this alert */
     show?: boolean;
 
-    /** The styling variant of this alert. Defaults to `filled`. */
-    variant?: FillVariant;
+    /** The material to use for this alert. Defaults to the theme default material. */
+    material?: Material;
+
     /** The size of this alert. Defaults to the theme default size. */
     size?: ComponentSize;
     /** The border size of this alert. Defaults to the theme default radius size. */
@@ -53,9 +63,28 @@ export type AlertProps = GenericClickableProps &
     animation?: AnimationProps;
   };
 
+const ALERT_TYPES: Record<AlertType, { icon: ReactNode; color: string }> = {
+  info: {
+    icon: <IconInfoCircle />,
+    color: "cyan",
+  },
+  warning: {
+    icon: <IconAlertTriangle />,
+    color: "orange",
+  },
+  error: {
+    icon: <IconAlertTriangle />,
+    color: "red",
+  },
+  success: {
+    icon: <IconCircleCheck />,
+    color: "green",
+  },
+};
+
 export const Alert = forwardRef(function Alert(
   props: MakeResponsive<AlertProps>,
-  ref: any
+  ref: any,
 ) {
   const theme = useValence();
   const colors = useColors();
@@ -64,14 +93,12 @@ export const Alert = forwardRef(function Alert(
   const {
     alert,
     show,
-    variant = "filled",
+    material = theme.materials.card,
     size = theme.defaults.size,
     radius = theme.defaults.radius,
     shadow = false,
     animation,
 
-    color = theme.primaryColor,
-    backgroundColor = color,
     padding = theme.sizeClasses.padding[size],
     margin = 0,
     width = "100%",
@@ -88,6 +115,18 @@ export const Alert = forwardRef(function Alert(
     ...animation,
   });
 
+  const alertMaterial = useMemo(() => {
+    if (alert.type && ALERT_TYPES[alert.type])
+      return material.copy().setColor(ALERT_TYPES[alert.type].color);
+    else return material;
+  }, [material, alert]);
+  const alertIcon = useMemo(() => {
+    if (alert.type && ALERT_TYPES[alert.type])
+      return ALERT_TYPES[alert.type].icon;
+    else if (alert.icon) return alert.icon;
+    return null;
+  }, [alert.type, alert.icon]);
+
   const AlertStyle = css({
     display: "flex",
     flexDirection: "row",
@@ -101,16 +140,14 @@ export const Alert = forwardRef(function Alert(
     padding: padding,
     borderRadius: theme.sizeClasses.radius[radius],
 
-    border: colors.getBorderHex(backgroundColor, variant),
     textDecoration: "none",
 
-    backgroundColor: colors.getBgHex(backgroundColor, variant, false),
-    color: colors.getFgHex(color, variant),
     boxShadow: shadow ? theme.defaults.shadow : "none",
     cursor: CLICKABLE_ELEMENTS.includes(component as string)
       ? "pointer"
       : "default",
 
+    ...alertMaterial.getStyles(theme, colors),
     ...style,
   });
 
@@ -133,7 +170,7 @@ export const Alert = forwardRef(function Alert(
       >
         <div style={{ width: theme.getSize("iconSize", size) }}>
           <Icon size={theme.getSize("iconSize", size) as number}>
-            {alert.icon}
+            {alertIcon}
           </Icon>
         </div>
 
@@ -142,20 +179,12 @@ export const Alert = forwardRef(function Alert(
           align="flex-start"
           gap={(padding as number) / 2}
         >
-          <Text
-            bold
-            style={{ flexGrow: 1 }}
-            color={colors.getFgHex(color, variant)}
-            size={size}
-          >
+          <Text bold style={{ flexGrow: 1 }} size={size}>
             {alert.title}
           </Text>
 
           {alert.message && (
-            <Text
-              fontSize={(theme.sizeClasses.fontSize[size] as number) - 2}
-              color={colors.getFgHex(color, variant)}
-            >
+            <Text fontSize={(theme.sizeClasses.fontSize[size] as number) - 2}>
               {alert.message}
             </Text>
           )}

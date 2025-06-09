@@ -6,28 +6,26 @@ import { UseColorsReturn } from "..";
 
 export type GlassMaterialBlur = "weak" | "strong" | number;
 export type GlassMaterialProps = MaterialProps & {
-  color?: string;
   backgroundColor?: string;
   blur?: GlassMaterialBlur;
 };
 
 export class GlassMaterial extends Material {
-  color?: string;
   backgroundColor?: string;
   blur?: GlassMaterialBlur;
 
   constructor(props?: GlassMaterialProps) {
     super(props ?? {});
-    this.color = props?.color;
     this.backgroundColor = props?.backgroundColor;
     this.blur = props?.blur;
   }
 
   copy(): GlassMaterial {
     return new GlassMaterial({
+      interactive: this.interactive,
+      color: this.color,
       overrides: this.overrides,
       childrenOverrides: this.childrenOverrides,
-      color: this.color,
       backgroundColor: this.backgroundColor,
       blur: this.blur,
     });
