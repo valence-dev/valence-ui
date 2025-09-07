@@ -8,7 +8,7 @@ import {
   PointerEvents,
 } from "@valence-ui/utils";
 import { GenericInputProps } from "../../../generics";
-import { ReactNode, forwardRef, useState } from "react";
+import { CSSProperties, ReactNode, forwardRef, useState } from "react";
 import {
   Button,
   IconButton,
@@ -18,7 +18,6 @@ import {
 import { Flex, FlexProps } from "../../layout";
 import { useValence } from "../../../ValenceProvider";
 import { IconPlus, IconX } from "@tabler/icons-react";
-import { CSSProperties } from "styled-components";
 import {
   MakeResponsive,
   useResponsiveProps,

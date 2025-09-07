@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { ReactNode, useRef, useState } from "react";
+import { CSSProperties, ReactNode, useRef, useState } from "react";
 import { Option } from "./Options";
 import { useDisclosure } from "../../../hooks";
 import {
@@ -23,7 +23,6 @@ import { useValence } from "../../../ValenceProvider";
 import { GlassMaterial, PaperMaterial, useColors } from "../../../utilities";
 import { ButtonWithIcon } from "../../buttons";
 import { Text, TextProps } from "../../display";
-import { CSSProperties } from "styled-components";
 import { AnimatePresence, motion } from "motion/react";
 import { AirMaterial } from "../../../utilities/materials/AirMaterial";
 
