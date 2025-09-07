@@ -14,6 +14,7 @@ import {
 } from "../../../utilities";
 import { Flex, Space } from "../../layout";
 import { AirMaterial } from "../../../utilities/materials/AirMaterial";
+import { CSSObject } from "@emotion/react";
 
 export type AppNavButtonProps = IconButtonProps & {
   /** Whether this button is highlighted. `false` by default. */
@@ -62,7 +63,7 @@ export const AppNav = forwardRef(function Nav(
   } = useResponsiveProps<AppNavProps>(props);
 
   // Styles
-  const navStyle: Responsive<CSSProperties> = {
+  const navStyle: Responsive<CSSObject> = {
     default: {
       height: "100%",
       boxSizing: "border-box",

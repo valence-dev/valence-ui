@@ -19,6 +19,7 @@ import {
   useResponsiveProps,
 } from "../../../utilities/responsive";
 import { Material } from "../../../utilities";
+import { CSSObject } from "@emotion/react";
 
 export type CardProps = GenericLayoutProps &
   PolymorphicButtonProps & {
@@ -72,7 +73,7 @@ const Card = forwardRef(function Card(
   } = useResponsiveProps<CardProps>(props);
 
   // Styles
-  const cardStyle: CSSProperties = {
+  const cardStyle: CSSObject = {
     overflow: "hidden",
     padding: padding,
     margin: margin,
@@ -183,7 +184,7 @@ const Buttons = forwardRef(function CardButtons(
   } = useResponsiveProps<CardButtonsProps>(props);
 
   // Styles
-  const ContainerStyle: CSSProperties = {
+  const ContainerStyle: CSSObject = {
     width: width,
     height: height,
     padding: padding,

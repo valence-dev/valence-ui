@@ -17,6 +17,7 @@ import {
   MakeResponsive,
   useResponsiveProps,
 } from "../../../utilities/responsive";
+import { CSSObject } from "@emotion/react";
 
 export type AccordionProps = Omit<FlexProps, "children"> & {
   /** The list of items associated with this accordion */
@@ -127,7 +128,7 @@ const Item = forwardRef(function AccordionItem(
   };
 
   // Styles
-  const ButtonStyle: CSSProperties = {
+  const ButtonStyle: CSSObject = {
     cursor: "pointer",
   };
 

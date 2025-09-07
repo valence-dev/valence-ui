@@ -13,7 +13,6 @@ import {
   useResponsiveProps,
 } from "../../../utilities/responsive";
 import { useColors } from "../../../utilities/color";
-import { FlexProps } from "../Flex";
 
 export type GridProps = GenericGridProps & PolymorphicLayoutProps;
 
@@ -45,8 +44,6 @@ const Grid = forwardRef(function Grid(
     alignItems,
     alignContent,
 
-    backgroundColor,
-    color,
     padding,
     margin,
     width,
@@ -91,8 +88,6 @@ const Grid = forwardRef(function Grid(
     alignItems: alignItems,
     alignContent: alignContent,
 
-    backgroundColor: getHex(backgroundColor),
-    color: getHex(color),
     padding: padding,
     margin: margin,
     width: width,
@@ -129,8 +124,6 @@ const Item = forwardRef(function GridItem(
     place,
     order,
 
-    backgroundColor,
-    color,
     padding,
     margin,
     width,
@@ -159,8 +152,6 @@ const Item = forwardRef(function GridItem(
 
     order: order,
 
-    backgroundColor: getHex(backgroundColor),
-    color: getHex(color),
     padding: padding,
     margin: margin,
     width: width,

@@ -1,4 +1,4 @@
-import { CSSProperties, ReactNode, forwardRef } from "react";
+import { ReactNode, forwardRef } from "react";
 import { GenericInputProps } from "../../../generics";
 import { Flex, FlexProps } from "../../layout";
 import { PrimitiveButton, PrimitiveButtonProps } from "../../buttons";
@@ -10,6 +10,7 @@ import {
 } from "../../../utilities/responsive";
 import { GlassMaterial } from "../../../utilities";
 import { AirMaterial } from "../../../utilities/materials/AirMaterial";
+import { CSSObject } from "@emotion/react";
 
 export type SegmentedControlOption =
   | {
@@ -63,7 +64,6 @@ export const SegmentedControl = forwardRef(function SegmentedControl(
     equalWidth = true,
     buttonProps,
 
-    variant,
     size = theme.defaults.size,
     radius = theme.defaults.radius,
 
@@ -85,7 +85,7 @@ export const SegmentedControl = forwardRef(function SegmentedControl(
     buttonProps ?? {};
 
   // Styles
-  const containerStyle: CSSProperties = {
+  const containerStyle: CSSObject = {
     borderRadius: theme.getSize("radius", radius) + padding,
 
     ...style,
@@ -116,7 +116,7 @@ export const SegmentedControl = forwardRef(function SegmentedControl(
           align="center"
           height={theme.getSize("height", buttonSize)}
         >
-          <Loader color={variant === "filled" ? "white" : "black"} />
+          <Loader color="black" />
         </Flex>
       ) : (
         options.map((option, index) => {

@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
+import { css, CSSObject } from "@emotion/react";
 import {
   Flex,
   FlexProps,
@@ -7,15 +7,13 @@ import {
   IconButton,
   IconButtonProps,
   MakeResponsive,
-  ValenceContext,
   useColors,
   useResponsiveProps,
+  useValence,
 } from "@valence-ui/core";
 import React, {
-  CSSProperties,
   ReactNode,
   forwardRef,
-  useContext,
   useEffect,
   useRef,
   useState,
@@ -90,13 +88,10 @@ const Carousel = forwardRef(function Card(
     children,
     ...rest
   } = useResponsiveProps<CarouselProps>(props);
-  const {
-    color: buttonColor = "black",
-    radius: buttonRadius = "xl",
-    ...buttonPropsRest
-  } = controlButtonProps ?? {};
+  const { radius: buttonRadius = "xl", ...buttonPropsRest } =
+    controlButtonProps ?? {};
 
-  const theme = useContext(ValenceContext);
+  const theme = useValence();
   const colors = useColors();
   const contentRef = useRef(null);
   const parentRef = ref ?? useRef(null);
@@ -234,7 +229,7 @@ const Carousel = forwardRef(function Card(
   const buttonWidth =
     theme.sizeClasses.height[buttonPropsRest.size ?? theme.defaults.size] ?? 35;
   const gapWidth = gap;
-  const ContainerStyle: CSSProperties = {
+  const ContainerStyle: CSSObject = {
     marginLeft: showControls
       ? `calc(${-buttonWidth}px - ${gapWidth}px)`
       : undefined,
@@ -282,7 +277,6 @@ const Carousel = forwardRef(function Card(
       <Flex height={height} align="center" style={ContainerStyle}>
         {showControls && (
           <IconButton
-            color={buttonColor}
             radius={buttonRadius}
             onClick={prevChild}
             disabled={activeChild === 0}
@@ -328,7 +322,6 @@ const Carousel = forwardRef(function Card(
 
         {showControls && (
           <IconButton
-            color={buttonColor}
             radius={buttonRadius}
             onClick={nextChild}
             disabled={activeChild === children.length - 1}
