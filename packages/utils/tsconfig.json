@@ -12,6 +12,13 @@
     "declarationMap": true,
     "skipLibCheck": true
   },
-  "exclude": ["dist", "node_modules"],
-  "include": ["src"]
+  "exclude": [
+    "dist",
+    "node_modules",
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx"
+  ],
+  "include": [
+    "src"
+  ]
 }

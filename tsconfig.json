@@ -1,0 +1,35 @@
+{
+  // Editor- and CI-facing config for everything outside the published packages:
+  // the test suite and the build/tooling configs.
+  //
+  // Each package builds with its own tsconfig (`packages/*/tsconfig.json`),
+  // which deliberately excludes `*.test.ts(x)` so tests are never emitted into
+  // `dist/`. Because those files are excluded there, the language server falls
+  // back to this config for them — which is what supplies the Vitest globals
+  // and the jest-dom matcher types.
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "types": ["vitest/globals", "@testing-library/jest-dom"],
+    "paths": {
+      "@valence-ui/utils": ["./packages/utils/src"],
+      "@valence-ui/core": ["./packages/core/src"]
+    }
+  },
+  "include": [
+    "test/**/*.ts",
+    "test/**/*.tsx",
+    "packages/*/src/**/*.test.ts",
+    "packages/*/src/**/*.test.tsx",
+    "vitest.config.ts",
+    "vite.config.ts"
+  ],
+  "exclude": ["node_modules", "**/dist"]
+}
