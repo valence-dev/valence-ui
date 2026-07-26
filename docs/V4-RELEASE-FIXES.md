@@ -501,7 +501,7 @@ dependency).
 | ISSUE-25 | `SliderTrackProps.material` is declared but never read | Wire it up or remove it |
 | ISSUE-26 | `Switch` has no `role="switch"`/`aria-checked`, and its label is not associated with the control | Add ARIA and wrap in a `<label>` |
 | ISSUE-27 | `useElementSize` only listens to window resize, so it misses element-only size changes | Use `ResizeObserver` |
-| ISSUE-28 | `Textarea` sets `verticalAlign: "center"`, which is not a valid CSS value | Remove it or use `middle` |
+| ISSUE-28 **[fixed]** | `Textarea` sets `verticalAlign: "center"`, which is not a valid CSS value | Removed rather than corrected to `middle`. Browsers already drop the declaration, so removing it preserves rendering exactly, whereas `middle` would be a live change — and `vertical-align` governs how the textarea sits in its line box, not how its text is positioned, so it could not have achieved the apparent intent either way. Guarded by a case in the `Textarea` block of `Inputs.test.tsx` (jsdom keeps the invalid declaration, which is what makes the assertion meaningful) |
 | ISSUE-29 | Unused `colors`/`theme` locals in `ButtonWithIcon`, `MultipartButton`, `Grid`; `CardNamesapce` typo | Clean up; enable `noUnusedLocals` |
 | ISSUE-30 | `Material.copy()` is documented as a deep copy but shares the `overrides` / `childrenOverrides` objects | Clone them, or correct the doc comment |
 

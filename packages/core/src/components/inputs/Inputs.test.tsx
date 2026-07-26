@@ -287,6 +287,19 @@ describe("Textarea", () => {
     expect(field).toHaveAttribute("spellcheck", "true");
     expect(field).toHaveAttribute("autocomplete", "off");
   });
+
+  it("emits no vertical-align declaration", () => {
+    renderWithValence(
+      <Textarea value="" setValue={() => {}} aria-label="notes" />,
+    );
+
+    // `vertical-align: center` is not a valid declaration — the keyword is
+    // `middle` — so browsers dropped it. jsdom is more permissive and keeps it,
+    // which is what lets this assertion catch a reintroduction.
+    expect(getComputedStyle(screen.getByLabelText("notes")).verticalAlign).toBe(
+      "",
+    );
+  });
 });
 
 describe("NumberInput", () => {
