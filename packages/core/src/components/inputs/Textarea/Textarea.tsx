@@ -109,8 +109,6 @@ export const Textarea = forwardRef(function Textarea(
     minWidth: minWidth,
     maxWidth: maxWidth,
 
-    verticalAlign: "center",
-
     width: "100%",
     height: "100%",
 
