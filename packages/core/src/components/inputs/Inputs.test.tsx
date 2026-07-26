@@ -12,6 +12,7 @@ import { SelectInput } from "./SelectInput";
 import { PillSelector } from "./PillSelector";
 import { Slider } from "./Slider";
 import { RangeSlider } from "./RangeSlider";
+import { SolidMaterial } from "../../utilities";
 
 /** Wraps a controlled input so tests can drive it like a real consumer would. */
 function Controlled<T>({
@@ -635,6 +636,36 @@ describe("Slider", () => {
     const input = container.querySelector("input")!;
     expect(input).toHaveAttribute("name", "volume");
     expect(input).toHaveAttribute("form", "settings");
+  });
+
+  it("lets a material from trackProps win over the track's own treatment", () => {
+    const { container } = renderWithValence(
+      <Slider
+        value={50}
+        setValue={() => {}}
+        trackProps={{
+          material: new SolidMaterial({ overrides: { opacity: 0.5 } }),
+        }}
+      />,
+    );
+
+    // The highlighted track sets `opacity: 1` itself. Previously `material`
+    // fell through `...rest` to `Flex`, which applied it *before* that, so
+    // anything the track also styled was silently discarded.
+    const track = container.querySelector(".track-0")!;
+    expect(getComputedStyle(track).opacity).toBe("0.5");
+  });
+
+  it("leaves the track styled by color and highlight when no material is given", () => {
+    const { container } = renderWithValence(
+      <Slider value={50} setValue={() => {}} color="red" />,
+    );
+
+    // The highlighted track keeps its own colour treatment; a default material
+    // would have painted over it.
+    const track = container.querySelector(".track-0")!;
+    expect(getComputedStyle(track).opacity).toBe("1");
+    expect(getComputedStyle(track).backgroundColor).not.toBe("");
   });
 });
 
