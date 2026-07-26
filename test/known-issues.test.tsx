@@ -12,6 +12,7 @@ import { act, renderHook } from "@testing-library/react";
 import { renderWithValence, screen } from "./utils";
 import { useDisclosure } from "../packages/core/src/hooks/UseDisclosure";
 import { useControlledList } from "../packages/core/src/hooks/UseControlledList";
+import { PillSelector } from "../packages/core/src/components/inputs/PillSelector";
 import { InputContainer } from "../packages/core/src/components/inputs/InputContainer";
 import { Icon } from "../packages/core/src/components/display/Icon";
 
@@ -57,32 +58,6 @@ describe("ISSUE-09: PillSelector ignores maxSelectable when clicking pills", () 
     await user.click(screen.getByText("beta"));
     expect(setValue).not.toHaveBeenCalled();
   });
-});
-
-describe("ISSUE-10: a disabled InputContainer still takes focus", () => {
-  it.fails(
-    "clicking a disabled container does not focus its input",
-    async () => {
-      function Harness() {
-        const ref = { current: null as HTMLInputElement | null };
-        return (
-          <InputContainer disabled inputRef={ref}>
-            <input
-              aria-label="field"
-              ref={(n) => {
-                ref.current = n;
-              }}
-            />
-          </InputContainer>
-        );
-      }
-
-      const { user, container } = renderWithValence(<Harness />);
-      await user.click(container.firstElementChild!);
-
-      expect(screen.getByLabelText("field")).not.toHaveFocus();
-    },
-  );
 });
 
 describe("ISSUE-11: Icon assumes its children are elements", () => {

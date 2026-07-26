@@ -89,6 +89,47 @@ describe("InputContainer", () => {
     await user.click(container.firstElementChild!);
     expect(screen.getByLabelText("field")).toHaveFocus();
   });
+
+  it("does not focus the input when a disabled container is clicked", async () => {
+    function Harness() {
+      const ref = { current: null as HTMLInputElement | null };
+      return (
+        <InputContainer disabled inputRef={ref}>
+          <input aria-label="field" ref={(n) => {
+            ref.current = n;
+          }} />
+        </InputContainer>
+      );
+    }
+
+    const { user, container } = renderWithValence(<Harness />);
+    await user.click(container.firstElementChild!);
+    expect(screen.getByLabelText("field")).not.toHaveFocus();
+  });
+
+  it("does not fire onClick when a disabled container is clicked", async () => {
+    const onClick = vi.fn();
+    const { user, container } = renderWithValence(
+      <InputContainer disabled onClick={onClick}>
+        <input aria-label="field" />
+      </InputContainer>,
+    );
+
+    await user.click(container.firstElementChild!);
+    expect(onClick).not.toHaveBeenCalled();
+  });
+
+  it("still fires onClick when the container is enabled", async () => {
+    const onClick = vi.fn();
+    const { user, container } = renderWithValence(
+      <InputContainer onClick={onClick}>
+        <input aria-label="field" />
+      </InputContainer>,
+    );
+
+    await user.click(container.firstElementChild!);
+    expect(onClick).toHaveBeenCalled();
+  });
 });
 
 describe("TextInput", () => {
