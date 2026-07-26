@@ -13,7 +13,6 @@ import {
   MakeResponsive,
   useResponsiveProps,
 } from "../../../utilities/responsive";
-import { useColors } from "../../../utilities/color";
 import { TransitionAnimation } from "../../../hooks";
 
 export type MultipartButtonProps = Omit<PrimitiveButtonProps, "children"> & {
@@ -48,7 +47,6 @@ export const MultipartButton = forwardRef(function MultipartButton(
   ref: any,
 ) {
   const theme = useValence();
-  const colors = useColors();
 
   // Defaults
   const {

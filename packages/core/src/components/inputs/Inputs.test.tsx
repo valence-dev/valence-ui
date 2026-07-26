@@ -9,9 +9,11 @@ import { InputContainer } from "./InputContainer";
 import { Switch } from "./Switch";
 import { SegmentedControl } from "./SegmentedControl";
 import { SelectInput } from "./SelectInput";
+import { DropdownContainer } from "./DropdownContainer";
 import { PillSelector } from "./PillSelector";
 import { Slider } from "./Slider";
 import { RangeSlider } from "./RangeSlider";
+import { SolidMaterial } from "../../utilities";
 
 /** Wraps a controlled input so tests can drive it like a real consumer would. */
 function Controlled<T>({
@@ -88,6 +90,47 @@ describe("InputContainer", () => {
     const { user, container } = renderWithValence(<Harness />);
     await user.click(container.firstElementChild!);
     expect(screen.getByLabelText("field")).toHaveFocus();
+  });
+
+  it("does not focus the input when a disabled container is clicked", async () => {
+    function Harness() {
+      const ref = { current: null as HTMLInputElement | null };
+      return (
+        <InputContainer disabled inputRef={ref}>
+          <input aria-label="field" ref={(n) => {
+            ref.current = n;
+          }} />
+        </InputContainer>
+      );
+    }
+
+    const { user, container } = renderWithValence(<Harness />);
+    await user.click(container.firstElementChild!);
+    expect(screen.getByLabelText("field")).not.toHaveFocus();
+  });
+
+  it("does not fire onClick when a disabled container is clicked", async () => {
+    const onClick = vi.fn();
+    const { user, container } = renderWithValence(
+      <InputContainer disabled onClick={onClick}>
+        <input aria-label="field" />
+      </InputContainer>,
+    );
+
+    await user.click(container.firstElementChild!);
+    expect(onClick).not.toHaveBeenCalled();
+  });
+
+  it("still fires onClick when the container is enabled", async () => {
+    const onClick = vi.fn();
+    const { user, container } = renderWithValence(
+      <InputContainer onClick={onClick}>
+        <input aria-label="field" />
+      </InputContainer>,
+    );
+
+    await user.click(container.firstElementChild!);
+    expect(onClick).toHaveBeenCalled();
   });
 });
 
@@ -204,6 +247,60 @@ describe("TextInput", () => {
     expect(input).not.toHaveFocus();
   });
 
+  it("forwards an object ref to the native input", () => {
+    const ref = { current: null as HTMLInputElement | null };
+    renderWithValence(
+      <TextInput value="" setValue={() => {}} aria-label="name" ref={ref} />,
+    );
+
+    expect(ref.current).toBe(screen.getByLabelText("name"));
+  });
+
+  it("keeps the same DOM node attached across re-renders", async () => {
+    const attached: (HTMLInputElement | null)[] = [];
+    // Declared once, outside render: an inline callback ref would be a new
+    // function every render and React would detach/reattach it regardless of
+    // what this component does, which would tell us nothing.
+    const collectRef = (node: HTMLInputElement | null) => {
+      attached.push(node);
+    };
+
+    const { user } = renderWithValence(
+      <Controlled
+        initial=""
+        render={(value, setValue) => (
+          <TextInput
+            value={value}
+            setValue={setValue}
+            aria-label="name"
+            ref={collectRef}
+          />
+        )}
+      />,
+    );
+
+    await user.type(screen.getByLabelText("name"), "abc");
+
+    // The merged ref must stay identity-stable, or every keystroke would push
+    // a null (detach) and a node (reattach).
+    expect(attached.filter((node) => node === null)).toHaveLength(0);
+    expect(attached).toHaveLength(1);
+  });
+
+  it("focuses the input when the container is clicked despite a callback ref", async () => {
+    const { user, container } = renderWithValence(
+      <TextInput
+        value=""
+        setValue={() => {}}
+        aria-label="name"
+        ref={() => {}}
+      />,
+    );
+
+    await user.click(container.firstElementChild!);
+    expect(screen.getByLabelText("name")).toHaveFocus();
+  });
+
   it("forwards maxLength and pattern to the native input", () => {
     renderWithValence(
       <TextInput
@@ -286,6 +383,19 @@ describe("Textarea", () => {
     const field = screen.getByLabelText("notes");
     expect(field).toHaveAttribute("spellcheck", "true");
     expect(field).toHaveAttribute("autocomplete", "off");
+  });
+
+  it("emits no vertical-align declaration", () => {
+    renderWithValence(
+      <Textarea value="" setValue={() => {}} aria-label="notes" />,
+    );
+
+    // `vertical-align: center` is not a valid declaration — the keyword is
+    // `middle` — so browsers dropped it. jsdom is more permissive and keeps it,
+    // which is what lets this assertion catch a reintroduction.
+    expect(getComputedStyle(screen.getByLabelText("notes")).verticalAlign).toBe(
+      "",
+    );
   });
 });
 
@@ -480,9 +590,17 @@ describe("NumberInput", () => {
 });
 
 describe("Switch", () => {
-  it("renders a button reflecting the current value", () => {
-    renderWithValence(<Switch value={false} setValue={() => {}} />);
-    expect(screen.getByRole("button")).toBeInTheDocument();
+  it("exposes itself as a switch with its on/off state", () => {
+    const { rerender } = renderWithValence(
+      <Switch value={false} setValue={() => {}} />,
+    );
+
+    const control = screen.getByRole("switch");
+    expect(control).toBeInTheDocument();
+    expect(control).toHaveAttribute("aria-checked", "false");
+
+    rerender(<Switch value setValue={() => {}} />);
+    expect(screen.getByRole("switch")).toHaveAttribute("aria-checked", "true");
   });
 
   it("toggles the value on click", async () => {
@@ -491,7 +609,7 @@ describe("Switch", () => {
       <Switch value={false} setValue={setValue} />,
     );
 
-    await user.click(screen.getByRole("button"));
+    await user.click(screen.getByRole("switch"));
     expect(setValue).toHaveBeenCalledWith(true);
   });
 
@@ -501,7 +619,7 @@ describe("Switch", () => {
       <Switch value setValue={setValue} />,
     );
 
-    await user.click(screen.getByRole("button"));
+    await user.click(screen.getByRole("switch"));
     expect(setValue).toHaveBeenCalledWith(false);
   });
 
@@ -510,6 +628,48 @@ describe("Switch", () => {
       <Switch value={false} setValue={() => {}} label="Dark mode" />,
     );
     expect(screen.getByText("Dark mode")).toBeInTheDocument();
+  });
+
+  it("names the control with its label", () => {
+    renderWithValence(
+      <Switch value={false} setValue={() => {}} label="Dark mode" />,
+    );
+
+    // A <button> is not labelable, so this comes from aria-labelledby rather
+    // than htmlFor.
+    expect(screen.getByRole("switch", { name: "Dark mode" })).toBeInTheDocument();
+  });
+
+  it("toggles when the label is clicked", async () => {
+    const setValue = vi.fn();
+    const { user } = renderWithValence(
+      <Switch value={false} setValue={setValue} label="Dark mode" />,
+    );
+
+    await user.click(screen.getByText("Dark mode"));
+    expect(setValue).toHaveBeenCalledWith(true);
+  });
+
+  it("does not toggle from the label when disabled", async () => {
+    const setValue = vi.fn();
+    const { user } = renderWithValence(
+      <Switch value={false} setValue={setValue} label="Dark mode" disabled />,
+    );
+
+    await user.click(screen.getByText("Dark mode"));
+    expect(setValue).not.toHaveBeenCalled();
+  });
+
+  it("lets an explicit aria-label win over the label association", () => {
+    renderWithValence(
+      <Switch
+        value={false}
+        setValue={() => {}}
+        label="Dark mode"
+        aria-label="Theme"
+      />,
+    );
+    expect(screen.getByRole("switch", { name: "Theme" })).toBeInTheDocument();
   });
 
   it("does not toggle when disabled, readOnly or loading", async () => {
@@ -523,8 +683,8 @@ describe("Switch", () => {
         <Switch value={false} setValue={setValue} {...props} />,
       );
 
-      expect(screen.getByRole("button")).toBeDisabled();
-      await user.click(screen.getByRole("button"));
+      expect(screen.getByRole("switch")).toBeDisabled();
+      await user.click(screen.getByRole("switch"));
       expect(setValue).not.toHaveBeenCalled();
 
       unmount();
@@ -535,10 +695,10 @@ describe("Switch", () => {
     const { rerender } = renderWithValence(
       <Switch value={false} setValue={() => {}} />,
     );
-    expect(screen.getByRole("button").style.justifyContent).toBe("flex-start");
+    expect(screen.getByRole("switch").style.justifyContent).toBe("flex-start");
 
     rerender(<Switch value setValue={() => {}} />);
-    expect(screen.getByRole("button").style.justifyContent).toBe("flex-end");
+    expect(screen.getByRole("switch").style.justifyContent).toBe("flex-end");
   });
 
   it("honours an explicit width and height", () => {
@@ -546,7 +706,7 @@ describe("Switch", () => {
       <Switch value={false} setValue={() => {}} width={200} height={40} />,
     );
 
-    const style = getComputedStyle(screen.getByRole("button"));
+    const style = getComputedStyle(screen.getByRole("switch"));
     expect(style.width).toBe("200px");
     expect(style.height).toBe("40px");
   });
@@ -563,7 +723,7 @@ describe("Switch", () => {
       />,
     );
 
-    const button = screen.getByRole("button");
+    const button = screen.getByRole("switch");
     expect(button).toHaveAttribute("id", "notifications");
     expect(button).toHaveAttribute("name", "notifications");
     expect(button).toHaveAttribute("aria-label", "Notifications");
@@ -574,12 +734,12 @@ describe("Switch", () => {
     renderWithValence(
       <Switch value={false} setValue={() => {}} style={{ opacity: 0.5 }} />,
     );
-    expect(getComputedStyle(screen.getByRole("button")).opacity).toBe("0.5");
+    expect(getComputedStyle(screen.getByRole("switch")).opacity).toBe("0.5");
   });
 
   it("marks itself required for assistive technology", () => {
     renderWithValence(<Switch value={false} setValue={() => {}} required />);
-    expect(screen.getByRole("button")).toHaveAttribute("aria-required", "true");
+    expect(screen.getByRole("switch")).toHaveAttribute("aria-required", "true");
   });
 });
 
@@ -635,6 +795,36 @@ describe("Slider", () => {
     const input = container.querySelector("input")!;
     expect(input).toHaveAttribute("name", "volume");
     expect(input).toHaveAttribute("form", "settings");
+  });
+
+  it("lets a material from trackProps win over the track's own treatment", () => {
+    const { container } = renderWithValence(
+      <Slider
+        value={50}
+        setValue={() => {}}
+        trackProps={{
+          material: new SolidMaterial({ overrides: { opacity: 0.5 } }),
+        }}
+      />,
+    );
+
+    // The highlighted track sets `opacity: 1` itself. Previously `material`
+    // fell through `...rest` to `Flex`, which applied it *before* that, so
+    // anything the track also styled was silently discarded.
+    const track = container.querySelector(".track-0")!;
+    expect(getComputedStyle(track).opacity).toBe("0.5");
+  });
+
+  it("leaves the track styled by color and highlight when no material is given", () => {
+    const { container } = renderWithValence(
+      <Slider value={50} setValue={() => {}} color="red" />,
+    );
+
+    // The highlighted track keeps its own colour treatment; a default material
+    // would have painted over it.
+    const track = container.querySelector(".track-0")!;
+    expect(getComputedStyle(track).opacity).toBe("1");
+    expect(getComputedStyle(track).backgroundColor).not.toBe("");
   });
 });
 
@@ -908,6 +1098,105 @@ describe("SelectInput", () => {
     );
     expect(container.querySelector("svg")).not.toBeInTheDocument();
   });
+
+  it("does not open when disabled", async () => {
+    const { user } = renderWithValence(
+      <SelectInput value={null} setValue={() => {}} options={options} disabled />,
+    );
+
+    await user.click(screen.getByRole("combobox"));
+    expect(screen.queryByText("One")).not.toBeInTheDocument();
+  });
+
+  it("still opens when the caller supplies the same handler floating-ui uses", async () => {
+    const onMouseDown = vi.fn();
+    const { user } = renderWithValence(
+      <SelectInput
+        value={null}
+        setValue={() => {}}
+        options={options}
+        onMouseDown={onMouseDown}
+      />,
+    );
+
+    await user.click(screen.getByRole("combobox"));
+
+    // `useClick` is configured with `event: "mousedown"`, so onMouseDown is the
+    // handler that actually collides. Both must run: floating-ui's is not a
+    // replacement for the caller's, nor the caller's for floating-ui's.
+    expect(onMouseDown).toHaveBeenCalled();
+    expect(await screen.findByText("One")).toBeInTheDocument();
+  });
+
+  it("forwards a ref to the dropdown's reference element", () => {
+    const ref = { current: null as HTMLElement | null };
+    renderWithValence(
+      <SelectInput
+        value={null}
+        setValue={() => {}}
+        options={options}
+        ref={ref}
+      />,
+    );
+
+    expect(ref.current).toBe(screen.getByRole("combobox"));
+  });
+
+  it("matches typeahead against the current options, not the mounted ones", async () => {
+    function Harness() {
+      const [opts, setOpts] = useState(options);
+      // Controlled: typeahead resolves through setSelected -> setValue, so a
+      // no-op setter would leave nothing to assert on.
+      const [value, setValue] = useState<(typeof options)[number] | null>(null);
+
+      return (
+        <>
+          <button onClick={() => setOpts([{ value: 3, label: "Zebra" }])}>
+            swap
+          </button>
+          <SelectInput value={value} setValue={setValue} options={opts} />
+        </>
+      );
+    }
+
+    const { user } = renderWithValence(<Harness />);
+    await user.click(screen.getByText("swap"));
+
+    screen.getByRole("combobox").focus();
+    await user.keyboard("z");
+
+    // "Zebra" only exists in the replacement list, so a listContentRef captured
+    // at mount could never have matched it.
+    expect(screen.getByText("Zebra")).toBeInTheDocument();
+  });
+});
+
+// Exercised directly rather than through SelectInput, which resolves its own
+// responsive props before delegating and so would mask these.
+describe("DropdownContainer", () => {
+  const options = [
+    { value: 1, label: "One" },
+    { value: 2, label: "Two" },
+  ];
+
+  it("resolves its own responsive props", () => {
+    renderWithValence(
+      <DropdownContainer
+        options={options}
+        size={{ default: "xl", mobile: "xs" }}
+      />,
+    );
+
+    // Test viewport is 1280px wide, so `default` (xl -> 60px) applies.
+    expect(getComputedStyle(screen.getByRole("combobox")).height).toBe("60px");
+  });
+
+  it("forwards a ref to its reference element", () => {
+    const ref = { current: null as HTMLElement | null };
+    renderWithValence(<DropdownContainer options={options} ref={ref} />);
+
+    expect(ref.current).toBe(screen.getByRole("combobox"));
+  });
 });
 
 describe("PillSelector", () => {
@@ -1037,5 +1326,53 @@ describe("PillSelector", () => {
       "delta{Enter}",
     );
     expect(setValue).not.toHaveBeenCalled();
+  });
+
+  it("does not select an existing pill once maxSelectable is reached", async () => {
+    const setValue = vi.fn();
+    const onPillSelected = vi.fn();
+    const { user } = renderWithValence(
+      <PillSelector
+        value={["alpha"]}
+        setValue={setValue}
+        pills={["alpha", "beta"]}
+        maxSelectable={1}
+        onPillSelected={onPillSelected}
+      />,
+    );
+
+    await user.click(screen.getByText("beta"));
+    expect(setValue).not.toHaveBeenCalled();
+    expect(onPillSelected).not.toHaveBeenCalled();
+  });
+
+  it("disables the unselected pills once maxSelectable is reached", () => {
+    renderWithValence(
+      <PillSelector
+        value={["alpha"]}
+        setValue={() => {}}
+        pills={["alpha", "beta"]}
+        maxSelectable={1}
+      />,
+    );
+
+    expect(screen.getByRole("button", { name: "beta" })).toBeDisabled();
+    // The selected pill stays actionable so the cap can be freed up again.
+    expect(screen.getByRole("button", { name: "alpha" })).not.toBeDisabled();
+  });
+
+  it("still deselects a selected pill at maxSelectable", async () => {
+    const setValue = vi.fn();
+    const { user } = renderWithValence(
+      <PillSelector
+        value={["alpha"]}
+        setValue={setValue}
+        pills={["alpha", "beta"]}
+        maxSelectable={1}
+      />,
+    );
+
+    await user.click(screen.getByText("alpha"));
+    expect(setValue).toHaveBeenCalledWith([]);
   });
 });

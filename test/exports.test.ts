@@ -27,4 +27,9 @@ describe("public API", () => {
   it("no longer exports the removed V3 symbols", () => {
     expect("StyledFlex" in core).toBe(false);
   });
+
+  it("no longer exports the pre-4.0 motion behaviour helpers", () => {
+    // Superseded by `useAnimation` and the `animation` prop (ISSUE-22).
+    expect("getMotionBehaviour" in core).toBe(false);
+  });
 });

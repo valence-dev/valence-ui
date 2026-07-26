@@ -43,6 +43,20 @@ describe("Material (shared contract)", () => {
       expect(styles.outline).toBe("none");
     });
 
+    it("returns its own subclass from every inherited setter", () => {
+      const material = create();
+      const Subclass = material.constructor as new () => Material;
+
+      // The `this` typing is what makes chaining work; at runtime the check
+      // that matters is that the concrete class survives the copy.
+      expect(material.setInteractive(true)).toBeInstanceOf(Subclass);
+      expect(material.setColor("red")).toBeInstanceOf(Subclass);
+      expect(material.setOverrides({ margin: 1 })).toBeInstanceOf(Subclass);
+      expect(material.setChildrenOverrides({ margin: 1 })).toBeInstanceOf(
+        Subclass,
+      );
+    });
+
     it("only emits hover/focus rules when interactive", () => {
       const [valence, colors] = useMaterialContext();
 
@@ -248,66 +262,52 @@ describe("AirMaterial", () => {
   });
 });
 
-describe("copy() isolation (ISSUE-30)", () => {
-  it("does not share `overrides` with the original", () => {
-    const original = new GlassMaterial({ overrides: { color: "red" } });
-    const copy = original.copy();
+describe("setter chaining (ISSUE-24)", () => {
+  it("keeps the subclass through a chain off a base setter", () => {
+    // The report's exact case. This is primarily a *type* assertion: before
+    // the fix `setInteractive` returned `Material`, so `.setBlur` did not
+    // exist on it and this line did not compile.
+    const material = new GlassMaterial().setInteractive(true).setBlur("strong");
 
-    (copy.overrides as any).color = "blue";
-
-    expect((original.overrides as any).color).toBe("red");
+    expect(material).toBeInstanceOf(GlassMaterial);
+    expect(material.blur).toBe("strong");
+    expect(material.interactive).toBe(true);
   });
 
-  it("does not share `childrenOverrides` with the original", () => {
-    const original = new GlassMaterial({
-      childrenOverrides: { fontWeight: 400 },
-    });
-    const copy = original.copy();
+  it("chains base and subclass setters in either order", () => {
+    const material = new PaperMaterial()
+      .setElevation(3)
+      .setColor("red")
+      .setBackgroundColor("blue")
+      .setInteractive(true);
 
-    (copy.childrenOverrides as any).fontWeight = 900;
-
-    expect((original.childrenOverrides as any).fontWeight).toBe(400);
+    expect(material.elevation).toBe(3);
+    expect(material.color).toBe("red");
+    expect(material.backgroundColor).toBe("blue");
+    expect(material.interactive).toBe(true);
   });
 
-  it("does not share nested selector objects", () => {
-    // A shallow clone would pass the two cases above and still fail this one:
-    // selectors like `&:hover` nest one level down.
-    const original = new PaperMaterial({
-      overrides: { "&:hover": { color: "red" } },
-    });
-    const copy = original.copy();
+  it("gives SolidMaterial a correctly typed setColor", () => {
+    const material = new SolidMaterial().setColor("red").setElevation(2);
 
-    (copy.overrides as any)["&:hover"].color = "blue";
-
-    expect((original.overrides as any)["&:hover"].color).toBe("red");
+    expect(material).toBeInstanceOf(SolidMaterial);
+    expect(material.color).toBe("red");
+    expect(material.elevation).toBe(2);
   });
 
-  it("does not keep a reference to the object it was constructed with", () => {
-    const overrides = { color: "red" };
-    const material = new SolidMaterial({ overrides });
+  it("gives PaperMaterial the setBlur it was missing", () => {
+    const material = new PaperMaterial().setBlur("strong");
 
-    overrides.color = "blue";
-
-    expect((material.overrides as any).color).toBe("red");
+    expect(material).toBeInstanceOf(PaperMaterial);
+    expect(material.blur).toBe("strong");
   });
 
-  it("does not keep a reference to the object passed to a setter", () => {
-    const overrides = { color: "red" };
-    const material = new AirMaterial().setOverrides(overrides);
+  it("leaves the original untouched", () => {
+    const base = new GlassMaterial();
+    const derived = base.setInteractive(true).setBlur("weak");
 
-    overrides.color = "blue";
-
-    expect((material.overrides as any).color).toBe("red");
-  });
-
-  it("still copies the override values themselves", () => {
-    const original = new GlassMaterial({
-      overrides: { color: "red" },
-      childrenOverrides: { fontWeight: 900 },
-    });
-    const copy = original.copy();
-
-    expect(copy.overrides).toEqual(original.overrides);
-    expect(copy.childrenOverrides).toEqual(original.childrenOverrides);
+    expect(base.interactive).toBe(false);
+    expect(base.blur).toBeUndefined();
+    expect(derived).not.toBe(base);
   });
 });

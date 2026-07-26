@@ -12,7 +12,6 @@ import {
   MakeResponsive,
   useResponsiveProps,
 } from "../../../utilities/responsive";
-import { useColors } from "../../../utilities/color";
 
 export type GridProps = GenericGridProps & PolymorphicLayoutProps;
 
@@ -23,7 +22,6 @@ const Grid = forwardRef(function Grid(
   ref: any,
 ) {
   const theme = useValence();
-  const { getHex } = useColors();
 
   // Defaults
   const {
@@ -107,8 +105,6 @@ const Item = forwardRef(function GridItem(
   props: MakeResponsive<GridItemProps>,
   ref: any,
 ) {
-  const { getHex } = useColors();
-
   // Defaults
   const {
     area,

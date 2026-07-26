@@ -21,6 +21,7 @@ import { OverflowContainer } from "../../../layout/OverflowContainer";
 import { useValence } from "../../../../ValenceProvider";
 import { DefaultModalHeader } from "../../Modal";
 import { useDetectKeyDown } from "../../../../hooks";
+import { useWindowSize } from "../../../../hooks/UseWindowSize";
 import { ModalBackground } from "../../ModalBackground";
 import { useLockScroll } from "../../../../hooks/UseLockScroll";
 
@@ -46,6 +47,9 @@ export const BottomSheet = forwardRef(function BottomSheet(
   const theme = useValence();
   const { getHex } = useColors();
   const controls = useDragControls();
+  // Read through the hook rather than `window` directly: this default is
+  // evaluated during render, so touching `window` here breaks server rendering.
+  const { height: windowHeight } = useWindowSize();
 
   // Defaults
   const {
@@ -55,7 +59,7 @@ export const BottomSheet = forwardRef(function BottomSheet(
       <DefaultModalHeader disclosure={disclosure} {...props} />
     ),
 
-    releaseOffset = Math.round(window.innerHeight / 2),
+    releaseOffset = Math.round(windowHeight / 2),
     releaseVelocity = 500,
     allowInnerScrolling = false,
 

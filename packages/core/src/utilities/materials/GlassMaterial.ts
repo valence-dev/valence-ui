@@ -20,7 +20,7 @@ export class GlassMaterial extends Material {
     this.blur = props?.blur;
   }
 
-  copy(): GlassMaterial {
+  copy(): this {
     return new GlassMaterial({
       interactive: this.interactive,
       color: this.color,
@@ -28,7 +28,7 @@ export class GlassMaterial extends Material {
       childrenOverrides: this.childrenOverrides,
       backgroundColor: this.backgroundColor,
       blur: this.blur,
-    });
+    }) as this;
   }
 
   private getBlurValue(): string {
@@ -108,17 +108,12 @@ export class GlassMaterial extends Material {
   }
 
   // SETTERS
-  setColor(color: string): GlassMaterial {
-    const copy = this.copy();
-    copy.color = color;
-    return copy;
-  }
-  setBackgroundColor(backgroundColor: string): GlassMaterial {
+  setBackgroundColor(backgroundColor: string): this {
     const copy = this.copy();
     copy.backgroundColor = backgroundColor;
     return copy;
   }
-  setBlur(blur: GlassMaterialBlur): GlassMaterial {
+  setBlur(blur: GlassMaterialBlur): this {
     const copy = this.copy();
     copy.blur = blur;
     return copy;

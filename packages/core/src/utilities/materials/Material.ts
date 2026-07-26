@@ -68,8 +68,14 @@ export abstract class Material {
     this.childrenOverrides = cloneStyles(props.childrenOverrides ?? {});
   }
 
-  /** Returns an exact, deep copy of the material. */
-  abstract copy(): Material;
+  /**
+   * Returns an exact, deep copy of the material.
+   *
+   * Typed as `this` rather than `Material` so the setters below preserve the
+   * concrete subclass. Implementations construct their own class, so the cast
+   * each one needs is sound; stating it there keeps every setter cast-free.
+   */
+  abstract copy(): this;
 
   /**
    * Returns the styles for the material.
@@ -104,25 +110,24 @@ export abstract class Material {
   ): CSSObject;
 
   // SETTERS
-  setInteractive(interactive: boolean): Material {
+  // All `this`-typed, so chaining off them keeps the subclass:
+  // `new GlassMaterial().setInteractive(true).setBlur("strong")`.
+  setInteractive(interactive: boolean): this {
     const copy = this.copy();
     copy.interactive = interactive;
     return copy;
   }
-  setColor(color: string): Material {
+  setColor(color: string): this {
     const copy = this.copy();
     copy.color = color;
     return copy;
   }
-  // These assign onto the copy directly, bypassing the constructor, so they
-  // clone too — otherwise a caller could still mutate the object they handed in
-  // and have it reach into the material.
-  setOverrides(overrides: CSSObject): Material {
+  setOverrides(overrides: CSSObject): this {
     const copy = this.copy();
     copy.overrides = cloneStyles(overrides);
     return copy;
   }
-  setChildrenOverrides(childrenOverrides: CSSObject): Material {
+  setChildrenOverrides(childrenOverrides: CSSObject): this {
     const copy = this.copy();
     copy.childrenOverrides = cloneStyles(childrenOverrides);
     return copy;

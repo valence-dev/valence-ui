@@ -4,7 +4,6 @@ import {
   MakeResponsive,
   useResponsiveProps,
 } from "../../../utilities/responsive";
-import { useColors } from "../../../utilities/color";
 import { TransitionAnimation } from "../../../hooks/UseAnimation";
 import { useValence } from "../../../ValenceProvider";
 import { PrimitiveButton } from "../PrimitiveButton";
@@ -25,7 +24,6 @@ export const ButtonWithIcon = forwardRef(function ButtonWithIcon(
   ref: any,
 ) {
   const theme = useValence();
-  const colors = useColors();
 
   // Defaults
   const {

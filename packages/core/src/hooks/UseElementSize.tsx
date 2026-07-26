@@ -11,6 +11,10 @@ export type UseElementSizeOutput = {
 
 /**
  * A hook that provides the current width and height of an element.
+ *
+ * Observes the element itself, so it reports changes that have nothing to do
+ * with the viewport — content growing, a sibling collapsing, a class change —
+ * and not only window resizes.
  * @returns An object containing the ref object and the current width and height of the element.
  */
 export function useElementSize(): UseElementSizeOutput {
@@ -18,17 +22,28 @@ export function useElementSize(): UseElementSizeOutput {
   const [size, setSize] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
-    const handleResize = () => {
-      if (ref.current) {
-        const { width, height } = ref.current.getBoundingClientRect();
-        setSize({ width, height });
-      }
+    const element = ref.current;
+    if (!element) return;
+
+    const measure = () => {
+      // `getBoundingClientRect` rather than the observer's `contentRect`, to
+      // keep reporting the border box as this hook always has.
+      const { width, height } = element.getBoundingClientRect();
+
+      // Bail out when nothing moved: a callback that always set state could
+      // re-render, resize the element, and call itself again.
+      setSize((size) =>
+        size.width === width && size.height === height
+          ? size
+          : { width, height },
+      );
     };
 
-    handleResize();
+    measure();
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    const observer = new ResizeObserver(measure);
+    observer.observe(element);
+    return () => observer.disconnect();
   }, []);
 
   return { ref, ...size };

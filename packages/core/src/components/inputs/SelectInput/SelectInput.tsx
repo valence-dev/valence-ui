@@ -3,7 +3,6 @@ import {
   GenericInputProps,
   GenericTextInputEventProps,
 } from "../../../generics";
-import { useValence } from "../../../ValenceProvider";
 import { IconSelector } from "@tabler/icons-react";
 import { GenericLayoutProps } from "@valence-ui/utils";
 import {
@@ -61,8 +60,6 @@ export const SelectInput = forwardRef(function SelectInput(
   props: MakeResponsive<SelectInputProps<any>>,
   ref: any,
 ) {
-  const theme = useValence();
-
   // Defaults
   const {
     value,
@@ -97,6 +94,7 @@ export const SelectInput = forwardRef(function SelectInput(
         icon={icon}
         secondaryIcon={actionIcon}
         placeholder={placeholder}
+        ref={ref}
         {...rest}
       />
     </>
