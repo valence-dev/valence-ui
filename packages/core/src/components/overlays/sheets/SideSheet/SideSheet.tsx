@@ -6,7 +6,8 @@ import {
   GenericOverlayHeaderProps,
 } from "@valence-ui/utils";
 import { AnimatePresence, motion } from "motion/react";
-import { Flex, FlexProps, OverflowContainer } from "../../../layout";
+import { Flex, FlexProps } from "../../../layout/Flex";
+import { OverflowContainer } from "../../../layout/OverflowContainer";
 import {
   MakeResponsive,
   useColors,

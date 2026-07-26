@@ -5,7 +5,9 @@ import { useValence } from "../../../ValenceProvider";
 import { TextButtonProps } from "../TextButton";
 import { MakeResponsive, useResponsiveProps } from "../../../utilities";
 import { PrimitiveButton } from "../PrimitiveButton";
-import { Icon, Loader, Text } from "../../display";
+import { Icon } from "../../display/Icon";
+import { Loader } from "../../display/Loader";
+import { Text } from "../../display/Text";
 import { TransitionAnimation } from "../../../hooks";
 
 export type GridButtonProps = TextButtonProps & {

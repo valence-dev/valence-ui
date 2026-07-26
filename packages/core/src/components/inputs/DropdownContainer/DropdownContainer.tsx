@@ -21,8 +21,8 @@ import { IconCheck, IconSelector } from "@tabler/icons-react";
 import { InputContainer, InputContainerProps } from "../InputContainer";
 import { useValence } from "../../../ValenceProvider";
 import { GlassMaterial, PaperMaterial, useColors } from "../../../utilities";
-import { ButtonWithIcon } from "../../buttons";
-import { Text, TextProps } from "../../display";
+import { ButtonWithIcon } from "../../buttons/ButtonWithIcon";
+import { Text, TextProps } from "../../display/Text";
 import { AnimatePresence, motion } from "motion/react";
 import { AirMaterial } from "../../../utilities/materials/AirMaterial";
 

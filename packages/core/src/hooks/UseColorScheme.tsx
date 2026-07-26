@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useValence } from "../ValenceProvider";
+import { useValence } from "../ValenceProvider/ValenceContext";
 
 const COLOR_SCHEME_QUERY = "(prefers-color-scheme: dark)";
 

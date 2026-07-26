@@ -1,7 +1,11 @@
 import { useValence } from "../../../ValenceProvider";
 import { MakeResponsive, useResponsiveProps } from "../../../utilities";
-import { Icon } from "../../display";
-import { Tooltip, TooltipContentProps, TooltipProps } from "../../overlays";
+import { Icon } from "../../display/Icon";
+import {
+  Tooltip,
+  TooltipContentProps,
+  TooltipProps,
+} from "../../overlays/Tooltip";
 import { PrimitiveButton, PrimitiveButtonProps } from "../PrimitiveButton";
 import { forwardRef } from "react";
 

@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { forwardRef } from "react";
+import { Disclosure } from "../../../hooks/UseDisclosure";
 import {
-  Disclosure,
   MakeResponsive,
-  useColors,
   useResponsiveProps,
-  useValence,
-} from "../../..";
+} from "../../../utilities/responsive";
+import { useColors } from "../../../utilities/color";
+import { useValence } from "../../../ValenceProvider";
 import { motion } from "motion/react";
 import { GenericOverlayBackgroundProps } from "@valence-ui/utils";
 import { css } from "@emotion/react";

@@ -9,13 +9,9 @@ import {
 } from "@valence-ui/utils";
 import { GenericInputProps } from "../../../generics";
 import { CSSProperties, ReactNode, forwardRef, useState } from "react";
-import {
-  Button,
-  IconButton,
-  IconButtonProps,
-  TextButtonProps,
-} from "../../buttons";
-import { Flex, FlexProps } from "../../layout";
+import { IconButton, IconButtonProps } from "../../buttons/IconButton";
+import { Button, TextButtonProps } from "../../buttons/TextButton";
+import { Flex, FlexProps } from "../../layout/Flex";
 import { useValence } from "../../../ValenceProvider";
 import { IconPlus, IconX } from "@tabler/icons-react";
 import {
@@ -25,7 +21,7 @@ import {
 import { useColors } from "../../../utilities/color";
 import { TextInput, TextInputProps } from "../TextInput";
 import { GlassMaterial, Material, SolidMaterial } from "../../../utilities";
-import { Loader } from "../../display";
+import { Loader } from "../../display/Loader";
 
 export type PillSelectorEventProps = MouseClickEvents &
   MouseEvents &

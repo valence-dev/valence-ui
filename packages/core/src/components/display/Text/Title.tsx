@@ -1,6 +1,10 @@
 import { forwardRef } from "react";
 import { TextProps, Text } from "./Text";
-import { MakeResponsive, useResponsiveProps, useValence } from "../../..";
+import {
+  MakeResponsive,
+  useResponsiveProps,
+} from "../../../utilities/responsive";
+import { useValence } from "../../../ValenceProvider";
 
 export type TitleProps = TextProps & {
   /** Sets the order of the title */

@@ -1,9 +1,13 @@
-import { CSSProperties } from "react";
-import { ComponentSize, SizeClasses } from "@valence-ui/utils";
-import { TextProps } from "../components";
-import { Color } from "../utilities/color";
-import { PreferrableColorScheme } from "../hooks";
-import { Material } from "../utilities";
+// This module declares types only. Every import below is a `import type` so
+// that nothing here survives into the emitted JavaScript — the theme types
+// reference component props (`TextProps`), and a value import would make that
+// reference a require cycle at runtime.
+import type { CSSProperties } from "react";
+import type { ComponentSize, SizeClasses } from "@valence-ui/utils";
+import type { TextProps } from "../components/display/Text/Text";
+import type { Color } from "../utilities/color/Color";
+import type { PreferrableColorScheme } from "../hooks/UseColorScheme";
+import type { Material } from "../utilities/materials/Material";
 
 export type IValenceContext = {
   /** A list of all colors to use */

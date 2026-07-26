@@ -1,18 +1,18 @@
 import { CSSProperties, forwardRef } from "react";
 import { GenericLayoutProps, PolymorphicLayoutProps } from "@valence-ui/utils";
+import { IconButton, IconButtonProps } from "../../buttons/IconButton";
 import {
-  IconButton,
-  IconButtonProps,
   PrimitiveButton,
   PrimitiveButtonProps,
-} from "../../buttons";
+} from "../../buttons/PrimitiveButton";
 import {
   MakeResponsive,
   Responsive,
   useBreakpoint,
   useResponsiveProps,
 } from "../../../utilities";
-import { Flex, Space } from "../../layout";
+import { Flex } from "../../layout/Flex";
+import { Space } from "../../layout/Space";
 import { AirMaterial } from "../../../utilities/materials/AirMaterial";
 import { CSSObject } from "@emotion/react";
 

@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Global, css } from "@emotion/react";
-import { useColors } from "../utilities";
+import { useColors } from "../utilities/color";
 
 /** The CSS Overrider is a custom utility component designed to
  * avoid adding a custom global css file to the project to override

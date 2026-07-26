@@ -1,6 +1,6 @@
 import { CSSObject } from "@emotion/react";
-import { UseColorsReturn } from "..";
-import { IValenceContext } from "../../ValenceProvider";
+import { UseColorsReturn } from "../color";
+import type { IValenceContext } from "../../ValenceProvider/ValenceProvider.types";
 import { Material, MaterialProps } from "./Material";
 
 export type AirMaterialProps = MaterialProps & {

@@ -1,7 +1,7 @@
 import { CSSObject } from "@emotion/react";
 import { Material, MaterialProps } from "./Material";
-import { IValenceContext } from "../../ValenceProvider";
-import { UseColorsReturn } from "..";
+import type { IValenceContext } from "../../ValenceProvider/ValenceProvider.types";
+import { UseColorsReturn } from "../color";
 
 export type PaperMaterialElevation = 1 | 2 | 3 | 4 | 5;
 export type PaperMaterialBlur = "weak" | "strong" | number;

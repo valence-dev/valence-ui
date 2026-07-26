@@ -4,12 +4,11 @@ import { CSSProperties, forwardRef } from "react";
 import { motion } from "motion/react";
 import {
   MakeResponsive,
-  TransitionAnimation,
-  useAnimation,
-  useColors,
   useResponsiveProps,
-  useValence,
-} from "../../..";
+} from "../../../utilities/responsive";
+import { useColors } from "../../../utilities/color";
+import { TransitionAnimation, useAnimation } from "../../../hooks/UseAnimation";
+import { useValence } from "../../../ValenceProvider";
 import { ComponentSize, GenericProps, SizeClasses } from "@valence-ui/utils";
 
 export type LoaderProps = Omit<GenericProps, "children"> & {

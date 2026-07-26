@@ -1,5 +1,5 @@
-import { useValence } from "../../ValenceProvider";
-import { useColorScheme } from "../../hooks";
+import { useValence } from "../../ValenceProvider/ValenceContext";
+import { useColorScheme } from "../../hooks/UseColorScheme";
 import { Swatch, SwatchOpacity, getDefaultSwatch } from "./Color";
 
 export type UseColorsReturn = {

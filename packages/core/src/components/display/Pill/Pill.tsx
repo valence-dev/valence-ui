@@ -5,11 +5,8 @@ import {
   GenericLayoutProps,
   SizeClasses,
 } from "@valence-ui/utils";
-import {
-  IconButton,
-  IconButtonProps,
-  UnstyledButtonProps,
-} from "../../buttons";
+import { IconButton, IconButtonProps } from "../../buttons/IconButton";
+import { UnstyledButtonProps } from "../../buttons/UnstyledButton";
 import { CSSProperties, ReactNode, forwardRef } from "react";
 import { useValence } from "../../../ValenceProvider";
 import { IconX } from "@tabler/icons-react";

@@ -13,7 +13,7 @@ import {
 } from "@floating-ui/react";
 import { Disclosure, useDisclosure } from "./UseDisclosure";
 import { useMemo } from "react";
-import { useBreakpoint } from "../utilities";
+import { useBreakpoint } from "../utilities/responsive";
 
 export type TooltipOptions = {
   /** The placement of the tooltip relative to the target */

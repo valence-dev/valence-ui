@@ -3,10 +3,12 @@ import { createRef, forwardRef } from "react";
 import {
   GenericTextInputEventProps,
   GenericTextInputProps,
+} from "../../../generics/Input";
+import {
   MakeResponsive,
   useResponsiveProps,
-  useValence,
-} from "../../..";
+} from "../../../utilities/responsive";
+import { useValence } from "../../../ValenceProvider";
 import { InputContainer } from "../InputContainer";
 import { css } from "@emotion/react";
 

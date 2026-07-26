@@ -16,7 +16,8 @@ import {
   useColors,
   useResponsiveProps,
 } from "../../../../utilities";
-import { Flex, FlexProps, OverflowContainer } from "../../../layout";
+import { Flex, FlexProps } from "../../../layout/Flex";
+import { OverflowContainer } from "../../../layout/OverflowContainer";
 import { useValence } from "../../../../ValenceProvider";
 import { DefaultModalHeader } from "../../Modal";
 import { useDetectKeyDown } from "../../../../hooks";

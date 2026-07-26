@@ -3,7 +3,7 @@ import { Image, ImageProps } from "../Image";
 import { ComponentSize } from "@valence-ui/utils";
 import { useValence } from "../../../../ValenceProvider";
 import { IconUserCircle } from "@tabler/icons-react";
-import { Flex } from "../../../layout";
+import { Flex } from "../../../layout/Flex";
 import { Icon, IconProps } from "../../Icon";
 import {
   MakeResponsive,

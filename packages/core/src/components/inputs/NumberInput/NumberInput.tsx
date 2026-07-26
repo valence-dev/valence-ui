@@ -4,12 +4,14 @@ import { InputContainer } from "../InputContainer";
 import {
   GenericInputProps,
   GenericTextInputEventProps,
+} from "../../../generics/Input";
+import {
   MakeResponsive,
-  Material,
   useResponsiveProps,
-  useValence,
-} from "../../..";
-import { IconButton } from "../../buttons";
+} from "../../../utilities/responsive";
+import { Material } from "../../../utilities/materials";
+import { useValence } from "../../../ValenceProvider";
+import { IconButton } from "../../buttons/IconButton";
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 import { css } from "@emotion/react";
 

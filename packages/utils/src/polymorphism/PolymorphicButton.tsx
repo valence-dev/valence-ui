@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import {
   GenericClickableEventProps,
   GenericClickableProps,
-  GenericProps,
-  PolymorphicElementProps,
-} from "..";
+} from "../generics/Clickable";
+import { GenericProps } from "../generics/Global";
+import { PolymorphicElementProps } from "../generics/Polymorphic";
 
 export type PolymorphicButtonProps = PolymorphicElementProps & {
   /** Sets Emotion styling content on the component */

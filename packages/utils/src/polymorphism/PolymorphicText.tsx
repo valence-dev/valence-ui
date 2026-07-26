@@ -2,9 +2,9 @@ import { forwardRef } from "react";
 import {
   GenericClickableEventProps,
   GenericClickableProps,
-  GenericProps,
-  PolymorphicElementProps,
-} from "..";
+} from "../generics/Clickable";
+import { GenericProps } from "../generics/Global";
+import { PolymorphicElementProps } from "../generics/Polymorphic";
 import { Link } from "react-router-dom";
 import { motion } from "motion/react";
 

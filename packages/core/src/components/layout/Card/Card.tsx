@@ -5,15 +5,18 @@ import {
   PolymorphicButtonProps,
   SizeClasses,
 } from "@valence-ui/utils";
-import { Flex, FlexProps } from "..";
+import { Flex, FlexProps } from "../Flex";
 import {
   PrimitiveButton,
   PrimitiveButtonProps,
 } from "../../buttons/PrimitiveButton";
 import { CSSProperties, forwardRef } from "react";
 import { useValence } from "../../../ValenceProvider";
-import { GenericImageProps, Image as ImageComponent } from "../../display";
-import { UnstyledButton } from "../../buttons";
+import {
+  GenericImageProps,
+  Image as ImageComponent,
+} from "../../display/images/Image";
+import { UnstyledButton } from "../../buttons/UnstyledButton";
 import {
   MakeResponsive,
   useResponsiveProps,

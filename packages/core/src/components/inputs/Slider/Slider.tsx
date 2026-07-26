@@ -4,8 +4,8 @@ import { GenericInputProps } from "../../../generics";
 import ReactSlider from "react-slider";
 import { css, CSSObject } from "@emotion/react";
 import { useValence } from "../../../ValenceProvider";
-import { Flex, FlexProps } from "../../layout";
-import { Text } from "../../display";
+import { Flex, FlexProps } from "../../layout/Flex";
+import { Text } from "../../display/Text";
 import { NumberInput, NumberInputProps } from "../NumberInput";
 import {
   MakeResponsive,

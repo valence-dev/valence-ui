@@ -31,10 +31,10 @@ runtime behaviour that some apps may have accidentally relied upon (see below).
 
 ## Tier 1 — release blockers
 
-### ISSUE-01 — Internal barrel imports create module cycles **[test]**
+### ISSUE-01 — Internal barrel imports create module cycles **[fixed]**
 
-**Severity: critical.** `Card` fails to render at all in some module graphs, and
-`ButtonWithIcon` throws whenever `loading` is true.
+**Severity: critical.** `Card` failed to render at all in some module graphs, and
+`ButtonWithIcon` threw whenever `loading` was true.
 
 Ten modules import from a barrel that (transitively) re-exports them:
 
@@ -85,11 +85,32 @@ Add a lint rule to keep it that way — `eslint-plugin-import`'s `import/no-cycl
 plus a `no-restricted-imports` rule banning `".."`/`"../../.."` specifiers inside
 `packages/*/src`.
 
-**Verification.** Delete the `it.fails` blocks in
-`test/known-issues.card.test.tsx` and the ISSUE-01 block in
-`test/known-issues.test.tsx`, then remove `.skip` from the `describe.skip("Card")`
-block in `packages/core/src/components/layout/Layout.test.tsx` — seven Card tests
-are already written and waiting.
+**What was done.**
+
+- Every module under `packages/*/src` now imports the module that defines the
+  symbol, never an ancestor or sibling *group* barrel. That covers the eleven
+  files listed above plus the group-barrel imports (`"../../display"`,
+  `"../../layout"`, …) that formed the same cycles one level up. Leaf barrels
+  (`"../Flex"`, `"../../display/Icon"`) are still fine: nothing inside them
+  re-exports their importer.
+- `ValenceContext`/`useValence` moved out of `ValenceProvider.tsx` into
+  `ValenceProvider/ValenceContext.tsx`. The provider renders `CssOverride`,
+  which needs `useColors`, which needs the context — a cycle that existed
+  independently of the barrels. Both names are still exported from
+  `@valence-ui/core` unchanged.
+- `ValenceProvider.types.tsx` is now a pure type module (`import type`
+  throughout), so the unavoidable types-reference-component-props edge emits no
+  runtime `require`.
+- `npm run lint` enforces both rules from `eslint.config.mjs`. Stories are
+  exempt from `no-restricted-imports`: nothing re-exports a story, so importing
+  the package barrel there is what a real consumer does.
+
+**Verification.** `npm test` reports 342 passing, 0 skipped:
+`test/known-issues.card.test.tsx` is gone, the ISSUE-01 block in
+`test/known-issues.test.tsx` is gone, its `ButtonWithIcon` `loading` case is now
+a real test in `packages/core/src/components/buttons/Buttons.test.tsx`, and the
+seven Card tests in `packages/core/src/components/layout/Layout.test.tsx` run
+unskipped.
 
 ---
 

@@ -1,6 +1,6 @@
 import { CSSObject } from "@emotion/react";
-import { IValenceContext } from "../../ValenceProvider";
-import { UseColorsReturn } from "..";
+import type { IValenceContext } from "../../ValenceProvider/ValenceProvider.types";
+import { UseColorsReturn } from "../color";
 
 export type MaterialProps = {
   /** Whether the material is interactive. Some materials may respond
