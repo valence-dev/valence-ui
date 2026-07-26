@@ -356,7 +356,18 @@ returned callbacks in `useCallback` so they are stable dependencies.
 any number of them. Add the same guard to `handlePillClick`, and decide whether
 hitting the cap should disable the remaining pills or silently no-op.
 
-### ISSUE-10 — A disabled `InputContainer` still takes focus **[test]**
+### ISSUE-10 — A disabled `InputContainer` still takes focus **[fixed]**
+
+`handleClick` now returns after the disabled branch, so a disabled container
+neither focuses its input nor forwards the click to `onClick`. Suppressing
+`onClick` is part of the fix rather than a side effect of it: a handler firing
+on a control the user can see is disabled is the same defect one level up.
+
+The reproduction has been promoted into the `InputContainer` block of
+`packages/core/src/components/inputs/Inputs.test.tsx`, with `onClick` cases on
+both sides of `disabled` so the enabled path stays pinned too.
+
+The original report follows.
 
 ```tsx
 const handleClick = (e: MouseEvent) => {
