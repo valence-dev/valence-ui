@@ -378,4 +378,22 @@ describe("UnstyledButton", () => {
     expect(screen.queryByRole("button")).not.toBeInTheDocument();
     expect(screen.getByText("Bare").tagName).toBe("DIV");
   });
+
+  it("takes an `animation` prop like every other button", () => {
+    renderWithValence(
+      <UnstyledButton animation={{ transitionAnimation: "fade" }}>
+        Bare
+      </UnstyledButton>,
+    );
+
+    // `fade` starts at opacity 0, which is what the initial variant applies.
+    expect(screen.getByRole("button")).toHaveStyle({ opacity: "0" });
+  });
+
+  it("applies no animation by default", () => {
+    renderWithValence(<UnstyledButton>Bare</UnstyledButton>);
+
+    // Unlike PrimitiveButton, an unstyled button opts into nothing.
+    expect(screen.getByRole("button")).not.toHaveStyle({ opacity: "0" });
+  });
 });
