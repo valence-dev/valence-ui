@@ -499,7 +499,7 @@ dependency).
 | ISSUE-23 | `UseWindowTitle` is PascalCase, so React's lint rules do not treat it as a hook | Rename to `useWindowTitle`, re-export the old name as deprecated |
 | ISSUE-24 | `Material.setInteractive`/`setOverrides`/`setChildrenOverrides` return `Material`, breaking subclass chaining; `SolidMaterial` has no `setColor`, `PaperMaterial` no `setBlur` | Make the base setters generic (`this`-typed) and fill the gaps |
 | ISSUE-25 | `SliderTrackProps.material` is declared but never read | Wire it up or remove it |
-| ISSUE-26 | `Switch` has no `role="switch"`/`aria-checked`, and its label is not associated with the control | Add ARIA and wrap in a `<label>` |
+| ISSUE-26 **[fixed]** | `Switch` has no `role="switch"`/`aria-checked`, and its label is not associated with the control | Added `role="switch"` and `aria-checked`. For the association: a `<button>` is **not** a labelable element, so neither `htmlFor` nor wrapping in a `<label>` associates anything — `aria-labelledby` does the naming, with a real `<label>` element carrying an `onClick` as the pointer affordance. An explicit caller `aria-label`/`aria-labelledby` wins, since `aria-labelledby` would otherwise outrank it. **Note:** the control now reports `role="switch"`, so `getByRole("button")` queries against it must be updated |
 | ISSUE-27 | `useElementSize` only listens to window resize, so it misses element-only size changes | Use `ResizeObserver` |
 | ISSUE-28 | `Textarea` sets `verticalAlign: "center"`, which is not a valid CSS value | Remove it or use `middle` |
 | ISSUE-29 | Unused `colors`/`theme` locals in `ButtonWithIcon`, `MultipartButton`, `Grid`; `CardNamesapce` typo | Clean up; enable `noUnusedLocals` |
