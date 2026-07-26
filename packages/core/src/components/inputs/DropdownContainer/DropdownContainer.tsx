@@ -19,6 +19,7 @@ import {
 import { css, CSSObject } from "@emotion/react";
 import { IconCheck, IconSelector } from "@tabler/icons-react";
 import { InputContainer, InputContainerProps } from "../InputContainer";
+import { Icon } from "../../display/Icon";
 import { useValence } from "../../../ValenceProvider";
 import { GlassMaterial, PaperMaterial, useColors } from "../../../utilities";
 import { ButtonWithIcon } from "../../buttons/ButtonWithIcon";
@@ -184,7 +185,7 @@ export function DropdownContainer<OptionType>(
       <InputContainer
         tabIndex={0}
         icon={selected ? (options[selected].icon ?? icon) : icon}
-        button={secondaryIcon}
+        button={<Icon>{secondaryIcon}</Icon>}
         size={inputSize}
         radius={radius}
         material={material}

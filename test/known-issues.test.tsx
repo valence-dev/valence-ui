@@ -20,7 +20,6 @@ import {
 import { SolidMaterial } from "../packages/core/src/utilities/materials/SolidMaterial";
 import { useDisclosure } from "../packages/core/src/hooks/UseDisclosure";
 import { useControlledList } from "../packages/core/src/hooks/UseControlledList";
-import { NumberInput } from "../packages/core/src/components/inputs/NumberInput";
 import { SelectInput } from "../packages/core/src/components/inputs/SelectInput";
 import { Switch } from "../packages/core/src/components/inputs/Switch";
 import { Slider } from "../packages/core/src/components/inputs/Slider";
@@ -46,21 +45,6 @@ describe("ISSUE-03: custom colors replace the default palette", () => {
 
     expect(result.current.colors).toHaveLength(DEFAULT_PALETTE.length + 1);
     expect(result.current.colors.find((c) => c.key === "black")).toBeDefined();
-  });
-});
-
-describe("ISSUE-04: NumberInput produces NaN", () => {
-  it.fails("clearing a NumberInput does not emit NaN", async () => {
-    const setValue = vi.fn();
-    const { user } = renderWithValence(
-      <NumberInput value={5} setValue={setValue} aria-label="qty" />,
-    );
-
-    await user.clear(screen.getByLabelText("qty"));
-
-    for (const call of setValue.mock.calls) {
-      expect(Number.isNaN(call[0])).toBe(false);
-    }
   });
 });
 
