@@ -87,4 +87,22 @@ export type IValenceContext = {
     desktopLargeWidth: number;
     tvWidth: number;
   };
+
+  /** Whether the app has completed its first render commit.
+   *
+   * Starts `false` and flips to `true` exactly once, via a `useEffect` with
+   * an empty dependency array in `ValenceProvider` itself. React commits
+   * effects bottom-up after the *entire* initial tree has rendered, so every
+   * descendant's first render — synchronously, during that initial mount —
+   * still observes `false`, regardless of how deep it is. Only components
+   * that mount later (through a state update, a conditional render, a route
+   * change, etc.) will observe `true`.
+   *
+   * `useAnimation` reads this to decide whether a component's entrance
+   * transition should play: elements already on screen at first paint
+   * suppress it (via Motion's `initial={false}`), while anything that mounts
+   * afterwards — a toast, a modal opened later, an interactively-added list
+   * item — still animates in normally. See GitHub issue #47.
+   */
+  hasPaintedOnce: boolean;
 };

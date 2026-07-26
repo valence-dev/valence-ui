@@ -278,6 +278,23 @@ describe("Icon", () => {
     warn.mockRestore();
   });
 
+  it("does not apply its animate-from styling on first paint (ISSUE-47)", () => {
+    // jsdom has no real Motion runtime, so there's no animation to watch
+    // play out — instead this checks the styling Motion actually committed
+    // to the DOM at mount. Without first-paint suppression, an icon mounted
+    // with `animation="fade"` would be stuck at its `initial` variant
+    // (`opacity: 0`, since nothing drives the animation forward in jsdom);
+    // with suppression it mounts straight into `animate` (`opacity: 1`).
+    const { container } = renderWithValence(
+      <Icon animation="fade">
+        <IconHeart />
+      </Icon>,
+    );
+
+    const svg = container.querySelector("svg")!;
+    expect(svg).toHaveStyle({ opacity: "1" });
+  });
+
   it("passes a plain string child through untouched", () => {
     renderWithValence(<Icon>not an element</Icon>);
     expect(screen.getByText("not an element")).toBeInTheDocument();

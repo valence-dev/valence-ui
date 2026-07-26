@@ -33,7 +33,11 @@ export const UnstyledButton = forwardRef(function UnstyledButton(
   // No default hover/tap animation, unlike `PrimitiveButton`: an unstyled
   // button should stay unopinionated, and the old `motion` prop was likewise
   // inert unless asked for. `useAnimation` handles reduced motion internally.
-  const animations = useAnimation({ ...animation });
+  //
+  // `initial` is pulled out on its own because it may be `false`, which is
+  // valid as the `initial` prop directly but not as a `variants` map entry
+  // (Motion's `Variants` type only accepts real targets, never `false`).
+  const { initial, ...variants } = useAnimation({ ...animation });
 
   // Styles
   const UnstyledButtonStyle = css({
@@ -50,8 +54,8 @@ export const UnstyledButton = forwardRef(function UnstyledButton(
     <PolymorphicButton
       css={UnstyledButtonStyle}
       ref={ref}
-      variants={animations}
-      initial="initial"
+      variants={variants}
+      initial={initial}
       animate="animate"
       exit="exit"
       whileHover="whileHover"

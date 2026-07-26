@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
+import { useState } from "react";
 import { act, render, renderHook, screen } from "@testing-library/react";
-import { Providers } from "../../../../test/utils";
+import { Providers, renderWithValence } from "../../../../test/utils";
 import { useDisclosure } from "./UseDisclosure";
 import { useControlledList } from "./UseControlledList";
 import { useColorScheme } from "./UseColorScheme";
@@ -264,6 +265,68 @@ describe("useAnimation", () => {
       useAnimation({ hoverAnimation: ["grow", "raise"] }),
     );
     expect(result.current.whileHover).toEqual({ scale: 1.1, y: -2 });
+  });
+
+  describe("first-paint suppression (ISSUE-47)", () => {
+    it("does not suppress when used outside a <ValenceProvider />", () => {
+      // No provider means no `hasPaintedOnce` to read — `useAnimation` falls
+      // back to behaving exactly as it did before this flag existed, which is
+      // what every bare `renderHook` call above already relies on.
+      const { result } = renderHook(() =>
+        useAnimation({ transitionAnimation: "fade" }),
+      );
+      expect(result.current.initial).toEqual({ opacity: 0 });
+    });
+
+    it("suppresses the initial variant for elements already on screen at first paint", () => {
+      const renders: unknown[] = [];
+
+      function Harness() {
+        const { initial } = useAnimation({ transitionAnimation: "fade" });
+        // Recorded during the render body itself — before any effect
+        // (including ValenceProvider's own mount effect) has run — so the
+        // very first entry reflects what Motion actually saw at first paint.
+        renders.push(initial);
+        return null;
+      }
+
+      renderWithValence(<Harness />);
+
+      expect(renders[0]).toBe(false);
+      // ValenceProvider's mount effect then flips `hasPaintedOnce`, which
+      // re-renders this already-mounted component with the real variant —
+      // harmless, since Motion only consults `initial` at the actual mount.
+      expect(renders.at(-1)).toEqual({ opacity: 0 });
+    });
+
+    it("does not suppress a component that mounts after the initial commit", async () => {
+      let captured: unknown;
+
+      function Later() {
+        const { initial } = useAnimation({ transitionAnimation: "fade" });
+        captured = initial;
+        return null;
+      }
+
+      function Harness() {
+        const [show, setShow] = useState(false);
+        return (
+          <div>
+            <button onClick={() => setShow(true)}>show</button>
+            {show && <Later />}
+          </div>
+        );
+      }
+
+      const { user } = renderWithValence(<Harness />);
+      expect(captured).toBeUndefined();
+
+      // Triggered by a state update well after the app's first paint — e.g.
+      // a toast, a modal opened later, an interactively-added list item.
+      await user.click(screen.getByText("show"));
+
+      expect(captured).toEqual({ opacity: 0 });
+    });
   });
 });
 

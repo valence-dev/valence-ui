@@ -67,7 +67,10 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
   // so they rely on `aria-disabled` and a suppressed click handler instead.
   const isNativeButton = component === undefined || component === "button";
 
-  const animations = useAnimation({
+  // `initial` is pulled out on its own because it may be `false`, which is
+  // valid as the `initial` prop directly but not as a `variants` map entry
+  // (Motion's `Variants` type only accepts real targets, never `false`).
+  const { initial, ...variants } = useAnimation({
     hoverAnimation: "raise",
     tapAnimation: "bounce",
     ...animation,
@@ -118,8 +121,8 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
       onClick={isDisabled && !isNativeButton ? undefined : onClick}
       disabled={isNativeButton ? isDisabled : undefined}
       aria-disabled={isDisabled}
-      variants={animations}
-      initial="initial"
+      variants={variants}
+      initial={initial}
       animate="animate"
       exit="exit"
       whileHover="whileHover"

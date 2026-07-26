@@ -107,7 +107,11 @@ export const Alert = forwardRef(function Alert(
   } = useResponsiveProps<AlertProps>(props);
 
   // Hooks & states
-  const animations = useAnimation({
+  //
+  // `initial` is pulled out on its own because it may be `false`, which is
+  // valid as the `initial` prop directly but not as a `variants` map entry
+  // (Motion's `Variants` type only accepts real targets, never `false`).
+  const { initial, ...variants } = useAnimation({
     transitionAnimation: ["blur", "fade", "grow"],
     ...animation,
   });
@@ -154,8 +158,8 @@ export const Alert = forwardRef(function Alert(
         onMouseDown={(e: any) => e.preventDefault()}
         component={component}
         key={alert.title + alert.message}
-        variants={animations}
-        initial="initial"
+        variants={variants}
+        initial={initial}
         animate="animate"
         exit="exit"
         whileHover="whileHover"

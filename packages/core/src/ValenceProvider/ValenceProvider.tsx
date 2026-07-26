@@ -1,4 +1,4 @@
-import { CSSProperties } from "react";
+import { CSSProperties, useEffect, useState } from "react";
 import { IValenceContext } from "./ValenceProvider.types";
 import { ValenceContext } from "./ValenceContext";
 import type { TextProps } from "../components/display/Text/Text";
@@ -70,6 +70,10 @@ export function ValenceProvider(props: ValenceProviderProps) {
     colors: DEFAULT_PALETTE,
     primaryColor: "pink",
     preferredColorScheme: "system",
+    // Placeholder only — like `colors`, this isn't a prop with a fallback to
+    // source here. The real value comes from the `hasPaintedOnce` state
+    // below and is what actually reaches the context.
+    hasPaintedOnce: false,
 
     defaults: {
       size: "sm",
@@ -118,6 +122,14 @@ export function ValenceProvider(props: ValenceProviderProps) {
   // the defaults and the caller's, not an either/or, and a destructuring
   // default only runs when the prop is absent.
   const colors = mergePalette(props.colors);
+
+  // Flips to `true` exactly once, after the initial tree has committed (see
+  // `hasPaintedOnce` on `IValenceContext` for why an empty-deps effect here —
+  // rather than per-component local state — is what makes this work).
+  const [hasPaintedOnce, setHasPaintedOnce] = useState(false);
+  useEffect(() => {
+    setHasPaintedOnce(true);
+  }, []);
 
   // Fallback properties
   const {
@@ -176,6 +188,8 @@ export function ValenceProvider(props: ValenceProviderProps) {
         titles,
 
         breakpoints,
+
+        hasPaintedOnce,
       }}
     >
       {/* CSS overrider to avoid pasting a global.css file */}

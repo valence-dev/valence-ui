@@ -1,5 +1,6 @@
-import { useReducedMotion, Variant } from "motion/react";
-import { useMemo } from "react";
+import { TargetAndTransition, useReducedMotion, Variant } from "motion/react";
+import { useContext, useMemo } from "react";
+import { ValenceContext } from "../ValenceProvider/ValenceContext";
 
 /** Defines a transition animation that can be applied to a component
  * when it mounts or unmounts. These animations are used to create
@@ -44,7 +45,27 @@ export type HoverAnimation = "grow" | "raise";
 export type TapAnimation = "shrink" | "bounce";
 
 export type UseAnimationOutput = {
-  initial: Variant;
+  /** Intended to be passed directly to a `motion` component's `initial`
+   * prop (not looked up as a variant label — Motion's `initial` prop is the
+   * only one of the five that accepts a plain `boolean`).
+   *
+   * This is `false` whenever the component rendering it was already on
+   * screen at the app's very first paint — see `hasPaintedOnce` on
+   * `IValenceContext` — which tells Motion to skip the enter transition and
+   * render straight into the `animate` state, Motion's documented fix for
+   * elements that shouldn't visually "pop in" en masse when a whole
+   * page/modal/scene first mounts (ISSUE-47). It's the real transition
+   * target for every other mount, so entrances that happen later — a toast, a
+   * modal opened by a user action, an interactively-added list item — still
+   * animate in as intended.
+   *
+   * Typed as `TargetAndTransition` rather than the broader `Variant` (which
+   * also allows a `TargetResolver` function): Motion's `initial` prop itself
+   * doesn't accept a resolver function, only `boolean | Target |
+   * VariantLabels`, and this value is always passed directly to that prop
+   * rather than looked up by label.
+   */
+  initial: TargetAndTransition | false;
   animate: Variant;
   exit: Variant;
   whileHover: Variant;
@@ -52,7 +73,7 @@ export type UseAnimationOutput = {
 };
 
 type TransitionVariants = {
-  initial: Variant;
+  initial: TargetAndTransition;
   animate: Variant;
   exit: Variant;
 };
@@ -98,6 +119,14 @@ export function useAnimation({
   tapAnimation,
 }: AnimationProps): UseAnimationOutput {
   const reducedMotion = useReducedMotion();
+
+  // `useContext` rather than the throwing `useValence()`: this hook is used
+  // directly in isolation by tests without a `<ValenceProvider />` (see
+  // `Hooks.test.tsx`), and outside a provider there is no "first paint" to
+  // suppress against — animations behave exactly as they did before this
+  // flag existed, which also keeps those existing tests passing unchanged.
+  const valenceContext = useContext(ValenceContext);
+  const pastFirstPaint = valenceContext?.hasPaintedOnce ?? true;
 
   function getTransitionAnimation(
     animation?: TransitionAnimation | TransitionAnimation[],
@@ -208,7 +237,10 @@ export function useAnimation({
     return getTapVariant(animation);
   }
 
-  const output = useMemo(() => {
+  // Explicit generic (rather than letting `useMemo` infer it): a bare
+  // ternary of `Variant | false` otherwise gets widened to `boolean |
+  // Variant`, which is not what either branch actually returns.
+  const output = useMemo<UseAnimationOutput>(() => {
     if (reducedMotion)
       return {
         initial: {},
@@ -223,13 +255,19 @@ export function useAnimation({
     const tap = getTapAnimation(tapAnimation);
 
     return {
-      initial: transition.initial,
+      initial: pastFirstPaint ? transition.initial : false,
       animate: transition.animate,
       exit: transition.exit,
       whileHover: hover,
       whileTap: tap,
     };
-  }, [transitionAnimation, hoverAnimation, tapAnimation, reducedMotion]);
+  }, [
+    transitionAnimation,
+    hoverAnimation,
+    tapAnimation,
+    reducedMotion,
+    pastFirstPaint,
+  ]);
 
   return output;
 }
