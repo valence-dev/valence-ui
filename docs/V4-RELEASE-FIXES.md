@@ -493,7 +493,7 @@ dependency).
 | --- | --- | --- |
 | ISSUE-13 | `AvatarProps["src"]` is required even though `undefined` renders the placeholder | Make `src` optional in `GenericImageProps` |
 | ISSUE-19 | `getSize("radius")` falls back to `defaults.size`, not `defaults.radius` | Use the radius default for the radius property |
-| ISSUE-20 | `Text` passes an array as a React `key` to drive its change animation; the key only actually changes for unformatted plain text | Derive a string key from the raw children |
+| ISSUE-20 **[fixed]** | `Text` passes an array as a React `key` to drive its change animation; the key only actually changes for unformatted plain text | A `getTextContent` helper flattens the *raw* children to their text and that is used as the key. Covered in the formatting block of `Display.test.tsx`, asserting on DOM node identity across a re-render. A related defect on the same lines — every formatted segment is keyed with `randomId()`, so they remount on every render — is filed separately as #67 |
 | ISSUE-21 | `Icon` calls the deprecated `motion(Component)` — logs a deprecation warning on every animated icon | Use `motion.create()`, as `PolymorphicButton` already does |
 | ISSUE-22 | `UnstyledButton` still uses the old `getMotionBehaviour` helper and a `motion` prop; every other button uses `useAnimation` and an `animation` prop | Migrate it, then delete `components/buttons/Helpers.ts` |
 | ISSUE-23 | `UseWindowTitle` is PascalCase, so React's lint rules do not treat it as a hook | Rename to `useWindowTitle`, re-export the old name as deprecated |
