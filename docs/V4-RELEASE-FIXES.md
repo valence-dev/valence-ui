@@ -660,6 +660,8 @@ The original report follows.
 
 | ID | Issue | Fix |
 | --- | --- | --- |
+| ISSUE-13 | `AvatarProps["src"]` is required even though `undefined` renders the placeholder | Make `src` optional in `GenericImageProps` |
+| ISSUE-19 **[fixed]** | `getSize("radius")` falls back to `defaults.size`, not `defaults.radius` | `getSize` picks `defaults.radius` when the property is `radius` and `defaults.size` otherwise. Covered in the `getSize` block of `ValenceProvider.test.tsx` by a theme that sets the two defaults apart, since they coincide out of the box |
 | ISSUE-13 **[fixed]** | `AvatarProps["src"]` is required even though `undefined` renders the placeholder | `src` is now optional in `GenericImageProps`, so `<Avatar alt="Me" />` type-checks. The redundant `\| undefined` in its type is dropped at the same time |
 | ISSUE-19 | `getSize("radius")` falls back to `defaults.size`, not `defaults.radius` | Use the radius default for the radius property |
 | ISSUE-20 | `Text` passes an array as a React `key` to drive its change animation; the key only actually changes for unformatted plain text | Derive a string key from the raw children |
