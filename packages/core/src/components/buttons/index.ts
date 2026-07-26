@@ -6,4 +6,3 @@ export * from "./PrimitiveButton";
 export * from "./TextButton";
 export * from "./UnstyledButton";
 
-export * from "./Helpers";

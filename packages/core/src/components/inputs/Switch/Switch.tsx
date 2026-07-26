@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { FocusEvents } from "@valence-ui/utils";
-import { CSSProperties, forwardRef } from "react";
+import { CSSProperties, forwardRef, useId } from "react";
 import { useValence } from "../../../ValenceProvider";
 import { Text, TextProps } from "../../display/Text";
 import { GenericInputProps } from "../../../generics";
@@ -76,6 +76,19 @@ export const Switch = forwardRef(function Switch(
     ...rest
   } = useResponsiveProps<SwitchProps>(props);
 
+  // A `<button>` is not a labelable element, so `htmlFor` would not associate
+  // anything and wrapping it in a `<label>` would not either. `aria-labelledby`
+  // is what actually names the control for assistive technology; the `<label>`
+  // element and its click handler below are the pointer affordance.
+  const labelId = `${useId()}-label`;
+
+  // `aria-labelledby` outranks `aria-label` in the accessible name calculation,
+  // so pointing it at our own label would silently override a caller who named
+  // the control themselves. Theirs wins.
+  const named = rest as Record<string, unknown>;
+  const hasCallerLabel =
+    named["aria-label"] !== undefined || named["aria-labelledby"] !== undefined;
+
   // Handlers
   function handleClick() {
     if (disabled || readOnly || loading) return;
@@ -120,9 +133,17 @@ export const Switch = forwardRef(function Switch(
   return (
     <Flex align="center" {...containerProps}>
       {label && (
-        <Text color="black" size={size} {...labelProps}>
-          {label}
-        </Text>
+        <label
+          id={labelId}
+          onClick={handleClick}
+          style={{
+            cursor: disabled || readOnly || loading ? "inherit" : "pointer",
+          }}
+        >
+          <Text color="black" size={size} {...labelProps}>
+            {label}
+          </Text>
+        </label>
       )}
 
       {/* Everything the switch does not name itself — `aria-*`, `data-*`,
@@ -133,6 +154,9 @@ export const Switch = forwardRef(function Switch(
         {...rest}
         id={id}
         ref={ref}
+        role="switch"
+        aria-checked={value}
+        aria-labelledby={label && !hasCallerLabel ? labelId : undefined}
         onClick={handleClick}
         onFocus={onFocus}
         onBlur={onBlur}

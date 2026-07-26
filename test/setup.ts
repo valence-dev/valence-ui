@@ -2,9 +2,18 @@ import "@testing-library/jest-dom/vitest";
 import { cleanup } from "@testing-library/react";
 import { afterEach, beforeAll, vi } from "vitest";
 
-afterEach(() => cleanup());
+// `test/ssr.test.tsx` runs under the `node` environment on purpose, so there is
+// no DOM to patch there and nothing rendered to clean up. Everything below is
+// jsdom-only shimming.
+const hasDOM = typeof window !== "undefined";
+
+afterEach(() => {
+  if (hasDOM) cleanup();
+});
 
 beforeAll(() => {
+  if (!hasDOM) return;
+
   // useColorScheme() reads matchMedia during render; jsdom does not implement it.
   if (!window.matchMedia) {
     Object.defineProperty(window, "matchMedia", {

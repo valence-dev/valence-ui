@@ -43,6 +43,20 @@ describe("Material (shared contract)", () => {
       expect(styles.outline).toBe("none");
     });
 
+    it("returns its own subclass from every inherited setter", () => {
+      const material = create();
+      const Subclass = material.constructor as new () => Material;
+
+      // The `this` typing is what makes chaining work; at runtime the check
+      // that matters is that the concrete class survives the copy.
+      expect(material.setInteractive(true)).toBeInstanceOf(Subclass);
+      expect(material.setColor("red")).toBeInstanceOf(Subclass);
+      expect(material.setOverrides({ margin: 1 })).toBeInstanceOf(Subclass);
+      expect(material.setChildrenOverrides({ margin: 1 })).toBeInstanceOf(
+        Subclass,
+      );
+    });
+
     it("only emits hover/focus rules when interactive", () => {
       const [valence, colors] = useMaterialContext();
 
@@ -245,5 +259,55 @@ describe("AirMaterial", () => {
     expect((styles["&:hover"] as any).backgroundColor).toBe(
       colors.getHex("red", "weak"),
     );
+  });
+});
+
+describe("setter chaining (ISSUE-24)", () => {
+  it("keeps the subclass through a chain off a base setter", () => {
+    // The report's exact case. This is primarily a *type* assertion: before
+    // the fix `setInteractive` returned `Material`, so `.setBlur` did not
+    // exist on it and this line did not compile.
+    const material = new GlassMaterial().setInteractive(true).setBlur("strong");
+
+    expect(material).toBeInstanceOf(GlassMaterial);
+    expect(material.blur).toBe("strong");
+    expect(material.interactive).toBe(true);
+  });
+
+  it("chains base and subclass setters in either order", () => {
+    const material = new PaperMaterial()
+      .setElevation(3)
+      .setColor("red")
+      .setBackgroundColor("blue")
+      .setInteractive(true);
+
+    expect(material.elevation).toBe(3);
+    expect(material.color).toBe("red");
+    expect(material.backgroundColor).toBe("blue");
+    expect(material.interactive).toBe(true);
+  });
+
+  it("gives SolidMaterial a correctly typed setColor", () => {
+    const material = new SolidMaterial().setColor("red").setElevation(2);
+
+    expect(material).toBeInstanceOf(SolidMaterial);
+    expect(material.color).toBe("red");
+    expect(material.elevation).toBe(2);
+  });
+
+  it("gives PaperMaterial the setBlur it was missing", () => {
+    const material = new PaperMaterial().setBlur("strong");
+
+    expect(material).toBeInstanceOf(PaperMaterial);
+    expect(material.blur).toBe("strong");
+  });
+
+  it("leaves the original untouched", () => {
+    const base = new GlassMaterial();
+    const derived = base.setInteractive(true).setBlur("weak");
+
+    expect(base.interactive).toBe(false);
+    expect(base.blur).toBeUndefined();
+    expect(derived).not.toBe(base);
   });
 });

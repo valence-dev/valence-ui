@@ -210,17 +210,38 @@ describe("IconButton", () => {
     };
 
     renderWithValence(
+      // No cast: `disclosure` is part of IconButton's tooltipProps type, so
+      // this line failing to compile is itself the regression test.
       <IconButton
         tooltip="Add to favorites"
-        // `disclosure` is Omitted from IconButton's tooltipProps type even
-        // though Tooltip accepts it — ISSUE-12 in docs/V4-RELEASE-FIXES.md.
-        tooltipProps={{ disclosure: openDisclosure } as any}
+        tooltipProps={{ disclosure: openDisclosure }}
       >
         <IconHeart />
       </IconButton>,
     );
 
     expect(screen.getByText("Add to favorites")).toBeInTheDocument();
+  });
+
+  it("hides tooltip content when the controlled disclosure is closed", () => {
+    const closedDisclosure = {
+      opened: false,
+      open: () => {},
+      close: () => {},
+      toggle: () => {},
+      update: () => {},
+    };
+
+    renderWithValence(
+      <IconButton
+        tooltip="Add to favorites"
+        tooltipProps={{ disclosure: closedDisclosure }}
+      >
+        <IconHeart />
+      </IconButton>,
+    );
+
+    expect(screen.queryByText("Add to favorites")).not.toBeInTheDocument();
   });
 
   it("does not render tooltip content when no tooltip is given", () => {
@@ -356,5 +377,23 @@ describe("UnstyledButton", () => {
     );
     expect(screen.queryByRole("button")).not.toBeInTheDocument();
     expect(screen.getByText("Bare").tagName).toBe("DIV");
+  });
+
+  it("takes an `animation` prop like every other button", () => {
+    renderWithValence(
+      <UnstyledButton animation={{ transitionAnimation: "fade" }}>
+        Bare
+      </UnstyledButton>,
+    );
+
+    // `fade` starts at opacity 0, which is what the initial variant applies.
+    expect(screen.getByRole("button")).toHaveStyle({ opacity: "0" });
+  });
+
+  it("applies no animation by default", () => {
+    renderWithValence(<UnstyledButton>Bare</UnstyledButton>);
+
+    // Unlike PrimitiveButton, an unstyled button opts into nothing.
+    expect(screen.getByRole("button")).not.toHaveStyle({ opacity: "0" });
   });
 });
