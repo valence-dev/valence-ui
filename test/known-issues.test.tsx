@@ -20,7 +20,6 @@ import {
 import { SolidMaterial } from "../packages/core/src/utilities/materials/SolidMaterial";
 import { useDisclosure } from "../packages/core/src/hooks/UseDisclosure";
 import { useControlledList } from "../packages/core/src/hooks/UseControlledList";
-import { NumberInput } from "../packages/core/src/components/inputs/NumberInput";
 import { Switch } from "../packages/core/src/components/inputs/Switch";
 import { Slider } from "../packages/core/src/components/inputs/Slider";
 import { PillSelector } from "../packages/core/src/components/inputs/PillSelector";
@@ -48,21 +47,6 @@ describe("ISSUE-03: custom colors replace the default palette", () => {
   });
 });
 
-describe("ISSUE-04: NumberInput produces NaN", () => {
-  it.fails("clearing a NumberInput does not emit NaN", async () => {
-    const setValue = vi.fn();
-    const { user } = renderWithValence(
-      <NumberInput value={5} setValue={setValue} aria-label="qty" />,
-    );
-
-    await user.clear(screen.getByLabelText("qty"));
-
-    for (const call of setValue.mock.calls) {
-      expect(Number.isNaN(call[0])).toBe(false);
-    }
-  });
-});
-
 describe("ISSUE-06: components silently drop their remaining props", () => {
   it.fails("Slider forwards `id` to the DOM", () => {
     const { container } = renderWithValence(
@@ -72,27 +56,28 @@ describe("ISSUE-06: components silently drop their remaining props", () => {
   });
 
   it.fails("Switch honours an explicit width", () => {
-    renderWithValence(
-      <Switch value={false} setValue={() => {}} width={200} />,
-    );
+    renderWithValence(<Switch value={false} setValue={() => {}} width={200} />);
     expect(getComputedStyle(screen.getByRole("button")).width).toBe("200px");
   });
 });
 
 describe("ISSUE-07: SolidMaterial omits scrollbar styling", () => {
-  it.fails("SolidMaterial includes scrollbar rules like every other material", () => {
-    const { result } = renderHook(
-      () => ({ valence: useValence(), colors: useColors() }),
-      { wrapper: ({ children }) => <Providers>{children}</Providers> },
-    );
+  it.fails(
+    "SolidMaterial includes scrollbar rules like every other material",
+    () => {
+      const { result } = renderHook(
+        () => ({ valence: useValence(), colors: useColors() }),
+        { wrapper: ({ children }) => <Providers>{children}</Providers> },
+      );
 
-    const styles = new SolidMaterial().getStyles(
-      result.current.valence,
-      result.current.colors,
-    );
+      const styles = new SolidMaterial().getStyles(
+        result.current.valence,
+        result.current.colors,
+      );
 
-    expect(styles["&::-webkit-scrollbar-thumb"]).toBeDefined();
-  });
+      expect(styles["&::-webkit-scrollbar-thumb"]).toBeDefined();
+    },
+  );
 });
 
 describe("ISSUE-08: hooks update state from stale closures", () => {
@@ -137,23 +122,29 @@ describe("ISSUE-09: PillSelector ignores maxSelectable when clicking pills", () 
 });
 
 describe("ISSUE-10: a disabled InputContainer still takes focus", () => {
-  it.fails("clicking a disabled container does not focus its input", async () => {
-    function Harness() {
-      const ref = { current: null as HTMLInputElement | null };
-      return (
-        <InputContainer disabled inputRef={ref}>
-          <input aria-label="field" ref={(n) => {
-            ref.current = n;
-          }} />
-        </InputContainer>
-      );
-    }
+  it.fails(
+    "clicking a disabled container does not focus its input",
+    async () => {
+      function Harness() {
+        const ref = { current: null as HTMLInputElement | null };
+        return (
+          <InputContainer disabled inputRef={ref}>
+            <input
+              aria-label="field"
+              ref={(n) => {
+                ref.current = n;
+              }}
+            />
+          </InputContainer>
+        );
+      }
 
-    const { user, container } = renderWithValence(<Harness />);
-    await user.click(container.firstElementChild!);
+      const { user, container } = renderWithValence(<Harness />);
+      await user.click(container.firstElementChild!);
 
-    expect(screen.getByLabelText("field")).not.toHaveFocus();
-  });
+      expect(screen.getByLabelText("field")).not.toHaveFocus();
+    },
+  );
 });
 
 describe("ISSUE-11: Icon assumes its children are elements", () => {

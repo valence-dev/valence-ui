@@ -334,6 +334,17 @@ describe("NumberInput", () => {
     expect(screen.queryAllByRole("button")).toHaveLength(0);
   });
 
+  it("does not warn about invalid props on React.Fragment (ISSUE-16)", () => {
+    const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+
+    renderWithValence(
+      <NumberInput value={1} setValue={() => {}} aria-label="qty" />,
+    );
+
+    expect(errorSpy).not.toHaveBeenCalled();
+    errorSpy.mockRestore();
+  });
+
   it("steps the value up and down by `step`", async () => {
     const { user } = renderWithValence(
       <Controlled
@@ -374,6 +385,95 @@ describe("NumberInput", () => {
     await user.tab();
 
     expect(setValue).toHaveBeenCalledWith(10);
+  });
+
+  it("never emits NaN while the field is cleared", async () => {
+    const setValue = vi.fn();
+    const { user } = renderWithValence(
+      <NumberInput value={5} setValue={setValue} aria-label="qty" />,
+    );
+
+    await user.clear(screen.getByLabelText("qty"));
+
+    for (const call of setValue.mock.calls) {
+      expect(Number.isNaN(call[0])).toBe(false);
+    }
+  });
+
+  it("keeps the field editable after it has been cleared", async () => {
+    const { user } = renderWithValence(
+      <Controlled
+        initial={5}
+        render={(value, setValue) => (
+          <NumberInput value={value} setValue={setValue} aria-label="qty" />
+        )}
+      />,
+    );
+
+    const input = screen.getByLabelText("qty");
+    await user.clear(input);
+    expect(input).toHaveValue(null);
+
+    await user.type(input, "12");
+    expect(input).toHaveValue(12);
+  });
+
+  it("lets the user type through a lone minus sign", async () => {
+    const setValue = vi.fn();
+    const { user } = renderWithValence(
+      <NumberInput value={5} setValue={setValue} aria-label="qty" />,
+    );
+
+    const input = screen.getByLabelText("qty");
+    await user.clear(input);
+    await user.type(input, "-");
+
+    expect(setValue).not.toHaveBeenCalled();
+
+    await user.type(input, "4");
+    expect(setValue).toHaveBeenLastCalledWith(-4);
+  });
+
+  it("falls back to `min` on blur when the field is empty", async () => {
+    const setValue = vi.fn();
+    const { user } = renderWithValence(
+      <NumberInput value={5} setValue={setValue} min={2} aria-label="qty" />,
+    );
+
+    await user.clear(screen.getByLabelText("qty"));
+    await user.tab();
+
+    expect(setValue).toHaveBeenLastCalledWith(2);
+  });
+
+  it("falls back to zero on blur when the field is empty and has no `min`", async () => {
+    const setValue = vi.fn();
+    const { user } = renderWithValence(
+      <NumberInput value={5} setValue={setValue} aria-label="qty" />,
+    );
+
+    await user.clear(screen.getByLabelText("qty"));
+    await user.tab();
+
+    expect(setValue).toHaveBeenLastCalledWith(0);
+  });
+
+  it("calls a caller-supplied onChange alongside setValue", async () => {
+    const setValue = vi.fn();
+    const onChange = vi.fn();
+    const { user } = renderWithValence(
+      <NumberInput
+        value={1}
+        setValue={setValue}
+        onChange={onChange}
+        aria-label="qty"
+      />,
+    );
+
+    await user.type(screen.getByLabelText("qty"), "2");
+
+    expect(setValue).toHaveBeenCalledWith(12);
+    expect(onChange).toHaveBeenCalled();
   });
 });
 

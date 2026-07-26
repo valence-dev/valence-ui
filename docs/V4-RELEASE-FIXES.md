@@ -194,7 +194,15 @@ prepended — or the lookup changed to `findLast`.
 
 ---
 
-### ISSUE-04 — `NumberInput` emits `NaN` **[test]**
+### ISSUE-04 — `NumberInput` emits `NaN` **[fixed]**
+
+`NumberInput` now keeps the field's raw text in local state and only emits
+numbers that parse, so `""`, `"-"` and `"."` no longer reach the consumer as
+`NaN`; an empty field settles on `min ?? 0` on blur. The reproduction has been
+promoted into the `NumberInput` block of
+`packages/core/src/components/inputs/Inputs.test.tsx`.
+
+The original report follows.
 
 Both the change and blur handlers call `parseFloat` on raw input text:
 
