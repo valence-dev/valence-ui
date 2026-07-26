@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { IconHeart } from "@tabler/icons-react";
 import { renderWithValence, screen } from "../../../../../test/utils";
 import { Text } from "./Text";
@@ -206,6 +206,24 @@ describe("Icon", () => {
     expect(container.querySelector("svg")!.getAttribute("stroke")).toMatch(
       /^#/,
     );
+  });
+
+  it("renders an animated icon without a motion deprecation warning", () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+
+    const { container } = renderWithValence(
+      <Icon animation="fade">
+        <IconHeart />
+      </Icon>,
+    );
+
+    // Assert it rendered too, so the check below cannot pass vacuously.
+    expect(container.querySelector("svg")).toBeInTheDocument();
+    expect(warn).not.toHaveBeenCalledWith(
+      expect.stringContaining("motion() is deprecated"),
+    );
+
+    warn.mockRestore();
   });
 });
 

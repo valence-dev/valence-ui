@@ -494,7 +494,7 @@ dependency).
 | ISSUE-13 | `AvatarProps["src"]` is required even though `undefined` renders the placeholder | Make `src` optional in `GenericImageProps` |
 | ISSUE-19 | `getSize("radius")` falls back to `defaults.size`, not `defaults.radius` | Use the radius default for the radius property |
 | ISSUE-20 | `Text` passes an array as a React `key` to drive its change animation; the key only actually changes for unformatted plain text | Derive a string key from the raw children |
-| ISSUE-21 | `Icon` calls the deprecated `motion(Component)` — logs a deprecation warning on every animated icon | Use `motion.create()`, as `PolymorphicButton` already does |
+| ISSUE-21 **[fixed]** | `Icon` calls the deprecated `motion(Component)` — logs a deprecation warning on every animated icon | Switched to `motion.create()`, matching the three polymorphic wrappers in `@valence-ui/utils`. `npm test` went from 5 deprecation lines to 0; the `Icon` block of `Display.test.tsx` now spies on `console.warn` to keep it that way |
 | ISSUE-22 | `UnstyledButton` still uses the old `getMotionBehaviour` helper and a `motion` prop; every other button uses `useAnimation` and an `animation` prop | Migrate it, then delete `components/buttons/Helpers.ts` |
 | ISSUE-23 | `UseWindowTitle` is PascalCase, so React's lint rules do not treat it as a hook | Rename to `useWindowTitle`, re-export the old name as deprecated |
 | ISSUE-24 | `Material.setInteractive`/`setOverrides`/`setChildrenOverrides` return `Material`, breaking subclass chaining; `SolidMaterial` has no `setColor`, `PaperMaterial` no `setBlur` | Make the base setters generic (`this`-typed) and fill the gaps |
