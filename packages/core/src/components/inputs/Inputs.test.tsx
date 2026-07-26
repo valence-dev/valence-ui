@@ -334,6 +334,17 @@ describe("NumberInput", () => {
     expect(screen.queryAllByRole("button")).toHaveLength(0);
   });
 
+  it("does not warn about invalid props on React.Fragment (ISSUE-16)", () => {
+    const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+
+    renderWithValence(
+      <NumberInput value={1} setValue={() => {}} aria-label="qty" />,
+    );
+
+    expect(errorSpy).not.toHaveBeenCalled();
+    errorSpy.mockRestore();
+  });
+
   it("steps the value up and down by `step`", async () => {
     const { user } = renderWithValence(
       <Controlled

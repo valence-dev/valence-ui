@@ -206,9 +206,7 @@ export const InputContainer = forwardRef(function InputContainer(
       {children}
 
       {button && (
-        <div css={ButtonContainerStyle}>
-          <Icon>{button}</Icon>
-        </div>
+        <div css={ButtonContainerStyle}>{button}</div>
       )}
     </div>
   );
