@@ -207,6 +207,31 @@ describe("Icon", () => {
       /^#/,
     );
   });
+
+  it("passes a plain string child through untouched", () => {
+    renderWithValence(<Icon>not an element</Icon>);
+    expect(screen.getByText("not an element")).toBeInTheDocument();
+  });
+
+  it("passes a numeric child through untouched", () => {
+    renderWithValence(<Icon>{42}</Icon>);
+    expect(screen.getByText("42")).toBeInTheDocument();
+  });
+
+  it("passes multiple children through untouched", () => {
+    const { container } = renderWithValence(
+      <Icon>
+        <IconHeart />
+        <IconHeart />
+      </Icon>,
+    );
+    expect(container.querySelectorAll("svg")).toHaveLength(2);
+  });
+
+  it("still renders nothing for children that are only falsy", () => {
+    const { container } = renderWithValence(<Icon>{null}</Icon>);
+    expect(container).toBeEmptyDOMElement();
+  });
 });
 
 describe("Loader", () => {

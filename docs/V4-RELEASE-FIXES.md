@@ -412,7 +412,21 @@ const handleClick = (e: MouseEvent) => {
 
 `return` after the disabled branch.
 
-### ISSUE-11 — `Icon` assumes its children are elements **[test]**
+### ISSUE-11 — `Icon` assumes its children are elements **[fixed]**
+
+`Icon` now guards the `cloneElement` call with `isValidElement` and returns
+anything else untouched. That covers strings and numbers as reported, and also
+fragments and multi-element children, which hit the same crash — none of them
+is a single element that could receive icon props in the first place.
+
+`{null}` and friends still render nothing, via the existing `!children` guard
+ahead of it.
+
+The reproduction has been promoted into the `Icon` block of
+`packages/core/src/components/display/Display.test.tsx`, with the numeric,
+multi-child and falsy cases alongside it.
+
+The original report follows.
 
 `cloneElement(children as any, iconProps)` throws for a string child.
 `<Icon>text</Icon>` crashes. Guard with `isValidElement(children)` and return the
