@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 export type ControlledList<T> = {
   /** The list of items */
@@ -21,19 +21,28 @@ export function useControlledList<T = string>(
 ): ControlledList<T> {
   const [items, setItems] = useState<T[]>(defaultValue ?? []);
 
-  const add = (item: T) => setItems([...items, item]);
-  const remove = (item: T) => setItems(items.filter((i) => i !== item));
-  const update = (items: T[]) => setItems(items);
-  const clear = () => setItems([]);
+  const add = useCallback(
+    (item: T) => setItems((items) => [...items, item]),
+    [],
+  );
+  const remove = useCallback(
+    (item: T) => setItems((items) => items.filter((i) => i !== item)),
+    [],
+  );
+  const update = useCallback((items: T[]) => setItems(items), []);
+  const clear = useCallback(() => setItems([]), []);
 
-  const includes = (item: T) => items.includes(item);
+  const includes = useCallback((item: T) => items.includes(item), [items]);
 
-  return {
-    items: items,
-    add: add,
-    remove: remove,
-    update: update,
-    clear: clear,
-    includes: includes,
-  };
+  return useMemo(
+    () => ({
+      items: items,
+      add: add,
+      remove: remove,
+      update: update,
+      clear: clear,
+      includes: includes,
+    }),
+    [items, add, remove, update, clear, includes],
+  );
 }
