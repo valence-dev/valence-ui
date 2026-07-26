@@ -335,7 +335,21 @@ The original report follows.
 method but never calls it, so scrollable surfaces using it fall back to native
 scrollbars. Add the spread for parity.
 
-### ISSUE-08 — Hooks update state from stale closures **[test]**
+### ISSUE-08 — Hooks update state from stale closures **[fixed]**
+
+`useDisclosure` and `useControlledList` now write through the updater form, so
+several calls in one batch each see the preceding one's result instead of the
+value captured when the callback was created. Their callbacks are wrapped in
+`useCallback`, and the returned object in `useMemo`, so both are stable enough
+to use as effect dependencies — without the memo the stable callbacks would
+still be reached through a fresh object every render. `includes` depends on
+`items` by necessity and is memoised against it.
+
+The reproductions have been promoted into the `useDisclosure` and
+`useControlledList` blocks of `packages/core/src/hooks/Hooks.test.tsx`, along
+with batched-`remove` and callback-identity cases.
+
+The original report follows.
 
 ```ts
 // UseDisclosure.tsx

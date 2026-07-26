@@ -36,6 +36,26 @@ describe("ISSUE-08: hooks update state from stale closures", () => {
     });
 
     expect(result.current.items).toEqual(["a", "b"]);
+import { describe, expect, it, vi } from "vitest";
+import { renderWithValence, screen } from "./utils";
+import { PillSelector } from "../packages/core/src/components/inputs/PillSelector";
+import { InputContainer } from "../packages/core/src/components/inputs/InputContainer";
+import { Icon } from "../packages/core/src/components/display/Icon";
+
+describe("ISSUE-09: PillSelector ignores maxSelectable when clicking pills", () => {
+  it.fails("selecting past maxSelectable is rejected", async () => {
+    const setValue = vi.fn();
+    const { user } = renderWithValence(
+      <PillSelector
+        value={["alpha"]}
+        setValue={setValue}
+        pills={["alpha", "beta"]}
+        maxSelectable={1}
+      />,
+    );
+
+    await user.click(screen.getByText("beta"));
+    expect(setValue).not.toHaveBeenCalled();
   });
 });
 
