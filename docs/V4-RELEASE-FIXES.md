@@ -496,7 +496,7 @@ dependency).
 | ISSUE-20 | `Text` passes an array as a React `key` to drive its change animation; the key only actually changes for unformatted plain text | Derive a string key from the raw children |
 | ISSUE-21 | `Icon` calls the deprecated `motion(Component)` — logs a deprecation warning on every animated icon | Use `motion.create()`, as `PolymorphicButton` already does |
 | ISSUE-22 | `UnstyledButton` still uses the old `getMotionBehaviour` helper and a `motion` prop; every other button uses `useAnimation` and an `animation` prop | Migrate it, then delete `components/buttons/Helpers.ts` |
-| ISSUE-23 | `UseWindowTitle` is PascalCase, so React's lint rules do not treat it as a hook | Rename to `useWindowTitle`, re-export the old name as deprecated |
+| ISSUE-23 **[fixed]** | `UseWindowTitle` is PascalCase, so React's lint rules do not treat it as a hook | Renamed to `useWindowTitle`; `UseWindowTitle` stays as a `@deprecated` alias so the rename is not breaking. Covered by a `useWindowTitle` block in `Hooks.test.tsx`, including that the alias is the same function |
 | ISSUE-24 | `Material.setInteractive`/`setOverrides`/`setChildrenOverrides` return `Material`, breaking subclass chaining; `SolidMaterial` has no `setColor`, `PaperMaterial` no `setBlur` | Make the base setters generic (`this`-typed) and fill the gaps |
 | ISSUE-25 | `SliderTrackProps.material` is declared but never read | Wire it up or remove it |
 | ISSUE-26 | `Switch` has no `role="switch"`/`aria-checked`, and its label is not associated with the control | Add ARIA and wrap in a `<label>` |

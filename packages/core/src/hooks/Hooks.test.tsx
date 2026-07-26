@@ -6,6 +6,7 @@ import { useControlledList } from "./UseControlledList";
 import { useColorScheme } from "./UseColorScheme";
 import { useWindowSize } from "./UseWindowSize";
 import { useAnimation } from "./UseAnimation";
+import { UseWindowTitle, useWindowTitle } from "./UseWindowTitle";
 
 describe("useDisclosure", () => {
   it("is closed by default", () => {
@@ -207,5 +208,30 @@ describe("useAnimation", () => {
       useAnimation({ hoverAnimation: ["grow", "raise"] }),
     );
     expect(result.current.whileHover).toEqual({ scale: 1.1, y: -2 });
+  });
+});
+
+describe("useWindowTitle", () => {
+  it("sets the document title", () => {
+    renderHook(() => useWindowTitle("Valence"));
+    expect(document.title).toBe("Valence");
+  });
+
+  it("updates the title when it changes", () => {
+    const { rerender } = renderHook(({ title }) => useWindowTitle(title), {
+      initialProps: { title: "First" },
+    });
+    expect(document.title).toBe("First");
+
+    rerender({ title: "Second" });
+    expect(document.title).toBe("Second");
+  });
+
+  it("still exports the deprecated PascalCase alias", () => {
+    // Kept for one release so the rename is not a breaking change.
+    expect(UseWindowTitle).toBe(useWindowTitle);
+
+    renderHook(() => UseWindowTitle("Legacy"));
+    expect(document.title).toBe("Legacy");
   });
 });
