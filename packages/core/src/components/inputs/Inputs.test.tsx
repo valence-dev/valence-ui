@@ -9,6 +9,7 @@ import { InputContainer } from "./InputContainer";
 import { Switch } from "./Switch";
 import { SegmentedControl } from "./SegmentedControl";
 import { SelectInput } from "./SelectInput";
+import { DropdownContainer } from "./DropdownContainer";
 import { PillSelector } from "./PillSelector";
 import { Slider } from "./Slider";
 import { RangeSlider } from "./RangeSlider";
@@ -1002,6 +1003,105 @@ describe("SelectInput", () => {
       />,
     );
     expect(container.querySelector("svg")).not.toBeInTheDocument();
+  });
+
+  it("does not open when disabled", async () => {
+    const { user } = renderWithValence(
+      <SelectInput value={null} setValue={() => {}} options={options} disabled />,
+    );
+
+    await user.click(screen.getByRole("combobox"));
+    expect(screen.queryByText("One")).not.toBeInTheDocument();
+  });
+
+  it("still opens when the caller supplies the same handler floating-ui uses", async () => {
+    const onMouseDown = vi.fn();
+    const { user } = renderWithValence(
+      <SelectInput
+        value={null}
+        setValue={() => {}}
+        options={options}
+        onMouseDown={onMouseDown}
+      />,
+    );
+
+    await user.click(screen.getByRole("combobox"));
+
+    // `useClick` is configured with `event: "mousedown"`, so onMouseDown is the
+    // handler that actually collides. Both must run: floating-ui's is not a
+    // replacement for the caller's, nor the caller's for floating-ui's.
+    expect(onMouseDown).toHaveBeenCalled();
+    expect(await screen.findByText("One")).toBeInTheDocument();
+  });
+
+  it("forwards a ref to the dropdown's reference element", () => {
+    const ref = { current: null as HTMLElement | null };
+    renderWithValence(
+      <SelectInput
+        value={null}
+        setValue={() => {}}
+        options={options}
+        ref={ref}
+      />,
+    );
+
+    expect(ref.current).toBe(screen.getByRole("combobox"));
+  });
+
+  it("matches typeahead against the current options, not the mounted ones", async () => {
+    function Harness() {
+      const [opts, setOpts] = useState(options);
+      // Controlled: typeahead resolves through setSelected -> setValue, so a
+      // no-op setter would leave nothing to assert on.
+      const [value, setValue] = useState<(typeof options)[number] | null>(null);
+
+      return (
+        <>
+          <button onClick={() => setOpts([{ value: 3, label: "Zebra" }])}>
+            swap
+          </button>
+          <SelectInput value={value} setValue={setValue} options={opts} />
+        </>
+      );
+    }
+
+    const { user } = renderWithValence(<Harness />);
+    await user.click(screen.getByText("swap"));
+
+    screen.getByRole("combobox").focus();
+    await user.keyboard("z");
+
+    // "Zebra" only exists in the replacement list, so a listContentRef captured
+    // at mount could never have matched it.
+    expect(screen.getByText("Zebra")).toBeInTheDocument();
+  });
+});
+
+// Exercised directly rather than through SelectInput, which resolves its own
+// responsive props before delegating and so would mask these.
+describe("DropdownContainer", () => {
+  const options = [
+    { value: 1, label: "One" },
+    { value: 2, label: "Two" },
+  ];
+
+  it("resolves its own responsive props", () => {
+    renderWithValence(
+      <DropdownContainer
+        options={options}
+        size={{ default: "xl", mobile: "xs" }}
+      />,
+    );
+
+    // Test viewport is 1280px wide, so `default` (xl -> 60px) applies.
+    expect(getComputedStyle(screen.getByRole("combobox")).height).toBe("60px");
+  });
+
+  it("forwards a ref to its reference element", () => {
+    const ref = { current: null as HTMLElement | null };
+    renderWithValence(<DropdownContainer options={options} ref={ref} />);
+
+    expect(ref.current).toBe(screen.getByRole("combobox"));
   });
 });
 

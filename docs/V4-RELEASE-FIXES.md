@@ -612,7 +612,37 @@ React to detach and reattach the DOM ref each time. Use `useRef` and merge with
 the forwarded ref (`useMergeRefs` from `@floating-ui/react` is already a
 dependency).
 
-### ISSUE-18 — `DropdownContainer` inconsistencies
+### ISSUE-18 — `DropdownContainer` inconsistencies **[fixed]**
+
+All four, plus one consequence the report implied but did not spell out.
+
+- **Stale typeahead.** `listContentRef` is rebuilt from `options` on every
+  render rather than captured by `useRef`'s initialiser, which only runs on
+  mount.
+- **No responsive props, no `forwardRef`.** The body moved into
+  `DropdownContainerInner` and is wrapped in `forwardRef`, with
+  `useResponsiveProps` applied to its props. `forwardRef` erases the generic
+  parameter, so the result is cast back to a generic signature — otherwise
+  every consumer would see `Option<unknown>`. The forwarded ref is merged with
+  `refs.setReference`, so it lands on the element floating-ui anchors to.
+- **`SelectInput` never passed its own ref down**, so fixing the container
+  alone would not have fixed the wrapper the report also named. It does now.
+- **Prop-order clobbering.** `rest` is passed *through* `getReferenceProps`
+  instead of spread after it, so floating-ui composes a caller's handler with
+  its own. Note the collision is on `onMouseDown`, not `onClick`: `useClick` is
+  configured with `event: "mousedown"`.
+- **`disabled` still opened the dropdown.** `useClick`, `useListNavigation` and
+  `useTypeahead` all take `enabled: !disabled`, so neither pointer nor keyboard
+  can open a disabled dropdown.
+
+Coverage lives in the `SelectInput` block of
+`packages/core/src/components/inputs/Inputs.test.tsx`, plus a new
+`DropdownContainer` block that exercises the component directly — `SelectInput`
+resolves its own responsive props before delegating, so it masks that defect.
+Four of the six new cases fail at runtime against the previous implementation
+and two fail to compile.
+
+The original report follows.
 
 - `useRef(options.map((o) => o.label))` captures the labels **once**; typeahead
   keeps matching against the original list after `options` change.
