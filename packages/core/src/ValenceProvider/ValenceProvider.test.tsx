@@ -133,6 +133,36 @@ describe("ValenceProvider", () => {
       );
     });
 
+    it("falls back to the radius default for the radius property", () => {
+      // The two defaults coincide out of the box, so they have to be pulled
+      // apart for this to be able to fail.
+      const { current } = renderTheme({
+        defaults: { size: "xs", radius: "xl" },
+      });
+
+      expect(current.getSize("radius")).toBe(current.sizeClasses.radius.xl);
+      expect(current.getSize("radius")).not.toBe(
+        current.sizeClasses.radius.xs,
+      );
+    });
+
+    it("still falls back to the size default for every other property", () => {
+      const { current } = renderTheme({
+        defaults: { size: "xs", radius: "xl" },
+      });
+
+      for (const property of [
+        "padding",
+        "height",
+        "fontSize",
+        "iconSize",
+      ] as const) {
+        expect(current.getSize(property)).toBe(
+          current.sizeClasses[property].xs,
+        );
+      }
+    });
+
     it("reads from an overridden size scale", () => {
       const scale = { xs: 1, sm: 2, md: 3, lg: 4, xl: 5 };
       const { current } = renderTheme({

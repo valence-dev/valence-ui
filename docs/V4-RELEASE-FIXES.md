@@ -492,7 +492,7 @@ dependency).
 | ID | Issue | Fix |
 | --- | --- | --- |
 | ISSUE-13 | `AvatarProps["src"]` is required even though `undefined` renders the placeholder | Make `src` optional in `GenericImageProps` |
-| ISSUE-19 | `getSize("radius")` falls back to `defaults.size`, not `defaults.radius` | Use the radius default for the radius property |
+| ISSUE-19 **[fixed]** | `getSize("radius")` falls back to `defaults.size`, not `defaults.radius` | `getSize` picks `defaults.radius` when the property is `radius` and `defaults.size` otherwise. Covered in the `getSize` block of `ValenceProvider.test.tsx` by a theme that sets the two defaults apart, since they coincide out of the box |
 | ISSUE-20 | `Text` passes an array as a React `key` to drive its change animation; the key only actually changes for unformatted plain text | Derive a string key from the raw children |
 | ISSUE-21 | `Icon` calls the deprecated `motion(Component)` — logs a deprecation warning on every animated icon | Use `motion.create()`, as `PolymorphicButton` already does |
 | ISSUE-22 | `UnstyledButton` still uses the old `getMotionBehaviour` helper and a `motion` prop; every other button uses `useAnimation` and an `animation` prop | Migrate it, then delete `components/buttons/Helpers.ts` |
