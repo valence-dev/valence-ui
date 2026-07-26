@@ -84,6 +84,14 @@ export const RangeSlider = forwardRef(function RangeSlider(
     includeManualInput = true,
     manualInputPosition = "right",
 
+    disabled,
+    readOnly,
+    required,
+    loading,
+    autoFocus,
+    name,
+    form,
+
     trackProps,
     thumbProps,
     numberInputProps,
@@ -115,6 +123,8 @@ export const RangeSlider = forwardRef(function RangeSlider(
       gap={5}
       height={height}
       direction={manualInputPosition === "left" ? "row-reverse" : "row"}
+      style={style}
+      {...rest}
     >
       <ReactSlider
         min={min}
@@ -123,6 +133,8 @@ export const RangeSlider = forwardRef(function RangeSlider(
         minDistance={minDistance}
         pearling={pearling}
         invert={invert}
+        // A read-only or loading slider must not be draggable either.
+        disabled={disabled || readOnly || loading}
         value={value}
         onChange={(value, index) => {
           setValue(value);
@@ -173,6 +185,17 @@ export const RangeSlider = forwardRef(function RangeSlider(
               size={size}
               radius={radius}
               material={material}
+              // The manual inputs are the only real form controls this
+              // component renders, so the input-level props belong to them.
+              // Both share `name`, so a form submits both ends of the range
+              // under it, the way same-named controls always do.
+              disabled={disabled}
+              readOnly={readOnly}
+              required={required}
+              loading={loading}
+              autoFocus={autoFocus && i === 0}
+              name={name}
+              form={form}
               showControls={false}
               width="fit-content"
               grow={false}

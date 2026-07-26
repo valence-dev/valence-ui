@@ -27,4 +27,6 @@ export type GenericButtonProps = GenericClickableProps &
     disabled?: boolean;
     /** Whether this button is loading */
     loading?: boolean;
+    /** Whether to focus this button on mount */
+    autoFocus?: boolean;
   };

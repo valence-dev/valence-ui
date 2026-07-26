@@ -36,6 +36,16 @@ export type SelectInputProps<OptionType> = Omit<
     /** Shorthand for `flex-grow = 1` */
     grow?: boolean;
 
+    /**
+     * Determines which option `value` refers to. By default options are matched
+     * on their `value` property, which handles a `value` rebuilt from state,
+     * props or JSON. Supply this when `value` is not comparable that way.
+     */
+    compare?: (
+      option: Option<OptionType>,
+      value: Option<OptionType>,
+    ) => boolean;
+
     /** Optional styles to apply to the dropdown container */
     dropdownStyle?: CSSProperties;
   };
@@ -63,16 +73,26 @@ export const SelectInput = forwardRef(function SelectInput(
     icon,
     placeholder = "Select an option...",
     actionIcon = <IconSelector />,
+    compare,
 
     ...rest
   } = useResponsiveProps<SelectInputProps<any>>(props);
+
+  // Matching on `value` rather than by reference, so an option rebuilt from
+  // state, props or JSON still resolves. `-1` means "no match", which is not a
+  // valid index for the dropdown.
+  const selectedIndex = value
+    ? options.findIndex((o) =>
+        compare ? compare(o, value) : o.value === value.value,
+      )
+    : -1;
 
   return (
     <>
       <DropdownContainer
         options={options}
-        selected={value ? options.findIndex((o) => o === value) : null}
-        setSelected={(i) => setValue(i !== null ? options[i] : null)}
+        selected={selectedIndex === -1 ? null : selectedIndex}
+        setSelected={(i) => setValue(i !== null ? (options[i] ?? null) : null)}
         onSelect={onSelect}
         icon={icon}
         secondaryIcon={actionIcon}

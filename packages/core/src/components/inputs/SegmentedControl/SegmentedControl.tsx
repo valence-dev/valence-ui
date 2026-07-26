@@ -102,6 +102,18 @@ export const SegmentedControl = forwardRef(function SegmentedControl(
     onSelect?.(option);
   }
 
+  // The control is a group of buttons rather than a single form element, so
+  // `required` is exposed to assistive technology instead of to the DOM.
+  const groupProps = required
+    ? { role: "group", "aria-required": true }
+    : undefined;
+  // Only one option can hold focus, so `autoFocus` goes to the selected one —
+  // or to the first, when nothing is selected yet.
+  const autoFocusIndex = Math.max(
+    options.findIndex((option) => getOptionValue(option) === value),
+    0,
+  );
+
   return (
     <Flex
       ref={ref}
@@ -111,6 +123,7 @@ export const SegmentedControl = forwardRef(function SegmentedControl(
       gap={gap}
       alignSelf="stretch"
       style={containerStyle}
+      {...groupProps}
       {...rest}
     >
       {loading ? (
@@ -136,6 +149,7 @@ export const SegmentedControl = forwardRef(function SegmentedControl(
               size={buttonSize}
               radius={buttonRadius}
               disabled={disabled || readOnly || loading}
+              autoFocus={autoFocus && index === autoFocusIndex}
               {...buttonProps}
             >
               {typeof label === "string" ? (

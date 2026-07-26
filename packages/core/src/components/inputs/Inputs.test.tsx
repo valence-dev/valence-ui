@@ -10,6 +10,8 @@ import { Switch } from "./Switch";
 import { SegmentedControl } from "./SegmentedControl";
 import { SelectInput } from "./SelectInput";
 import { PillSelector } from "./PillSelector";
+import { Slider } from "./Slider";
+import { RangeSlider } from "./RangeSlider";
 
 /** Wraps a controlled input so tests can drive it like a real consumer would. */
 function Controlled<T>({
@@ -334,6 +336,17 @@ describe("NumberInput", () => {
     expect(screen.queryAllByRole("button")).toHaveLength(0);
   });
 
+  it("does not warn about invalid props on React.Fragment (ISSUE-16)", () => {
+    const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+
+    renderWithValence(
+      <NumberInput value={1} setValue={() => {}} aria-label="qty" />,
+    );
+
+    expect(errorSpy).not.toHaveBeenCalled();
+    errorSpy.mockRestore();
+  });
+
   it("steps the value up and down by `step`", async () => {
     const { user } = renderWithValence(
       <Controlled
@@ -374,6 +387,95 @@ describe("NumberInput", () => {
     await user.tab();
 
     expect(setValue).toHaveBeenCalledWith(10);
+  });
+
+  it("never emits NaN while the field is cleared", async () => {
+    const setValue = vi.fn();
+    const { user } = renderWithValence(
+      <NumberInput value={5} setValue={setValue} aria-label="qty" />,
+    );
+
+    await user.clear(screen.getByLabelText("qty"));
+
+    for (const call of setValue.mock.calls) {
+      expect(Number.isNaN(call[0])).toBe(false);
+    }
+  });
+
+  it("keeps the field editable after it has been cleared", async () => {
+    const { user } = renderWithValence(
+      <Controlled
+        initial={5}
+        render={(value, setValue) => (
+          <NumberInput value={value} setValue={setValue} aria-label="qty" />
+        )}
+      />,
+    );
+
+    const input = screen.getByLabelText("qty");
+    await user.clear(input);
+    expect(input).toHaveValue(null);
+
+    await user.type(input, "12");
+    expect(input).toHaveValue(12);
+  });
+
+  it("lets the user type through a lone minus sign", async () => {
+    const setValue = vi.fn();
+    const { user } = renderWithValence(
+      <NumberInput value={5} setValue={setValue} aria-label="qty" />,
+    );
+
+    const input = screen.getByLabelText("qty");
+    await user.clear(input);
+    await user.type(input, "-");
+
+    expect(setValue).not.toHaveBeenCalled();
+
+    await user.type(input, "4");
+    expect(setValue).toHaveBeenLastCalledWith(-4);
+  });
+
+  it("falls back to `min` on blur when the field is empty", async () => {
+    const setValue = vi.fn();
+    const { user } = renderWithValence(
+      <NumberInput value={5} setValue={setValue} min={2} aria-label="qty" />,
+    );
+
+    await user.clear(screen.getByLabelText("qty"));
+    await user.tab();
+
+    expect(setValue).toHaveBeenLastCalledWith(2);
+  });
+
+  it("falls back to zero on blur when the field is empty and has no `min`", async () => {
+    const setValue = vi.fn();
+    const { user } = renderWithValence(
+      <NumberInput value={5} setValue={setValue} aria-label="qty" />,
+    );
+
+    await user.clear(screen.getByLabelText("qty"));
+    await user.tab();
+
+    expect(setValue).toHaveBeenLastCalledWith(0);
+  });
+
+  it("calls a caller-supplied onChange alongside setValue", async () => {
+    const setValue = vi.fn();
+    const onChange = vi.fn();
+    const { user } = renderWithValence(
+      <NumberInput
+        value={1}
+        setValue={setValue}
+        onChange={onChange}
+        aria-label="qty"
+      />,
+    );
+
+    await user.type(screen.getByLabelText("qty"), "2");
+
+    expect(setValue).toHaveBeenCalledWith(12);
+    expect(onChange).toHaveBeenCalled();
   });
 });
 
@@ -437,6 +539,127 @@ describe("Switch", () => {
 
     rerender(<Switch value setValue={() => {}} />);
     expect(screen.getByRole("button").style.justifyContent).toBe("flex-end");
+  });
+
+  it("honours an explicit width and height", () => {
+    renderWithValence(
+      <Switch value={false} setValue={() => {}} width={200} height={40} />,
+    );
+
+    const style = getComputedStyle(screen.getByRole("button"));
+    expect(style.width).toBe("200px");
+    expect(style.height).toBe("40px");
+  });
+
+  it("forwards unnamed props to the control", () => {
+    renderWithValence(
+      <Switch
+        value={false}
+        setValue={() => {}}
+        id="notifications"
+        name="notifications"
+        aria-label="Notifications"
+        data-testid="switch"
+      />,
+    );
+
+    const button = screen.getByRole("button");
+    expect(button).toHaveAttribute("id", "notifications");
+    expect(button).toHaveAttribute("name", "notifications");
+    expect(button).toHaveAttribute("aria-label", "Notifications");
+    expect(button).toHaveAttribute("data-testid", "switch");
+  });
+
+  it("applies caller styles to the control", () => {
+    renderWithValence(
+      <Switch value={false} setValue={() => {}} style={{ opacity: 0.5 }} />,
+    );
+    expect(getComputedStyle(screen.getByRole("button")).opacity).toBe("0.5");
+  });
+
+  it("marks itself required for assistive technology", () => {
+    renderWithValence(<Switch value={false} setValue={() => {}} required />);
+    expect(screen.getByRole("button")).toHaveAttribute("aria-required", "true");
+  });
+});
+
+describe("Slider", () => {
+  it("forwards unnamed props to the outermost element", () => {
+    const { container } = renderWithValence(
+      <Slider value={50} setValue={() => {}} id="volume" data-testid="vol" />,
+    );
+
+    const root = container.firstElementChild!;
+    expect(root).toHaveAttribute("id", "volume");
+    expect(root).toHaveAttribute("data-testid", "vol");
+  });
+
+  it("applies caller styles to the outermost element", () => {
+    const { container } = renderWithValence(
+      <Slider value={50} setValue={() => {}} style={{ opacity: 0.5 }} />,
+    );
+    expect(getComputedStyle(container.firstElementChild!).opacity).toBe("0.5");
+  });
+
+  it("disables the track and the manual input when disabled", () => {
+    const { container } = renderWithValence(
+      <Slider value={50} setValue={() => {}} disabled aria-label="volume" />,
+    );
+
+    expect(container.querySelector('[role="slider"]')).toHaveAttribute(
+      "aria-disabled",
+      "true",
+    );
+    expect(container.querySelector("input")).toBeDisabled();
+  });
+
+  it("also stops dragging when readOnly or loading", () => {
+    for (const props of [{ readOnly: true }, { loading: true }]) {
+      const { container, unmount } = renderWithValence(
+        <Slider value={50} setValue={() => {}} {...props} />,
+      );
+
+      expect(container.querySelector('[role="slider"]')).toHaveAttribute(
+        "aria-disabled",
+        "true",
+      );
+      unmount();
+    }
+  });
+
+  it("passes name and form to the manual input", () => {
+    const { container } = renderWithValence(
+      <Slider value={50} setValue={() => {}} name="volume" form="settings" />,
+    );
+
+    const input = container.querySelector("input")!;
+    expect(input).toHaveAttribute("name", "volume");
+    expect(input).toHaveAttribute("form", "settings");
+  });
+});
+
+describe("RangeSlider", () => {
+  it("forwards unnamed props to the outermost element", () => {
+    const { container } = renderWithValence(
+      <RangeSlider value={[20, 80]} setValue={() => {}} id="range" />,
+    );
+    expect(container.firstElementChild!).toHaveAttribute("id", "range");
+  });
+
+  it("disables both thumbs and both manual inputs when disabled", () => {
+    const { container } = renderWithValence(
+      <RangeSlider value={[20, 80]} setValue={() => {}} disabled />,
+    );
+
+    const thumbs = container.querySelectorAll('[role="slider"]');
+    expect(thumbs).toHaveLength(2);
+    for (const thumb of thumbs) {
+      expect(thumb).toHaveAttribute("aria-disabled", "true");
+    }
+
+    for (const input of container.querySelectorAll("input")) {
+      expect(input).toBeDisabled();
+    }
   });
 });
 
@@ -519,6 +742,44 @@ describe("SegmentedControl", () => {
       expect(getComputedStyle(button).flexGrow).toBe("1");
     }
   });
+
+  it("focuses the selected option on autoFocus", () => {
+    renderWithValence(
+      <SegmentedControl
+        value="two"
+        setValue={() => {}}
+        options={options}
+        autoFocus
+      />,
+    );
+    expect(screen.getByText("two").closest("button")).toHaveFocus();
+  });
+
+  it("falls back to the first option when autoFocus finds no selection", () => {
+    renderWithValence(
+      <SegmentedControl
+        value=""
+        setValue={() => {}}
+        options={options}
+        autoFocus
+      />,
+    );
+    expect(screen.getByText("one").closest("button")).toHaveFocus();
+  });
+
+  it("exposes itself as a required group", () => {
+    renderWithValence(
+      <SegmentedControl
+        value="one"
+        setValue={() => {}}
+        options={options}
+        required
+      />,
+    );
+
+    const group = screen.getByRole("group");
+    expect(group).toHaveAttribute("aria-required", "true");
+  });
 });
 
 describe("SelectInput", () => {
@@ -577,6 +838,75 @@ describe("SelectInput", () => {
 
     expect(setValue).toHaveBeenCalledWith(options[1]);
     expect(onSelect).toHaveBeenCalledWith(options[1]);
+  });
+
+  it("resolves a structurally equal value to its option", () => {
+    renderWithValence(
+      <SelectInput
+        value={{ value: 2, label: "Two" }}
+        setValue={() => {}}
+        options={options}
+      />,
+    );
+    expect(screen.getByText("Two")).toBeInTheDocument();
+  });
+
+  it("falls back to the placeholder when the value matches no option", () => {
+    renderWithValence(
+      <SelectInput
+        value={{ value: 99, label: "Ninety-nine" }}
+        setValue={() => {}}
+        options={options}
+        placeholder="Pick one"
+      />,
+    );
+    expect(screen.getByText("Pick one")).toBeInTheDocument();
+  });
+
+  it("uses a custom `compare` when one is supplied", () => {
+    renderWithValence(
+      <SelectInput
+        value={{ value: { id: 2 }, label: "stale label" }}
+        setValue={() => {}}
+        options={[
+          { value: { id: 1 }, label: "One" },
+          { value: { id: 2 }, label: "Two" },
+        ]}
+        compare={(option, value) => option.value.id === value.value.id}
+      />,
+    );
+    expect(screen.getByText("Two")).toBeInTheDocument();
+  });
+
+  // `actionIcon` is suppressed in both cases below so the only icon the
+  // container can render is the selected option's.
+  const withIcons = [
+    { value: 1, label: "One", icon: <IconSearch /> },
+    { value: 2, label: "Two" },
+  ];
+
+  it("shows the icon of the first option when it is selected", () => {
+    const { container } = renderWithValence(
+      <SelectInput
+        value={withIcons[0]}
+        setValue={() => {}}
+        options={withIcons}
+        actionIcon={null}
+      />,
+    );
+    expect(container.querySelector("svg")).toBeInTheDocument();
+  });
+
+  it("renders no icon when the selected option has none", () => {
+    const { container } = renderWithValence(
+      <SelectInput
+        value={withIcons[1]}
+        setValue={() => {}}
+        options={withIcons}
+        actionIcon={null}
+      />,
+    );
+    expect(container.querySelector("svg")).not.toBeInTheDocument();
   });
 });
 
