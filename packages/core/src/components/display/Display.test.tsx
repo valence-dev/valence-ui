@@ -252,6 +252,13 @@ describe("Image", () => {
     expect(image.tagName).toBe("IMG");
     expect(image).toHaveAttribute("src", "/logo.png");
   });
+
+  it("renders the placeholder instead of an img when there is no source", () => {
+    const { container } = renderWithValence(<Image alt="Logo" />);
+
+    expect(screen.queryByAltText("Logo")).not.toBeInTheDocument();
+    expect(container.querySelector("svg")).toBeInTheDocument();
+  });
 });
 
 describe("Avatar", () => {
@@ -263,7 +270,13 @@ describe("Avatar", () => {
   });
 
   it("falls back to a placeholder icon when there is no source", () => {
-    // `src` is typed as required even though `undefined` is handled — ISSUE-13.
+    // `src` is omitted entirely, not passed as `undefined`: this line failing
+    // to compile is the regression test for ISSUE-13.
+    const { container } = renderWithValence(<Avatar alt="Me" />);
+    expect(container.querySelector("svg")).toBeInTheDocument();
+  });
+
+  it("falls back to a placeholder icon for an explicitly undefined source", () => {
     const { container } = renderWithValence(
       <Avatar src={undefined} alt="Me" />,
     );

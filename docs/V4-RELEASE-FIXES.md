@@ -491,7 +491,7 @@ dependency).
 
 | ID | Issue | Fix |
 | --- | --- | --- |
-| ISSUE-13 | `AvatarProps["src"]` is required even though `undefined` renders the placeholder | Make `src` optional in `GenericImageProps` |
+| ISSUE-13 **[fixed]** | `AvatarProps["src"]` is required even though `undefined` renders the placeholder | `src` is now optional in `GenericImageProps`, so `<Avatar alt="Me" />` type-checks. The redundant `\| undefined` in its type is dropped at the same time |
 | ISSUE-19 | `getSize("radius")` falls back to `defaults.size`, not `defaults.radius` | Use the radius default for the radius property |
 | ISSUE-20 | `Text` passes an array as a React `key` to drive its change animation; the key only actually changes for unformatted plain text | Derive a string key from the raw children |
 | ISSUE-21 | `Icon` calls the deprecated `motion(Component)` — logs a deprecation warning on every animated icon | Use `motion.create()`, as `PolymorphicButton` already does |
