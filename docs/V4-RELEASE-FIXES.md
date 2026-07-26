@@ -335,7 +335,21 @@ The original report follows.
 method but never calls it, so scrollable surfaces using it fall back to native
 scrollbars. Add the spread for parity.
 
-### ISSUE-08 — Hooks update state from stale closures **[test]**
+### ISSUE-08 — Hooks update state from stale closures **[fixed]**
+
+`useDisclosure` and `useControlledList` now write through the updater form, so
+several calls in one batch each see the preceding one's result instead of the
+value captured when the callback was created. Their callbacks are wrapped in
+`useCallback`, and the returned object in `useMemo`, so both are stable enough
+to use as effect dependencies — without the memo the stable callbacks would
+still be reached through a fresh object every render. `includes` depends on
+`items` by necessity and is memoised against it.
+
+The reproductions have been promoted into the `useDisclosure` and
+`useControlledList` blocks of `packages/core/src/hooks/Hooks.test.tsx`, along
+with batched-`remove` and callback-identity cases.
+
+The original report follows.
 
 ```ts
 // UseDisclosure.tsx
@@ -350,13 +364,40 @@ Two calls in one batch collapse into one. Switch to updater form
 (`setValue((v) => !v)`, `setItems((items) => [...items, item])`) and wrap the
 returned callbacks in `useCallback` so they are stable dependencies.
 
-### ISSUE-09 — `PillSelector` ignores `maxSelectable` when clicking pills **[test]**
+### ISSUE-09 — `PillSelector` ignores `maxSelectable` when clicking pills **[fixed]**
+
+`handlePillClick` now carries the same guard as `addPill()`, on the select
+branch only — deselecting at the cap has to stay available, or the cap becomes
+a trap.
+
+On the open question of disabling versus a silent no-op: the unselected pills
+are now `disabled` once the cap is reached, matching how the add button already
+disables itself when it cannot act. The add button also takes the cap into its
+own `disabled` expression, since it was equally dead there. The guard in
+`handlePillClick` is kept as well, because `pillProps` can override `disabled`.
+
+The reproduction has been promoted into the `PillSelector` block of
+`packages/core/src/components/inputs/Inputs.test.tsx`, with the disabled-state
+and still-deselectable cases alongside it.
+
+The original report follows.
 
 `maxSelectable` is only checked in `addPill()`. Clicking existing pills can select
 any number of them. Add the same guard to `handlePillClick`, and decide whether
 hitting the cap should disable the remaining pills or silently no-op.
 
-### ISSUE-10 — A disabled `InputContainer` still takes focus **[test]**
+### ISSUE-10 — A disabled `InputContainer` still takes focus **[fixed]**
+
+`handleClick` now returns after the disabled branch, so a disabled container
+neither focuses its input nor forwards the click to `onClick`. Suppressing
+`onClick` is part of the fix rather than a side effect of it: a handler firing
+on a control the user can see is disabled is the same defect one level up.
+
+The reproduction has been promoted into the `InputContainer` block of
+`packages/core/src/components/inputs/Inputs.test.tsx`, with `onClick` cases on
+both sides of `disabled` so the enabled path stays pinned too.
+
+The original report follows.
 
 ```tsx
 const handleClick = (e: MouseEvent) => {
@@ -371,13 +412,40 @@ const handleClick = (e: MouseEvent) => {
 
 `return` after the disabled branch.
 
-### ISSUE-11 — `Icon` assumes its children are elements **[test]**
+### ISSUE-11 — `Icon` assumes its children are elements **[fixed]**
+
+`Icon` now guards the `cloneElement` call with `isValidElement` and returns
+anything else untouched. That covers strings and numbers as reported, and also
+fragments and multi-element children, which hit the same crash — none of them
+is a single element that could receive icon props in the first place.
+
+`{null}` and friends still render nothing, via the existing `!children` guard
+ahead of it.
+
+The reproduction has been promoted into the `Icon` block of
+`packages/core/src/components/display/Display.test.tsx`, with the numeric,
+multi-child and falsy cases alongside it.
+
+The original report follows.
 
 `cloneElement(children as any, iconProps)` throws for a string child.
 `<Icon>text</Icon>` crashes. Guard with `isValidElement(children)` and return the
 children untouched otherwise.
 
-### ISSUE-12 — `IconButton` cannot receive a controlled tooltip
+### ISSUE-12 — `IconButton` cannot receive a controlled tooltip **[fixed]**
+
+`tooltipProps` is now `Omit<TooltipProps, "children">`. Nothing else needed to
+change: `Tooltip` already spreads its options straight into `useTooltip`, which
+has honoured `disclosure` all along, so this was purely the type contradicting
+the runtime.
+
+The existing controlled-disclosure test in
+`packages/core/src/components/buttons/Buttons.test.tsx` carried an `as any` to
+get past the old type. The cast is removed, which makes `npm run test:types`
+the regression test for this fix, and a closed-disclosure case is added
+opposite it.
+
+The original report follows.
 
 ```ts
 tooltipProps?: Omit<TooltipProps, "children" | "disclosure">;
@@ -387,14 +455,66 @@ tooltipProps?: Omit<TooltipProps, "children" | "disclosure">;
 there is no way to control an icon button's tooltip. Drop `"disclosure"` from the
 `Omit`.
 
-### ISSUE-14 — `Card` has no typed click handler
+### ISSUE-14 — `Card` has no typed click handler **[fixed]**
+
+`CardProps` now intersects `GenericClickableProps & GenericClickableEventProps`
+alongside what it already had. That is the same composition
+`GenericButtonProps` uses for every other clickable component in the library,
+so `Card` no longer describes its own clickable surface differently from the
+`PrimitiveButton` it renders. No runtime change — `{...rest}` already carried
+these through.
+
+Both `as any` casts in the `Card` block of
+`packages/core/src/components/layout/Layout.test.tsx` are removed, which makes
+`npm run test:types` the regression test, and a case covering `href` / `target`
+/ pointer and focus events is added.
+
+The original report follows.
 
 `CardProps` is `GenericLayoutProps & PolymorphicButtonProps & { … }` — it never
 includes `GenericClickableEventProps`, yet `Card` renders a `PrimitiveButton`.
 `onClick` works at runtime but is a type error. Add
 `GenericClickableEventProps & GenericClickableProps` to `CardProps`.
 
-### ISSUE-15 — The library cannot be server-rendered
+### ISSUE-15 — The library cannot be server-rendered **[fixed]**
+
+Three sites read a browser global during render, not the two in the report —
+`BottomSheet` also defaulted `releaseOffset` to `Math.round(window.innerHeight
+/ 2)` in its destructuring, which is evaluated on every render. It now reads
+through `useWindowSize` like everything else.
+
+**Approach.** Both hooks moved to `useSyncExternalStore` rather than the
+`useState` + `useEffect` shape the report sketched. The two behave identically
+on the server, but they differ on the client: with `useState` the first render
+of a *client-only* app would report the SSR default and only correct itself
+after an effect, so every mobile visitor would get a desktop-width first paint
+and a visible reflow. `useSyncExternalStore` uses `getServerSnapshot` only for
+server rendering and hydration, so client-only apps — which is every current
+consumer — keep reading the real size on their first render and see no change
+in behaviour at all.
+
+**The SSR breakpoint, as decided:** `SSR_WINDOW_SIZE` is `1024x768`, exported
+from `hooks/UseWindowSize`. `1024` sits in the `isDefault` band of the default
+breakpoints (`> tabletWidth`, `<= desktopLargeWidth`), so server-rendered trees
+resolve responsive props to their `default` variant — the same one components
+fall back to when no breakpoint-specific value is given. The `0` the report
+suggested would have put every server render in `isMobile`. Apps that override
+`breakpoints` should check that `1024` still lands where they expect.
+
+`useColorScheme` reports light on the server, which is what a browser reports
+when it has no preference either.
+
+**Verification.** `test/ssr.test.tsx` runs under the `node` environment, where
+`window` and `document` genuinely do not exist, and renders a provider plus
+`Text`, `Button`, `Flex`, `Card` and `TextInput` through `renderToString`. It
+also asserts the `default` responsive variant is the one that reaches the
+markup. Against the previous implementation, nine of its ten cases fail with
+`ReferenceError: window is not defined` — including the empty provider.
+
+`test/setup.ts` now guards its jsdom shims behind a `typeof window` check, so
+it is a no-op under the `node` environment.
+
+The original report follows.
 
 `useWindowSize` reads `window.innerWidth` during render, and `useColorScheme`
 calls `window.matchMedia` during render:
@@ -460,7 +580,26 @@ npm.
 Verify with `find packages/*/dist -name "*test*" -o -name "*stories*"` after a
 build — it should print nothing.
 
-### ISSUE-17 — `createRef()` called during render
+### ISSUE-17 — `createRef()` called during render **[fixed]**
+
+All three inputs now hold a `useRef` and hand the DOM node a
+`useMergeRefs([ref, inputRef])` callback.
+
+Two refs rather than one, deliberately: `InputContainer` focuses its input via
+`inputRef.current`, which only works on an object ref, while `useMergeRefs`
+returns a callback. Keeping the object ref for the container and giving the DOM
+node the merged callback also fixes a second defect the report did not mention
+— under `inputRef = ref ?? createRef()`, a caller who forwarded a *callback*
+ref left `InputContainer` holding a function, so `inputRef.current` was
+`undefined` and clicking the container silently failed to focus.
+
+Coverage is in the `TextInput` block of
+`packages/core/src/components/inputs/Inputs.test.tsx`: object-ref forwarding, a
+stable-callback-ref identity guard, and the container-focus case. Only the last
+of those fails against the previous implementation — the other two are guards,
+because the ref churn itself is not observable from outside the component.
+
+The original report follows.
 
 `TextInput`, `Textarea` and `NumberInput` all do:
 
@@ -473,7 +612,37 @@ React to detach and reattach the DOM ref each time. Use `useRef` and merge with
 the forwarded ref (`useMergeRefs` from `@floating-ui/react` is already a
 dependency).
 
-### ISSUE-18 — `DropdownContainer` inconsistencies
+### ISSUE-18 — `DropdownContainer` inconsistencies **[fixed]**
+
+All four, plus one consequence the report implied but did not spell out.
+
+- **Stale typeahead.** `listContentRef` is rebuilt from `options` on every
+  render rather than captured by `useRef`'s initialiser, which only runs on
+  mount.
+- **No responsive props, no `forwardRef`.** The body moved into
+  `DropdownContainerInner` and is wrapped in `forwardRef`, with
+  `useResponsiveProps` applied to its props. `forwardRef` erases the generic
+  parameter, so the result is cast back to a generic signature — otherwise
+  every consumer would see `Option<unknown>`. The forwarded ref is merged with
+  `refs.setReference`, so it lands on the element floating-ui anchors to.
+- **`SelectInput` never passed its own ref down**, so fixing the container
+  alone would not have fixed the wrapper the report also named. It does now.
+- **Prop-order clobbering.** `rest` is passed *through* `getReferenceProps`
+  instead of spread after it, so floating-ui composes a caller's handler with
+  its own. Note the collision is on `onMouseDown`, not `onClick`: `useClick` is
+  configured with `event: "mousedown"`.
+- **`disabled` still opened the dropdown.** `useClick`, `useListNavigation` and
+  `useTypeahead` all take `enabled: !disabled`, so neither pointer nor keyboard
+  can open a disabled dropdown.
+
+Coverage lives in the `SelectInput` block of
+`packages/core/src/components/inputs/Inputs.test.tsx`, plus a new
+`DropdownContainer` block that exercises the component directly — `SelectInput`
+resolves its own responsive props before delegating, so it masks that defect.
+Four of the six new cases fail at runtime against the previous implementation
+and two fail to compile.
+
+The original report follows.
 
 - `useRef(options.map((o) => o.label))` captures the labels **once**; typeahead
   keeps matching against the original list after `options` change.
@@ -492,11 +661,17 @@ dependency).
 | ID | Issue | Fix |
 | --- | --- | --- |
 | ISSUE-13 | `AvatarProps["src"]` is required even though `undefined` renders the placeholder | Make `src` optional in `GenericImageProps` |
+| ISSUE-19 **[fixed]** | `getSize("radius")` falls back to `defaults.size`, not `defaults.radius` | `getSize` picks `defaults.radius` when the property is `radius` and `defaults.size` otherwise. Covered in the `getSize` block of `ValenceProvider.test.tsx` by a theme that sets the two defaults apart, since they coincide out of the box |
+| ISSUE-13 **[fixed]** | `AvatarProps["src"]` is required even though `undefined` renders the placeholder | `src` is now optional in `GenericImageProps`, so `<Avatar alt="Me" />` type-checks. The redundant `\| undefined` in its type is dropped at the same time |
 | ISSUE-19 | `getSize("radius")` falls back to `defaults.size`, not `defaults.radius` | Use the radius default for the radius property |
 | ISSUE-20 | `Text` passes an array as a React `key` to drive its change animation; the key only actually changes for unformatted plain text | Derive a string key from the raw children |
+| ISSUE-21 **[fixed]** | `Icon` calls the deprecated `motion(Component)` — logs a deprecation warning on every animated icon | Switched to `motion.create()`, matching the three polymorphic wrappers in `@valence-ui/utils`. `npm test` went from 5 deprecation lines to 0; the `Icon` block of `Display.test.tsx` now spies on `console.warn` to keep it that way |
+| ISSUE-20 **[fixed]** | `Text` passes an array as a React `key` to drive its change animation; the key only actually changes for unformatted plain text | A `getTextContent` helper flattens the *raw* children to their text and that is used as the key. Covered in the formatting block of `Display.test.tsx`, asserting on DOM node identity across a re-render. A related defect on the same lines — every formatted segment is keyed with `randomId()`, so they remount on every render — is filed separately as #67 |
 | ISSUE-21 | `Icon` calls the deprecated `motion(Component)` — logs a deprecation warning on every animated icon | Use `motion.create()`, as `PolymorphicButton` already does |
 | ISSUE-22 | `UnstyledButton` still uses the old `getMotionBehaviour` helper and a `motion` prop; every other button uses `useAnimation` and an `animation` prop | Migrate it, then delete `components/buttons/Helpers.ts` |
 | ISSUE-23 **[fixed]** | `UseWindowTitle` is PascalCase, so React's lint rules do not treat it as a hook | Renamed to `useWindowTitle`; `UseWindowTitle` stays as a `@deprecated` alias so the rename is not breaking. Covered by a `useWindowTitle` block in `Hooks.test.tsx`, including that the alias is the same function |
+| ISSUE-22 **[fixed]** | `UnstyledButton` still uses the old `getMotionBehaviour` helper and a `motion` prop; every other button uses `useAnimation` and an `animation` prop | Migrated to `useAnimation` and an `animation` prop, and `components/buttons/Helpers.ts` is deleted along with its barrel export. **Breaking:** the `motion` prop is gone, as are `getMotionBehaviour` / `MotionBehaviour*` from the public API — worth a 4.1 release-note line. Unlike `PrimitiveButton` no default hover/tap animation is applied, matching the old prop's inert-unless-asked behaviour |
+| ISSUE-23 | `UseWindowTitle` is PascalCase, so React's lint rules do not treat it as a hook | Rename to `useWindowTitle`, re-export the old name as deprecated |
 | ISSUE-24 | `Material.setInteractive`/`setOverrides`/`setChildrenOverrides` return `Material`, breaking subclass chaining; `SolidMaterial` has no `setColor`, `PaperMaterial` no `setBlur` | Make the base setters generic (`this`-typed) and fill the gaps |
 | ISSUE-25 | `SliderTrackProps.material` is declared but never read | Wire it up or remove it |
 | ISSUE-26 | `Switch` has no `role="switch"`/`aria-checked`, and its label is not associated with the control | Add ARIA and wrap in a `<label>` |

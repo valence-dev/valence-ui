@@ -3,10 +3,11 @@ import {
   CSSProperties,
   ChangeEvent,
   ReactNode,
-  createRef,
   forwardRef,
+  useRef,
   useState,
 } from "react";
+import { useMergeRefs } from "@floating-ui/react";
 import { InputContainer } from "../InputContainer";
 import {
   GenericInputProps,
@@ -69,7 +70,11 @@ export const NumberInput = forwardRef(function NumberInput(
   ref: any,
 ) {
   const theme = useValence();
-  const inputRef = ref ?? createRef<HTMLInputElement>();
+  // `inputRef` stays an object ref so `InputContainer` can focus through it,
+  // including when the caller forwarded a callback ref. `mergedRef` is what the
+  // DOM node receives, so the caller's ref is populated too.
+  const inputRef = useRef<HTMLInputElement>(null);
+  const mergedRef = useMergeRefs([ref, inputRef]);
 
   // Defaults
   const {
@@ -263,7 +268,7 @@ export const NumberInput = forwardRef(function NumberInput(
         readOnly={readOnly}
         required={required}
         onKeyDown={handleKeyDown}
-        ref={inputRef}
+        ref={mergedRef}
         {...rest}
       />
     </InputContainer>

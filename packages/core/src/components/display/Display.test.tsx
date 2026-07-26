@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { IconHeart } from "@tabler/icons-react";
 import { renderWithValence, screen } from "../../../../../test/utils";
 import { Text } from "./Text";
@@ -117,6 +117,58 @@ describe("Text", () => {
       expect(container.querySelector("br")).toBeInTheDocument();
     });
 
+    it("keys the change animation off the text, through formatting", () => {
+      // The animation is driven by remounting, so a changed key shows up as a
+      // different DOM node.
+      const { container, rerender } = renderWithValence(
+        <Text animation="fade">a **one** b</Text>,
+      );
+      const before = container.querySelector("p");
+
+      rerender(<Text animation="fade">a **two** b</Text>);
+
+      expect(container.querySelector("p")).not.toBe(before);
+    });
+
+    it("keys the change animation off plain text too", () => {
+      const { container, rerender } = renderWithValence(
+        <Text animation="fade">one</Text>,
+      );
+      const before = container.querySelector("p");
+
+      rerender(<Text animation="fade">two</Text>);
+
+      expect(container.querySelector("p")).not.toBe(before);
+    });
+
+    it("does not remount when the text is unchanged", () => {
+      const { container, rerender } = renderWithValence(
+        <Text animation="fade" bold>
+          a **one** b
+        </Text>,
+      );
+      const before = container.querySelector("p");
+
+      rerender(
+        <Text animation="fade" bold={false}>
+          a **one** b
+        </Text>,
+      );
+
+      expect(container.querySelector("p")).toBe(before);
+    });
+
+    it("does not key at all without an animation", () => {
+      const { container, rerender } = renderWithValence(
+        <Text>a **one** b</Text>,
+      );
+      const before = container.querySelector("p");
+
+      rerender(<Text>a **two** b</Text>);
+
+      expect(container.querySelector("p")).toBe(before);
+    });
+
     it("renders <hl> segments as highlighted spans", () => {
       const { container } = renderWithValence(
         <Text>{"a <hl>lit</hl> b"}</Text>,
@@ -207,6 +259,47 @@ describe("Icon", () => {
       /^#/,
     );
   });
+
+  it("renders an animated icon without a motion deprecation warning", () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+
+    const { container } = renderWithValence(
+      <Icon animation="fade">
+        <IconHeart />
+      </Icon>,
+    );
+
+    // Assert it rendered too, so the check below cannot pass vacuously.
+    expect(container.querySelector("svg")).toBeInTheDocument();
+    expect(warn).not.toHaveBeenCalledWith(
+      expect.stringContaining("motion() is deprecated"),
+    );
+
+    warn.mockRestore();
+  it("passes a plain string child through untouched", () => {
+    renderWithValence(<Icon>not an element</Icon>);
+    expect(screen.getByText("not an element")).toBeInTheDocument();
+  });
+
+  it("passes a numeric child through untouched", () => {
+    renderWithValence(<Icon>{42}</Icon>);
+    expect(screen.getByText("42")).toBeInTheDocument();
+  });
+
+  it("passes multiple children through untouched", () => {
+    const { container } = renderWithValence(
+      <Icon>
+        <IconHeart />
+        <IconHeart />
+      </Icon>,
+    );
+    expect(container.querySelectorAll("svg")).toHaveLength(2);
+  });
+
+  it("still renders nothing for children that are only falsy", () => {
+    const { container } = renderWithValence(<Icon>{null}</Icon>);
+    expect(container).toBeEmptyDOMElement();
+  });
 });
 
 describe("Loader", () => {
@@ -252,6 +345,13 @@ describe("Image", () => {
     expect(image.tagName).toBe("IMG");
     expect(image).toHaveAttribute("src", "/logo.png");
   });
+
+  it("renders the placeholder instead of an img when there is no source", () => {
+    const { container } = renderWithValence(<Image alt="Logo" />);
+
+    expect(screen.queryByAltText("Logo")).not.toBeInTheDocument();
+    expect(container.querySelector("svg")).toBeInTheDocument();
+  });
 });
 
 describe("Avatar", () => {
@@ -263,7 +363,13 @@ describe("Avatar", () => {
   });
 
   it("falls back to a placeholder icon when there is no source", () => {
-    // `src` is typed as required even though `undefined` is handled — ISSUE-13.
+    // `src` is omitted entirely, not passed as `undefined`: this line failing
+    // to compile is the regression test for ISSUE-13.
+    const { container } = renderWithValence(<Avatar alt="Me" />);
+    expect(container.querySelector("svg")).toBeInTheDocument();
+  });
+
+  it("falls back to a placeholder icon for an explicitly undefined source", () => {
     const { container } = renderWithValence(
       <Avatar src={undefined} alt="Me" />,
     );

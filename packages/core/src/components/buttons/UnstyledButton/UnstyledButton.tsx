@@ -12,29 +12,28 @@ import {
   MakeResponsive,
   useResponsiveProps,
 } from "../../../utilities/responsive";
-import { MotionBehaviourProps, getMotionBehaviour } from "../Helpers";
-import { useReducedMotion } from "motion/react";
+import { AnimationProps, useAnimation } from "../../../hooks";
 
 export type UnstyledButtonProps = PolymorphicButtonProps &
   GenericClickableEventProps &
   GenericClickableProps &
   GenericProps & {
-    /** Defines motion behavior for this button. This will automatically be overridden if the user has reduced motion enabled on their device. */
-    motion?: MotionBehaviourProps;
+    /** Optional animation properties for this button. */
+    animation?: AnimationProps;
   };
 
 export const UnstyledButton = forwardRef(function UnstyledButton(
   props: MakeResponsive<UnstyledButtonProps>,
   ref: any,
 ) {
-  // Hooks & states
-  const reducedMotion = useReducedMotion();
-
   // Defaults
-  const { style, children, motion, ...rest } =
+  const { style, children, animation, ...rest } =
     useResponsiveProps<UnstyledButtonProps>(props);
 
-  const motionBehaviour = getMotionBehaviour(motion, reducedMotion);
+  // No default hover/tap animation, unlike `PrimitiveButton`: an unstyled
+  // button should stay unopinionated, and the old `motion` prop was likewise
+  // inert unless asked for. `useAnimation` handles reduced motion internally.
+  const animations = useAnimation({ ...animation });
 
   // Styles
   const UnstyledButtonStyle = css({
@@ -51,8 +50,12 @@ export const UnstyledButton = forwardRef(function UnstyledButton(
     <PolymorphicButton
       css={UnstyledButtonStyle}
       ref={ref}
-      whileHover={motionBehaviour.whileHover}
-      whileTap={motionBehaviour.whileTap}
+      variants={animations}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      whileHover="whileHover"
+      whileTap="whileTap"
       {...rest}
     >
       {children}

@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { CSSProperties, forwardRef } from "react";
+import { CSSProperties, ReactNode, forwardRef, isValidElement } from "react";
 import reactStringReplace from "react-string-replace";
 import {
   ComponentSize,
@@ -24,6 +24,24 @@ const REGEX_PATTERNS = {
   italic: /\*([^*><]+)\*/,
   monospace: /`([^`><]+)`/,
 };
+
+/**
+ * Flattens children to the text they render, so the change animation can be
+ * keyed on content.
+ *
+ * The raw children are used rather than the formatted `replacements`, because
+ * those are React elements: coerced to a key they collapse to
+ * `"[object Object]"` and stop varying with the text inside them.
+ */
+function getTextContent(node: ReactNode): string {
+  if (node === null || node === undefined || typeof node === "boolean")
+    return "";
+  if (typeof node === "string" || typeof node === "number") return String(node);
+  if (Array.isArray(node)) return node.map(getTextContent).join("");
+  if (isValidElement(node))
+    return getTextContent((node.props as { children?: ReactNode }).children);
+  return "";
+}
 
 // TYPES
 export type TextProps = GenericProps &
@@ -240,7 +258,7 @@ export const Text = forwardRef(function Text(
     <PolymorphicText
       css={TextStyle}
       ref={ref}
-      key={animation ? replacements : undefined}
+      key={animation ? getTextContent(children) : undefined}
       variants={animations}
       initial="initial"
       animate="animate"

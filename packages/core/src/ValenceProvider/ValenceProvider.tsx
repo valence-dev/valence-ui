@@ -151,7 +151,10 @@ export function ValenceProvider(props: ValenceProviderProps) {
     context: "padding" | "height" | "radius" | "fontSize" | "iconSize",
     size?: ComponentSize,
   ) {
-    size = size ?? defaults.size;
+    // `radius` has its own default in the theme; every other property scales
+    // off `size`. Falling back to `defaults.size` for all of them is invisible
+    // while the two coincide, and silently wrong as soon as they do not.
+    size = size ?? (context === "radius" ? defaults.radius : defaults.size);
     return sizeClasses[context][size];
   }
 

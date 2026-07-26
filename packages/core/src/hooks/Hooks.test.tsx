@@ -42,6 +42,29 @@ describe("useDisclosure", () => {
     expect(result.current.opened).toBe(true);
   });
 
+  it("applies two toggles in one batch independently", () => {
+    const { result } = renderHook(() => useDisclosure());
+
+    act(() => {
+      result.current.toggle();
+      result.current.toggle();
+    });
+    expect(result.current.opened).toBe(false);
+  });
+
+  it("keeps its callbacks stable across renders", () => {
+    const { result, rerender } = renderHook(() => useDisclosure());
+    const first = result.current;
+
+    act(() => result.current.open());
+    rerender();
+
+    expect(result.current.open).toBe(first.open);
+    expect(result.current.close).toBe(first.close);
+    expect(result.current.toggle).toBe(first.toggle);
+    expect(result.current.update).toBe(first.update);
+  });
+
   it("sets an explicit value via update()", () => {
     const { result } = renderHook(() => useDisclosure());
 
@@ -80,6 +103,38 @@ describe("useControlledList", () => {
     const { result } = renderHook(() => useControlledList(["a"]));
     act(() => result.current.remove("nope"));
     expect(result.current.items).toEqual(["a"]);
+  });
+
+  it("applies two adds in one batch independently", () => {
+    const { result } = renderHook(() => useControlledList<string>());
+
+    act(() => {
+      result.current.add("a");
+      result.current.add("b");
+    });
+    expect(result.current.items).toEqual(["a", "b"]);
+  });
+
+  it("applies two removes in one batch independently", () => {
+    const { result } = renderHook(() => useControlledList(["a", "b", "c"]));
+
+    act(() => {
+      result.current.remove("a");
+      result.current.remove("b");
+    });
+    expect(result.current.items).toEqual(["c"]);
+  });
+
+  it("keeps its mutating callbacks stable across renders", () => {
+    const { result } = renderHook(() => useControlledList<string>());
+    const first = result.current;
+
+    act(() => result.current.add("a"));
+
+    expect(result.current.add).toBe(first.add);
+    expect(result.current.remove).toBe(first.remove);
+    expect(result.current.update).toBe(first.update);
+    expect(result.current.clear).toBe(first.clear);
   });
 
   it("replaces the whole list via update() and empties it via clear()", () => {
