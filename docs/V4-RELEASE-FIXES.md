@@ -500,7 +500,7 @@ dependency).
 | ISSUE-24 | `Material.setInteractive`/`setOverrides`/`setChildrenOverrides` return `Material`, breaking subclass chaining; `SolidMaterial` has no `setColor`, `PaperMaterial` no `setBlur` | Make the base setters generic (`this`-typed) and fill the gaps |
 | ISSUE-25 | `SliderTrackProps.material` is declared but never read | Wire it up or remove it |
 | ISSUE-26 | `Switch` has no `role="switch"`/`aria-checked`, and its label is not associated with the control | Add ARIA and wrap in a `<label>` |
-| ISSUE-27 | `useElementSize` only listens to window resize, so it misses element-only size changes | Use `ResizeObserver` |
+| ISSUE-27 **[fixed]** | `useElementSize` only listens to window resize, so it misses element-only size changes | Now observes the element with a `ResizeObserver` and disconnects on unmount. Still measures via `getBoundingClientRect` rather than the observer's `contentRect`, so it keeps reporting the border box, and bails out of no-op state updates so a callback cannot loop. Covered by a `useElementSize` block in `Hooks.test.tsx` that stubs the observer, since jsdom has no layout engine |
 | ISSUE-28 | `Textarea` sets `verticalAlign: "center"`, which is not a valid CSS value | Remove it or use `middle` |
 | ISSUE-29 | Unused `colors`/`theme` locals in `ButtonWithIcon`, `MultipartButton`, `Grid`; `CardNamesapce` typo | Clean up; enable `noUnusedLocals` |
 | ISSUE-30 | `Material.copy()` is documented as a deep copy but shares the `overrides` / `childrenOverrides` objects | Clone them, or correct the doc comment |
