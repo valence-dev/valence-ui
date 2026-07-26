@@ -230,7 +230,7 @@ const SliderTrack = forwardRef(function SliderTrack(
 ) {
   // Hooks
   const theme = useValence();
-  const { getHex } = useColors();
+  const colors = useColors();
 
   const {
     state,
@@ -243,6 +243,10 @@ const SliderTrack = forwardRef(function SliderTrack(
     padding = 0,
 
     color = "black",
+    // No default material, unlike the thumb: one would paint over the
+    // highlight/dim treatment below and change how every slider looks. Applied
+    // after that treatment so a caller who does supply one actually wins.
+    material,
 
     style,
     ...rest
@@ -250,10 +254,11 @@ const SliderTrack = forwardRef(function SliderTrack(
 
   // Styles
   const TrackStyle: CSSObject = {
-    backgroundColor: getHex(highlight ? color : "black"),
+    backgroundColor: colors.getHex(highlight ? color : "black"),
     opacity: highlight ? 1 : 0.25,
     borderRadius: theme.getSize("radius", radius),
 
+    ...material?.getStyles(theme, colors),
     ...style,
   };
 
