@@ -65,7 +65,9 @@ export const Icon = forwardRef(function Icon(
   // Always call useMemo to avoid conditional hooks
   const MotionIcon = useMemo(
     () =>
-      isValidElement(children) ? motion((children as any).type) : undefined,
+      isValidElement(children)
+        ? motion.create((children as any).type)
+        : undefined,
     // Only depend on children.type if children is a valid element
     [isValidElement(children) ? (children as any).type : null],
   );
@@ -82,6 +84,11 @@ export const Icon = forwardRef(function Icon(
       />
     );
   }
+
+  // Anything that is not a single element — a string, a number, a fragment, an
+  // array of nodes — cannot be cloned, so it is passed through untouched rather
+  // than crashing. Such children carry no icon props to receive anyway.
+  if (!isValidElement(children)) return <>{children}</>;
 
   // No animation, just clone the icon with props
   return cloneElement(children as any, iconProps);

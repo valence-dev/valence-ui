@@ -15,14 +15,14 @@ export class AirMaterial extends Material {
     this.backgroundColor = props?.backgroundColor;
   }
 
-  copy(): AirMaterial {
+  copy(): this {
     return new AirMaterial({
       interactive: this.interactive,
       color: this.color,
       overrides: this.overrides,
       childrenOverrides: this.childrenOverrides,
       backgroundColor: this.backgroundColor,
-    });
+    }) as this;
   }
 
   getStyles(valence: IValenceContext, colors: UseColorsReturn): CSSObject {
@@ -95,12 +95,9 @@ export class AirMaterial extends Material {
   }
 
   // SETTERS
-  setColor(color: string): AirMaterial {
-    const copy = this.copy();
-    copy.color = color;
-    return copy;
-  }
-  setBackgroundColor(backgroundColor: string): AirMaterial {
+  // `setColor` is inherited from `Material`; it is `this`-typed there, so an
+  // override narrowing it to `AirMaterial` would only lose information.
+  setBackgroundColor(backgroundColor: string): this {
     const copy = this.copy();
     copy.backgroundColor = backgroundColor;
     return copy;

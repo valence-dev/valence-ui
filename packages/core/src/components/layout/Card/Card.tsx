@@ -1,5 +1,7 @@
 import {
   ComponentSize,
+  GenericClickableEventProps,
+  GenericClickableProps,
   GenericLayoutProps,
   GenericProps,
   PolymorphicButtonProps,
@@ -25,7 +27,9 @@ import { Material } from "../../../utilities";
 import { CSSObject } from "@emotion/react";
 
 export type CardProps = GenericLayoutProps &
-  PolymorphicButtonProps & {
+  PolymorphicButtonProps &
+  GenericClickableProps &
+  GenericClickableEventProps & {
     /** The material of this card */
     material?: Material;
     /**  Defines the size class for this card */

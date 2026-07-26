@@ -94,6 +94,7 @@ export const SelectInput = forwardRef(function SelectInput(
         icon={icon}
         secondaryIcon={actionIcon}
         placeholder={placeholder}
+        ref={ref}
         {...rest}
       />
     </>
