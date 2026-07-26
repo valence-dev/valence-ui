@@ -455,7 +455,21 @@ tooltipProps?: Omit<TooltipProps, "children" | "disclosure">;
 there is no way to control an icon button's tooltip. Drop `"disclosure"` from the
 `Omit`.
 
-### ISSUE-14 — `Card` has no typed click handler
+### ISSUE-14 — `Card` has no typed click handler **[fixed]**
+
+`CardProps` now intersects `GenericClickableProps & GenericClickableEventProps`
+alongside what it already had. That is the same composition
+`GenericButtonProps` uses for every other clickable component in the library,
+so `Card` no longer describes its own clickable surface differently from the
+`PrimitiveButton` it renders. No runtime change — `{...rest}` already carried
+these through.
+
+Both `as any` casts in the `Card` block of
+`packages/core/src/components/layout/Layout.test.tsx` are removed, which makes
+`npm run test:types` the regression test, and a case covering `href` / `target`
+/ pointer and focus events is added.
+
+The original report follows.
 
 `CardProps` is `GenericLayoutProps & PolymorphicButtonProps & { … }` — it never
 includes `GenericClickableEventProps`, yet `Card` renders a `PrimitiveButton`.
