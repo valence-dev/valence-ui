@@ -12,11 +12,7 @@ import { act, renderHook } from "@testing-library/react";
 import { renderWithValence, screen } from "./utils";
 import { useValence } from "../packages/core/src/ValenceProvider";
 import { Providers } from "./utils";
-import {
-  DEFAULT_PALETTE,
-  Color,
-  useColors,
-} from "../packages/core/src/utilities/color";
+import { useColors } from "../packages/core/src/utilities/color";
 import { SolidMaterial } from "../packages/core/src/utilities/materials/SolidMaterial";
 import { useDisclosure } from "../packages/core/src/hooks/UseDisclosure";
 import { useControlledList } from "../packages/core/src/hooks/UseControlledList";
@@ -27,27 +23,6 @@ import { Slider } from "../packages/core/src/components/inputs/Slider";
 import { PillSelector } from "../packages/core/src/components/inputs/PillSelector";
 import { InputContainer } from "../packages/core/src/components/inputs/InputContainer";
 import { Icon } from "../packages/core/src/components/display/Icon";
-
-describe("ISSUE-03: custom colors replace the default palette", () => {
-  it.fails("custom colors are appended to the default palette", () => {
-    const brand: Color = {
-      key: "brand",
-      default: {
-        base: "#123456",
-        opacity: { weak: "20", medium: "40", strong: "80" },
-      },
-    };
-
-    const { result } = renderHook(() => useValence(), {
-      wrapper: ({ children }) => (
-        <Providers colors={[brand]}>{children}</Providers>
-      ),
-    });
-
-    expect(result.current.colors).toHaveLength(DEFAULT_PALETTE.length + 1);
-    expect(result.current.colors.find((c) => c.key === "black")).toBeDefined();
-  });
-});
 
 describe("ISSUE-04: NumberInput produces NaN", () => {
   it.fails("clearing a NumberInput does not emit NaN", async () => {

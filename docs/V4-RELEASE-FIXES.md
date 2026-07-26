@@ -161,7 +161,22 @@ line in the 4.1 release notes.
 
 ## Tier 2 — high
 
-### ISSUE-03 — Custom colors replace the default palette **[test]**
+### ISSUE-03 — Custom colors replace the default palette **[fixed]**
+
+`ValenceProvider` computes the palette before destructuring, via a new
+`mergePalette` helper in `utilities/color/DefaultPalette.ts`.
+
+**Override semantics, as decided:** a caller color whose `key` matches a
+built-in *replaces that built-in in place*; every other color is appended.
+The caller wins on keys they define, the rest of the palette survives, and
+there is exactly one entry per key — so `getSwatch`'s `Array.find` cannot pick
+the wrong copy, and no `findLast` change is needed. Later entries in the
+caller's own array win over earlier ones. `DEFAULT_PALETTE` is never mutated.
+
+The reproduction has been promoted into the `overrides` block of
+`ValenceProvider.test.tsx`, with resolution coverage in `UseColors.test.tsx`.
+
+The original report follows.
 
 `ValenceProvider` intends to append user colors to `DEFAULT_PALETTE`, but the
 merge is written as a destructuring default, which only runs when the prop is

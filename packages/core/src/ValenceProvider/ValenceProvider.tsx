@@ -4,7 +4,7 @@ import { ValenceContext } from "./ValenceContext";
 import type { TextProps } from "../components/display/Text/Text";
 import { ComponentSize, SizeClasses } from "@valence-ui/utils";
 import { CssOverride } from "./CssOverride";
-import { Color } from "../utilities/color";
+import { Color, mergePalette } from "../utilities/color";
 import { PreferrableColorScheme } from "../hooks";
 import {
   DEFAULT_PALETTE,
@@ -16,6 +16,10 @@ import {
 export type ValenceProviderProps = {
   children?: React.ReactNode;
 
+  /** Colors to add to the default palette. These extend `DEFAULT_PALETTE`
+   * rather than replacing it; a color whose `key` matches a built-in overrides
+   * that built-in, and the rest of the palette is left intact.
+   */
   colors?: Color[];
   primaryColor?: string;
   preferredColorScheme?: PreferrableColorScheme;
@@ -110,9 +114,13 @@ export function ValenceProvider(props: ValenceProviderProps) {
     },
   };
 
+  // `colors` is deliberately not destructured with the rest: it is a merge of
+  // the defaults and the caller's, not an either/or, and a destructuring
+  // default only runs when the prop is absent.
+  const colors = mergePalette(props.colors);
+
   // Fallback properties
   const {
-    colors = props.colors ? VCD.colors.concat(props.colors) : VCD.colors,
     primaryColor = VCD.primaryColor,
     preferredColorScheme = VCD.preferredColorScheme,
 
