@@ -10,6 +10,8 @@ import { Switch } from "./Switch";
 import { SegmentedControl } from "./SegmentedControl";
 import { SelectInput } from "./SelectInput";
 import { PillSelector } from "./PillSelector";
+import { Slider } from "./Slider";
+import { RangeSlider } from "./RangeSlider";
 
 /** Wraps a controlled input so tests can drive it like a real consumer would. */
 function Controlled<T>({
@@ -438,6 +440,127 @@ describe("Switch", () => {
     rerender(<Switch value setValue={() => {}} />);
     expect(screen.getByRole("button").style.justifyContent).toBe("flex-end");
   });
+
+  it("honours an explicit width and height", () => {
+    renderWithValence(
+      <Switch value={false} setValue={() => {}} width={200} height={40} />,
+    );
+
+    const style = getComputedStyle(screen.getByRole("button"));
+    expect(style.width).toBe("200px");
+    expect(style.height).toBe("40px");
+  });
+
+  it("forwards unnamed props to the control", () => {
+    renderWithValence(
+      <Switch
+        value={false}
+        setValue={() => {}}
+        id="notifications"
+        name="notifications"
+        aria-label="Notifications"
+        data-testid="switch"
+      />,
+    );
+
+    const button = screen.getByRole("button");
+    expect(button).toHaveAttribute("id", "notifications");
+    expect(button).toHaveAttribute("name", "notifications");
+    expect(button).toHaveAttribute("aria-label", "Notifications");
+    expect(button).toHaveAttribute("data-testid", "switch");
+  });
+
+  it("applies caller styles to the control", () => {
+    renderWithValence(
+      <Switch value={false} setValue={() => {}} style={{ opacity: 0.5 }} />,
+    );
+    expect(getComputedStyle(screen.getByRole("button")).opacity).toBe("0.5");
+  });
+
+  it("marks itself required for assistive technology", () => {
+    renderWithValence(<Switch value={false} setValue={() => {}} required />);
+    expect(screen.getByRole("button")).toHaveAttribute("aria-required", "true");
+  });
+});
+
+describe("Slider", () => {
+  it("forwards unnamed props to the outermost element", () => {
+    const { container } = renderWithValence(
+      <Slider value={50} setValue={() => {}} id="volume" data-testid="vol" />,
+    );
+
+    const root = container.firstElementChild!;
+    expect(root).toHaveAttribute("id", "volume");
+    expect(root).toHaveAttribute("data-testid", "vol");
+  });
+
+  it("applies caller styles to the outermost element", () => {
+    const { container } = renderWithValence(
+      <Slider value={50} setValue={() => {}} style={{ opacity: 0.5 }} />,
+    );
+    expect(getComputedStyle(container.firstElementChild!).opacity).toBe("0.5");
+  });
+
+  it("disables the track and the manual input when disabled", () => {
+    const { container } = renderWithValence(
+      <Slider value={50} setValue={() => {}} disabled aria-label="volume" />,
+    );
+
+    expect(container.querySelector('[role="slider"]')).toHaveAttribute(
+      "aria-disabled",
+      "true",
+    );
+    expect(container.querySelector("input")).toBeDisabled();
+  });
+
+  it("also stops dragging when readOnly or loading", () => {
+    for (const props of [{ readOnly: true }, { loading: true }]) {
+      const { container, unmount } = renderWithValence(
+        <Slider value={50} setValue={() => {}} {...props} />,
+      );
+
+      expect(container.querySelector('[role="slider"]')).toHaveAttribute(
+        "aria-disabled",
+        "true",
+      );
+      unmount();
+    }
+  });
+
+  it("passes name and form to the manual input", () => {
+    const { container } = renderWithValence(
+      <Slider value={50} setValue={() => {}} name="volume" form="settings" />,
+    );
+
+    const input = container.querySelector("input")!;
+    expect(input).toHaveAttribute("name", "volume");
+    expect(input).toHaveAttribute("form", "settings");
+  });
+});
+
+describe("RangeSlider", () => {
+  it("forwards unnamed props to the outermost element", () => {
+    const { container } = renderWithValence(
+      <RangeSlider value={[20, 80]} setValue={() => {}} id="range" />,
+    );
+    expect(container.firstElementChild!).toHaveAttribute("id", "range");
+  });
+
+  it("disables both thumbs and both manual inputs when disabled", () => {
+    const { container } = renderWithValence(
+      <RangeSlider value={[20, 80]} setValue={() => {}} disabled />,
+    );
+
+    const thumbs = container.querySelectorAll('[role="slider"]');
+    expect(thumbs).toHaveLength(2);
+    for (const thumb of thumbs) {
+      expect(thumb).toHaveAttribute("aria-disabled", "true");
+    }
+
+    for (const input of container.querySelectorAll("input")) {
+      expect(input).toBeDisabled();
+    }
+  });
 });
 
 describe("SegmentedControl", () => {
@@ -518,6 +641,44 @@ describe("SegmentedControl", () => {
     for (const button of screen.getAllByRole("button")) {
       expect(getComputedStyle(button).flexGrow).toBe("1");
     }
+  });
+
+  it("focuses the selected option on autoFocus", () => {
+    renderWithValence(
+      <SegmentedControl
+        value="two"
+        setValue={() => {}}
+        options={options}
+        autoFocus
+      />,
+    );
+    expect(screen.getByText("two").closest("button")).toHaveFocus();
+  });
+
+  it("falls back to the first option when autoFocus finds no selection", () => {
+    renderWithValence(
+      <SegmentedControl
+        value=""
+        setValue={() => {}}
+        options={options}
+        autoFocus
+      />,
+    );
+    expect(screen.getByText("one").closest("button")).toHaveFocus();
+  });
+
+  it("exposes itself as a required group", () => {
+    renderWithValence(
+      <SegmentedControl
+        value="one"
+        setValue={() => {}}
+        options={options}
+        required
+      />,
+    );
+
+    const group = screen.getByRole("group");
+    expect(group).toHaveAttribute("aria-required", "true");
   });
 });
 

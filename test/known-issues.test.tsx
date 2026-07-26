@@ -22,8 +22,6 @@ import { useDisclosure } from "../packages/core/src/hooks/UseDisclosure";
 import { useControlledList } from "../packages/core/src/hooks/UseControlledList";
 import { NumberInput } from "../packages/core/src/components/inputs/NumberInput";
 import { SelectInput } from "../packages/core/src/components/inputs/SelectInput";
-import { Switch } from "../packages/core/src/components/inputs/Switch";
-import { Slider } from "../packages/core/src/components/inputs/Slider";
 import { PillSelector } from "../packages/core/src/components/inputs/PillSelector";
 import { InputContainer } from "../packages/core/src/components/inputs/InputContainer";
 import { Icon } from "../packages/core/src/components/display/Icon";
@@ -100,22 +98,6 @@ describe("ISSUE-05: SelectInput matches options by reference only", () => {
 
     // `selected ? ...` treats index 0 as falsy, so the option icon is dropped.
     expect(screen.getByTestId("opt-icon")).toBeInTheDocument();
-  });
-});
-
-describe("ISSUE-06: components silently drop their remaining props", () => {
-  it.fails("Slider forwards `id` to the DOM", () => {
-    const { container } = renderWithValence(
-      <Slider value={50} setValue={() => {}} id="volume" />,
-    );
-    expect(container.querySelector("#volume")).toBeInTheDocument();
-  });
-
-  it.fails("Switch honours an explicit width", () => {
-    renderWithValence(
-      <Switch value={false} setValue={() => {}} width={200} />,
-    );
-    expect(getComputedStyle(screen.getByRole("button")).width).toBe("200px");
   });
 });
 

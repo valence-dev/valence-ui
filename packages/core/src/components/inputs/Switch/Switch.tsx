@@ -58,6 +58,7 @@ export const Switch = forwardRef(function Switch(
     disabled,
     readOnly,
     loading,
+    required,
 
     onFocus,
     onBlur,
@@ -83,9 +84,10 @@ export const Switch = forwardRef(function Switch(
   }
 
   // Styles
+  const trackHeight = height ?? theme.getSize("height", size);
   const buttonCSS = css({
-    height: theme.getSize("height", size),
-    width: (theme.getSize("height", size) as number) * 2.5,
+    height: trackHeight,
+    width: width ?? (theme.getSize("height", size) as number) * 2.5,
     padding: padding,
     margin: margin,
 
@@ -97,6 +99,8 @@ export const Switch = forwardRef(function Switch(
     ...(value
       ? materials.buttonActive.setInteractive(true).getStyles(theme, colors)
       : materials.buttonNormal.setInteractive(true).getStyles(theme, colors)),
+
+    ...style,
   });
   const buttonStyle: CSSProperties = {
     justifyContent: value ? "flex-end" : "flex-start",
@@ -121,13 +125,19 @@ export const Switch = forwardRef(function Switch(
         </Text>
       )}
 
+      {/* Everything the switch does not name itself — `aria-*`, `data-*`,
+          `name`, `form`, `className` — belongs on the control, not the
+          wrapper, which has `containerProps` of its own. It is spread first so
+          the switch's own wiring cannot be clobbered. */}
       <motion.button
+        {...rest}
         id={id}
         ref={ref}
         onClick={handleClick}
         onFocus={onFocus}
         onBlur={onBlur}
         disabled={disabled || readOnly || loading}
+        aria-required={required || undefined}
         css={buttonCSS}
         style={buttonStyle}
       >
