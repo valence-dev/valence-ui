@@ -78,7 +78,6 @@ export const ColorPicker = forwardRef(function ColorPicker(
     buttonProps,
 
     style,
-    ...rest
   } = useResponsiveProps<ColorPickerProps>(props);
   const usableColors = colors.filter((c) => !excludeColors.includes(c.key));
 

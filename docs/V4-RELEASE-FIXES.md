@@ -502,7 +502,7 @@ dependency).
 | ISSUE-26 | `Switch` has no `role="switch"`/`aria-checked`, and its label is not associated with the control | Add ARIA and wrap in a `<label>` |
 | ISSUE-27 | `useElementSize` only listens to window resize, so it misses element-only size changes | Use `ResizeObserver` |
 | ISSUE-28 | `Textarea` sets `verticalAlign: "center"`, which is not a valid CSS value | Remove it or use `middle` |
-| ISSUE-29 | Unused `colors`/`theme` locals in `ButtonWithIcon`, `MultipartButton`, `Grid`; `CardNamesapce` typo | Clean up; enable `noUnusedLocals` |
+| ISSUE-29 **[fixed]** | Unused `colors`/`theme` locals in `ButtonWithIcon`, `MultipartButton`, `Grid`; `CardNamesapce` typo | `noUnusedLocals` enabled in all three package tsconfigs (inherited by the `-cjs` variants). It found more than the report listed: also `Stepper`, `SelectInput`, a stray `React` import in `OverflowContainer.Stories.tsx`, and — in `Grid` — `getHex` rather than `theme`. Typo fixed. The unused `...rest` in `ColorPicker` turned out to mark a real prop-dropping bug, filed as #77 |
 | ISSUE-30 | `Material.copy()` is documented as a deep copy but shares the `overrides` / `childrenOverrides` objects | Clone them, or correct the doc comment |
 
 ---
