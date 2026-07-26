@@ -1,10 +1,11 @@
 import { describe, expect, it, vi } from "vitest";
-import { act, renderHook } from "@testing-library/react";
+import { act, render, renderHook, screen } from "@testing-library/react";
 import { Providers } from "../../../../test/utils";
 import { useDisclosure } from "./UseDisclosure";
 import { useControlledList } from "./UseControlledList";
 import { useColorScheme } from "./UseColorScheme";
 import { useWindowSize } from "./UseWindowSize";
+import { useElementSize } from "./UseElementSize";
 import { useAnimation } from "./UseAnimation";
 import { UseWindowTitle, useWindowTitle } from "./UseWindowTitle";
 
@@ -266,6 +267,77 @@ describe("useAnimation", () => {
   });
 });
 
+describe("useElementSize", () => {
+  /** Captures what the hook observes, since jsdom has no layout engine. */
+  function installResizeObserver() {
+    const state = {
+      callbacks: [] as (() => void)[],
+      observed: [] as Element[],
+      disconnects: 0,
+    };
+
+    class FakeResizeObserver {
+      constructor(callback: () => void) {
+        state.callbacks.push(callback);
+      }
+      observe(element: Element) {
+        state.observed.push(element);
+      }
+      unobserve() {}
+      disconnect() {
+        state.disconnects++;
+      }
+    }
+
+    const original = globalThis.ResizeObserver;
+    globalThis.ResizeObserver = FakeResizeObserver as any;
+    return { state, restore: () => (globalThis.ResizeObserver = original) };
+  }
+
+  function Harness() {
+    const { ref, width, height } = useElementSize();
+    return (
+      <div ref={ref as any} data-testid="box">
+        {width}x{height}
+      </div>
+    );
+  }
+
+  it("observes the element it is attached to", () => {
+    const { state, restore } = installResizeObserver();
+    try {
+      render(<Harness />);
+      expect(state.observed).toEqual([screen.getByTestId("box")]);
+    } finally {
+      restore();
+    }
+  });
+
+  it("re-measures when the element resizes, with no window resize", () => {
+    const { state, restore } = installResizeObserver();
+    try {
+      render(<Harness />);
+      const box = screen.getByTestId("box");
+      expect(box).toHaveTextContent("0x0");
+
+      box.getBoundingClientRect = () => ({ width: 120, height: 40 }) as DOMRect;
+      act(() => state.callbacks.forEach((callback) => callback()));
+
+      expect(box).toHaveTextContent("120x40");
+    } finally {
+      restore();
+    }
+  });
+
+  it("disconnects the observer on unmount", () => {
+    const { state, restore } = installResizeObserver();
+    try {
+      const { unmount } = render(<Harness />);
+      unmount();
+      expect(state.disconnects).toBe(1);
+    } finally {
+      restore();
+    }
 describe("useWindowTitle", () => {
   it("sets the document title", () => {
     renderHook(() => useWindowTitle("Valence"));
