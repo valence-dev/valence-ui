@@ -6,6 +6,7 @@ import { useControlledList } from "./UseControlledList";
 import { useColorScheme } from "./UseColorScheme";
 import { useWindowSize } from "./UseWindowSize";
 import { useAnimation } from "./UseAnimation";
+import { UseWindowTitle, useWindowTitle } from "./UseWindowTitle";
 
 describe("useDisclosure", () => {
   it("is closed by default", () => {
@@ -39,6 +40,29 @@ describe("useDisclosure", () => {
       result.current.open();
     });
     expect(result.current.opened).toBe(true);
+  });
+
+  it("applies two toggles in one batch independently", () => {
+    const { result } = renderHook(() => useDisclosure());
+
+    act(() => {
+      result.current.toggle();
+      result.current.toggle();
+    });
+    expect(result.current.opened).toBe(false);
+  });
+
+  it("keeps its callbacks stable across renders", () => {
+    const { result, rerender } = renderHook(() => useDisclosure());
+    const first = result.current;
+
+    act(() => result.current.open());
+    rerender();
+
+    expect(result.current.open).toBe(first.open);
+    expect(result.current.close).toBe(first.close);
+    expect(result.current.toggle).toBe(first.toggle);
+    expect(result.current.update).toBe(first.update);
   });
 
   it("sets an explicit value via update()", () => {
@@ -79,6 +103,38 @@ describe("useControlledList", () => {
     const { result } = renderHook(() => useControlledList(["a"]));
     act(() => result.current.remove("nope"));
     expect(result.current.items).toEqual(["a"]);
+  });
+
+  it("applies two adds in one batch independently", () => {
+    const { result } = renderHook(() => useControlledList<string>());
+
+    act(() => {
+      result.current.add("a");
+      result.current.add("b");
+    });
+    expect(result.current.items).toEqual(["a", "b"]);
+  });
+
+  it("applies two removes in one batch independently", () => {
+    const { result } = renderHook(() => useControlledList(["a", "b", "c"]));
+
+    act(() => {
+      result.current.remove("a");
+      result.current.remove("b");
+    });
+    expect(result.current.items).toEqual(["c"]);
+  });
+
+  it("keeps its mutating callbacks stable across renders", () => {
+    const { result } = renderHook(() => useControlledList<string>());
+    const first = result.current;
+
+    act(() => result.current.add("a"));
+
+    expect(result.current.add).toBe(first.add);
+    expect(result.current.remove).toBe(first.remove);
+    expect(result.current.update).toBe(first.update);
+    expect(result.current.clear).toBe(first.clear);
   });
 
   it("replaces the whole list via update() and empties it via clear()", () => {
@@ -207,5 +263,30 @@ describe("useAnimation", () => {
       useAnimation({ hoverAnimation: ["grow", "raise"] }),
     );
     expect(result.current.whileHover).toEqual({ scale: 1.1, y: -2 });
+  });
+});
+
+describe("useWindowTitle", () => {
+  it("sets the document title", () => {
+    renderHook(() => useWindowTitle("Valence"));
+    expect(document.title).toBe("Valence");
+  });
+
+  it("updates the title when it changes", () => {
+    const { rerender } = renderHook(({ title }) => useWindowTitle(title), {
+      initialProps: { title: "First" },
+    });
+    expect(document.title).toBe("First");
+
+    rerender({ title: "Second" });
+    expect(document.title).toBe("Second");
+  });
+
+  it("still exports the deprecated PascalCase alias", () => {
+    // Kept for one release so the rename is not a breaking change.
+    expect(UseWindowTitle).toBe(useWindowTitle);
+
+    renderHook(() => UseWindowTitle("Legacy"));
+    expect(document.title).toBe("Legacy");
   });
 });

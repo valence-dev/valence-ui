@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 export type Disclosure = {
   /** Whether the disclosure is open. */
@@ -17,16 +17,19 @@ export type Disclosure = {
 export function useDisclosure(defaultValue: boolean = false): Disclosure {
   const [value, setValue] = useState(defaultValue ?? false);
 
-  const open = () => setValue(true);
-  const close = () => setValue(false);
-  const toggle = () => setValue(!value);
-  const update = (value: boolean) => setValue(value);
+  const open = useCallback(() => setValue(true), []);
+  const close = useCallback(() => setValue(false), []);
+  const toggle = useCallback(() => setValue((value) => !value), []);
+  const update = useCallback((value: boolean) => setValue(value), []);
 
-  return {
-    opened: value,
-    open: open,
-    close: close,
-    toggle: toggle,
-    update: update,
-  };
+  return useMemo(
+    () => ({
+      opened: value,
+      open: open,
+      close: close,
+      toggle: toggle,
+      update: update,
+    }),
+    [value, open, close, toggle, update],
+  );
 }

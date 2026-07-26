@@ -1,5 +1,14 @@
 /** @jsxImportSource @emotion/react */
-import { CSSProperties, ReactNode, useRef, useState } from "react";
+import {
+  CSSProperties,
+  HTMLProps,
+  ReactElement,
+  ReactNode,
+  Ref,
+  forwardRef,
+  useRef,
+  useState,
+} from "react";
 import { Option } from "./Options";
 import { useDisclosure } from "../../../hooks";
 import {
@@ -13,6 +22,7 @@ import {
   useFloating,
   useInteractions,
   useListNavigation,
+  useMergeRefs,
   useRole,
   useTypeahead,
 } from "@floating-ui/react";
@@ -26,6 +36,10 @@ import { ButtonWithIcon } from "../../buttons/ButtonWithIcon";
 import { Text, TextProps } from "../../display/Text";
 import { AnimatePresence, motion } from "motion/react";
 import { AirMaterial } from "../../../utilities/materials/AirMaterial";
+import {
+  MakeResponsive,
+  useResponsiveProps,
+} from "../../../utilities/responsive";
 
 export type DropdownContainerEventProps<OptionType> = {
   /** A callback fired when an item is selected. */
@@ -59,8 +73,9 @@ export type DropdownContainerProps<OptionType> = InputContainerProps &
     dropdownStyle?: CSSProperties;
   };
 
-export function DropdownContainer<OptionType>(
-  props: DropdownContainerProps<OptionType>,
+function DropdownContainerInner<OptionType>(
+  props: MakeResponsive<DropdownContainerProps<OptionType>>,
+  ref: Ref<HTMLElement>,
 ) {
   const theme = useValence();
   const colors = useColors();
@@ -98,7 +113,7 @@ export function DropdownContainer<OptionType>(
     dropdownStyle,
     children,
     ...rest
-  } = props;
+  } = useResponsiveProps<DropdownContainerProps<OptionType>>(props);
 
   // Floating UI
   const { refs, floatingStyles, context } = useFloating({
@@ -122,10 +137,20 @@ export function DropdownContainer<OptionType>(
   });
 
   const listRef = useRef<Array<HTMLElement | null>>([]);
-  const listContentRef = useRef(options.map((o) => o.label));
+  const listContentRef = useRef<Array<string | null>>([]);
   const isTypingRef = useRef(false);
 
-  const click = useClick(context, { event: "mousedown" });
+  // Rebuilt every render rather than captured once by `useRef`'s initialiser,
+  // which only runs on mount — typeahead was matching against whatever the
+  // options happened to be then, forever.
+  listContentRef.current = options.map((o) => o.label);
+
+  // A disabled dropdown must not open, by pointer or by keyboard. `disabled`
+  // was reaching `InputContainer` for styling, but the interactions below stayed
+  // live underneath it.
+  const enabled = !disabled;
+
+  const click = useClick(context, { event: "mousedown", enabled });
   const dismiss = useDismiss(context);
   const role = useRole(context, { role: "listbox" });
   const listNav = useListNavigation(context, {
@@ -134,6 +159,7 @@ export function DropdownContainer<OptionType>(
     selectedIndex: selected,
     onNavigate: setHighlighted,
     loop: true,
+    enabled,
   });
   const typeahead = useTypeahead(context, {
     listRef: listContentRef,
@@ -143,6 +169,7 @@ export function DropdownContainer<OptionType>(
     onTypingChange(isTyping) {
       isTypingRef.current = isTyping;
     },
+    enabled,
   });
 
   const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions(
@@ -157,6 +184,9 @@ export function DropdownContainer<OptionType>(
 
   const selectedOption = selected !== null ? options[selected] : undefined;
   const selectedItemLabel = selectedOption?.label;
+
+  // The forwarded ref lands on the same element floating-ui anchors to.
+  const referenceRef = useMergeRefs([ref, refs.setReference]);
 
   // Styles
   const DropdownStyle = css({
@@ -192,12 +222,16 @@ export function DropdownContainer<OptionType>(
         loading={loading}
         disabled={disabled}
         required={required}
-        ref={refs.setReference}
+        ref={referenceRef}
         iconProps={{
           animation: ["grow", "blur", "fade"],
         }}
-        {...getReferenceProps()}
-        {...rest}
+        // `rest` goes *through* getReferenceProps rather than after it, so
+        // floating-ui composes a caller's `onClick` with its own open/close
+        // handling instead of having it overwritten. The cast is only needed
+        // because `style` here is Emotion's `CSSObject`, which is wider than
+        // React's `CSSProperties`; floating-ui just spreads what it is given.
+        {...getReferenceProps(rest as HTMLProps<Element>)}
       >
         <AnimatePresence>
           {children ?? (
@@ -290,3 +324,17 @@ export function DropdownContainer<OptionType>(
     </>
   );
 }
+
+/**
+ * `forwardRef` erases the generic parameter of the function it wraps, so the
+ * result is cast back to a generic signature. Without this, every consumer —
+ * `SelectInput` included — would see `Option<unknown>` instead of
+ * `Option<OptionType>`.
+ */
+export const DropdownContainer = forwardRef(DropdownContainerInner) as <
+  OptionType,
+>(
+  props: MakeResponsive<DropdownContainerProps<OptionType>> & {
+    ref?: Ref<HTMLElement>;
+  },
+) => ReactElement;
