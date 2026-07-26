@@ -17,14 +17,14 @@ export class SolidMaterial extends Material {
     this.elevation = props?.elevation;
   }
 
-  copy(): SolidMaterial {
+  copy(): this {
     return new SolidMaterial({
       interactive: this.interactive,
       color: this.color,
       overrides: this.overrides,
       childrenOverrides: this.childrenOverrides,
       elevation: this.elevation,
-    });
+    }) as this;
   }
 
   private getElevationShadow(
@@ -134,7 +134,7 @@ export class SolidMaterial extends Material {
   }
 
   // SETTERS
-  setElevation(elevation: SolidMaterialElevation): SolidMaterial {
+  setElevation(elevation: SolidMaterialElevation): this {
     const copy = this.copy();
     copy.elevation = elevation;
     return copy;
