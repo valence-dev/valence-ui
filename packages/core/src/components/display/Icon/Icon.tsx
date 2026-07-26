@@ -65,7 +65,9 @@ export const Icon = forwardRef(function Icon(
   // Always call useMemo to avoid conditional hooks
   const MotionIcon = useMemo(
     () =>
-      isValidElement(children) ? motion((children as any).type) : undefined,
+      isValidElement(children)
+        ? motion.create((children as any).type)
+        : undefined,
     // Only depend on children.type if children is a valid element
     [isValidElement(children) ? (children as any).type : null],
   );
