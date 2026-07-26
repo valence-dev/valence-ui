@@ -2,8 +2,16 @@ import { describe, expect, it } from "vitest";
 import { renderHook } from "@testing-library/react";
 import { Providers } from "../../../../../test/utils";
 import { useColors } from "./UseColors";
-import { getDefaultSwatch } from "./Color";
+import { Color, getDefaultSwatch } from "./Color";
 import { DEFAULT_PALETTE } from "./DefaultPalette";
+
+const BRAND: Color = {
+  key: "brand",
+  default: {
+    base: "#123456",
+    opacity: { weak: "20", medium: "40", strong: "80" },
+  },
+};
 
 function useColorsIn(providerProps?: Parameters<typeof Providers>[0]) {
   return renderHook(() => useColors(), {
@@ -40,6 +48,23 @@ describe("useColors", () => {
     it("returns undefined when the key is undefined", () => {
       const { current } = useColorsIn();
       expect(current.getSwatch(undefined)).toBeUndefined();
+    });
+
+    it("resolves a custom color added by the provider", () => {
+      const { current } = useColorsIn({ colors: [BRAND] });
+      expect(current.getSwatch("brand")).toEqual(BRAND.default);
+    });
+
+    it("still resolves the built-ins alongside a custom color", () => {
+      const { current } = useColorsIn({ colors: [BRAND] });
+      const black = DEFAULT_PALETTE.find((c) => c.key === "black")!;
+      expect(current.getSwatch("black")).toEqual(black.default);
+    });
+
+    it("prefers a custom color over the built-in of the same key", () => {
+      const customBlack: Color = { ...BRAND, key: "black" };
+      const { current } = useColorsIn({ colors: [customBlack] });
+      expect(current.getSwatch("black")).toEqual(customBlack.default);
     });
   });
 

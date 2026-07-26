@@ -169,3 +169,29 @@ export const DEFAULT_PALETTE: Color[] = [
     },
   },
 ];
+
+/** Merges caller-supplied colors into `DEFAULT_PALETTE`.
+ *
+ * A color whose `key` matches a built-in **replaces** that built-in in place;
+ * every other color is appended. So the caller always wins on a key they
+ * define, and the rest of the palette survives — the library resolves keys
+ * like `"black"` and `"brighterWhite"` internally and breaks without them.
+ *
+ * Replacing in place, rather than prepending or appending a duplicate, keeps
+ * exactly one entry per key. `useColors.getSwatch` resolves with `Array.find`,
+ * which would otherwise silently pick whichever copy came first.
+ *
+ * `DEFAULT_PALETTE` is never mutated.
+ */
+export function mergePalette(colors?: Color[]): Color[] {
+  if (!colors?.length) return DEFAULT_PALETTE;
+
+  const merged = [...DEFAULT_PALETTE];
+  for (const color of colors) {
+    const index = merged.findIndex((c) => c.key === color.key);
+    if (index === -1) merged.push(color);
+    else merged[index] = color;
+  }
+
+  return merged;
+}

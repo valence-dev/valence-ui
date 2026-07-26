@@ -178,5 +178,68 @@ describe("ValenceProvider", () => {
 
       expect(current.colors.find((c) => c.key === "brand")).toEqual(brand);
     });
+
+    it("adds custom colors to the default palette instead of replacing it", () => {
+      const brand: Color = {
+        key: "brand",
+        default: {
+          base: "#123456",
+          opacity: { weak: "20", medium: "40", strong: "80" },
+        },
+      };
+      const { current } = renderTheme({ colors: [brand] });
+
+      expect(current.colors).toHaveLength(DEFAULT_PALETTE.length + 1);
+      // The library resolves these keys internally and breaks without them.
+      expect(current.colors.find((c) => c.key === "black")).toBeDefined();
+      expect(current.colors.find((c) => c.key === "brighterWhite")).toBeDefined();
+    });
+
+    it("lets a custom color override a built-in of the same key", () => {
+      const black: Color = {
+        key: "black",
+        default: {
+          base: "#000000",
+          opacity: { weak: "20", medium: "40", strong: "80" },
+        },
+      };
+      const { current } = renderTheme({ colors: [black] });
+
+      // Replaced in place, so there is exactly one `black` and it is the
+      // caller's — `getSwatch` resolves with `find`, which takes the first.
+      expect(current.colors.filter((c) => c.key === "black")).toEqual([black]);
+      expect(current.colors).toHaveLength(DEFAULT_PALETTE.length);
+    });
+
+    it("applies later custom colors over earlier ones", () => {
+      const first: Color = {
+        key: "brand",
+        default: {
+          base: "#111111",
+          opacity: { weak: "20", medium: "40", strong: "80" },
+        },
+      };
+      const second: Color = { ...first, default: { ...first.default, base: "#222222" } };
+      const { current } = renderTheme({ colors: [first, second] });
+
+      expect(current.colors.filter((c) => c.key === "brand")).toEqual([second]);
+    });
+
+    it("leaves the default palette untouched", () => {
+      const before = [...DEFAULT_PALETTE];
+      renderTheme({
+        colors: [
+          {
+            key: "brand",
+            default: {
+              base: "#123456",
+              opacity: { weak: "20", medium: "40", strong: "80" },
+            },
+          },
+        ],
+      });
+
+      expect(DEFAULT_PALETTE).toEqual(before);
+    });
   });
 });
