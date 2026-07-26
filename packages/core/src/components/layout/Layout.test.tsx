@@ -157,12 +157,31 @@ describe("Card", () => {
   it("is clickable", async () => {
     const onClick = vi.fn();
     const { user } = renderWithValence(
-      // CardProps has no click events in its type — ISSUE-14.
-      <Card {...({ onClick } as any)}>content</Card>,
+      // No cast: `onClick` is part of CardProps, so this failing to compile is
+      // itself the regression test for ISSUE-14.
+      <Card onClick={onClick}>content</Card>,
     );
 
     await user.click(screen.getByRole("button"));
     expect(onClick).toHaveBeenCalledOnce();
+  });
+
+  it("accepts the rest of the clickable surface without a cast", () => {
+    renderWithValence(
+      <Card
+        component="a"
+        href="https://example.com"
+        target="_blank"
+        onMouseEnter={() => {}}
+        onFocus={() => {}}
+      >
+        content
+      </Card>,
+    );
+
+    const link = screen.getByRole("link");
+    expect(link).toHaveAttribute("href", "https://example.com");
+    expect(link).toHaveAttribute("target", "_blank");
   });
 
   it("renders a Card.Section", () => {
@@ -186,7 +205,7 @@ describe("Card", () => {
   it("stops clicks inside Card.Buttons from reaching the card", async () => {
     const onCardClick = vi.fn();
     const { user } = renderWithValence(
-      <Card {...({ onClick: onCardClick } as any)}>
+      <Card onClick={onCardClick}>
         <Card.Buttons>
           <span>actions</span>
         </Card.Buttons>
