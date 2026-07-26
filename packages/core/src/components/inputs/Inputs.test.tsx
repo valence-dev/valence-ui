@@ -577,9 +577,17 @@ describe("NumberInput", () => {
 });
 
 describe("Switch", () => {
-  it("renders a button reflecting the current value", () => {
-    renderWithValence(<Switch value={false} setValue={() => {}} />);
-    expect(screen.getByRole("button")).toBeInTheDocument();
+  it("exposes itself as a switch with its on/off state", () => {
+    const { rerender } = renderWithValence(
+      <Switch value={false} setValue={() => {}} />,
+    );
+
+    const control = screen.getByRole("switch");
+    expect(control).toBeInTheDocument();
+    expect(control).toHaveAttribute("aria-checked", "false");
+
+    rerender(<Switch value setValue={() => {}} />);
+    expect(screen.getByRole("switch")).toHaveAttribute("aria-checked", "true");
   });
 
   it("toggles the value on click", async () => {
@@ -588,7 +596,7 @@ describe("Switch", () => {
       <Switch value={false} setValue={setValue} />,
     );
 
-    await user.click(screen.getByRole("button"));
+    await user.click(screen.getByRole("switch"));
     expect(setValue).toHaveBeenCalledWith(true);
   });
 
@@ -598,7 +606,7 @@ describe("Switch", () => {
       <Switch value setValue={setValue} />,
     );
 
-    await user.click(screen.getByRole("button"));
+    await user.click(screen.getByRole("switch"));
     expect(setValue).toHaveBeenCalledWith(false);
   });
 
@@ -607,6 +615,48 @@ describe("Switch", () => {
       <Switch value={false} setValue={() => {}} label="Dark mode" />,
     );
     expect(screen.getByText("Dark mode")).toBeInTheDocument();
+  });
+
+  it("names the control with its label", () => {
+    renderWithValence(
+      <Switch value={false} setValue={() => {}} label="Dark mode" />,
+    );
+
+    // A <button> is not labelable, so this comes from aria-labelledby rather
+    // than htmlFor.
+    expect(screen.getByRole("switch", { name: "Dark mode" })).toBeInTheDocument();
+  });
+
+  it("toggles when the label is clicked", async () => {
+    const setValue = vi.fn();
+    const { user } = renderWithValence(
+      <Switch value={false} setValue={setValue} label="Dark mode" />,
+    );
+
+    await user.click(screen.getByText("Dark mode"));
+    expect(setValue).toHaveBeenCalledWith(true);
+  });
+
+  it("does not toggle from the label when disabled", async () => {
+    const setValue = vi.fn();
+    const { user } = renderWithValence(
+      <Switch value={false} setValue={setValue} label="Dark mode" disabled />,
+    );
+
+    await user.click(screen.getByText("Dark mode"));
+    expect(setValue).not.toHaveBeenCalled();
+  });
+
+  it("lets an explicit aria-label win over the label association", () => {
+    renderWithValence(
+      <Switch
+        value={false}
+        setValue={() => {}}
+        label="Dark mode"
+        aria-label="Theme"
+      />,
+    );
+    expect(screen.getByRole("switch", { name: "Theme" })).toBeInTheDocument();
   });
 
   it("does not toggle when disabled, readOnly or loading", async () => {
@@ -620,8 +670,8 @@ describe("Switch", () => {
         <Switch value={false} setValue={setValue} {...props} />,
       );
 
-      expect(screen.getByRole("button")).toBeDisabled();
-      await user.click(screen.getByRole("button"));
+      expect(screen.getByRole("switch")).toBeDisabled();
+      await user.click(screen.getByRole("switch"));
       expect(setValue).not.toHaveBeenCalled();
 
       unmount();
@@ -632,10 +682,10 @@ describe("Switch", () => {
     const { rerender } = renderWithValence(
       <Switch value={false} setValue={() => {}} />,
     );
-    expect(screen.getByRole("button").style.justifyContent).toBe("flex-start");
+    expect(screen.getByRole("switch").style.justifyContent).toBe("flex-start");
 
     rerender(<Switch value setValue={() => {}} />);
-    expect(screen.getByRole("button").style.justifyContent).toBe("flex-end");
+    expect(screen.getByRole("switch").style.justifyContent).toBe("flex-end");
   });
 
   it("honours an explicit width and height", () => {
@@ -643,7 +693,7 @@ describe("Switch", () => {
       <Switch value={false} setValue={() => {}} width={200} height={40} />,
     );
 
-    const style = getComputedStyle(screen.getByRole("button"));
+    const style = getComputedStyle(screen.getByRole("switch"));
     expect(style.width).toBe("200px");
     expect(style.height).toBe("40px");
   });
@@ -660,7 +710,7 @@ describe("Switch", () => {
       />,
     );
 
-    const button = screen.getByRole("button");
+    const button = screen.getByRole("switch");
     expect(button).toHaveAttribute("id", "notifications");
     expect(button).toHaveAttribute("name", "notifications");
     expect(button).toHaveAttribute("aria-label", "Notifications");
@@ -671,12 +721,12 @@ describe("Switch", () => {
     renderWithValence(
       <Switch value={false} setValue={() => {}} style={{ opacity: 0.5 }} />,
     );
-    expect(getComputedStyle(screen.getByRole("button")).opacity).toBe("0.5");
+    expect(getComputedStyle(screen.getByRole("switch")).opacity).toBe("0.5");
   });
 
   it("marks itself required for assistive technology", () => {
     renderWithValence(<Switch value={false} setValue={() => {}} required />);
-    expect(screen.getByRole("button")).toHaveAttribute("aria-required", "true");
+    expect(screen.getByRole("switch")).toHaveAttribute("aria-required", "true");
   });
 });
 
