@@ -91,11 +91,6 @@ export type TextProps = GenericProps &
     animation?: TransitionAnimation | TransitionAnimation[];
   };
 
-// CANNOT USE CRYTPO.RANDOMUUID() BECAUSE WEBKIT SUCKS
-function randomId(): string {
-  return Math.random().toString(36).substring(2);
-}
-
 // COMPONENTS
 /** A basic, formattable text object that is compatible with some markdown text injection.
  * Very handy when dealing with internationalization, particularly with the i18n module.
@@ -149,14 +144,14 @@ export const Text = forwardRef(function Text(
   replacements = reactStringReplace(
     replacements,
     REGEX_PATTERNS.newline,
-    (match, i) => <br key={randomId()} />,
+    (match, i) => <br key={`newline-${i}`} />,
   );
   replacements = reactStringReplace(
     replacements,
     REGEX_PATTERNS.boldItalic,
     (match, i) => (
       <b
-        key={randomId()}
+        key={`bold-italic-${i}`}
         style={{
           fontWeight: 800,
           fontStyle: "italic",
@@ -171,7 +166,7 @@ export const Text = forwardRef(function Text(
     REGEX_PATTERNS.bold,
     (match, i) => (
       <b
-        key={randomId()}
+        key={`bold-${i}`}
         style={{
           fontWeight: 800,
         }}
@@ -185,7 +180,7 @@ export const Text = forwardRef(function Text(
     REGEX_PATTERNS.italic,
     (match, i) => (
       <i
-        key={randomId()}
+        key={`italic-${i}`}
         style={{
           fontStyle: "italic",
         }}
@@ -199,7 +194,7 @@ export const Text = forwardRef(function Text(
     REGEX_PATTERNS.monospace,
     (match, i) => (
       <span
-        key={randomId()}
+        key={`monospace-${i}`}
         style={{
           fontFamily: theme.getFont("monospace"),
         }}
@@ -213,7 +208,7 @@ export const Text = forwardRef(function Text(
     /<hl>(.+?)<\/hl>/,
     (match, i) => (
       <span
-        key={randomId()}
+        key={`highlight-${i}`}
         style={{
           backgroundColor: colors.getHex(highlightColor, "weak"),
           color: colors.getHex(highlightColor),
