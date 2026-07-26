@@ -54,6 +54,13 @@ const config: StorybookConfig = {
       ...viteConfig.resolve,
       alias: {
         ...viteConfig.resolve?.alias,
+        // The story kit, before the bare package name: these are prefix
+        // matches, so `@valence-ui/core` would otherwise swallow this and
+        // rewrite it to a `storybook` directory inside `src` that is not there.
+        "@valence-ui/core/storybook": resolve(
+          __dirname,
+          "../packages/core/storybook",
+        ),
         "@valence-ui/utils": resolve(__dirname, "../packages/utils/src"),
         "@valence-ui/core": resolve(__dirname, "../packages/core/src"),
       },
