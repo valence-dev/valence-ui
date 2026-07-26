@@ -112,6 +112,14 @@ const Slider = forwardRef(function Slider(
     includeManualInput = true,
     manualInputPosition = "right",
 
+    disabled,
+    readOnly,
+    required,
+    loading,
+    autoFocus,
+    name,
+    form,
+
     trackProps,
     thumbProps,
     numberInputProps,
@@ -143,12 +151,16 @@ const Slider = forwardRef(function Slider(
       gap={5}
       height={height}
       direction={manualInputPosition === "left" ? "row-reverse" : "row"}
+      style={style}
+      {...rest}
     >
       <ReactSlider
         min={min}
         max={max}
         step={step}
         invert={invert}
+        // A read-only or loading slider must not be draggable either.
+        disabled={disabled || readOnly || loading}
         value={value}
         onChange={(value, index) => {
           setValue(value);
@@ -191,6 +203,15 @@ const Slider = forwardRef(function Slider(
           size={size}
           radius={radius}
           material={material}
+          // The manual input is the only real form control this component
+          // renders, so the input-level props belong to it.
+          disabled={disabled}
+          readOnly={readOnly}
+          required={required}
+          loading={loading}
+          autoFocus={autoFocus}
+          name={name}
+          form={form}
           showControls={false}
           width="fit-content"
           grow={false}

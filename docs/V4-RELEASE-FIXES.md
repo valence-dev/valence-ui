@@ -273,7 +273,18 @@ Consider adding an optional `compare?: (a, b) => boolean` prop for callers whose
 
 ---
 
-### ISSUE-06 — Components silently drop their remaining props **[test]**
+### ISSUE-06 — Components silently drop their remaining props **[fixed]**
+
+`Slider`, `RangeSlider` and `Switch` now spread `...rest`; `Switch` honours
+`width`, `height` and `style`; both sliders forward `disabled` (plus `readOnly`
+and `loading`) to `ReactSlider` and route the remaining input-level props to
+the manual `NumberInput`, which is the only real form control they render.
+`SegmentedControl` now focuses the selected option on `autoFocus` and exposes
+`required` as `role="group"` + `aria-required`. The reproductions have been
+promoted into `packages/core/src/components/inputs/Inputs.test.tsx`, which
+gains `Slider` and `RangeSlider` blocks.
+
+The original report follows.
 
 `Slider`, `RangeSlider` and `Switch` all destructure `...rest` and then never
 spread it. Everything the caller passes that the component does not explicitly
