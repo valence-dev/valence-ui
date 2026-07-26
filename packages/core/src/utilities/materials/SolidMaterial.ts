@@ -89,6 +89,8 @@ export class SolidMaterial extends Material {
         },
       }),
 
+      ...this.getScrollbarStyles(valence, colors),
+
       "& *": {
         ...this.getChildrenStyles(valence, colors),
       },
@@ -109,6 +111,7 @@ export class SolidMaterial extends Material {
         color: colors.getHex(foregroundColor, "strong"),
       },
 
+      ...this.getScrollbarStyles(valence, colors),
       ...this.childrenOverrides,
     };
   }

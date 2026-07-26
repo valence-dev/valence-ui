@@ -306,7 +306,14 @@ the remaining components for the same pattern — `SegmentedControl` also accept
 
 ## Tier 3 — medium
 
-### ISSUE-07 — `SolidMaterial` omits scrollbar styling **[test]**
+### ISSUE-07 — `SolidMaterial` omits scrollbar styling **[fixed]**
+
+`SolidMaterial.getStyles` and `getChildrenStyles` now spread
+`getScrollbarStyles`, matching the other three materials. The reproduction has
+been promoted into the shared-contract block of `Materials.test.tsx`, so every
+material — including any added later — is held to it.
+
+The original report follows.
 
 `AirMaterial`, `GlassMaterial` and `PaperMaterial` all spread
 `this.getScrollbarStyles(...)` into `getStyles()`. `SolidMaterial` implements the

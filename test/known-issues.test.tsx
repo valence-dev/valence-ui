@@ -12,12 +12,7 @@ import { act, renderHook } from "@testing-library/react";
 import { renderWithValence, screen } from "./utils";
 import { useValence } from "../packages/core/src/ValenceProvider";
 import { Providers } from "./utils";
-import {
-  DEFAULT_PALETTE,
-  Color,
-  useColors,
-} from "../packages/core/src/utilities/color";
-import { SolidMaterial } from "../packages/core/src/utilities/materials/SolidMaterial";
+import { DEFAULT_PALETTE, Color } from "../packages/core/src/utilities/color";
 import { useDisclosure } from "../packages/core/src/hooks/UseDisclosure";
 import { useControlledList } from "../packages/core/src/hooks/UseControlledList";
 import { PillSelector } from "../packages/core/src/components/inputs/PillSelector";
