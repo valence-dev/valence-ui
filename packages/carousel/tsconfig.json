@@ -8,8 +8,9 @@
     "forceConsistentCasingInFileNames": true,
     "declaration": true,
     "outDir": "dist/esm",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "jsx": "react-jsx",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "declarationMap": true,
     "skipLibCheck": true
   },
@@ -21,7 +22,5 @@
     "src/**/*.test.ts",
     "src/**/*.test.tsx"
   ],
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }
