@@ -231,7 +231,16 @@ On blur, fall back to `min ?? 0` rather than clamping `NaN`.
 
 ---
 
-### ISSUE-05 — `SelectInput` matches options by reference **[test]**
+### ISSUE-05 — `SelectInput` matches options by reference **[fixed]**
+
+`SelectInput` now matches options on their `value` property, treats "no match"
+as `null` rather than `-1`, and accepts an optional `compare` prop for values
+that need custom equality. `DropdownContainer` resolves the selected option
+once and reads its label and icon through it, so index `0` is no longer treated
+as "nothing selected". The reproductions have been promoted into the
+`SelectInput` block of `packages/core/src/components/inputs/Inputs.test.tsx`.
+
+The original report follows.
 
 ```tsx
 selected={value ? options.findIndex((o) => o === value) : null}

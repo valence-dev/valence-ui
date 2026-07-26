@@ -155,8 +155,8 @@ export function DropdownContainer<OptionType>(
     disclosure.close();
   }
 
-  const selectedItemLabel =
-    selected !== null ? options[selected].label : undefined;
+  const selectedOption = selected !== null ? options[selected] : undefined;
+  const selectedItemLabel = selectedOption?.label;
 
   // Styles
   const DropdownStyle = css({
@@ -184,7 +184,7 @@ export function DropdownContainer<OptionType>(
     <>
       <InputContainer
         tabIndex={0}
-        icon={selected ? (options[selected].icon ?? icon) : icon}
+        icon={selectedOption?.icon ?? icon}
         button={<Icon>{secondaryIcon}</Icon>}
         size={inputSize}
         radius={radius}

@@ -678,6 +678,75 @@ describe("SelectInput", () => {
     expect(setValue).toHaveBeenCalledWith(options[1]);
     expect(onSelect).toHaveBeenCalledWith(options[1]);
   });
+
+  it("resolves a structurally equal value to its option", () => {
+    renderWithValence(
+      <SelectInput
+        value={{ value: 2, label: "Two" }}
+        setValue={() => {}}
+        options={options}
+      />,
+    );
+    expect(screen.getByText("Two")).toBeInTheDocument();
+  });
+
+  it("falls back to the placeholder when the value matches no option", () => {
+    renderWithValence(
+      <SelectInput
+        value={{ value: 99, label: "Ninety-nine" }}
+        setValue={() => {}}
+        options={options}
+        placeholder="Pick one"
+      />,
+    );
+    expect(screen.getByText("Pick one")).toBeInTheDocument();
+  });
+
+  it("uses a custom `compare` when one is supplied", () => {
+    renderWithValence(
+      <SelectInput
+        value={{ value: { id: 2 }, label: "stale label" }}
+        setValue={() => {}}
+        options={[
+          { value: { id: 1 }, label: "One" },
+          { value: { id: 2 }, label: "Two" },
+        ]}
+        compare={(option, value) => option.value.id === value.value.id}
+      />,
+    );
+    expect(screen.getByText("Two")).toBeInTheDocument();
+  });
+
+  // `actionIcon` is suppressed in both cases below so the only icon the
+  // container can render is the selected option's.
+  const withIcons = [
+    { value: 1, label: "One", icon: <IconSearch /> },
+    { value: 2, label: "Two" },
+  ];
+
+  it("shows the icon of the first option when it is selected", () => {
+    const { container } = renderWithValence(
+      <SelectInput
+        value={withIcons[0]}
+        setValue={() => {}}
+        options={withIcons}
+        actionIcon={null}
+      />,
+    );
+    expect(container.querySelector("svg")).toBeInTheDocument();
+  });
+
+  it("renders no icon when the selected option has none", () => {
+    const { container } = renderWithValence(
+      <SelectInput
+        value={withIcons[1]}
+        setValue={() => {}}
+        options={withIcons}
+        actionIcon={null}
+      />,
+    );
+    expect(container.querySelector("svg")).not.toBeInTheDocument();
+  });
 });
 
 describe("PillSelector", () => {
