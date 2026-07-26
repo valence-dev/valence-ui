@@ -476,7 +476,45 @@ includes `GenericClickableEventProps`, yet `Card` renders a `PrimitiveButton`.
 `onClick` works at runtime but is a type error. Add
 `GenericClickableEventProps & GenericClickableProps` to `CardProps`.
 
-### ISSUE-15 — The library cannot be server-rendered
+### ISSUE-15 — The library cannot be server-rendered **[fixed]**
+
+Three sites read a browser global during render, not the two in the report —
+`BottomSheet` also defaulted `releaseOffset` to `Math.round(window.innerHeight
+/ 2)` in its destructuring, which is evaluated on every render. It now reads
+through `useWindowSize` like everything else.
+
+**Approach.** Both hooks moved to `useSyncExternalStore` rather than the
+`useState` + `useEffect` shape the report sketched. The two behave identically
+on the server, but they differ on the client: with `useState` the first render
+of a *client-only* app would report the SSR default and only correct itself
+after an effect, so every mobile visitor would get a desktop-width first paint
+and a visible reflow. `useSyncExternalStore` uses `getServerSnapshot` only for
+server rendering and hydration, so client-only apps — which is every current
+consumer — keep reading the real size on their first render and see no change
+in behaviour at all.
+
+**The SSR breakpoint, as decided:** `SSR_WINDOW_SIZE` is `1024x768`, exported
+from `hooks/UseWindowSize`. `1024` sits in the `isDefault` band of the default
+breakpoints (`> tabletWidth`, `<= desktopLargeWidth`), so server-rendered trees
+resolve responsive props to their `default` variant — the same one components
+fall back to when no breakpoint-specific value is given. The `0` the report
+suggested would have put every server render in `isMobile`. Apps that override
+`breakpoints` should check that `1024` still lands where they expect.
+
+`useColorScheme` reports light on the server, which is what a browser reports
+when it has no preference either.
+
+**Verification.** `test/ssr.test.tsx` runs under the `node` environment, where
+`window` and `document` genuinely do not exist, and renders a provider plus
+`Text`, `Button`, `Flex`, `Card` and `TextInput` through `renderToString`. It
+also asserts the `default` responsive variant is the one that reaches the
+markup. Against the previous implementation, nine of its ten cases fail with
+`ReferenceError: window is not defined` — including the empty provider.
+
+`test/setup.ts` now guards its jsdom shims behind a `typeof window` check, so
+it is a no-op under the `node` environment.
+
+The original report follows.
 
 `useWindowSize` reads `window.innerWidth` during render, and `useColorScheme`
 calls `window.matchMedia` during render:
