@@ -1,5 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import { CSSProperties, ReactNode, createRef, forwardRef } from "react";
+import {
+  CSSProperties,
+  ChangeEvent,
+  ReactNode,
+  createRef,
+  forwardRef,
+  useState,
+} from "react";
 import { InputContainer } from "../InputContainer";
 import {
   GenericInputProps,
@@ -46,6 +53,17 @@ export type NumberInputProps = GenericInputProps<number> &
     inputStyle?: CSSProperties;
   };
 
+/** Renders a value as the text the input should display. */
+function toRawValue(value: number): string {
+  if (value === undefined || value === null || Number.isNaN(value)) return "";
+  return String(value);
+}
+
+/** Text the user has to type through on the way to a number. */
+function isPartialNumber(raw: string): boolean {
+  return raw === "" || raw === "-" || raw === "." || raw === "-.";
+}
+
 export const NumberInput = forwardRef(function NumberInput(
   props: MakeResponsive<NumberInputProps>,
   ref: any,
@@ -87,12 +105,24 @@ export const NumberInput = forwardRef(function NumberInput(
 
     onEnterPress,
     onKeyPress,
+    onChange,
     onBlur,
 
     inputStyle,
     style,
     ...rest
   } = useResponsiveProps<NumberInputProps>(props);
+
+  // The text the input actually displays. Kept separately from `value` so the
+  // field can hold states that are not yet a number ("", "-", "1e") without
+  // emitting `NaN` to the consumer.
+  const [rawValue, setRawValue] = useState(() => toRawValue(value));
+  const [lastValue, setLastValue] = useState(value);
+  // Re-sync when `value` changes from anywhere other than this input.
+  if (!Object.is(value, lastValue)) {
+    setLastValue(value);
+    setRawValue(toRawValue(value));
+  }
 
   // Styles
   const InputStyle = css({
@@ -140,13 +170,35 @@ export const NumberInput = forwardRef(function NumberInput(
     // Call onKeyPress on any key
     onKeyPress?.(e);
   };
+  /** Emits `next` and records it, so the sync above does not undo it. */
+  function emit(next: number) {
+    setLastValue(next);
+    setValue(next);
+  }
+
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    const raw = e.target.value;
+    setRawValue(raw);
+
+    // Let the user type their way to a number without emitting anything.
+    if (!isPartialNumber(raw)) {
+      const parsed = Number(raw);
+      if (!Number.isNaN(parsed)) emit(parsed);
+    }
+
+    onChange?.(e);
+  }
   function handleBlur(e: any) {
-    setValue(
-      Math.min(
-        Math.max(parseFloat(e.target.value), min ?? -Infinity),
-        max ?? Infinity,
-      ),
-    );
+    const parsed = Number(rawValue);
+    // An empty or unparseable field settles on the lowest legal value rather
+    // than clamping `NaN`, which would produce `NaN` again.
+    const next =
+      isPartialNumber(rawValue) || Number.isNaN(parsed)
+        ? (min ?? 0)
+        : Math.min(Math.max(parsed, min ?? -Infinity), max ?? Infinity);
+
+    setRawValue(toRawValue(next));
+    emit(next);
     onBlur?.(e);
   }
 
@@ -199,8 +251,8 @@ export const NumberInput = forwardRef(function NumberInput(
     >
       <input
         css={InputStyle}
-        value={value}
-        onChange={(e) => setValue(parseFloat(e.target.value))}
+        value={rawValue}
+        onChange={handleChange}
         onBlur={handleBlur}
         type="number"
         min={min}
