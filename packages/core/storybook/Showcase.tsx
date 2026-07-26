@@ -36,10 +36,20 @@ export function Showcase(props: ShowcaseProps) {
 
   return (
     <Flex direction="column" padding={20} gap={30} width="100%">
+      {/*
+        The story's own chrome is explicitly `black` — the palette key that
+        flips with the colour scheme — rather than inherited. Left to inherit
+        it goes unreadable as soon as the toolbar switches to dark, which is
+        exactly when a matrix is most worth reading.
+      */}
       {(title || description) && (
         <Flex direction="column" gap={5}>
-          {title && <Title order={2}>{title}</Title>}
-          {description && <Text>{description}</Text>}
+          {title && (
+            <Title order={2} color="black">
+              {title}
+            </Title>
+          )}
+          {description && <Text color="black">{description}</Text>}
         </Flex>
       )}
 
@@ -67,8 +77,16 @@ export function Section(props: SectionProps) {
 
   return (
     <Flex direction="column" gap={10} width="100%">
-      {title && <Title order={4}>{title}</Title>}
-      {description && <Text size="sm">{description}</Text>}
+      {title && (
+        <Title order={4} color="black">
+          {title}
+        </Title>
+      )}
+      {description && (
+        <Text size="sm" color="black">
+          {description}
+        </Text>
+      )}
 
       {/*
         `stretch` so every case in the row is the height of the tallest one.
