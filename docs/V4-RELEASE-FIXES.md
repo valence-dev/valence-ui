@@ -580,7 +580,26 @@ npm.
 Verify with `find packages/*/dist -name "*test*" -o -name "*stories*"` after a
 build — it should print nothing.
 
-### ISSUE-17 — `createRef()` called during render
+### ISSUE-17 — `createRef()` called during render **[fixed]**
+
+All three inputs now hold a `useRef` and hand the DOM node a
+`useMergeRefs([ref, inputRef])` callback.
+
+Two refs rather than one, deliberately: `InputContainer` focuses its input via
+`inputRef.current`, which only works on an object ref, while `useMergeRefs`
+returns a callback. Keeping the object ref for the container and giving the DOM
+node the merged callback also fixes a second defect the report did not mention
+— under `inputRef = ref ?? createRef()`, a caller who forwarded a *callback*
+ref left `InputContainer` holding a function, so `inputRef.current` was
+`undefined` and clicking the container silently failed to focus.
+
+Coverage is in the `TextInput` block of
+`packages/core/src/components/inputs/Inputs.test.tsx`: object-ref forwarding, a
+stable-callback-ref identity guard, and the container-focus case. Only the last
+of those fails against the previous implementation — the other two are guards,
+because the ref churn itself is not observable from outside the component.
+
+The original report follows.
 
 `TextInput`, `Textarea` and `NumberInput` all do:
 

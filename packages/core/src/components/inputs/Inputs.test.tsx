@@ -245,6 +245,60 @@ describe("TextInput", () => {
     expect(input).not.toHaveFocus();
   });
 
+  it("forwards an object ref to the native input", () => {
+    const ref = { current: null as HTMLInputElement | null };
+    renderWithValence(
+      <TextInput value="" setValue={() => {}} aria-label="name" ref={ref} />,
+    );
+
+    expect(ref.current).toBe(screen.getByLabelText("name"));
+  });
+
+  it("keeps the same DOM node attached across re-renders", async () => {
+    const attached: (HTMLInputElement | null)[] = [];
+    // Declared once, outside render: an inline callback ref would be a new
+    // function every render and React would detach/reattach it regardless of
+    // what this component does, which would tell us nothing.
+    const collectRef = (node: HTMLInputElement | null) => {
+      attached.push(node);
+    };
+
+    const { user } = renderWithValence(
+      <Controlled
+        initial=""
+        render={(value, setValue) => (
+          <TextInput
+            value={value}
+            setValue={setValue}
+            aria-label="name"
+            ref={collectRef}
+          />
+        )}
+      />,
+    );
+
+    await user.type(screen.getByLabelText("name"), "abc");
+
+    // The merged ref must stay identity-stable, or every keystroke would push
+    // a null (detach) and a node (reattach).
+    expect(attached.filter((node) => node === null)).toHaveLength(0);
+    expect(attached).toHaveLength(1);
+  });
+
+  it("focuses the input when the container is clicked despite a callback ref", async () => {
+    const { user, container } = renderWithValence(
+      <TextInput
+        value=""
+        setValue={() => {}}
+        aria-label="name"
+        ref={() => {}}
+      />,
+    );
+
+    await user.click(container.firstElementChild!);
+    expect(screen.getByLabelText("name")).toHaveFocus();
+  });
+
   it("forwards maxLength and pattern to the native input", () => {
     renderWithValence(
       <TextInput

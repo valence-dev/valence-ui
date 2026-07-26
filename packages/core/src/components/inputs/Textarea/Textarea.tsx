@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { useValence } from "../../../ValenceProvider";
-import { CSSProperties, createRef, forwardRef } from "react";
+import { CSSProperties, forwardRef, useRef } from "react";
+import { useMergeRefs } from "@floating-ui/react";
 import { css, CSSObject } from "@emotion/react";
 import {
   GenericTextInputEventProps,
@@ -48,7 +49,11 @@ export const Textarea = forwardRef(function Textarea(
   ref: any,
 ) {
   const theme = useValence();
-  const inputRef = ref ?? createRef<HTMLTextAreaElement>();
+  // `inputRef` stays an object ref so `InputContainer` can focus through it,
+  // including when the caller forwarded a callback ref. `mergedRef` is what the
+  // DOM node receives, so the caller's ref is populated too.
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+  const mergedRef = useMergeRefs([ref, inputRef]);
 
   // Defaults
   const {
@@ -172,7 +177,7 @@ export const Textarea = forwardRef(function Textarea(
         readOnly={readOnly}
         required={required}
         onKeyDown={handleKeyDown}
-        ref={inputRef}
+        ref={mergedRef}
         {...rest}
       />
     </InputContainer>
