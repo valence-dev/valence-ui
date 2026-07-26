@@ -335,7 +335,21 @@ The original report follows.
 method but never calls it, so scrollable surfaces using it fall back to native
 scrollbars. Add the spread for parity.
 
-### ISSUE-08 — Hooks update state from stale closures **[test]**
+### ISSUE-08 — Hooks update state from stale closures **[fixed]**
+
+`useDisclosure` and `useControlledList` now write through the updater form, so
+several calls in one batch each see the preceding one's result instead of the
+value captured when the callback was created. Their callbacks are wrapped in
+`useCallback`, and the returned object in `useMemo`, so both are stable enough
+to use as effect dependencies — without the memo the stable callbacks would
+still be reached through a fresh object every render. `includes` depends on
+`items` by necessity and is memoised against it.
+
+The reproductions have been promoted into the `useDisclosure` and
+`useControlledList` blocks of `packages/core/src/hooks/Hooks.test.tsx`, along
+with batched-`remove` and callback-identity cases.
+
+The original report follows.
 
 ```ts
 // UseDisclosure.tsx
@@ -350,13 +364,40 @@ Two calls in one batch collapse into one. Switch to updater form
 (`setValue((v) => !v)`, `setItems((items) => [...items, item])`) and wrap the
 returned callbacks in `useCallback` so they are stable dependencies.
 
-### ISSUE-09 — `PillSelector` ignores `maxSelectable` when clicking pills **[test]**
+### ISSUE-09 — `PillSelector` ignores `maxSelectable` when clicking pills **[fixed]**
+
+`handlePillClick` now carries the same guard as `addPill()`, on the select
+branch only — deselecting at the cap has to stay available, or the cap becomes
+a trap.
+
+On the open question of disabling versus a silent no-op: the unselected pills
+are now `disabled` once the cap is reached, matching how the add button already
+disables itself when it cannot act. The add button also takes the cap into its
+own `disabled` expression, since it was equally dead there. The guard in
+`handlePillClick` is kept as well, because `pillProps` can override `disabled`.
+
+The reproduction has been promoted into the `PillSelector` block of
+`packages/core/src/components/inputs/Inputs.test.tsx`, with the disabled-state
+and still-deselectable cases alongside it.
+
+The original report follows.
 
 `maxSelectable` is only checked in `addPill()`. Clicking existing pills can select
 any number of them. Add the same guard to `handlePillClick`, and decide whether
 hitting the cap should disable the remaining pills or silently no-op.
 
-### ISSUE-10 — A disabled `InputContainer` still takes focus **[test]**
+### ISSUE-10 — A disabled `InputContainer` still takes focus **[fixed]**
+
+`handleClick` now returns after the disabled branch, so a disabled container
+neither focuses its input nor forwards the click to `onClick`. Suppressing
+`onClick` is part of the fix rather than a side effect of it: a handler firing
+on a control the user can see is disabled is the same defect one level up.
+
+The reproduction has been promoted into the `InputContainer` block of
+`packages/core/src/components/inputs/Inputs.test.tsx`, with `onClick` cases on
+both sides of `disabled` so the enabled path stays pinned too.
+
+The original report follows.
 
 ```tsx
 const handleClick = (e: MouseEvent) => {

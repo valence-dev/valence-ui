@@ -89,6 +89,47 @@ describe("InputContainer", () => {
     await user.click(container.firstElementChild!);
     expect(screen.getByLabelText("field")).toHaveFocus();
   });
+
+  it("does not focus the input when a disabled container is clicked", async () => {
+    function Harness() {
+      const ref = { current: null as HTMLInputElement | null };
+      return (
+        <InputContainer disabled inputRef={ref}>
+          <input aria-label="field" ref={(n) => {
+            ref.current = n;
+          }} />
+        </InputContainer>
+      );
+    }
+
+    const { user, container } = renderWithValence(<Harness />);
+    await user.click(container.firstElementChild!);
+    expect(screen.getByLabelText("field")).not.toHaveFocus();
+  });
+
+  it("does not fire onClick when a disabled container is clicked", async () => {
+    const onClick = vi.fn();
+    const { user, container } = renderWithValence(
+      <InputContainer disabled onClick={onClick}>
+        <input aria-label="field" />
+      </InputContainer>,
+    );
+
+    await user.click(container.firstElementChild!);
+    expect(onClick).not.toHaveBeenCalled();
+  });
+
+  it("still fires onClick when the container is enabled", async () => {
+    const onClick = vi.fn();
+    const { user, container } = renderWithValence(
+      <InputContainer onClick={onClick}>
+        <input aria-label="field" />
+      </InputContainer>,
+    );
+
+    await user.click(container.firstElementChild!);
+    expect(onClick).toHaveBeenCalled();
+  });
 });
 
 describe("TextInput", () => {
@@ -1037,5 +1078,53 @@ describe("PillSelector", () => {
       "delta{Enter}",
     );
     expect(setValue).not.toHaveBeenCalled();
+  });
+
+  it("does not select an existing pill once maxSelectable is reached", async () => {
+    const setValue = vi.fn();
+    const onPillSelected = vi.fn();
+    const { user } = renderWithValence(
+      <PillSelector
+        value={["alpha"]}
+        setValue={setValue}
+        pills={["alpha", "beta"]}
+        maxSelectable={1}
+        onPillSelected={onPillSelected}
+      />,
+    );
+
+    await user.click(screen.getByText("beta"));
+    expect(setValue).not.toHaveBeenCalled();
+    expect(onPillSelected).not.toHaveBeenCalled();
+  });
+
+  it("disables the unselected pills once maxSelectable is reached", () => {
+    renderWithValence(
+      <PillSelector
+        value={["alpha"]}
+        setValue={() => {}}
+        pills={["alpha", "beta"]}
+        maxSelectable={1}
+      />,
+    );
+
+    expect(screen.getByRole("button", { name: "beta" })).toBeDisabled();
+    // The selected pill stays actionable so the cap can be freed up again.
+    expect(screen.getByRole("button", { name: "alpha" })).not.toBeDisabled();
+  });
+
+  it("still deselects a selected pill at maxSelectable", async () => {
+    const setValue = vi.fn();
+    const { user } = renderWithValence(
+      <PillSelector
+        value={["alpha"]}
+        setValue={setValue}
+        pills={["alpha", "beta"]}
+        maxSelectable={1}
+      />,
+    );
+
+    await user.click(screen.getByText("alpha"));
+    expect(setValue).toHaveBeenCalledWith([]);
   });
 });

@@ -7,7 +7,7 @@
  *
  * Each case maps to an ISSUE id in docs/V4-RELEASE-FIXES.md.
  */
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import { act, renderHook } from "@testing-library/react";
 import { renderWithValence, screen } from "./utils";
 import { useDisclosure } from "../packages/core/src/hooks/UseDisclosure";
@@ -36,8 +36,11 @@ describe("ISSUE-08: hooks update state from stale closures", () => {
     });
 
     expect(result.current.items).toEqual(["a", "b"]);
-  });
-});
+import { describe, expect, it, vi } from "vitest";
+import { renderWithValence, screen } from "./utils";
+import { PillSelector } from "../packages/core/src/components/inputs/PillSelector";
+import { InputContainer } from "../packages/core/src/components/inputs/InputContainer";
+import { Icon } from "../packages/core/src/components/display/Icon";
 
 describe("ISSUE-09: PillSelector ignores maxSelectable when clicking pills", () => {
   it.fails("selecting past maxSelectable is rejected", async () => {
@@ -80,4 +83,9 @@ describe("ISSUE-10: a disabled InputContainer still takes focus", () => {
       expect(screen.getByLabelText("field")).not.toHaveFocus();
     },
   );
+describe("ISSUE-11: Icon assumes its children are elements", () => {
+  it.fails("Icon tolerates a plain string child", () => {
+    renderWithValence(<Icon>not an element</Icon>);
+    expect(screen.getByText("not an element")).toBeInTheDocument();
+  });
 });
