@@ -9,6 +9,7 @@ import { InputContainer } from "./InputContainer";
 import { Switch } from "./Switch";
 import { SegmentedControl } from "./SegmentedControl";
 import { SelectInput } from "./SelectInput";
+import { DropdownContainer } from "./DropdownContainer";
 import { PillSelector } from "./PillSelector";
 import { Slider } from "./Slider";
 import { RangeSlider } from "./RangeSlider";
@@ -88,6 +89,47 @@ describe("InputContainer", () => {
     const { user, container } = renderWithValence(<Harness />);
     await user.click(container.firstElementChild!);
     expect(screen.getByLabelText("field")).toHaveFocus();
+  });
+
+  it("does not focus the input when a disabled container is clicked", async () => {
+    function Harness() {
+      const ref = { current: null as HTMLInputElement | null };
+      return (
+        <InputContainer disabled inputRef={ref}>
+          <input aria-label="field" ref={(n) => {
+            ref.current = n;
+          }} />
+        </InputContainer>
+      );
+    }
+
+    const { user, container } = renderWithValence(<Harness />);
+    await user.click(container.firstElementChild!);
+    expect(screen.getByLabelText("field")).not.toHaveFocus();
+  });
+
+  it("does not fire onClick when a disabled container is clicked", async () => {
+    const onClick = vi.fn();
+    const { user, container } = renderWithValence(
+      <InputContainer disabled onClick={onClick}>
+        <input aria-label="field" />
+      </InputContainer>,
+    );
+
+    await user.click(container.firstElementChild!);
+    expect(onClick).not.toHaveBeenCalled();
+  });
+
+  it("still fires onClick when the container is enabled", async () => {
+    const onClick = vi.fn();
+    const { user, container } = renderWithValence(
+      <InputContainer onClick={onClick}>
+        <input aria-label="field" />
+      </InputContainer>,
+    );
+
+    await user.click(container.firstElementChild!);
+    expect(onClick).toHaveBeenCalled();
   });
 });
 
@@ -202,6 +244,60 @@ describe("TextInput", () => {
 
     await user.keyboard("{Escape}");
     expect(input).not.toHaveFocus();
+  });
+
+  it("forwards an object ref to the native input", () => {
+    const ref = { current: null as HTMLInputElement | null };
+    renderWithValence(
+      <TextInput value="" setValue={() => {}} aria-label="name" ref={ref} />,
+    );
+
+    expect(ref.current).toBe(screen.getByLabelText("name"));
+  });
+
+  it("keeps the same DOM node attached across re-renders", async () => {
+    const attached: (HTMLInputElement | null)[] = [];
+    // Declared once, outside render: an inline callback ref would be a new
+    // function every render and React would detach/reattach it regardless of
+    // what this component does, which would tell us nothing.
+    const collectRef = (node: HTMLInputElement | null) => {
+      attached.push(node);
+    };
+
+    const { user } = renderWithValence(
+      <Controlled
+        initial=""
+        render={(value, setValue) => (
+          <TextInput
+            value={value}
+            setValue={setValue}
+            aria-label="name"
+            ref={collectRef}
+          />
+        )}
+      />,
+    );
+
+    await user.type(screen.getByLabelText("name"), "abc");
+
+    // The merged ref must stay identity-stable, or every keystroke would push
+    // a null (detach) and a node (reattach).
+    expect(attached.filter((node) => node === null)).toHaveLength(0);
+    expect(attached).toHaveLength(1);
+  });
+
+  it("focuses the input when the container is clicked despite a callback ref", async () => {
+    const { user, container } = renderWithValence(
+      <TextInput
+        value=""
+        setValue={() => {}}
+        aria-label="name"
+        ref={() => {}}
+      />,
+    );
+
+    await user.click(container.firstElementChild!);
+    expect(screen.getByLabelText("name")).toHaveFocus();
   });
 
   it("forwards maxLength and pattern to the native input", () => {
@@ -908,6 +1004,105 @@ describe("SelectInput", () => {
     );
     expect(container.querySelector("svg")).not.toBeInTheDocument();
   });
+
+  it("does not open when disabled", async () => {
+    const { user } = renderWithValence(
+      <SelectInput value={null} setValue={() => {}} options={options} disabled />,
+    );
+
+    await user.click(screen.getByRole("combobox"));
+    expect(screen.queryByText("One")).not.toBeInTheDocument();
+  });
+
+  it("still opens when the caller supplies the same handler floating-ui uses", async () => {
+    const onMouseDown = vi.fn();
+    const { user } = renderWithValence(
+      <SelectInput
+        value={null}
+        setValue={() => {}}
+        options={options}
+        onMouseDown={onMouseDown}
+      />,
+    );
+
+    await user.click(screen.getByRole("combobox"));
+
+    // `useClick` is configured with `event: "mousedown"`, so onMouseDown is the
+    // handler that actually collides. Both must run: floating-ui's is not a
+    // replacement for the caller's, nor the caller's for floating-ui's.
+    expect(onMouseDown).toHaveBeenCalled();
+    expect(await screen.findByText("One")).toBeInTheDocument();
+  });
+
+  it("forwards a ref to the dropdown's reference element", () => {
+    const ref = { current: null as HTMLElement | null };
+    renderWithValence(
+      <SelectInput
+        value={null}
+        setValue={() => {}}
+        options={options}
+        ref={ref}
+      />,
+    );
+
+    expect(ref.current).toBe(screen.getByRole("combobox"));
+  });
+
+  it("matches typeahead against the current options, not the mounted ones", async () => {
+    function Harness() {
+      const [opts, setOpts] = useState(options);
+      // Controlled: typeahead resolves through setSelected -> setValue, so a
+      // no-op setter would leave nothing to assert on.
+      const [value, setValue] = useState<(typeof options)[number] | null>(null);
+
+      return (
+        <>
+          <button onClick={() => setOpts([{ value: 3, label: "Zebra" }])}>
+            swap
+          </button>
+          <SelectInput value={value} setValue={setValue} options={opts} />
+        </>
+      );
+    }
+
+    const { user } = renderWithValence(<Harness />);
+    await user.click(screen.getByText("swap"));
+
+    screen.getByRole("combobox").focus();
+    await user.keyboard("z");
+
+    // "Zebra" only exists in the replacement list, so a listContentRef captured
+    // at mount could never have matched it.
+    expect(screen.getByText("Zebra")).toBeInTheDocument();
+  });
+});
+
+// Exercised directly rather than through SelectInput, which resolves its own
+// responsive props before delegating and so would mask these.
+describe("DropdownContainer", () => {
+  const options = [
+    { value: 1, label: "One" },
+    { value: 2, label: "Two" },
+  ];
+
+  it("resolves its own responsive props", () => {
+    renderWithValence(
+      <DropdownContainer
+        options={options}
+        size={{ default: "xl", mobile: "xs" }}
+      />,
+    );
+
+    // Test viewport is 1280px wide, so `default` (xl -> 60px) applies.
+    expect(getComputedStyle(screen.getByRole("combobox")).height).toBe("60px");
+  });
+
+  it("forwards a ref to its reference element", () => {
+    const ref = { current: null as HTMLElement | null };
+    renderWithValence(<DropdownContainer options={options} ref={ref} />);
+
+    expect(ref.current).toBe(screen.getByRole("combobox"));
+  });
 });
 
 describe("PillSelector", () => {
@@ -1037,5 +1232,53 @@ describe("PillSelector", () => {
       "delta{Enter}",
     );
     expect(setValue).not.toHaveBeenCalled();
+  });
+
+  it("does not select an existing pill once maxSelectable is reached", async () => {
+    const setValue = vi.fn();
+    const onPillSelected = vi.fn();
+    const { user } = renderWithValence(
+      <PillSelector
+        value={["alpha"]}
+        setValue={setValue}
+        pills={["alpha", "beta"]}
+        maxSelectable={1}
+        onPillSelected={onPillSelected}
+      />,
+    );
+
+    await user.click(screen.getByText("beta"));
+    expect(setValue).not.toHaveBeenCalled();
+    expect(onPillSelected).not.toHaveBeenCalled();
+  });
+
+  it("disables the unselected pills once maxSelectable is reached", () => {
+    renderWithValence(
+      <PillSelector
+        value={["alpha"]}
+        setValue={() => {}}
+        pills={["alpha", "beta"]}
+        maxSelectable={1}
+      />,
+    );
+
+    expect(screen.getByRole("button", { name: "beta" })).toBeDisabled();
+    // The selected pill stays actionable so the cap can be freed up again.
+    expect(screen.getByRole("button", { name: "alpha" })).not.toBeDisabled();
+  });
+
+  it("still deselects a selected pill at maxSelectable", async () => {
+    const setValue = vi.fn();
+    const { user } = renderWithValence(
+      <PillSelector
+        value={["alpha"]}
+        setValue={setValue}
+        pills={["alpha", "beta"]}
+        maxSelectable={1}
+      />,
+    );
+
+    await user.click(screen.getByText("alpha"));
+    expect(setValue).toHaveBeenCalledWith([]);
   });
 });

@@ -207,6 +207,31 @@ describe("Icon", () => {
       /^#/,
     );
   });
+
+  it("passes a plain string child through untouched", () => {
+    renderWithValence(<Icon>not an element</Icon>);
+    expect(screen.getByText("not an element")).toBeInTheDocument();
+  });
+
+  it("passes a numeric child through untouched", () => {
+    renderWithValence(<Icon>{42}</Icon>);
+    expect(screen.getByText("42")).toBeInTheDocument();
+  });
+
+  it("passes multiple children through untouched", () => {
+    const { container } = renderWithValence(
+      <Icon>
+        <IconHeart />
+        <IconHeart />
+      </Icon>,
+    );
+    expect(container.querySelectorAll("svg")).toHaveLength(2);
+  });
+
+  it("still renders nothing for children that are only falsy", () => {
+    const { container } = renderWithValence(<Icon>{null}</Icon>);
+    expect(container).toBeEmptyDOMElement();
+  });
 });
 
 describe("Loader", () => {
@@ -252,6 +277,13 @@ describe("Image", () => {
     expect(image.tagName).toBe("IMG");
     expect(image).toHaveAttribute("src", "/logo.png");
   });
+
+  it("renders the placeholder instead of an img when there is no source", () => {
+    const { container } = renderWithValence(<Image alt="Logo" />);
+
+    expect(screen.queryByAltText("Logo")).not.toBeInTheDocument();
+    expect(container.querySelector("svg")).toBeInTheDocument();
+  });
 });
 
 describe("Avatar", () => {
@@ -263,7 +295,13 @@ describe("Avatar", () => {
   });
 
   it("falls back to a placeholder icon when there is no source", () => {
-    // `src` is typed as required even though `undefined` is handled — ISSUE-13.
+    // `src` is omitted entirely, not passed as `undefined`: this line failing
+    // to compile is the regression test for ISSUE-13.
+    const { container } = renderWithValence(<Avatar alt="Me" />);
+    expect(container.querySelector("svg")).toBeInTheDocument();
+  });
+
+  it("falls back to a placeholder icon for an explicitly undefined source", () => {
     const { container } = renderWithValence(
       <Avatar src={undefined} alt="Me" />,
     );

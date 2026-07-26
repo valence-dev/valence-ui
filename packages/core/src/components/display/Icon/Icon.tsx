@@ -83,6 +83,11 @@ export const Icon = forwardRef(function Icon(
     );
   }
 
+  // Anything that is not a single element — a string, a number, a fragment, an
+  // array of nodes — cannot be cloned, so it is passed through untouched rather
+  // than crashing. Such children carry no icon props to receive anyway.
+  if (!isValidElement(children)) return <>{children}</>;
+
   // No animation, just clone the icon with props
   return cloneElement(children as any, iconProps);
 });
