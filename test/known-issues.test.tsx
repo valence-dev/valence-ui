@@ -15,9 +15,7 @@ import { Providers } from "./utils";
 import {
   DEFAULT_PALETTE,
   Color,
-  useColors,
 } from "../packages/core/src/utilities/color";
-import { SolidMaterial } from "../packages/core/src/utilities/materials/SolidMaterial";
 import { useDisclosure } from "../packages/core/src/hooks/UseDisclosure";
 import { useControlledList } from "../packages/core/src/hooks/UseControlledList";
 import { NumberInput } from "../packages/core/src/components/inputs/NumberInput";
@@ -116,22 +114,6 @@ describe("ISSUE-06: components silently drop their remaining props", () => {
       <Switch value={false} setValue={() => {}} width={200} />,
     );
     expect(getComputedStyle(screen.getByRole("button")).width).toBe("200px");
-  });
-});
-
-describe("ISSUE-07: SolidMaterial omits scrollbar styling", () => {
-  it.fails("SolidMaterial includes scrollbar rules like every other material", () => {
-    const { result } = renderHook(
-      () => ({ valence: useValence(), colors: useColors() }),
-      { wrapper: ({ children }) => <Providers>{children}</Providers> },
-    );
-
-    const styles = new SolidMaterial().getStyles(
-      result.current.valence,
-      result.current.colors,
-    );
-
-    expect(styles["&::-webkit-scrollbar-thumb"]).toBeDefined();
   });
 });
 

@@ -82,6 +82,20 @@ describe("Material (shared contract)", () => {
       expect(styles.borderRadius).toBe(99);
     });
 
+    it("styles the scrollbar on the surface and its descendants", () => {
+      const [valence, colors] = useMaterialContext();
+      const material = create();
+
+      expect(
+        material.getStyles(valence, colors)["&::-webkit-scrollbar-thumb"],
+      ).toBeDefined();
+      expect(
+        material.getChildrenStyles(valence, colors)[
+          "&::-webkit-scrollbar-thumb"
+        ],
+      ).toBeDefined();
+    });
+
     it("applies `childrenOverrides` to descendant styles", () => {
       const [valence, colors] = useMaterialContext();
       const material = create().setChildrenOverrides({ fontWeight: 900 });
