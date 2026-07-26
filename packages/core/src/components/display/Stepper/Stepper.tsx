@@ -108,7 +108,6 @@ const StepperIndicator = forwardRef(function StepperIndicator(
   ref: any,
 ) {
   const theme = useValence();
-  const colors = useColors();
 
   // Defaults
   const {

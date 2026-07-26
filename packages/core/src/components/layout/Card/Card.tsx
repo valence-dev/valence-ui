@@ -221,9 +221,9 @@ const Buttons = forwardRef(function CardButtons(
   );
 });
 
-const CardNamesapce = Object.assign(Card, {
+const CardNamespace = Object.assign(Card, {
   Image,
   Section,
   Buttons,
 });
-export { CardNamesapce as Card };
+export { CardNamespace as Card };
