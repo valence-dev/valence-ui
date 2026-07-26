@@ -11,7 +11,7 @@ import { TooltipOptions, useTooltip } from "../../../hooks";
 import { FloatingPortal, useMergeRefs } from "@floating-ui/react";
 import { css } from "@emotion/react";
 import { useValence } from "../../../ValenceProvider";
-import { Text } from "../../display";
+import { Text } from "../../display/Text";
 import {
   MakeResponsive,
   useResponsiveProps,

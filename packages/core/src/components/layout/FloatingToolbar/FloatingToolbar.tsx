@@ -1,6 +1,6 @@
 import { ComponentSize, GenericFloatingLayoutProps } from "@valence-ui/utils";
 import { Flex, FlexProps } from "../Flex";
-import { Text, TextProps } from "../../display";
+import { Text, TextProps } from "../../display/Text";
 import { CSSProperties, forwardRef } from "react";
 import {
   MakeResponsive,

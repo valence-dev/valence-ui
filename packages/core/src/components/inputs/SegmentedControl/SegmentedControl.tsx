@@ -1,8 +1,12 @@
 import { ReactNode, forwardRef } from "react";
 import { GenericInputProps } from "../../../generics";
-import { Flex, FlexProps } from "../../layout";
-import { PrimitiveButton, PrimitiveButtonProps } from "../../buttons";
-import { Loader, Text } from "../../display";
+import { Flex, FlexProps } from "../../layout/Flex";
+import {
+  PrimitiveButton,
+  PrimitiveButtonProps,
+} from "../../buttons/PrimitiveButton";
+import { Loader } from "../../display/Loader";
+import { Text } from "../../display/Text";
 import { useValence } from "../../../ValenceProvider";
 import {
   MakeResponsive,

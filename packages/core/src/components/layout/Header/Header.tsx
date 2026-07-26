@@ -2,10 +2,10 @@ import { CSSProperties, forwardRef } from "react";
 import { FlexCenter, FlexCenterProps } from "../Flex";
 import {
   MakeResponsive,
-  useColors,
   useResponsiveProps,
-  useValence,
-} from "../../..";
+} from "../../../utilities/responsive";
+import { useColors } from "../../../utilities/color";
+import { useValence } from "../../../ValenceProvider";
 import { CSSObject } from "@emotion/react";
 
 export type HeaderProps = FlexCenterProps & {

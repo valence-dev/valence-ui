@@ -8,8 +8,8 @@ import {
 import { CSSProperties, forwardRef } from "react";
 import { useValence } from "../../../ValenceProvider";
 import { GenericInputProps } from "../../../generics";
-import { OverflowContainer } from "../../layout";
-import { IconButton, IconButtonProps } from "../../buttons";
+import { OverflowContainer } from "../../layout/OverflowContainer";
+import { IconButton, IconButtonProps } from "../../buttons/IconButton";
 import { CSSObject } from "@emotion/react";
 import { IconCheck } from "@tabler/icons-react";
 

@@ -6,11 +6,11 @@ import {
   forwardRef,
   useContext,
 } from "react";
-import { Flex, FlexProps } from "../../layout";
+import { Flex, FlexProps } from "../../layout/Flex";
 import { IconChevronLeft } from "@tabler/icons-react";
 import { Title, TitleProps } from "../Text";
 import { ControlledList } from "../../../hooks/UseControlledList";
-import { UnstyledButton } from "../../buttons";
+import { UnstyledButton } from "../../buttons/UnstyledButton";
 import { Spoiler } from "../Spoiler";
 import { Icon } from "../Icon";
 import {

@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { CSSObject } from "@emotion/react";
-import { IValenceContext } from "../../ValenceProvider";
+import type { IValenceContext } from "../../ValenceProvider/ValenceProvider.types";
 import { Material, MaterialProps } from "./Material";
-import { UseColorsReturn } from "..";
+import { UseColorsReturn } from "../color";
 
 export type GlassMaterialBlur = "weak" | "strong" | number;
 export type GlassMaterialProps = MaterialProps & {

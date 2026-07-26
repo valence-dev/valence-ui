@@ -1,5 +1,5 @@
 import { CSSProperties } from "react";
-import { MakeResponsive, useResponsiveProps } from "../utilities";
+import { MakeResponsive, useResponsiveProps } from "../utilities/responsive";
 import { CSSObject } from "@emotion/react";
 
 export type PositionHorizontal = "left" | "right" | "center";

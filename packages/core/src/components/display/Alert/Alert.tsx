@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { ReactNode, forwardRef, useMemo } from "react";
-import { Flex } from "../../layout";
+import { Flex } from "../../layout/Flex";
 import { Text } from "../Text";
 import {
   CLICKABLE_ELEMENTS,

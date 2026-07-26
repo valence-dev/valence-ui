@@ -7,7 +7,7 @@ import {
   MakeResponsive,
   useResponsiveProps,
 } from "../../../../utilities/responsive";
-import { Flex } from "../../../layout";
+import { Flex } from "../../../layout/Flex";
 import { Icon } from "../../Icon";
 import { IconPhoto } from "@tabler/icons-react";
 import { Material, useColors } from "../../../../utilities";

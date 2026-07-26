@@ -1,23 +1,24 @@
 /** @jsxImportSource @emotion/react */
 import { CSSProperties, forwardRef } from "react";
+import { ModalBackground } from "../ModalBackground";
+import { Disclosure } from "../../../hooks/UseDisclosure";
+import { useDetectKeyDown } from "../../../hooks/UseDetectKeyDown";
+import { useValence } from "../../../ValenceProvider";
 import {
-  ModalBackground,
-  Disclosure,
-  useDetectKeyDown,
-  useValence,
   MakeResponsive,
   useResponsiveProps,
-  useColors,
-} from "../../..";
-import { Flex, FlexProps, OverflowContainer } from "../../layout";
+} from "../../../utilities/responsive";
+import { useColors } from "../../../utilities/color";
+import { Flex, FlexProps } from "../../layout/Flex";
+import { OverflowContainer } from "../../layout/OverflowContainer";
 import { AnimatePresence, motion } from "motion/react";
-import { Title } from "../../display";
+import { Title } from "../../display/Text";
 import { IconX } from "@tabler/icons-react";
 import {
   GenericOverlayHeaderProps,
   GenericOverlayProps,
 } from "@valence-ui/utils";
-import { IconButton } from "../../buttons";
+import { IconButton } from "../../buttons/IconButton";
 import { css } from "@emotion/react";
 import {
   FloatingFocusManager,

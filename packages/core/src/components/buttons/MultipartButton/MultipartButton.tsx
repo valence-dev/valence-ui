@@ -2,8 +2,10 @@
 import { CSSProperties, ReactNode, forwardRef } from "react";
 import { PrimitiveButton, PrimitiveButtonProps } from "../PrimitiveButton";
 import { IconChevronRight } from "@tabler/icons-react";
-import { Flex } from "../../layout";
-import { Icon, Loader, Text, TextProps } from "../../display";
+import { Flex } from "../../layout/Flex";
+import { Icon } from "../../display/Icon";
+import { Loader } from "../../display/Loader";
+import { Text, TextProps } from "../../display/Text";
 import { useValence } from "../../../ValenceProvider";
 import { SizeClasses } from "@valence-ui/utils";
 import { css, CSSObject } from "@emotion/react";

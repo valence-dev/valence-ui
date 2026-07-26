@@ -1,6 +1,7 @@
-import { CSSProperties, createContext, useContext } from "react";
+import { CSSProperties } from "react";
 import { IValenceContext } from "./ValenceProvider.types";
-import { TextProps } from "../components";
+import { ValenceContext } from "./ValenceContext";
+import type { TextProps } from "../components/display/Text/Text";
 import { ComponentSize, SizeClasses } from "@valence-ui/utils";
 import { CssOverride } from "./CssOverride";
 import { Color } from "../utilities/color";
@@ -11,19 +12,6 @@ import {
   Material,
   PaperMaterial,
 } from "../utilities";
-
-export const ValenceContext = createContext<IValenceContext | null>(null);
-
-export const useValence = () => {
-  const context = useContext(ValenceContext);
-
-  if (context === null)
-    throw new Error(
-      "Valence components must be wrapped in <ValenceProvider />",
-    );
-
-  return context;
-};
 
 export type ValenceProviderProps = {
   children?: React.ReactNode;

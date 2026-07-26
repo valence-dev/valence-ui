@@ -6,7 +6,8 @@ import {
   useResponsiveProps,
 } from "../../../utilities";
 import { ComponentSize, GenericProps } from "@valence-ui/utils";
-import { Flex, FlexProps, Space } from "../../layout";
+import { Flex, FlexProps } from "../../layout/Flex";
+import { Space } from "../../layout/Space";
 import { useValence } from "../../../ValenceProvider";
 import { Text } from "../Text";
 import { Icon } from "../Icon";

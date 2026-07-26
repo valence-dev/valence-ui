@@ -131,11 +131,7 @@ describe("FlexCenter", () => {
   });
 });
 
-// Card cannot currently be rendered in a module graph where any other layout
-// module is evaluated first: Card.tsx imports Flex from the layout barrel,
-// which is a cycle (ISSUE-01 in docs/V4-RELEASE-FIXES.md). The reproduction
-// lives in test/known-issues.test.tsx; re-enable this block once it is fixed.
-describe.skip("Card", () => {
+describe("Card", () => {
   it("renders its children", () => {
     renderWithValence(
       <Card>

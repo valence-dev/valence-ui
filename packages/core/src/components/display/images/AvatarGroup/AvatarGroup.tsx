@@ -1,6 +1,6 @@
 import React, { ReactNode, forwardRef } from "react";
 import { AvatarProps } from "../Avatar/Avatar";
-import { Flex } from "../../../layout";
+import { Flex } from "../../../layout/Flex";
 import { useValence } from "../../../../ValenceProvider";
 
 export type AvatarGroupProps = Omit<AvatarProps, "src" | "alt"> & {

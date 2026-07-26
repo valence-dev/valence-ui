@@ -2,11 +2,11 @@
 import { CSSProperties, forwardRef } from "react";
 import {
   MakeResponsive,
-  Material,
-  useColors,
   useResponsiveProps,
-  useValence,
-} from "../../..";
+} from "../../../utilities/responsive";
+import { Material } from "../../../utilities/materials";
+import { useColors } from "../../../utilities/color";
+import { useValence } from "../../../ValenceProvider";
 import {
   ComponentSize,
   GenericLayoutProps,

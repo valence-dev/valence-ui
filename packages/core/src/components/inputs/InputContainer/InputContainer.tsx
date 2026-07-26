@@ -2,13 +2,14 @@
 import { CSSProperties, ReactNode, forwardRef } from "react";
 import {
   MakeResponsive,
-  Material,
-  TransitionAnimation,
-  useColors,
   useResponsiveProps,
-  useValence,
-} from "../../..";
-import { Icon, IconProps, Loader } from "../../display";
+} from "../../../utilities/responsive";
+import { Material } from "../../../utilities/materials";
+import { useColors } from "../../../utilities/color";
+import { TransitionAnimation } from "../../../hooks/UseAnimation";
+import { useValence } from "../../../ValenceProvider";
+import { Icon, IconProps } from "../../display/Icon";
+import { Loader } from "../../display/Loader";
 import {
   ComponentSize,
   GenericLayoutProps,

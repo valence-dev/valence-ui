@@ -28,31 +28,6 @@ import { PillSelector } from "../packages/core/src/components/inputs/PillSelecto
 import { InputContainer } from "../packages/core/src/components/inputs/InputContainer";
 import { Icon } from "../packages/core/src/components/display/Icon";
 
-describe("ISSUE-01: internal barrel imports create module cycles", () => {
-  // The Card half of this issue needs a pristine module graph, so it lives in
-  // test/known-issues.card.test.tsx.
-
-  it.fails(
-    "ButtonWithIcon renders its loader when IconButton loaded first",
-    async () => {
-      // IconButton pulls in overlays -> Modal -> the package barrel, which
-      // leaves display/Loader uninitialised for ButtonWithIcon.
-      await import("../packages/core/src/components/buttons/IconButton");
-      const { ButtonWithIcon } = await import(
-        "../packages/core/src/components/buttons/ButtonWithIcon"
-      );
-      const { IconHeart } = await import("@tabler/icons-react");
-
-      renderWithValence(
-        <ButtonWithIcon icon={<IconHeart />} loading>
-          Save
-        </ButtonWithIcon>,
-      );
-      expect(screen.getByRole("button")).toBeInTheDocument();
-    },
-  );
-});
-
 describe("ISSUE-03: custom colors replace the default palette", () => {
   it.fails("custom colors are appended to the default palette", () => {
     const brand: Color = {

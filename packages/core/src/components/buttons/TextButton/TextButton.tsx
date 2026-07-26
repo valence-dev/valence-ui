@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
 import { PrimitiveButtonProps } from "../PrimitiveButton";
 import { PrimitiveButton } from "../PrimitiveButton/PrimitiveButton";
-import { Text, TextProps } from "../../display";
+import { Text, TextProps } from "../../display/Text";
 import { useValence } from "../../../ValenceProvider";
 import {
   MakeResponsive,

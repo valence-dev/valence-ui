@@ -1,7 +1,8 @@
 import { describe, expect, it, vi } from "vitest";
 import { render, renderHook, screen } from "@testing-library/react";
 import { Providers } from "../../../../test/utils";
-import { ValenceProvider, useValence } from "./ValenceProvider";
+import { ValenceProvider } from "./ValenceProvider";
+import { useValence } from "./ValenceContext";
 import { DEFAULT_PALETTE } from "../utilities/color";
 import { GlassMaterial, PaperMaterial, SolidMaterial } from "../utilities";
 import { Color } from "../utilities/color";

@@ -8,7 +8,7 @@ import {
   SliderTrackProps,
 } from "../Slider";
 import { useValence } from "../../../ValenceProvider";
-import { Flex } from "../../layout";
+import { Flex } from "../../layout/Flex";
 import ReactSlider from "react-slider";
 import { css } from "@emotion/react";
 import { NumberInput, NumberInputProps } from "../NumberInput";

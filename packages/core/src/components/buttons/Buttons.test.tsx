@@ -255,9 +255,17 @@ describe("ButtonWithIcon", () => {
     );
   });
 
-  // NOTE: the `loading` branch of ButtonWithIcon is covered in
-  // test/known-issues.test.tsx — it currently crashes because of a circular
-  // import (ISSUE-01 in docs/V4-RELEASE-FIXES.md).
+  it("swaps the icon for a loader while loading", () => {
+    renderWithValence(
+      <ButtonWithIcon icon={<IconHeart />} loading>
+        Favorite
+      </ButtonWithIcon>,
+    );
+
+    const button = screen.getByRole("button");
+    expect(button).toBeInTheDocument();
+    expect(within(button).getByText("Favorite")).toBeInTheDocument();
+  });
 });
 
 describe("GridButton", () => {

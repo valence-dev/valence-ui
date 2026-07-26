@@ -2,7 +2,7 @@
 import { FocusEvents } from "@valence-ui/utils";
 import { CSSProperties, forwardRef } from "react";
 import { useValence } from "../../../ValenceProvider";
-import { Text, TextProps } from "../../display";
+import { Text, TextProps } from "../../display/Text";
 import { GenericInputProps } from "../../../generics";
 import {
   MakeResponsive,
@@ -12,7 +12,7 @@ import { useColors } from "../../../utilities/color";
 import { Material, SolidMaterial } from "../../../utilities";
 import { motion } from "motion/react";
 import { css } from "@emotion/react";
-import { Flex, FlexProps } from "../../layout";
+import { Flex, FlexProps } from "../../layout/Flex";
 
 export type SwitchProps = GenericInputProps<boolean> &
   FocusEvents & {

@@ -2,13 +2,15 @@ import { ReactNode, forwardRef } from "react";
 import { TextButtonProps } from "../TextButton";
 import {
   MakeResponsive,
-  TransitionAnimation,
-  useColors,
   useResponsiveProps,
-  useValence,
-} from "../../..";
+} from "../../../utilities/responsive";
+import { useColors } from "../../../utilities/color";
+import { TransitionAnimation } from "../../../hooks/UseAnimation";
+import { useValence } from "../../../ValenceProvider";
 import { PrimitiveButton } from "../PrimitiveButton";
-import { Icon, Loader, Text } from "../../display";
+import { Icon } from "../../display/Icon";
+import { Loader } from "../../display/Loader";
+import { Text } from "../../display/Text";
 import { CSSObject } from "@emotion/react";
 
 export type ButtonWithIconProps = TextButtonProps & {
