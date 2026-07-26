@@ -23,7 +23,7 @@ export class PaperMaterial extends Material {
     this.blur = props?.blur;
   }
 
-  copy(): PaperMaterial {
+  copy(): this {
     return new PaperMaterial({
       interactive: this.interactive,
       color: this.color,
@@ -32,7 +32,7 @@ export class PaperMaterial extends Material {
       backgroundColor: this.backgroundColor,
       elevation: this.elevation,
       blur: this.blur,
-    });
+    }) as this;
   }
 
   private getElevationShadow(
@@ -138,19 +138,19 @@ export class PaperMaterial extends Material {
   }
 
   // SETTERS
-  setColor(color: string): PaperMaterial {
-    const copy = this.copy();
-    copy.color = color;
-    return copy;
-  }
-  setBackgroundColor(backgroundColor: string): PaperMaterial {
+  setBackgroundColor(backgroundColor: string): this {
     const copy = this.copy();
     copy.backgroundColor = backgroundColor;
     return copy;
   }
-  setElevation(elevation: PaperMaterialElevation): PaperMaterial {
+  setElevation(elevation: PaperMaterialElevation): this {
     const copy = this.copy();
     copy.elevation = elevation;
+    return copy;
+  }
+  setBlur(blur: PaperMaterialBlur): this {
+    const copy = this.copy();
+    copy.blur = blur;
     return copy;
   }
 }
