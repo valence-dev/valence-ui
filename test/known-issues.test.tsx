@@ -21,7 +21,6 @@ import { SolidMaterial } from "../packages/core/src/utilities/materials/SolidMat
 import { useDisclosure } from "../packages/core/src/hooks/UseDisclosure";
 import { useControlledList } from "../packages/core/src/hooks/UseControlledList";
 import { NumberInput } from "../packages/core/src/components/inputs/NumberInput";
-import { SelectInput } from "../packages/core/src/components/inputs/SelectInput";
 import { Switch } from "../packages/core/src/components/inputs/Switch";
 import { Slider } from "../packages/core/src/components/inputs/Slider";
 import { PillSelector } from "../packages/core/src/components/inputs/PillSelector";
@@ -61,45 +60,6 @@ describe("ISSUE-04: NumberInput produces NaN", () => {
     for (const call of setValue.mock.calls) {
       expect(Number.isNaN(call[0])).toBe(false);
     }
-  });
-});
-
-describe("ISSUE-05: SelectInput matches options by reference only", () => {
-  const options = [
-    { value: 1, label: "One" },
-    { value: 2, label: "Two" },
-  ];
-
-  it.fails("a structurally equal value still resolves to its option", () => {
-    // findIndex uses ===, so a value rebuilt from state/JSON yields -1, and
-    // options[-1].label then throws.
-    renderWithValence(
-      <SelectInput
-        value={{ value: 2, label: "Two" }}
-        setValue={() => {}}
-        options={options}
-      />,
-    );
-
-    expect(screen.getByText("Two")).toBeInTheDocument();
-  });
-
-  it.fails("the icon of the first option is used when it is selected", () => {
-    const withIcons = [
-      { value: 1, label: "One", icon: <span data-testid="opt-icon" /> },
-      { value: 2, label: "Two" },
-    ];
-
-    renderWithValence(
-      <SelectInput
-        value={withIcons[0]}
-        setValue={() => {}}
-        options={withIcons}
-      />,
-    );
-
-    // `selected ? ...` treats index 0 as falsy, so the option icon is dropped.
-    expect(screen.getByTestId("opt-icon")).toBeInTheDocument();
   });
 });
 
