@@ -338,6 +338,9 @@ describe("useElementSize", () => {
     } finally {
       restore();
     }
+  });
+});
+
 describe("useWindowTitle", () => {
   it("sets the document title", () => {
     renderHook(() => useWindowTitle("Valence"));

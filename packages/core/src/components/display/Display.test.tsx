@@ -276,6 +276,8 @@ describe("Icon", () => {
     );
 
     warn.mockRestore();
+  });
+
   it("passes a plain string child through untouched", () => {
     renderWithValence(<Icon>not an element</Icon>);
     expect(screen.getByText("not an element")).toBeInTheDocument();

@@ -4,11 +4,10 @@ Findings from a full review of `@valence-ui/core`, `@valence-ui/utils` and
 `@valence-ui/carousel` on the `v4` branch (at `6eb3667`, v4.0.2), plus the unit
 test suite added alongside it.
 
-Issues marked **[test]** have an executable reproduction in
-`test/known-issues.test.tsx` (or `test/known-issues.card.test.tsx`). Those tests
-use Vitest's `it.fails`, so they pass while the bug exists and **fail once it is
-fixed** — that is the signal to delete the entry there and promote it into the
-real suite.
+Every issue below is marked **[fixed]** except ISSUE-31, which remains open.
+Every reproduction that used to live in `test/known-issues.test.tsx` /
+`test/known-issues.card.test.tsx` has been promoted into the real suite — both
+files are gone.
 
 Run everything with:
 
@@ -18,13 +17,16 @@ npm test
 
 ## Recommended release sequence
 
-1. **Blockers** — ISSUE-01, ISSUE-02. Do not ship 4.1 without these.
+1. **Blockers** — ISSUE-01, ISSUE-02. Both fixed.
 2. **High** — ISSUE-03 … ISSUE-06. Data-loss / crash / silently-ignored props.
+   All fixed.
 3. **Medium** — ISSUE-07 … ISSUE-18, ISSUE-31. Correctness, consistency and
-   release hygiene.
+   release hygiene. All fixed except ISSUE-31, which is still open and is the
+   one remaining item before 4.1 can ship.
 4. **Low** — ISSUE-19 … ISSUE-30. Polish; safe to batch into a later minor.
+   All fixed.
 
-Everything in tiers 1–3 is backwards compatible except ISSUE-02, which changes
+Everything in tiers 1–3 is backwards compatible except ISSUE-02, which changed
 runtime behaviour that some apps may have accidentally relied upon (see below).
 
 ---
@@ -114,7 +116,15 @@ unskipped.
 
 ---
 
-### ISSUE-02 — `disabled` never reaches the underlying button **[test]**
+### ISSUE-02 — `disabled` never reaches the underlying button **[fixed]**
+
+`PrimitiveButton` now forwards `disabled` (or `aria-disabled` for non-`button`
+polymorphic targets, with the click handler suppressed) to the rendered
+element, so a disabled button is neither clickable nor focusable and screen
+readers are told it is unavailable. The reproduction has been promoted into
+`packages/core/src/components/buttons/Buttons.test.tsx`.
+
+The original report follows.
 
 **Severity: critical.** Every disabled Valence button is still clickable and
 focusable.
@@ -539,9 +549,16 @@ client render agree, and document it. If SSR is explicitly out of scope for V4,
 say so in the README instead — but the current failure mode is a hard crash with
 no explanation.
 
-### ISSUE-16 — `NumberInput` stepper buttons are wrapped in `<Icon>`
+### ISSUE-16 — `NumberInput` stepper buttons are wrapped in `<Icon>` **[fixed]**
 
-`InputContainer` renders `<Icon>{button}</Icon>`. `NumberInput` passes a
+`InputContainer` now renders `{button}` directly instead of wrapping it in
+`<Icon>`, so `NumberInput`'s stepper fragment no longer has icon props cloned
+onto it. The reproduction is covered by the `NumberInput` block of
+`packages/core/src/components/inputs/Inputs.test.tsx`.
+
+The original report follows.
+
+`InputContainer` rendered `<Icon>{button}</Icon>`. `NumberInput` passes a
 fragment containing two `IconButton`s, so `cloneElement` hands `size`, `stroke`,
 `color` and `ref` to `React.Fragment`. Every render logs:
 
@@ -660,52 +677,42 @@ The original report follows.
 
 | ID | Issue | Fix |
 | --- | --- | --- |
-| ISSUE-13 | `AvatarProps["src"]` is required even though `undefined` renders the placeholder | Make `src` optional in `GenericImageProps` |
-| ISSUE-19 **[fixed]** | `getSize("radius")` falls back to `defaults.size`, not `defaults.radius` | `getSize` picks `defaults.radius` when the property is `radius` and `defaults.size` otherwise. Covered in the `getSize` block of `ValenceProvider.test.tsx` by a theme that sets the two defaults apart, since they coincide out of the box |
 | ISSUE-13 **[fixed]** | `AvatarProps["src"]` is required even though `undefined` renders the placeholder | `src` is now optional in `GenericImageProps`, so `<Avatar alt="Me" />` type-checks. The redundant `\| undefined` in its type is dropped at the same time |
-| ISSUE-19 | `getSize("radius")` falls back to `defaults.size`, not `defaults.radius` | Use the radius default for the radius property |
-| ISSUE-20 | `Text` passes an array as a React `key` to drive its change animation; the key only actually changes for unformatted plain text | Derive a string key from the raw children |
-| ISSUE-21 **[fixed]** | `Icon` calls the deprecated `motion(Component)` — logs a deprecation warning on every animated icon | Switched to `motion.create()`, matching the three polymorphic wrappers in `@valence-ui/utils`. `npm test` went from 5 deprecation lines to 0; the `Icon` block of `Display.test.tsx` now spies on `console.warn` to keep it that way |
+| ISSUE-19 **[fixed]** | `getSize("radius")` falls back to `defaults.size`, not `defaults.radius` | `getSize` picks `defaults.radius` when the property is `radius` and `defaults.size` otherwise. Covered in the `getSize` block of `ValenceProvider.test.tsx` by a theme that sets the two defaults apart, since they coincide out of the box |
 | ISSUE-20 **[fixed]** | `Text` passes an array as a React `key` to drive its change animation; the key only actually changes for unformatted plain text | A `getTextContent` helper flattens the *raw* children to their text and that is used as the key. Covered in the formatting block of `Display.test.tsx`, asserting on DOM node identity across a re-render. A related defect on the same lines — every formatted segment is keyed with `randomId()`, so they remount on every render — is filed separately as #67 |
-| ISSUE-21 | `Icon` calls the deprecated `motion(Component)` — logs a deprecation warning on every animated icon | Use `motion.create()`, as `PolymorphicButton` already does |
-| ISSUE-22 | `UnstyledButton` still uses the old `getMotionBehaviour` helper and a `motion` prop; every other button uses `useAnimation` and an `animation` prop | Migrate it, then delete `components/buttons/Helpers.ts` |
-| ISSUE-23 **[fixed]** | `UseWindowTitle` is PascalCase, so React's lint rules do not treat it as a hook | Renamed to `useWindowTitle`; `UseWindowTitle` stays as a `@deprecated` alias so the rename is not breaking. Covered by a `useWindowTitle` block in `Hooks.test.tsx`, including that the alias is the same function |
+| ISSUE-21 **[fixed]** | `Icon` calls the deprecated `motion(Component)` — logs a deprecation warning on every animated icon | Switched to `motion.create()`, matching the three polymorphic wrappers in `@valence-ui/utils`. `npm test` went from 5 deprecation lines to 0; the `Icon` block of `Display.test.tsx` now spies on `console.warn` to keep it that way |
 | ISSUE-22 **[fixed]** | `UnstyledButton` still uses the old `getMotionBehaviour` helper and a `motion` prop; every other button uses `useAnimation` and an `animation` prop | Migrated to `useAnimation` and an `animation` prop, and `components/buttons/Helpers.ts` is deleted along with its barrel export. **Breaking:** the `motion` prop is gone, as are `getMotionBehaviour` / `MotionBehaviour*` from the public API — worth a 4.1 release-note line. Unlike `PrimitiveButton` no default hover/tap animation is applied, matching the old prop's inert-unless-asked behaviour |
-| ISSUE-23 | `UseWindowTitle` is PascalCase, so React's lint rules do not treat it as a hook | Rename to `useWindowTitle`, re-export the old name as deprecated |
-| ISSUE-24 | `Material.setInteractive`/`setOverrides`/`setChildrenOverrides` return `Material`, breaking subclass chaining; `SolidMaterial` has no `setColor`, `PaperMaterial` no `setBlur` | Make the base setters generic (`this`-typed) and fill the gaps |
-| ISSUE-25 **[fixed]** | `SliderTrackProps.material` is declared but never read | Wired up. It was not quite dead — undestructured, it fell through `...rest` to `Flex`, which applied it *before* the track's own `backgroundColor`/`opacity`, so anything the track also styled was discarded. `SliderTrack` now destructures it and applies it after that treatment, matching `SliderThumb`. Deliberately no default material, since one would paint over the highlight/dim treatment on every slider |
+| ISSUE-23 **[fixed]** | `UseWindowTitle` is PascalCase, so React's lint rules do not treat it as a hook | Renamed to `useWindowTitle`; `UseWindowTitle` stays as a `@deprecated` alias so the rename is not breaking. Covered by a `useWindowTitle` block in `Hooks.test.tsx`, including that the alias is the same function |
 | ISSUE-24 **[fixed]** | `Material.setInteractive`/`setOverrides`/`setChildrenOverrides` return `Material`, breaking subclass chaining; `SolidMaterial` has no `setColor`, `PaperMaterial` no `setBlur` | `copy()` and all four base setters are `this`-typed, so chaining preserves the subclass and `SolidMaterial.setColor` is correctly typed by inheritance. `PaperMaterial.setBlur` is added (the `blur` property already existed). The `setColor` overrides in Air/Glass/Paper are removed — they only narrowed the inherited `this` type and lost information. Covered by a `setter chaining` block in `Materials.test.tsx` plus a shared-contract case; six of those did not compile before |
-| ISSUE-25 | `SliderTrackProps.material` is declared but never read | Wire it up or remove it |
-| ISSUE-26 | `Switch` has no `role="switch"`/`aria-checked`, and its label is not associated with the control | Add ARIA and wrap in a `<label>` |
-| ISSUE-27 **[fixed]** | `useElementSize` only listens to window resize, so it misses element-only size changes | Now observes the element with a `ResizeObserver` and disconnects on unmount. Still measures via `getBoundingClientRect` rather than the observer's `contentRect`, so it keeps reporting the border box, and bails out of no-op state updates so a callback cannot loop. Covered by a `useElementSize` block in `Hooks.test.tsx` that stubs the observer, since jsdom has no layout engine |
+| ISSUE-25 **[fixed]** | `SliderTrackProps.material` is declared but never read | Wired up. It was not quite dead — undestructured, it fell through `...rest` to `Flex`, which applied it *before* the track's own `backgroundColor`/`opacity`, so anything the track also styled was discarded. `SliderTrack` now destructures it and applies it after that treatment, matching `SliderThumb`. Deliberately no default material, since one would paint over the highlight/dim treatment on every slider |
 | ISSUE-26 **[fixed]** | `Switch` has no `role="switch"`/`aria-checked`, and its label is not associated with the control | Added `role="switch"` and `aria-checked`. For the association: a `<button>` is **not** a labelable element, so neither `htmlFor` nor wrapping in a `<label>` associates anything — `aria-labelledby` does the naming, with a real `<label>` element carrying an `onClick` as the pointer affordance. An explicit caller `aria-label`/`aria-labelledby` wins, since `aria-labelledby` would otherwise outrank it. **Note:** the control now reports `role="switch"`, so `getByRole("button")` queries against it must be updated |
-| ISSUE-27 | `useElementSize` only listens to window resize, so it misses element-only size changes | Use `ResizeObserver` |
-| ISSUE-28 | `Textarea` sets `verticalAlign: "center"`, which is not a valid CSS value | Remove it or use `middle` |
-| ISSUE-29 **[fixed]** | Unused `colors`/`theme` locals in `ButtonWithIcon`, `MultipartButton`, `Grid`; `CardNamesapce` typo | `noUnusedLocals` enabled in all three package tsconfigs (inherited by the `-cjs` variants). It found more than the report listed: also `Stepper`, `SelectInput`, a stray `React` import in `OverflowContainer.Stories.tsx`, and — in `Grid` — `getHex` rather than `theme`. Typo fixed. The unused `...rest` in `ColorPicker` turned out to mark a real prop-dropping bug, filed as #77 |
+| ISSUE-27 **[fixed]** | `useElementSize` only listens to window resize, so it misses element-only size changes | Now observes the element with a `ResizeObserver` and disconnects on unmount. Still measures via `getBoundingClientRect` rather than the observer's `contentRect`, so it keeps reporting the border box, and bails out of no-op state updates so a callback cannot loop. Covered by a `useElementSize` block in `Hooks.test.tsx` that stubs the observer, since jsdom has no layout engine |
 | ISSUE-28 **[fixed]** | `Textarea` sets `verticalAlign: "center"`, which is not a valid CSS value | Removed rather than corrected to `middle`. Browsers already drop the declaration, so removing it preserves rendering exactly, whereas `middle` would be a live change — and `vertical-align` governs how the textarea sits in its line box, not how its text is positioned, so it could not have achieved the apparent intent either way. Guarded by a case in the `Textarea` block of `Inputs.test.tsx` (jsdom keeps the invalid declaration, which is what makes the assertion meaningful) |
-| ISSUE-29 | Unused `colors`/`theme` locals in `ButtonWithIcon`, `MultipartButton`, `Grid`; `CardNamesapce` typo | Clean up; enable `noUnusedLocals` |
+| ISSUE-29 **[fixed]** | Unused `colors`/`theme` locals in `ButtonWithIcon`, `MultipartButton`, `Grid`; `CardNamesapce` typo | `noUnusedLocals` enabled in all three package tsconfigs (inherited by the `-cjs` variants). It found more than the report listed: also `Stepper`, `SelectInput`, a stray `React` import in `OverflowContainer.Stories.tsx`, and — in `Grid` — `getHex` rather than `theme`. Typo fixed. The unused `...rest` in `ColorPicker` turned out to mark a real prop-dropping bug, filed as #77 |
 | ISSUE-30 **[fixed]** | `Material.copy()` is documented as a deep copy but shares the `overrides` / `childrenOverrides` objects | Cloned, so the doc comment becomes true. Done in the base **constructor** rather than in each `copy()`: every copy routes through one, so it covers all four subclasses at once and also stops a caller mutating the object they constructed with. `setOverrides`/`setChildrenOverrides` clone as well, since they assign onto the copy and bypass the constructor. The clone recurses, because selectors like `&:hover` nest and a shallow spread would still share them |
 
 ---
 
 ## Test suite
 
-Added in this pass — 335 passing, 7 skipped pending ISSUE-01.
+437 passing, 0 skipped. Every reproduction that used to live in
+`test/known-issues*.test.tsx` has been promoted into the file it belongs to
+below, and both known-issues files are deleted.
 
 | Area | File | Tests |
 | --- | --- | --- |
-| Provider & theme | `packages/core/src/ValenceProvider/ValenceProvider.test.tsx` | 18 |
-| Colors | `packages/core/src/utilities/color/UseColors.test.tsx` | 13 |
-| Materials | `packages/core/src/utilities/materials/Materials.test.tsx` | 39 |
+| Provider & theme | `packages/core/src/ValenceProvider/ValenceProvider.test.tsx` | 24 |
+| Colors | `packages/core/src/utilities/color/UseColors.test.tsx` | 16 |
+| Materials | `packages/core/src/utilities/materials/Materials.test.tsx` | 52 |
 | Responsive props | `packages/core/src/utilities/responsive/ResponsiveProps.test.tsx` | 14 |
-| Hooks | `packages/core/src/hooks/Hooks.test.tsx` | 21 |
-| Buttons | `packages/core/src/components/buttons/Buttons.test.tsx` | 30 |
-| Inputs | `packages/core/src/components/inputs/Inputs.test.tsx` | 49 |
-| Display | `packages/core/src/components/display/Display.test.tsx` | 40 |
-| Layout | `packages/core/src/components/layout/Layout.test.tsx` | 15 (+7 skipped) |
+| Hooks | `packages/core/src/hooks/Hooks.test.tsx` | 32 |
+| Buttons | `packages/core/src/components/buttons/Buttons.test.tsx` | 37 |
+| Inputs | `packages/core/src/components/inputs/Inputs.test.tsx` | 98 |
+| Display | `packages/core/src/components/display/Display.test.tsx` | 51 |
+| Layout | `packages/core/src/components/layout/Layout.test.tsx` | 23 |
 | Overlays | `packages/core/src/components/overlays/Overlays.test.tsx` | 15 |
-| Public API surface | `test/exports.test.ts` | 64 |
-| Known issues | `test/known-issues*.test.tsx` | 17 |
+| Public API surface | `test/exports.test.ts` | 65 |
+| SSR | `test/ssr.test.tsx` | 10 |
 
 ### Why Vitest + Testing Library rather than the Storybook test addon
 
