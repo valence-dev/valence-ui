@@ -78,6 +78,7 @@ export const ColorPicker = forwardRef(function ColorPicker(
     buttonProps,
 
     style,
+    ...rest
   } = useResponsiveProps<ColorPickerProps>(props);
   const usableColors = colors.filter((c) => !excludeColors.includes(c.key));
 
@@ -93,7 +94,12 @@ export const ColorPicker = forwardRef(function ColorPicker(
   };
 
   return (
+    // Everything the picker does not name itself — `id`, `className`,
+    // `aria-*`, `data-*`, event handlers, etc. — belongs on the rendered
+    // container. It is spread first so the picker's own wiring cannot be
+    // clobbered.
     <OverflowContainer
+      {...rest}
       ref={ref}
       direction="horizontal"
       width={width}
