@@ -117,6 +117,58 @@ describe("Text", () => {
       expect(container.querySelector("br")).toBeInTheDocument();
     });
 
+    it("keys the change animation off the text, through formatting", () => {
+      // The animation is driven by remounting, so a changed key shows up as a
+      // different DOM node.
+      const { container, rerender } = renderWithValence(
+        <Text animation="fade">a **one** b</Text>,
+      );
+      const before = container.querySelector("p");
+
+      rerender(<Text animation="fade">a **two** b</Text>);
+
+      expect(container.querySelector("p")).not.toBe(before);
+    });
+
+    it("keys the change animation off plain text too", () => {
+      const { container, rerender } = renderWithValence(
+        <Text animation="fade">one</Text>,
+      );
+      const before = container.querySelector("p");
+
+      rerender(<Text animation="fade">two</Text>);
+
+      expect(container.querySelector("p")).not.toBe(before);
+    });
+
+    it("does not remount when the text is unchanged", () => {
+      const { container, rerender } = renderWithValence(
+        <Text animation="fade" bold>
+          a **one** b
+        </Text>,
+      );
+      const before = container.querySelector("p");
+
+      rerender(
+        <Text animation="fade" bold={false}>
+          a **one** b
+        </Text>,
+      );
+
+      expect(container.querySelector("p")).toBe(before);
+    });
+
+    it("does not key at all without an animation", () => {
+      const { container, rerender } = renderWithValence(
+        <Text>a **one** b</Text>,
+      );
+      const before = container.querySelector("p");
+
+      rerender(<Text>a **two** b</Text>);
+
+      expect(container.querySelector("p")).toBe(before);
+    });
+
     it("renders <hl> segments as highlighted spans", () => {
       const { container } = renderWithValence(
         <Text>{"a <hl>lit</hl> b"}</Text>,
