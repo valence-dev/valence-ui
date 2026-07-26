@@ -364,7 +364,23 @@ Two calls in one batch collapse into one. Switch to updater form
 (`setValue((v) => !v)`, `setItems((items) => [...items, item])`) and wrap the
 returned callbacks in `useCallback` so they are stable dependencies.
 
-### ISSUE-09 — `PillSelector` ignores `maxSelectable` when clicking pills **[test]**
+### ISSUE-09 — `PillSelector` ignores `maxSelectable` when clicking pills **[fixed]**
+
+`handlePillClick` now carries the same guard as `addPill()`, on the select
+branch only — deselecting at the cap has to stay available, or the cap becomes
+a trap.
+
+On the open question of disabling versus a silent no-op: the unselected pills
+are now `disabled` once the cap is reached, matching how the add button already
+disables itself when it cannot act. The add button also takes the cap into its
+own `disabled` expression, since it was equally dead there. The guard in
+`handlePillClick` is kept as well, because `pillProps` can override `disabled`.
+
+The reproduction has been promoted into the `PillSelector` block of
+`packages/core/src/components/inputs/Inputs.test.tsx`, with the disabled-state
+and still-deselectable cases alongside it.
+
+The original report follows.
 
 `maxSelectable` is only checked in `addPill()`. Clicking existing pills can select
 any number of them. Add the same guard to `handlePillClick`, and decide whether

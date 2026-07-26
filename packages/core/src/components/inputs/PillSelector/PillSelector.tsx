@@ -162,6 +162,8 @@ export const PillSelector = forwardRef(function PillSelector(
   const [inputValue, setInputValue] = useState("");
   const [newPills, setNewPills] = useState<string[]>([]);
 
+  const atMaxSelectable = value.length >= maxSelectable;
+
   // Functions
   function sortPills(pills: string[], v = value) {
     const selectedPills = pills.filter((pill) => v.includes(pill));
@@ -178,6 +180,8 @@ export const PillSelector = forwardRef(function PillSelector(
       v = value.filter((v) => v !== pill);
       pillList = removePill(pill);
     } else {
+      // Deselecting is always allowed; only selecting can exceed the cap.
+      if (value.length >= maxSelectable) return;
       onPillSelected?.(pill);
       v = [...value, pill];
     }
@@ -291,6 +295,7 @@ export const PillSelector = forwardRef(function PillSelector(
               disabled ||
               loading ||
               readOnly ||
+              atMaxSelectable ||
               !inputValue.trim()
             }
             material={materials.button}
@@ -315,7 +320,14 @@ export const PillSelector = forwardRef(function PillSelector(
                 size={size}
                 radius={radius}
                 material={isSelected ? materials.selected : materials.regular}
-                disabled={disabled || loading || readOnly}
+                disabled={
+                  disabled ||
+                  loading ||
+                  readOnly ||
+                  // At the cap, the only pills still actionable are the
+                  // selected ones, which can be deselected to make room.
+                  (!isSelected && atMaxSelectable)
+                }
                 onClick={() => handlePillClick(pill)}
                 {...pillProps}
                 {...(isSelected ? selectedPillProps : undefined)}
