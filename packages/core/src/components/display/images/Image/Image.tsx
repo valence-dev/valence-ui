@@ -13,8 +13,8 @@ import { IconPhoto } from "@tabler/icons-react";
 import { Material, useColors } from "../../../../utilities";
 
 export type GenericImageProps = {
-  /** Source URI of this image */
-  src: string | ArrayBuffer | undefined;
+  /** Source URI of this image. When omitted, the placeholder is rendered. */
+  src?: string | ArrayBuffer;
   /** Alt text for this image */
   alt: string;
 

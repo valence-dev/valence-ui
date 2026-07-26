@@ -113,6 +113,7 @@ export const InputContainer = forwardRef(function InputContainer(
     if (disabled) {
       e.preventDefault();
       e.stopPropagation();
+      return;
     }
 
     if (inputRef && inputRef.current) inputRef.current.focus();
