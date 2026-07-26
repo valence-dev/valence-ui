@@ -432,7 +432,20 @@ The original report follows.
 `<Icon>text</Icon>` crashes. Guard with `isValidElement(children)` and return the
 children untouched otherwise.
 
-### ISSUE-12 — `IconButton` cannot receive a controlled tooltip
+### ISSUE-12 — `IconButton` cannot receive a controlled tooltip **[fixed]**
+
+`tooltipProps` is now `Omit<TooltipProps, "children">`. Nothing else needed to
+change: `Tooltip` already spreads its options straight into `useTooltip`, which
+has honoured `disclosure` all along, so this was purely the type contradicting
+the runtime.
+
+The existing controlled-disclosure test in
+`packages/core/src/components/buttons/Buttons.test.tsx` carried an `as any` to
+get past the old type. The cast is removed, which makes `npm run test:types`
+the regression test for this fix, and a closed-disclosure case is added
+opposite it.
+
+The original report follows.
 
 ```ts
 tooltipProps?: Omit<TooltipProps, "children" | "disclosure">;
