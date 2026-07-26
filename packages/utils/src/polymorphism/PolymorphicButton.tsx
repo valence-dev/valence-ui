@@ -11,6 +11,11 @@ import {
 export type PolymorphicButtonProps = PolymorphicElementProps & {
   /** Sets Emotion styling content on the component */
   css?: any;
+
+  /** Sets the native `disabled` attribute. Only valid on elements that support it (e.g. `button`) — ignored otherwise. */
+  disabled?: boolean;
+  /** Marks the element as disabled for assistive technology, independent of whether it supports the native `disabled` attribute. */
+  "aria-disabled"?: boolean;
 };
 
 type Props = PolymorphicButtonProps &
