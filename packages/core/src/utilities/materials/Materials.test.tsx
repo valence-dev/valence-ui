@@ -247,3 +247,67 @@ describe("AirMaterial", () => {
     );
   });
 });
+
+describe("copy() isolation (ISSUE-30)", () => {
+  it("does not share `overrides` with the original", () => {
+    const original = new GlassMaterial({ overrides: { color: "red" } });
+    const copy = original.copy();
+
+    (copy.overrides as any).color = "blue";
+
+    expect((original.overrides as any).color).toBe("red");
+  });
+
+  it("does not share `childrenOverrides` with the original", () => {
+    const original = new GlassMaterial({
+      childrenOverrides: { fontWeight: 400 },
+    });
+    const copy = original.copy();
+
+    (copy.childrenOverrides as any).fontWeight = 900;
+
+    expect((original.childrenOverrides as any).fontWeight).toBe(400);
+  });
+
+  it("does not share nested selector objects", () => {
+    // A shallow clone would pass the two cases above and still fail this one:
+    // selectors like `&:hover` nest one level down.
+    const original = new PaperMaterial({
+      overrides: { "&:hover": { color: "red" } },
+    });
+    const copy = original.copy();
+
+    (copy.overrides as any)["&:hover"].color = "blue";
+
+    expect((original.overrides as any)["&:hover"].color).toBe("red");
+  });
+
+  it("does not keep a reference to the object it was constructed with", () => {
+    const overrides = { color: "red" };
+    const material = new SolidMaterial({ overrides });
+
+    overrides.color = "blue";
+
+    expect((material.overrides as any).color).toBe("red");
+  });
+
+  it("does not keep a reference to the object passed to a setter", () => {
+    const overrides = { color: "red" };
+    const material = new AirMaterial().setOverrides(overrides);
+
+    overrides.color = "blue";
+
+    expect((material.overrides as any).color).toBe("red");
+  });
+
+  it("still copies the override values themselves", () => {
+    const original = new GlassMaterial({
+      overrides: { color: "red" },
+      childrenOverrides: { fontWeight: 900 },
+    });
+    const copy = original.copy();
+
+    expect(copy.overrides).toEqual(original.overrides);
+    expect(copy.childrenOverrides).toEqual(original.childrenOverrides);
+  });
+});

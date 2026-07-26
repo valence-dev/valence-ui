@@ -19,6 +19,21 @@ export type MaterialProps = {
   childrenOverrides?: CSSObject;
 };
 
+/**
+ * Deep-clones a style object so a material shares no mutable state with its
+ * source. Nested objects and arrays are rebuilt — selectors like `"&:hover"`
+ * nest, so a shallow spread would still share them — while everything else is
+ * either immutable (strings, numbers) or safe to share (functions).
+ */
+function cloneStyles<T>(styles: T): T {
+  if (Array.isArray(styles)) return styles.map(cloneStyles) as T;
+  if (styles !== null && typeof styles === "object")
+    return Object.fromEntries(
+      Object.entries(styles).map(([key, value]) => [key, cloneStyles(value)]),
+    ) as T;
+  return styles;
+}
+
 export abstract class Material {
   interactive: boolean;
 
@@ -45,8 +60,12 @@ export abstract class Material {
   constructor(props: MaterialProps) {
     this.interactive = props.interactive ?? false;
     this.color = props.color;
-    this.overrides = props.overrides ?? {};
-    this.childrenOverrides = props.childrenOverrides ?? {};
+    // Cloned here rather than in each `copy()`: every copy routes through a
+    // constructor, so this covers all four subclasses at once, and it also
+    // stops a caller mutating the object they passed in from reaching back
+    // into the material.
+    this.overrides = cloneStyles(props.overrides ?? {});
+    this.childrenOverrides = cloneStyles(props.childrenOverrides ?? {});
   }
 
   /** Returns an exact, deep copy of the material. */
@@ -95,14 +114,17 @@ export abstract class Material {
     copy.color = color;
     return copy;
   }
+  // These assign onto the copy directly, bypassing the constructor, so they
+  // clone too — otherwise a caller could still mutate the object they handed in
+  // and have it reach into the material.
   setOverrides(overrides: CSSObject): Material {
     const copy = this.copy();
-    copy.overrides = overrides;
+    copy.overrides = cloneStyles(overrides);
     return copy;
   }
   setChildrenOverrides(childrenOverrides: CSSObject): Material {
     const copy = this.copy();
-    copy.childrenOverrides = childrenOverrides;
+    copy.childrenOverrides = cloneStyles(childrenOverrides);
     return copy;
   }
 }

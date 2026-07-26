@@ -503,7 +503,7 @@ dependency).
 | ISSUE-27 | `useElementSize` only listens to window resize, so it misses element-only size changes | Use `ResizeObserver` |
 | ISSUE-28 | `Textarea` sets `verticalAlign: "center"`, which is not a valid CSS value | Remove it or use `middle` |
 | ISSUE-29 | Unused `colors`/`theme` locals in `ButtonWithIcon`, `MultipartButton`, `Grid`; `CardNamesapce` typo | Clean up; enable `noUnusedLocals` |
-| ISSUE-30 | `Material.copy()` is documented as a deep copy but shares the `overrides` / `childrenOverrides` objects | Clone them, or correct the doc comment |
+| ISSUE-30 **[fixed]** | `Material.copy()` is documented as a deep copy but shares the `overrides` / `childrenOverrides` objects | Cloned, so the doc comment becomes true. Done in the base **constructor** rather than in each `copy()`: every copy routes through one, so it covers all four subclasses at once and also stops a caller mutating the object they constructed with. `setOverrides`/`setChildrenOverrides` clone as well, since they assign onto the copy and bypass the constructor. The clone recurses, because selectors like `&:hover` nest and a shallow spread would still share them |
 
 ---
 
