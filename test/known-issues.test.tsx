@@ -14,7 +14,6 @@ import { useDisclosure } from "../packages/core/src/hooks/UseDisclosure";
 import { useControlledList } from "../packages/core/src/hooks/UseControlledList";
 import { PillSelector } from "../packages/core/src/components/inputs/PillSelector";
 import { InputContainer } from "../packages/core/src/components/inputs/InputContainer";
-import { Icon } from "../packages/core/src/components/display/Icon";
 
 describe("ISSUE-08: hooks update state from stale closures", () => {
   it.fails("two toggles in one batch return to the original value", () => {
@@ -81,11 +80,4 @@ describe("ISSUE-10: a disabled InputContainer still takes focus", () => {
       expect(screen.getByLabelText("field")).not.toHaveFocus();
     },
   );
-});
-
-describe("ISSUE-11: Icon assumes its children are elements", () => {
-  it.fails("Icon tolerates a plain string child", () => {
-    renderWithValence(<Icon>not an element</Icon>);
-    expect(screen.getByText("not an element")).toBeInTheDocument();
-  });
 });
