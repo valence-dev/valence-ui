@@ -47,8 +47,46 @@ describe("PrimitiveButton", () => {
     renderWithValence(<PrimitiveButton disabled>Save</PrimitiveButton>);
     const style = getComputedStyle(screen.getByRole("button"));
 
-    expect(style.opacity).toBe("0.5");
+    expect(style.opacity).toBe("0.75");
     expect(style.cursor).toBe("not-allowed");
+  });
+
+  it("marks the native button as disabled", () => {
+    renderWithValence(<PrimitiveButton disabled>Save</PrimitiveButton>);
+    expect(screen.getByRole("button")).toBeDisabled();
+  });
+
+  it("does not fire onClick when disabled", async () => {
+    const onClick = vi.fn();
+    const { user } = renderWithValence(
+      <PrimitiveButton disabled onClick={onClick}>
+        Save
+      </PrimitiveButton>,
+    );
+
+    await user.click(screen.getByRole("button"));
+    expect(onClick).not.toHaveBeenCalled();
+  });
+
+  it("sets aria-disabled and suppresses onClick when polymorphed to a non-button element", async () => {
+    const onClick = vi.fn();
+    const { user } = renderWithValence(
+      <PrimitiveButton
+        component="a"
+        href="https://example.com"
+        disabled
+        onClick={onClick}
+      >
+        Link
+      </PrimitiveButton>,
+    );
+
+    const link = screen.getByRole("link", { name: "Link" });
+    expect(link).toHaveAttribute("aria-disabled", "true");
+    expect(link).not.toHaveAttribute("disabled");
+
+    await user.click(link);
+    expect(onClick).not.toHaveBeenCalled();
   });
 
   it("renders as an anchor when polymorphed to `a`", () => {

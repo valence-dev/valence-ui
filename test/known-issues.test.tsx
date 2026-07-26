@@ -20,7 +20,6 @@ import {
 import { SolidMaterial } from "../packages/core/src/utilities/materials/SolidMaterial";
 import { useDisclosure } from "../packages/core/src/hooks/UseDisclosure";
 import { useControlledList } from "../packages/core/src/hooks/UseControlledList";
-import { PrimitiveButton } from "../packages/core/src/components/buttons/PrimitiveButton";
 import { NumberInput } from "../packages/core/src/components/inputs/NumberInput";
 import { SelectInput } from "../packages/core/src/components/inputs/SelectInput";
 import { Switch } from "../packages/core/src/components/inputs/Switch";
@@ -52,43 +51,6 @@ describe("ISSUE-01: internal barrel imports create module cycles", () => {
       expect(screen.getByRole("button")).toBeInTheDocument();
     },
   );
-});
-
-describe("ISSUE-02: `disabled` never reaches the underlying button", () => {
-  it.fails("PrimitiveButton marks the native button as disabled", () => {
-    renderWithValence(<PrimitiveButton disabled>Save</PrimitiveButton>);
-    expect(screen.getByRole("button")).toBeDisabled();
-  });
-
-  it.fails("a disabled PrimitiveButton does not fire onClick", async () => {
-    const onClick = vi.fn();
-    const { user } = renderWithValence(
-      <PrimitiveButton disabled onClick={onClick}>
-        Save
-      </PrimitiveButton>,
-    );
-
-    await user.click(screen.getByRole("button"));
-    expect(onClick).not.toHaveBeenCalled();
-  });
-
-  it.fails("PillSelector honours allowClear={false} on its clear button", async () => {
-    const setValue = vi.fn();
-    const { user } = renderWithValence(
-      <PillSelector
-        value={["alpha"]}
-        setValue={setValue}
-        pills={["alpha"]}
-        allowClear={false}
-      />,
-    );
-
-    // The clear button is the last button in the tree.
-    const buttons = screen.getAllByRole("button");
-    await user.click(buttons[buttons.length - 1]);
-
-    expect(setValue).not.toHaveBeenCalled();
-  });
 });
 
 describe("ISSUE-03: custom colors replace the default palette", () => {

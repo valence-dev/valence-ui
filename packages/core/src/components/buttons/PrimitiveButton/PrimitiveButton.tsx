@@ -55,8 +55,17 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
 
     style,
     children,
+    component,
+    onClick,
     ...rest
   } = useResponsiveProps<PrimitiveButtonProps>(props);
+
+  const isDisabled = disabled || loading;
+  // `component` defaults to a native `<button>` (see `PolymorphicButton`),
+  // which is the only element type that supports the `disabled` attribute.
+  // Anchors and router `Link`s neither support it nor natively block clicks,
+  // so they rely on `aria-disabled` and a suppressed click handler instead.
+  const isNativeButton = component === undefined || component === "button";
 
   const animations = useAnimation({
     hoverAnimation: "raise",
@@ -81,7 +90,10 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
     aspectRatio: square ? 1 : undefined,
 
     borderRadius: theme.sizeClasses.radius[radius],
-    opacity: disabled ? 0.5 : 1,
+    // Matches the `&:disabled` opacity every material applies once `disabled`
+    // actually reaches the DOM (see the `isNativeButton` branch below) —
+    // kept in sync so non-native (aria-disabled) buttons look the same.
+    opacity: disabled ? 0.75 : 1,
     cursor: disabled ? "not-allowed" : loading ? "wait" : "pointer",
 
     textDecoration: "none",
@@ -100,8 +112,12 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
 
   return (
     <PolymorphicButton
+      component={component}
       css={ButtonStyle}
       onMouseDown={(event: any) => event.preventDefault()}
+      onClick={isDisabled && !isNativeButton ? undefined : onClick}
+      disabled={isNativeButton ? isDisabled : undefined}
+      aria-disabled={isDisabled}
       variants={animations}
       initial="initial"
       animate="animate"

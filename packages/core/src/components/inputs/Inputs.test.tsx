@@ -627,6 +627,24 @@ describe("PillSelector", () => {
     expect(onPillDeselected).toHaveBeenCalledWith("beta");
   });
 
+  it("honours allowClear={false} on its clear button", async () => {
+    const setValue = vi.fn();
+    const { user } = renderWithValence(
+      <PillSelector
+        value={["alpha"]}
+        setValue={setValue}
+        pills={["alpha"]}
+        allowClear={false}
+      />,
+    );
+
+    // The clear button is the last button in the tree.
+    const buttons = screen.getAllByRole("button");
+    await user.click(buttons[buttons.length - 1]);
+
+    expect(setValue).not.toHaveBeenCalled();
+  });
+
   it("sorts selected pills ahead of unselected ones", () => {
     renderWithValence(
       <PillSelector value={["gamma"]} setValue={() => {}} pills={pills} />,
