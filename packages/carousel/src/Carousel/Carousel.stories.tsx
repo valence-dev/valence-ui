@@ -1,61 +1,307 @@
-import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-
+import { useState } from "react";
+import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
+import {
+  Button,
+  Flex,
+  GlassMaterial,
+  PaperMaterial,
+  Text,
+} from "@valence-ui/core";
+import {
+  Case,
+  Matrix,
+  Section,
+  Showcase,
+  Storybook,
+} from "@valence-ui/core/storybook";
 import { Carousel as C } from "./Carousel";
 import { CarouselChildProps } from "./CarouselChild";
-import { Flex, Text, ValenceProvider } from "@valence-ui/core";
+
+/**
+ * One slide.
+ *
+ * The carousel clones its children to inject `isActive` and `isNearest`, so a
+ * slide has to accept and use them — this is also the only way to see whether
+ * those flags are being set correctly.
+ */
+function Slide(props: CarouselChildProps & { index: number; width?: number }) {
+  const { isActive, isNearest, index, width = 200, ...rest } = props;
+
+  return (
+    <Flex
+      width={width}
+      height={300}
+      align="center"
+      justify="center"
+      direction="column"
+      material={isActive ? new PaperMaterial() : new GlassMaterial()}
+      style={{ border: isNearest ? "2px solid red" : "2px solid transparent" }}
+      {...rest}
+    >
+      <Text size="xl" bold>
+        {index}
+      </Text>
+      {isActive && <Text size="xs">active</Text>}
+      {isNearest && <Text size="xs">nearest</Text>}
+    </Flex>
+  );
+}
+
+/** `count` slides. */
+function slides(count: number, width?: number) {
+  return Array.from({ length: count }, (_, index) => (
+    <Slide key={index} index={index} width={width} />
+  ));
+}
 
 const meta: Meta<typeof C> = {
   component: C,
-  title: "Valence/Carousel/Carousel",
-  argTypes: {},
+  title: "Carousel/Carousel",
+  argTypes: {
+    allowDrag: {
+      control: { type: "boolean" },
+      table: { category: "Behaviour" },
+    },
+    snapToChildren: {
+      control: { type: "boolean" },
+      table: { category: "Behaviour" },
+    },
+    changeActiveOnScroll: {
+      control: { type: "boolean" },
+      table: { category: "Behaviour" },
+    },
+    showScrollbar: {
+      control: { type: "boolean" },
+      table: { category: "Appearance" },
+    },
+    showControls: {
+      control: { type: "boolean" },
+      table: { category: "Appearance" },
+    },
+  },
 };
 export default meta;
 type Story = StoryObj<typeof C>;
 
-export const Carousel: Story = (args: any) => {
-  // Works as controlled and uncontrolled
-  const [activeChild, setActiveChild] = React.useState(0);
-
-  return (
-    <ValenceProvider>
-      <Flex width="100%" justify="center">
-        <Flex width={600}>
-          <C
-            // activeChild={activeChild}
-            // setActiveChild={setActiveChild}
-            {...args}
-          >
-            {Array.from({ length: 10 }).map((_, i) => (
-              <DemoCarouselChild key={i} index={i} />
-            ))}
-          </C>
-        </Flex>
+/** Ten slides in a 600px frame. */
+export const Playground: Story = {
+  parameters: { valence: { layout: "flow" } },
+  render: (args) => (
+    <Flex width="100%" justify="center">
+      <Flex width={600}>
+        <C {...args}>{slides(10)}</C>
       </Flex>
-    </ValenceProvider>
-  );
-};
-Carousel.args = {};
-
-function DemoCarouselChild(
-  props: CarouselChildProps & {
-    index: number;
-  },
-) {
-  const { isActive, isNearest, index, ...rest } = props;
-
-  return (
-    <Flex
-      style={{
-        border: isNearest ? "1px solid red" : "none",
-      }}
-      width={200}
-      height={300}
-      align="center"
-      justify="center"
-      {...rest}
-    >
-      <Text>{index}</Text>
     </Flex>
-  );
-}
+  ),
+};
+
+/** Each behaviour flag, on and off. */
+export const Variants: Story = {
+  parameters: { valence: { layout: "flow" } },
+  render: (args) => (
+    <Showcase
+      title="Carousel behaviour"
+      description="Drag or scroll each of these. Snapping and active-on-scroll are the two that change how the carousel feels rather than how it looks."
+    >
+      <Section column>
+        <Case label="defaults">
+          <Flex width={600}>
+            <C {...args}>{slides(10)}</C>
+          </Flex>
+        </Case>
+        <Case
+          label="snapToChildren={false}"
+          note="Should come to rest anywhere, not on a slide."
+        >
+          <Flex width={600}>
+            <C {...args} snapToChildren={false}>
+              {slides(10)}
+            </C>
+          </Flex>
+        </Case>
+        <Case
+          label="changeActiveOnScroll={false}"
+          note="The active slide should only change via the controls."
+        >
+          <Flex width={600}>
+            <C {...args} changeActiveOnScroll={false}>
+              {slides(10)}
+            </C>
+          </Flex>
+        </Case>
+        <Case label="allowDrag={false}" note="Scroll only — dragging must do nothing.">
+          <Flex width={600}>
+            <C {...args} allowDrag={false}>
+              {slides(10)}
+            </C>
+          </Flex>
+        </Case>
+        <Case label="showScrollbar">
+          <Flex width={600}>
+            <C {...args} showScrollbar>
+              {slides(10)}
+            </C>
+          </Flex>
+        </Case>
+        <Case label="showControls={false}">
+          <Flex width={600}>
+            <C {...args} showControls={false}>
+              {slides(10)}
+            </C>
+          </Flex>
+        </Case>
+        <Case label="custom control icons">
+          <Flex width={600}>
+            <C
+              {...args}
+              controlIcons={{
+                prev: <IconArrowLeft />,
+                next: <IconArrowRight />,
+              }}
+            >
+              {slides(10)}
+            </C>
+          </Flex>
+        </Case>
+      </Section>
+    </Showcase>
+  ),
+};
+
+/**
+ * Controlled from outside the carousel.
+ *
+ * The carousel works uncontrolled as well, and the original story had the
+ * controlled path commented out — so the mode most applications actually use
+ * was never exercised at all.
+ */
+export const States: Story = {
+  parameters: { valence: { layout: "flow" } },
+  render: (args) => {
+    const [activeChild, setActiveChild] = useState(0);
+
+    return (
+      <Showcase
+        title="Controlled"
+        description="Setting the active slide from outside must scroll the carousel, and scrolling it must report the new index back."
+      >
+        <Section column>
+          <Case label={`activeChild=${activeChild}`}>
+            <Flex width={600}>
+              <C
+                {...args}
+                activeChild={activeChild}
+                setActiveChild={setActiveChild}
+              >
+                {slides(10)}
+              </C>
+            </Flex>
+          </Case>
+          <Case>
+            <Button onClick={() => setActiveChild(0)}>First</Button>
+            <Button onClick={() => setActiveChild(5)}>Middle</Button>
+            <Button onClick={() => setActiveChild(9)}>Last</Button>
+            <Button onClick={() => setActiveChild(99)}>Out of range</Button>
+          </Case>
+        </Section>
+      </Showcase>
+    );
+  },
+};
+
+/** Slide counts and widths. */
+export const Content: Story = {
+  parameters: { valence: { layout: "flow" } },
+  render: (args) => (
+    <Showcase title="Slides">
+      <Matrix
+        title="slide count"
+        values={[1, 2, 3, 20]}
+        label={(count) => `${count} slide${count === 1 ? "" : "s"}`}
+        column
+      >
+        {(count) => (
+          <Flex width={600}>
+            <C {...args}>{slides(count)}</C>
+          </Flex>
+        )}
+      </Matrix>
+
+      <Matrix
+        title="slide width"
+        values={[80, 200, 400, 700]}
+        label={(width) => `width=${width}`}
+        column
+      >
+        {(width) => (
+          <Flex width={600}>
+            <C {...args}>{slides(6, width)}</C>
+          </Flex>
+        )}
+      </Matrix>
+    </Showcase>
+  ),
+};
+
+/** Frames and contents the carousel is not designed for. */
+export const EdgeCases: Story = {
+  name: "Edge Cases",
+  parameters: { valence: { layout: "flow" } },
+  render: (args) => (
+    <Showcase title="Carousel edge cases">
+      <Section column>
+        <Case
+          label="fewer slides than fit"
+          note="Nothing to scroll — the controls should say so."
+        >
+          <Flex width={600}>
+            <C {...args}>{slides(2)}</C>
+          </Flex>
+        </Case>
+        <Case label="a single slide">
+          <Flex width={600}>
+            <C {...args}>{slides(1)}</C>
+          </Flex>
+        </Case>
+        <Case label="a slide wider than the frame">
+          <Flex width={400}>
+            <C {...args}>{slides(4, 700)}</C>
+          </Flex>
+        </Case>
+        <Case label="a very narrow frame" width={200}>
+          <Flex width={200}>
+            <C {...args}>{slides(6)}</C>
+          </Flex>
+        </Case>
+        <Case label="mixed slide widths">
+          <Flex width={600}>
+            <C {...args}>
+              {[100, 300, 150, 400, 200].map((width, index) => (
+                <Slide key={index} index={index} width={width} />
+              ))}
+            </C>
+          </Flex>
+        </Case>
+        <Case label="a hundred slides">
+          <Flex width={600}>
+            <C {...args}>{slides(100)}</C>
+          </Flex>
+        </Case>
+        <Case label="text content">
+          <Flex width={600}>
+            <C {...args}>
+              {Array.from({ length: 5 }, (_, index) => (
+                <Flex key={index} width={250} padding={20}>
+                  <Text>
+                    {index + 1}. {Storybook.longText}
+                  </Text>
+                </Flex>
+              ))}
+            </C>
+          </Flex>
+        </Case>
+      </Section>
+    </Showcase>
+  ),
+};
