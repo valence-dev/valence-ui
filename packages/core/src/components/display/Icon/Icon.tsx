@@ -74,8 +74,12 @@ export const Icon = forwardRef(function Icon(
 
   if (!children) return null;
   if (animation && isValidElement(children) && MotionIcon) {
+    // Spread the child's own props first, then iconProps, matching the merge
+    // order of `cloneElement(children, iconProps)` below — otherwise the
+    // child's className/data-*/aria-*/onClick/etc are silently dropped.
     return (
       <MotionIcon
+        {...(children as any).props}
         {...iconProps}
         variants={animations}
         initial="initial"
