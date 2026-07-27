@@ -180,6 +180,41 @@ describe("Text", () => {
       expect(span).toBeTruthy();
       expect(span!.style.backgroundColor).not.toBe("");
     });
+
+    it("keeps a formatted segment's DOM identity across an unrelated re-render", () => {
+      // Each `reactStringReplace` pass used to key its replacement with a
+      // freshly generated random id, so every formatted segment unmounted
+      // and remounted on every render, even when the text was unchanged.
+      const { container, rerender } = renderWithValence(
+        <Text>a **one** b</Text>,
+      );
+      const before = container.querySelector("b");
+
+      rerender(<Text>a **one** b</Text>);
+
+      expect(container.querySelector("b")).toBe(before);
+    });
+
+    it("keeps multiple same-type segments distinct across a re-render", () => {
+      const { container, rerender } = renderWithValence(
+        <Text>a **one** b **two** c</Text>,
+      );
+      const [firstBefore, secondBefore] = Array.from(
+        container.querySelectorAll("b"),
+      );
+
+      rerender(<Text>a **one** b **two** c</Text>);
+
+      const [firstAfter, secondAfter] = Array.from(
+        container.querySelectorAll("b"),
+      );
+
+      expect(firstAfter).toBe(firstBefore);
+      expect(secondAfter).toBe(secondBefore);
+      expect(firstAfter).not.toBe(secondAfter);
+      expect(firstAfter).toHaveTextContent("one");
+      expect(secondAfter).toHaveTextContent("two");
+    });
   });
 });
 
