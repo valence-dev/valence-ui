@@ -13,6 +13,7 @@ import { DropdownContainer } from "./DropdownContainer";
 import { PillSelector } from "./PillSelector";
 import { Slider } from "./Slider";
 import { RangeSlider } from "./RangeSlider";
+import { ColorPicker } from "./ColorPicker";
 import { SolidMaterial } from "../../utilities";
 
 /** Wraps a controlled input so tests can drive it like a real consumer would. */
@@ -850,6 +851,24 @@ describe("RangeSlider", () => {
     for (const input of container.querySelectorAll("input")) {
       expect(input).toBeDisabled();
     }
+  });
+});
+
+describe("ColorPicker", () => {
+  it("forwards unnamed props to the outermost element", () => {
+    const { container } = renderWithValence(
+      <ColorPicker
+        value="red"
+        setValue={() => {}}
+        id="swatches"
+        data-testid="picker"
+      />,
+    );
+
+    const root = container.firstElementChild!;
+    expect(root).toHaveAttribute("id", "swatches");
+    expect(root).toHaveAttribute("data-testid", "picker");
+    expect(container.querySelector("#swatches")).toBeInTheDocument();
   });
 });
 

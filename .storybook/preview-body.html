@@ -4,7 +4,12 @@
     padding: 0 !important;
   }
 
+  /*
+    `min-height` rather than `height`: the single-instance stories still get a
+    full-viewport box to centre themselves in, but a matrix story that is
+    taller than the frame now grows and scrolls instead of being clipped.
+  */
   #storybook-root {
-    height: 100vh;
+    min-height: 100vh;
   }
 </style>

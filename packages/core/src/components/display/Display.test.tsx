@@ -180,6 +180,41 @@ describe("Text", () => {
       expect(span).toBeTruthy();
       expect(span!.style.backgroundColor).not.toBe("");
     });
+
+    it("keeps a formatted segment's DOM identity across an unrelated re-render", () => {
+      // Each `reactStringReplace` pass used to key its replacement with a
+      // freshly generated random id, so every formatted segment unmounted
+      // and remounted on every render, even when the text was unchanged.
+      const { container, rerender } = renderWithValence(
+        <Text>a **one** b</Text>,
+      );
+      const before = container.querySelector("b");
+
+      rerender(<Text>a **one** b</Text>);
+
+      expect(container.querySelector("b")).toBe(before);
+    });
+
+    it("keeps multiple same-type segments distinct across a re-render", () => {
+      const { container, rerender } = renderWithValence(
+        <Text>a **one** b **two** c</Text>,
+      );
+      const [firstBefore, secondBefore] = Array.from(
+        container.querySelectorAll("b"),
+      );
+
+      rerender(<Text>a **one** b **two** c</Text>);
+
+      const [firstAfter, secondAfter] = Array.from(
+        container.querySelectorAll("b"),
+      );
+
+      expect(firstAfter).toBe(firstBefore);
+      expect(secondAfter).toBe(secondBefore);
+      expect(firstAfter).not.toBe(secondAfter);
+      expect(firstAfter).toHaveTextContent("one");
+      expect(secondAfter).toHaveTextContent("two");
+    });
   });
 });
 
@@ -195,9 +230,7 @@ describe("Title", () => {
     "renders order %i as the matching heading level",
     (order) => {
       renderWithValence(<Title order={order}>Heading</Title>);
-      expect(
-        screen.getByRole("heading", { level: order }),
-      ).toBeInTheDocument();
+      expect(screen.getByRole("heading", { level: order })).toBeInTheDocument();
     },
   );
 
@@ -276,6 +309,35 @@ describe("Icon", () => {
     );
 
     warn.mockRestore();
+  });
+
+  it("preserves the child's own props on the animated path, matching the unanimated path (#52)", () => {
+    const animated = renderWithValence(
+      <Icon animation="fade">
+        <IconHeart data-testid="search" className="mine" color="red" />
+      </Icon>,
+    );
+    const unanimated = renderWithValence(
+      <Icon>
+        <IconHeart data-testid="search" className="mine" color="red" />
+      </Icon>,
+    );
+
+    const animatedSvg = animated.container.querySelector("svg")!;
+    const unanimatedSvg = unanimated.container.querySelector("svg")!;
+
+    // The child's own data-testid and className must survive, just like they
+    // do on the unanimated path — previously the animated path discarded the
+    // child's props entirely.
+    expect(animatedSvg).toHaveAttribute("data-testid", "search");
+    expect(animatedSvg).toHaveClass("mine");
+
+    // Whatever the unanimated path does with an explicit child `color` (today
+    // it's overridden by the icon's own — unset — `color`), the animated path
+    // must do the same thing, for consistency between the two render paths.
+    expect(animatedSvg.getAttribute("stroke")).toBe(
+      unanimatedSvg.getAttribute("stroke"),
+    );
   });
 
   it("does not apply its animate-from styling in its section's first commit (ISSUE-47)", () => {
