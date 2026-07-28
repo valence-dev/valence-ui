@@ -7,7 +7,8 @@ import { useControlledList } from "./UseControlledList";
 import { useColorScheme } from "./UseColorScheme";
 import { useWindowSize } from "./UseWindowSize";
 import { useElementSize } from "./UseElementSize";
-import { useAnimation } from "./UseAnimation";
+import { AnimationProps, useAnimation } from "./UseAnimation";
+import { AnimationSection } from "../utilities/animation";
 import { UseWindowTitle, useWindowTitle } from "./UseWindowTitle";
 
 describe("useDisclosure", () => {
@@ -215,8 +216,18 @@ describe("useWindowSize", () => {
 });
 
 describe("useAnimation", () => {
+  /** `initial` is only a real transition target inside an `<AnimationSection />`
+   * that has already rendered once; bare, the hook reports the suppressed
+   * `false` instead (see the "section scoping" block below). Testing Library
+   * flushes the section's mount effect inside `act`, so `result.current` here
+   * already reflects the post-flip value.
+   */
+  function renderAnimation(props: AnimationProps) {
+    return renderHook(() => useAnimation(props), { wrapper: AnimationSection });
+  }
+
   it("returns empty variants when nothing is requested", () => {
-    const { result } = renderHook(() => useAnimation({}));
+    const { result } = renderAnimation({});
     expect(result.current).toEqual({
       initial: {},
       animate: {},
@@ -227,106 +238,193 @@ describe("useAnimation", () => {
   });
 
   it("builds fade variants", () => {
-    const { result } = renderHook(() =>
-      useAnimation({ transitionAnimation: "fade" }),
-    );
+    const { result } = renderAnimation({ transitionAnimation: "fade" });
     expect(result.current.initial).toEqual({ opacity: 0 });
     expect(result.current.animate).toEqual({ opacity: 1 });
     expect(result.current.exit).toEqual({ opacity: 0 });
   });
 
   it("merges an array of transition animations", () => {
-    const { result } = renderHook(() =>
-      useAnimation({ transitionAnimation: ["fade", "grow"] }),
-    );
+    const { result } = renderAnimation({
+      transitionAnimation: ["fade", "grow"],
+    });
     expect(result.current.initial).toEqual({ opacity: 0, scale: 0.8 });
     expect(result.current.animate).toEqual({ opacity: 1, scale: 1 });
   });
 
   it("maps directional slides to opposing enter/exit offsets", () => {
-    const { result } = renderHook(() =>
-      useAnimation({ transitionAnimation: "slide-up" }),
-    );
+    const { result } = renderAnimation({ transitionAnimation: "slide-up" });
     expect(result.current.initial).toEqual({ y: 10 });
     expect(result.current.animate).toEqual({ y: 0 });
     expect(result.current.exit).toEqual({ y: -10 });
   });
 
   it("builds hover and tap variants", () => {
-    const { result } = renderHook(() =>
-      useAnimation({ hoverAnimation: "grow", tapAnimation: "bounce" }),
-    );
+    const { result } = renderAnimation({
+      hoverAnimation: "grow",
+      tapAnimation: "bounce",
+    });
     expect(result.current.whileHover).toEqual({ scale: 1.1 });
     expect(result.current.whileTap).toEqual({ y: 2 });
   });
 
   it("merges arrays of hover animations", () => {
-    const { result } = renderHook(() =>
-      useAnimation({ hoverAnimation: ["grow", "raise"] }),
-    );
+    const { result } = renderAnimation({ hoverAnimation: ["grow", "raise"] });
     expect(result.current.whileHover).toEqual({ scale: 1.1, y: -2 });
   });
 
-  describe("first-paint suppression (ISSUE-47)", () => {
-    it("does not suppress when used outside a <ValenceProvider />", () => {
-      // No provider means no `hasPaintedOnce` to read — `useAnimation` falls
-      // back to behaving exactly as it did before this flag existed, which is
-      // what every bare `renderHook` call above already relies on.
+  describe("section scoping (ISSUE-47)", () => {
+    /** Records `initial` from the render body itself, before any effect has
+     * run, so the first entry is what Motion actually saw at mount. */
+    function record(into: unknown[]) {
+      return function Recorder() {
+        const { initial } = useAnimation({ transitionAnimation: "fade" });
+        into.push(initial);
+        return null;
+      };
+    }
+
+    it("does not animate outside an <AnimationSection />", () => {
+      // Nothing is granting an entrance, so there is none: the context's own
+      // default applies rather than the transition target.
       const { result } = renderHook(() =>
         useAnimation({ transitionAnimation: "fade" }),
       );
-      expect(result.current.initial).toEqual({ opacity: 0 });
+      expect(result.current.initial).toBe(false);
     });
 
-    it("suppresses the initial variant for elements already on screen at first paint", () => {
+    it("suppresses the components a section renders in its first commit", () => {
       const renders: unknown[] = [];
+      const Recorder = record(renders);
 
-      function Harness() {
-        const { initial } = useAnimation({ transitionAnimation: "fade" });
-        // Recorded during the render body itself — before any effect
-        // (including ValenceProvider's own mount effect) has run — so the
-        // very first entry reflects what Motion actually saw at first paint.
-        renders.push(initial);
-        return null;
-      }
-
-      renderWithValence(<Harness />);
+      render(
+        <AnimationSection>
+          <Recorder />
+        </AnimationSection>,
+      );
 
       expect(renders[0]).toBe(false);
-      // ValenceProvider's mount effect then flips `hasPaintedOnce`, which
-      // re-renders this already-mounted component with the real variant —
-      // harmless, since Motion only consults `initial` at the actual mount.
+      // The section's mount effect then opens it, re-rendering this
+      // already-mounted component with the real variant — harmless, since
+      // Motion only consults `initial` at the actual mount.
       expect(renders.at(-1)).toEqual({ opacity: 0 });
     });
 
-    it("does not suppress a component that mounts after the initial commit", async () => {
-      let captured: unknown;
+    it("animates a component that mounts into an open section", async () => {
+      const renders: unknown[] = [];
+      const Recorder = record(renders);
 
-      function Later() {
-        const { initial } = useAnimation({ transitionAnimation: "fade" });
-        captured = initial;
-        return null;
+      function Harness() {
+        const [show, setShow] = useState(false);
+        return (
+          <AnimationSection>
+            <button onClick={() => setShow(true)}>show</button>
+            {show && <Recorder />}
+          </AnimationSection>
+        );
       }
+
+      const { user } = renderWithValence(<Harness />);
+      expect(renders).toHaveLength(0);
+
+      // Mounted by a state update long after the section opened — a toast, a
+      // modal opened by a click, an interactively-added list item.
+      await user.click(screen.getByText("show"));
+
+      expect(renders[0]).toEqual({ opacity: 0 });
+    });
+
+    it("animates its own first commit when the section is `initial`", () => {
+      const renders: unknown[] = [];
+      const Recorder = record(renders);
+
+      render(
+        <AnimationSection initial>
+          <Recorder />
+        </AnimationSection>,
+      );
+
+      expect(renders[0]).toEqual({ opacity: 0 });
+    });
+
+    it("scopes suppression to the section that is mounting, not the whole app", async () => {
+      const inSection: unknown[] = [];
+      const outsideSection: unknown[] = [];
+      const Grouped = record(inSection);
+      const Ungrouped = record(outsideSection);
 
       function Harness() {
         const [show, setShow] = useState(false);
         return (
           <div>
             <button onClick={() => setShow(true)}>show</button>
-            {show && <Later />}
+            {show && (
+              <>
+                {/* A page/tab/scene arriving as one group... */}
+                <AnimationSection>
+                  <Grouped />
+                </AnimationSection>
+                {/* ...while a sibling mounting in the very same commit, but
+                belonging to the already-open section around the app, animates
+                in on its own. */}
+                <Ungrouped />
+              </>
+            )}
           </div>
         );
       }
 
       const { user } = renderWithValence(<Harness />);
-      expect(captured).toBeUndefined();
-
-      // Triggered by a state update well after the app's first paint — e.g.
-      // a toast, a modal opened later, an interactively-added list item.
       await user.click(screen.getByText("show"));
 
-      expect(captured).toEqual({ opacity: 0 });
+      expect(inSection[0]).toBe(false);
+      expect(outsideSection[0]).toEqual({ opacity: 0 });
     });
+  });
+});
+
+describe("AnimationSection", () => {
+  it("renders its children without a DOM node of its own", () => {
+    const { container } = render(
+      <AnimationSection>
+        <span>content</span>
+      </AnimationSection>,
+    );
+
+    expect(screen.getByText("content")).toBeInTheDocument();
+    expect(container.firstChild).toBe(screen.getByText("content"));
+  });
+
+  it("suppresses only the innermost section's first commit when nested", async () => {
+    const renders: unknown[] = [];
+
+    function Recorder() {
+      const { initial } = useAnimation({ transitionAnimation: "fade" });
+      renders.push(initial);
+      return null;
+    }
+
+    function Harness() {
+      const [show, setShow] = useState(false);
+      return (
+        <AnimationSection>
+          <button onClick={() => setShow(true)}>show</button>
+          {show && (
+            <AnimationSection>
+              <Recorder />
+            </AnimationSection>
+          )}
+        </AnimationSection>
+      );
+    }
+
+    const { user } = renderWithValence(<Harness />);
+    await user.click(screen.getByText("show"));
+
+    // The outer section is long since open, but the inner one is mounting
+    // right now — nearest section wins.
+    expect(renders[0]).toBe(false);
+    expect(renders.at(-1)).toEqual({ opacity: 0 });
   });
 });
 

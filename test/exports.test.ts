@@ -3,7 +3,7 @@ import * as core from "../packages/core/src";
 
 // Every symbol referenced by the V4 documentation must actually be exported.
 const DOCUMENTED = [
-  "ValenceProvider", "useValence",
+  "ValenceProvider", "useValence", "AnimationSection",
   "Material", "AirMaterial", "GlassMaterial", "PaperMaterial", "SolidMaterial",
   "DEFAULT_PALETTE", "useColors", "useColorScheme",
   "useAnimation", "useBreakpoint", "useResponsiveProps", "useDisclosure",

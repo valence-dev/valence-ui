@@ -1,6 +1,6 @@
 import { TargetAndTransition, useReducedMotion, Variant } from "motion/react";
 import { useContext, useMemo } from "react";
-import { ValenceContext } from "../ValenceProvider/ValenceContext";
+import { AnimationContext } from "../utilities/animation/AnimationContext";
 
 /** Defines a transition animation that can be applied to a component
  * when it mounts or unmounts. These animations are used to create
@@ -49,15 +49,15 @@ export type UseAnimationOutput = {
    * prop (not looked up as a variant label — Motion's `initial` prop is the
    * only one of the five that accepts a plain `boolean`).
    *
-   * This is `false` whenever the component rendering it was already on
-   * screen at the app's very first paint — see `hasPaintedOnce` on
-   * `IValenceContext` — which tells Motion to skip the enter transition and
-   * render straight into the `animate` state, Motion's documented fix for
-   * elements that shouldn't visually "pop in" en masse when a whole
-   * page/modal/scene first mounts (ISSUE-47). It's the real transition
-   * target for every other mount, so entrances that happen later — a toast, a
-   * modal opened by a user action, an interactively-added list item — still
-   * animate in as intended.
+   * This is `false` unless the component reading it is mounting into an
+   * `<AnimationSection />` that has already rendered once, which tells Motion
+   * to skip the enter transition and render straight into the `animate` state
+   * — its documented fix for elements that shouldn't visually "pop in" en
+   * masse when a whole page/modal/scene mounts at once (#47). So the set of
+   * components a section renders in its first commit arrives together, while
+   * anything that mounts inside it afterwards — a toast, a modal opened by a
+   * user action, an interactively-added list item — gets the real transition
+   * target and animates in as intended.
    *
    * Typed as `TargetAndTransition` rather than the broader `Variant` (which
    * also allows a `TargetResolver` function): Motion's `initial` prop itself
@@ -120,13 +120,11 @@ export function useAnimation({
 }: AnimationProps): UseAnimationOutput {
   const reducedMotion = useReducedMotion();
 
-  // `useContext` rather than the throwing `useValence()`: this hook is used
-  // directly in isolation by tests without a `<ValenceProvider />` (see
-  // `Hooks.test.tsx`), and outside a provider there is no "first paint" to
-  // suppress against — animations behave exactly as they did before this
-  // flag existed, which also keeps those existing tests passing unchanged.
-  const valenceContext = useContext(ValenceContext);
-  const pastFirstPaint = valenceContext?.hasPaintedOnce ?? true;
+  // With no `<AnimationSection />` above it there is nothing granting this
+  // component an entrance, so the context's own default (`false`) applies and
+  // the transition is suppressed. `<ValenceProvider />` renders a section, so
+  // this only bites on a component used outside one entirely.
+  const animateEntrance = useContext(AnimationContext);
 
   function getTransitionAnimation(
     animation?: TransitionAnimation | TransitionAnimation[],
@@ -255,7 +253,7 @@ export function useAnimation({
     const tap = getTapAnimation(tapAnimation);
 
     return {
-      initial: pastFirstPaint ? transition.initial : false,
+      initial: animateEntrance ? transition.initial : false,
       animate: transition.animate,
       exit: transition.exit,
       whileHover: hover,
@@ -266,7 +264,7 @@ export function useAnimation({
     hoverAnimation,
     tapAnimation,
     reducedMotion,
-    pastFirstPaint,
+    animateEntrance,
   ]);
 
   return output;

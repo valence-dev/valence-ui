@@ -380,10 +380,10 @@ describe("UnstyledButton", () => {
     expect(screen.getByText("Bare").tagName).toBe("DIV");
   });
 
-  it("takes an `animation` prop, animating in components mounted after first paint", async () => {
-    // Mounted via a state update well after the app's first paint (ISSUE-47),
-    // so — unlike the "already on screen at first paint" case below — this
-    // is exactly the kind of entrance that should still animate in.
+  it("takes an `animation` prop, animating in components mounted into an open section", async () => {
+    // Mounted by a state update long after the section `ValenceProvider` puts
+    // around the app opened (ISSUE-47), so — unlike the first-commit case
+    // below — this is exactly the kind of entrance that should still play.
     function Harness() {
       const [show, setShow] = useState(false);
       return (
@@ -407,7 +407,7 @@ describe("UnstyledButton", () => {
     });
   });
 
-  it("suppresses its animate-in transition when already on screen at first paint (ISSUE-47)", () => {
+  it("suppresses its animate-in transition in its section's first commit (ISSUE-47)", () => {
     renderWithValence(
       <UnstyledButton animation={{ transitionAnimation: "fade" }}>
         Bare

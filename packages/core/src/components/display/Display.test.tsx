@@ -278,13 +278,13 @@ describe("Icon", () => {
     warn.mockRestore();
   });
 
-  it("does not apply its animate-from styling on first paint (ISSUE-47)", () => {
+  it("does not apply its animate-from styling in its section's first commit (ISSUE-47)", () => {
     // jsdom has no real Motion runtime, so there's no animation to watch
     // play out — instead this checks the styling Motion actually committed
-    // to the DOM at mount. Without first-paint suppression, an icon mounted
-    // with `animation="fade"` would be stuck at its `initial` variant
-    // (`opacity: 0`, since nothing drives the animation forward in jsdom);
-    // with suppression it mounts straight into `animate` (`opacity: 1`).
+    // to the DOM at mount. Rendered in the first commit of the section
+    // `ValenceProvider` puts around the app, so it mounts straight into
+    // `animate` (`opacity: 1`) rather than sticking at its `initial` variant
+    // (`opacity: 0`, since nothing drives the animation forward in jsdom).
     const { container } = renderWithValence(
       <Icon animation="fade">
         <IconHeart />
