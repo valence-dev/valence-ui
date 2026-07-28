@@ -29,6 +29,7 @@ import {
 } from "@floating-ui/react";
 import { useLockScroll } from "../../../hooks/UseLockScroll";
 import { AirMaterial } from "../../../utilities/materials/AirMaterial";
+import { AnimationSection } from "../../../utilities/animation";
 
 export type ModalProps = GenericOverlayProps & {
   /** A disclosure to handle state information about this modal */
@@ -146,18 +147,24 @@ export const Modal = forwardRef(function Modal(
               {...getFloatingProps()}
               {...rest}
             >
-              <Flex
-                direction="column"
-                gap={15}
-                style={FlexStyle}
-                {...flexPropsRest}
-              >
-                {header({ title })}
+              {/* The modal box above carries the entrance for everything it
+              contains, so the contents arrive with it rather than each
+              animating itself in. Anything mounted inside the modal after it
+              opens still animates. */}
+              <AnimationSection>
+                <Flex
+                  direction="column"
+                  gap={15}
+                  style={FlexStyle}
+                  {...flexPropsRest}
+                >
+                  {header({ title })}
 
-                <OverflowContainer innerProps={innerFlexProps}>
-                  {children}
-                </OverflowContainer>
-              </Flex>
+                  <OverflowContainer innerProps={innerFlexProps}>
+                    {children}
+                  </OverflowContainer>
+                </Flex>
+              </AnimationSection>
             </motion.div>
           </FloatingFocusManager>
         </ModalBackground>

@@ -7,6 +7,7 @@ import { CssOverride } from "./CssOverride";
 import { Color, mergePalette } from "../utilities/color";
 import { PreferrableColorScheme } from "../hooks";
 import {
+  AnimationSection,
   DEFAULT_PALETTE,
   GlassMaterial,
   Material,
@@ -181,7 +182,11 @@ export function ValenceProvider(props: ValenceProviderProps) {
       {/* CSS overrider to avoid pasting a global.css file */}
       <CssOverride />
 
-      {props.children}
+      {/* Everything an app renders at first paint arrives together rather than
+      each component animating itself in (#47). Apps that want the same
+      grouping at a finer grain — per page, tab or scene — nest their own
+      sections inside this one. */}
+      <AnimationSection>{props.children}</AnimationSection>
     </ValenceContext.Provider>
   );
 }

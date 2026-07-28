@@ -16,7 +16,12 @@ import {
   MakeResponsive,
   useResponsiveProps,
 } from "../../../utilities/responsive";
-import { Material, SolidMaterial, useColors } from "../../../utilities";
+import {
+  AnimationSection,
+  Material,
+  SolidMaterial,
+  useColors,
+} from "../../../utilities";
 import { ComponentSize } from "@valence-ui/utils";
 
 // Tooltip context
@@ -130,11 +135,15 @@ const Content = forwardRef(function Content(
   return (
     <FloatingPortal>
       <div ref={ref} css={FloatingStyle} {...context.getFloatingProps()}>
-        {typeof children !== "string" ? (
-          children
-        ) : (
-          <Text align="center">{children}</Text>
-        )}
+        {/* The tooltip fades in as a whole (see `FloatingStyle` above), so its
+        contents come with it rather than animating themselves in on top. */}
+        <AnimationSection>
+          {typeof children !== "string" ? (
+            children
+          ) : (
+            <Text align="center">{children}</Text>
+          )}
+        </AnimationSection>
       </div>
     </FloatingPortal>
   );

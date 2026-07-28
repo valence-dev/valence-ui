@@ -43,7 +43,12 @@ export const Loader = forwardRef(function Loader(
     style,
     ...rest
   } = useResponsiveProps<LoaderProps>(props);
-  const animations = useAnimation({ transitionAnimation: animation });
+  // `initial` is pulled out on its own because it may be `false`, which is
+  // valid as the `initial` prop directly but not as a `variants` map entry
+  // (Motion's `Variants` type only accepts real targets, never `false`).
+  const { initial, ...variants } = useAnimation({
+    transitionAnimation: animation,
+  });
 
   // Styles
   const containerStyle = css({
@@ -67,8 +72,8 @@ export const Loader = forwardRef(function Loader(
   return (
     <motion.div
       css={containerStyle}
-      variants={animations}
-      initial="initial"
+      variants={variants}
+      initial={initial}
       animate="animate"
       exit="exit"
     >

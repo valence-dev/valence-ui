@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
+import { useState } from "react";
 import { IconHeart } from "@tabler/icons-react";
 import { renderWithValence, screen, within } from "../../../../../test/utils";
 import { PrimitiveButton } from "./PrimitiveButton";
@@ -379,15 +380,44 @@ describe("UnstyledButton", () => {
     expect(screen.getByText("Bare").tagName).toBe("DIV");
   });
 
-  it("takes an `animation` prop like every other button", () => {
+  it("takes an `animation` prop, animating in components mounted into an open section", async () => {
+    // Mounted by a state update long after the section `ValenceProvider` puts
+    // around the app opened (ISSUE-47), so — unlike the first-commit case
+    // below — this is exactly the kind of entrance that should still play.
+    function Harness() {
+      const [show, setShow] = useState(false);
+      return (
+        <div>
+          <button onClick={() => setShow(true)}>reveal</button>
+          {show && (
+            <UnstyledButton animation={{ transitionAnimation: "fade" }}>
+              Bare
+            </UnstyledButton>
+          )}
+        </div>
+      );
+    }
+
+    const { user } = renderWithValence(<Harness />);
+    await user.click(screen.getByRole("button", { name: "reveal" }));
+
+    // `fade` starts at opacity 0, which is what the initial variant applies.
+    expect(screen.getByRole("button", { name: "Bare" })).toHaveStyle({
+      opacity: "0",
+    });
+  });
+
+  it("suppresses its animate-in transition in its section's first commit (ISSUE-47)", () => {
     renderWithValence(
       <UnstyledButton animation={{ transitionAnimation: "fade" }}>
         Bare
       </UnstyledButton>,
     );
 
-    // `fade` starts at opacity 0, which is what the initial variant applies.
-    expect(screen.getByRole("button")).toHaveStyle({ opacity: "0" });
+    // Without suppression this would be stuck at `opacity: 0` (its `initial`
+    // variant — nothing drives the animation forward in jsdom). Mounting
+    // straight into `animate` avoids the mass "pop-in" issue #47 describes.
+    expect(screen.getByRole("button")).toHaveStyle({ opacity: "1" });
   });
 
   it("applies no animation by default", () => {

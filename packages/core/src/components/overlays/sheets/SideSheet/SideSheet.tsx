@@ -9,6 +9,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { Flex, FlexProps } from "../../../layout/Flex";
 import { OverflowContainer } from "../../../layout/OverflowContainer";
 import {
+  AnimationSection,
   MakeResponsive,
   useColors,
   useResponsiveProps,
@@ -178,14 +179,19 @@ export const SideSheet = forwardRef(function SideSheet(
             ref={ref}
             {...rest}
           >
-            {/* Sheet */}
-            <Flex direction="column" height="100%" {...flexProps}>
-              {header({ title })}
+            {/* Sheet. The sheet sliding in is the entrance for everything it
+            contains, so the contents arrive with it rather than each animating
+            itself in. Anything mounted inside the sheet after it opens still
+            animates. */}
+            <AnimationSection>
+              <Flex direction="column" height="100%" {...flexProps}>
+                {header({ title })}
 
-              <OverflowContainer innerProps={innerFlexProps}>
-                {children}
-              </OverflowContainer>
-            </Flex>
+                <OverflowContainer innerProps={innerFlexProps}>
+                  {children}
+                </OverflowContainer>
+              </Flex>
+            </AnimationSection>
           </motion.div>
         </OptionalBackground>
       )}

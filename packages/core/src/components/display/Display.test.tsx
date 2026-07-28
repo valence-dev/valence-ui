@@ -230,9 +230,7 @@ describe("Title", () => {
     "renders order %i as the matching heading level",
     (order) => {
       renderWithValence(<Title order={order}>Heading</Title>);
-      expect(
-        screen.getByRole("heading", { level: order }),
-      ).toBeInTheDocument();
+      expect(screen.getByRole("heading", { level: order })).toBeInTheDocument();
     },
   );
 
@@ -340,6 +338,23 @@ describe("Icon", () => {
     expect(animatedSvg.getAttribute("stroke")).toBe(
       unanimatedSvg.getAttribute("stroke"),
     );
+  });
+
+  it("does not apply its animate-from styling in its section's first commit (ISSUE-47)", () => {
+    // jsdom has no real Motion runtime, so there's no animation to watch
+    // play out — instead this checks the styling Motion actually committed
+    // to the DOM at mount. Rendered in the first commit of the section
+    // `ValenceProvider` puts around the app, so it mounts straight into
+    // `animate` (`opacity: 1`) rather than sticking at its `initial` variant
+    // (`opacity: 0`, since nothing drives the animation forward in jsdom).
+    const { container } = renderWithValence(
+      <Icon animation="fade">
+        <IconHeart />
+      </Icon>,
+    );
+
+    const svg = container.querySelector("svg")!;
+    expect(svg).toHaveStyle({ opacity: "1" });
   });
 
   it("passes a plain string child through untouched", () => {
