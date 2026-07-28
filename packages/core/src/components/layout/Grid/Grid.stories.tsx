@@ -7,17 +7,43 @@ import {
   Showcase,
   Storybook,
 } from "../../../../storybook";
+import { SolidMaterial } from "../../../utilities/materials/SolidMaterial";
 import { Text } from "../../display/Text/Text";
-import { Grid as G } from "./Grid";
+import { Flex } from "../Flex";
+import { Grid as G, GridItemProps } from "./Grid";
+
+/**
+ * One visible cell.
+ *
+ * `Grid.Item` carries placement only — it has no material and no background of
+ * its own — so the surface has to come from something inside it. Every grid
+ * story is about *where* a cell lands, which cannot be seen without one.
+ */
+function Cell(props: GridItemProps) {
+  const { children, ...rest } = props;
+
+  return (
+    <G.Item {...rest}>
+      <Flex
+        material={new SolidMaterial({ color: "black" })}
+        width="100%"
+        height="100%"
+        padding={10}
+        align="center"
+        justify="center"
+      >
+        <Text align="center" color="white">
+          {children}
+        </Text>
+      </Flex>
+    </G.Item>
+  );
+}
 
 /** `count` numbered cells, for showing how a grid places its children. */
 function cells(count: number): ReactNode {
   return Array.from({ length: count }, (_, index) => (
-    <G.Item key={index} backgroundColor="black" padding={10}>
-      <Text align="center" color="white">
-        {index + 1}
-      </Text>
-    </G.Item>
+    <Cell key={index}>{index + 1}</Cell>
   ));
 }
 
@@ -48,6 +74,11 @@ const meta: Meta<typeof G> = {
     rows: 2,
     columns: 2,
     padding: 20,
+    // A grid sizes to its content inside the flex row a `Case` lays out, which
+    // collapses every fractional track to the width of its text — `1fr 2fr`
+    // and `repeat(auto-fill, …)` then look identical to a fixed list. The
+    // stories are about how the tracks divide the space, so they need space.
+    width: "100%",
   },
 };
 export default meta;
@@ -116,26 +147,10 @@ export const Variants: Story = {
             columns={undefined}
             templateAreas={'"head head" "side main" "foot foot"'}
           >
-            <G.Item area="head" backgroundColor="black" padding={10}>
-              <Text align="center" color="white">
-                head
-              </Text>
-            </G.Item>
-            <G.Item area="side" backgroundColor="black" padding={10}>
-              <Text align="center" color="white">
-                side
-              </Text>
-            </G.Item>
-            <G.Item area="main" backgroundColor="black" padding={10}>
-              <Text align="center" color="white">
-                main
-              </Text>
-            </G.Item>
-            <G.Item area="foot" backgroundColor="black" padding={10}>
-              <Text align="center" color="white">
-                foot
-              </Text>
-            </G.Item>
+            <Cell area="head">head</Cell>
+            <Cell area="side">side</Cell>
+            <Cell area="main">main</Cell>
+            <Cell area="foot">foot</Cell>
           </G>
         </Case>
       </Section>
@@ -191,36 +206,21 @@ export const Composition: Story = {
       <Section column>
         <Case label="one item spanning two columns">
           <G {...args} columns={3} rows={undefined}>
-            <G.Item column="span 2" backgroundColor="black" padding={10}>
-              <Text align="center" color="white">
-                span 2 columns
-              </Text>
-            </G.Item>
+            <Cell column="span 2">span 2 columns</Cell>
             {cells(4)}
           </G>
         </Case>
         <Case label="one item spanning two rows">
           <G {...args} columns={3} rows={undefined}>
-            <G.Item row="span 2" backgroundColor="black" padding={10}>
-              <Text align="center" color="white">
-                span 2 rows
-              </Text>
-            </G.Item>
+            <Cell row="span 2">span 2 rows</Cell>
             {cells(5)}
           </G>
         </Case>
         <Case label="explicit start and end">
           <G {...args} columns={4} rows={undefined}>
-            <G.Item
-              columnStart={2}
-              columnEnd={4}
-              backgroundColor="black"
-              padding={10}
-            >
-              <Text align="center" color="white">
-                columns 2–4
-              </Text>
-            </G.Item>
+            <Cell columnStart={2} columnEnd={4}>
+              columns 2–4
+            </Cell>
             {cells(4)}
           </G>
         </Case>
@@ -254,9 +254,7 @@ export const EdgeCases: Story = {
         </Case>
         <Case label="a very long text cell">
           <G {...args} columns={2} rows={undefined}>
-            <G.Item backgroundColor="black" padding={10}>
-              <Text color="white">{Storybook.longText}</Text>
-            </G.Item>
+            <Cell>{Storybook.longText}</Cell>
             {cells(3)}
           </G>
         </Case>

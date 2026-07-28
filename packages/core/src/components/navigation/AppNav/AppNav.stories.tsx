@@ -55,9 +55,12 @@ const meta: Meta<typeof AN> = {
   },
   decorators: [
     // Every nav button is a router link, so the component throws on mount
-    // without a router above it.
+    // without a router above it. The v7 flags are opted into so the router
+    // stops warning about them on every story.
     (Story) => (
-      <BrowserRouter>
+      <BrowserRouter
+        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+      >
         <Story />
       </BrowserRouter>
     ),
