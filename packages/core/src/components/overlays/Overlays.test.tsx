@@ -1,10 +1,22 @@
 import { describe, expect, it, vi } from "vitest";
+import { useState } from "react";
 import { Disclosure } from "../../hooks";
 import { renderWithValence, screen } from "../../../../../test/utils";
 import { Modal } from "./Modal";
 import { Tooltip } from "./Tooltip";
 import { BottomSheet } from "./sheets/BottomSheet";
 import { SideSheet } from "./sheets/SideSheet";
+import { Text } from "../display/Text";
+
+/** An overlay's contents mount in the first commit of the section it puts
+ * around them, so they arrive with it rather than each playing their own
+ * entrance (ISSUE-47). jsdom has no Motion runtime to drive an animation
+ * forward, so a `fade` that *was* allowed to play stays at its `initial`
+ * `opacity: 0`, while a suppressed one mounts straight into `animate`.
+ */
+function expectArrivedWithOverlay(text: string) {
+  expect(screen.getByText(text)).toHaveStyle({ opacity: "1" });
+}
 
 /** A disclosure stub whose state is fixed, so overlays render deterministically. */
 function disclosureOf(opened: boolean, close = vi.fn()): Disclosure {
@@ -92,6 +104,35 @@ describe("Modal", () => {
     expect(close).not.toHaveBeenCalled();
   });
 
+  it("brings its contents in with it rather than animating each one (ISSUE-47)", () => {
+    renderWithValence(
+      <Modal disclosure={disclosureOf(true)} title="Settings">
+        <Text animation="fade">body</Text>
+      </Modal>,
+    );
+
+    expectArrivedWithOverlay("body");
+  });
+
+  it("animates content mounted after it opened", async () => {
+    function Harness() {
+      const [show, setShow] = useState(false);
+      return (
+        <Modal disclosure={disclosureOf(true)} title="Settings">
+          <button onClick={() => setShow(true)}>reveal</button>
+          {show && <Text animation="fade">later</Text>}
+        </Modal>
+      );
+    }
+
+    const { user } = renderWithValence(<Harness />);
+    await user.click(screen.getByRole("button", { name: "reveal" }));
+
+    // The modal's section has been open since it mounted, so this is a
+    // genuine later entrance and still plays.
+    expect(screen.getByText("later")).toHaveStyle({ opacity: "0" });
+  });
+
   it("accepts a custom header renderer", () => {
     renderWithValence(
       <Modal
@@ -150,6 +191,21 @@ describe("Tooltip", () => {
     expect(screen.getByTestId("rich")).toBeInTheDocument();
   });
 
+  it("brings its contents in with it rather than animating each one (ISSUE-47)", () => {
+    renderWithValence(
+      <Tooltip disclosure={disclosureOf(true)}>
+        <Tooltip.Trigger>
+          <button>trigger</button>
+        </Tooltip.Trigger>
+        <Tooltip.Content>
+          <Text animation="fade">hint</Text>
+        </Tooltip.Content>
+      </Tooltip>,
+    );
+
+    expectArrivedWithOverlay("hint");
+  });
+
   it("throws when a sub-component is used outside a Tooltip", () => {
     const consoleError = vi
       .spyOn(console, "error")
@@ -183,6 +239,16 @@ describe("BottomSheet", () => {
     expect(screen.getByText("Filters")).toBeInTheDocument();
     expect(screen.getByText("body")).toBeInTheDocument();
   });
+
+  it("brings its contents in with it rather than animating each one (ISSUE-47)", () => {
+    renderWithValence(
+      <BottomSheet disclosure={disclosureOf(true)} title="Filters">
+        <Text animation="fade">body</Text>
+      </BottomSheet>,
+    );
+
+    expectArrivedWithOverlay("body");
+  });
 });
 
 describe("SideSheet", () => {
@@ -204,5 +270,15 @@ describe("SideSheet", () => {
 
     expect(screen.getByText("Menu")).toBeInTheDocument();
     expect(screen.getByText("body")).toBeInTheDocument();
+  });
+
+  it("brings its contents in with it rather than animating each one (ISSUE-47)", () => {
+    renderWithValence(
+      <SideSheet disclosure={disclosureOf(true)} title="Menu">
+        <Text animation="fade">body</Text>
+      </SideSheet>,
+    );
+
+    expectArrivedWithOverlay("body");
   });
 });

@@ -1,5 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
+import { useState } from "react";
 import { renderWithValence, screen } from "../../../../../test/utils";
+import { Text } from "../display/Text";
 import { Flex } from "./Flex";
 import { FlexCenter } from "./Flex/FlexCenter";
 import { Card } from "./Card";
@@ -247,6 +249,36 @@ describe("PageContainer", () => {
       </PageContainer>,
     );
     expect(screen.getByText("page")).toBeInTheDocument();
+  });
+
+  it("brings a page's contents in together rather than animating each one (ISSUE-47)", () => {
+    renderWithValence(
+      <PageContainer>
+        <Text animation="fade">page</Text>
+      </PageContainer>,
+    );
+
+    // Rendered in the first commit of the page's own section, so it mounts
+    // straight into `animate` (`opacity: 1`) instead of sticking at the
+    // `initial` `opacity: 0` nothing drives forward in jsdom.
+    expect(screen.getByText("page")).toHaveStyle({ opacity: "1" });
+  });
+
+  it("animates content mounted into a page that is already on screen", async () => {
+    function Harness() {
+      const [show, setShow] = useState(false);
+      return (
+        <PageContainer>
+          <button onClick={() => setShow(true)}>reveal</button>
+          {show && <Text animation="fade">later</Text>}
+        </PageContainer>
+      );
+    }
+
+    const { user } = renderWithValence(<Harness />);
+    await user.click(screen.getByRole("button", { name: "reveal" }));
+
+    expect(screen.getByText("later")).toHaveStyle({ opacity: "0" });
   });
 });
 

@@ -4,7 +4,11 @@ import {
   OverflowContainerProps,
 } from "../OverflowContainer";
 import { FlexCenter, FlexCenterProps } from "../Flex";
-import { MakeResponsive, useResponsiveProps } from "../../../utilities";
+import {
+  AnimationSection,
+  MakeResponsive,
+  useResponsiveProps,
+} from "../../../utilities";
 
 export type PageContainerType = FlexCenterProps & {
   exemptContent?: ReactNode;
@@ -41,35 +45,42 @@ export const PageContainer = forwardRef(function PageContainer(
       innerProps={ocInnerProps}
       {...overflowRest}
     >
-      {exemptContent}
+      {/* A page is a set of components that arrives together, so nothing it
+      renders on the way in animates individually; anything mounted afterwards
+      — a revealed section, a loaded result — still does. A router that keeps
+      one `PageContainer` mounted across routes should give it a changing
+      `key`, so each page counts as its own arrival. */}
+      <AnimationSection>
+        {exemptContent}
 
-      <FlexCenter
-        ref={ref}
-        width="100%"
-        height="100%"
-        innerWidth={innerWidth}
-        innerProps={{
-          default: {
-            style: {
-              marginLeft: 20,
-              marginRight: 20,
+        <FlexCenter
+          ref={ref}
+          width="100%"
+          height="100%"
+          innerWidth={innerWidth}
+          innerProps={{
+            default: {
+              style: {
+                marginLeft: 20,
+                marginRight: 20,
+              },
+              gap: 10,
+              ...innerProps,
             },
-            gap: 10,
-            ...innerProps,
-          },
-          mobile: {
-            style: {
-              paddingLeft: 15,
-              paddingRight: 15,
+            mobile: {
+              style: {
+                paddingLeft: 15,
+                paddingRight: 15,
+              },
+              gap: 10,
+              ...innerProps,
             },
-            gap: 10,
-            ...innerProps,
-          },
-        }}
-        {...rest}
-      >
-        {children}
-      </FlexCenter>
+          }}
+          {...rest}
+        >
+          {children}
+        </FlexCenter>
+      </AnimationSection>
     </OverflowContainer>
   );
 });

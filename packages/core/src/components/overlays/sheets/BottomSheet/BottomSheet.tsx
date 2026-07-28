@@ -12,6 +12,7 @@ import {
   useRole,
 } from "@floating-ui/react";
 import {
+  AnimationSection,
   MakeResponsive,
   useColors,
   useResponsiveProps,
@@ -204,27 +205,33 @@ export const BottomSheet = forwardRef(function BottomSheet(
               {...getFloatingProps()}
               {...rest}
             >
-              <div style={DragStyle}>
-                <div style={PillStyle} />
-              </div>
-
-              <Flex direction="column" style={SheetStyle} {...flexPropsRest}>
-                <div
-                  onPointerDown={controls.start}
-                  style={{ width: "100%", touchAction: "none" }}
-                >
-                  {header({ title })}
+              {/* The sheet sliding up is the entrance for everything it
+              contains, so the contents arrive with it rather than each
+              animating itself in. Anything mounted inside the sheet after it
+              opens still animates. */}
+              <AnimationSection>
+                <div style={DragStyle}>
+                  <div style={PillStyle} />
                 </div>
 
-                <OverflowContainer
-                  innerProps={innerFlexProps}
-                  direction={allowInnerScrolling ? "vertical" : "none"}
-                >
-                  {children}
-                </OverflowContainer>
-              </Flex>
+                <Flex direction="column" style={SheetStyle} {...flexPropsRest}>
+                  <div
+                    onPointerDown={controls.start}
+                    style={{ width: "100%", touchAction: "none" }}
+                  >
+                    {header({ title })}
+                  </div>
 
-              <div style={OverflowStyle} />
+                  <OverflowContainer
+                    innerProps={innerFlexProps}
+                    direction={allowInnerScrolling ? "vertical" : "none"}
+                  >
+                    {children}
+                  </OverflowContainer>
+                </Flex>
+
+                <div style={OverflowStyle} />
+              </AnimationSection>
             </motion.div>
           </FloatingFocusManager>
         </ModalBackground>
