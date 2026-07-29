@@ -89,6 +89,8 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
     cursor: disabled ? "not-allowed" : loading ? "wait" : "pointer",
     boxShadow: shadow ? theme.defaults.shadow : "none",
 
+    position: "relative",
+
     transitionProperty: "background-color, border",
     transitionDuration: theme.defaults.transitionDuration,
     transitionTimingFunction: "linear",
@@ -126,7 +128,30 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
       ref={ref}
       {...rest}
     >
-      {loading ? <Loader color={colors.getFgHex(color, variant)} /> : children}
+      <span
+        css={css({
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+          visibility: loading ? "hidden" : "visible",
+        })}
+      >
+        {children}
+      </span>
+      {loading && (
+        <span
+          css={css({
+            position: "absolute",
+            inset: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          })}
+        >
+          <Loader color={colors.getFgHex(color, variant)} />
+        </span>
+      )}
     </PolymorphicButton>
   );
 });

@@ -1,5 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { CSSProperties, ReactNode, forwardRef } from "react";
+import {
+  CSSProperties,
+  ReactNode,
+  forwardRef,
+  useEffect,
+  useState,
+} from "react";
 import { ComponentSize, GenericProps } from "@valence-ui/utils";
 import { useValence } from "../../../../ValenceProvider";
 import { css } from "@emotion/react";
@@ -52,6 +58,9 @@ export const Image = forwardRef(function Image(
   const theme = useValence();
   const { getHex } = useColors();
 
+  // States
+  const [hasErrored, setHasErrored] = useState(false);
+
   // Defaults
   const {
     src,
@@ -77,6 +86,12 @@ export const Image = forwardRef(function Image(
     ...rest
   } = useResponsiveProps<ImageProps>(props);
 
+  // Reset the errored state whenever the source changes, so a new `src`
+  // gets a fresh chance to load instead of being stuck on the placeholder.
+  useEffect(() => {
+    setHasErrored(false);
+  }, [src]);
+
   // Styles
   const ContainerStyle = css({
     height: height,
@@ -101,13 +116,14 @@ export const Image = forwardRef(function Image(
 
   return (
     <div css={ContainerStyle}>
-      {props.src ? (
+      {props.src && !hasErrored ? (
         <img
           css={ImageStyle}
           src={src as string}
           alt={alt}
           draggable={false}
           ref={ref}
+          onError={() => setHasErrored(true)}
           {...rest}
         />
       ) : (
