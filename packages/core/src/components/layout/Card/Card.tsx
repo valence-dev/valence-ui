@@ -84,8 +84,15 @@ const Card = forwardRef(function Card(
     ...style,
   };
 
+  // A card is only truly interactive as a whole when it's been given
+  // `buttonProps` (e.g. an `onClick`). Otherwise it should render as a plain,
+  // non-interactive container so it doesn't nest real buttons (such as those
+  // in `Card.Buttons`) inside a `<button>`.
+  const isClickable = Boolean(buttonProps);
+
   return (
     <PrimitiveButton
+      component={isClickable ? undefined : "div"}
       height={height}
       width={width}
       color={color}
