@@ -42,7 +42,10 @@ export type SegmentedControlProps = GenericInputProps<string> &
     /** A list of options to supply for the content of this input */
     options: SegmentedControlOption[];
 
-    /** Whether every option should have an equal width. `true` by default. */
+    /**
+     * Whether every option should be the same width as the widest option.
+     * `true` by default.
+     */
     equalWidth?: boolean;
 
     /** Do not supply children to this element */
@@ -92,6 +95,16 @@ export const SegmentedControl = forwardRef(function SegmentedControl(
   const containerStyle: CSSObject = {
     borderRadius: theme.getSize("radius", radius) + padding,
 
+    // `equalWidth` lays the options out as equal grid tracks rather than
+    // growing them. `flex-grow` only ever shares out a container's *surplus*
+    // space, so it widens every segment by the same amount and preserves the
+    // differences between them — a `minmax(0, 1fr)` track discards the content
+    // width instead, which is what makes the segments actually equal.
+    ...(equalWidth && {
+      display: "grid",
+      gridTemplateColumns: `repeat(${options.length}, minmax(0, 1fr))`,
+    }),
+
     ...style,
   };
 
@@ -132,6 +145,9 @@ export const SegmentedControl = forwardRef(function SegmentedControl(
           justify="center"
           align="center"
           height={theme.getSize("height", buttonSize)}
+          // The loader replaces the whole option row, so under `equalWidth`'s
+          // grid it has to span every track rather than sit in the first one.
+          style={equalWidth ? { gridColumn: "1 / -1" } : undefined}
         >
           <Loader color="black" />
         </Flex>
@@ -145,7 +161,9 @@ export const SegmentedControl = forwardRef(function SegmentedControl(
               key={index}
               onClick={() => handleSetOptionValue(option)}
               material={selected ? new GlassMaterial() : new AirMaterial()}
-              grow={equalWidth}
+              // Fill the grid track rather than the button's own content width,
+              // so a short label occupies the same box as a long one.
+              width={equalWidth ? "100%" : undefined}
               size={buttonSize}
               radius={buttonRadius}
               disabled={disabled || readOnly || loading}
