@@ -157,13 +157,21 @@ const Section = forwardRef(function CardSection(
     width = "100%",
     height = "fit-content",
     padding = theme.sizeClasses.padding[theme.defaults.size],
+    direction = "column",
 
     children,
     ...rest
   } = useResponsiveProps<CardSectionProps>(props);
 
   return (
-    <Flex width={width} height={height} padding={padding} ref={ref} {...rest}>
+    <Flex
+      width={width}
+      height={height}
+      padding={padding}
+      direction={direction}
+      ref={ref}
+      {...rest}
+    >
       {children}
     </Flex>
   );
