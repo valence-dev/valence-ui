@@ -12,10 +12,16 @@ import {
   MakeResponsive,
   useResponsiveProps,
 } from "../../../utilities/responsive";
+import { Material } from "../../../utilities/materials";
+import { useColors } from "../../../utilities/color";
 
 export type GridProps = GenericGridProps & PolymorphicLayoutProps;
 
-export type GridItemProps = GenericGridItemProps & PolymorphicLayoutProps;
+export type GridItemProps = GenericGridItemProps &
+  PolymorphicLayoutProps & {
+    /** Optionally apply a material to this object */
+    material?: Material;
+  };
 
 const Grid = forwardRef(function Grid(
   props: MakeResponsive<GridProps>,
@@ -105,6 +111,9 @@ const Item = forwardRef(function GridItem(
   props: MakeResponsive<GridItemProps>,
   ref: any,
 ) {
+  const theme = useValence();
+  const colors = useColors();
+
   // Defaults
   const {
     area,
@@ -119,6 +128,8 @@ const Item = forwardRef(function GridItem(
     align = "stretch",
     place,
     order,
+
+    material,
 
     padding,
     margin,
@@ -152,6 +163,8 @@ const Item = forwardRef(function GridItem(
     margin: margin,
     width: width,
     height: height,
+
+    ...material?.getStyles(theme, colors),
 
     ...style,
   });
