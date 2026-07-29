@@ -82,6 +82,7 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    position: "relative",
 
     flexGrow: grow ? 1 : 0,
     width: width,
@@ -113,6 +114,23 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
     ...style,
   });
 
+  // The label stays mounted (just hidden) while loading, rather than being
+  // swapped for the `Loader`, so the button's `fit-content` width stays
+  // anchored to the label instead of collapsing to the loader's size.
+  const LabelStyle = css({
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    visibility: loading ? "hidden" : "visible",
+  });
+  const LoaderStyle = css({
+    position: "absolute",
+    inset: 0,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  });
+
   return (
     <PolymorphicButton
       component={component}
@@ -130,7 +148,12 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
       ref={ref}
       {...rest}
     >
-      {loading ? <Loader animation={["blur", "fade", "grow"]} /> : children}
+      <span css={LabelStyle}>{children}</span>
+      {loading && (
+        <span css={LoaderStyle}>
+          <Loader animation={["blur", "fade", "grow"]} />
+        </span>
+      )}
     </PolymorphicButton>
   );
 });
