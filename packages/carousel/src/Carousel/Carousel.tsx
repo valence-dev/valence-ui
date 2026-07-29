@@ -311,18 +311,30 @@ const Carousel = forwardRef(function Card(
             ref={contentRef}
             {...contentProps}
           >
-            {children.map((child, i) =>
-              React.cloneElement(child as any, {
+            {children.map((child, i) => {
+              // Only inject the `CarouselChildProps` render-prop flags into
+              // children that are themselves components (function/class/
+              // forwardRef/memo elements have a non-string `type`). Plain
+              // host elements (e.g. a bare `"div"` or `"span"`) have no way
+              // to consume the flags and would otherwise forward them
+              // straight through to the DOM, triggering React's
+              // unknown-attribute warning.
+              const childType = (child as React.ReactElement)?.type;
+              const isComponentChild = typeof childType !== "string";
+
+              return React.cloneElement(child as any, {
                 key: i,
-                isNearest: i === nearestChild,
-                isActive: i === activeChild,
-                isDragging: isDragging,
+                ...(isComponentChild && {
+                  isNearest: i === nearestChild,
+                  isActive: i === activeChild,
+                  isDragging: isDragging,
+                }),
                 onClick: () => {
                   !isDragging && setActiveChild(i);
                   !isDragging && scrollToChild(i);
                 },
-              })
-            )}
+              });
+            })}
           </Flex>
         </Flex>
 

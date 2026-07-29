@@ -42,7 +42,7 @@ function DemoCarouselChild(
     index: number;
   }
 ) {
-  const { isActive, isNearest, index, ...rest } = props;
+  const { isActive, isNearest, isDragging, index, ...rest } = props;
 
   return (
     <StyledFlex
