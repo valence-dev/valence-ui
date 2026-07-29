@@ -35,7 +35,12 @@ export type SegmentedControlProps = GenericInputProps<string> &
     /** A list of options to supply for the content of this input */
     options: SegmentedControlOption[];
 
-    /** Whether every option should have an equal width. `true` by default. */
+    /**
+     * Whether every option should be sized to match the width of the widest
+     * option. Implemented as a CSS grid with `repeat(n, minmax(0, 1fr))`
+     * columns, so every segment shares the same track width regardless of
+     * its own content length. `true` by default.
+     */
     equalWidth?: boolean;
 
     /** Do not supply children to this element */
@@ -93,6 +98,16 @@ export const SegmentedControl = forwardRef(function SegmentedControl(
   const containerStyle: CSSProperties = {
     borderRadius: theme.getSize("radius", radius) + padding,
 
+    // `equalWidth` is implemented via a CSS grid rather than `flex-grow`,
+    // since `flex-grow` only distributes a container's surplus space and
+    // can't equalise segments that already differ in content width.
+    ...(equalWidth
+      ? {
+          display: "grid",
+          gridTemplateColumns: `repeat(${options.length}, minmax(0, 1fr))`,
+        }
+      : undefined),
+
     ...style,
   };
 
@@ -123,6 +138,7 @@ export const SegmentedControl = forwardRef(function SegmentedControl(
           justify="center"
           align="center"
           height={theme.getSize("height", buttonSize)}
+          style={equalWidth ? { gridColumn: "1 / -1" } : undefined}
         >
           <Loader color={variant === "filled" ? "white" : color} />
         </Flex>
@@ -136,7 +152,7 @@ export const SegmentedControl = forwardRef(function SegmentedControl(
               key={index}
               onClick={() => handleSetOptionValue(option)}
               variant={selected ? "light" : "subtle"}
-              grow={equalWidth}
+              width={equalWidth ? "100%" : undefined}
               color={buttonColor}
               backgroundColor={buttonBackgroundColor}
               size={buttonSize}
