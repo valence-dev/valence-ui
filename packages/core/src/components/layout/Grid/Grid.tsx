@@ -2,6 +2,7 @@
 import {
   GenericGridItemProps,
   GenericGridProps,
+  Material,
   PolymorphicLayout,
   PolymorphicLayoutProps,
 } from "@valence-ui/utils";
@@ -17,7 +18,13 @@ import { FlexProps } from "../Flex";
 
 export type GridProps = GenericGridProps & PolymorphicLayoutProps;
 
-export type GridItemProps = GenericGridItemProps & PolymorphicLayoutProps;
+export type GridItemProps = GenericGridItemProps &
+  PolymorphicLayoutProps & {
+    /** Sets a `Material` instance to use as this item's surface/background,
+     * so a cell can take a fill without needing `style` or a nested
+     * component (eg. `Flex`) purely to hold it. */
+    material?: Material;
+  };
 
 const Grid = forwardRef(function Grid(
   props: MakeResponsive<GridProps>,
@@ -129,6 +136,7 @@ const Item = forwardRef(function GridItem(
     place,
     order,
 
+    material,
     backgroundColor,
     color,
     padding,
@@ -142,6 +150,8 @@ const Item = forwardRef(function GridItem(
   } = useResponsiveProps<GridItemProps>(props);
 
   // Styles
+  const materialStyle = material?.toCss() ?? {};
+
   const ItemStyle = css({
     gridArea: area,
 
@@ -159,8 +169,10 @@ const Item = forwardRef(function GridItem(
 
     order: order,
 
-    backgroundColor: getHex(backgroundColor),
-    color: getHex(color),
+    ...materialStyle,
+
+    backgroundColor: getHex(backgroundColor) ?? materialStyle.backgroundColor,
+    color: getHex(color) ?? materialStyle.color,
     padding: padding,
     margin: margin,
     width: width,
