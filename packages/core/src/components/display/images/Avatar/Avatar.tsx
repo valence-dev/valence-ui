@@ -69,6 +69,18 @@ export const Avatar = forwardRef(function Avatar(
       : undefined,
     ...style,
   };
+  // This wraps only the image, and is the sole element responsible for
+  // clipping it to a circle. The secondaryIcon badge below is rendered as a
+  // sibling of this wrapper (not a descendant), so it's never caught by this
+  // `overflow: hidden` clip and can safely overhang the avatar's edge.
+  const imageWrapperStyle: CSSProperties = {
+    position: "relative",
+    overflow: "hidden",
+    borderRadius: "50%",
+    width,
+    height,
+    aspectRatio: square ? "1/1" : undefined,
+  };
   const secondaryIconContainerStyle: CSSProperties = {
     backgroundColor: colors.getHex(color),
 
@@ -88,22 +100,24 @@ export const Avatar = forwardRef(function Avatar(
         ...spanStyle,
       }}
     >
-      <Image
-        placeholder={
-          <Flex align="center" justify="center" height="100%" width="100%">
-            <Icon size={theme.sizeClasses.iconSize[size] as any}>
-              {placeholder}
-            </Icon>
-          </Flex>
-        }
-        style={imageStyle}
-        square={square}
-        color={color}
-        width={width}
-        height={height}
-        ref={ref}
-        {...rest}
-      />
+      <span style={imageWrapperStyle}>
+        <Image
+          placeholder={
+            <Flex align="center" justify="center" height="100%" width="100%">
+              <Icon size={theme.sizeClasses.iconSize[size] as any}>
+                {placeholder}
+              </Icon>
+            </Flex>
+          }
+          style={imageStyle}
+          square={square}
+          color={color}
+          width={width}
+          height={height}
+          ref={ref}
+          {...rest}
+        />
+      </span>
 
       {/* Secondary Icon */}
       {secondaryIcon && (
