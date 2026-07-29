@@ -103,12 +103,12 @@ export const AppNav = forwardRef(function Nav(
       {buttons.map((b) => {
         const { id, highlighted, show = true, children, to, ...rest } = b;
 
-        if (!useResponsiveProps(show)) return <></>;
+        if (!useResponsiveProps(show)) return null;
 
         return (
           <IconButton
             key={id}
-            color="white"
+            color="black"
             variant={highlighted ? "light" : "subtle"}
             radius={breakpoint.isMobile ? "xl" : undefined}
             square={!breakpoint.isMobile}
@@ -127,12 +127,12 @@ export const AppNav = forwardRef(function Nav(
         bottomButtons.map((b) => {
           const { id, highlighted, show = true, children, to, ...rest } = b;
 
-          if (!useResponsiveProps(show)) return <></>;
+          if (!useResponsiveProps(show)) return null;
 
           return (
             <IconButton
               key={id}
-              color="white"
+              color="black"
               variant={highlighted ? "light" : "subtle"}
               radius={breakpoint.isMobile ? "xl" : undefined}
               square={!breakpoint.isMobile}
