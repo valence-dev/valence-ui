@@ -7,7 +7,7 @@ import {
   useContext,
 } from "react";
 import { Flex, FlexProps } from "../../layout";
-import { IconChevronLeft } from "@tabler/icons-react";
+import { IconChevronRight } from "@tabler/icons-react";
 import { Title, TitleProps } from "../Text";
 import { ControlledList } from "../../../hooks/UseControlledList";
 import { UnstyledButton } from "../../buttons";
@@ -166,7 +166,7 @@ const Control = forwardRef(function AccordionControl(
     align = "center",
 
     opened = false,
-    chevronIcon = <IconChevronLeft />,
+    chevronIcon = <IconChevronRight />,
     title,
     titleProps = {
       order: 3,
@@ -178,7 +178,7 @@ const Control = forwardRef(function AccordionControl(
 
   // Styles
   const ChevronContainerStyle: CSSProperties = {
-    transform: opened ? "rotate(-90deg)" : "rotate(0deg)",
+    transform: opened ? "rotate(90deg)" : "rotate(0deg)",
     transformOrigin: "center",
     transition: "transform 0.1s ease-in-out",
   };
