@@ -478,6 +478,31 @@ describe("Avatar", () => {
     const container = screen.getByAltText("Me").parentElement!;
     expect(getComputedStyle(container).borderRadius).toBe("50%");
   });
+
+  it("keeps the secondaryIcon badge out of the clipped image box (ISSUE-95)", () => {
+    const { container } = renderWithValence(
+      <Avatar src="/me.png" alt="Me" secondaryIcon={<IconHeart />} />,
+    );
+
+    // The badge overhangs the avatar's circle, so it has to be a sibling of
+    // the box that clips the image to that circle rather than a descendant of
+    // it. Nesting it inside would cut the badge off along the circle's edge —
+    // and only when the avatar has an image, since that is the branch with
+    // something to clip.
+    const clipped = screen.getByAltText("Me").parentElement!;
+    expect(getComputedStyle(clipped).overflow).toBe("hidden");
+
+    const badge = container.querySelector("svg")!.parentElement!;
+    expect(clipped.contains(badge)).toBe(false);
+
+    // Nothing from the badge up to and including the avatar's own span may
+    // clip either, which is where a wrapper around both would land.
+    const span = container.querySelector("span")!;
+    for (let el: HTMLElement | null = badge; el; el = el.parentElement) {
+      expect(getComputedStyle(el).overflow).not.toBe("hidden");
+      if (el === span) break;
+    }
+  });
 });
 
 describe("AvatarGroup", () => {
