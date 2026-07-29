@@ -42,7 +42,12 @@ export const Button = forwardRef(function Button(
       ref={ref}
       {...rest}
     >
-      <Text size={size} color={colors.getFgHex(color, variant)} {...textProps}>
+      <Text
+        size={size}
+        color={colors.getFgHex(color, variant)}
+        maxLines={1}
+        {...textProps}
+      >
         {children}
       </Text>
     </PrimitiveButton>

@@ -84,6 +84,7 @@ export const GridButton = forwardRef(function GridButton(
         color={getFgHex(color, variant)}
         align="center"
         maxLines={1}
+        style={{ overflowWrap: "anywhere" }}
         {...textProps}
       >
         {children}
