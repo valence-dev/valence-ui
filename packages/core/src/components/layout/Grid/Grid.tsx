@@ -108,10 +108,10 @@ const Item = forwardRef(function GridItem(
   // Defaults
   const {
     area,
-    column = "auto",
+    column,
     columnStart,
     columnEnd,
-    row = "auto",
+    row,
     rowStart,
     rowEnd,
 
