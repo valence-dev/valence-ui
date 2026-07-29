@@ -126,8 +126,9 @@ export const RangeSlider = forwardRef(function RangeSlider(
         onSliderClick={onSliderClick}
         css={SliderStyle}
         ref={ref}
-        renderThumb={(props, state) => (
+        renderThumb={({ key, ...props }, state) => (
           <Slider.Thumb
+            key={key}
             state={state}
             showValue={showValue}
             color={color}
@@ -136,8 +137,9 @@ export const RangeSlider = forwardRef(function RangeSlider(
             {...thumbProps}
           />
         )}
-        renderTrack={(props, state) => (
+        renderTrack={({ key, ...props }, state) => (
           <Slider.Track
+            key={key}
             state={state}
             color={color}
             margin={(height - 2) / 2}
