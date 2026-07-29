@@ -14,6 +14,10 @@ export type GenericClickableProps = {
   target?: string;
   /** Sets html `type` property on valid elements */
   type?: "submit" | "reset" | "button";
+  /** Sets the html `disabled` property on native `<button>` elements. On other elements this is instead backed by `aria-disabled`, a suppressed `tabIndex`, and a suppressed click. */
+  disabled?: boolean;
+  /** Sets the `aria-disabled` attribute, announcing a disabled state on elements (e.g. anchors) that don't natively support the `disabled` attribute. */
+  "aria-disabled"?: boolean;
 };
 
 export type GenericClickableEventProps = MouseClickEvents &

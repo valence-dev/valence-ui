@@ -63,11 +63,21 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
 
     style,
     children,
+    component,
+    onClick,
     ...rest
   } = useResponsiveProps<PrimitiveButtonProps>(props);
 
   const motionBehaviour = getMotionBehaviour(motion, reducedMotion);
   const floatBehaviour = useFloating({ ...float });
+
+  // `<button>` elements natively support the `disabled` attribute, which both
+  // blocks interaction and removes the element from the tab order. Other
+  // elements (e.g. an anchor rendered via `component="a"` or `"link"`)
+  // neither support it nor natively block clicks, so they rely on
+  // `aria-disabled`, `tabIndex={-1}`, and a click handler that prevents the
+  // default action instead.
+  const isNativeButton = component === undefined || component === "button";
 
   const ButtonStyle = css({
     display: "flex",
@@ -87,6 +97,7 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
     borderRadius: theme.sizeClasses.radius[radius],
     opacity: disabled ? 0.5 : 1,
     cursor: disabled ? "not-allowed" : loading ? "wait" : "pointer",
+    pointerEvents: disabled ? "none" : undefined,
     boxShadow: shadow ? theme.defaults.shadow : "none",
 
     transitionProperty: "background-color, border",
@@ -119,8 +130,17 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
 
   return (
     <PolymorphicButton
+      component={component}
       css={ButtonStyle}
       onMouseDown={(event: any) => event.preventDefault()}
+      onClick={
+        disabled && !isNativeButton
+          ? (event: any) => event.preventDefault()
+          : onClick
+      }
+      disabled={isNativeButton ? disabled : undefined}
+      aria-disabled={disabled}
+      tabIndex={disabled && !isNativeButton ? -1 : undefined}
       whileHover={motionBehaviour.whileHover}
       whileTap={motionBehaviour.whileTap}
       ref={ref}
