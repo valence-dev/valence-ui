@@ -164,6 +164,9 @@ export const InputContainer = forwardRef(function InputContainer(
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
+    // Keep the icon at its fixed intrinsic size instead of letting it be
+    // squeezed (or pushed off-screen) when the container runs out of room
+    flexShrink: 0,
 
     ...iconContainerStyle,
   });
@@ -175,8 +178,25 @@ export const InputContainer = forwardRef(function InputContainer(
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
+    // Keep the button at its fixed intrinsic size for the same reason as
+    // the icon above
+    flexShrink: 0,
 
     ...buttonContainerStyle,
+  });
+  const ChildrenContainerStyle = css({
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    height: "100%",
+
+    // This is the only flexible part of the row: it should be the one to
+    // shrink (and clip its contents) when space runs out, rather than the
+    // container overflowing and pushing the icon off-screen. `minWidth: 0`
+    // overrides the flex default of `auto`, which otherwise prevents a flex
+    // item from shrinking below its content's intrinsic width
+    flexGrow: 1,
+    minWidth: 0,
   });
   const RequireIndicatorStyle = css({
     width: 3,
@@ -208,7 +228,7 @@ export const InputContainer = forwardRef(function InputContainer(
         </div>
       )}
 
-      {children}
+      <div css={ChildrenContainerStyle}>{children}</div>
 
       {button && (
         <div css={ButtonContainerStyle}>
