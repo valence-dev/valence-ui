@@ -145,14 +145,6 @@ export const Text = forwardRef(function Text(
   });
 
   // Run through formatters
-  //
-  // `reactStringReplace` re-runs its match index from 0 for every string
-  // fragment it processes, rather than across the whole call, so a single
-  // pass over multiple fragments (e.g. paragraphs already split apart by an
-  // earlier pass) can hand back the same index more than once. `keyIndex` is
-  // incremented on every replacement across every pass instead, so the key
-  // it's combined with is unique across the whole render rather than just
-  // within one fragment of one pass.
   let keyIndex = 0;
   let replacements: any = children;
   replacements = reactStringReplace(
