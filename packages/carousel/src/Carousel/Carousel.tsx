@@ -19,6 +19,7 @@ import React, {
   useState,
 } from "react";
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
+import { CarouselChildContext } from "./CarouselChild";
 
 export type CarouselProps = Omit<FlexProps, "children"> & {
   /** Whether to allow the carousel content to be dragged on desktop. `true` on desktop devices by default. */
@@ -305,18 +306,33 @@ const Carousel = forwardRef(function Card(
             ref={contentRef}
             {...contentProps}
           >
-            {children.map((child, i) =>
-              React.cloneElement(child as any, {
-                key: i,
-                isNearest: i === nearestChild,
-                isActive: i === activeChild,
-                isDragging: isDragging,
-                onClick: () => {
-                  !isDragging && setActiveChild(i);
-                  !isDragging && scrollToChild(i);
-                },
-              }),
-            )}
+            {children.map((child, i) => (
+              // The slide's state is published through context rather than
+              // cloned onto the child. Injecting it as props reached children
+              // that have no idea what these flags are — a plain `<Flex>` is
+              // the obvious thing to reach for as a slide — which forwarded
+              // them to the DOM and made React warn about unknown attributes.
+              // A provider renders no element of its own, so the child stays a
+              // direct flex item and the layout is unchanged.
+              <CarouselChildContext.Provider
+                key={i}
+                value={{
+                  index: i,
+                  isNearest: i === nearestChild,
+                  isActive: i === activeChild,
+                  isDragging: isDragging,
+                }}
+              >
+                {React.isValidElement(child)
+                  ? React.cloneElement(child as any, {
+                      onClick: () => {
+                        !isDragging && setActiveChild(i);
+                        !isDragging && scrollToChild(i);
+                      },
+                    })
+                  : child}
+              </CarouselChildContext.Provider>
+            ))}
           </Flex>
         </Flex>
 
