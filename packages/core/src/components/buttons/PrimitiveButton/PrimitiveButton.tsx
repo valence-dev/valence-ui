@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { CSSProperties, forwardRef } from "react";
+import { CSSProperties, forwardRef, MouseEvent } from "react";
 import { Loader } from "../../display/Loader";
 import { PolymorphicButton } from "@valence-ui/utils";
 import { useValence } from "../../../ValenceProvider";
@@ -57,6 +57,7 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
     children,
     component,
     onClick,
+    tabIndex,
     ...rest
   } = useResponsiveProps<PrimitiveButtonProps>(props);
 
@@ -64,8 +65,10 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
   // `component` defaults to a native `<button>` (see `PolymorphicButton`),
   // which is the only element type that supports the `disabled` attribute.
   // Anchors and router `Link`s neither support it nor natively block clicks,
-  // so they rely on `aria-disabled` and a suppressed click handler instead.
+  // so they rely on `aria-disabled`, a suppressed tab order, and a cancelled
+  // click instead.
   const isNativeButton = component === undefined || component === "button";
+  const isDisabledNonNative = isDisabled && !isNativeButton;
 
   // `initial` is pulled out on its own because it may be `false`, which is
   // valid as the `initial` prop directly but not as a `variants` map entry
@@ -98,6 +101,12 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
     // kept in sync so non-native (aria-disabled) buttons look the same.
     opacity: disabled ? 0.75 : 1,
     cursor: disabled ? "not-allowed" : loading ? "wait" : "pointer",
+    // Backs up the `not-allowed` cursor with real behaviour. A native
+    // `<button>` already stops responding to pointer input once `disabled`
+    // reaches the DOM (see the `isNativeButton` branch below), so this is
+    // only needed — and only applied — on the non-native branch, where an
+    // anchor or router `Link` never blocks pointer input on its own.
+    pointerEvents: isDisabledNonNative ? "none" : undefined,
 
     textDecoration: "none",
 
@@ -118,9 +127,14 @@ export const PrimitiveButton = forwardRef(function PrimitiveButton(
       component={component}
       css={ButtonStyle}
       onMouseDown={(event: any) => event.preventDefault()}
-      onClick={isDisabled && !isNativeButton ? undefined : onClick}
+      onClick={
+        isDisabledNonNative
+          ? (event: MouseEvent) => event.preventDefault()
+          : onClick
+      }
       disabled={isNativeButton ? isDisabled : undefined}
       aria-disabled={isDisabled}
+      tabIndex={isDisabledNonNative ? -1 : tabIndex}
       variants={variants}
       initial={initial}
       animate="animate"
