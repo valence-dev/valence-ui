@@ -305,7 +305,7 @@ export const PillSelector = forwardRef(function PillSelector(
           </IconButton>
         </Flex>
       )}
-      <Flex gap={gap} width="100%" height="fit-content" align="center">
+      <Flex gap={gap} width="100%" height="fit-content" align="flex-start">
         <Flex gap={gap} css={PillContainerStyle} {...pillContainerPropsRest}>
           {loading && !allowEditing && (
             <Loader size={size} animation={["fade", "blur", "slide-right"]} />
