@@ -91,12 +91,7 @@ export const Avatar = forwardRef(function Avatar(
         {...rest}
       />
 
-      {/* Secondary Icon.
-          This has to stay a sibling of the Image above rather than move inside
-          it. Image clips its own contents to the avatar's circle, so a badge
-          nested in there is cut off along that edge — and only when there is
-          an image to clip, which makes it look like a badge positioning bug
-          rather than an overflow one. */}
+      {/* Secondary Icon.*/}
       {secondaryIcon && (
         <Flex
           align="center"
