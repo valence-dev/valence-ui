@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 import {
   Button,
@@ -45,6 +45,23 @@ function Slide(props: { width?: number }) {
       </Text>
       {isActive && <Text size="xs">active</Text>}
       {isNearest && <Text size="xs">nearest</Text>}
+    </Flex>
+  );
+}
+
+/**
+ * A slide that only shows content.
+ *
+ * The carousel injects its flags into whatever child it is given, so a plain
+ * `Flex` used as a slide receives them and forwards them to the DOM. Anything
+ * passed as a slide has to absorb them, even when it does not use them.
+ */
+function ContentSlide(props: CarouselChildProps & { children?: ReactNode }) {
+  const { isActive, isNearest, isDragging, children, ...rest } = props;
+
+  return (
+    <Flex width={250} padding={20} {...rest}>
+      {children}
     </Flex>
   );
 }
@@ -296,11 +313,11 @@ export const EdgeCases: Story = {
           <Flex width={600}>
             <C {...args}>
               {Array.from({ length: 5 }, (_, index) => (
-                <Flex key={index} width={250} padding={20}>
+                <ContentSlide key={index}>
                   <Text>
                     {index + 1}. {Storybook.longText}
                   </Text>
-                </Flex>
+                </ContentSlide>
               ))}
             </C>
           </Flex>

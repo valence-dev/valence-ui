@@ -82,9 +82,12 @@ const meta: Meta<typeof AC> = {
   parameters: { valence: { layout: "fullscreen" } },
   decorators: [
     // `AppNav`'s buttons are router links, so every story needs a router
-    // above them or the component throws on mount.
+    // above them or the component throws on mount. The v7 flags are opted
+    // into so the router stops warning about them on every story.
     (Story) => (
-      <BrowserRouter>
+      <BrowserRouter
+        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+      >
         <Story />
       </BrowserRouter>
     ),

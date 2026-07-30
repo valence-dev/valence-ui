@@ -60,18 +60,37 @@ export type ValenceLayout =
 export const withLayout: Decorator = (Story, context) => {
   const layout: ValenceLayout = context.parameters.valence?.layout ?? "centered";
 
-  if (layout === "fullscreen") return <Story />;
+  /**
+   * The element Valence's scroll locking expects an app to provide.
+   *
+   * `useLockScroll` — which every `Modal`, `BottomSheet` and `SideSheet` calls
+   * when it opens — looks up the element with ID `root` and gives up with a
+   * console warning when there is none. Storybook's own root is
+   * `#storybook-root`, so without this every overlay story ran with scroll
+   * locking silently doing nothing, and warned once per render. Supplying one
+   * matches what an app looks like and makes the locking reviewable.
+   */
+  const story = (
+    <div
+      id="root"
+      style={{ width: "100%", height: layout === "flow" ? "fit-content" : "100%" }}
+    >
+      <Story />
+    </div>
+  );
+
+  if (layout === "fullscreen") return story;
 
   if (layout === "centered")
     return (
       <Flex center width="100%" height="100vh">
-        <Story />
+        {story}
       </Flex>
     );
 
   return (
     <Flex direction="column" width="100%" gap={0}>
-      <Story />
+      {story}
     </Flex>
   );
 };
