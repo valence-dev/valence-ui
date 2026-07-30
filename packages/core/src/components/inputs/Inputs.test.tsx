@@ -81,9 +81,12 @@ describe("InputContainer", () => {
       const ref = { current: null as HTMLInputElement | null };
       return (
         <InputContainer inputRef={ref}>
-          <input aria-label="field" ref={(n) => {
-            ref.current = n;
-          }} />
+          <input
+            aria-label="field"
+            ref={(n) => {
+              ref.current = n;
+            }}
+          />
         </InputContainer>
       );
     }
@@ -98,9 +101,12 @@ describe("InputContainer", () => {
       const ref = { current: null as HTMLInputElement | null };
       return (
         <InputContainer disabled inputRef={ref}>
-          <input aria-label="field" ref={(n) => {
-            ref.current = n;
-          }} />
+          <input
+            aria-label="field"
+            ref={(n) => {
+              ref.current = n;
+            }}
+          />
         </InputContainer>
       );
     }
@@ -616,9 +622,7 @@ describe("Switch", () => {
 
   it("toggles back off when already on", async () => {
     const setValue = vi.fn();
-    const { user } = renderWithValence(
-      <Switch value setValue={setValue} />,
-    );
+    const { user } = renderWithValence(<Switch value setValue={setValue} />);
 
     await user.click(screen.getByRole("switch"));
     expect(setValue).toHaveBeenCalledWith(false);
@@ -638,7 +642,9 @@ describe("Switch", () => {
 
     // A <button> is not labelable, so this comes from aria-labelledby rather
     // than htmlFor.
-    expect(screen.getByRole("switch", { name: "Dark mode" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("switch", { name: "Dark mode" }),
+    ).toBeInTheDocument();
   });
 
   it("toggles when the label is clicked", async () => {
@@ -942,14 +948,55 @@ describe("SegmentedControl", () => {
     expect(screen.queryByText("one")).not.toBeInTheDocument();
   });
 
-  it("makes every option grow equally by default", () => {
-    renderWithValence(
+  it("lays the options out as equal tracks by default", () => {
+    const { container } = renderWithValence(
       <SegmentedControl value="one" setValue={() => {}} options={options} />,
     );
 
+    // `flex-grow` only shares out surplus space, so it widens every segment by
+    // the same amount instead of equalising them. Equal grid tracks are what
+    // makes a one-character option as wide as a paragraph-length one.
+    const group = container.firstElementChild!;
+    const groupStyle = getComputedStyle(group);
+    expect(groupStyle.display).toBe("grid");
+    expect(groupStyle.gridTemplateColumns).toBe("repeat(3, minmax(0, 1fr))");
+
     for (const button of screen.getAllByRole("button")) {
-      expect(getComputedStyle(button).flexGrow).toBe("1");
+      expect(getComputedStyle(button).width).toBe("100%");
+      expect(getComputedStyle(button).flexGrow).not.toBe("1");
     }
+  });
+
+  it("leaves the options at their content width when equalWidth is false", () => {
+    const { container } = renderWithValence(
+      <SegmentedControl
+        value="one"
+        setValue={() => {}}
+        options={options}
+        equalWidth={false}
+      />,
+    );
+
+    expect(getComputedStyle(container.firstElementChild!).display).toBe("flex");
+    for (const button of screen.getAllByRole("button")) {
+      expect(getComputedStyle(button).width).not.toBe("100%");
+    }
+  });
+
+  it("spans the loader across every track while loading", () => {
+    const { container } = renderWithValence(
+      <SegmentedControl
+        value="one"
+        setValue={() => {}}
+        options={options}
+        loading
+      />,
+    );
+
+    // Without this the loader is a grid item like any other and sits in the
+    // first track, pulling the control off-centre while it loads.
+    const loader = container.firstElementChild!.firstElementChild!;
+    expect(getComputedStyle(loader).gridColumn.replace(/\s/g, "")).toBe("1/-1");
   });
 
   it("focuses the selected option on autoFocus", () => {
@@ -1011,11 +1058,7 @@ describe("SelectInput", () => {
 
   it("shows the label of the selected option", () => {
     renderWithValence(
-      <SelectInput
-        value={options[1]}
-        setValue={() => {}}
-        options={options}
-      />,
+      <SelectInput value={options[1]} setValue={() => {}} options={options} />,
     );
     expect(screen.getByText("Two")).toBeInTheDocument();
   });
@@ -1120,7 +1163,12 @@ describe("SelectInput", () => {
 
   it("does not open when disabled", async () => {
     const { user } = renderWithValence(
-      <SelectInput value={null} setValue={() => {}} options={options} disabled />,
+      <SelectInput
+        value={null}
+        setValue={() => {}}
+        options={options}
+        disabled
+      />,
     );
 
     await user.click(screen.getByRole("combobox"));
@@ -1303,7 +1351,12 @@ describe("PillSelector", () => {
     expect(screen.queryByPlaceholderText("Add a pill...")).toBeNull();
 
     rerender(
-      <PillSelector value={[]} setValue={() => {}} pills={pills} allowEditing />,
+      <PillSelector
+        value={[]}
+        setValue={() => {}}
+        pills={pills}
+        allowEditing
+      />,
     );
     expect(screen.getByPlaceholderText("Add a pill...")).toBeInTheDocument();
   });
