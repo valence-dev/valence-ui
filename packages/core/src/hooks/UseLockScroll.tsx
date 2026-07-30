@@ -1,12 +1,22 @@
 import { useEffect } from "react";
 
-export function useLockScroll(lock: boolean, elementId: string = "root") {
+/**
+ * Locks (or unlocks) scrolling on a container while `lock` is true.
+ *
+ * By default this locks `document.body`, which works regardless of where the
+ * consuming app mounts. Pass `elementId` to target a specific scroll
+ * container instead - if an element with that ID can't be found, this falls
+ * back to locking `document.body` rather than doing nothing.
+ */
+export function useLockScroll(lock: boolean, elementId?: string) {
   useEffect(() => {
-    const element = document.getElementById(elementId);
+    const namedElement = elementId ? document.getElementById(elementId) : null;
+    const element = namedElement ?? document.body;
 
-    if (!element) {
-      console.warn(`Element with ID "${elementId}" not found.`);
-      return;
+    if (elementId && !namedElement && process.env.NODE_ENV !== "production") {
+      console.warn(
+        `Element with ID "${elementId}" not found, locking scroll on document.body instead.`
+      );
     }
 
     if (lock) {

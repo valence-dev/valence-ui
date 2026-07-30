@@ -14,6 +14,7 @@ import {
 import { Flex } from "../../layout/Flex";
 import { Space } from "../../layout/Space";
 import { AirMaterial } from "../../../utilities/materials/AirMaterial";
+import { GlassMaterial } from "../../../utilities/materials/GlassMaterial";
 import { CSSObject } from "@emotion/react";
 
 export type AppNavButtonProps = IconButtonProps & {
@@ -105,12 +106,16 @@ export const AppNav = forwardRef(function Nav(
       {buttons.map((b) => {
         const { id, highlighted, show = true, children, to, ...rest } = b;
 
-        if (!useResponsiveProps(show)) return <></>;
+        if (!useResponsiveProps(show)) return null;
 
         return (
           <IconButton
             key={id}
-            material={new AirMaterial({ color: "white" })}
+            material={
+              highlighted
+                ? new GlassMaterial({ color: "black" })
+                : new AirMaterial({ color: "black" })
+            }
             radius={breakpoint.isMobile ? "xl" : undefined}
             square={!breakpoint.isMobile}
             component={to ? "link" : undefined}
@@ -128,12 +133,16 @@ export const AppNav = forwardRef(function Nav(
         bottomButtons.map((b) => {
           const { id, highlighted, show = true, children, to, ...rest } = b;
 
-          if (!useResponsiveProps(show)) return <></>;
+          if (!useResponsiveProps(show)) return null;
 
           return (
             <IconButton
               key={id}
-              material={new AirMaterial({ color: "white" })}
+              material={
+                highlighted
+                  ? new GlassMaterial({ color: "black" })
+                  : new AirMaterial({ color: "black" })
+              }
               radius={breakpoint.isMobile ? "xl" : undefined}
               square={!breakpoint.isMobile}
               component={to ? "link" : undefined}

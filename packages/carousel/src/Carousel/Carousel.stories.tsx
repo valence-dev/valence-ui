@@ -16,20 +16,18 @@ import {
   Storybook,
 } from "@valence-ui/core/storybook";
 import { Carousel as C } from "./Carousel";
-import { CarouselChildProps } from "./CarouselChild";
+import { useCarouselChild } from "./CarouselChild";
 
 /**
  * One slide.
  *
- * The carousel clones its children to inject `isActive` and `isNearest`, so a
- * slide has to accept and use them — this is also the only way to see whether
- * those flags are being set correctly.
+ * The carousel publishes each slide's state through context, so a slide picks
+ * up what it needs with `useCarouselChild()` and nothing is injected into it.
+ * This is also the only way to see whether those flags are being set correctly.
  */
-function Slide(props: CarouselChildProps & { index: number; width?: number }) {
-  // `isDragging` is pulled out alongside the two flags this slide draws with:
-  // the carousel injects all three, and anything left in `rest` is spread onto
-  // a DOM node, where React rejects it as an unknown attribute.
-  const { isActive, isNearest, isDragging, index, width = 200, ...rest } = props;
+function Slide(props: { width?: number }) {
+  const { width = 200, ...rest } = props;
+  const { index, isActive, isNearest } = useCarouselChild();
 
   return (
     <Flex
@@ -71,7 +69,7 @@ function ContentSlide(props: CarouselChildProps & { children?: ReactNode }) {
 /** `count` slides. */
 function slides(count: number, width?: number) {
   return Array.from({ length: count }, (_, index) => (
-    <Slide key={index} index={index} width={width} />
+    <Slide key={index} width={width} />
   ));
 }
 
@@ -150,7 +148,10 @@ export const Variants: Story = {
             </C>
           </Flex>
         </Case>
-        <Case label="allowDrag={false}" note="Scroll only — dragging must do nothing.">
+        <Case
+          label="allowDrag={false}"
+          note="Scroll only — dragging must do nothing."
+        >
           <Flex width={600}>
             <C {...args} allowDrag={false}>
               {slides(10)}
@@ -298,7 +299,7 @@ export const EdgeCases: Story = {
           <Flex width={600}>
             <C {...args}>
               {[100, 300, 150, 400, 200].map((width, index) => (
-                <Slide key={index} index={index} width={width} />
+                <Slide key={index} width={width} />
               ))}
             </C>
           </Flex>

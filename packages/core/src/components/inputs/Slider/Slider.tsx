@@ -171,8 +171,9 @@ const Slider = forwardRef(function Slider(
         onSliderClick={onSliderClick}
         css={SliderStyle}
         ref={ref}
-        renderThumb={(props, state) => (
+        renderThumb={({ key, ...props }, state) => (
           <SliderThumb
+            key={key}
             state={state}
             showValue={showValue}
             material={new SolidMaterial({ color: color })}
@@ -181,8 +182,9 @@ const Slider = forwardRef(function Slider(
             {...thumbProps}
           />
         )}
-        renderTrack={(props, state) => (
+        renderTrack={({ key, ...props }, state) => (
           <SliderTrack
+            key={key}
             state={state}
             margin={(height - 2) / 2}
             color={color}

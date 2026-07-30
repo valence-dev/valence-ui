@@ -91,7 +91,7 @@ export const Avatar = forwardRef(function Avatar(
         {...rest}
       />
 
-      {/* Secondary Icon */}
+      {/* Secondary Icon.*/}
       {secondaryIcon && (
         <Flex
           align="center"

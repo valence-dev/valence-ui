@@ -1,7 +1,12 @@
 import { describe, expect, it, vi } from "vitest";
 import { useState } from "react";
 import { IconHeart } from "@tabler/icons-react";
-import { renderWithValence, screen, within } from "../../../../../test/utils";
+import {
+  fireEvent,
+  renderWithValence,
+  screen,
+  within,
+} from "../../../../../test/utils";
 import { PrimitiveButton } from "./PrimitiveButton";
 import { Button as TextButton } from "./TextButton/TextButton";
 import { IconButton } from "./IconButton";
@@ -69,9 +74,9 @@ describe("PrimitiveButton", () => {
     expect(onClick).not.toHaveBeenCalled();
   });
 
-  it("sets aria-disabled and suppresses onClick when polymorphed to a non-button element", async () => {
+  it("sets aria-disabled and suppresses onClick when polymorphed to a non-button element", () => {
     const onClick = vi.fn();
-    const { user } = renderWithValence(
+    renderWithValence(
       <PrimitiveButton
         component="a"
         href="https://example.com"
@@ -86,8 +91,48 @@ describe("PrimitiveButton", () => {
     expect(link).toHaveAttribute("aria-disabled", "true");
     expect(link).not.toHaveAttribute("disabled");
 
-    await user.click(link);
+    fireEvent.click(link);
     expect(onClick).not.toHaveBeenCalled();
+  });
+
+  it("removes a disabled non-native button from the tab order (ISSUE-90)", () => {
+    renderWithValence(
+      <PrimitiveButton component="a" href="https://example.com" disabled>
+        Link
+      </PrimitiveButton>,
+    );
+
+    const link = screen.getByRole("link", { name: "Link" });
+    expect(link).toHaveAttribute("tabindex", "-1");
+  });
+
+  it("cancels a click that reaches a disabled non-native button (ISSUE-90)", () => {
+    renderWithValence(
+      <PrimitiveButton component="a" href="https://example.com" disabled>
+        Link
+      </PrimitiveButton>,
+    );
+
+    const link = screen.getByRole("link", { name: "Link" });
+    // Mirrors the issue's own repro: dispatch a cancelable click directly
+    // and confirm the default action (navigation) is actually cancelled,
+    // rather than merely being left unhandled.
+    const event = new MouseEvent("click", { bubbles: true, cancelable: true });
+    const notCancelled = link.dispatchEvent(event);
+
+    expect(event.defaultPrevented).toBe(true);
+    expect(notCancelled).toBe(false);
+  });
+
+  it("blocks pointer interaction on a disabled non-native button (ISSUE-90)", () => {
+    renderWithValence(
+      <PrimitiveButton component="a" href="https://example.com" disabled>
+        Link
+      </PrimitiveButton>,
+    );
+
+    const link = screen.getByRole("link", { name: "Link" });
+    expect(getComputedStyle(link).pointerEvents).toBe("none");
   });
 
   it("renders as an anchor when polymorphed to `a`", () => {

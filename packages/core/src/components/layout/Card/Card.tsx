@@ -89,8 +89,15 @@ const Card = forwardRef(function Card(
     ...style,
   };
 
+  // A card is only truly interactive as a whole when it's been given
+  // `buttonProps` (e.g. an `onClick`). Otherwise it should render as a plain,
+  // non-interactive container so it doesn't nest real buttons (such as those
+  // in `Card.Buttons`) inside a `<button>`.
+  const isClickable = Boolean(buttonProps);
+
   return (
     <PrimitiveButton
+      component={isClickable ? undefined : "div"}
       height={height}
       width={width}
       material={material}
@@ -156,13 +163,21 @@ const Section = forwardRef(function CardSection(
     width = "100%",
     height = "fit-content",
     padding = theme.sizeClasses.padding[theme.defaults.size],
+    direction = "column",
 
     children,
     ...rest
   } = useResponsiveProps<CardSectionProps>(props);
 
   return (
-    <Flex width={width} height={height} padding={padding} ref={ref} {...rest}>
+    <Flex
+      width={width}
+      height={height}
+      padding={padding}
+      direction={direction}
+      ref={ref}
+      {...rest}
+    >
       {children}
     </Flex>
   );
