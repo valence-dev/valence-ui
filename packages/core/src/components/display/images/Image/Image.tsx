@@ -1,5 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { CSSProperties, ReactNode, forwardRef } from "react";
+import {
+  CSSProperties,
+  ReactNode,
+  forwardRef,
+  useEffect,
+  useState,
+} from "react";
 import { ComponentSize, GenericProps } from "@valence-ui/utils";
 import { useValence } from "../../../../ValenceProvider";
 import { css } from "@emotion/react";
@@ -73,6 +79,17 @@ export const Image = forwardRef(function Image(
     ...rest
   } = useResponsiveProps<ImageProps>(props);
 
+  // A broken `src` (404, network failure, malformed data) fires the native
+  // `error` event on the `<img>`, but the element itself stays mounted, so
+  // without this it renders the browser's own broken-image icon instead of
+  // falling back to the same placeholder used when there's no `src` at all.
+  // Reset whenever `src` changes so a previously broken image doesn't stay
+  // stuck on the placeholder after being swapped for a working one.
+  const [hasError, setHasError] = useState(false);
+  useEffect(() => {
+    setHasError(false);
+  }, [src]);
+
   // Styles
   const ContainerStyle = css({
     height: height,
@@ -95,13 +112,14 @@ export const Image = forwardRef(function Image(
 
   return (
     <div css={ContainerStyle}>
-      {props.src ? (
+      {props.src && !hasError ? (
         <img
           css={ImageStyle}
           src={src as string}
           alt={alt}
           draggable={false}
           ref={ref}
+          onError={() => setHasError(true)}
           {...rest}
         />
       ) : (
