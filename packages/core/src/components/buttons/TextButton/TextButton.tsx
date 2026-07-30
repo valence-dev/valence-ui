@@ -33,7 +33,12 @@ export const Button = forwardRef(function Button(
 
   return (
     <PrimitiveButton size={size} ref={ref} {...rest}>
-      <Text size={size} {...textProps} animation={["fade", "blur", "grow"]}>
+      <Text
+        size={size}
+        maxLines={1}
+        {...textProps}
+        animation={["fade", "blur", "grow"]}
+      >
         {children}
       </Text>
     </PrimitiveButton>

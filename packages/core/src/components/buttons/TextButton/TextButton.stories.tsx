@@ -46,7 +46,7 @@ export const Sizes: Story = {
 
       <Matrix
         title="size, square"
-        description="A square button takes its width from its height, so a long label will overflow — that is what this case is for."
+        description="A square button takes its width from its height, so a long label is clamped to one line and ellipsised rather than overflowing the box — that is what this case is for."
         values={Storybook.componentSizes}
       >
         {(size) => <Button {...args} size={size} square />}
