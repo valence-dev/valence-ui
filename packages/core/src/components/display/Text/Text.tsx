@@ -145,18 +145,19 @@ export const Text = forwardRef(function Text(
   });
 
   // Run through formatters
+  let keyIndex = 0;
   let replacements: any = children;
   replacements = reactStringReplace(
     replacements,
     REGEX_PATTERNS.newline,
-    (match, i) => <br key={`newline-${i}`} />,
+    () => <br key={`newline-${keyIndex++}`} />,
   );
   replacements = reactStringReplace(
     replacements,
     REGEX_PATTERNS.boldItalic,
-    (match, i) => (
+    (match) => (
       <b
-        key={`bold-italic-${i}`}
+        key={`bold-italic-${keyIndex++}`}
         style={{
           fontWeight: 800,
           fontStyle: "italic",
@@ -169,9 +170,9 @@ export const Text = forwardRef(function Text(
   replacements = reactStringReplace(
     replacements,
     REGEX_PATTERNS.bold,
-    (match, i) => (
+    (match) => (
       <b
-        key={`bold-${i}`}
+        key={`bold-${keyIndex++}`}
         style={{
           fontWeight: 800,
         }}
@@ -183,9 +184,9 @@ export const Text = forwardRef(function Text(
   replacements = reactStringReplace(
     replacements,
     REGEX_PATTERNS.italic,
-    (match, i) => (
+    (match) => (
       <i
-        key={`italic-${i}`}
+        key={`italic-${keyIndex++}`}
         style={{
           fontStyle: "italic",
         }}
@@ -197,9 +198,9 @@ export const Text = forwardRef(function Text(
   replacements = reactStringReplace(
     replacements,
     REGEX_PATTERNS.monospace,
-    (match, i) => (
+    (match) => (
       <span
-        key={`monospace-${i}`}
+        key={`monospace-${keyIndex++}`}
         style={{
           fontFamily: theme.getFont("monospace"),
         }}
@@ -211,9 +212,9 @@ export const Text = forwardRef(function Text(
   replacements = reactStringReplace(
     replacements,
     /<hl>(.+?)<\/hl>/,
-    (match, i) => (
+    (match) => (
       <span
-        key={`highlight-${i}`}
+        key={`highlight-${keyIndex++}`}
         style={{
           backgroundColor: colors.getHex(highlightColor, "weak"),
           color: colors.getHex(highlightColor),
