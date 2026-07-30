@@ -305,10 +305,6 @@ export const PillSelector = forwardRef(function PillSelector(
           </IconButton>
         </Flex>
       )}
-      {/* align="flex-start" keeps the clear button pinned beside the first
-      row of pills, regardless of how many rows the pill container wraps
-      into (or whether it's empty). "center" would vertically centre it
-      against the full wrapped height, landing it mid-list. */}
       <Flex gap={gap} width="100%" height="fit-content" align="flex-start">
         <Flex gap={gap} css={PillContainerStyle} {...pillContainerPropsRest}>
           {loading && !allowEditing && (
